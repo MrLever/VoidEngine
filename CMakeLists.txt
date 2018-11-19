@@ -4,4 +4,9 @@ set(CMAKE_SUPPRESS_REGENERATION true)
 
 project (Project-Coati)
 
-add_executable(Project-Coati Source/Core.cpp)
+file(GLOB Source
+	"Source/*.h"
+	"Source/*.cpp"
+)
+
+add_executable(Project-Coati ${Source})
