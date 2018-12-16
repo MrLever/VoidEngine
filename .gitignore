@@ -14,6 +14,12 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 
+#Zip files
+*.zip
+
+#Unbuilt Dependencies
+Dependencies/Source/
+
 # Visual Studio Stuff
 *.suo
 *.user
