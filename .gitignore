@@ -19,8 +19,8 @@ CTestTestfile.cmake
 *.user
 *.userosscache
 *.sln.docstates
-*.sln
-*.vcxproj*
+
+*.vcxproj.*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
