@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project-Coati", "Project-Coati.vcxproj", "{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing", "Testing\Testing.vcxproj", "{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}.Release|x64.Build.0 = Release|x64
 		{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}.Release|x86.ActiveCfg = Release|Win32
 		{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}.Release|x86.Build.0 = Release|Win32
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Debug|x64.ActiveCfg = Debug|x64
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Debug|x64.Build.0 = Debug|x64
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Debug|x86.ActiveCfg = Debug|Win32
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Debug|x86.Build.0 = Debug|Win32
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Release|x64.ActiveCfg = Release|x64
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Release|x64.Build.0 = Release|x64
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Release|x86.ActiveCfg = Release|Win32
+		{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
