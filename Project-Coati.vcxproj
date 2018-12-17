@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\nicol\OneDrive\Documents\Files\Project-Coati\Dependencies\GLAD\include;$(ProjectDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Source\Core.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
