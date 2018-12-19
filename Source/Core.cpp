@@ -1,5 +1,6 @@
 //STD Headers
 #include <iostream>
+#include <chrono>
 
 //Library Headers
 
@@ -7,16 +8,23 @@
 //Coati Headers
 #include "World.h"
 
-namespace Core {
-	int main() {
+int main() {
+	using Timer = std::chrono::high_resolution_clock;
+	World gameWorld;
+	   	 
+	auto previousTime = Timer::now();
+	while (true) {
+		//Get current time
+		auto currentTime = Timer::now();
+		std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
 
+		//Tell the world to update
+		gameWorld.Update(deltaSeconds.count());
 
-
-		while (true) {
-
-		}
-
-		return 0;
+		//Update previous time
+		previousTime = Timer::now();
 	}
+
+	return 0;
 }
 

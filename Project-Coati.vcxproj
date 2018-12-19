@@ -122,13 +122,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="Source\Core.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Source\MessageBus.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MessageBus.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="Source\MessageBus.h" />
+    <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
