@@ -16,6 +16,10 @@ World::~World(){
 	std::cout << "Goodbye world!\n";
 }
 
+void World::StartGame() {
+	std::cout << "Starting game";
+}
+
 void World::Update(double deltaTime){
 	//Process Input
 	//Update Acotrs

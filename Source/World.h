@@ -5,6 +5,7 @@ public:
 	World();
 	~World();
 
+	void StartGame();
 	void Update(double deltaTime);
 };
 

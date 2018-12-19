@@ -13,6 +13,7 @@ int main() {
 	World gameWorld;
 	   	 
 	auto previousTime = Timer::now();
+	gameWorld.StartGame();
 	while (true) {
 		//Get current time
 		auto currentTime = Timer::now();
@@ -23,8 +24,8 @@ int main() {
 
 		//Update previous time
 		previousTime = Timer::now();
+		break;
 	}
-
 	return 0;
 }
 
