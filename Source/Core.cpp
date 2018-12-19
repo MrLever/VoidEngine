@@ -5,11 +5,18 @@
 
 
 //Coati Headers
+#include "World.h"
+
+namespace Core {
+	int main() {
 
 
-int main() {
 
-	std::cout << "Hello, world" << std::endl;
+		while (true) {
 
-	return 0;
+		}
+
+		return 0;
+	}
 }
+
