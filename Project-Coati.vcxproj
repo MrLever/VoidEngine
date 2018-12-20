@@ -123,10 +123,13 @@
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Source\Core.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\MessageBus.cpp" />
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core.h" />
+    <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\MessageBus.h" />
     <ClInclude Include="Source\World.h" />
   </ItemGroup>
