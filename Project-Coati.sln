@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project-Coati", "Project-Coati.vcxproj", "{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing", "Testing\Testing.vcxproj", "{9FDE242E-A42D-4B2C-A4B0-10F4893CED0A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558} = {6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
