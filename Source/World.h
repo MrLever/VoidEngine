@@ -1,11 +1,14 @@
 #pragma once
-class World
-{
+
+
+
+class World{
+private:
+	
 public:
 	World();
 	~World();
 
-	void StartGame();
 	void Update(double deltaTime);
 };
 
