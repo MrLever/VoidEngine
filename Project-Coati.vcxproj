@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\nicol\OneDrive\Documents\Files\Project-Coati\Dependencies\GLAD\include;$(ProjectDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Dependencies\GLAD\include;$(ProjectDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,6 +122,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="Source\WindowManager.cpp" />
+    <ClCompile Include="Source\MessageReceiver.cpp" />
+    <ClCompile Include="Source\Message.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\Core.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -131,6 +134,9 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\WindowManager.h" />
+    <ClInclude Include="Source\MessageReceiver.h" />
+    <ClInclude Include="Source\Message.h" />
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\InputManager.h" />
