@@ -1,4 +1,5 @@
 #pragma once
+
 //STD Headers
 #include <chrono>
 #include <memory>
@@ -7,24 +8,41 @@
 
 
 //Forward Class declarations
-class World;
 class MessageBus;
+class WindowManager;
+
+class World;
+class Renderer;
+class InputManager;
+class AudioManager;
 
 class Game{
 	using Timer = std::chrono::high_resolution_clock;
 private:
 	//Private Class Members
-	std::unique_ptr<World> GameWorld;
-	std::unique_ptr<MessageBus> GameMessageBus;
+	std::shared_ptr<MessageBus> GameMessageBus;
+	std::shared_ptr<WindowManager> Window;
 
+	std::unique_ptr<World> GameWorld;
+	std::unique_ptr<Renderer> GameRenderer;
+	std::unique_ptr<InputManager> GameInputManager;
+	std::unique_ptr<AudioManager> GameAudioManager;
+	
 	std::string GameName;
 
 public:
+	//CTORS
 	Game(std::string name);
 	~Game();
 
 private:
+	//Private member functions
 	void InitGame();
-	void GameLoop();
+	
+	void ProcessInput();
+	void Update(double deltaSeconds);
+	void Render();
+
+	void ExecuteGameLoop();
 };
 

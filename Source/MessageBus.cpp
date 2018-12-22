@@ -13,3 +13,15 @@ MessageBus::MessageBus(){
 MessageBus::~MessageBus(){
 
 }
+
+//Private Member Functions
+
+//Public Member Functions
+void MessageBus::PostMessage() {
+}
+
+void MessageBus::DispatchMessages() {
+}
+
+void MessageBus::AddReciever() {
+}
