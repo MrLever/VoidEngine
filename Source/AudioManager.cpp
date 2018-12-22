@@ -2,7 +2,8 @@
 
 
 
-AudioManager::AudioManager() {
+AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) {
+	this->GameMessageBus = GameMessageBus;
 }
 
 

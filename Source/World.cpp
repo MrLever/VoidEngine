@@ -6,10 +6,11 @@
 
 //Coati Headers
 #include "World.h"
+#include "MessageBus.h"
 
-World::World(){
-	//Init Input
-	//Init Render
+World::World(std::shared_ptr<MessageBus> bus){
+	this->GameMessageBus = GameMessageBus;
+
 	std::cout << "Hello world!\n";
 }
 
@@ -18,8 +19,6 @@ World::~World(){
 	std::cout << "Goodbye world!\n";
 }
 
-void World::Update(double deltaTime){
-	//Process Events
-	//Tick Actors
-	//Render Level
+void World::Update(double deltaSeconds){
+
 }
