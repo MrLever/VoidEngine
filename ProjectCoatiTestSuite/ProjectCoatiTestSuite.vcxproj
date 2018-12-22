@@ -154,17 +154,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\AudioManager.h" />
     <ClInclude Include="..\Source\Core.h" />
     <ClInclude Include="..\Source\Game.h" />
+    <ClInclude Include="..\Source\InputManager.h" />
     <ClInclude Include="..\Source\MessageBus.h" />
+    <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\AudioManager.cpp" />
     <ClCompile Include="..\Source\Core.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
+    <ClCompile Include="..\Source\InputManager.cpp" />
     <ClCompile Include="..\Source\MessageBus.cpp" />
+    <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
