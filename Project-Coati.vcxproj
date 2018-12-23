@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}</ProjectGuid>
     <RootNamespace>ProjectCoati</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,7 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Source\WindowManager.cpp" />
-    <ClCompile Include="Source\MessageReceiver.cpp" />
+    <ClCompile Include="Source\MessageBusNode.cpp" />
     <ClCompile Include="Source\Message.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\Core.cpp" />
@@ -135,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\WindowManager.h" />
-    <ClInclude Include="Source\MessageReceiver.h" />
+    <ClInclude Include="Source\MessageBusNode.h" />
     <ClInclude Include="Source\Message.h" />
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\Game.h" />
