@@ -27,7 +27,7 @@ Renderer::~Renderer() {
 //Public Member Functions
 
 void Renderer::Render() {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearColor(0.8f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	Window->SwapBuffers();
