@@ -32,6 +32,7 @@ Game::~Game(){
 
 //Initialize higher level game objects
 void Game::InitGame(){
+
 	GameMessageBus = std::make_shared<MessageBus>();
 	Window = std::make_shared<WindowManager>(GameName);
 
@@ -65,13 +66,33 @@ void Game::ExecuteGameLoop(){
 		//Get current time
 		auto currentTime = Timer::now();
 		std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
-
+		
 		ProcessInput();
 		Update(deltaSeconds.count());
 		Render();
 
+		//Send the deltaSeconds to the framerate updating function
+		UpdateFramerate(deltaSeconds.count());
+
 		//Update previous time
-		previousTime = Timer::now();
+		previousTime = currentTime;
 	}
 	return;
+}
+
+void Game::UpdateFramerate(double timeSinceLastFrame) {
+	FrameQueue.push(timeSinceLastFrame);
+
+	//Sums the queue if its of size 10
+	if (FrameQueue.size() > 9) {
+		double frameRateHelper = 0;
+		for (int i = 0; i < 10; i++) {
+			frameRateHelper = frameRateHelper + (FrameQueue.front());
+			FrameQueue.pop();
+		}
+		//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
+		FrameRate = 10 / (frameRateHelper);
+	}
+	return;
+
 }

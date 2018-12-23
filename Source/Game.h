@@ -3,6 +3,7 @@
 //STD Headers
 #include <chrono>
 #include <memory>
+#include <queue>
 
 //Library Headers
 
@@ -30,6 +31,10 @@ private:
 	
 	std::string GameName;
 
+	std::queue<double> FrameQueue;
+
+	float FrameRate;
+
 public:
 	//CTORS
 	Game(std::string name);
@@ -44,5 +49,7 @@ private:
 	void Render();
 
 	void ExecuteGameLoop();
+
+	void UpdateFramerate(double timeSinceLastFrame);
 };
 
