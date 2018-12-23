@@ -8,23 +8,19 @@
 //Coati Headers
 #include "InputManager.h"
 #include "MessageBus.h"
-#include "Message.h"
 #include "WindowManager.h"
 
 //Ctors
 InputManager::InputManager(
 	std::shared_ptr<MessageBus> Bus, 
 	std::shared_ptr<WindowManager> Window
-	) :  MessageBusNode(GameMessageBus)
+	) : MessageBusNode(Bus)
 {
-	this->GameMessageBus = Bus;
 	this->RegisterReciever();
 	this->Window = Window;
 
 
-	Message outgoing("Input Manager Initialized", Initialization);
-	GameMessageBus.get()->PublishMessage(outgoing);
-
+	PublishMessage("Input Manager Initialized", Initialization);
 }
 
 

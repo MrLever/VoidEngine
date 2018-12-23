@@ -1,5 +1,6 @@
 //STD Headers
 #include <memory>
+#include <iostream>
 
 //Library Headers
 
@@ -11,10 +12,13 @@
 
 
 
-MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> GameMessageBus) {
-	this->GameMessageBus = GameMessageBus;
-}
+MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> Bus) {
+	this->GameMessageBus = Bus;
 
+	if (!this->GameMessageBus) {
+		std::cout << "no message bus";
+	}
+}
 
 MessageBusNode::~MessageBusNode() {
 
@@ -29,4 +33,9 @@ std::function<void(Message)>MessageBusNode::GetMessageReceiveFunction() {
 
 void MessageBusNode::RegisterReciever() {
 	this->GameMessageBus->AddReciever(this, Initialization);
+}
+
+void MessageBusNode::PublishMessage(std::string message, MessageType type) {
+	Message outgoing(message, type);
+	GameMessageBus->PublishMessage(outgoing);
 }

@@ -16,7 +16,6 @@ class MessageBus;
 class AudioManager : MessageBusNode{
 private:
 	//Private class members
-	std::shared_ptr<MessageBus> GameMessageBus;
 
 public:
 	//CTORS

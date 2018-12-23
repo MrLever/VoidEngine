@@ -14,7 +14,6 @@ class WindowManager;
 class InputManager : MessageBusNode {
 private:
 	//Private class members
-	std::shared_ptr<MessageBus> GameMessageBus;
 	std::shared_ptr<WindowManager> Window;
 
 public:
