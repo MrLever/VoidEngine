@@ -85,13 +85,13 @@ void Game::UpdateFramerate(double timeSinceLastFrame) {
 
 	//Sums the queue if its of size 10
 	if (FrameQueue.size() > 9) {
-		double frameRateHelper = 0;
+		double frameQueueSum = 0;
 		for (int i = 0; i < 10; i++) {
-			frameRateHelper = frameRateHelper + (FrameQueue.front());
+			frameQueueSum = frameQueueSum + (FrameQueue.front());
 			FrameQueue.pop();
 		}
 		//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-		FrameRate = 10 / (frameRateHelper);
+		FrameRate = 10 / (frameQueueSum);
 	}
 	return;
 
