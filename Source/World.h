@@ -4,8 +4,8 @@
 #include <chrono>
 #include <memory>
 
-//Library Headers
-
+//Project-Coati Headers
+#include "Level.h"
 
 //Forward Class declarations
 class MessageBus;
@@ -14,6 +14,8 @@ class World{
 private:
 	//Private Class Members
 	std::shared_ptr<MessageBus> GameMessageBus;
+
+	Level currentLevel = Level(1);
 
 public:
 	//CTORS
