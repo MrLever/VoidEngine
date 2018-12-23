@@ -4,12 +4,14 @@
 
 //Library Headers
 
+//Coati Headers
+#include "MessageBusNode.h"
 
 //Forward Class declarations
 class MessageBus;
 class WindowManager;
 
-class InputManager {
+class InputManager : MessageBusNode {
 private:
 	//Private class members
 	std::shared_ptr<MessageBus> GameMessageBus;
@@ -26,5 +28,7 @@ private:
 public:
 	//Public member functions
 	void PollInput();
+
+	virtual void ReceiveMessage(Message message);
 };
 

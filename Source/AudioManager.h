@@ -7,13 +7,13 @@
 //Library Headers
 
 //Coati Headers
-#include "MessageReceiver.h"
+#include "MessageBusNode.h"
 
 //Forward Class declarations
 class MessageBus;
 
 
-class AudioManager : MessageReceiver{
+class AudioManager : MessageBusNode{
 private:
 	//Private class members
 	std::shared_ptr<MessageBus> GameMessageBus;
@@ -25,7 +25,9 @@ public:
 
 private:
 	//Private member functions
+	
 
 public:
 	//Public Member functions
+	virtual void ReceiveMessage(Message message);
 };
