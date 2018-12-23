@@ -1,10 +1,18 @@
 #pragma once
+//STD Headers
+#include <string>
+
+//Library Headers
+
+
+//Forward Declarations
 class Message {
 private:
 	//Private class members
+	std::string Event;
 
 public:
-	Message();
+	Message(std::string message);
 	~Message();
 
 private:
@@ -12,6 +20,7 @@ private:
 
 public:
 	//Public member functions
+	std::string getEvent();
 
 };
 
