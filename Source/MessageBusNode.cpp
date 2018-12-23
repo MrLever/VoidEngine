@@ -13,16 +13,20 @@
 
 MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> GameMessageBus) {
 	this->GameMessageBus = GameMessageBus;
-	this->GameMessageBus->AddReciever(this->GetMessageReceiveFunction());
 }
 
 
 MessageBusNode::~MessageBusNode() {
+
 }
 
 std::function<void(Message)>MessageBusNode::GetMessageReceiveFunction() {
-	auto messageListener = [=](Message message) -> void {
+	auto receiveFunction = [=](Message message) -> void {
 		this->ReceiveMessage(message);
 	};
-	return messageListener;
+	return receiveFunction;
+}
+
+void MessageBusNode::RegisterReciever() {
+	this->GameMessageBus->AddReciever(this, Initialization);
 }

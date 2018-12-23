@@ -1,5 +1,6 @@
 //STD Headers
 #include <memory>
+#include <iostream>
 
 //Library Headers
 
@@ -12,15 +13,17 @@
 
 //Ctors
 InputManager::InputManager(
-	std::shared_ptr<MessageBus> GameMessageBus, 
+	std::shared_ptr<MessageBus> Bus, 
 	std::shared_ptr<WindowManager> Window
-	) : MessageBusNode(GameMessageBus)
+	) :  MessageBusNode(GameMessageBus)
 {
-
-	this->GameMessageBus = GameMessageBus;
-	Message initMessage("Audio Manager Initialized", Initialization);
-	GameMessageBus.get()->PublishMessage(initMessage);
+	this->GameMessageBus = Bus;
+	this->RegisterReciever();
 	this->Window = Window;
+
+
+	Message outgoing("Input Manager Initialized", Initialization);
+	GameMessageBus.get()->PublishMessage(outgoing);
 
 }
 
@@ -33,6 +36,10 @@ InputManager::~InputManager() {
 //Public Member Functions
 void InputManager::PollInput() {
 
+}
+
+void InputManager::RegisterReciever() {
+	GameMessageBus->AddReciever(this, Initialization);
 }
 
 void InputManager::ReceiveMessage(Message message) {

@@ -29,6 +29,7 @@ public:
 	//Public member functions
 	void PollInput();
 
+	virtual void RegisterReciever() override;
 	virtual void ReceiveMessage(Message message);
 };
 
