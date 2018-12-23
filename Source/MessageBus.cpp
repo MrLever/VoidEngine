@@ -8,6 +8,7 @@
 
 //Coati Headers
 #include "MessageBus.h"
+#include "MessageBusNode.h"
 #include "Message.h"
 
 MessageBus::MessageBus(){
@@ -21,8 +22,10 @@ MessageBus::~MessageBus(){
 //Private Member Functions
 
 //Public Member Functions
-void MessageBus::AddReciever(std::function<void(Message)> subsriber) {
-	Recievers.push_back(subsriber);
+void MessageBus::AddReciever(MessageBusNode* receiver, int subscriptionFlag) {
+	
+	Subscriber subscriber(receiver->GetMessageReceiveFunction(), subscriptionFlag);
+	Receivers.push_back(subscriber);
 }
 
 void MessageBus::PublishMessage(Message message) {
@@ -31,8 +34,13 @@ void MessageBus::PublishMessage(Message message) {
 
 void MessageBus::DispatchMessages() {
 	while (!Messages.empty()) {
-		for (auto i = Recievers.begin(); i != Recievers.end(); i++) {
-			(*i)(Messages.front());
+		Message outgoingMessage = Messages.front();
+		for (auto receiver : Receivers) {
+			if (receiver.subscriptionFlag & outgoingMessage.getType()) {
+				receiver.receivingFunction(Messages.front());
+			}
+			
+			//(*i)(Messages.front());
 		}
 		Messages.pop();
 	}
