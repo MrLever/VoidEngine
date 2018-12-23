@@ -34,7 +34,7 @@ private:
 
 	std::queue<double> FrameQueue;
 
-	int FrameRate;
+	float FrameRate;
 
 public:
 	//CTORS
