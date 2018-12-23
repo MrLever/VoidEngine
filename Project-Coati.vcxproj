@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Source\WindowManager.cpp" />
     <ClCompile Include="Source\MessageBusNode.cpp" />
     <ClCompile Include="Source\Message.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Source\WindowManager.h" />
     <ClInclude Include="Source\MessageBusNode.h" />
     <ClInclude Include="Source\Message.h" />
