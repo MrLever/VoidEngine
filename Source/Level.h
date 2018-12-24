@@ -18,8 +18,11 @@ public:
 	//Accessors
 	int GetID();
 
+	//Tick function;
+	void Tick();
+
 private:
 	//Identifier for the Level, 1 will be basic world.
 	int levelID;
 
-	};
+};
