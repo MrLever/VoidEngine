@@ -11,12 +11,20 @@
 #include "Message.h"
 
 //Forward Class declarations
+class MessageBusNode;
 
 class MessageBus {
+	typedef struct Subscriber {
+		std::function<void(Message)> receivingFunction;
+		int subscriptionFlag;
+		Subscriber(std::function<void(Message)> fn, int flag) : receivingFunction(fn), subscriptionFlag(flag) {
+		
+		}
+	}Subscriber;
 private:
 	//Private Class members
 	std::queue<Message> Messages;
-	std::vector<std::function<void(Message)>> Recievers;
+	std::vector<Subscriber> Receivers;
 
 public:
 	MessageBus();
@@ -26,7 +34,7 @@ private:
 	//Private member functions
 
 public:
-	void AddReciever(std::function<void(Message)> messageReceiver);
+	void AddReciever(MessageBusNode* receiver, int subscriptionFlag);
 	void PublishMessage(Message message);
 	void DispatchMessages();
 
