@@ -8,6 +8,9 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+//Coati Headers
+#include "InputManager.h"
+
 //Forward Class declarations
 
 
@@ -55,6 +58,14 @@ public:
 
 	static void ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
+	}
+
+	static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		std::cout << "Callback triggered\n";
+		InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+		if (ptr) {
+			ptr->HandleInput(key, action == GLFW_PRESS);
+		}
 	}
 };
 

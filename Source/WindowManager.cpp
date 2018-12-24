@@ -49,6 +49,7 @@ void WindowManager::InitGLFW() {
 	
 	glfwMakeContextCurrent(Window.get());
 	glfwSetFramebufferSizeCallback(Window.get(), ResizeFrameBuffer);
+	glfwSetKeyCallback(Window.get(), DispatchKeyCallback);
 
 }
 

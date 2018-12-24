@@ -41,6 +41,7 @@ void InputManager::PollInput() {
 void InputManager::HandleInput(int key, bool pressed) {
 	//Lookup in Keybindings
 	//Send message
+	std::cout << "Got key: " << key;
 }
 
 void InputManager::RegisterReciever() {
