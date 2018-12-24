@@ -50,6 +50,8 @@ void World::SwitchLevel(int levelID) {
 
 void World::Tick() {
 
-
+	for (int i = 0; i < levelList.size(); i++) {
+		levelList[i].Tick();
+	}
 
 }
