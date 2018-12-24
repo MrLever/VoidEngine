@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="SourceReference">
+      <UniqueIdentifier>{fd5c0550-f766-4153-8183-711986b16633}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Game.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MessageBus.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\World.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\AudioManager.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\InputManager.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Renderer.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Message.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\WindowManager.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MessageBusNode.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Level.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Serializable.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Game.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MessageBus.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\World.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\AudioManager.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\InputManager.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Renderer.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Message.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\WindowManager.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManagerTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MessageBusNode.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Level.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Serializable.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

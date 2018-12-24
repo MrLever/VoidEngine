@@ -25,7 +25,7 @@ Dependencies/Source/
 *.userosscache
 *.sln.docstates
 
-*.vcxproj.*
+*.vcxproj.user
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
