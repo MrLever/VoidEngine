@@ -25,3 +25,8 @@ int Level::GetID() {
 	return levelID;
 
 }
+
+void Level::Tick(){
+
+
+}
