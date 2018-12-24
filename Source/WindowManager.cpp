@@ -69,6 +69,10 @@ void WindowManager::SwapBuffers() {
 	glfwPollEvents();
 }
 
+void WindowManager::PollInput() {
+	glfwPollEvents();
+}
+
 
 
 //Public Member Functions

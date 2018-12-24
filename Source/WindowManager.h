@@ -33,6 +33,14 @@ public:
 	std::shared_ptr<GLFWwindow> getWindow();
 
 	void SwapBuffers();
+	void PollInput();
+
+	template<typename T>
+	void SetWindowUser(T* requester) {
+		glfwSetWindowUserPointer(Window.get(), requester);
+	}
+
+	
 
 public:
 	//Static Functions

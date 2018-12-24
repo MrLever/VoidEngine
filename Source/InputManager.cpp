@@ -18,8 +18,9 @@ InputManager::InputManager(
 {
 	this->RegisterReciever();
 	this->Window = Window;
-
-
+	Window->SetWindowUser<InputManager>(this);
+	
+	//GLFWwindow* window;
 	PublishMessage("Input Manager Initialized", Initialization);
 }
 
@@ -27,11 +28,19 @@ InputManager::InputManager(
 InputManager::~InputManager() {
 }
 
+
+
+
 //Private Member Functions
 
 //Public Member Functions
 void InputManager::PollInput() {
+	Window->PollInput();
+}
 
+void InputManager::HandleInput(int key, bool pressed) {
+	//Lookup in Keybindings
+	//Send message
 }
 
 void InputManager::RegisterReciever() {
