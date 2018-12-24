@@ -6,16 +6,14 @@
 //Coati Headers
 #include "MessageBus.h"
 #include "MessageBusNode.h"
-#include "Message.h"
 #include "AudioManager.h"
 
 
 
 
 AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) : MessageBusNode(GameMessageBus) {
-	this->GameMessageBus = GameMessageBus;
-	Message initMessage("Audio Manager Initialized");
-	GameMessageBus.get()->PublishMessage(initMessage);
+	PublishMessage("Audio Manager Initialized", Initialization);
+	this->RegisterReciever();
 }
 
 

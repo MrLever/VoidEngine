@@ -10,7 +10,7 @@
 
 //CTORS
 
-Message::Message(std::string message) : Event(message){
+Message::Message(std::string message, MessageType type) : Event(message), Type(type) {
 
 }
 
@@ -20,6 +20,10 @@ Message::~Message() {
 
 std::string Message::getEvent() {
 	return Event;
+}
+
+MessageType Message::getType() {
+	return Type;
 }
 
 //Private Functions
