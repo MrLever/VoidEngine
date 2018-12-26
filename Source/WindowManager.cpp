@@ -41,10 +41,7 @@ void WindowManager::InitGLFW() {
 	);
 	
 	if (Window.get() == nullptr) {
-		std::cerr << "Terminate program" << std::endl;
-		int dummy;
-		std::cin >> dummy;
-		//TODO, post termination message to message bus
+		glfwSetWindowShouldClose(Window.get(), GLFW_TRUE);
 	}
 	
 	glfwMakeContextCurrent(Window.get());
