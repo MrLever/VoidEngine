@@ -39,3 +39,7 @@ void MessageBusNode::PublishMessage(std::string message, MessageType type) {
 	Message outgoing(message, type);
 	GameMessageBus->PublishMessage(outgoing);
 }
+
+void MessageBusNode::PublishMessage(Message message) {
+	GameMessageBus->PublishMessage(message);
+}
