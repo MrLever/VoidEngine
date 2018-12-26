@@ -65,7 +65,17 @@ public:
 		//std::cout << "Callback triggered\n";
 		InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
 		if (ptr) {
-			ptr->HandleInput(key, action == GLFW_PRESS, action == GLFW_REPEAT, action == GLFW_RELEASE);
+			KeyState state;
+			if (action == GLFW_PRESS) {
+				state = Pressed;
+			}
+			else if (action == GLFW_REPEAT) {
+				state = Held;
+			}
+			else {
+				state = Released;
+			}
+			ptr->HandleInput(key, state);
 		}
 	}
 };
