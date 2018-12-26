@@ -91,7 +91,7 @@ void Game::UpdateFramerate(double timeSinceLastFrame) {
 			FrameQueue.pop();
 		}
 		//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-		FrameRate = 10 / (frameQueueSum);
+		FrameRate = static_cast<int>(10 / (frameQueueSum));
 	}
 	return;
 
