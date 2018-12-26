@@ -58,6 +58,8 @@ void WindowManager::InitGLAD() {
 	glViewport(0, 0, 800, 600);
 }
 
+//Public Member Functions
+
 std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
 	return Window;
 }
@@ -77,4 +79,3 @@ bool WindowManager::WindowTerminated() {
 
 
 
-//Public Member Functions
