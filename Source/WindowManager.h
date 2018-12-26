@@ -37,6 +37,7 @@ public:
 
 	void SwapBuffers();
 	void PollInput();
+	bool WindowTerminated();
 
 	template<typename T>
 	void SetWindowUser(T* requester) {
@@ -61,10 +62,10 @@ public:
 	}
 
 	static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-		std::cout << "Callback triggered\n";
+		//std::cout << "Callback triggered\n";
 		InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
 		if (ptr) {
-			ptr->HandleInput(key, action == GLFW_PRESS);
+			ptr->HandleInput(key, action == GLFW_PRESS, action == GLFW_REPEAT, action == GLFW_RELEASE);
 		}
 	}
 };

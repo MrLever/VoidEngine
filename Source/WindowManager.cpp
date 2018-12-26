@@ -74,6 +74,10 @@ void WindowManager::PollInput() {
 	glfwPollEvents();
 }
 
+bool WindowManager::WindowTerminated() {
+	return glfwWindowShouldClose(Window.get());
+}
+
 
 
 //Public Member Functions

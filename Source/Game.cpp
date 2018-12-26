@@ -62,7 +62,7 @@ void Game::Render(){
 
 void Game::ExecuteGameLoop(){
 	auto previousTime = Timer::now();
-	while (true) {
+	while (!Window->WindowTerminated()) {
 		//Get current time
 		auto currentTime = Timer::now();
 		std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
