@@ -29,8 +29,6 @@ InputManager::~InputManager() {
 }
 
 
-
-
 //Private Member Functions
 
 //Public Member Functions
@@ -38,10 +36,14 @@ void InputManager::PollInput() {
 	Window->PollInput();
 }
 
-void InputManager::HandleInput(int key, bool pressed) {
+void InputManager::HandleInput(KeyboardInput input) {
 	//Lookup in Keybindings
 	//Send message
-	std::cout << "Got key: " << key;
+
+	if (input.GetKey() == INPUT_W) {
+		std::cout << "Move forward";
+	}
+
 }
 
 void InputManager::RegisterReciever() {

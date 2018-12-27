@@ -7,16 +7,19 @@
 
 //Coati Headers
 #include "MessageBusNode.h"
+#include "KeyboardInput.h"
 
 //Forward Class declarations
 class MessageBus;
 class WindowManager;
+class InputEvent;
+
 
 class InputManager : MessageBusNode {
 private:
 	//Private class members
 	std::shared_ptr<WindowManager> Window;
-	std::unordered_map<int, Message> Keybindings;
+	std::unordered_map<KeyType, Message> Keybindings;
 
 public:
 	//CTORS
@@ -26,7 +29,7 @@ public:
 public:
 	//Public member functions
 	void PollInput();
-	void HandleInput(int key, bool pressed);
+	void HandleInput(KeyboardInput input);
 
 	virtual void RegisterReciever() override;
 	virtual void ReceiveMessage(Message message);
