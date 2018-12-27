@@ -159,6 +159,9 @@
     <ClInclude Include="..\Source\Core.h" />
     <ClInclude Include="..\Source\Game.h" />
     <ClInclude Include="..\Source\InputManager.h" />
+    <ClInclude Include="..\Source\Keybindings.h" />
+    <ClInclude Include="..\Source\KeyboardInput.h" />
+    <ClInclude Include="..\Source\Level.h" />
     <ClInclude Include="..\Source\Message.h" />
     <ClInclude Include="..\Source\MessageBus.h" />
     <ClInclude Include="..\Source\MessageBusNode.h" />
@@ -174,6 +177,9 @@
     <ClCompile Include="..\Source\Core.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
     <ClCompile Include="..\Source\InputManager.cpp" />
+    <ClCompile Include="..\Source\Keybindings.cpp" />
+    <ClCompile Include="..\Source\KeyboardInput.cpp" />
+    <ClCompile Include="..\Source\Level.cpp" />
     <ClCompile Include="..\Source\Message.cpp" />
     <ClCompile Include="..\Source\MessageBus.cpp" />
     <ClCompile Include="..\Source\MessageBusNode.cpp" />
