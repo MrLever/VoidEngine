@@ -12,7 +12,7 @@
 #include "InputManager.h"
 
 //Forward Class declarations
-
+class KeyboardInput;
 
 class WindowManager {
 
@@ -64,19 +64,13 @@ public:
 	static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		//std::cout << "Callback triggered\n";
 		InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-		if (ptr) {
-			KeyState state;
-			if (action == GLFW_PRESS) {
-				state = Pressed;
-			}
-			else if (action == GLFW_REPEAT) {
-				state = Held;
-			}
-			else {
-				state = Released;
-			}
-			ptr->HandleInput(key, state);
+
+		if (!ptr) {
+			std::cerr << "Input manager not found";
 		}
+		
+		KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action));
+		ptr->HandleInput(input);
+
 	}
 };
-

@@ -7,6 +7,7 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "KeyboardInput.h"
 
 
 
