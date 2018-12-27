@@ -38,13 +38,15 @@ void Game::InitGame(){
 
 	GameWorld = std::make_unique<World>(GameMessageBus);
 	GameRenderer = std::make_unique<Renderer>(Window);
-	GameInputManager = std::make_unique<InputManager>(GameMessageBus, Window);
+	GameInputManager = std::make_unique<InputManager>(GameMessageBus);
 	GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
+
+	Window->SetWindowUser<InputManager>(GameInputManager.get());
 
 }
 
 void Game::ProcessInput(){
-	GameInputManager->PollInput();
+	Window->PollInput();
 }
 
 void Game::Update(double deltaSeconds){
