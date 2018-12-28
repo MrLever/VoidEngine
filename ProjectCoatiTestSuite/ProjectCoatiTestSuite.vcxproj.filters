@@ -57,7 +57,10 @@
     <ClInclude Include="..\Source\Level.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Serializable.h">
+    <ClInclude Include="..\Source\Keybindings.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\KeyboardInput.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,7 +107,13 @@
     <ClCompile Include="..\Source\Level.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Serializable.cpp">
+    <ClCompile Include="..\Source\Keybindings.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\KeyboardInput.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBusTests.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>
