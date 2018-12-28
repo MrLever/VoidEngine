@@ -15,7 +15,7 @@ InputManager::InputManager( std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bu
 	this->RegisterReciever();
 
 	
-	//GLFWwindow* window;
+
 	PublishMessage("Input Manager Initialized", Initialization);
 }
 
@@ -26,13 +26,17 @@ InputManager::~InputManager() {
 
 //Private Member Functions
 
+void InputManager::LoadKeybindings() {
+
+}
+
 //Public Member Functions
 
 void InputManager::HandleInput(KeyboardInput input) {
 	//Lookup in Keybindings
 	//Send message
 
-	if (input.GetKey() == INPUT_W) {
+	if (input.GetKey() == KeyType::W) {
 		std::cout << "Move forward";
 	}
 

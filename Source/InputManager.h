@@ -24,6 +24,10 @@ public:
 	InputManager(std::shared_ptr<MessageBus> GameMessageBus);
 	~InputManager();
 
+private:
+	//Private member functions
+	void LoadKeybindings();
+
 public:
 	//Public member functions
 	void HandleInput(KeyboardInput input);
