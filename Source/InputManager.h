@@ -8,6 +8,7 @@
 //Coati Headers
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
+#include "Keybindings.h"
 
 //Forward Class declarations
 class MessageBus;
@@ -17,7 +18,7 @@ class InputEvent;
 class InputManager : MessageBusNode {
 private:
 	//Private class members
-	std::unordered_map<KeyType, Message> Keybindings;
+	Keybindings Bindings;
 
 public:
 	//CTORS

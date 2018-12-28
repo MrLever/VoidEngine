@@ -27,7 +27,7 @@ InputManager::~InputManager() {
 //Private Member Functions
 
 void InputManager::LoadKeybindings() {
-
+	Bindings.Load();
 }
 
 //Public Member Functions

@@ -92,7 +92,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\input.ini" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /y "$(SolutionDir)Settings\input.ini" "$(TargetDir)Settings\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +123,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\input.ini" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /y "$(SolutionDir)Settings\input.ini" "$(TargetDir)Settings\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

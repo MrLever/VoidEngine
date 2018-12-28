@@ -12,13 +12,21 @@
 
 class Serializable {
 
+private:
+	//Private class members
+	std::string FilePath;
 public:
+	//CTORS
+	Serializable(std::string targetFilepath);
+	~Serializable();
 
-	virtual void Save(std::string Filepath) = 0;
-	virtual void Load(std::string Filepath) = 0;
+public:
+	//Public Member Functions
+	virtual void Save() = 0;
+	virtual void Load() = 0;
 
 private:
-
+	//Private Member Functions
 
 
 };

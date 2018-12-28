@@ -7,11 +7,12 @@
 
 //Coati Headers
 #include "KeyboardInput.h"
+#include "Serializable.h"
 
 //Forward Class declarations
 class Message;
 
-class Keybindings {
+class Keybindings : Serializable {
 private:
 	//Private Class Members
 
@@ -33,5 +34,8 @@ public:
 	void ReassignBinding(KeyboardInput key, std::string event, int EventType);
 
 	Message GetBinding(KeyboardInput input);
+
+	virtual void Save() override;
+	virtual void Load() override;
 };
 

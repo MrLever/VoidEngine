@@ -10,7 +10,7 @@
 #include "Message.h"
 
 
-Keybindings::Keybindings() {
+Keybindings::Keybindings() : Serializable("Settings/input.ini") {
 }
 
 
@@ -31,4 +31,10 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 	//return (it != Bindings.end()) ?
 	//	Message("Keybinding not found.", Error) :
 	//	it->second;
+}
+
+void Keybindings::Save() {
+}
+
+void Keybindings::Load() {
 }

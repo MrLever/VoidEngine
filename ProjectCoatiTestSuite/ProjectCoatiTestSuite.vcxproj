@@ -166,6 +166,7 @@
     <ClInclude Include="..\Source\MessageBus.h" />
     <ClInclude Include="..\Source\MessageBusNode.h" />
     <ClInclude Include="..\Source\Renderer.h" />
+    <ClInclude Include="..\Source\Serializable.h" />
     <ClInclude Include="..\Source\WindowManager.h" />
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="stdafx.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="..\Source\MessageBus.cpp" />
     <ClCompile Include="..\Source\MessageBusNode.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
+    <ClCompile Include="..\Source\Serializable.cpp" />
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
