@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <unordered_map>
+#include <string>
 
 //Library Headers
 
@@ -12,8 +13,10 @@ class Message;
 
 class Keybindings {
 private:
-	//Priavet Class Members
-	std::unordered_map<KeyType, Message> Bindings;
+	//Private Class Members
+
+	//Third template parameter required to inform map how to custom key type
+	std::unordered_map<KeyboardInput, Message> Bindings;
 
 public:
 	//CTORS
@@ -25,8 +28,10 @@ private:
 
 public:
 	//Public Member Functions
-	void AddBinding();
-	void RemoveBinding();
-	void ReassignBinding();
+	void AddBinding(KeyboardInput input, std::string event, int eventType);
+	void RemoveBinding(KeyboardInput key);
+	void ReassignBinding(KeyboardInput key, std::string event, int EventType);
+
+	Message GetBinding(KeyboardInput input);
 };
 

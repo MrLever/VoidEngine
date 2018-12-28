@@ -1,5 +1,6 @@
 //STD Headers
-
+#include <unordered_map>
+#include <string>
 
 //Library Headers
 
@@ -14,4 +15,20 @@ Keybindings::Keybindings() {
 
 
 Keybindings::~Keybindings() {
+}
+
+//Private Member Functions
+
+//Public Member Functions
+
+void Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
+	Message bindingEvent(event, eventType);
+}
+
+Message Keybindings::GetBinding(KeyboardInput input) {
+
+	return Message("Keybinding not found.", Error);
+	//return (it != Bindings.end()) ?
+	//	Message("Keybinding not found.", Error) :
+	//	it->second;
 }
