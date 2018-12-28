@@ -14,6 +14,13 @@ Message::Message(std::string message, MessageType type) : Event(message), Type(t
 
 }
 
+Message::Message(std::string message, int type) : 
+	Event(message), 
+	Type(static_cast<MessageType>(type)) 
+{
+
+}
+
 
 Message::~Message() {
 }
