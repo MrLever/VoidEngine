@@ -1,19 +1,19 @@
 #pragma once
 //STD Headers
-
+#include <typeindex> 
 
 //Library Headers
 
 
 //Forward Class declarations
 
-enum KeyType {
-	INPUT_ESC = 256,
-	INPUT_W = 87,
-	INPUT_A = 65,
-	INPUT_S = 83,
-	INPUT_D = 68,
-	INPUT_NUM_9 = 329
+enum class KeyType : int{
+	ESC = 256,
+	W = 87,
+	A = 65,
+	S = 83,
+	D = 68,
+	NUM_9 = 329
 };
 
 enum KeyState {
@@ -32,11 +32,28 @@ public:
 	KeyboardInput(KeyType Key, KeyState State);
 	~KeyboardInput();
 
+	bool operator==(KeyboardInput other);
+
 private:
 
 public:
-	KeyType GetKey();
-	KeyState GetKeyState();
+	KeyType GetKey() const;
+	KeyState GetKeyState() const;
+
+	std::size_t Hash() const;
 
 };
 
+
+//It is acceptable to extend the std namespace to add template specifications for 
+//standard library templates to work with custom data types.
+namespace std {
+	template <> struct hash<KeyboardInput> { //Class to define hash function for Keyboard Input
+		
+		//Hash functor
+		std::size_t operator()(const KeyboardInput& t) const {
+			return t.Hash();
+		}
+	
+	};
+}
