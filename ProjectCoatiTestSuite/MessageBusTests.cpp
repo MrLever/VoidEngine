@@ -39,7 +39,7 @@ namespace ProjectCoatiTestSuite
 		~FilteredDummyReceiver() {
 		}
 		virtual void RegisterReciever() override {
-			bus->AddReciever(this, Termination);
+			bus->AddReciever(this, Input);
 		}
 		void ReceiveMessage(Message message) override {
 			MessageReceived = true;
@@ -63,7 +63,7 @@ namespace ProjectCoatiTestSuite
 		TEST_METHOD(IgnoreMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			FilteredDummyReceiver testReceiver(testBus);
-			Message testMessage("Test", Initialization);
+			Message testMessage("Test", Termination);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();
