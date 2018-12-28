@@ -26,6 +26,8 @@ Game::Game(std::string name) : GameName(name) {
 
 Game::~Game(){
 
+
+
 }
 
 //Private Functions
