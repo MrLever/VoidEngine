@@ -17,9 +17,9 @@ enum class KeyType : int{
 };
 
 enum KeyState {
+	Released = 0,
 	Pressed = 1,
-	Held,
-	Released
+	Held = 2
 };
 
 class KeyboardInput {

@@ -26,6 +26,8 @@ public:
 
 private:
 	//Private Member Functions
+	std::vector<std::string> LoadInputSettings();
+	bool ProcessInputSettings(std::vector<std::string> tokens);
 
 public:
 	//Public Member Functions
@@ -35,7 +37,7 @@ public:
 
 	Message GetBinding(KeyboardInput input);
 
-	virtual void Save() override;
-	virtual void Load() override;
+	virtual bool Save() override;
+	virtual bool Load() override;
 };
 

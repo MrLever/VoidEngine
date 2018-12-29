@@ -2,6 +2,7 @@
 #include <functional>
 #include <queue>
 #include <vector>
+#include <iostream>
 
 //Library Headers
 
@@ -39,8 +40,6 @@ void MessageBus::DispatchMessages() {
 			if (receiver.subscriptionFlag & outgoingMessage.getType()) {
 				receiver.receivingFunction(Messages.front());
 			}
-			
-			//(*i)(Messages.front());
 		}
 		Messages.pop();
 	}
