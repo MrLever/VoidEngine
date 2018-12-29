@@ -35,6 +35,7 @@ protected:
 	//Protected Member Functions
 	virtual void RegisterReciever();
 	void PublishMessage(std::string, MessageType type);
+	void PublishMessage(Message message);
 
 public:
 	//Public Member Functions

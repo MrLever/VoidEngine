@@ -40,13 +40,15 @@ void Game::InitGame(){
 
 	GameWorld = std::make_unique<World>(GameMessageBus);
 	GameRenderer = std::make_unique<Renderer>(Window);
-	GameInputManager = std::make_unique<InputManager>(GameMessageBus, Window);
+	GameInputManager = std::make_unique<InputManager>(GameMessageBus);
 	GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
+
+	Window->SetWindowUser<InputManager>(GameInputManager.get());
 
 }
 
 void Game::ProcessInput(){
-	GameInputManager->PollInput();
+	Window->PollInput();
 }
 
 void Game::Update(double deltaSeconds){
@@ -64,7 +66,7 @@ void Game::Render(){
 
 void Game::ExecuteGameLoop(){
 	auto previousTime = Timer::now();
-	while (true) {
+	while (!Window->WindowTerminated()) {
 		//Get current time
 		auto currentTime = Timer::now();
 		std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
@@ -93,7 +95,7 @@ void Game::UpdateFramerate(double timeSinceLastFrame) {
 			FrameQueue.pop();
 		}
 		//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-		FrameRate = 10 / (frameQueueSum);
+		FrameRate = static_cast<int>(10 / (frameQueueSum));
 	}
 	return;
 

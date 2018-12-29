@@ -7,6 +7,7 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "KeyboardInput.h"
 
 
 
@@ -41,14 +42,12 @@ void WindowManager::InitGLFW() {
 	);
 	
 	if (Window.get() == nullptr) {
-		std::cerr << "Terminate program" << std::endl;
-		int dummy;
-		std::cin >> dummy;
-		//TODO, post termination message to message bus
+		glfwSetWindowShouldClose(Window.get(), GLFW_TRUE);
 	}
 	
 	glfwMakeContextCurrent(Window.get());
 	glfwSetFramebufferSizeCallback(Window.get(), ResizeFrameBuffer);
+	glfwSetKeyCallback(Window.get(), DispatchKeyCallback);
 
 }
 
@@ -60,6 +59,8 @@ void WindowManager::InitGLAD() {
 	glViewport(0, 0, 800, 600);
 }
 
+//Public Member Functions
+
 std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
 	return Window;
 }
@@ -69,6 +70,13 @@ void WindowManager::SwapBuffers() {
 	glfwPollEvents();
 }
 
+void WindowManager::PollInput() {
+	glfwPollEvents();
+}
+
+bool WindowManager::WindowTerminated() {
+	return glfwWindowShouldClose(Window.get());
+}
 
 
-//Public Member Functions
+

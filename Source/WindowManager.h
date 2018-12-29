@@ -8,8 +8,11 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-//Forward Class declarations
+//Coati Headers
+#include "InputManager.h"
 
+//Forward Class declarations
+class KeyboardInput;
 
 class WindowManager {
 
@@ -33,6 +36,15 @@ public:
 	std::shared_ptr<GLFWwindow> getWindow();
 
 	void SwapBuffers();
+	void PollInput();
+	bool WindowTerminated();
+
+	template<typename T>
+	void SetWindowUser(T* requester) {
+		glfwSetWindowUserPointer(Window.get(), requester);
+	}
+
+	
 
 public:
 	//Static Functions
@@ -48,5 +60,17 @@ public:
 	static void ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
 	}
-};
 
+	static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		//std::cout << "Callback triggered\n";
+		InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
+
+		if (!ptr) {
+			std::cerr << "Input manager not found";
+		}
+		
+		KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action));
+		ptr->HandleInput(input);
+
+	}
+};

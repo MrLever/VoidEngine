@@ -25,6 +25,7 @@ private:
 
 public:
 	Message(std::string message, MessageType type);
+	Message(std::string message, int type);
 	~Message();
 
 private:

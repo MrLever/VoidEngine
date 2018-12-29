@@ -1,6 +1,6 @@
 //STD Headers
 #include <string>
-
+#include <fstream>
 
 //Library Headers
 
@@ -9,15 +9,33 @@
 //Coati Headers
 
 
-
 class Serializable {
 
-public:
+private:
+	//Private class members
+	
 
-	virtual void Save(std::string Filepath) = 0;
-	virtual void Load(std::string Filepath) = 0;
+
+protected:
+	//Protected class members
+	std::string FilePath;
+
+public:
+	//CTORS
+	Serializable(std::string targetFilepath);
+	~Serializable();
 
 private:
+	//Private Member Functions
+
+protected:
+	//Protected Member Functions
+
+public:
+	//Public Member Functions
+	virtual bool Save() = 0;
+	virtual bool Load() = 0;
+
 
 
 
