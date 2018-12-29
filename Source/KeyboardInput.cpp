@@ -18,7 +18,7 @@ KeyboardInput::KeyboardInput(KeyType Key, KeyState State) {
 KeyboardInput::~KeyboardInput() {
 }
 
-bool KeyboardInput::operator==(KeyboardInput other) {
+bool KeyboardInput::operator==(const KeyboardInput &other) const{
 	return (
 		this->GetKey() == other.GetKey() 
 		&& this->GetKeyState() == other.GetKeyState()

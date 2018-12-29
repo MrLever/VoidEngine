@@ -32,7 +32,7 @@ public:
 	KeyboardInput(KeyType Key, KeyState State);
 	~KeyboardInput();
 
-	bool operator==(KeyboardInput other);
+	bool operator==(const KeyboardInput &other) const;
 
 private:
 
