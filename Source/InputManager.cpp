@@ -14,8 +14,6 @@
 InputManager::InputManager( std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bus){
 	this->RegisterReciever();
 
-	
-
 	PublishMessage("Input Manager Initialized", Initialization);
 }
 
@@ -33,17 +31,11 @@ void InputManager::LoadKeybindings() {
 //Public Member Functions
 
 void InputManager::HandleInput(KeyboardInput input) {
-	//Lookup in Keybindings
-	//Send message
-
-	if (input.GetKey() == KeyType::W) {
-		std::cout << "Move forward";
-	}
-
+	PublishMessage(Bindings.GetBinding(input));
 }
 
 void InputManager::RegisterReciever() {
-	GameMessageBus->AddReciever(this, Initialization);
+	GameMessageBus->AddReciever(this, Input);
 }
 
 void InputManager::ReceiveMessage(Message message) {
