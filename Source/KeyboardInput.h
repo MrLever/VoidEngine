@@ -7,7 +7,7 @@
 
 //Forward Class declarations
 
-enum class KeyType : int{
+enum class KeyType : unsigned{
 	ESC = 256,
 	W = 87,
 	A = 65,
@@ -16,7 +16,7 @@ enum class KeyType : int{
 	NUM_9 = 329
 };
 
-enum KeyState {
+enum class KeyState : unsigned {
 	Released = 0,
 	Pressed = 1,
 	Held = 2

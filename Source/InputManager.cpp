@@ -14,7 +14,7 @@
 InputManager::InputManager( std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bus){
 	this->RegisterReciever();
 
-	PublishMessage("Input Manager Initialized", Initialization);
+	PublishMessage("Input Manager Initialized", MessageType::Initialization);
 }
 
 
@@ -26,7 +26,7 @@ InputManager::~InputManager() {
 
 void InputManager::LoadKeybindings() {
 	if (!Bindings.Load()) {
-		PublishMessage("Keybinding failed to load", Termination);
+		PublishMessage("Keybinding failed to load", MessageType::Termination);
 	}
 }
 
@@ -40,7 +40,7 @@ void InputManager::HandleInput(KeyboardInput input) {
 }
 
 void InputManager::RegisterReciever() {
-	GameMessageBus->AddReciever(this, Initialization | Input);
+	GameMessageBus->AddReceiver(this, { MessageType::Initialization, MessageType::Initialization });
 }
 
 void InputManager::ReceiveMessage(Message message) {

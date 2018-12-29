@@ -90,7 +90,7 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 	auto binding = Bindings.find(input);
 
 	if (binding == Bindings.end()) {
-		return Message("Keybinding not found.", Error);
+		return Message("Keybinding not found.", MessageType::Error);
 	}
 	else {
 		return binding->second;

@@ -34,7 +34,9 @@ private:
 	//Private member functions
 
 public:
-	void AddReciever(MessageBusNode* receiver, int subscriptionFlag);
+	void AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag);
+	void AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag);
+	void AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags);
 	void PublishMessage(Message message);
 	void DispatchMessages();
 
