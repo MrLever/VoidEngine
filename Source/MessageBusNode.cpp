@@ -27,7 +27,7 @@ MessageBusNode::~MessageBusNode() {
 // Protected Member Functions
 
 void MessageBusNode::RegisterReciever() {
-	this->GameMessageBus->AddReciever(this, 0xFFFFFFFF);
+	this->GameMessageBus->AddReceiver(this, 0xFFFFFFFF);
 }
 
 void MessageBusNode::PublishMessage(std::string message, MessageType type) {
