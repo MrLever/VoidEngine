@@ -7,7 +7,7 @@
 
 //Forward Declarations
 
-enum MessageType {
+enum class MessageType : unsigned {
 	Initialization = 1,
 	Input		   = 2,
 	GenericEvent   = 4,
@@ -25,6 +25,7 @@ private:
 
 public:
 	Message(std::string message, MessageType type);
+	Message(std::string message, int type);
 	~Message();
 
 private:

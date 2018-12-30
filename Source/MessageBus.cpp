@@ -2,6 +2,7 @@
 #include <functional>
 #include <queue>
 #include <vector>
+#include <iostream>
 
 //Library Headers
 
@@ -22,10 +23,22 @@ MessageBus::~MessageBus(){
 //Private Member Functions
 
 //Public Member Functions
-void MessageBus::AddReciever(MessageBusNode* receiver, int subscriptionFlag) {
+void MessageBus::AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag) {
 	
 	Subscriber subscriber(receiver->GetMessageReceiveFunction(), subscriptionFlag);
 	Receivers.push_back(subscriber);
+}
+
+void MessageBus::AddReceiver(MessageBusNode * receiver, MessageType subscriptionFlag) {
+	AddReceiver(receiver, static_cast<unsigned>(subscriptionFlag));
+}
+
+void MessageBus::AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags) {
+	unsigned flag = 0;
+	for (auto inputFlag : flags) {
+		flag |= static_cast<unsigned>(inputFlag);
+	}
+	AddReceiver(receiver, flag);
 }
 
 void MessageBus::PublishMessage(Message message) {
@@ -36,11 +49,11 @@ void MessageBus::DispatchMessages() {
 	while (!Messages.empty()) {
 		Message outgoingMessage = Messages.front();
 		for (auto receiver : Receivers) {
-			if (receiver.subscriptionFlag & outgoingMessage.getType()) {
+			unsigned subsription = static_cast<unsigned>(receiver.subscriptionFlag);
+			unsigned messageType = static_cast<unsigned>(outgoingMessage.getType());
+			if (subsription & messageType) {
 				receiver.receivingFunction(Messages.front());
 			}
-			
-			//(*i)(Messages.front());
 		}
 		Messages.pop();
 	}

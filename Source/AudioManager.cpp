@@ -12,7 +12,7 @@
 
 
 AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) : MessageBusNode(GameMessageBus) {
-	PublishMessage("Audio Manager Initialized", Initialization);
+	PublishMessage("Audio Manager Initialized", MessageType::Initialization);
 	this->RegisterReciever();
 }
 
