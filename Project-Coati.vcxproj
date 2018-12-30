@@ -149,7 +149,7 @@
     <ClInclude Include="Source\InputManager.h" />
     <ClInclude Include="Source\Level.h" />
     <ClInclude Include="Source\Serializable.h" />
-    <ClInclude Include="Source\Utilities.h" />
+    <ClInclude Include="Source\EngineUtilities.h" />
     <ClInclude Include="Source\WindowManager.h" />
     <ClInclude Include="Source\MessageBusNode.h" />
     <ClInclude Include="Source\Message.h" />
