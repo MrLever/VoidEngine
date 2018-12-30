@@ -6,7 +6,7 @@
 
 //Coati Headers
 #include "Message.h"
-
+#include "EngineUtilities.h"
 
 //CTORS
 
@@ -18,7 +18,7 @@ Message::Message(std::string message, int type) :
 	Event(message), 
 	Type(static_cast<MessageType>(type)) 
 {
-
+	this->ID = EngineUtilities::FNV1aHash(message);
 }
 
 

@@ -22,6 +22,7 @@ private:
 	//Private class members
 	std::string Event;
 	MessageType Type;
+	unsigned int ID;
 
 public:
 	Message(std::string message, MessageType type);
