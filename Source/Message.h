@@ -26,16 +26,31 @@ private:
 
 public:
 	Message(std::string message, MessageType type);
-	Message(std::string message, int type);
+	Message(std::string message, unsigned type);
 	~Message();
+
+	bool operator==(const Message &other) const;
 
 private:
 	//Private member functions
 
 public:
 	//Public member functions
-	std::string getEvent();
-	MessageType getType();
+	std::string GetEvent() const;
+	unsigned GetEventID() const;
+	MessageType GetType() const;
 
 };
 
+//It is acceptable to extend the std namespace to add template specifications for 
+//standard library templates to work with custom data types.
+namespace std {
+	template <> struct hash<Message> { //Class to define hash function for Keyboard Input
+
+		//Hash functor
+		std::size_t operator()(const Message& t) const {
+			return t.GetEventID();
+		}
+
+	};
+}
