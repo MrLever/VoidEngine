@@ -11,7 +11,7 @@
 //CTORS
 
 Message::Message(std::string message, MessageType type) : Event(message), Type(type) {
-
+	this->ID = EngineUtilities::FNV1aHash(message);
 }
 
 Message::Message(std::string message, unsigned type) : 
