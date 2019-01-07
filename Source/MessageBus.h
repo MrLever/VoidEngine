@@ -37,6 +37,9 @@ public:
 	void AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag);
 	void AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag);
 	void AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags);
+
+	void RemoveReceiver(MessageBusNode* receiver);
+
 	void PublishMessage(Message message);
 	void DispatchMessages();
 

@@ -41,6 +41,10 @@ void MessageBus::AddReceiver(MessageBusNode* receiver, std::vector<MessageType> 
 	AddReceiver(receiver, flag);
 }
 
+void MessageBus::RemoveReceiver(MessageBusNode* receiver) {
+
+}
+
 void MessageBus::PublishMessage(Message message) {
 	Messages.push(message);
 }
