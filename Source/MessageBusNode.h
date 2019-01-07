@@ -4,6 +4,7 @@
 #include <memory>
 #include <functional>
 #include <string>
+#include <unordered_map>
 
 //Library Headers
 
@@ -17,7 +18,7 @@ class MessageBus;
 class MessageBusNode {
 private:
 	//Private Class Members
-	
+	std::unordered_map<unsigned, std::function<void(MessageBusNode*)>> Events;
 
 protected:
 	//Protected Class Members
@@ -34,6 +35,7 @@ private:
 protected:
 	//Protected Member Functions
 	virtual void RegisterReciever();
+	virtual void RegisterEvents() = 0;
 	void PublishMessage(std::string, MessageType type);
 	void PublishMessage(Message message);
 
