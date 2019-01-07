@@ -7,6 +7,7 @@
 //Library Headers
 
 namespace EngineUtilities {
+
 	static unsigned FNV1aHash(std::string input) {
 
 		auto FNV_prime = 1099511628211;
@@ -22,5 +23,6 @@ namespace EngineUtilities {
 		return static_cast<unsigned>(hash);
 
 	}
+
 }
 
