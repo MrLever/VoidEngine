@@ -22,5 +22,5 @@ AudioManager::~AudioManager() {
 
 void AudioManager::ReceiveMessage(Message message) {
 	std::cout << "Audio Manager Message Recieved: \n";
-	std::cout << "\t" << message.getEvent() << "\n";
+	std::cout << "\t" << message.GetEvent() << "\n";
 }

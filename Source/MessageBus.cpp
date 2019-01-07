@@ -50,7 +50,7 @@ void MessageBus::DispatchMessages() {
 		Message outgoingMessage = Messages.front();
 		for (auto receiver : Receivers) {
 			unsigned subsription = static_cast<unsigned>(receiver.subscriptionFlag);
-			unsigned messageType = static_cast<unsigned>(outgoingMessage.getType());
+			unsigned messageType = static_cast<unsigned>(outgoingMessage.GetType());
 			if (subsription & messageType) {
 				receiver.receivingFunction(Messages.front());
 			}
