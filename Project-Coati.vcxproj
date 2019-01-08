@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="Source\EventTable.cpp" />
     <ClCompile Include="Source\KeyboardInput.cpp" />
     <ClCompile Include="Source\Keybindings.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\EventTable.h" />
     <ClInclude Include="Source\KeyboardInput.h" />
     <ClInclude Include="Source\Keybindings.h" />
     <ClInclude Include="Source\InputManager.h" />
