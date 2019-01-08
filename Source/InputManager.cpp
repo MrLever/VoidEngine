@@ -13,12 +13,14 @@
 //Ctors
 InputManager::InputManager( std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bus){
 	this->RegisterReciever();
+	this->RegisterEvents();
 
 	PublishMessage("Input Manager Initialized", MessageType::Initialization);
 }
 
 
 InputManager::~InputManager() {
+	PublishMessage("Input Manager Destroyed", MessageType::Termination);
 }
 
 
@@ -30,6 +32,21 @@ void InputManager::LoadKeybindings() {
 	}
 }
 
+//Protected Member Functions
+
+void InputManager::RegisterReciever() {
+	GameMessageBus->AddReceiver(
+		this, 
+		{ MessageType::Initialization, MessageType::Initialization }
+	);
+}
+
+void InputManager::RegisterEvents() {
+	//TODO Add to Events Map
+}
+
+
+
 //Public Member Functions
 
 void InputManager::HandleInput(KeyboardInput input) {
@@ -39,11 +56,9 @@ void InputManager::HandleInput(KeyboardInput input) {
 	PublishMessage(Bindings.GetBinding(input));
 }
 
-void InputManager::RegisterReciever() {
-	GameMessageBus->AddReceiver(this, { MessageType::Initialization, MessageType::Initialization });
-}
-
 void InputManager::ReceiveMessage(Message message) {
-	std::cout << "Input Manager Message Recieved: \n";
-	std::cout << "\t" << message.getEvent() << "\n";
+	//Lookup incomming message in event map and execute related function
+	if (Events[message]) {
+		Events[message]();
+	}
 }

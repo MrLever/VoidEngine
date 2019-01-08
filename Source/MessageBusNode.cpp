@@ -9,6 +9,7 @@
 #include "MessageBusNode.h"
 #include "MessageBus.h"
 #include "Message.h"
+#include "EventTable.h"
 
 
 
@@ -21,13 +22,17 @@ MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> Bus) {
 }
 
 MessageBusNode::~MessageBusNode() {
-
+	UnregisterReciever();
 }
 
 // Protected Member Functions
 
 void MessageBusNode::RegisterReciever() {
-	this->GameMessageBus->AddReceiver(this, 0xFFFFFFFF);
+	GameMessageBus->AddReceiver(this, 0xFFFFFFFF);
+}
+
+void MessageBusNode::UnregisterReciever() {
+	GameMessageBus->RemoveReceiver(this);
 }
 
 void MessageBusNode::PublishMessage(std::string message, MessageType type) {

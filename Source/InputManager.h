@@ -34,6 +34,8 @@ public:
 	void HandleInput(KeyboardInput input);
 
 	virtual void RegisterReciever() override;
-	virtual void ReceiveMessage(Message message);
+	void RegisterEvents() override;
+
+	void ReceiveMessage(Message message) override;
 };
 
