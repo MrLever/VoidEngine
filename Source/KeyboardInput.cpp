@@ -44,6 +44,5 @@ KeyState KeyboardInput::GetKeyState() const {
 // Keyboard input objects are hashed by feeding their key value
 // to the standard library's hash function for ints.
 std::size_t KeyboardInput::Hash() const {
-	return
-		std::hash<int>()(static_cast<int>(Key));
+	return std::hash<int>()(static_cast<int>(Key));
 }
