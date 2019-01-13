@@ -6,30 +6,38 @@
 
 //Coati Headers
 #include "Message.h"
-
+#include "EngineUtilities.h"
 
 //CTORS
 
 Message::Message(std::string message, MessageType type) : Event(message), Type(type) {
-
+	this->ID = EngineUtilities::FNV1aHash(message);
 }
 
-Message::Message(std::string message, int type) : 
+Message::Message(std::string message, unsigned type) : 
 	Event(message), 
 	Type(static_cast<MessageType>(type)) 
 {
-
+	this->ID = EngineUtilities::FNV1aHash(message);
 }
 
 
 Message::~Message() {
 }
 
-std::string Message::getEvent() {
+bool Message::operator==(const Message & other) const {
+	return this->ID == other.ID;
+}
+
+std::string Message::GetEvent() const {
 	return Event;
 }
 
-MessageType Message::getType() {
+unsigned Message::GetEventID() const {
+	return ID;
+}
+
+MessageType Message::GetType() const {
 	return Type;
 }
 

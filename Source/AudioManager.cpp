@@ -20,7 +20,10 @@ AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) : Message
 AudioManager::~AudioManager() {
 }
 
+void AudioManager::RegisterEvents() {
+}
+
 void AudioManager::ReceiveMessage(Message message) {
 	std::cout << "Audio Manager Message Recieved: \n";
-	std::cout << "\t" << message.getEvent() << "\n";
+	std::cout << "\t" << message.GetEvent() << "\n";
 }

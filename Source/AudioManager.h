@@ -24,9 +24,12 @@ public:
 
 private:
 	//Private member functions
-	
+
+protected:
+	void RegisterEvents() override;
 
 public:
 	//Public Member functions
-	virtual void ReceiveMessage(Message message);
+	void ReceiveMessage(Message message) override;
+
 };

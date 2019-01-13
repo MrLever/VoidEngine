@@ -7,7 +7,7 @@
 //Coati Headers
 #include "Level.h"
 
-Level::Level(int ID){
+Level::Level(int ID) {
 
 	levelID = ID;
 
@@ -20,7 +20,7 @@ Level::~Level() {
 
 }
 
-int Level::GetID(){
+int Level::GetID() {
 
 	return levelID;
 

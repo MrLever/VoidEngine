@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 
 #include "stdafx.h"
 #include "CppUnitTest.h"
@@ -14,35 +15,44 @@ namespace ProjectCoatiTestSuite
 	class DummyReceiver : MessageBusNode {
 	public:
 		bool MessageReceived;
+		bool EventFired;
 		std::shared_ptr<MessageBus> bus;
-		DummyReceiver(std::shared_ptr<MessageBus> bus) : MessageBusNode(bus) {
+		
+		DummyReceiver(std::shared_ptr<MessageBus> bus) : MessageBusNode(bus){
 			this->bus = bus;
 			MessageReceived = false;
+			EventFired = false;
 			this->RegisterReciever();
+			this->RegisterEvents();
 		}
 		~DummyReceiver() {
+
 		}
 
-		void ReceiveMessage(Message message) override{
-			MessageReceived = true;
+		void RegisterEvents() override {
+			//Events.BindEvent(Message("FireTestEvent", MessageType::Input), &FireEvent);
+			auto eventLambda = [=]() -> void {
+				this->FireEvent();
+			};
+
+			Events.BindEvent(Message("FireTestEvent", MessageType::Input), eventLambda);
 		}
-	};
-	class FilteredDummyReceiver : MessageBusNode {
-	public:
-		bool MessageReceived;
-		std::shared_ptr<MessageBus> bus;
-		FilteredDummyReceiver(std::shared_ptr<MessageBus> bus) : MessageBusNode(bus){
-			this->bus = bus;
-			MessageReceived = false;
-			this->RegisterReciever();
-		}
-		~FilteredDummyReceiver() {
-		}
-		virtual void RegisterReciever() override {
+
+		void RegisterReciever() override {
 			bus->AddReceiver(this, MessageType::Input);
 		}
+		
 		void ReceiveMessage(Message message) override {
 			MessageReceived = true;
+			if (Events[message]) {
+				Events[message]();
+			}
+
+		}
+
+		void FireEvent() {
+			std::cout << "Event Fired";
+			EventFired = true;
 		}
 	};
 
@@ -52,7 +62,7 @@ namespace ProjectCoatiTestSuite
 		TEST_METHOD(RecieveMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			DummyReceiver testReceiver(testBus);
-			Message testMessage("Test", MessageType::Initialization);
+			Message testMessage("Test", MessageType::Input);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();
@@ -62,7 +72,7 @@ namespace ProjectCoatiTestSuite
 
 		TEST_METHOD(IgnoreMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
-			FilteredDummyReceiver testReceiver(testBus);
+			DummyReceiver testReceiver(testBus);
 			Message testMessage("Test", MessageType::Termination);
 
 			testBus->PublishMessage(testMessage);
@@ -70,5 +80,18 @@ namespace ProjectCoatiTestSuite
 
 			Assert::IsFalse(testReceiver.MessageReceived);
 		}
+		
+		TEST_METHOD(TriggerEventTest) {
+			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
+			DummyReceiver testReceiver(testBus);
+			Message testMessage("FireTestEvent", MessageType::Input);
+
+			testBus->PublishMessage(testMessage);
+			testBus->DispatchMessages();
+
+
+			Assert::IsTrue(testReceiver.EventFired);
+		}
+
 	};
 }

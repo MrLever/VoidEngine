@@ -66,6 +66,12 @@
     <ClInclude Include="..\Source\Serializable.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\EngineUtilities.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\EventTable.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -120,6 +126,12 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="MessageBusTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\EventTable.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineUtilitiesTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="..\Source\AudioManager.h" />
     <ClInclude Include="..\Source\Core.h" />
+    <ClInclude Include="..\Source\EngineUtilities.h" />
+    <ClInclude Include="..\Source\EventTable.h" />
     <ClInclude Include="..\Source\Game.h" />
     <ClInclude Include="..\Source\InputManager.h" />
     <ClInclude Include="..\Source\Keybindings.h" />
@@ -176,6 +178,7 @@
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="..\Source\AudioManager.cpp" />
     <ClCompile Include="..\Source\Core.cpp" />
+    <ClCompile Include="..\Source\EventTable.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
     <ClCompile Include="..\Source\InputManager.cpp" />
     <ClCompile Include="..\Source\Keybindings.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="..\Source\Serializable.cpp" />
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

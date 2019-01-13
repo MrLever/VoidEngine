@@ -4,24 +4,31 @@
 #include <memory>
 #include <functional>
 #include <string>
+#include <unordered_map>
 
 //Library Headers
 
 //Coati Headers
 #include "Message.h"
+#include "EventTable.h"
 
 //Forward Class declarations
 class MessageBus;
 
 
+
 class MessageBusNode {
 private:
 	//Private Class Members
-	
+
 
 protected:
 	//Protected Class Members
+	
 	std::shared_ptr<MessageBus> GameMessageBus;
+
+	//Binds messages to functions
+	EventTable Events;
 
 public:
 	//CTORS
@@ -33,7 +40,12 @@ private:
 
 protected:
 	//Protected Member Functions
+	
 	virtual void RegisterReciever();
+	virtual void UnregisterReciever();
+
+	virtual void RegisterEvents() = 0;
+
 	void PublishMessage(std::string, MessageType type);
 	void PublishMessage(Message message);
 
