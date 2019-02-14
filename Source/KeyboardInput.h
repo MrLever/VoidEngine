@@ -19,7 +19,8 @@ enum class KeyType : unsigned{
 enum class KeyState : unsigned {
 	Released = 0,
 	Pressed = 1,
-	Held = 2
+	Held = 2,
+	Any = 4
 };
 
 class KeyboardInput {
