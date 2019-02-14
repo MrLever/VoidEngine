@@ -8,7 +8,7 @@
 #include "Game.h"
 
 int main() {
-	Game game("Miles From Nowhere");
+	Game game("The Rain");
 
 	return 0;
 }
