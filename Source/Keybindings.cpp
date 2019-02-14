@@ -39,10 +39,12 @@ std::vector<std::string> Keybindings::LoadInputSettings() {
 		tokens.push_back(token);
 	}
 
+	inFileStream.close();
+
 	return tokens;
 }
 
-bool Keybindings::ProcessInputSettings(std::vector<std::string> tokens) {
+bool Keybindings::ApplyInputSettings(std::vector<std::string> tokens) {
 	if (tokens.size() < 1) {
 		return false;
 	}
@@ -67,23 +69,59 @@ bool Keybindings::ProcessInputSettings(std::vector<std::string> tokens) {
 
 //Public Member Functions
 
-void Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
+bool Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
 	Message bindingEvent(event, eventType);
 	Bindings.insert({input, bindingEvent});
+
+	return true;
 }
 
-void Keybindings::RemoveBinding(KeyboardInput key) {
-	//Do stuff
+bool Keybindings::AddBinding(KeyboardInput input, Message event) {
+	Bindings.insert({ input, event });
 
-	//Save it
-	Save();
+	return true;
 }
 
-void Keybindings::ReassignBinding(KeyboardInput key, std::string event, int EventType) {
-	//Do something
+bool Keybindings::RemoveBinding(KeyboardInput key) {
+	if (Bindings.erase(key) > 0) {
+		//Save modification
+		Save();
 
-	//Save it
-	Save();
+		return true;
+	}
+
+	return false;	
+}
+
+bool Keybindings::ReassignBinding(KeyboardInput key, std::string event, int EventType) {
+	auto binding = Bindings.find(key);
+
+	if (binding != Bindings.end()) {
+		Message newEvent = Message(event, EventType);
+		binding->second = newEvent;
+
+		//Save modification
+		Save();
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Keybindings::ReassignBinding(KeyboardInput key, Message newEvent) {
+	auto binding = Bindings.find(key);
+
+	if (binding != Bindings.end()) {
+		binding->second = newEvent;
+
+		//Save modification
+		Save();
+
+		return true;
+	}
+
+	return false;
 }
 
 Message Keybindings::GetBinding(KeyboardInput input) {
@@ -98,7 +136,7 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 }
 
 bool Keybindings::Save() {
-	return true;
+	return false;
 }
 
 
@@ -107,6 +145,6 @@ bool Keybindings::Load() {
 	Bindings.clear();
 
 	//Load new bindings
-	return ProcessInputSettings(LoadInputSettings());
+	return ApplyInputSettings(LoadInputSettings());
 
 }
