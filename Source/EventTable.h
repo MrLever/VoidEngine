@@ -7,9 +7,10 @@
 //Library Headers
 
 //Coati Headers
+#include "Message.h"
 
 //Forward Class declarations
-class Message;
+
 
 class EventTable{
 private:
