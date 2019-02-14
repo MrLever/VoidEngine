@@ -50,9 +50,6 @@ void InputManager::RegisterEvents() {
 //Public Member Functions
 
 void InputManager::HandleInput(KeyboardInput input) {
-	if (input.GetKeyState() == KeyState::Released || input.GetKeyState() == KeyState::Held) {
-		return;
-	}
 	PublishMessage(Bindings.GetBinding(input));
 }
 
