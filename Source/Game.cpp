@@ -52,6 +52,9 @@ void Game::ProcessInput(){
 }
 
 void Game::Update(double deltaSeconds){
+	//Send the deltaSeconds to the framerate updating function
+	UpdateFramerate(deltaSeconds);
+
 	//Triggers Events
 	GameMessageBus->DispatchMessages();
 
@@ -74,9 +77,6 @@ void Game::ExecuteGameLoop(){
 		ProcessInput();
 		Update(deltaSeconds.count());
 		Render();
-
-		//Send the deltaSeconds to the framerate updating function
-		UpdateFramerate(deltaSeconds.count());
 
 		//Update previous time
 		previousTime = currentTime;
