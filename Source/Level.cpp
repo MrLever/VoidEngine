@@ -20,7 +20,7 @@ Level::~Level() {
 
 }
 
-int Level::GetID() {
+int Level::GetID() const{
 
 	return levelID;
 
