@@ -9,7 +9,7 @@
 //Coati Headers
 
 //Forward Class declarations
-
+class Message;
 
 class EventTable{
 private:
