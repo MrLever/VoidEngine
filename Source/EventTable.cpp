@@ -18,11 +18,12 @@ EventTable::EventTable() {
 EventTable::~EventTable() {
 }
 
+//Operator Overloads
 std::function<void()> EventTable::operator[](const Message& event) const {
 	
 	auto lookup = Events.find(event);
 	
-	//If the event is not found, return an empty function
+	//If the event is not found, return an empty function pointer
 	if (lookup == Events.end()) {
 		return nullptr;
 	}
@@ -38,10 +39,15 @@ std::function<void()> EventTable::operator[](const Message& event) const {
 
 //Public Member Functions
 
-void EventTable::BindEvent(Message message, std::function<void()> event) {
+bool EventTable::BindEvent(Message message, std::function<void()> event) {
 	Events.insert({ message, event });
+	return true;
 }
 
-void EventTable::UnbindEvent(Message message) {
-	Events.erase(message);
+bool EventTable::UnbindEvent(Message message) {
+	if (Events.erase(message) > 0) {
+		return true;
+	}
+
+	return false;
 }
