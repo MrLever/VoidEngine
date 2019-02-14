@@ -192,6 +192,7 @@
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
+    <ClCompile Include="EventTableTests.cpp" />
     <ClCompile Include="InputManagerTests.cpp" />
     <ClCompile Include="KeyBindingsTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
