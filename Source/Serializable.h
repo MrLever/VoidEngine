@@ -33,10 +33,6 @@ protected:
 
 public:
 	//Public Member Functions
-	virtual bool Save() { return false; }
-	virtual bool Load() { return false; }
-
-
-
-
+	virtual bool Save() = 0;
+	virtual bool Load() = 0;
 };
