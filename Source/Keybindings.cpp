@@ -18,8 +18,12 @@ Keybindings::Keybindings() : Serializable("Settings/input.ini") {
 	Load();
 }
 
+Keybindings::Keybindings(std::string filePath) : Serializable(filePath) {
+	Load();
+}
 
 Keybindings::~Keybindings() {
+	Save();
 }
 
 
@@ -136,7 +140,22 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 }
 
 bool Keybindings::Save() {
-	return false;
+	std::ofstream OutFileStream;
+	OutFileStream.open(FilePath);
+	if (!OutFileStream) {
+		std::cerr << "ERROR: Keybindings file not found\n";
+		return false;
+	}
+
+	for (auto binding : Bindings) {
+		OutFileStream << static_cast<int>(binding.first.GetKey()) << ",";
+		OutFileStream << binding.second.GetEvent() << ",";
+		OutFileStream << static_cast<unsigned>(binding.second.GetType()) << ",\n";
+	}
+	OutFileStream << -1;
+
+	OutFileStream.close();
+	return true;
 }
 
 

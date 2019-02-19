@@ -20,6 +20,7 @@ private:
 public:
 	//CTORS
 	Keybindings();
+	Keybindings(std::string filePath);
 	~Keybindings();
 
 private:

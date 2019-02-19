@@ -20,9 +20,18 @@ namespace ProjectCoatiTestSuite {
 			Assert::IsTrue(dummyBindings.Load());
 		}
 		TEST_METHOD(SaveBindingsTest) {
-			Keybindings dummyBindings;
+			Keybindings dummyBindings("Settings/debugInput.ini");
+			
+			KeyboardInput dummyInput(KeyType::NUM_9, KeyState::Pressed);
+			Message dummyMessage("test", MessageType::GenericEvent);
 
-			Assert::IsTrue(dummyBindings.Save());
+			dummyBindings.AddBinding(dummyInput, dummyMessage);
+			dummyBindings.Save();
+			dummyBindings.Load();
+
+			//Remove the binding to preserve the state of the test input file.
+			//This also ensures the bindings are reloaded properly.
+			Assert::IsTrue(dummyBindings.RemoveBinding(dummyInput));
 		}
 		TEST_METHOD(AddBindingTest) {
 			//Initialization
