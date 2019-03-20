@@ -37,7 +37,7 @@ void InputManager::LoadKeybindings() {
 void InputManager::RegisterReciever() {
 	GameMessageBus->AddReceiver(
 		this, 
-		{ MessageType::Initialization, MessageType::Initialization }
+		MessageType::Initialization
 	);
 }
 
