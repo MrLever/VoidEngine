@@ -128,7 +128,7 @@ bool Keybindings::ReassignBinding(KeyboardInput key, Message newEvent) {
 	return false;
 }
 
-Message Keybindings::GetBinding(KeyboardInput input) {
+Message Keybindings::GetBinding(KeyboardInput input) const {
 	auto binding = Bindings.find(input);
 
 	if (binding == Bindings.end()) {
@@ -139,7 +139,7 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 	}	
 }
 
-bool Keybindings::Save() {
+bool Keybindings::Save() const {
 	std::ofstream OutFileStream;
 	OutFileStream.open(FilePath);
 	if (!OutFileStream) {

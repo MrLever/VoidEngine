@@ -36,9 +36,9 @@ public:
 	bool ReassignBinding(KeyboardInput key, std::string event, int EventType);
 	bool ReassignBinding(KeyboardInput key, Message newEvent);
 
-	Message GetBinding(KeyboardInput input);
+	Message GetBinding(KeyboardInput input) const;
 
-	virtual bool Save() override;
+	virtual bool Save() const override;
 	virtual bool Load() override;
 };
 
