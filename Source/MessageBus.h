@@ -14,16 +14,20 @@
 class MessageBusNode;
 
 class MessageBus {
+
 	typedef struct Subscriber {
 		std::function<void(Message)> receivingFunction;
 		MessageType subscriptionFlag;
+		
 		Subscriber(std::function<void(Message)> fn, MessageType flag) : receivingFunction(fn), subscriptionFlag(flag) {
 		
 		}
+		
 		Subscriber(std::function<void(Message)> fn, unsigned flag) : receivingFunction(fn){
 			subscriptionFlag = static_cast<MessageType>(flag);
 		}
 	}Subscriber;
+
 private:
 	//Private Class members
 	std::queue<Message> Messages;
