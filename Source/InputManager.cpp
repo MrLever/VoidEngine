@@ -43,6 +43,7 @@ void InputManager::RegisterReciever() {
 
 void InputManager::RegisterEvents() {
 	//TODO Add to Events Map
+	//
 }
 
 
