@@ -24,11 +24,13 @@ namespace ProjectCoatiTestSuite
 				this->FireEvent();
 			};
 
+			Events.BindEvent(Message("End Game", MessageType::Termination), eventLambda);
 			Events.BindEvent(Message("FireTestEvent", MessageType::Input), eventLambda);
 		}
 
 		void RegisterReciever() override {
 			bus->AddReceiver(this, MessageType::Input);
+			bus->AddReceiver(this, MessageType::Termination);
 		}
 
 		void ReceiveMessage(Message message) override {

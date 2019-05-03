@@ -15,6 +15,9 @@ namespace ProjectCoatiTestSuite {
 	TEST_CLASS(InputManagerTests) {
 	public:
 		TEST_METHOD(TriggerKeybindingTest) {
+
+			//Keybindings are meant to trigger events.
+
 			std::shared_ptr<MessageBus> dummyBus = std::make_shared<MessageBus>();
 			InputManager dummyManager(dummyBus);
 			DummyReceiver dummyReciever(dummyBus);
