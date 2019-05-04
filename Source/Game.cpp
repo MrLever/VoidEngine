@@ -6,6 +6,7 @@
 
 //Coati Headers
 #include "Game.h"
+#include "Console.h"
 #include "MessageBus.h"
 #include "WindowManager.h"
 #include "World.h"
@@ -40,6 +41,7 @@ namespace EngineCore {
 		GameMessageBus = std::make_shared<MessageBus>();
 		Window = std::make_shared<WindowManager>(GameName);
 
+		GameConsole = std::make_unique<Console>(GameMessageBus);
 		GameWorld = std::make_unique<World>(GameMessageBus);
 		GameRenderer = std::make_unique<Renderer>(Window);
 		GameInputManager = std::make_unique<InputManager>(GameMessageBus);

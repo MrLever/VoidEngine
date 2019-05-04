@@ -1,4 +1,5 @@
 //STD Headers
+#include <iostream>
 
 //Library Headers
 
@@ -10,7 +11,9 @@ namespace EngineCore {
 
 	//CTORS
 	Console::Console(std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bus){
-		OutputActive = false;
+		OutputActive = true;
+		this->RegisterReciever();
+		this->RegisterEvents();
 	}
 
 
@@ -45,6 +48,10 @@ namespace EngineCore {
 	
 	//Public Member Functions
 	void Console::ReceiveMessage(Message message) {
+		if (OutputActive) {
+			std::cout << "CONSOLE: " << message.GetEvent() << "\n";
+		}
+		
 		if (Events[message]) {
 			Events[message]();
 		}
