@@ -28,16 +28,15 @@ namespace EngineCore {
 		~InputManager();
 
 	private:
+		virtual void RegisterReciever() override;
+		void RegisterEvents() override;
+
 		//Private member functions
 		void LoadKeybindings();
 
 	public:
 		//Public member functions
 		void HandleInput(KeyboardInput input);
-
-		virtual void RegisterReciever() override;
-		void RegisterEvents() override;
-
 		void ReceiveMessage(Message message) override;
 	};
 
