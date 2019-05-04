@@ -173,6 +173,7 @@
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -192,6 +193,9 @@
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
+    <ClCompile Include="EventTableTests.cpp" />
+    <ClCompile Include="InputManagerTests.cpp" />
+    <ClCompile Include="KeyBindingsTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

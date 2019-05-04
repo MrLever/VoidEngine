@@ -16,6 +16,8 @@ namespace ProjectCoatiTestSuite
 		TEST_METHOD(BufferSwapTest) {
 			WindowManager test("Test");
 			test.SwapBuffers();
+
+			//It didn't crash.
 			Assert::AreEqual(1, 1);
 		}
 	};

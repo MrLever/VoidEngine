@@ -18,8 +18,12 @@ Keybindings::Keybindings() : Serializable("Settings/input.ini") {
 	Load();
 }
 
+Keybindings::Keybindings(std::string filePath) : Serializable(filePath) {
+	Load();
+}
 
 Keybindings::~Keybindings() {
+	Save();
 }
 
 
@@ -39,10 +43,12 @@ std::vector<std::string> Keybindings::LoadInputSettings() {
 		tokens.push_back(token);
 	}
 
+	inFileStream.close();
+
 	return tokens;
 }
 
-bool Keybindings::ProcessInputSettings(std::vector<std::string> tokens) {
+bool Keybindings::ApplyInputSettings(std::vector<std::string> tokens) {
 	if (tokens.size() < 1) {
 		return false;
 	}
@@ -67,26 +73,62 @@ bool Keybindings::ProcessInputSettings(std::vector<std::string> tokens) {
 
 //Public Member Functions
 
-void Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
+bool Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
 	Message bindingEvent(event, eventType);
 	Bindings.insert({input, bindingEvent});
+
+	return true;
 }
 
-void Keybindings::RemoveBinding(KeyboardInput key) {
-	//Do stuff
+bool Keybindings::AddBinding(KeyboardInput input, Message event) {
+	Bindings.insert({ input, event });
 
-	//Save it
-	Save();
+	return true;
 }
 
-void Keybindings::ReassignBinding(KeyboardInput key, std::string event, int EventType) {
-	//Do something
+bool Keybindings::RemoveBinding(KeyboardInput key) {
+	if (Bindings.erase(key) > 0) {
+		//Save modification
+		Save();
 
-	//Save it
-	Save();
+		return true;
+	}
+
+	return false;	
 }
 
-Message Keybindings::GetBinding(KeyboardInput input) {
+bool Keybindings::ReassignBinding(KeyboardInput key, std::string event, int EventType) {
+	auto binding = Bindings.find(key);
+
+	if (binding != Bindings.end()) {
+		Message newEvent = Message(event, EventType);
+		binding->second = newEvent;
+
+		//Save modification
+		Save();
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Keybindings::ReassignBinding(KeyboardInput key, Message newEvent) {
+	auto binding = Bindings.find(key);
+
+	if (binding != Bindings.end()) {
+		binding->second = newEvent;
+
+		//Save modification
+		Save();
+
+		return true;
+	}
+
+	return false;
+}
+
+Message Keybindings::GetBinding(KeyboardInput input) const {
 	auto binding = Bindings.find(input);
 
 	if (binding == Bindings.end()) {
@@ -97,7 +139,22 @@ Message Keybindings::GetBinding(KeyboardInput input) {
 	}	
 }
 
-bool Keybindings::Save() {
+bool Keybindings::Save() const {
+	std::ofstream OutFileStream;
+	OutFileStream.open(FilePath);
+	if (!OutFileStream) {
+		std::cerr << "ERROR: Keybindings file not found\n";
+		return false;
+	}
+
+	for (auto binding : Bindings) {
+		OutFileStream << static_cast<int>(binding.first.GetKey()) << ",";
+		OutFileStream << binding.second.GetEvent() << ",";
+		OutFileStream << static_cast<unsigned>(binding.second.GetType()) << ",\n";
+	}
+	OutFileStream << -1;
+
+	OutFileStream.close();
 	return true;
 }
 
@@ -107,6 +164,6 @@ bool Keybindings::Load() {
 	Bindings.clear();
 
 	//Load new bindings
-	return ProcessInputSettings(LoadInputSettings());
+	return ApplyInputSettings(LoadInputSettings());
 
 }

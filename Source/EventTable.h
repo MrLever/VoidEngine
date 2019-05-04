@@ -7,6 +7,7 @@
 //Library Headers
 
 //Coati Headers
+#include "Message.h"
 
 //Forward Class declarations
 
@@ -29,7 +30,7 @@ private:
 
 public:
 	//Public member functions
-	void BindEvent(Message message, std::function<void()> event);
-	void UnbindEvent(Message message);
+	bool BindEvent(Message message, std::function<void()> event);
+	bool UnbindEvent(Message message);
 };
 

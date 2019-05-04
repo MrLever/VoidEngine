@@ -37,12 +37,13 @@ void InputManager::LoadKeybindings() {
 void InputManager::RegisterReciever() {
 	GameMessageBus->AddReceiver(
 		this, 
-		{ MessageType::Initialization, MessageType::Initialization }
+		MessageType::Initialization
 	);
 }
 
 void InputManager::RegisterEvents() {
 	//TODO Add to Events Map
+	//
 }
 
 
@@ -50,9 +51,6 @@ void InputManager::RegisterEvents() {
 //Public Member Functions
 
 void InputManager::HandleInput(KeyboardInput input) {
-	if (input.GetKeyState() == KeyState::Released || input.GetKeyState() == KeyState::Held) {
-		return;
-	}
 	PublishMessage(Bindings.GetBinding(input));
 }
 

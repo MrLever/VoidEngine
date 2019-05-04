@@ -72,6 +72,9 @@
     <ClInclude Include="..\Source\EventTable.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
+    <ClInclude Include="TestingUtilities.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -132,6 +135,15 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="EngineUtilitiesTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManagerTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyBindingsTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventTableTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

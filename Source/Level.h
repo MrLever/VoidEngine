@@ -16,7 +16,7 @@ public:
 	~Level();
 
 	//Accessors
-	int GetID();
+	int GetID() const;
 
 	//Tick function;
 	void Tick();
