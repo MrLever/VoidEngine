@@ -7,22 +7,25 @@
 
 //Coati Headers
 
+namespace EngineCore {
 
-class Level {
+	class Level {
 
-public:
-	//CTORS
-	Level(int levelID);
-	~Level();
+	public:
+		//CTORS
+		Level(int levelID);
+		~Level();
 
-	//Accessors
-	int GetID() const;
+		//Accessors
+		int GetID() const;
 
-	//Tick function;
-	void Tick();
+		//Tick function;
+		void Tick();
 
-private:
-	//Identifier for the Level, 1 will be basic world.
-	int levelID;
+	private:
+		//Identifier for the Level, 1 will be basic world.
+		int levelID;
 
-};
+	};
+
+}

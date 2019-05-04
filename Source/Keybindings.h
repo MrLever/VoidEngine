@@ -9,36 +9,39 @@
 #include "KeyboardInput.h"
 #include "Serializable.h"
 
-//Forward Class declarations
-class Message;
+namespace EngineCore {
 
-class Keybindings : Serializable {
-private:
-	//Private Class Members
-	std::unordered_map<KeyboardInput, Message> Bindings;
+	//Forward Class declarations
+	class Message;
 
-public:
-	//CTORS
-	Keybindings();
-	Keybindings(std::string filePath);
-	~Keybindings();
+	class Keybindings : Serializable {
+	private:
+		//Private Class Members
+		std::unordered_map<KeyboardInput, Message> Bindings;
 
-private:
-	//Private Member Functions
-	std::vector<std::string> LoadInputSettings();
-	bool ApplyInputSettings(std::vector<std::string> tokens);
+	public:
+		//CTORS
+		Keybindings();
+		Keybindings(std::string filePath);
+		~Keybindings();
 
-public:
-	//Public Member Functions
-	bool AddBinding(KeyboardInput input, std::string event, int eventType);
-	bool AddBinding(KeyboardInput input, Message event);
-	bool RemoveBinding(KeyboardInput key);
-	bool ReassignBinding(KeyboardInput key, std::string event, int EventType);
-	bool ReassignBinding(KeyboardInput key, Message newEvent);
+	private:
+		//Private Member Functions
+		std::vector<std::string> LoadInputSettings();
+		bool ApplyInputSettings(std::vector<std::string> tokens);
 
-	Message GetBinding(KeyboardInput input) const;
+	public:
+		//Public Member Functions
+		bool AddBinding(KeyboardInput input, std::string event, int eventType);
+		bool AddBinding(KeyboardInput input, Message event);
+		bool RemoveBinding(KeyboardInput key);
+		bool ReassignBinding(KeyboardInput key, std::string event, int EventType);
+		bool ReassignBinding(KeyboardInput key, Message newEvent);
 
-	virtual bool Save() const override;
-	virtual bool Load() override;
-};
+		Message GetBinding(KeyboardInput input) const;
 
+		virtual bool Save() const override;
+		virtual bool Load() override;
+	};
+
+}
