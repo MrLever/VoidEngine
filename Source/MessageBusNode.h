@@ -12,47 +12,49 @@
 #include "Message.h"
 #include "EventTable.h"
 
-//Forward Class declarations
-class MessageBus;
+namespace EngineCore {
+
+	//Forward Class declarations
+	class MessageBus;
 
 
+	class MessageBusNode {
+	private:
+		//Private Class Members
 
-class MessageBusNode {
-private:
-	//Private Class Members
 
+	protected:
+		//Protected Class Members
 
-protected:
-	//Protected Class Members
-	
-	std::shared_ptr<MessageBus> GameMessageBus;
+		std::shared_ptr<MessageBus> GameMessageBus;
 
-	//Binds messages to functions
-	EventTable Events;
+		//Binds messages to functions
+		EventTable Events;
 
-public:
-	//CTORS
-	MessageBusNode(std::shared_ptr<MessageBus> GameMessageBus);
-	~MessageBusNode();
+	public:
+		//CTORS
+		MessageBusNode(std::shared_ptr<MessageBus> GameMessageBus);
+		~MessageBusNode();
 
-private:
-	//Privatate Member Functions
+	private:
+		//Privatate Member Functions
 
-protected:
-	//Protected Member Functions
-	
-	virtual void RegisterReciever();
-	virtual void UnregisterReciever();
+	protected:
+		//Protected Member Functions
 
-	virtual void RegisterEvents() = 0;
+		virtual void RegisterReciever();
+		virtual void UnregisterReciever();
 
-	void PublishMessage(std::string, MessageType type);
-	void PublishMessage(Message message);
+		virtual void RegisterEvents() = 0;
 
-public:
-	//Public Member Functions
-	std::function<void(Message)> GetMessageReceiveFunction();
-	virtual void ReceiveMessage(Message message) = 0;
+		void PublishMessage(std::string, MessageType type);
+		void PublishMessage(Message message);
 
-};
+	public:
+		//Public Member Functions
+		std::function<void(Message)> GetMessageReceiveFunction();
+		virtual void ReceiveMessage(Message message) = 0;
 
+	};
+
+}

@@ -1,6 +1,9 @@
 #pragma once
 namespace ProjectCoatiTestSuite
 {
+
+	using namespace EngineCore;
+
 	class DummyReceiver : MessageBusNode {
 	public:
 		bool MessageReceived;

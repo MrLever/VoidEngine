@@ -9,48 +9,51 @@
 //Library Headers
 
 
-//Forward Class declarations
-class MessageBus;
-class WindowManager;
+namespace EngineCore {
 
-class World;
-class Renderer;
-class InputManager;
-class AudioManager;
+	//Forward Class declarations
+	class MessageBus;
+	class WindowManager;
 
-class Game{
-	using Timer = std::chrono::high_resolution_clock;
-private:
-	//Private Class Members
-	std::shared_ptr<MessageBus> GameMessageBus;
-	std::shared_ptr<WindowManager> Window;
+	class World;
+	class Renderer;
+	class InputManager;
+	class AudioManager;
 
-	std::unique_ptr<World> GameWorld;
-	std::unique_ptr<Renderer> GameRenderer;
-	std::unique_ptr<InputManager> GameInputManager;
-	std::unique_ptr<AudioManager> GameAudioManager;
-	
-	std::string GameName;
+	class Game {
+		using Timer = std::chrono::high_resolution_clock;
+	private:
+		//Private Class Members
+		std::shared_ptr<MessageBus> GameMessageBus;
+		std::shared_ptr<WindowManager> Window;
 
-	std::queue<double> FrameQueue;
+		std::unique_ptr<World> GameWorld;
+		std::unique_ptr<Renderer> GameRenderer;
+		std::unique_ptr<InputManager> GameInputManager;
+		std::unique_ptr<AudioManager> GameAudioManager;
 
-	int FrameRate;
+		std::string GameName;
 
-public:
-	//CTORS
-	Game(std::string name);
-	~Game();
+		std::queue<double> FrameQueue;
 
-private:
-	//Private member functions
-	void InitGame();
-	
-	void ProcessInput();
-	void Update(double deltaSeconds);
-	void Render();
+		int FrameRate;
 
-	void ExecuteGameLoop();
+	public:
+		//CTORS
+		Game(std::string name);
+		~Game();
 
-	void UpdateFramerate(double timeSinceLastFrame);
-};
+	private:
+		//Private member functions
+		void InitGame();
 
+		void ProcessInput();
+		void Update(double deltaSeconds);
+		void Render();
+
+		void ExecuteGameLoop();
+
+		void UpdateFramerate(double timeSinceLastFrame);
+	};
+
+}

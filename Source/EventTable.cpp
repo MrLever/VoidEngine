@@ -9,45 +9,49 @@
 #include "EngineUtilities.h"
 #include "EventTable.h"
 
-//CTORS
+namespace EngineCore {
 
-EventTable::EventTable() {
-}
+	//CTORS
 
-
-EventTable::~EventTable() {
-}
-
-//Operator Overloads
-std::function<void()> EventTable::operator[](const Message& event) const {
-	
-	auto lookup = Events.find(event);
-	
-	//If the event is not found, return an empty function pointer
-	if (lookup == Events.end()) {
-		return nullptr;
+	EventTable::EventTable() {
 	}
 
-	return Events.find(event)->second;
-}
+
+	EventTable::~EventTable() {
+	}
+
+	//Operator Overloads
+	std::function<void()> EventTable::operator[](const Message& event) const {
+
+		auto lookup = Events.find(event);
+
+		//If the event is not found, return an empty function pointer
+		if (lookup == Events.end()) {
+			return nullptr;
+		}
+
+		return Events.find(event)->second;
+	}
 
 
 
-//Private Member Functions
+	//Private Member Functions
 
-//Protected Member Functions
+	//Protected Member Functions
 
-//Public Member Functions
+	//Public Member Functions
 
-bool EventTable::BindEvent(Message message, std::function<void()> event) {
-	Events.insert({ message, event });
-	return true;
-}
-
-bool EventTable::UnbindEvent(Message message) {
-	if (Events.erase(message) > 0) {
+	bool EventTable::BindEvent(Message message, std::function<void()> event) {
+		Events.insert({ message, event });
 		return true;
 	}
 
-	return false;
+	bool EventTable::UnbindEvent(Message message) {
+		if (Events.erase(message) > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

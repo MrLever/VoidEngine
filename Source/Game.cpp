@@ -13,90 +13,94 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 
-//CTORS
-Game::Game(std::string name) : GameName(name) {
+namespace EngineCore {
 
-	//Init Higher Level Game Objects
-	InitGame();
+	//CTORS
+	Game::Game(std::string name) : GameName(name) {
 
-	//Start game loop
-	ExecuteGameLoop();
+		//Init Higher Level Game Objects
+		InitGame();
 
-}
+		//Start game loop
+		ExecuteGameLoop();
 
-Game::~Game(){
-
-
-
-}
-
-//Private Functions
-
-//Initialize higher level game objects
-void Game::InitGame(){
-
-	GameMessageBus = std::make_shared<MessageBus>();
-	Window = std::make_shared<WindowManager>(GameName);
-
-	GameWorld = std::make_unique<World>(GameMessageBus);
-	GameRenderer = std::make_unique<Renderer>(Window);
-	GameInputManager = std::make_unique<InputManager>(GameMessageBus);
-	GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
-
-	Window->SetWindowUser<InputManager>(GameInputManager.get());
-
-}
-
-void Game::ProcessInput(){
-	Window->PollInput();
-}
-
-void Game::Update(double deltaSeconds){
-	//Send the deltaSeconds to the framerate updating function
-	UpdateFramerate(deltaSeconds);
-
-	//Triggers Events
-	GameMessageBus->DispatchMessages();
-
-	//Ticks actors
-	GameWorld->Update(deltaSeconds);
-}
-
-void Game::Render(){
-	GameRenderer->Render();
-}
-
-
-void Game::ExecuteGameLoop(){
-	auto previousTime = Timer::now();
-	while (!Window->WindowTerminated()) {
-		//Get current time
-		auto currentTime = Timer::now();
-		std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
-		
-		ProcessInput();
-		Update(deltaSeconds.count());
-		Render();
-
-		//Update previous time
-		previousTime = currentTime;
 	}
-	return;
-}
 
-void Game::UpdateFramerate(double timeSinceLastFrame) {
-	FrameQueue.push(timeSinceLastFrame);
+	Game::~Game() {
 
-	//Sums the queue if its of size 10
-	if (FrameQueue.size() > 9) {
-		double frameQueueSum = 0;
-		for (int i = 0; i < 10; i++) {
-			frameQueueSum = frameQueueSum + (FrameQueue.front());
-			FrameQueue.pop();
+
+
+	}
+
+	//Private Functions
+
+	//Initialize higher level game objects
+	void Game::InitGame() {
+
+		GameMessageBus = std::make_shared<MessageBus>();
+		Window = std::make_shared<WindowManager>(GameName);
+
+		GameWorld = std::make_unique<World>(GameMessageBus);
+		GameRenderer = std::make_unique<Renderer>(Window);
+		GameInputManager = std::make_unique<InputManager>(GameMessageBus);
+		GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
+
+		Window->SetWindowUser<InputManager>(GameInputManager.get());
+
+	}
+
+	void Game::ProcessInput() {
+		Window->PollInput();
+	}
+
+	void Game::Update(double deltaSeconds) {
+		//Send the deltaSeconds to the framerate updating function
+		UpdateFramerate(deltaSeconds);
+
+		//Triggers Events
+		GameMessageBus->DispatchMessages();
+
+		//Ticks actors
+		GameWorld->Update(deltaSeconds);
+	}
+
+	void Game::Render() {
+		GameRenderer->Render();
+	}
+
+
+	void Game::ExecuteGameLoop() {
+		auto previousTime = Timer::now();
+		while (!Window->WindowTerminated()) {
+			//Get current time
+			auto currentTime = Timer::now();
+			std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
+
+			ProcessInput();
+			Update(deltaSeconds.count());
+			Render();
+
+			//Update previous time
+			previousTime = currentTime;
 		}
-		//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-		FrameRate = static_cast<int>(10 / (frameQueueSum));
+		return;
 	}
-	return;
+
+	void Game::UpdateFramerate(double timeSinceLastFrame) {
+		FrameQueue.push(timeSinceLastFrame);
+
+		//Sums the queue if its of size 10
+		if (FrameQueue.size() > 9) {
+			double frameQueueSum = 0;
+			for (int i = 0; i < 10; i++) {
+				frameQueueSum = frameQueueSum + (FrameQueue.front());
+				FrameQueue.pop();
+			}
+			//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
+			FrameRate = static_cast<int>(10 / (frameQueueSum));
+		}
+		return;
+
+	}
 
 }
