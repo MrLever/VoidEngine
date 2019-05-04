@@ -9,28 +9,31 @@
 //Coati Headers
 #include "Message.h"
 
-//Forward Class declarations
+namespace EngineCore {
+
+	//Forward Class declarations
 
 
-class EventTable{
-private:
-	//Private Class Members
-	std::unordered_map<Message, std::function<void()>> Events;
+	class EventTable {
+	private:
+		//Private Class Members
+		std::unordered_map<Message, std::function<void()>> Events;
 
-public:
-	//CTORS
-	EventTable();
-	~EventTable();
+	public:
+		//CTORS
+		EventTable();
+		~EventTable();
 
-	std::function<void()> operator[] (const Message& event) const;
+		std::function<void()> operator[] (const Message& event) const;
 
 
-private:
-	//Private member functions
+	private:
+		//Private member functions
 
-public:
-	//Public member functions
-	bool BindEvent(Message message, std::function<void()> event);
-	bool UnbindEvent(Message message);
-};
+	public:
+		//Public member functions
+		bool BindEvent(Message message, std::function<void()> event);
+		bool UnbindEvent(Message message);
+	};
 
+}

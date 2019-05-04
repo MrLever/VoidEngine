@@ -10,46 +10,49 @@
 //Coati Headers
 #include "Message.h"
 
-//Forward Class declarations
-class MessageBusNode;
+namespace EngineCore {
 
-class MessageBus {
+	//Forward Class declarations
+	class MessageBusNode;
 
-	typedef struct Subscriber {
-		std::function<void(Message)> receivingFunction;
-		MessageType subscriptionFlag;
-		
-		Subscriber(std::function<void(Message)> fn, MessageType flag) : receivingFunction(fn), subscriptionFlag(flag) {
-		
-		}
-		
-		Subscriber(std::function<void(Message)> fn, unsigned flag) : receivingFunction(fn){
-			subscriptionFlag = static_cast<MessageType>(flag);
-		}
-	}Subscriber;
+	class MessageBus {
 
-private:
-	//Private Class members
-	std::queue<Message> Messages;
-	std::vector<Subscriber> Receivers;
+		typedef struct Subscriber {
+			std::function<void(Message)> receivingFunction;
+			MessageType subscriptionFlag;
 
-public:
-	MessageBus();
-	~MessageBus();
+			Subscriber(std::function<void(Message)> fn, MessageType flag) : receivingFunction(fn), subscriptionFlag(flag) {
 
-private:
-	//Private member functions
+			}
 
-public:
-	void AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag);
-	void AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag);
-	void AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags);
+			Subscriber(std::function<void(Message)> fn, unsigned flag) : receivingFunction(fn) {
+				subscriptionFlag = static_cast<MessageType>(flag);
+			}
+		}Subscriber;
 
-	void RemoveReceiver(MessageBusNode* receiver);
+	private:
+		//Private Class members
+		std::queue<Message> Messages;
+		std::vector<Subscriber> Receivers;
 
-	void PublishMessage(Message message);
-	void DispatchMessages();
+	public:
+		MessageBus();
+		~MessageBus();
+
+	private:
+		//Private member functions
+
+	public:
+		void AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag);
+		void AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag);
+		void AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags);
+
+		void RemoveReceiver(MessageBusNode* receiver);
+
+		void PublishMessage(Message message);
+		void DispatchMessages();
 
 
-};
+	};
 
+}

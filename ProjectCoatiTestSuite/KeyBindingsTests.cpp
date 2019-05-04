@@ -12,6 +12,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace ProjectCoatiTestSuite {
 
+	using namespace EngineCore;
+
 	TEST_CLASS(KeyBindingsTests) {
 	public:
 		TEST_METHOD(LoadBindingsTest) {

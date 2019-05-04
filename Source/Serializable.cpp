@@ -1,9 +1,13 @@
 #include "Serializable.h"
 
-Serializable::Serializable(std::string targetFilePath) : FilePath(targetFilePath) {
+namespace EngineCore {
 
-}
+	Serializable::Serializable(std::string targetFilePath) : FilePath(targetFilePath) {
 
-Serializable::~Serializable() {
+	}
+
+	Serializable::~Serializable() {
+
+	}
 
 }

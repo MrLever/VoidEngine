@@ -7,26 +7,30 @@
 //Coati Headers
 #include "Level.h"
 
-Level::Level(int ID) {
+namespace EngineCore {
 
-	levelID = ID;
+	Level::Level(int ID) {
 
-}
+		levelID = ID;
 
-
-Level::~Level() {
-
+	}
 
 
-}
+	Level::~Level() {
 
-int Level::GetID() const{
 
-	return levelID;
 
-}
+	}
 
-void Level::Tick(){
+	int Level::GetID() const {
 
+		return levelID;
+
+	}
+
+	void Level::Tick() {
+
+
+	}
 
 }

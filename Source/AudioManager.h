@@ -9,27 +9,31 @@
 //Coati Headers
 #include "MessageBusNode.h"
 
-//Forward Class declarations
-class MessageBus;
+namespace EngineCore {
+
+	//Forward Class declarations
+	class MessageBus;
 
 
-class AudioManager : MessageBusNode{
-private:
-	//Private class members
+	class AudioManager : MessageBusNode {
+	private:
+		//Private class members
 
-public:
-	//CTORS
-	AudioManager(std::shared_ptr<MessageBus> GameMessageBus);
-	~AudioManager();
+	public:
+		//CTORS
+		AudioManager(std::shared_ptr<MessageBus> GameMessageBus);
+		~AudioManager();
 
-private:
-	//Private member functions
+	private:
+		//Private member functions
 
-protected:
-	void RegisterEvents() override;
+	protected:
+		void RegisterEvents() override;
 
-public:
-	//Public Member functions
-	void ReceiveMessage(Message message) override;
+	public:
+		//Public Member functions
+		void ReceiveMessage(Message message) override;
 
-};
+	};
+
+}

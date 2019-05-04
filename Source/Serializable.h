@@ -8,31 +8,34 @@
 
 //Coati Headers
 
+namespace EngineCore {
 
-class Serializable {
+	class Serializable {
 
-private:
-	//Private class members
-	
+	private:
+		//Private class members
 
 
-protected:
-	//Protected class members
-	std::string FilePath;
 
-public:
-	//CTORS
-	Serializable(std::string targetFilepath);
-	~Serializable();
+	protected:
+		//Protected class members
+		std::string FilePath;
 
-private:
-	//Private Member Functions
+	public:
+		//CTORS
+		Serializable(std::string targetFilepath);
+		~Serializable();
 
-protected:
-	//Protected Member Functions
+	private:
+		//Private Member Functions
 
-public:
-	//Public Member Functions
-	virtual bool Save() const = 0;
-	virtual bool Load() = 0;
-};
+	protected:
+		//Protected Member Functions
+
+	public:
+		//Public Member Functions
+		virtual bool Save() const = 0;
+		virtual bool Load() = 0;
+	};
+
+}

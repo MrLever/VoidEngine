@@ -4,27 +4,29 @@
 
 //Library Headers
 
+namespace EngineCore {
 
-//Forward Class declarations
-class WindowManager;
+	//Forward Class declarations
+	class WindowManager;
 
-class Renderer{
-private:
-	//Private class members
-	std::shared_ptr<WindowManager> Window;
+	class Renderer {
+	private:
+		//Private class members
+		std::shared_ptr<WindowManager> Window;
 
-public:
-	//CTORS
-	Renderer(std::shared_ptr<WindowManager> Window);
-	~Renderer();
+	public:
+		//CTORS
+		Renderer(std::shared_ptr<WindowManager> Window);
+		~Renderer();
 
-private:
-	//Private member functions
+	private:
+		//Private member functions
 
 
-public:
-	//Public member functions
-	void Render();
+	public:
+		//Public member functions
+		void Render();
 
-};
+	};
 
+}

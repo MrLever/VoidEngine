@@ -10,32 +10,35 @@
 #include "KeyboardInput.h"
 #include "Keybindings.h"
 
-//Forward Class declarations
-class MessageBus;
-class InputEvent;
+namespace EngineCore {
+
+	//Forward Class declarations
+	class MessageBus;
+	class InputEvent;
 
 
-class InputManager : MessageBusNode {
-private:
-	//Private class members
-	Keybindings Bindings;
+	class InputManager : MessageBusNode {
+	private:
+		//Private class members
+		Keybindings Bindings;
 
-public:
-	//CTORS
-	InputManager(std::shared_ptr<MessageBus> GameMessageBus);
-	~InputManager();
+	public:
+		//CTORS
+		InputManager(std::shared_ptr<MessageBus> GameMessageBus);
+		~InputManager();
 
-private:
-	//Private member functions
-	void LoadKeybindings();
+	private:
+		//Private member functions
+		void LoadKeybindings();
 
-public:
-	//Public member functions
-	void HandleInput(KeyboardInput input);
+	public:
+		//Public member functions
+		void HandleInput(KeyboardInput input);
 
-	virtual void RegisterReciever() override;
-	void RegisterEvents() override;
+		virtual void RegisterReciever() override;
+		void RegisterEvents() override;
 
-	void ReceiveMessage(Message message) override;
-};
+		void ReceiveMessage(Message message) override;
+	};
 
+}
