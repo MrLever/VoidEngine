@@ -1,4 +1,9 @@
 #pragma once
+
+#include "..\Source\MessageBus.h"
+#include "..\Source\MessageBusNode.h"
+#include "..\Source\Console.h"
+
 namespace ProjectCoatiTestSuite
 {
 
@@ -44,9 +49,28 @@ namespace ProjectCoatiTestSuite
 
 		}
 
+		void DebugPublishEvent(std::string s) {
+			this->PublishMessage(Message(s, MessageType::DebugAck));
+		}
+
 		void FireEvent() {
-			std::cout << "Event Fired";
 			EventFired = true;
+		}
+	};
+
+	class DebugConsole : public Console {
+	public:
+
+		bool ToggleSignalReceived;
+
+		DebugConsole(std::shared_ptr<MessageBus> bus) : Console(bus){
+			ToggleSignalReceived = false;
+		}
+
+		void ReceiveMessage(Message message) override {
+			if (message.GetEvent() == "Toggle Console Output") {
+				ToggleSignalReceived = true;
+			}
 		}
 	};
 }

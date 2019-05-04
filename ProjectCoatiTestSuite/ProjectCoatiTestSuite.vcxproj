@@ -194,6 +194,7 @@
     <ClCompile Include="..\Source\Serializable.cpp" />
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
     <ClCompile Include="InputManagerTests.cpp" />
