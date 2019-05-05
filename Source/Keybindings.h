@@ -18,6 +18,7 @@ namespace EngineCore {
 	private:
 		//Private Class Members
 		std::unordered_map<KeyboardInput, Message> Bindings;
+		const std::string CustomInputPath = "Settings/UserCustomInput.ini";
 
 	public:
 		//CTORS

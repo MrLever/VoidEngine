@@ -114,7 +114,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="Settings\input.ini" />
-  </ItemGroup>
 </Project>

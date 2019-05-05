@@ -15,7 +15,7 @@
 
 namespace EngineCore {
 
-	Keybindings::Keybindings() : Serializable("Settings/input.ini") {
+	Keybindings::Keybindings() : Serializable("Settings/EngineDefaultInput.ini") {
 		Load();
 	}
 
@@ -24,7 +24,7 @@ namespace EngineCore {
 	}
 
 	Keybindings::~Keybindings() {
-		Save();
+		//Save();
 	}
 
 
@@ -35,41 +35,13 @@ namespace EngineCore {
 
 		inFileStream.open(FilePath);
 
-		if (!inFileStream.is_open()) {
-			//Return empty token array on error
-			return std::vector<std::string>();
-		}
-
-		for (std::string token; std::getline(inFileStream, token, ','); ) {
-			tokens.push_back(token);
-		}
-
 		inFileStream.close();
 
 		return tokens;
 	}
 
 	bool Keybindings::ApplyInputSettings(std::vector<std::string> tokens) {
-		if (tokens.size() < 1) {
-			return false;
-		}
-
-		for (int i = 0; i < static_cast<int>(tokens.size()); i += 3) {
-			int keyToken = std::stoi(tokens[i]);
-
-			if (keyToken == -1) {
-				break;
-			}
-
-			std::string inputEvent = tokens[i + 1];
-			int messageType = std::stoi(tokens[i + 2]);
-
-			KeyboardInput key(static_cast<KeyType>(keyToken), KeyState::Pressed);
-			AddBinding(key, inputEvent, messageType);
-
-		}
-
-		return true;
+		return false;
 	}
 
 	//Public Member Functions
@@ -142,18 +114,13 @@ namespace EngineCore {
 
 	bool Keybindings::Save() const {
 		std::ofstream OutFileStream;
-		OutFileStream.open(FilePath);
+		OutFileStream.open(CustomInputPath);
 		if (!OutFileStream) {
 			std::cerr << "ERROR: Keybindings file not found\n";
 			return false;
 		}
 
-		for (auto binding : Bindings) {
-			OutFileStream << static_cast<int>(binding.first.GetKey()) << ",";
-			OutFileStream << binding.second.GetEvent() << ",";
-			OutFileStream << static_cast<unsigned>(binding.second.GetType()) << ",\n";
-		}
-		OutFileStream << -1;
+		OutFileStream << "[INPUT EVENTS]\n";
 
 		OutFileStream.close();
 		return true;
