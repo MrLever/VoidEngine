@@ -75,6 +75,9 @@
     <ClInclude Include="TestingUtilities.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\InputAxis.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="EventTableTests.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxisTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\InputAxis.cpp">
+      <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

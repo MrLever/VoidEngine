@@ -160,6 +160,7 @@
     <ClInclude Include="..\Source\EngineUtilities.h" />
     <ClInclude Include="..\Source\EventTable.h" />
     <ClInclude Include="..\Source\Game.h" />
+    <ClInclude Include="..\Source\InputAxis.h" />
     <ClInclude Include="..\Source\InputManager.h" />
     <ClInclude Include="..\Source\Keybindings.h" />
     <ClInclude Include="..\Source\KeyboardInput.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="..\Source\Core.cpp" />
     <ClCompile Include="..\Source\EventTable.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
+    <ClCompile Include="..\Source\InputAxis.cpp" />
     <ClCompile Include="..\Source\InputManager.cpp" />
     <ClCompile Include="..\Source\Keybindings.cpp" />
     <ClCompile Include="..\Source\KeyboardInput.cpp" />
@@ -194,6 +196,7 @@
     <ClCompile Include="..\Source\World.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
+    <ClCompile Include="InputAxisTests.cpp" />
     <ClCompile Include="InputManagerTests.cpp" />
     <ClCompile Include="KeyBindingsTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
