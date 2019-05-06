@@ -17,6 +17,7 @@ namespace EngineCore {
 
 	//CTORS
 	Game::Game(std::string name) : GameName(name) {
+		FrameRate = 0;
 
 		//Init Higher Level Game Objects
 		InitGame();
