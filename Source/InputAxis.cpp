@@ -15,7 +15,7 @@ namespace EngineCore {
 
 
 	InputAxis::~InputAxis()	{
-
+		Reset();
 	}
 	
 	//Private Member functions
