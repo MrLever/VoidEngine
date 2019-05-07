@@ -16,6 +16,18 @@
     <Filter Include="Dependencies">
       <UniqueIdentifier>{d68b8e3f-3aeb-4554-95ad-4e400fa582c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input System">
+      <UniqueIdentifier>{1aa93e2b-c429-438f-9e01-99d1a600f11d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input System">
+      <UniqueIdentifier>{72599593-0d51-4965-a79e-bbe391b6eb1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Messaging Systems">
+      <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Messaging Systems">
+      <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core.cpp">
@@ -24,16 +36,10 @@
     <ClCompile Include="Dependencies\GLAD\src\glad.c">
       <Filter>Dependencies</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MessageBus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Renderer.cpp">
@@ -42,19 +48,7 @@
     <ClCompile Include="Source\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Message.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MessageBusNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Keybindings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\KeyboardInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Level.cpp">
@@ -63,17 +57,32 @@
     <ClCompile Include="Source\Serializable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EventTable.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\InputManager.cpp">
+      <Filter>Source Files\Input System</Filter>
     </ClCompile>
     <ClCompile Include="Source\InputAxis.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Keybindings.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyboardInput.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EventTable.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Message.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MessageBus.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MessageBusNode.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\MessageBus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -83,28 +92,13 @@
     <ClInclude Include="Source\AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Message.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MessageBusNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Keybindings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\KeyboardInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Serializable.h">
@@ -113,11 +107,29 @@
     <ClInclude Include="Source\EngineUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EventTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\InputAxis.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputManager.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Keybindings.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyboardInput.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventTable.h">
+      <Filter>Header Files\Messaging Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Message.h">
+      <Filter>Header Files\Messaging Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MessageBus.h">
+      <Filter>Header Files\Messaging Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MessageBusNode.h">
+      <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
