@@ -25,6 +25,20 @@ namespace ProjectCoatiTestSuite {
 			Assert::IsTrue(true);
 		}
 
+		TEST_METHOD(ResetAxis) {
+			InputAxis dummyAxis;
+			dummyAxis.AddBinding(KeyType::W, 1.0);
+
+			KeyboardInput dummyIn(KeyType::W, KeyState::Pressed);
+
+			dummyAxis.UpdateAxis(dummyIn);
+			dummyAxis.Reset();
+			double value = dummyAxis.Poll();
+
+			if (value != 0) {
+				Assert::Fail();
+			}
+		}
 		TEST_METHOD(UpdateAxisTest) {
 			InputAxis dummyAxis;
 			dummyAxis.AddBinding(KeyType::W, 1.0);
@@ -51,15 +65,18 @@ namespace ProjectCoatiTestSuite {
 			if (axisValue != 1.0) {
 				Assert::Fail();
 			}
+			dummyAxis.Reset();
 
 			//Holding a key should have no effect
 			dummyAxis.UpdateAxis(dummyWHold);
 			axisValue = dummyAxis.Poll();
-			if (axisValue != 1.0) {
+			if (axisValue != 0.0) {
 				Assert::Fail();
 			}
+			dummyAxis.Reset();
 
-			//Releasing a key should reset the axis
+			//Releasing a key should reset the axis if there are no other held keys
+			dummyAxis.UpdateAxis(dummyWPress);
 			dummyAxis.UpdateAxis(dummyWRelease);
 			axisValue = dummyAxis.Poll();
 			if (axisValue != 0.0) {
@@ -73,6 +90,7 @@ namespace ProjectCoatiTestSuite {
 			if (axisValue != -1.0) {
 				Assert::Fail();
 			}
+			dummyAxis.Reset();
 
 			//Releasing a binded key while holding two or more bindings
 			//should revert to the last held binding
@@ -84,20 +102,15 @@ namespace ProjectCoatiTestSuite {
 				Assert::Fail();
 			}
 
-		}
-		TEST_METHOD(ResetAxis) {
-			InputAxis dummyAxis;
-			dummyAxis.AddBinding(KeyType::W, 1.0);
-			
-			KeyboardInput dummyIn(KeyType::W, KeyState::Pressed);
-
-			dummyAxis.UpdateAxis(dummyIn);
-			dummyAxis.Reset();
-			double value = dummyAxis.Poll();
-
-			if (value != 0) {
+			dummyAxis.UpdateAxis(dummyWPress);
+			dummyAxis.UpdateAxis(dummySPress);
+			dummyAxis.UpdateAxis(dummySRelease);
+			axisValue = dummyAxis.Poll();
+			if (axisValue != 1.0) {
 				Assert::Fail();
 			}
+
 		}
+		
 	};
 }
