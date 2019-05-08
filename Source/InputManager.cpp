@@ -43,8 +43,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::RegisterEvents() {
-		//TODO Add to Events Map
-		//
+		//Input manager does not react to incomming messages.
 	}
 
 
@@ -56,10 +55,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::ReceiveMessage(Message message) {
-		//Lookup incomming message in event map and execute related function
-		if (Events[message]) {
-			Events[message]();
-		}
+		//Input manager does not react to incomming messages.
 	}
 
 }
