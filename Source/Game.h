@@ -19,6 +19,8 @@ namespace EngineCore {
 	class Renderer;
 	class InputManager;
 	class AudioManager;
+	class Console;
+
 
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;
@@ -27,6 +29,7 @@ namespace EngineCore {
 		std::shared_ptr<MessageBus> GameMessageBus;
 		std::shared_ptr<WindowManager> Window;
 
+		std::unique_ptr<Console> GameConsole;
 		std::unique_ptr<World> GameWorld;
 		std::unique_ptr<Renderer> GameRenderer;
 		std::unique_ptr<InputManager> GameInputManager;

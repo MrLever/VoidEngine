@@ -28,7 +28,7 @@ namespace EngineCore {
 	// Protected Member Functions
 
 	void MessageBusNode::RegisterReciever() {
-		GameMessageBus->AddReceiver(this, 0xFFFFFFFF);
+		GameMessageBus->AddReceiver(this, MessageType::DebugIgnore);
 	}
 
 	void MessageBusNode::UnregisterReciever() {
