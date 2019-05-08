@@ -134,6 +134,7 @@
     <ClCompile Include="Source\KeyboardInput.cpp" />
     <ClCompile Include="Source\Keybindings.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
+    <ClCompile Include="Source\KeyboardInterface.cpp" />
     <ClCompile Include="Source\Level.cpp" />
     <ClCompile Include="Source\Serializable.cpp" />
     <ClCompile Include="Source\WindowManager.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\KeyboardInput.h" />
     <ClInclude Include="Source\Keybindings.h" />
     <ClInclude Include="Source\InputManager.h" />
+    <ClInclude Include="Source\KeyboardInterface.h" />
     <ClInclude Include="Source\Level.h" />
     <ClInclude Include="Source\Serializable.h" />
     <ClInclude Include="Source\EngineUtilities.h" />

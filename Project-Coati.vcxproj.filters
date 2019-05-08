@@ -84,6 +84,9 @@
     <ClCompile Include="Source\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\KeyboardInterface.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="Source\Console.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyboardInterface.h">
+      <Filter>Header Files\Input System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
