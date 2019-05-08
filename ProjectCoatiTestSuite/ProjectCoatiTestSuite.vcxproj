@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\AudioManager.h" />
+    <ClInclude Include="..\Source\Console.h" />
     <ClInclude Include="..\Source\Core.h" />
     <ClInclude Include="..\Source\EngineUtilities.h" />
     <ClInclude Include="..\Source\EventTable.h" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="..\Source\AudioManager.cpp" />
+    <ClCompile Include="..\Source\Console.cpp" />
     <ClCompile Include="..\Source\Core.cpp" />
     <ClCompile Include="..\Source\EventTable.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
@@ -192,6 +194,7 @@
     <ClCompile Include="..\Source\Serializable.cpp" />
     <ClCompile Include="..\Source\WindowManager.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
     <ClCompile Include="InputManagerTests.cpp" />

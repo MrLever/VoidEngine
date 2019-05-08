@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\EventTable.cpp" />
     <ClCompile Include="Source\KeyboardInput.cpp" />
     <ClCompile Include="Source\Keybindings.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Console.h" />
     <ClInclude Include="Source\EventTable.h" />
     <ClInclude Include="Source\KeyboardInput.h" />
     <ClInclude Include="Source\Keybindings.h" />
@@ -160,15 +162,6 @@
     <ClInclude Include="Source\MessageBus.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\World.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="Settings\input.ini">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
