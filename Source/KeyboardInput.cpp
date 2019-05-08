@@ -1,5 +1,6 @@
 //STD Headers
-#include <typeindex> 
+#include <limits>
+#include <functional>
 
 //Library Headers
 
@@ -9,14 +10,23 @@
 
 namespace EngineCore {
 
-	KeyboardInput::KeyboardInput(KeyType Key, KeyState State) {
-		this->Key = Key;
-		this->State = State;
+	//tors
+	KeyboardInput::KeyboardInput(KeyType key, KeyState state) {
+		this->Key = key;
+		this->State = state;
+		this->TimeStamp = -std::numeric_limits<double>::infinity();
 	}
 
+	KeyboardInput::KeyboardInput(KeyType key, KeyState state, double time) {
+		this->Key = key;
+		this->State = state;
+		this->TimeStamp = time;
+	}
 
 	KeyboardInput::~KeyboardInput() {
+
 	}
+
 
 	bool KeyboardInput::operator==(const KeyboardInput& other) const {
 		return (this->GetKey() == other.GetKey() && this->GetKeyState() == other.GetKeyState());

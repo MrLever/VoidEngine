@@ -1,6 +1,5 @@
 #pragma once
 //STD Headers
-#include <typeindex> 
 
 //Library Headers
 
@@ -25,13 +24,17 @@ namespace EngineCore {
 	};
 
 	class KeyboardInput {
+	
 	private:
 		//Private Class Members
 		KeyType Key;
 		KeyState State;
+		double TimeStamp;
+
 	public:
 		//CTORS
-		KeyboardInput(KeyType Key, KeyState State);
+		KeyboardInput(KeyType key, KeyState state);
+		KeyboardInput(KeyType key, KeyState state, double time);
 		~KeyboardInput();
 
 		bool operator==(const KeyboardInput& other) const;
