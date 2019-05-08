@@ -6,16 +6,18 @@
 //Coati Headers
 #include "InputAxis.h"
 
-
 namespace EngineCore {
 
-	InputAxis::InputAxis(){
+	InputAxis::InputAxis(std::string AxisName) : ID(AxisName){
 		AxisValue = 0;
 	}
 
-
 	InputAxis::~InputAxis()	{
 		Reset();
+	}
+
+	bool InputAxis::operator==(const InputAxis& other){
+		return this->ID == other.ID;
 	}
 	
 	//Private Member functions
@@ -52,6 +54,10 @@ namespace EngineCore {
 		AxisBindings[input] = scale;
 	}
 
+	std::string InputAxis::GetID() const{
+		return ID;
+	}
+
 	void InputAxis::UpdateAxis(const KeyboardInput &input)	{
 		if (input.GetKeyState() == KeyState::Held) {
 			return;
@@ -70,7 +76,9 @@ namespace EngineCore {
 
 	void InputAxis::Reset() {
 		AxisValue = 0;
-		CommandQueue.erase(CommandQueue.begin(), CommandQueue.end());
+		if (!CommandQueue.empty()) {
+			CommandQueue.erase(CommandQueue.begin(), CommandQueue.end());
+		}
 	}
 
 	double InputAxis::Poll() const {

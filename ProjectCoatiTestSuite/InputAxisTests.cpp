@@ -18,7 +18,7 @@ namespace ProjectCoatiTestSuite {
 	public:
 		
 		TEST_METHOD(BindAxisTest) {
-			InputAxis dummyAxis;
+			InputAxis dummyAxis("test");
 			dummyAxis.AddBinding(KeyType::W, 1.0);
 
 			//If binding was successfull (no crash), then success.
@@ -26,7 +26,7 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(ResetAxis) {
-			InputAxis dummyAxis;
+			InputAxis dummyAxis("test");
 			dummyAxis.AddBinding(KeyType::W, 1.0);
 
 			KeyboardInput dummyIn(KeyType::W, KeyState::Pressed);
@@ -40,7 +40,7 @@ namespace ProjectCoatiTestSuite {
 			}
 		}
 		TEST_METHOD(UpdateAxisTest) {
-			InputAxis dummyAxis;
+			InputAxis dummyAxis("test");
 			dummyAxis.AddBinding(KeyType::W, 1.0);
 			dummyAxis.AddBinding(KeyType::S, -1.0);
 
