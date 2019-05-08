@@ -81,6 +81,9 @@
     <ClCompile Include="Source\MessageBusNode.cpp">
       <Filter>Source Files\Messaging Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="Source\MessageBusNode.h">
       <Filter>Header Files\Messaging Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
