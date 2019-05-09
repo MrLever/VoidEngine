@@ -50,6 +50,10 @@ namespace EngineCore {
 
 	//Public Member Functions
 
+	void InputManager::AddKeyBinding(KeyboardInput input, Message message) {
+		Bindings.AddBinding(input, message);
+	}
+
 	void InputManager::HandleInput(KeyboardInput input) {
 		PublishMessage(Bindings.GetBinding(input));
 	}
