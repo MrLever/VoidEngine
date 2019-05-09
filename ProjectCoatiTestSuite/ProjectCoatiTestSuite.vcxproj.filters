@@ -78,6 +78,24 @@
     <ClInclude Include="..\Source\InputAxis.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\GenericInputObject.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\InputInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\KeyboardInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MouseInput.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MouseInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -153,6 +171,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\InputAxis.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\InputInterface.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\KeyboardInterface.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MouseInput.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MouseInterface.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>
