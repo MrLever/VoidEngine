@@ -5,18 +5,19 @@
 //Library Headers
 
 //Coati Headers
+#include "GenericInputObject.h"
 #include "KeyboardInput.h"
 
 namespace EngineCore {
 
-	class KeyboardInterface {
+	class KeyboardInterface : GenericInputObject<KeyboardInput>{
 	private:
 		//Private Class Members
 		std::queue<KeyboardInput> Events;
 
 	public:
 		//tors
-		KeyboardInterface();
+		KeyboardInterface(int ID);
 		~KeyboardInterface();
 	
 	private:
@@ -24,7 +25,7 @@ namespace EngineCore {
 	
 	public:
 		//public member functions
-		std::queue<KeyboardInput> Poll();
+
 
 	};
 

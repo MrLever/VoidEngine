@@ -87,6 +87,15 @@
     <ClCompile Include="Source\KeyboardInterface.cpp">
       <Filter>Source Files\Input System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\InputInterface.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MouseInterface.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MouseInput.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">
@@ -141,6 +150,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\KeyboardInterface.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputInterface.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MouseInterface.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericInputObject.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MouseInput.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
   </ItemGroup>
