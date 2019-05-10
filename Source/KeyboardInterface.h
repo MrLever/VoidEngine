@@ -12,8 +12,7 @@ namespace EngineCore {
 
 	class KeyboardInterface : GenericInputObject<KeyboardInput>{
 	private:
-		//Private Class Members
-		std::queue<KeyboardInput> Events;
+
 
 	public:
 		//tors
