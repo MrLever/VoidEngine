@@ -49,13 +49,57 @@ table {
 
 /* End CSS Reset */
 
+/* Color Scheme: */
+/* https://paletton.com/#uid=7000u0k00390khG02aY6p02e60o */
+
+/* HTML Tags */
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+	font-size: 24pt;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	text-emphasis: bold;
+
+	margin-bottom: 10px;
+}
+ul{
+	line-height: 1.4;
+	list-style-type: disc;
+}
+ul li{
+	margin-left: 15px;
+}
+
+/* CSS Classes */
 .Navigation{
 	display: inline-block;
-	width: 20%;
-    background: #f2f2f2;  
+	vertical-align: top;
+	width: calc(15% - 30px);
+	height: 100%;
+	background: #0F0F0F;  
+	color: #FFFFFF;
+	padding: 15px;
+	padding-top: 20px;
+}
+.NavHeader{
+	font-size: 16pt;
+	text-align: center;
+	text-decoration: underline;
 }
 
 .Content{
 	display: inline-block;
-	width: 79%;
+	vertical-align: top;
+	width: calc(85% - 40px);
+	height: 100%;
+	background: #191919;
+	color: #FFFFFF;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
 }
+
+/* CSS IDs */
