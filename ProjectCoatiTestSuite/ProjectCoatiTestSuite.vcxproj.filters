@@ -96,6 +96,12 @@
     <ClInclude Include="..\Source\MouseInterface.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\GamepadInput.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\GamepadInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -189,6 +195,12 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\MouseInterface.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\GamepadInput.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\GamepadInterface.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>

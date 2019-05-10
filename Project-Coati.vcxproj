@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="Source\GamepadInput.cpp" />
+    <ClCompile Include="Source\GamepadInterface.cpp" />
     <ClCompile Include="Source\MouseInput.cpp" />
     <ClCompile Include="Source\MouseInterface.cpp" />
     <ClCompile Include="Source\InputInterface.cpp" />
@@ -151,6 +153,8 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\GamepadInput.h" />
+    <ClInclude Include="Source\GamepadInterface.h" />
     <ClInclude Include="Source\MouseInput.h" />
     <ClInclude Include="Source\GenericInputObject.h" />
     <ClInclude Include="Source\MouseInterface.h" />

@@ -3,22 +3,24 @@
 //Library Headers
 
 //Coati Headers
-#include "InputInterface.h"
+#include "GamepadInput.h"
 
 namespace EngineCore {
 
 	//tors
-	InputInterface::InputInterface() : Keyboard(0), Mouse(1), Gamepad(2) {
+	GamepadInput::GamepadInput() {
 
 	}
 
 
-	InputInterface::~InputInterface() {
+	GamepadInput::~GamepadInput() {
 
 	}
 
 	//Private Member Functions
 
+
 	//Public Member Functions
+
 
 }

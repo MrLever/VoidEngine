@@ -1,11 +1,13 @@
 #pragma once
 //STD Headers
+#include <vector>
 
 //Library Headers
 
 //Coati Headers
 #include "KeyboardInterface.h"
 #include "MouseInterface.h"
+#include "GamepadInterface.h"
 
 namespace EngineCore {
 
@@ -19,6 +21,7 @@ namespace EngineCore {
 		//Private Class Members
 		KeyboardInterface Keyboard;
 		MouseInterface Mouse;
+		GamepadInterface Gamepad;
 
 	public:
 		InputInterface();

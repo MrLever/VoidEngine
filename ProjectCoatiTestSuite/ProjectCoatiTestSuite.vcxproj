@@ -161,6 +161,8 @@
     <ClInclude Include="..\Source\EngineUtilities.h" />
     <ClInclude Include="..\Source\EventTable.h" />
     <ClInclude Include="..\Source\Game.h" />
+    <ClInclude Include="..\Source\GamepadInput.h" />
+    <ClInclude Include="..\Source\GamepadInterface.h" />
     <ClInclude Include="..\Source\GenericInputObject.h" />
     <ClInclude Include="..\Source\InputAxis.h" />
     <ClInclude Include="..\Source\InputInterface.h" />
@@ -189,6 +191,8 @@
     <ClCompile Include="..\Source\Core.cpp" />
     <ClCompile Include="..\Source\EventTable.cpp" />
     <ClCompile Include="..\Source\Game.cpp" />
+    <ClCompile Include="..\Source\GamepadInput.cpp" />
+    <ClCompile Include="..\Source\GamepadInterface.cpp" />
     <ClCompile Include="..\Source\InputAxis.cpp" />
     <ClCompile Include="..\Source\InputInterface.cpp" />
     <ClCompile Include="..\Source\InputManager.cpp" />
