@@ -102,4 +102,16 @@ ul li{
 	padding-top: 20px;
 }
 
+.NavEntry a:link{
+	color: #FFFFFF;
+}
+.NavEntry a:visited{
+	color: #FFFFFF;
+}
+.NavEntry a:hover{
+	color: #CF112B;
+}
+.NavEntry a:active{
+	color: #CF112B;
+}
 /* CSS IDs */
