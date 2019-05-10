@@ -1,0 +1,120 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* End CSS Reset */
+
+/* Color Scheme: */
+/* https://paletton.com/#uid=7000u0k00390khG02aY6p02e60o */
+
+/* HTML Tags */
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+	font-size: 24pt;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	text-emphasis: bold;
+
+	margin-bottom: 10px;
+}
+ul{
+	line-height: 1.4;
+	list-style-type: disc;
+}
+ul li{
+	margin-left: 15px;
+}
+
+/* CSS Classes */
+.Navigation{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(15% - 30px);
+	height: 100%;
+	background: #0F0F0F;  
+	color: #FFFFFF;
+	padding: 15px;
+	padding-top: 20px;
+}
+.NavHeader{
+	font-size: 16pt;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.Content{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(85% - 40px);
+	height: 100%;
+	background: #191919;
+	color: #FFFFFF;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+}
+.NavEntry a{
+	text-decoration: none;
+	font-size: 14pt;
+}
+.NavEntry a:link{
+	color: #FFFFFF;
+}
+.NavEntry a:visited{
+	color: #FFFFFF;
+}
+.NavEntry a:hover{
+	color: #CF112B;
+}
+.NavEntry a:active{
+	color: #CF112B;
+}
+/* CSS IDs */
