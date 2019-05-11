@@ -45,7 +45,10 @@ namespace EngineCore {
 		GameConsole = std::make_unique<Console>(GameMessageBus);
 		GameWorld = std::make_unique<World>(GameMessageBus);
 		GameRenderer = std::make_unique<Renderer>(Window);
-		GameInputManager = std::make_unique<InputManager>(GameMessageBus);
+		GameInputManager = std::make_unique<InputManager>(
+			GameMessageBus, 
+			Window->GetInputInterface()
+		);
 		GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
 
 		Window->SetWindowUser<InputManager>(GameInputManager.get());
