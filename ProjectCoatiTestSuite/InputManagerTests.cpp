@@ -6,6 +6,7 @@
 
 #include "..\Source\MessageBus.h"
 #include "..\Source\InputManager.h"
+#include "..\Source\InputInterface.h"
 #include "TestingUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -19,14 +20,16 @@ namespace ProjectCoatiTestSuite {
 			//Keybindings are meant to trigger events.
 
 			std::shared_ptr<MessageBus> dummyBus = std::make_shared<MessageBus>();
-			InputManager dummyManager(dummyBus);
+			std::shared_ptr<InputInterface> DummyInterface;
+			InputManager dummyManager(dummyBus, DummyInterface);
 			DummyReceiver dummyReciever(dummyBus);
+
 			KeyboardInput dummyInput(KeyType::ESC, KeyState::Pressed);
 			Message dummyMessage("End Game", MessageType::Termination);
 			
 			dummyManager.AddKeyBinding(dummyInput, dummyMessage);
 
-			dummyManager.HandleInput(dummyInput);
+			dummyManager.HandleInput();
 			dummyBus->DispatchMessages();
 
 			Assert::IsTrue(dummyReciever.EventFired);
