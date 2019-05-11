@@ -20,5 +20,12 @@ namespace EngineCore {
 	//Private Member Functions
 
 	//Public Member Functions
+	std::shared_ptr<KeyboardInterface> InputInterface::GetKeyboardInterface() {
+		return std::make_shared<KeyboardInterface>(Keyboard);
+	}
+
+	std::shared_ptr<MouseInterface> InputInterface::GetMouseInterface() {
+		return std::make_shared<MouseInterface>(Mouse);
+	}
 
 }

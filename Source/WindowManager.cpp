@@ -78,4 +78,8 @@ namespace EngineCore {
 		return glfwWindowShouldClose(Window.get());
 	}
 
+	std::shared_ptr<InputInterface> WindowManager::GetInputInterface() {
+		return PlayerInterface;
+	}
+
 }

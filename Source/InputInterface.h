@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <vector>
+#include <memory>
 
 //Library Headers
 
@@ -24,8 +25,16 @@ namespace EngineCore {
 		GamepadInterface Gamepad;
 
 	public:
+		//tors
 		InputInterface();
 		~InputInterface();
+
+	private:
+
+	public:
+		//Public Member Functions
+		std::shared_ptr<KeyboardInterface> GetKeyboardInterface();
+		std::shared_ptr<MouseInterface> GetMouseInterface();
 	};
 
 }

@@ -10,6 +10,8 @@
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "Keybindings.h"
+#include "InputInterface.h"
+
 
 namespace EngineCore {
 
@@ -22,10 +24,14 @@ namespace EngineCore {
 	private:
 		//Private class members
 		Keybindings Bindings;
+		std::shared_ptr<InputInterface> PlayerInterface;
 
 	public:
 		//CTORS
-		InputManager(std::shared_ptr<MessageBus> GameMessageBus);
+		InputManager(
+			std::shared_ptr<MessageBus> GameMessageBus, 
+			std::shared_ptr<InputInterface> inputInterface
+		);
 		~InputManager();
 
 	private:
@@ -34,11 +40,13 @@ namespace EngineCore {
 
 		//Private member functions
 		void LoadKeybindings();
+		void HandleMouse();
+		void HandleInput();
 
 	public:
 		//Public member functions
 		void AddKeyBinding(KeyboardInput input, Message message);
-		void HandleInput(KeyboardInput input);
+		void HandleKeyboard();
 		void ReceiveMessage(Message message) override;
 	};
 

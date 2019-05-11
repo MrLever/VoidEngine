@@ -10,6 +10,7 @@
 
 //Coati Headers
 #include "InputManager.h"
+#include "InputInterface.h"
 
 namespace EngineCore {
 
@@ -22,6 +23,7 @@ namespace EngineCore {
 		//Private class members
 		std::shared_ptr<GLFWwindow> Window;
 		std::string GameName;
+		std::shared_ptr<InputInterface> PlayerInterface;
 
 	public:
 		//CTORS
@@ -46,9 +48,8 @@ namespace EngineCore {
 			glfwSetWindowUserPointer(Window.get(), requester);
 		}
 
+		std::shared_ptr<InputInterface> GetInputInterface();
 
-
-	public:
 		//Static Functions
 		static void DeleteWindow(GLFWwindow* window) {
 			glfwDestroyWindow(window);
@@ -64,15 +65,8 @@ namespace EngineCore {
 		}
 
 		static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			//std::cout << "Callback triggered\n";
-			InputManager* ptr = reinterpret_cast<InputManager*>(glfwGetWindowUserPointer(window));
-
-			if (!ptr) {
-				std::cerr << "Input manager not found";
-			}
-
 			KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action));
-			ptr->HandleInput(input);
+			//PlayerInterface->GetKeyboardInterface();
 
 		}
 	};

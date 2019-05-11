@@ -12,7 +12,11 @@
 namespace EngineCore {
 
 	//Ctors
-	InputManager::InputManager(std::shared_ptr<MessageBus> Bus) : MessageBusNode(Bus) {
+	InputManager::InputManager(
+		std::shared_ptr<MessageBus> Bus,
+		std::shared_ptr<InputInterface> userInterface
+	) : MessageBusNode(Bus), PlayerInterface(userInterface) {
+
 		this->RegisterReciever();
 		this->RegisterEvents();
 
@@ -47,6 +51,18 @@ namespace EngineCore {
 	}
 
 
+	//Private Member Functions
+	
+	void InputManager::HandleKeyboard() {
+		auto Keyboard = PlayerInterface->GetKeyboardInterface();
+		auto KeyboardEvents = Keyboard->Poll();
+	}
+
+	void InputManager::HandleMouse() {
+		auto Mouse = PlayerInterface->GetMouseInterface();
+		auto MouseEvents = Mouse->Poll();
+	}
+
 
 	//Public Member Functions
 
@@ -54,8 +70,12 @@ namespace EngineCore {
 		Bindings.AddBinding(input, message);
 	}
 
-	void InputManager::HandleInput(KeyboardInput input) {
-		PublishMessage(Bindings.GetBinding(input));
+
+
+	void InputManager::HandleInput() {
+		HandleKeyboard();
+		HandleMouse();
+
 	}
 
 	void InputManager::ReceiveMessage(Message message) {
