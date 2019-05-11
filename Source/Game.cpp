@@ -50,13 +50,10 @@ namespace EngineCore {
 			Window->GetInputInterface()
 		);
 		GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
-
-		Window->SetWindowUser<InputManager>(GameInputManager.get());
-
 	}
 
 	void Game::ProcessInput() {
-		Window->PollInput();
+		GameInputManager->HandleInput();
 	}
 
 	void Game::Update(double deltaSeconds) {
