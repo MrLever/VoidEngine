@@ -1,3 +1,5 @@
+#pragma once
+
 //STD Headers
 #include <string>
 #include <fstream>
