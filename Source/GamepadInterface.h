@@ -9,7 +9,7 @@
 
 namespace EngineCore {
 
-	class GamepadInterface : GenericInputObject<GamepadInput> {
+	class GamepadInterface : public GenericInputObject<GamepadInput> {
 
 	public:
 		GamepadInterface(int ID);

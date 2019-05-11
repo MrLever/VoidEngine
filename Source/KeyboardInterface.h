@@ -10,7 +10,7 @@
 
 namespace EngineCore {
 
-	class KeyboardInterface : GenericInputObject<KeyboardInput>{
+	class KeyboardInterface : public GenericInputObject<KeyboardInput>{
 	private:
 
 

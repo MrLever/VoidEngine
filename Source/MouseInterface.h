@@ -9,7 +9,7 @@
 
 namespace EngineCore {
 
-	class MouseInterface : GenericInputObject<MouseInput> {
+	class MouseInterface : public GenericInputObject<MouseInput> {
 	
 	private:
 		//Private Class Members
