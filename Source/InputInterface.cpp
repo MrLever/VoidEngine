@@ -17,15 +17,40 @@ namespace EngineCore {
 
 	}
 
+	
+
 	//Private Member Functions
 
 	//Public Member Functions
-	std::shared_ptr<KeyboardInterface> InputInterface::GetKeyboardInterface() {
-		return std::make_shared<KeyboardInterface>(Keyboard);
+	void InputInterface::ReportKeyboardInput(KeyboardInput input) {
+		Keyboard.ReportInput(input);
 	}
 
-	std::shared_ptr<MouseInterface> InputInterface::GetMouseInterface() {
-		return std::make_shared<MouseInterface>(Mouse);
+	void InputInterface::ReportMouseKeyInput(MouseInput input)	{
+		Mouse.ReportInput(input);
+	}
+
+	void InputInterface::ReportMousePosition(double x, double y) {
+		;
+	}
+
+	void InputInterface::ReportGamepadInput(GamepadInput input)	{
+		Gamepad.ReportInput(input);
+	}
+
+	std::vector<KeyboardInput> InputInterface::GetKeyboardEvents() {
+		auto queue = Keyboard.Poll();
+		return std::vector<KeyboardInput>(queue.begin(), queue.end());
+	}
+
+	std::vector<MouseInput> InputInterface::GetMouseButtonEvents() {
+		auto queue = Mouse.Poll();
+		return std::vector<MouseInput>(queue.begin(), queue.end());
+	}
+
+	std::vector<GamepadInput> InputInterface::GetGamepadButtonEvents() {
+		auto queue = Gamepad.Poll();
+		return std::vector<GamepadInput>(queue.begin(), queue.end());
 	}
 
 }

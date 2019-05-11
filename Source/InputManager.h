@@ -41,12 +41,12 @@ namespace EngineCore {
 		//Private member functions
 		void LoadKeybindings();
 		void HandleMouse();
-		void HandleInput();
+		void HandleKeyboard();
 
 	public:
 		//Public member functions
 		void AddKeyBinding(KeyboardInput input, Message message);
-		void HandleKeyboard();
+		void HandleInput();
 		void ReceiveMessage(Message message) override;
 	};
 

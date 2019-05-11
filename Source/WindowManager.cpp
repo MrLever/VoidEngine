@@ -7,14 +7,17 @@
 
 //Coati Headers
 #include "WindowManager.h"
-#include "KeyboardInput.h"
+
 
 namespace EngineCore {
+	WindowManager* WindowManager::CurrWindowManager = nullptr;
 
 	WindowManager::WindowManager(std::string GameName) {
 		this->GameName = GameName;
 		InitGLFW();
 		InitGLAD();
+		CurrWindowManager = this;
+		PlayerInterface = std::make_shared<InputInterface>();
 	}
 
 
@@ -39,7 +42,7 @@ namespace EngineCore {
 		Window = std::shared_ptr<GLFWwindow>(
 			glfwCreateWindow(640, 480, GameName.c_str(), nullptr, nullptr),
 			DeleteWindow
-			);
+		);
 
 		if (Window.get() == nullptr) {
 			glfwSetWindowShouldClose(Window.get(), GLFW_TRUE);
@@ -47,8 +50,9 @@ namespace EngineCore {
 
 		glfwMakeContextCurrent(Window.get());
 		glfwSetFramebufferSizeCallback(Window.get(), ResizeFrameBuffer);
-		glfwSetKeyCallback(Window.get(), DispatchKeyCallback);
+		glfwSetKeyCallback(Window.get(), KeyboardInputCallback);
 
+		glfwSetWindowUserPointer(Window.get(), this);
 	}
 
 	void WindowManager::InitGLAD() {
@@ -67,10 +71,6 @@ namespace EngineCore {
 
 	void WindowManager::SwapBuffers() {
 		glfwSwapBuffers(Window.get());
-		glfwPollEvents();
-	}
-
-	void WindowManager::PollInput() {
 		glfwPollEvents();
 	}
 

@@ -3,19 +3,17 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <chrono>
 
 //Library Headers
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
 //Coati Headers
-#include "InputManager.h"
 #include "InputInterface.h"
 
-namespace EngineCore {
 
-	//Forward Class declarations
-	class KeyboardInput;
+namespace EngineCore {
 
 	class WindowManager {
 
@@ -24,6 +22,8 @@ namespace EngineCore {
 		std::shared_ptr<GLFWwindow> Window;
 		std::string GameName;
 		std::shared_ptr<InputInterface> PlayerInterface;
+
+		static WindowManager* CurrWindowManager;
 
 	public:
 		//CTORS
@@ -40,13 +40,7 @@ namespace EngineCore {
 		std::shared_ptr<GLFWwindow> getWindow();
 
 		void SwapBuffers();
-		void PollInput();
 		bool WindowTerminated();
-
-		template<typename T>
-		void SetWindowUser(T* requester) {
-			glfwSetWindowUserPointer(Window.get(), requester);
-		}
 
 		std::shared_ptr<InputInterface> GetInputInterface();
 
@@ -55,7 +49,6 @@ namespace EngineCore {
 			glfwDestroyWindow(window);
 		}
 
-		//std::shared_ptr<SDL_Surface>(SDL_LoadBMP(....), DeleteSurface);
 		static void ReportWindowError(int error, const char* description) {
 			std::cerr << "Error: " << description << std::endl;
 		}
@@ -64,9 +57,16 @@ namespace EngineCore {
 			glViewport(0, 0, width, height);
 		}
 
-		static void DispatchKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action));
-			//PlayerInterface->GetKeyboardInterface();
+		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+			//Get time stamp for KeyBoardInput
+			auto currentTime = std::chrono::high_resolution_clock::now();
+			double timeStamp = std::chrono::duration<double>(currentTime.time_since_epoch()).count();
+
+			//Create Coati KeyboardInput
+			KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action), timeStamp);
+			
+			//Report Input to Input Interface for later polling.
+			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
 
 		}
 	};

@@ -1,6 +1,6 @@
 #pragma once
 //STD Headers
-#include <queue>
+#include <deque>
 
 //Library Headers
 
@@ -13,7 +13,7 @@ namespace EngineCore {
 	private:
 
 	protected:
-		std::queue<T> EventQueue;
+		std::deque<T> EventQueue;
 		int ID;
 	
 	public:
@@ -21,7 +21,7 @@ namespace EngineCore {
 		~GenericInputObject();
 	
 	public:
-		std::queue<T> Poll();
+		std::deque<T> Poll();
 		void ReportInput(T Input);
 	};
 
@@ -38,15 +38,15 @@ namespace EngineCore {
 
 	//Public Member Functions
 	template<class T>
-	std::queue<T> GenericInputObject<T>::Poll() {
+	std::deque<T> GenericInputObject<T>::Poll() {
 		auto Events = this->EventQueue;
-		this->EventQueue = std::queue<T>();
+		this->EventQueue = std::deque<T>();
 		return Events;
 	}
 
 	template<class T>
 	void GenericInputObject<T>::ReportInput(T Input) {
-		EventQueue.push(Input);
+		EventQueue.push_back(Input);
 	}
 
 }

@@ -2,6 +2,7 @@
 //STD Headers
 #include <vector>
 #include <memory>
+#include <queue>
 
 //Library Headers
 
@@ -33,8 +34,14 @@ namespace EngineCore {
 
 	public:
 		//Public Member Functions
-		std::shared_ptr<KeyboardInterface> GetKeyboardInterface();
-		std::shared_ptr<MouseInterface> GetMouseInterface();
+		void ReportKeyboardInput(KeyboardInput input);
+		void ReportMouseKeyInput(MouseInput input);
+		void ReportMousePosition(double x, double y);
+		void ReportGamepadInput(GamepadInput input);
+
+		std::vector<KeyboardInput> GetKeyboardEvents();
+		std::vector<MouseInput> GetMouseButtonEvents();
+		std::vector<GamepadInput> GetGamepadButtonEvents();
 	};
 
 }

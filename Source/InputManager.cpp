@@ -54,13 +54,14 @@ namespace EngineCore {
 	//Private Member Functions
 	
 	void InputManager::HandleKeyboard() {
-		auto Keyboard = PlayerInterface->GetKeyboardInterface();
-		auto KeyboardEvents = Keyboard->Poll();
+		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
+
+		//TODO: Finsish
 	}
 
 	void InputManager::HandleMouse() {
-		auto Mouse = PlayerInterface->GetMouseInterface();
-		auto MouseEvents = Mouse->Poll();
+		auto MouseButtonEvents = PlayerInterface->GetMouseButtonEvents();
+		//TODO: Finish
 	}
 
 
@@ -74,8 +75,7 @@ namespace EngineCore {
 
 	void InputManager::HandleInput() {
 		HandleKeyboard();
-		HandleMouse();
-
+		//HandleMouse();
 	}
 
 	void InputManager::ReceiveMessage(Message message) {
