@@ -51,6 +51,7 @@ namespace EngineCore {
 		glfwMakeContextCurrent(Window.get());
 		glfwSetFramebufferSizeCallback(Window.get(), ResizeFrameBuffer);
 		glfwSetKeyCallback(Window.get(), KeyboardInputCallback);
+		glfwSetCursorPosCallback(Window.get(), MousePositionCallback);
 
 		glfwSetWindowUserPointer(Window.get(), this);
 	}

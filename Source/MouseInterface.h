@@ -13,6 +13,8 @@ namespace EngineCore {
 	
 	private:
 		//Private Class Members
+		double MouseXPos;
+		double MouseYPos;
 
 	public:
 		MouseInterface(int ID);
@@ -23,6 +25,7 @@ namespace EngineCore {
 
 	public:
 		//Public Member Functions
+		void UpdateMousePosition(double xPos, double yPos);
 	};
 
 }

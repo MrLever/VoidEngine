@@ -31,7 +31,7 @@ namespace EngineCore {
 	}
 
 	void InputInterface::ReportMousePosition(double x, double y) {
-		;
+		Mouse.UpdateMousePosition(x, y);
 	}
 
 	void InputInterface::ReportGamepadInput(GamepadInput input)	{

@@ -69,6 +69,10 @@ namespace EngineCore {
 			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
 
 		}
+
+		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
+			CurrWindowManager->PlayerInterface->ReportMousePosition(xPos, yPos);
+		}
 	};
 
 }
