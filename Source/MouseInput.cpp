@@ -1,4 +1,5 @@
 //STD headers
+#include <functional>
 
 //Library headers
 
@@ -8,8 +9,12 @@
 namespace EngineCore {
 	
 	//tors
-	MouseInput::MouseInput() {
+	MouseInput::MouseInput(MouseButton button) : Button(button), TimeStamp(0) {
 
+	}
+
+	MouseInput::MouseInput(MouseButton button, double timeStamp) : Button(button), TimeStamp(timeStamp) {
+	
 	}
 
 
@@ -21,4 +26,11 @@ namespace EngineCore {
 
 	//Public Memeber Functions
 
+	MouseButton MouseInput::GetButton() const {
+		return Button;
+	}
+
+	std::size_t MouseInput::Hash() const {
+		return std::hash<int>()(static_cast<int>(Button));
+	}
 }

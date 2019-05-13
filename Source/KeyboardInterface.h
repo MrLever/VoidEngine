@@ -5,12 +5,12 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInputObject.h"
+#include "GenericInputInterface.h"
 #include "KeyboardInput.h"
 
 namespace EngineCore {
 
-	class KeyboardInterface : public GenericInputObject<KeyboardInput>{
+	class KeyboardInterface : public GenericInputInterface<KeyboardInput>{
 	private:
 
 

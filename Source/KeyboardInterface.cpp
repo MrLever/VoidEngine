@@ -9,7 +9,7 @@
 namespace EngineCore {
 
 	//tors
-	KeyboardInterface::KeyboardInterface(int ID) : GenericInputObject<KeyboardInput>(ID) {
+	KeyboardInterface::KeyboardInterface(int ID) : GenericInputInterface<KeyboardInput>(ID) {
 		
 	}
 

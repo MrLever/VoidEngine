@@ -9,7 +9,7 @@
 namespace EngineCore {
 	
 	template <class T>
-	class GenericInputObject {
+	class GenericInputInterface {
 	private:
 
 	protected:
@@ -17,8 +17,8 @@ namespace EngineCore {
 		int ID;
 	
 	public:
-		GenericInputObject(int id);
-		~GenericInputObject();
+		GenericInputInterface(int id);
+		~GenericInputInterface();
 	
 	public:
 		std::deque<T> Poll();
@@ -27,25 +27,25 @@ namespace EngineCore {
 
 	//tors
 	template <class T>
-	GenericInputObject<T>::GenericInputObject(int id) {
+	GenericInputInterface<T>::GenericInputInterface(int id) {
 		ID = id;
 	}
 
 	template <class T>
-	GenericInputObject<T>::~GenericInputObject() {
+	GenericInputInterface<T>::~GenericInputInterface() {
 
 	}
 
 	//Public Member Functions
 	template<class T>
-	std::deque<T> GenericInputObject<T>::Poll() {
+	std::deque<T> GenericInputInterface<T>::Poll() {
 		auto Events = this->EventQueue;
 		this->EventQueue = std::deque<T>();
 		return Events;
 	}
 
 	template<class T>
-	void GenericInputObject<T>::ReportInput(T Input) {
+	void GenericInputInterface<T>::ReportInput(T Input) {
 		EventQueue.push_back(Input);
 	}
 

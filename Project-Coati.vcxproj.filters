@@ -164,9 +164,6 @@
     <ClInclude Include="Source\MouseInterface.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GenericInputObject.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MouseInput.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
@@ -174,6 +171,9 @@
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
     <ClInclude Include="Source\GamepadInput.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericInputInterface.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
   </ItemGroup>

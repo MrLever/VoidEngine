@@ -156,7 +156,7 @@
     <ClInclude Include="Source\GamepadInput.h" />
     <ClInclude Include="Source\GamepadInterface.h" />
     <ClInclude Include="Source\MouseInput.h" />
-    <ClInclude Include="Source\GenericInputObject.h" />
+    <ClInclude Include="Source\GenericInputInterface.h" />
     <ClInclude Include="Source\MouseInterface.h" />
     <ClInclude Include="Source\InputInterface.h" />
     <ClInclude Include="Source\Console.h" />

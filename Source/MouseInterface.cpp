@@ -9,7 +9,7 @@
 namespace EngineCore {
 
 	//Tors
-	MouseInterface::MouseInterface(int ID) : GenericInputObject<MouseInput>(ID) {
+	MouseInterface::MouseInterface(int ID) : GenericInputInterface<MouseInput>(ID) {
 		MouseXPos = 0;
 		MouseYPos = 0;
 	}

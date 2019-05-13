@@ -5,11 +5,11 @@
 
 //Coati Headers
 #include "MouseInput.h"
-#include "GenericInputObject.h"
+#include "GenericInputInterface.h"
 
 namespace EngineCore {
 
-	class MouseInterface : public GenericInputObject<MouseInput> {
+	class MouseInterface : public GenericInputInterface<MouseInput> {
 	
 	private:
 		//Private Class Members

@@ -4,12 +4,12 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInputObject.h"
+#include "GenericInputInterface.h"
 #include "GamepadInput.h"
 
 namespace EngineCore {
 
-	class GamepadInterface : public GenericInputObject<GamepadInput> {
+	class GamepadInterface : public GenericInputInterface<GamepadInput> {
 
 	public:
 		GamepadInterface(int ID);

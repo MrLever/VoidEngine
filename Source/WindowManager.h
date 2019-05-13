@@ -3,7 +3,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <chrono>
 
 //Library Headers
 #include "glad/glad.h"
@@ -11,6 +10,7 @@
 
 //Coati Headers
 #include "InputInterface.h"
+#include "EngineUtilities.h"
 
 
 namespace EngineCore {
@@ -59,8 +59,7 @@ namespace EngineCore {
 
 		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 			//Get time stamp for KeyBoardInput
-			auto currentTime = std::chrono::high_resolution_clock::now();
-			double timeStamp = std::chrono::duration<double>(currentTime.time_since_epoch()).count();
+			auto timeStamp = EngineUtilities::GetGameTime();
 
 			//Create Coati KeyboardInput
 			KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action), timeStamp);
@@ -68,6 +67,17 @@ namespace EngineCore {
 			//Report Input to Input Interface for later polling.
 			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
 
+		}
+
+		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+			//Get time stamp for MouseButton event
+			auto timeStamp = EngineUtilities::GetGameTime();
+			
+			//Create Coati MouseInput
+			MouseInput input(static_cast<MouseButton>(button), timeStamp);
+
+			//Report input to InputInterface
+			CurrWindowManager->PlayerInterface->ReportMouseKeyInput(input);
 		}
 
 		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
