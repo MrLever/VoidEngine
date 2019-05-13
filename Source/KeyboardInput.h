@@ -3,6 +3,9 @@
 
 //Library Headers
 
+//Coati Headers
+#include "GenericInput.h"
+
 namespace EngineCore {
 
 	//Forward Class declarations
@@ -14,13 +17,6 @@ namespace EngineCore {
 		S = 83,
 		D = 68,
 		NUM_9 = 329
-	};
-
-	enum class ButtonState : unsigned {
-		Released = 0,
-		Pressed = 1,
-		Held = 2,
-		Any = 4
 	};
 
 	class KeyboardInput {
@@ -42,7 +38,7 @@ namespace EngineCore {
 	private:
 
 	public:
-		KeyType GetKey() const;
+		KeyType GetButton() const;
 		ButtonState GetKeyState() const;
 
 		std::size_t Hash() const;

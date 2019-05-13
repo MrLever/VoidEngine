@@ -29,7 +29,7 @@ namespace EngineCore {
 
 
 	bool KeyboardInput::operator==(const KeyboardInput& other) const {
-		return (this->GetKey() == other.GetKey() && this->GetKeyState() == other.GetKeyState());
+		return (this->GetButton() == other.GetButton() && this->GetKeyState() == other.GetKeyState());
 	}
 
 
@@ -40,7 +40,7 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	KeyType KeyboardInput::GetKey() const {
+	KeyType KeyboardInput::GetButton() const {
 		return Key;
 	}
 
