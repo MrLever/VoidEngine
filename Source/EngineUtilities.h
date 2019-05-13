@@ -2,6 +2,7 @@
 
 //STD Headers
 #include <string>
+#include <chrono>
 
 
 //Library Headers
@@ -24,5 +25,11 @@ namespace EngineUtilities {
 
 	}
 
+	static double GetGameTime() {
+		auto currentTime = std::chrono::high_resolution_clock::now();
+		double timeStamp = std::chrono::duration<double>(currentTime.time_since_epoch()).count();
+		
+		return timeStamp;
+	}
 }
 
