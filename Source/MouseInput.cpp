@@ -9,11 +9,13 @@
 namespace EngineCore {
 	
 	//tors
-	MouseInput::MouseInput(MouseButton button) : Button(button), TimeStamp(0) {
+	MouseInput::MouseInput(MouseButton button, ButtonState state) 
+		: GenericInput<MouseButton>(button, state, 0) {
 
 	}
 
-	MouseInput::MouseInput(MouseButton button, double timeStamp) : Button(button), TimeStamp(timeStamp) {
+	MouseInput::MouseInput(MouseButton button, ButtonState state, double timeStamp) 
+		: GenericInput<MouseButton>(button, state, 0) {
 	
 	}
 
@@ -25,10 +27,6 @@ namespace EngineCore {
 	//Private Member Functions
 
 	//Public Memeber Functions
-
-	MouseButton MouseInput::GetButton() const {
-		return Button;
-	}
 
 	std::size_t MouseInput::Hash() const {
 		return std::hash<int>()(static_cast<int>(Button));
