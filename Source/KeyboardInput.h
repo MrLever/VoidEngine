@@ -34,7 +34,7 @@ namespace EngineCore {
 	private:
 
 	public:
-		std::size_t Hash() const;
+		std::size_t Hash() const override;
 
 	};
 

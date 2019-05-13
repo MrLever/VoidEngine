@@ -1,6 +1,5 @@
 #pragma once
 //STD Headers
-#include <cstddef>
 #include <functional>
 
 //Library Headers
@@ -35,7 +34,7 @@ namespace EngineCore {
 		//Public Class Members
 
 		
-		std::size_t Hash() const;
+		std::size_t Hash() const override;
 	};
 
 }
