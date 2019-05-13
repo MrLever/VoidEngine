@@ -19,13 +19,9 @@ namespace EngineCore {
 		NUM_9 = 329
 	};
 
-	class KeyboardInput {
+	class KeyboardInput : public GenericInput<KeyType> {
 	
 	private:
-		//Private Class Members
-		KeyType Key;
-		ButtonState State;
-		double TimeStamp;
 
 	public:
 		//CTORS
@@ -38,9 +34,6 @@ namespace EngineCore {
 	private:
 
 	public:
-		KeyType GetButton() const;
-		ButtonState GetKeyState() const;
-
 		std::size_t Hash() const;
 
 	};
