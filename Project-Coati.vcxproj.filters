@@ -28,6 +28,18 @@
     <Filter Include="Source Files\Messaging Systems">
       <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input System\Interfaces">
+      <UniqueIdentifier>{e48106c0-51f7-4822-9338-2e11ba667808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input System\Input Definitions">
+      <UniqueIdentifier>{0d511677-f97d-4271-99d8-606d305b8b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input System\Interfaces">
+      <UniqueIdentifier>{fe33d38c-87ff-4d25-8af3-b4a44e235abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input System\Input Definitions">
+      <UniqueIdentifier>{0daf5dde-0cb6-445c-93ea-465cf09b930b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core.cpp">
@@ -66,9 +78,6 @@
     <ClCompile Include="Source\Keybindings.cpp">
       <Filter>Source Files\Input System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\KeyboardInput.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EventTable.cpp">
       <Filter>Source Files\Messaging Systems</Filter>
     </ClCompile>
@@ -84,23 +93,26 @@
     <ClCompile Include="Source\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\KeyboardInterface.cpp">
-      <Filter>Source Files\Input System</Filter>
+    <ClCompile Include="Source\GamepadInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InputInterface.cpp">
-      <Filter>Source Files\Input System</Filter>
+    <ClCompile Include="Source\KeyboardInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Source\MouseInterface.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyboardInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="Source\MouseInput.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GamepadInterface.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="Source\GamepadInput.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +140,6 @@
     <ClInclude Include="Source\EngineUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InputAxis.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="Source\InputManager.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
@@ -155,29 +164,32 @@
     <ClInclude Include="Source\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\KeyboardInterface.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\InputInterface.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MouseInterface.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MouseInput.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GamepadInterface.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GamepadInput.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Source\GenericInputInterface.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyboardInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MouseInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GamepadInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="Source\GenericInput.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputAxis.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MouseInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
