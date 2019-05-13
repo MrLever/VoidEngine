@@ -16,7 +16,7 @@ namespace EngineCore {
 		NUM_9 = 329
 	};
 
-	enum class KeyState : unsigned {
+	enum class ButtonState : unsigned {
 		Released = 0,
 		Pressed = 1,
 		Held = 2,
@@ -28,13 +28,13 @@ namespace EngineCore {
 	private:
 		//Private Class Members
 		KeyType Key;
-		KeyState State;
+		ButtonState State;
 		double TimeStamp;
 
 	public:
 		//CTORS
-		KeyboardInput(KeyType key, KeyState state);
-		KeyboardInput(KeyType key, KeyState state, double time);
+		KeyboardInput(KeyType key, ButtonState state);
+		KeyboardInput(KeyType key, ButtonState state, double time);
 		~KeyboardInput();
 
 		bool operator==(const KeyboardInput& other) const;
@@ -43,7 +43,7 @@ namespace EngineCore {
 
 	public:
 		KeyType GetKey() const;
-		KeyState GetKeyState() const;
+		ButtonState GetKeyState() const;
 
 		std::size_t Hash() const;
 

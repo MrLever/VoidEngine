@@ -62,7 +62,7 @@ namespace EngineCore {
 			auto timeStamp = EngineUtilities::GetGameTime();
 
 			//Create Coati KeyboardInput
-			KeyboardInput input(static_cast<KeyType>(key), static_cast<KeyState>(action), timeStamp);
+			KeyboardInput input(static_cast<KeyType>(key), static_cast<ButtonState>(action), timeStamp);
 			
 			//Report Input to Input Interface for later polling.
 			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);

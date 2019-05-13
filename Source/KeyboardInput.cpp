@@ -11,13 +11,13 @@
 namespace EngineCore {
 
 	//tors
-	KeyboardInput::KeyboardInput(KeyType key, KeyState state) {
+	KeyboardInput::KeyboardInput(KeyType key, ButtonState state) {
 		this->Key = key;
 		this->State = state;
 		this->TimeStamp = -std::numeric_limits<double>::infinity();
 	}
 
-	KeyboardInput::KeyboardInput(KeyType key, KeyState state, double time) {
+	KeyboardInput::KeyboardInput(KeyType key, ButtonState state, double time) {
 		this->Key = key;
 		this->State = state;
 		this->TimeStamp = time;
@@ -44,7 +44,7 @@ namespace EngineCore {
 		return Key;
 	}
 
-	KeyState KeyboardInput::GetKeyState() const {
+	ButtonState KeyboardInput::GetKeyState() const {
 		return State;
 	}
 

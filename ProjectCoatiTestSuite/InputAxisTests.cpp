@@ -29,7 +29,7 @@ namespace ProjectCoatiTestSuite {
 			InputAxis dummyAxis("test");
 			dummyAxis.AddBinding(KeyType::W, 1.0);
 
-			KeyboardInput dummyIn(KeyType::W, KeyState::Pressed);
+			KeyboardInput dummyIn(KeyType::W, ButtonState::Pressed);
 
 			dummyAxis.UpdateAxis(dummyIn);
 			dummyAxis.Reset();
@@ -51,13 +51,13 @@ namespace ProjectCoatiTestSuite {
 				Assert::Fail();
 			}
 
-			KeyboardInput dummyWPress(KeyType::W, KeyState::Pressed);
-			KeyboardInput dummyWHold(KeyType::W, KeyState::Held);
-			KeyboardInput dummyWRelease(KeyType::W, KeyState::Released);
+			KeyboardInput dummyWPress(KeyType::W, ButtonState::Pressed);
+			KeyboardInput dummyWHold(KeyType::W, ButtonState::Held);
+			KeyboardInput dummyWRelease(KeyType::W, ButtonState::Released);
 
-			KeyboardInput dummySPress(KeyType::S, KeyState::Pressed);
-			KeyboardInput dummySHold(KeyType::S, KeyState::Held);
-			KeyboardInput dummySRelease(KeyType::S, KeyState::Released);
+			KeyboardInput dummySPress(KeyType::S, ButtonState::Pressed);
+			KeyboardInput dummySHold(KeyType::S, ButtonState::Held);
+			KeyboardInput dummySRelease(KeyType::S, ButtonState::Released);
 
 			//Pressing should update axis with associated scale value
 			dummyAxis.UpdateAxis(dummyWPress);
