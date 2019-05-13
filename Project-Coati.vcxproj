@@ -153,6 +153,7 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\GenericInput.h" />
     <ClInclude Include="Source\GamepadInput.h" />
     <ClInclude Include="Source\GamepadInterface.h" />
     <ClInclude Include="Source\MouseInput.h" />

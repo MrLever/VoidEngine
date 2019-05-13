@@ -176,5 +176,8 @@
     <ClInclude Include="Source\GenericInputInterface.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GenericInput.h">
+      <Filter>Header Files\Input System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
