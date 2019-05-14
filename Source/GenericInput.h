@@ -24,7 +24,7 @@ namespace EngineCore {
 
 	public:
 		GenericInput(T button, ButtonState state, double time);
-		~GenericInput();
+		~GenericInput() = default;
 
 	public:
 		T GetButton() const;
@@ -39,11 +39,6 @@ namespace EngineCore {
 	GenericInput<T>::GenericInput(T button, ButtonState state, double time) 
 		: Button(button), State(state), TimeStamp(time){
 
-	}
-
-	template <class T>
-	GenericInput<T>::~GenericInput() {
-	
 	}
 
 	template <class T>

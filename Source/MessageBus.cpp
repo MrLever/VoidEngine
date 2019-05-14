@@ -14,14 +14,6 @@
 
 namespace EngineCore {
 
-	MessageBus::MessageBus() {
-	}
-
-
-	MessageBus::~MessageBus() {
-
-	}
-
 	//Private Member Functions
 
 	//Public Member Functions
@@ -54,10 +46,10 @@ namespace EngineCore {
 	void MessageBus::DispatchMessages() {
 		while (!Messages.empty()) {
 			Message outgoingMessage = Messages.front();
-			for (auto receiver : Receivers) {
-				unsigned subsription = static_cast<unsigned>(receiver.subscriptionFlag);
-				unsigned messageType = static_cast<unsigned>(outgoingMessage.GetType());
-				if (subsription & messageType) {
+			for (const auto &receiver : Receivers) {
+				auto subsription = static_cast<unsigned>(receiver.subscriptionFlag);
+				auto messageType = static_cast<unsigned>(outgoingMessage.GetType());
+				if ((subsription & messageType) != 0) {
 					receiver.receivingFunction(Messages.front());
 				}
 			}

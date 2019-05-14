@@ -1,4 +1,5 @@
 //STD Headers
+#include <utility>
 
 //Library Headers
 
@@ -8,7 +9,7 @@
 
 namespace EngineCore {
 
-	InputAxis::InputAxis(std::string AxisName) : ID(AxisName){
+	InputAxis::InputAxis(std::string AxisName) : ID(std::move(AxisName)){
 		AxisValue = 0;
 	}
 

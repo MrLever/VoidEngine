@@ -12,12 +12,18 @@
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
 
-	WindowManager::WindowManager(std::string GameName) {
-		this->GameName = GameName;
+	WindowManager::WindowManager(std::string gameName, int windowWidth, int windowHeight) 
+		: GameName(std::move(gameName)) {
+		
+		WindowWidth = windowWidth;
+		WindowHeight = windowHeight;
+
 		InitGLFW();
 		InitGLAD();
-		CurrWindowManager = this;
+
 		PlayerInterface = std::make_shared<InputInterface>();
+
+		CurrWindowManager = this;
 	}
 
 
@@ -29,22 +35,22 @@ namespace EngineCore {
 	//Private Member Functions
 
 	void WindowManager::InitGLFW() {
-		if (!glfwInit()) {
+		if (glfwInit() == GLFW_FALSE) {
 			// Initialization failed
 			return;
 		}
 
 		glfwInit();
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		Window = std::shared_ptr<GLFWwindow>(
-			glfwCreateWindow(640, 480, GameName.c_str(), nullptr, nullptr),
+			glfwCreateWindow(WindowWidth, WindowHeight, GameName.c_str(), nullptr, nullptr),
 			DeleteWindow
 		);
 
-		if (Window.get() == nullptr) {
+		if (Window == nullptr) {
 			glfwSetWindowShouldClose(Window.get(), GLFW_TRUE);
 		}
 
@@ -60,11 +66,14 @@ namespace EngineCore {
 	}
 
 	void WindowManager::InitGLAD() {
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		auto GLADaddress = reinterpret_cast<GLADloadproc>(glfwGetProcAddress);
+		bool success = gladLoadGLLoader(GLADaddress) == 0;
+		if (success) {
 			std::cerr << "Failed to initialize GLAD" << std::endl;
+			std::terminate();
 		}
 
-		glViewport(0, 0, 800, 600);
+		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	//Public Member Functions
@@ -79,7 +88,7 @@ namespace EngineCore {
 	}
 
 	bool WindowManager::WindowTerminated() {
-		return glfwWindowShouldClose(Window.get());
+		return (glfwWindowShouldClose(Window.get()) == GLFW_TRUE);
 	}
 
 	std::shared_ptr<InputInterface> WindowManager::GetInputInterface() {

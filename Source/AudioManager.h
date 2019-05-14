@@ -22,7 +22,7 @@ namespace EngineCore {
 	public:
 		//CTORS
 		AudioManager(std::shared_ptr<MessageBus> GameMessageBus);
-		~AudioManager();
+		~AudioManager() = default;
 
 	private:
 		//Private member functions

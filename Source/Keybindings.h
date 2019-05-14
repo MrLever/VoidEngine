@@ -41,8 +41,8 @@ namespace EngineCore {
 
 		Message GetBinding(KeyboardInput input) const;
 
-		virtual bool Save() const override;
-		virtual bool Load() override;
+		bool Save() const override;
+		bool Load() override;
 	};
 
 }

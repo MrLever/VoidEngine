@@ -47,7 +47,7 @@ namespace EngineCore {
 
 		virtual void RegisterEvents() = 0;
 
-		void PublishMessage(std::string, MessageType type);
+		void PublishMessage(std::string message, MessageType type);
 		void PublishMessage(Message message);
 
 	public:

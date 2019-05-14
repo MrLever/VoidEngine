@@ -21,8 +21,8 @@ namespace EngineCore {
 
 	public:
 		//CTORS
-		EventTable();
-		~EventTable();
+		EventTable() = default;
+		~EventTable() = default;
 
 		std::function<void()> operator[] (const Message& event) const;
 

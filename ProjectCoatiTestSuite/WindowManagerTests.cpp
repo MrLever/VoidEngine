@@ -12,12 +12,12 @@ namespace ProjectCoatiTestSuite
 	public:
 		
 		TEST_METHOD(WindowCreationTest) {
-			WindowManager test("Test");
+			WindowManager test("Test", 600, 800);
 
 			Assert::IsNotNull(test.getWindow().get());
 		}
 		TEST_METHOD(BufferSwapTest) {
-			WindowManager test("Test");
+			WindowManager test("Test", 600, 800);
 			test.SwapBuffers();
 
 			//It didn't crash.

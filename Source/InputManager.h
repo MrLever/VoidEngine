@@ -29,13 +29,13 @@ namespace EngineCore {
 	public:
 		//CTORS
 		InputManager(
-			std::shared_ptr<MessageBus> GameMessageBus, 
-			std::shared_ptr<InputInterface> inputInterface
+			std::shared_ptr<MessageBus> bus, 
+			std::shared_ptr<InputInterface> userInterface
 		);
-		~InputManager();
+		~InputManager() = default;
 
 	private:
-		virtual void RegisterReciever() override;
+		void RegisterReciever() override;
 		void RegisterEvents() override;
 
 		//Private member functions

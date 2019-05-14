@@ -1,5 +1,6 @@
 //STD Headers
 #include <iostream>
+#include <utility>
 
 //Library Headers
 
@@ -17,7 +18,7 @@
 namespace EngineCore {
 
 	//CTORS
-	Game::Game(std::string name) : GameName(name) {
+	Game::Game(std::string name) : GameName(std::move(name)) {
 		FrameRate = 0;
 
 		//Init Higher Level Game Objects
@@ -29,9 +30,7 @@ namespace EngineCore {
 	}
 
 	Game::~Game() {
-
-
-
+		std::cout << "Goodbye!";
 	}
 
 	//Private Functions
@@ -40,7 +39,7 @@ namespace EngineCore {
 	void Game::InitGame() {
 
 		GameMessageBus = std::make_shared<MessageBus>();
-		Window = std::make_shared<WindowManager>(GameName);
+		Window = std::make_shared<WindowManager>(GameName, 800, 600);
 
 		GameConsole = std::make_unique<Console>(GameMessageBus);
 		GameWorld = std::make_unique<World>(GameMessageBus);
@@ -86,24 +85,22 @@ namespace EngineCore {
 			//Update previous time
 			previousTime = currentTime;
 		}
-		return;
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
+		const int NumFrames = 10;
 		FrameQueue.push(timeSinceLastFrame);
-
+		
 		//Sums the queue if its of size 10
-		if (FrameQueue.size() > 9) {
+		if (FrameQueue.size() >= NumFrames) {
 			double frameQueueSum = 0;
-			for (int i = 0; i < 10; i++) {
+			while(!FrameQueue.empty()){
 				frameQueueSum = frameQueueSum + (FrameQueue.front());
 				FrameQueue.pop();
 			}
 			//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-			FrameRate = static_cast<int>(10 / (frameQueueSum));
+			FrameRate = static_cast<int>(NumFrames / (frameQueueSum));
 		}
-		return;
-
 	}
 
 }

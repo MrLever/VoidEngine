@@ -107,9 +107,8 @@ namespace EngineCore {
 		if (binding == Bindings.end()) {
 			return Message("Keybinding not found.", MessageType::Error);
 		}
-		else {
-			return binding->second;
-		}
+		
+		return binding->second;
 	}
 
 	bool Keybindings::Save() const {

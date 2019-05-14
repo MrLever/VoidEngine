@@ -4,6 +4,7 @@
 #include <functional>
 #include <queue>
 #include <vector>
+#include <utility>
 
 //Library Headers
 
@@ -17,18 +18,18 @@ namespace EngineCore {
 
 	class MessageBus {
 
-		typedef struct Subscriber {
+		struct Subscriber {
 			std::function<void(Message)> receivingFunction;
 			MessageType subscriptionFlag;
 
-			Subscriber(std::function<void(Message)> fn, MessageType flag) : receivingFunction(fn), subscriptionFlag(flag) {
+			Subscriber(std::function<void(Message)> fn, MessageType flag) : receivingFunction(std::move(fn)), subscriptionFlag(flag) {
 
 			}
 
-			Subscriber(std::function<void(Message)> fn, unsigned flag) : receivingFunction(fn) {
+			Subscriber(std::function<void(Message)> fn, unsigned flag) : receivingFunction(std::move(fn)) {
 				subscriptionFlag = static_cast<MessageType>(flag);
 			}
-		}Subscriber;
+		};
 
 	private:
 		//Private Class members
@@ -36,8 +37,8 @@ namespace EngineCore {
 		std::vector<Subscriber> Receivers;
 
 	public:
-		MessageBus();
-		~MessageBus();
+		MessageBus() = default;
+		~MessageBus() = default;
 
 	private:
 		//Private member functions

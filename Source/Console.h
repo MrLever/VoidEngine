@@ -19,12 +19,12 @@ namespace EngineCore {
 	public:
 		//CTORS
 		Console(std::shared_ptr<MessageBus> Bus);
-		~Console();
+		~Console() = default;
 
 	private:
 		void ToggleOutputActive();
 		void RegisterEvents() override;
-		virtual void RegisterReciever() override;
+		void RegisterReciever() override;
 
 	public:
 		void ReceiveMessage(Message message) override;

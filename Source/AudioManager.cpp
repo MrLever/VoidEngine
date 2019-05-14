@@ -15,10 +15,6 @@ namespace EngineCore {
 		this->RegisterReciever();
 	}
 
-
-	AudioManager::~AudioManager() {
-	}
-
 	void AudioManager::RegisterEvents() {
 	}
 

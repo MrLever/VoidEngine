@@ -13,13 +13,6 @@ namespace EngineCore {
 
 	//CTORS
 
-	EventTable::EventTable() {
-	}
-
-
-	EventTable::~EventTable() {
-	}
-
 	//Operator Overloads
 	std::function<void()> EventTable::operator[](const Message& event) const {
 
@@ -47,11 +40,7 @@ namespace EngineCore {
 	}
 
 	bool EventTable::UnbindEvent(Message message) {
-		if (Events.erase(message) > 0) {
-			return true;
-		}
-
-		return false;
+		return Events.erase(message) > 0;
 	}
 
 }

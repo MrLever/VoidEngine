@@ -16,11 +16,6 @@ namespace EngineCore {
 		this->RegisterEvents();
 	}
 
-
-	Console::~Console(){
-
-	}
-
 	//Private Member Functions
 
 	void Console::ToggleOutputActive(){

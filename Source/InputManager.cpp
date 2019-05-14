@@ -1,6 +1,7 @@
 //STD Headers
 #include <memory>
 #include <iostream>
+#include <utility>
 
 //Library Headers
 
@@ -13,19 +14,14 @@ namespace EngineCore {
 
 	//Ctors
 	InputManager::InputManager(
-		std::shared_ptr<MessageBus> Bus,
+		std::shared_ptr<MessageBus> bus,
 		std::shared_ptr<InputInterface> userInterface
-	) : MessageBusNode(Bus), PlayerInterface(userInterface) {
+	) : MessageBusNode(std::move(bus)), PlayerInterface(std::move(userInterface)) {
 
 		this->RegisterReciever();
 		this->RegisterEvents();
 
 		PublishMessage("Input Manager Initialized", MessageType::Initialization);
-	}
-
-
-	InputManager::~InputManager() {
-		PublishMessage("Input Manager Destroyed", MessageType::Termination);
 	}
 
 
@@ -56,12 +52,12 @@ namespace EngineCore {
 	void InputManager::HandleKeyboard() {
 		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
 
-		//TODO: Finsish
+		//TODO(MrLever): Finsish
 	}
 
 	void InputManager::HandleMouse() {
 		auto MouseButtonEvents = PlayerInterface->GetMouseButtonEvents();
-		//TODO: Finish
+		//TODO(MrLever): Finish
 	}
 
 

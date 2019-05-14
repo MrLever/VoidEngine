@@ -18,7 +18,7 @@ namespace EngineCore {
 	
 	public:
 		GenericInputInterface(int id);
-		~GenericInputInterface();
+		~GenericInputInterface() = default;
 	
 	public:
 		std::deque<T> Poll();
@@ -31,10 +31,6 @@ namespace EngineCore {
 		ID = id;
 	}
 
-	template <class T>
-	GenericInputInterface<T>::~GenericInputInterface() {
-
-	}
 
 	//Public Member Functions
 	template<class T>

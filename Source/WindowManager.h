@@ -23,11 +23,17 @@ namespace EngineCore {
 		std::string GameName;
 		std::shared_ptr<InputInterface> PlayerInterface;
 
+		int WindowWidth;
+		int WindowHeight;
+
 		static WindowManager* CurrWindowManager;
+
+		static const int OPENGL_MAJOR = 4;
+		static const int OPENGL_MINOR = 5;
 
 	public:
 		//CTORS
-		WindowManager(std::string GameName);
+		WindowManager(std::string gameName, int windowWidth, int windowHeight);
 		~WindowManager();
 
 	private:
@@ -55,6 +61,9 @@ namespace EngineCore {
 
 		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
 			glViewport(0, 0, width, height);
+
+			CurrWindowManager->WindowWidth = width;
+			CurrWindowManager->WindowHeight = height;
 		}
 
 		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
