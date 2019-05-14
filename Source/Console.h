@@ -27,7 +27,7 @@ namespace EngineCore {
 		void RegisterReciever() override;
 
 	public:
-		void ReceiveMessage(Message message) override;
+		void ReceiveMessage(const Message &message) override;
 	};
 
 }

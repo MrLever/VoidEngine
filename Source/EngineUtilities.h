@@ -9,7 +9,7 @@
 
 namespace EngineUtilities {
 
-	static unsigned FNV1aHash(std::string input) {
+	static unsigned FNV1aHash(const std::string &input) {
 
 		const auto FNV_prime = 1099511628211;
 		const auto hashSeed = 14695981039346656037;

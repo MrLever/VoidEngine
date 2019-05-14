@@ -13,8 +13,7 @@
 
 namespace EngineCore {
 
-	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> Bus) {
-		this->GameMessageBus = Bus;
+	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> Bus) : GameMessageBus(std::move(Bus)) {
 
 		if (!this->GameMessageBus) {
 			std::cout << "no message bus";
@@ -35,19 +34,19 @@ namespace EngineCore {
 		GameMessageBus->RemoveReceiver(this);
 	}
 
-	void MessageBusNode::PublishMessage(std::string message, MessageType type) {
+	void MessageBusNode::PublishMessage(const std::string &message, const MessageType &type) {
 		Message outgoing(message, type);
 		GameMessageBus->PublishMessage(outgoing);
 	}
 
-	void MessageBusNode::PublishMessage(Message message) {
+	void MessageBusNode::PublishMessage(const Message &message) {
 		GameMessageBus->PublishMessage(message);
 	}
 
 	// Public Member Functions
 
 	std::function<void(Message)>MessageBusNode::GetMessageReceiveFunction() {
-		auto receiveFunction = [=](Message message) -> void {
+		auto receiveFunction = [=](const Message &message) -> void {
 			this->ReceiveMessage(message);
 		};
 		return receiveFunction;

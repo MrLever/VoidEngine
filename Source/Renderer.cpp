@@ -10,7 +10,7 @@
 
 namespace EngineCore {
 
-	Renderer::Renderer(std::shared_ptr<WindowManager> Window) {
+	Renderer::Renderer(std::shared_ptr<WindowManager> window) : Window(std::move(window)){
 		this->Window = Window;
 
 	}

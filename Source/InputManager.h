@@ -45,9 +45,9 @@ namespace EngineCore {
 
 	public:
 		//Public member functions
-		void AddKeyBinding(KeyboardInput input, Message message);
+		void AddKeyBinding(const KeyboardInput &input, const Message &message);
 		void HandleInput();
-		void ReceiveMessage(Message message) override;
+		void ReceiveMessage(const Message &message) override;
 	};
 
 }

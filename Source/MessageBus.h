@@ -46,11 +46,11 @@ namespace EngineCore {
 	public:
 		void AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag);
 		void AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag);
-		void AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags);
+		void AddReceiver(MessageBusNode* receiver, const std::vector<MessageType> &flags);
 
 		void RemoveReceiver(MessageBusNode* receiver);
 
-		void PublishMessage(Message message);
+		void PublishMessage(const Message &message);
 		void DispatchMessages();
 
 

@@ -22,11 +22,11 @@ namespace EngineCore {
 	//Private Member Functions
 
 	//Public Member Functions
-	void InputInterface::ReportKeyboardInput(KeyboardInput input) {
+	void InputInterface::ReportKeyboardInput(const KeyboardInput &input) {
 		Keyboard.ReportInput(input);
 	}
 
-	void InputInterface::ReportMouseKeyInput(MouseInput input)	{
+	void InputInterface::ReportMouseKeyInput(const MouseInput &input) {
 		Mouse.ReportInput(input);
 	}
 
@@ -34,7 +34,7 @@ namespace EngineCore {
 		Mouse.UpdateMousePosition(x, y);
 	}
 
-	void InputInterface::ReportGamepadInput(GamepadInput input)	{
+	void InputInterface::ReportGamepadInput(const GamepadInput &input)	{
 		Gamepad.ReportInput(input);
 	}
 

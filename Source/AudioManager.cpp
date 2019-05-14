@@ -1,5 +1,6 @@
 //STD Headers
 #include <iostream>
+#include <utility>
 
 //Library Headers
 
@@ -10,7 +11,7 @@
 
 namespace EngineCore {
 
-	AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) : MessageBusNode(GameMessageBus) {
+	AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) : MessageBusNode(std::move(GameMessageBus)) {
 		PublishMessage("Audio Manager Initialized", MessageType::Initialization);
 		this->RegisterReciever();
 	}
@@ -18,7 +19,7 @@ namespace EngineCore {
 	void AudioManager::RegisterEvents() {
 	}
 
-	void AudioManager::ReceiveMessage(Message message) {
+	void AudioManager::ReceiveMessage(const Message &message) {
 		std::cout << "Audio Manager Message Recieved: \n";
 		std::cout << "\t" << message.GetEvent() << "\n";
 	}

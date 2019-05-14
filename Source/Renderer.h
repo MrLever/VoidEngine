@@ -16,7 +16,7 @@ namespace EngineCore {
 
 	public:
 		//CTORS
-		Renderer(std::shared_ptr<WindowManager> Window);
+		Renderer(std::shared_ptr<WindowManager> window);
 		~Renderer();
 
 	private:

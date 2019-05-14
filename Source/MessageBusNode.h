@@ -47,13 +47,13 @@ namespace EngineCore {
 
 		virtual void RegisterEvents() = 0;
 
-		void PublishMessage(std::string message, MessageType type);
-		void PublishMessage(Message message);
+		void PublishMessage(const std::string &message, const MessageType &type);
+		void PublishMessage(const Message &message);
 
 	public:
 		//Public Member Functions
 		std::function<void(Message)> GetMessageReceiveFunction();
-		virtual void ReceiveMessage(Message message) = 0;
+		virtual void ReceiveMessage(const Message &message) = 0;
 
 	};
 

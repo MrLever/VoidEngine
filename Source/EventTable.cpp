@@ -34,12 +34,12 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	bool EventTable::BindEvent(Message message, std::function<void()> event) {
+	bool EventTable::BindEvent(const Message &message, const std::function<void()> &event) {
 		Events.insert({ message, event });
 		return true;
 	}
 
-	bool EventTable::UnbindEvent(Message message) {
+	bool EventTable::UnbindEvent(const Message &message) {
 		return Events.erase(message) > 0;
 	}
 

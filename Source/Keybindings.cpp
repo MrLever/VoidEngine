@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <utility>
 
 //Library Headers
 
@@ -19,7 +20,7 @@ namespace EngineCore {
 		Load();
 	}
 
-	Keybindings::Keybindings(std::string filePath) : Serializable(filePath) {
+	Keybindings::Keybindings(std::string filePath) : Serializable(std::move(filePath)) {
 		Load();
 	}
 
@@ -40,26 +41,26 @@ namespace EngineCore {
 		return tokens;
 	}
 
-	bool Keybindings::ApplyInputSettings(std::vector<std::string> tokens) {
+	bool Keybindings::ApplyInputSettings(const std::vector<std::string> &tokens) {
 		return false;
 	}
 
 	//Public Member Functions
 
-	bool Keybindings::AddBinding(KeyboardInput input, std::string event, int eventType) {
+	bool Keybindings::AddBinding(const KeyboardInput &input, const std::string &event, int eventType) {
 		Message bindingEvent(event, eventType);
 		Bindings.insert({ input, bindingEvent });
 
 		return true;
 	}
 
-	bool Keybindings::AddBinding(KeyboardInput input, Message event) {
+	bool Keybindings::AddBinding(const KeyboardInput &input, const Message &event) {
 		Bindings.insert({ input, event });
 
 		return true;
 	}
 
-	bool Keybindings::RemoveBinding(KeyboardInput key) {
+	bool Keybindings::RemoveBinding(const KeyboardInput &key) {
 		if (Bindings.erase(key) > 0) {
 			//Save modification
 			Save();
@@ -70,7 +71,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(KeyboardInput key, std::string event, int EventType) {
+	bool Keybindings::ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType) {
 		auto binding = Bindings.find(key);
 
 		if (binding != Bindings.end()) {
@@ -86,7 +87,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(KeyboardInput key, Message newEvent) {
+	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Message &newEvent) {
 		auto binding = Bindings.find(key);
 
 		if (binding != Bindings.end()) {
@@ -101,7 +102,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	Message Keybindings::GetBinding(KeyboardInput input) const {
+	Message Keybindings::GetBinding(const KeyboardInput &input) const {
 		auto binding = Bindings.find(input);
 
 		if (binding == Bindings.end()) {

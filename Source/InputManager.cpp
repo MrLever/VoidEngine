@@ -63,7 +63,7 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	void InputManager::AddKeyBinding(KeyboardInput input, Message message) {
+	void InputManager::AddKeyBinding(const KeyboardInput &input, const Message &message) {
 		Bindings.AddBinding(input, message);
 	}
 
@@ -74,7 +74,7 @@ namespace EngineCore {
 		//HandleMouse();
 	}
 
-	void InputManager::ReceiveMessage(Message message) {
+	void InputManager::ReceiveMessage(const Message &message) {
 		//Input manager does not react to incomming messages.
 	}
 

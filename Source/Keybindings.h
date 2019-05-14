@@ -29,17 +29,17 @@ namespace EngineCore {
 	private:
 		//Private Member Functions
 		std::vector<std::string> LoadInputSettings();
-		bool ApplyInputSettings(std::vector<std::string> tokens);
+		bool ApplyInputSettings(const std::vector<std::string> &tokens);
 
 	public:
 		//Public Member Functions
-		bool AddBinding(KeyboardInput input, std::string event, int eventType);
-		bool AddBinding(KeyboardInput input, Message event);
-		bool RemoveBinding(KeyboardInput key);
-		bool ReassignBinding(KeyboardInput key, std::string event, int EventType);
-		bool ReassignBinding(KeyboardInput key, Message newEvent);
+		bool AddBinding(const KeyboardInput &input, const std::string &event, int eventType);
+		bool AddBinding(const KeyboardInput &input, const Message &event);
+		bool RemoveBinding(const KeyboardInput &key);
+		bool ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType);
+		bool ReassignBinding(const KeyboardInput &key, const Message &newEvent);
 
-		Message GetBinding(KeyboardInput input) const;
+		Message GetBinding(const KeyboardInput &input) const;
 
 		bool Save() const override;
 		bool Load() override;

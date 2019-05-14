@@ -27,7 +27,7 @@ namespace EngineCore {
 		AddReceiver(receiver, static_cast<unsigned>(subscriptionFlag));
 	}
 
-	void MessageBus::AddReceiver(MessageBusNode* receiver, std::vector<MessageType> flags) {
+	void MessageBus::AddReceiver(MessageBusNode* receiver, const std::vector<MessageType> &flags) {
 		unsigned flag = 0;
 		for (auto inputFlag : flags) {
 			flag |= static_cast<unsigned>(inputFlag);
@@ -39,7 +39,7 @@ namespace EngineCore {
 
 	}
 
-	void MessageBus::PublishMessage(Message message) {
+	void MessageBus::PublishMessage(const Message &message) {
 		Messages.push(message);
 	}
 

@@ -32,7 +32,7 @@ namespace EngineCore {
 
 	public:
 		//Public Member functions
-		void ReceiveMessage(Message message) override;
+		void ReceiveMessage(const Message &message) override;
 
 	};
 

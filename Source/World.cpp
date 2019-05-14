@@ -1,5 +1,6 @@
 //STD Headers
 #include <iostream>
+#include <utility>
 
 //Library Headers
 
@@ -10,8 +11,7 @@
 
 namespace EngineCore {
 
-	World::World(std::shared_ptr<MessageBus> bus) {
-		this->GameMessageBus = GameMessageBus;
+	World::World(std::shared_ptr<MessageBus> bus) : GameMessageBus(std::move(bus)) {
 
 		currentLevel = std::make_unique<Level>(Level(1));
 

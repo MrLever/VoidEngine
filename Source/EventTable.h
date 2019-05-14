@@ -32,8 +32,8 @@ namespace EngineCore {
 
 	public:
 		//Public member functions
-		bool BindEvent(Message message, std::function<void()> event);
-		bool UnbindEvent(Message message);
+		bool BindEvent(const Message &message, const std::function<void()> &event);
+		bool UnbindEvent(const Message &message);
 	};
 
 }

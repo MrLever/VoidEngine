@@ -41,7 +41,7 @@ namespace ProjectCoatiTestSuite
 			bus->AddReceiver(this, MessageType::Termination);
 		}
 
-		void ReceiveMessage(Message message) override {
+		void ReceiveMessage(const Message &message) override {
 			MessageReceived = true;
 			if (Events[message]) {
 				Events[message]();
@@ -67,7 +67,7 @@ namespace ProjectCoatiTestSuite
 			ToggleSignalReceived = false;
 		}
 
-		void ReceiveMessage(Message message) override {
+		void ReceiveMessage(const Message &message) override {
 			if (message.GetEvent() == "Toggle Console Output") {
 				ToggleSignalReceived = true;
 			}

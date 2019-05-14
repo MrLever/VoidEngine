@@ -29,8 +29,8 @@ namespace EngineCore {
 		unsigned int ID;
 
 	public:
-		Message(std::string message, MessageType type);
-		Message(std::string message, unsigned type);
+		Message(const std::string &message, const MessageType &type);
+		Message(const std::string &message, unsigned type);
 		~Message();
 
 		bool operator==(const Message& other) const;
