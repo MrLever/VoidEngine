@@ -1,0 +1,1 @@
+Checks: '-*,google-readability-*,-google-readability-namespace-comments,modernize-*,-modernize-use-equals-default,performance-*,readability-*,-readability-uppercase-literal-suffix'
