@@ -146,9 +146,6 @@
     <ClInclude Include="Source\Keybindings.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="Source\KeyboardInput.h">
-      <Filter>Header Files\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="Source\EventTable.h">
       <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
@@ -189,6 +186,9 @@
       <Filter>Header Files\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="Source\MouseInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyboardInput.h">
       <Filter>Header Files\Input System\Input Definitions</Filter>
     </ClInclude>
   </ItemGroup>

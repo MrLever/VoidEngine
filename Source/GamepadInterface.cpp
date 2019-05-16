@@ -8,7 +8,7 @@
 namespace EngineCore {
 
 	//tors
-	GamepadInterface::GamepadInterface(int ID) : GenericInputInterface<GamepadInput>(ID) {
+	GamepadInterface::GamepadInterface(int ID) : GenericInputInterface<GamepadInput, GamepadButton>(ID) {
 	
 	}
 

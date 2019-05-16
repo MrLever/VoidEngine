@@ -23,11 +23,11 @@ namespace EngineCore {
 
 	//Public Member Functions
 	void InputInterface::ReportKeyboardInput(const KeyboardInput &input) {
-		Keyboard.ReportInput(input);
+		Keyboard.PublishInput(input);
 	}
 
 	void InputInterface::ReportMouseKeyInput(const MouseInput &input) {
-		Mouse.ReportInput(input);
+		Mouse.PublishInput(input);
 	}
 
 	void InputInterface::ReportMousePosition(double x, double y) {
@@ -35,22 +35,19 @@ namespace EngineCore {
 	}
 
 	void InputInterface::ReportGamepadInput(const GamepadInput &input)	{
-		Gamepad.ReportInput(input);
+		Gamepad.PublishInput(input);
 	}
 
-	std::vector<KeyboardInput> InputInterface::GetKeyboardEvents() {
-		auto queue = Keyboard.Poll();
-		return std::vector<KeyboardInput>(queue.begin(), queue.end());
+	InputReport<GenericInput<KeyType>> InputInterface::GetKeyboardEvents() {
+		return Keyboard.Poll();
 	}
 
-	std::vector<MouseInput> InputInterface::GetMouseButtonEvents() {
-		auto queue = Mouse.Poll();
-		return std::vector<MouseInput>(queue.begin(), queue.end());
+	InputReport <GenericInput<MouseButton>> InputInterface::GetMouseButtonEvents() {
+		return Mouse.Poll();
 	}
 
-	std::vector<GamepadInput> InputInterface::GetGamepadButtonEvents() {
-		auto queue = Gamepad.Poll();
-		return std::vector<GamepadInput>(queue.begin(), queue.end());
+	InputReport <GenericInput<GamepadButton>> InputInterface::GetGamepadButtonEvents() {
+		return Gamepad.Poll();
 	}
 
 }

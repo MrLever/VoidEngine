@@ -21,14 +21,16 @@ namespace EngineCore {
 
 	}
 
+	std::size_t GamepadInput::Hash() const {
+		return std::hash<int>()(static_cast<int>(Button));
+	}
+
 	
 
 	//Private Member Functions
 
 
 	//Public Member Functions
-	std::size_t GamepadInput::Hash() const {
-		return std::hash<int>()(static_cast<int>(Button));
-	}
+
 
 }

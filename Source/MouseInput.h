@@ -32,8 +32,6 @@ namespace EngineCore {
 
 	public:
 		//Public Class Members
-
-		
 		std::size_t Hash() const override;
 	};
 

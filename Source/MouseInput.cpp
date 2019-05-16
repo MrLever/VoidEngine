@@ -24,11 +24,12 @@ namespace EngineCore {
 
 	}
 
+	std::size_t MouseInput::Hash() const {
+		return std::hash<int>()(static_cast<int>(Button));
+	}
+
 	//Private Member Functions
 
 	//Public Memeber Functions
 
-	std::size_t MouseInput::Hash() const {
-		return std::hash<int>()(static_cast<int>(Button));
-	}
 }

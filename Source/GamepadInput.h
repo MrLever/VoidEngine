@@ -12,7 +12,7 @@ namespace EngineCore {
 
 	};
 
-	class GamepadInput : GenericInput<GamepadButton> {
+	class GamepadInput : public GenericInput<GamepadButton> {
 	
 	public:
 		//tors
@@ -21,7 +21,6 @@ namespace EngineCore {
 		~GamepadInput();
 	
 	public:
-		//Public Member Functions
 		std::size_t Hash() const override;
 	};
 

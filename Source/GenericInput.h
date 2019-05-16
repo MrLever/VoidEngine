@@ -31,7 +31,7 @@ namespace EngineCore {
 		ButtonState GetButtonState() const;
 		double GetTimeStamp() const;
 
-		virtual std::size_t Hash() const = 0;
+		virtual std::size_t Hash() const;
 	};
 
 	//tors
@@ -54,6 +54,11 @@ namespace EngineCore {
 	template <class T>
 	double GenericInput<T>::GetTimeStamp() const {
 		return TimeStamp;
+	}
+
+	template<class T>
+	std::size_t GenericInput<T>::Hash() const {
+		return static_cast<std::size_t>(GetTimeStamp());
 	}
 
 }
