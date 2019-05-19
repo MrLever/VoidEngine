@@ -15,7 +15,7 @@ namespace EngineCore {
 	}
 
 	MouseInput::MouseInput(MouseButton button, ButtonState state, double timeStamp) 
-		: GenericInput<MouseButton>(button, state, 0) {
+		: GenericInput<MouseButton>(button, state, timeStamp) {
 	
 	}
 
