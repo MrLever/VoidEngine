@@ -15,7 +15,7 @@ namespace EngineCore {
 	//Ctors
 	InputManager::InputManager(
 		std::shared_ptr<MessageBus> bus,
-		std::shared_ptr<InputInterface> playerInterface
+		std::shared_ptr<InputInterfaceManager> playerInterface
 	) : MessageBusNode(std::move(bus)), PlayerInterface(std::move(playerInterface)) {
 
 		this->RegisterReciever();

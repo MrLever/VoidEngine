@@ -10,7 +10,7 @@
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "Keybindings.h"
-#include "InputInterface.h"
+#include "InputInterfaceManager.h"
 
 
 namespace EngineCore {
@@ -24,13 +24,13 @@ namespace EngineCore {
 	private:
 		//Private class members
 		Keybindings Bindings;
-		std::shared_ptr<InputInterface> PlayerInterface;
+		std::shared_ptr<InputInterfaceManager> PlayerInterface;
 
 	public:
 		//CTORS
 		InputManager(
 			std::shared_ptr<MessageBus> bus, 
-			std::shared_ptr<InputInterface> playerInterface
+			std::shared_ptr<InputInterfaceManager> playerInterface
 		);
 		~InputManager() = default;
 

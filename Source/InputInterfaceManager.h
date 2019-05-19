@@ -13,7 +13,7 @@
 
 namespace EngineCore {
 
-	class InputInterface {
+	class InputInterfaceManager {
 		//Forward class Definitions
 
 	public:
@@ -27,8 +27,8 @@ namespace EngineCore {
 
 	public:
 		//tors
-		InputInterface();
-		~InputInterface();
+		InputInterfaceManager();
+		~InputInterfaceManager();
 
 	private:
 
@@ -39,9 +39,9 @@ namespace EngineCore {
 		void ReportMousePosition(double x, double y);
 		void ReportGamepadInput(const GamepadInput &input);
 
-		InputReport<GenericInput<KeyType>>  GetKeyboardEvents();
-		InputReport <GenericInput<MouseButton>> GetMouseButtonEvents();
-		InputReport <GenericInput<GamepadButton>> GetGamepadButtonEvents();
+		InputReport<GenericInput<KeyType>> GetKeyboardEvents();
+		InputReport<GenericInput<MouseButton>> GetMouseButtonEvents();
+		InputReport<GenericInput<GamepadButton>> GetGamepadButtonEvents();
 	};
 
 }

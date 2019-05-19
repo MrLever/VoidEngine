@@ -84,9 +84,6 @@
     <ClInclude Include="..\Source\GenericInputObject.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\InputInterface.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\KeyboardInterface.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
@@ -100,6 +97,15 @@
       <Filter>SourceReference</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\GamepadInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\GenericInput.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\GenericInputInterface.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\InputInterfaceManager.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,9 +191,6 @@
     <ClCompile Include="ConsoleTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\InputInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\KeyboardInterface.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
@@ -201,6 +204,9 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\GamepadInterface.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\InputInterfaceManager.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>

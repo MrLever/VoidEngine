@@ -150,7 +150,7 @@
     <ClCompile Include="Source\GamepadInterface.cpp" />
     <ClCompile Include="Source\MouseInput.cpp" />
     <ClCompile Include="Source\MouseInterface.cpp" />
-    <ClCompile Include="Source\InputInterface.cpp" />
+    <ClCompile Include="Source\InputInterfaceManager.cpp" />
     <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\EventTable.cpp" />
     <ClCompile Include="Source\InputAxis.cpp" />
@@ -177,7 +177,7 @@
     <ClInclude Include="Source\MouseInput.h" />
     <ClInclude Include="Source\GenericInputInterface.h" />
     <ClInclude Include="Source\MouseInterface.h" />
-    <ClInclude Include="Source\InputInterface.h" />
+    <ClInclude Include="Source\InputInterfaceManager.h" />
     <ClInclude Include="Source\Console.h" />
     <ClInclude Include="Source\EventTable.h" />
     <ClInclude Include="Source\InputAxis.h" />

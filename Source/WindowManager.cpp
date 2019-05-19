@@ -21,7 +21,7 @@ namespace EngineCore {
 		InitGLFW();
 		InitGLAD();
 
-		PlayerInterface = std::make_shared<InputInterface>();
+		PlayerInterface = std::make_shared<InputInterfaceManager>();
 
 		CurrWindowManager = this;
 	}
@@ -91,7 +91,7 @@ namespace EngineCore {
 		return (glfwWindowShouldClose(Window.get()) == GLFW_TRUE);
 	}
 
-	std::shared_ptr<InputInterface> WindowManager::GetInputInterface() {
+	std::shared_ptr<InputInterfaceManager> WindowManager::GetInputInterface() {
 		return PlayerInterface;
 	}
 

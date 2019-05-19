@@ -9,7 +9,7 @@
 #include "GLFW/glfw3.h"
 
 //Coati Headers
-#include "InputInterface.h"
+#include "InputInterfaceManager.h"
 #include "EngineUtilities.h"
 
 
@@ -21,7 +21,7 @@ namespace EngineCore {
 		//Private class members
 		std::shared_ptr<GLFWwindow> Window;
 		std::string GameName;
-		std::shared_ptr<InputInterface> PlayerInterface;
+		std::shared_ptr<InputInterfaceManager> PlayerInterface;
 
 		int WindowWidth;
 		int WindowHeight;
@@ -48,7 +48,7 @@ namespace EngineCore {
 		void SwapBuffers();
 		bool WindowTerminated();
 
-		std::shared_ptr<InputInterface> GetInputInterface();
+		std::shared_ptr<InputInterfaceManager> GetInputInterface();
 
 		//Static Functions
 		static void DeleteWindow(GLFWwindow* window) {

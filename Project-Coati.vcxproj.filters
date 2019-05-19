@@ -102,9 +102,6 @@
     <ClCompile Include="Source\MouseInterface.cpp">
       <Filter>Source Files\Input System\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InputInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="Source\KeyboardInput.cpp">
       <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Source\GamepadInput.cpp">
       <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputInterfaceManager.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +173,6 @@
     <ClInclude Include="Source\MouseInterface.h">
       <Filter>Header Files\Input System\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Source\InputInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GamepadInput.h">
       <Filter>Header Files\Input System\Input Definitions</Filter>
     </ClInclude>
@@ -190,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="Source\KeyboardInput.h">
       <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputInterfaceManager.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
