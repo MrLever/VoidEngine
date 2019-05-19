@@ -30,7 +30,7 @@ namespace EngineCore {
 		//CTORS
 		InputManager(
 			std::shared_ptr<MessageBus> bus, 
-			std::shared_ptr<InputInterface> userInterface
+			std::shared_ptr<InputInterface> playerInterface
 		);
 		~InputManager() = default;
 
