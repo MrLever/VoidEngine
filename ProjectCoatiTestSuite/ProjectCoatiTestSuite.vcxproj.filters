@@ -185,9 +185,6 @@
     <ClCompile Include="..\Source\InputAxis.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ConsoleTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -207,6 +204,9 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\InputInterfaceManager.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Console.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>
