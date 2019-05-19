@@ -7,6 +7,7 @@
 
 //Coati Headers
 #include "GenericInput.h"
+#include "EngineUtilities.h"
 
 namespace EngineCore {
 	template <class V>
@@ -48,8 +49,18 @@ namespace EngineCore {
 	}
 
 	template<class T, typename U>
-	inline void GenericInputInterface<T, U>::PublishInput(const T &Input) {
-		EventQueue.push_back(Input);
+	inline void GenericInputInterface<T, U>::PublishInput(const T &input) {
+		EventQueue.push_back(input);
+		HistoryQueue.push_back(input);
+
+
+		auto now = EngineUtilities::GetGameTime();
+		
+		//Clear old history data on report.
+		while (HistoryQueue.front().GetTimeStamp() - now > 500) {
+			HistoryQueue.pop_front();
+		}
+
 	}
 
 	template<class T, typename U>
