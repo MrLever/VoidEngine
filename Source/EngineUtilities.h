@@ -34,7 +34,7 @@ namespace EngineUtilities {
 		
 		return timeStamp;*/
 	
-		std::chrono::milliseconds timeSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(
+		auto timeSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(
 			std::chrono::system_clock::now().time_since_epoch()
 		);
 
