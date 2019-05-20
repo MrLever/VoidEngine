@@ -60,6 +60,11 @@ namespace EngineCore {
 		//TODO(MrLever): Finish
 	}
 
+	void InputManager::HandleGamepad() {
+		auto GamepadEvents = PlayerInterface->GetGamepadButtonEvents();
+
+		//TODO(MrLever): Finish
+	}
 
 	//Public Member Functions
 
@@ -71,7 +76,8 @@ namespace EngineCore {
 
 	void InputManager::HandleInput() {
 		HandleKeyboard();
-		//HandleMouse();
+		HandleMouse();
+		HandleGamepad();
 	}
 
 	void InputManager::ReceiveMessage(const Message &message) {

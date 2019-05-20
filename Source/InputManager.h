@@ -40,8 +40,10 @@ namespace EngineCore {
 
 		//Private member functions
 		void LoadKeybindings();
-		void HandleMouse();
+
 		void HandleKeyboard();
+		void HandleMouse();
+		void HandleGamepad();
 
 	public:
 		//Public member functions
