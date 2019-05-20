@@ -6,6 +6,7 @@
 
 //Coati Headers
 #include "GenericInput.h"
+#include "EngineUtilities.h"
 
 namespace EngineCore {
 
@@ -24,7 +25,7 @@ namespace EngineCore {
 	public:
 		//tors
 		MouseInput(MouseButton button, ButtonState state);
-		MouseInput(MouseButton button, ButtonState state, double timeStamp);
+		MouseInput(MouseButton button, ButtonState state, EngineUtilities::GameTime timeStamp);
 		~MouseInput();
 
 	private:

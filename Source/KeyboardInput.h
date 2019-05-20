@@ -5,6 +5,7 @@
 
 //Coati Headers
 #include "GenericInput.h"
+#include "EngineUtilities.h"
 
 namespace EngineCore {
 
@@ -26,7 +27,7 @@ namespace EngineCore {
 	public:
 		//CTORS
 		KeyboardInput(KeyType key, ButtonState state);
-		KeyboardInput(KeyType key, ButtonState state, double time);
+		KeyboardInput(KeyType key, ButtonState state, EngineUtilities::GameTime time);
 		~KeyboardInput();
 
 		bool operator==(const KeyboardInput& other) const;

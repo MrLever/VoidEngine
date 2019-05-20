@@ -5,6 +5,7 @@
 //Library Headers
 
 //Coati Headers
+#include "EngineUtilities.h"
 
 namespace EngineCore {
 	enum class ButtonState : unsigned {
@@ -20,23 +21,23 @@ namespace EngineCore {
 	protected:
 		T Button;
 		ButtonState State;
-		double TimeStamp;
+		EngineUtilities::GameTime TimeStamp;
 
 	public:
-		GenericInput(T button, ButtonState state, double time);
+		GenericInput(T button, ButtonState state, EngineUtilities::GameTime time);
 		~GenericInput() = default;
 
 	public:
 		T GetButton() const;
 		ButtonState GetButtonState() const;
-		double GetTimeStamp() const;
+		EngineUtilities::GameTime GetTimeStamp() const;
 
 		virtual std::size_t Hash() const;
 	};
 
 	//tors
 	template <class T>
-	GenericInput<T>::GenericInput(T button, ButtonState state, double time) 
+	GenericInput<T>::GenericInput(T button, ButtonState state, EngineUtilities::GameTime time) 
 		: Button(button), State(state), TimeStamp(time){
 
 	}
@@ -52,7 +53,7 @@ namespace EngineCore {
 	}
 
 	template <class T>
-	double GenericInput<T>::GetTimeStamp() const {
+	EngineUtilities::GameTime GenericInput<T>::GetTimeStamp() const {
 		return TimeStamp;
 	}
 

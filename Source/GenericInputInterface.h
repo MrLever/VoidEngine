@@ -53,11 +53,10 @@ namespace EngineCore {
 		EventQueue.push_back(input);
 		HistoryQueue.push_back(input);
 
+		EngineUtilities::GameTime now = EngineUtilities::GetGameTime();
 
-		auto now = EngineUtilities::GetGameTime();
-		
 		//Clear old history data on report.
-		while (HistoryQueue.front().GetTimeStamp() - now > 500) {
+		while (now - HistoryQueue.front().GetTimeStamp() > 500) {
 			HistoryQueue.pop_front();
 		}
 

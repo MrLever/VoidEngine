@@ -4,6 +4,7 @@
 
 //Coati Headers
 #include "GamepadInput.h"
+#include "EngineUtilities.h"
 
 namespace EngineCore {
 
@@ -12,7 +13,7 @@ namespace EngineCore {
 		: GenericInput<GamepadButton>(button, state, 0) {
 
 	}
-	GamepadInput::GamepadInput(GamepadButton button, ButtonState state, double time) 
+	GamepadInput::GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time) 
 		: GenericInput<GamepadButton>(button, state, time) {
 
 	}

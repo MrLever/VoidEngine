@@ -9,6 +9,8 @@
 
 namespace EngineUtilities {
 
+	using GameTime = unsigned long long;
+
 	static unsigned FNV1aHash(const std::string &input) {
 
 		const auto FNV_prime = 1099511628211;
@@ -26,11 +28,17 @@ namespace EngineUtilities {
 
 	}
 
-	static double GetGameTime() {
-		auto currentTime = std::chrono::high_resolution_clock::now();
+	static GameTime GetGameTime() {
+		/*auto currentTime = std::chrono::high_resolution_clock::now();
 		double timeStamp = std::chrono::duration<double>(currentTime.time_since_epoch()).count();
 		
-		return timeStamp;
+		return timeStamp;*/
+	
+		std::chrono::milliseconds timeSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(
+			std::chrono::system_clock::now().time_since_epoch()
+		);
+
+		return timeSinceEpoch.count();
 	}
 }
 

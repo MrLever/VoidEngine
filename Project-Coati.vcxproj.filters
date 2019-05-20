@@ -72,9 +72,6 @@
     <ClCompile Include="Source\InputManager.cpp">
       <Filter>Source Files\Input System</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InputAxis.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Keybindings.cpp">
       <Filter>Source Files\Input System</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="Source\InputInterfaceManager.cpp">
       <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputAxis.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
