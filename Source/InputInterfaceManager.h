@@ -39,8 +39,13 @@ namespace EngineCore {
 		void ReportMousePosition(double x, double y);
 		void ReportGamepadInput(const GamepadInput &input);
 
+		[[nodiscard]]
 		InputReport<GenericInput<KeyType>> GetKeyboardEvents();
+
+		[[nodiscard]]
 		InputReport<GenericInput<MouseButton>> GetMouseButtonEvents();
+		
+		[[nodiscard]]
 		InputReport<GenericInput<GamepadButton>> GetGamepadButtonEvents();
 	};
 

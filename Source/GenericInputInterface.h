@@ -24,7 +24,9 @@ namespace EngineCore {
 	class GenericInputInterface {
 	private:
 
+
 	protected:
+		static const int HistoryLifetime = 500;
 		std::deque<GenericInput<U>> HistoryQueue;
 		std::deque<GenericInput<U>> EventQueue;
 
@@ -37,6 +39,7 @@ namespace EngineCore {
 	public:
 		void PublishInput(const T &Input);
 
+		[[nodiscard]]
 		InputReport<GenericInput<U>> Poll();
 
 
@@ -56,7 +59,7 @@ namespace EngineCore {
 		EngineUtilities::GameTime now = EngineUtilities::GetGameTime();
 
 		//Clear old history data on report.
-		while (now - HistoryQueue.front().GetTimeStamp() > 500) {
+		while (now - HistoryQueue.front().GetTimeStamp() > HistoryLifetime) {
 			HistoryQueue.pop_front();
 		}
 
