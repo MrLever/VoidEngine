@@ -35,7 +35,7 @@ namespace EngineCore {
 		return Event;
 	}
 
-	unsigned Message::GetEventID() const {
+	unsigned long long Message::GetEventID() const {
 		return ID;
 	}
 

@@ -26,7 +26,7 @@ namespace EngineCore {
 		//Private class members
 		std::string Event;
 		MessageType Type;
-		unsigned int ID;
+		unsigned long long ID;
 
 	public:
 		Message(const std::string &message, const MessageType &type);
@@ -41,7 +41,7 @@ namespace EngineCore {
 	public:
 		//Public member functions
 		std::string GetEvent() const;
-		unsigned GetEventID() const;
+		unsigned long long GetEventID() const;
 		MessageType GetType() const;
 
 	};

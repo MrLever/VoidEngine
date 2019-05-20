@@ -11,7 +11,7 @@ namespace EngineUtilities {
 
 	using GameTime = unsigned long long;
 
-	static unsigned FNV1aHash(const std::string &input) {
+	static unsigned long long FNV1aHash(const std::string &input) {
 
 		const auto FNV_prime = 1099511628211;
 		const auto hashSeed = 14695981039346656037;
@@ -24,7 +24,7 @@ namespace EngineUtilities {
 			hash = hash * FNV_prime;
 		}
 
-		return static_cast<unsigned>(hash);
+		return static_cast<unsigned long long>(hash);
 
 	}
 
