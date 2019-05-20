@@ -16,9 +16,8 @@ namespace EngineCore {
 		this->ID = EngineUtilities::FNV1aHash(message);
 	}
 
-	Message::Message(const std::string &message, unsigned type) :
-		Event(message),
-		Type(static_cast<MessageType>(type))
+	Message::Message(const std::string &message, unsigned type) 
+		: Event(message), Type(static_cast<MessageType>(type))
 	{
 		this->ID = EngineUtilities::FNV1aHash(message);
 	}
