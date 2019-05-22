@@ -108,6 +108,9 @@
     <ClInclude Include="..\Source\InputInterfaceManager.h">
       <Filter>SourceReference</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Action.h">
+      <Filter>SourceReference</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -207,6 +210,9 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Console.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Action.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>

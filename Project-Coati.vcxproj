@@ -155,6 +155,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Action.cpp" />
     <ClCompile Include="Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Source\GamepadInput.cpp" />
     <ClCompile Include="Source\GamepadInterface.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Action.h" />
     <ClInclude Include="Source\GenericInput.h" />
     <ClInclude Include="Source\GamepadInput.h" />
     <ClInclude Include="Source\GamepadInterface.h" />

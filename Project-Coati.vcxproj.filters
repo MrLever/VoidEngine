@@ -114,6 +114,9 @@
     <ClCompile Include="Source\InputAxis.cpp">
       <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Action.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Source\InputInterfaceManager.h">
       <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Action.h">
+      <Filter>Header Files\Input System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

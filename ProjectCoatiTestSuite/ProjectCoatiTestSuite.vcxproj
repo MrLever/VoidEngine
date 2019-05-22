@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\Action.h" />
     <ClInclude Include="..\Source\AudioManager.h" />
     <ClInclude Include="..\Source\Console.h" />
     <ClInclude Include="..\Source\Core.h" />
@@ -192,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="..\Source\Action.cpp" />
     <ClCompile Include="..\Source\AudioManager.cpp" />
     <ClCompile Include="..\Source\Console.cpp" />
     <ClCompile Include="..\Source\Core.cpp" />
