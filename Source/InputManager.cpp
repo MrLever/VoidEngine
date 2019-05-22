@@ -52,12 +52,34 @@ namespace EngineCore {
 	void InputManager::HandleKeyboard() {
 		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
 
+		for (const auto& input : KeyboardEvents.Inputs) {
+			if (input.GetButtonState() == ButtonState::Pressed)
+				PublishMessage(Message("Keyboard button Pressed", MessageType::Input));
+
+			if (input.GetButtonState() == ButtonState::Held)
+				PublishMessage(Message("Keyboard button held", MessageType::Input));
+
+			if (input.GetButtonState() == ButtonState::Released)
+				PublishMessage(Message("Keyboard button released", MessageType::Input));
+		}
+
 		//TODO(MrLever): Finsish
 	}
 
 	void InputManager::HandleMouse() {
 		auto MouseButtonEvents = PlayerInterface->GetMouseButtonEvents();
+		
 		//TODO(MrLever): Finish
+		for (const auto& input : MouseButtonEvents.Inputs) {
+			if(input.GetButtonState() == ButtonState::Pressed)
+				PublishMessage(Message("Mouse button Pressed", MessageType::Input));
+
+			if(input.GetButtonState() == ButtonState::Held)
+				PublishMessage(Message("Mouse button held", MessageType::Input));
+
+			if(input.GetButtonState() == ButtonState::Released)
+				PublishMessage(Message("Mouse button released", MessageType::Input));
+		}
 	}
 
 	void InputManager::HandleGamepad() {
