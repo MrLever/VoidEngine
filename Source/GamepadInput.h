@@ -20,6 +20,8 @@ namespace EngineCore {
 		GamepadInput(GamepadButton button, ButtonState state);
 		GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time);
 		~GamepadInput();
+
+		bool operator==(const GamepadInput &other) const;
 	
 	public:
 		std::size_t Hash() const override;

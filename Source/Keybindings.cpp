@@ -52,8 +52,39 @@ namespace EngineCore {
 		return false;
 	}
 
+	bool Keybindings::AddBinding(const MouseInput &input, const Action &action)	{
+
+		return false;
+	}
+
+	bool Keybindings::AddBinding(const GamepadInput& input, const Action& action) {
+		return false;
+	}
+
 	bool Keybindings::RemoveBinding(const KeyboardInput &key) {
-		if (Bindings.erase(key) > 0) {
+		if (KeyboardBindings.erase(key) > 0) {
+			//Save modification
+			Save();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Keybindings::RemoveBinding(const MouseInput &key) {
+		if (MouseBindings.erase(key) > 0) {
+			//Save modification
+			Save();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Keybindings::RemoveBinding(const GamepadInput& key) {
+		if (GamepadBindings.erase(key) > 0) {
 			//Save modification
 			Save();
 
@@ -64,9 +95,9 @@ namespace EngineCore {
 	}
 
 	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Action &newAction) {
-		auto binding = Bindings.find(key);
+		auto binding = KeyboardBindings.find(key);
 
-		if (binding != Bindings.end()) {
+		if (binding != KeyboardBindings.end()) {
 			binding->second = newAction;
 
 			//Save modification
@@ -79,9 +110,9 @@ namespace EngineCore {
 	}
 
 	Action Keybindings::GetBinding(const KeyboardInput &input) const {
-		auto binding = Bindings.find(input);
+		auto binding = KeyboardBindings.find(input);
 
-		if (binding == Bindings.end()) {
+		if (binding == KeyboardBindings.end()) {
 			return Action("Keybinding not found.", ActionType::Error);
 		}
 		

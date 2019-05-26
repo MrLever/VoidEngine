@@ -7,6 +7,8 @@
 
 //Coati Headers
 #include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
 #include "Serializable.h"
 #include "Action.h"
 
@@ -15,7 +17,10 @@ namespace EngineCore {
 	class Keybindings : Serializable {
 	private:
 		//Private Class Members
-		std::unordered_map<KeyboardInput, Action> Bindings;
+		std::unordered_map<KeyboardInput, Action> KeyboardBindings;
+		std::unordered_map<MouseInput, Action> MouseBindings;
+		std::unordered_map<GamepadInput, GamepadInput> GamepadBindings;
+
 		const std::string CustomInputPath = "Settings/UserCustomInput.ini";
 
 	public:
@@ -32,7 +37,13 @@ namespace EngineCore {
 	public:
 		//Public Member Functions
 		bool AddBinding(const KeyboardInput &input, const Action &action);
+		bool AddBinding(const MouseInput &input, const Action &action);
+		bool AddBinding(const GamepadInput &input, const Action &action);
+
 		bool RemoveBinding(const KeyboardInput &key);
+		bool RemoveBinding(const MouseInput &key);
+		bool RemoveBinding(const GamepadInput &key);
+
 		bool ReassignBinding(const KeyboardInput &key, const Action &newACtion);
 
 		Action GetBinding(const KeyboardInput &input) const;
