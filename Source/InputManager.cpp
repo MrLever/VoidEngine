@@ -90,12 +90,6 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	void InputManager::AddKeyBinding(const KeyboardInput &input, const Message &message) {
-		Bindings.AddBinding(input, message);
-	}
-
-
-
 	void InputManager::HandleInput() {
 		HandleKeyboard();
 		HandleMouse();

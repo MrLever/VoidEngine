@@ -8,16 +8,14 @@
 //Coati Headers
 #include "KeyboardInput.h"
 #include "Serializable.h"
+#include "Action.h"
 
 namespace EngineCore {
-
-	//Forward Class declarations
-	class Message;
 
 	class Keybindings : Serializable {
 	private:
 		//Private Class Members
-		std::unordered_map<KeyboardInput, Message> Bindings;
+		std::unordered_map<KeyboardInput, Action> Bindings;
 		const std::string CustomInputPath = "Settings/UserCustomInput.ini";
 
 	public:
@@ -33,13 +31,11 @@ namespace EngineCore {
 
 	public:
 		//Public Member Functions
-		bool AddBinding(const KeyboardInput &input, const std::string &event, int eventType);
-		bool AddBinding(const KeyboardInput &input, const Message &event);
+		bool AddBinding(const KeyboardInput &input, const Action &action);
 		bool RemoveBinding(const KeyboardInput &key);
-		bool ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType);
-		bool ReassignBinding(const KeyboardInput &key, const Message &newEvent);
+		bool ReassignBinding(const KeyboardInput &key, const Action &newACtion);
 
-		Message GetBinding(const KeyboardInput &input) const;
+		Action GetBinding(const KeyboardInput &input) const;
 
 		bool Save() const override;
 		bool Load() override;

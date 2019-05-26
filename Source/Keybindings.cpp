@@ -47,17 +47,9 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	bool Keybindings::AddBinding(const KeyboardInput &input, const std::string &event, int eventType) {
-		Message bindingEvent(event, eventType);
-		Bindings.insert({ input, bindingEvent });
+	bool Keybindings::AddBinding(const KeyboardInput &input, const Action &action) {
 
-		return true;
-	}
-
-	bool Keybindings::AddBinding(const KeyboardInput &input, const Message &event) {
-		Bindings.insert({ input, event });
-
-		return true;
+		return false;
 	}
 
 	bool Keybindings::RemoveBinding(const KeyboardInput &key) {
@@ -71,12 +63,11 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType) {
+	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Action &newAction) {
 		auto binding = Bindings.find(key);
 
 		if (binding != Bindings.end()) {
-			Message newEvent = Message(event, EventType);
-			binding->second = newEvent;
+			binding->second = newAction;
 
 			//Save modification
 			Save();
@@ -87,53 +78,23 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Message &newEvent) {
-		auto binding = Bindings.find(key);
-
-		if (binding != Bindings.end()) {
-			binding->second = newEvent;
-
-			//Save modification
-			Save();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	Message Keybindings::GetBinding(const KeyboardInput &input) const {
+	Action Keybindings::GetBinding(const KeyboardInput &input) const {
 		auto binding = Bindings.find(input);
 
 		if (binding == Bindings.end()) {
-			return Message("Keybinding not found.", MessageType::Error);
+			return Action("Keybinding not found.", ActionType::Error);
 		}
 		
 		return binding->second;
 	}
 
 	bool Keybindings::Save() const {
-		std::ofstream OutFileStream;
-		OutFileStream.open(CustomInputPath);
-		if (!OutFileStream) {
-			std::cerr << "ERROR: Keybindings file not found\n";
-			return false;
-		}
-
-		OutFileStream << "[INPUT EVENTS]\n";
-
-		OutFileStream.close();
-		return true;
+		return false;
 	}
 
 
 	bool Keybindings::Load() {
-		//Clear any previous bindings
-		Bindings.clear();
-
-		//Load new bindings
-		return ApplyInputSettings(LoadInputSettings());
-
+		return false;
 	}
 
 }
