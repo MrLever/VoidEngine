@@ -44,7 +44,7 @@ namespace EngineCore {
 		bool RemoveBinding(const MouseInput &key);
 		bool RemoveBinding(const GamepadInput &key);
 
-		bool ReassignBinding(const KeyboardInput &key, const Action &newACtion);
+		bool ReassignBinding(const KeyboardInput &key, const Action &newAction);
 
 		Action GetBinding(const KeyboardInput &input) const;
 
