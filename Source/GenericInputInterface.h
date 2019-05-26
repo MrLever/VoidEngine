@@ -11,7 +11,7 @@
 
 namespace EngineCore {
 	template <class V>
-	struct InputReport {
+	struct [[nodiscard]] InputReport {
 		std::vector<V> History;
 		std::vector<V> Inputs;
 
@@ -56,7 +56,7 @@ namespace EngineCore {
 
 		}
 
-		[[nodiscard]] InputReport<GenericInput<U>> Poll() {
+		InputReport<GenericInput<U>> Poll() {
 			auto report = InputReport<GenericInput<U>>(HistoryQueue, EventQueue);
 
 			EventQueue = std::deque<GenericInput<U>>();
