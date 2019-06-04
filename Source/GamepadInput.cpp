@@ -22,6 +22,10 @@ namespace EngineCore {
 
 	}
 
+	bool GamepadInput::operator==(const GamepadInput& other) const {
+		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
+	}
+
 	std::size_t GamepadInput::Hash() const {
 		return std::hash<int>()(static_cast<int>(Button));
 	}

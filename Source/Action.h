@@ -10,6 +10,7 @@
 
 namespace EngineCore {
 	enum class ActionType : unsigned {
+		Error = 0,
 		Discrete = 1,
 		Continuous = 2,
 	};

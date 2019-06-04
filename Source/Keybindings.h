@@ -7,17 +7,20 @@
 
 //Coati Headers
 #include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
 #include "Serializable.h"
+#include "Action.h"
 
 namespace EngineCore {
-
-	//Forward Class declarations
-	class Message;
 
 	class Keybindings : Serializable {
 	private:
 		//Private Class Members
-		std::unordered_map<KeyboardInput, Message> Bindings;
+		std::unordered_map<KeyboardInput, Action> KeyboardBindings;
+		std::unordered_map<MouseInput, Action> MouseBindings;
+		std::unordered_map<GamepadInput, GamepadInput> GamepadBindings;
+
 		const std::string CustomInputPath = "Settings/UserCustomInput.ini";
 
 	public:
@@ -33,13 +36,17 @@ namespace EngineCore {
 
 	public:
 		//Public Member Functions
-		bool AddBinding(const KeyboardInput &input, const std::string &event, int eventType);
-		bool AddBinding(const KeyboardInput &input, const Message &event);
-		bool RemoveBinding(const KeyboardInput &key);
-		bool ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType);
-		bool ReassignBinding(const KeyboardInput &key, const Message &newEvent);
+		bool AddBinding(const KeyboardInput &input, const Action &action);
+		bool AddBinding(const MouseInput &input, const Action &action);
+		bool AddBinding(const GamepadInput &input, const Action &action);
 
-		Message GetBinding(const KeyboardInput &input) const;
+		bool RemoveBinding(const KeyboardInput &key);
+		bool RemoveBinding(const MouseInput &key);
+		bool RemoveBinding(const GamepadInput &key);
+
+		bool ReassignBinding(const KeyboardInput &key, const Action &newAction);
+
+		Action GetBinding(const KeyboardInput &input) const;
 
 		bool Save() const override;
 		bool Load() override;

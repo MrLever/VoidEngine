@@ -47,21 +47,22 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	bool Keybindings::AddBinding(const KeyboardInput &input, const std::string &event, int eventType) {
-		Message bindingEvent(event, eventType);
-		Bindings.insert({ input, bindingEvent });
+	bool Keybindings::AddBinding(const KeyboardInput &input, const Action &action) {
 
-		return true;
+		return false;
 	}
 
-	bool Keybindings::AddBinding(const KeyboardInput &input, const Message &event) {
-		Bindings.insert({ input, event });
+	bool Keybindings::AddBinding(const MouseInput &input, const Action &action)	{
 
-		return true;
+		return false;
+	}
+
+	bool Keybindings::AddBinding(const GamepadInput& input, const Action& action) {
+		return false;
 	}
 
 	bool Keybindings::RemoveBinding(const KeyboardInput &key) {
-		if (Bindings.erase(key) > 0) {
+		if (KeyboardBindings.erase(key) > 0) {
 			//Save modification
 			Save();
 
@@ -71,12 +72,33 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(const KeyboardInput &key, const std::string &event, int EventType) {
-		auto binding = Bindings.find(key);
+	bool Keybindings::RemoveBinding(const MouseInput &key) {
+		if (MouseBindings.erase(key) > 0) {
+			//Save modification
+			Save();
 
-		if (binding != Bindings.end()) {
-			Message newEvent = Message(event, EventType);
-			binding->second = newEvent;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Keybindings::RemoveBinding(const GamepadInput& key) {
+		if (GamepadBindings.erase(key) > 0) {
+			//Save modification
+			Save();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Action &newAction) {
+		auto binding = KeyboardBindings.find(key);
+
+		if (binding != KeyboardBindings.end()) {
+			binding->second = newAction;
 
 			//Save modification
 			Save();
@@ -87,53 +109,23 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::ReassignBinding(const KeyboardInput &key, const Message &newEvent) {
-		auto binding = Bindings.find(key);
+	Action Keybindings::GetBinding(const KeyboardInput &input) const {
+		auto binding = KeyboardBindings.find(input);
 
-		if (binding != Bindings.end()) {
-			binding->second = newEvent;
-
-			//Save modification
-			Save();
-
-			return true;
-		}
-
-		return false;
-	}
-
-	Message Keybindings::GetBinding(const KeyboardInput &input) const {
-		auto binding = Bindings.find(input);
-
-		if (binding == Bindings.end()) {
-			return Message("Keybinding not found.", MessageType::Error);
+		if (binding == KeyboardBindings.end()) {
+			return Action("Keybinding not found.", ActionType::Error);
 		}
 		
 		return binding->second;
 	}
 
 	bool Keybindings::Save() const {
-		std::ofstream OutFileStream;
-		OutFileStream.open(CustomInputPath);
-		if (!OutFileStream) {
-			std::cerr << "ERROR: Keybindings file not found\n";
-			return false;
-		}
-
-		OutFileStream << "[INPUT EVENTS]\n";
-
-		OutFileStream.close();
-		return true;
+		return false;
 	}
 
 
 	bool Keybindings::Load() {
-		//Clear any previous bindings
-		Bindings.clear();
-
-		//Load new bindings
-		return ApplyInputSettings(LoadInputSettings());
-
+		return false;
 	}
 
 }
