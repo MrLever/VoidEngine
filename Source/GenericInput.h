@@ -37,8 +37,10 @@ namespace EngineCore {
 
 	//tors
 	template <class T>
-	GenericInput<T>::GenericInput(T button, ButtonState state, EngineUtilities::GameTime time) 
-		: Button(button), State(state), TimeStamp(time){
+	GenericInput<T>::GenericInput(
+		T button, ButtonState state, EngineUtilities::GameTime time
+		) : Button(button), State(state), TimeStamp(time){
+
 
 	}
 
