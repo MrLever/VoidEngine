@@ -18,7 +18,7 @@ namespace EngineCore {
 		Thumb_2 = 4
 	};
 
-	class MouseInput : public GenericInput<MouseButton> {
+	class MouseInput : public GenericInput{
 	private:
 
 
@@ -35,8 +35,11 @@ namespace EngineCore {
 
 	public:
 		//Public Class Members
+		MouseButton GetMouseButton();
 		std::size_t Hash() const override;
 	};
+
+	using MouseInputPtr = std::shared_ptr<MouseInput>;
 
 }
 

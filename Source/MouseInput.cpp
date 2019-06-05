@@ -11,12 +11,12 @@ namespace EngineCore {
 	
 	//tors
 	MouseInput::MouseInput(MouseButton button, ButtonState state) 
-		: GenericInput<MouseButton>(button, state, 0) {
+		: GenericInput(static_cast<unsigned>(button), state, 0) {
 
 	}
 
 	MouseInput::MouseInput(MouseButton button, ButtonState state, EngineUtilities::GameTime timeStamp) 
-		: GenericInput<MouseButton>(button, state, timeStamp) {
+		: GenericInput(static_cast<unsigned>(button), state, timeStamp) {
 	
 	}
 
@@ -27,6 +27,10 @@ namespace EngineCore {
 
 	bool MouseInput::operator==(const MouseInput& other) const {
 		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
+	}
+
+	MouseButton MouseInput::GetMouseButton() {
+		return static_cast<MouseButton>(Button);
 	}
 
 	std::size_t MouseInput::Hash() const {

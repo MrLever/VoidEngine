@@ -20,7 +20,7 @@ namespace EngineCore {
 	//Keytype specificication matches GLFW, 
 	//which also matches ascii for *most* printed characters
 	//See: https://www.glfw.org/docs/latest/group__keys.html
-	enum class KeyType : unsigned {
+	enum class KeyboardButton : unsigned {
 		UNKOWN = 0,
 		SPACE = 32,
 		APOSTROPHE = 39,
@@ -141,14 +141,14 @@ namespace EngineCore {
 		MENU = 348
 	};
 
-	class KeyboardInput : public GenericInput<KeyType> {
+	class KeyboardInput : public GenericInput{
 	
 	private:
 
 	public:
 		//CTORS
-		KeyboardInput(KeyType key, ButtonState state);
-		KeyboardInput(KeyType key, ButtonState state, EngineUtilities::GameTime time);
+		KeyboardInput(KeyboardButton key, ButtonState state);
+		KeyboardInput(KeyboardButton key, ButtonState state, EngineUtilities::GameTime time);
 		~KeyboardInput();
 
 		bool operator==(const KeyboardInput &other) const;
@@ -156,9 +156,11 @@ namespace EngineCore {
 	private:
 
 	public:
+		KeyboardButton GetKeyboardButton() const;
 		std::size_t Hash() const override;
 	};
 
+	using KeyboardInputPtr = std::shared_ptr<KeyboardInput>;
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

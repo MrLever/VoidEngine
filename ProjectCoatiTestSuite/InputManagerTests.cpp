@@ -24,7 +24,7 @@ namespace ProjectCoatiTestSuite {
 			InputManager dummyManager(dummyBus, DummyInterface);
 			DummyReceiver dummyReciever(dummyBus);
 
-			KeyboardInput dummyInput(KeyType::ESC, ButtonState::Pressed);
+			KeyboardInput dummyInput(KeyboardButton::ESC, ButtonState::Pressed);
 			Message dummyMessage("End Game", MessageType::Termination);
 			
 			//dummyManager.AddKeyBinding(dummyInput, dummyMessage);

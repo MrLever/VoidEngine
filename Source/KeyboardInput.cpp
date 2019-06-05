@@ -11,12 +11,13 @@
 namespace EngineCore {
 
 	//tors
-	KeyboardInput::KeyboardInput(KeyType key, ButtonState state) : GenericInput<KeyType>(key, state, 0) {
+	KeyboardInput::KeyboardInput(KeyboardButton key, ButtonState state) 
+		: GenericInput(static_cast<unsigned>(key), state, 0) {
 
 	}
 
-	KeyboardInput::KeyboardInput(KeyType key, ButtonState state, EngineUtilities::GameTime time)
-		: GenericInput<KeyType>(key, state, time){
+	KeyboardInput::KeyboardInput(KeyboardButton key, ButtonState state, EngineUtilities::GameTime time)
+		: GenericInput(static_cast<unsigned>(key), state, time){
 
 	}
 
@@ -27,6 +28,10 @@ namespace EngineCore {
 
 	bool KeyboardInput::operator==(const KeyboardInput& other) const {
 		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
+	}
+
+	KeyboardButton KeyboardInput::GetKeyboardButton() const {
+		return static_cast<KeyboardButton>(Button);
 	}
 
 	std::size_t KeyboardInput::Hash() const {

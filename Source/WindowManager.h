@@ -71,8 +71,8 @@ namespace EngineCore {
 			auto timeStamp = EngineUtilities::GetGameTime();
 
 			//Create Coati KeyboardInput
-			KeyboardInput input(
-				static_cast<KeyType>(key), 
+			KeyboardInputPtr input = std::make_shared<KeyboardInput>(
+				static_cast<KeyboardButton>(key), 
 				static_cast<ButtonState>(action), 
 				timeStamp
 			);
@@ -87,7 +87,7 @@ namespace EngineCore {
 			auto timeStamp = EngineUtilities::GetGameTime();
 			
 			//Create Coati MouseInput
-			MouseInput input(
+			MouseInputPtr input = std::make_shared<MouseInput>(
 				static_cast<MouseButton>(button),
 				static_cast<ButtonState>(action),
 				timeStamp

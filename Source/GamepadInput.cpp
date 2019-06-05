@@ -10,11 +10,11 @@ namespace EngineCore {
 
 	//tors
 	GamepadInput::GamepadInput(GamepadButton button, ButtonState state)
-		: GenericInput<GamepadButton>(button, state, 0) {
+		: GenericInput(static_cast<unsigned>(button), state, 0) {
 
 	}
 	GamepadInput::GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time) 
-		: GenericInput<GamepadButton>(button, state, time) {
+		: GenericInput(static_cast<unsigned>(button), state, time) {
 
 	}
 
@@ -24,6 +24,10 @@ namespace EngineCore {
 
 	bool GamepadInput::operator==(const GamepadInput& other) const {
 		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
+	}
+
+	GamepadButton GamepadInput::GetGamepadButton() const {
+		return static_cast<GamepadButton>(Button);
 	}
 
 	std::size_t GamepadInput::Hash() const {

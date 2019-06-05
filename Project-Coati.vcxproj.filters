@@ -117,6 +117,9 @@
     <ClCompile Include="Source\Action.cpp">
       <Filter>Source Files\Input System</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GenericInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">

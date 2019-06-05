@@ -22,11 +22,11 @@ namespace EngineCore {
 	//Private Member Functions
 
 	//Public Member Functions
-	void InputInterfaceManager::ReportKeyboardInput(const KeyboardInput &input) {
+	void InputInterfaceManager::ReportKeyboardInput(const KeyboardInputPtr input) {
 		Keyboard.PublishInput(input);
 	}
 
-	void InputInterfaceManager::ReportMouseKeyInput(const MouseInput &input) {
+	void InputInterfaceManager::ReportMouseKeyInput(const MouseInputPtr input) {
 		Mouse.PublishInput(input);
 	}
 
@@ -34,19 +34,19 @@ namespace EngineCore {
 		Mouse.UpdateMousePosition(x, y);
 	}
 
-	void InputInterfaceManager::ReportGamepadInput(const GamepadInput &input)	{
+	void InputInterfaceManager::ReportGamepadInput(const GamepadInputPtr input)	{
 		Gamepad.PublishInput(input);
 	}
 
-	InputReport<GenericInput<KeyType>> InputInterfaceManager::GetKeyboardEvents() {
+	InputReport InputInterfaceManager::GetKeyboardEvents() {
 		return Keyboard.Poll();
 	}
 
-	InputReport <GenericInput<MouseButton>> InputInterfaceManager::GetMouseButtonEvents() {
+	InputReport InputInterfaceManager::GetMouseButtonEvents() {
 		return Mouse.Poll();
 	}
 
-	InputReport <GenericInput<GamepadButton>> InputInterfaceManager::GetGamepadButtonEvents() {
+	InputReport InputInterfaceManager::GetGamepadButtonEvents() {
 		return Gamepad.Poll();
 	}
 

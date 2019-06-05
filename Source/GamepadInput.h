@@ -13,7 +13,7 @@ namespace EngineCore {
 
 	};
 
-	class GamepadInput : public GenericInput<GamepadButton> {
+	class GamepadInput : public GenericInput {
 	
 	public:
 		//tors
@@ -24,9 +24,12 @@ namespace EngineCore {
 		bool operator==(const GamepadInput &other) const;
 	
 	public:
+
+		GamepadButton GetGamepadButton() const;
 		std::size_t Hash() const override;
 	};
 
+	using GamepadInputPtr = std::shared_ptr<GamepadInput>;
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

@@ -19,7 +19,7 @@ namespace ProjectCoatiTestSuite {
 		
 		TEST_METHOD(BindAxisTest) {
 			InputAxis dummyAxis("test");
-			dummyAxis.AddBinding(KeyType::W, 1.0);
+			dummyAxis.AddBinding(KeyboardButton::W, 1.0);
 
 			//If binding was successfull (no crash), then success.
 			Assert::IsTrue(true);
@@ -27,9 +27,10 @@ namespace ProjectCoatiTestSuite {
 
 		TEST_METHOD(ResetAxis) {
 			InputAxis dummyAxis("test");
-			dummyAxis.AddBinding(KeyType::W, 1.0);
+			dummyAxis.AddBinding(KeyboardButton::W, 1.0);
 
-			KeyboardInput dummyIn(KeyType::W, ButtonState::Pressed);
+			KeyboardInputPtr dummyIn 
+				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Pressed);
 
 			dummyAxis.UpdateAxis(dummyIn);
 			dummyAxis.Reset();
@@ -41,8 +42,8 @@ namespace ProjectCoatiTestSuite {
 		}
 		TEST_METHOD(UpdateAxisTest) {
 			InputAxis dummyAxis("test");
-			dummyAxis.AddBinding(KeyType::W, 1.0);
-			dummyAxis.AddBinding(KeyType::S, -1.0);
+			dummyAxis.AddBinding(KeyboardButton::W, 1.0);
+			dummyAxis.AddBinding(KeyboardButton::S, -1.0);
 
 			double axisValue;
 
@@ -51,13 +52,19 @@ namespace ProjectCoatiTestSuite {
 				Assert::Fail();
 			}
 
-			KeyboardInput dummyWPress(KeyType::W, ButtonState::Pressed);
-			KeyboardInput dummyWHold(KeyType::W, ButtonState::Held);
-			KeyboardInput dummyWRelease(KeyType::W, ButtonState::Released);
+			KeyboardInputPtr dummyWPress 
+				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Pressed);
+			KeyboardInputPtr dummyWHold 
+				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Held);
+			KeyboardInputPtr dummyWRelease 
+				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Released);
 
-			KeyboardInput dummySPress(KeyType::S, ButtonState::Pressed);
-			KeyboardInput dummySHold(KeyType::S, ButtonState::Held);
-			KeyboardInput dummySRelease(KeyType::S, ButtonState::Released);
+			KeyboardInputPtr dummySPress 
+				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Pressed);
+			KeyboardInputPtr dummySHold 
+				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Held);
+			KeyboardInputPtr dummySRelease 
+				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Released);
 
 			//Pressing should update axis with associated scale value
 			dummyAxis.UpdateAxis(dummyWPress);

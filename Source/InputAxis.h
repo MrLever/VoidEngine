@@ -16,8 +16,8 @@ namespace EngineCore {
 
 	private:
 		double AxisValue;
-		std::unordered_map<KeyType, double> AxisBindings;
-		std::list<KeyType> CommandQueue;
+		std::unordered_map<KeyboardButton, double> AxisBindings;
+		std::list<KeyboardButton> CommandQueue;
 		std::string ID;
 
 
@@ -27,14 +27,14 @@ namespace EngineCore {
 	
 		bool operator==(const InputAxis& other);
 	private:
-		void TriggerBinding(const EngineCore::KeyboardInput& input);
-		void ReleaseBinding(const EngineCore::KeyboardInput& input);
+		void TriggerBinding(const KeyboardInputPtr input);
+		void ReleaseBinding(const KeyboardInputPtr input);
 
 	public:
-		void AddBinding(KeyType input, double scale);
+		void AddBinding(KeyboardButton input, double scale);
 		std::string GetID() const;
 		
-		void UpdateAxis(const KeyboardInput &input);
+		void UpdateAxis(const KeyboardInputPtr input);
 		void Reset();
 		
 		double Poll() const;
