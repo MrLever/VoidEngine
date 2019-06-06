@@ -120,6 +120,9 @@
     <ClCompile Include="Source\GenericInput.cpp">
       <Filter>Source Files\Input System\Input Definitions</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GenericInputInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\World.h">
