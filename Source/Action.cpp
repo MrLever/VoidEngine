@@ -27,6 +27,12 @@ namespace EngineCore {
 		return this->ActionID == other.ActionID;
 	}
 
+	void Action::operator()() const {
+		if (Event) {
+			Event();
+		}
+	}
+
 	//Public Member Functions
 	std::string Action::GetName() const {
 		return ActionName;

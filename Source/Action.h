@@ -30,7 +30,10 @@ namespace EngineCore {
 		Action(std::string name, ActionType type, std::function<void()> event);
 		~Action();
 
+		//Operator overloads
 		bool operator==(const Action& other) const;
+		void operator() () const;
+
 
 	private:
 
