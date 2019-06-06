@@ -33,12 +33,34 @@ namespace EngineCore {
 		int ID;
 	
 	public:
-		GenericInputInterface(int id);
-		~GenericInputInterface();
+		GenericInputInterface(int id) : ID(id) {
+
+		}
+		~GenericInputInterface() = default;
 	
 	public:
-		void PublishInput(const GenericInputPtr input);
+		void PublishInput(const GenericInputPtr input) {
+			EventQueue.push_back(input);
+			HistoryQueue.push_back(input);
 
-		InputReport Poll();
+			EngineUtilities::GameTime now = EngineUtilities::GetGameTime();
+
+			//Clear old history data on report.
+			while (now - HistoryQueue.front()->GetTimeStamp() > HistoryLifetime) {
+				HistoryQueue.pop_front();
+				if (HistoryQueue.empty()) [[unlikely]] {
+					break;
+				}
+			}
+
+		}
+
+		InputReport Poll() {
+			auto report = InputReport(HistoryQueue, EventQueue);
+
+			EventQueue = std::deque<GenericInputPtr>();
+
+			return report;
+		}
 	};
 }

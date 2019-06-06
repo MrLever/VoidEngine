@@ -218,8 +218,5 @@
     <ClCompile Include="..\Source\GenericInput.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\GenericInputInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -202,7 +202,6 @@
     <ClCompile Include="..\Source\GamepadInput.cpp" />
     <ClCompile Include="..\Source\GamepadInterface.cpp" />
     <ClCompile Include="..\Source\GenericInput.cpp" />
-    <ClCompile Include="..\Source\GenericInputInterface.cpp" />
     <ClCompile Include="..\Source\InputAxis.cpp" />
     <ClCompile Include="..\Source\InputInterfaceManager.cpp" />
     <ClCompile Include="..\Source\InputManager.cpp" />
