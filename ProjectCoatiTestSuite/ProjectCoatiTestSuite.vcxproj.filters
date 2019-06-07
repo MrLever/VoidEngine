@@ -221,5 +221,8 @@
     <ClCompile Include="..\Source\GenericInputInterface.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
+    <ClCompile Include="InputDefinitionTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

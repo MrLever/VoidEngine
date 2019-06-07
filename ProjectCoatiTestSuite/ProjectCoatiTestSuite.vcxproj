@@ -223,6 +223,7 @@
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
     <ClCompile Include="InputAxisTests.cpp" />
+    <ClCompile Include="InputDefinitionTests.cpp" />
     <ClCompile Include="InputManagerTests.cpp" />
     <ClCompile Include="KeyBindingsTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
