@@ -9,6 +9,7 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+#Remember to switch it to release when release is unfucked.
 variables:
   solution: '*.sln'
   buildPlatform: 'x64'
