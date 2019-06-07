@@ -151,8 +151,6 @@ namespace EngineCore {
 		KeyboardInput(KeyboardButton key, ButtonState state, EngineUtilities::GameTime time);
 		~KeyboardInput();
 
-		bool operator==(const KeyboardInput &other) const;
-
 	private:
 
 	public:

@@ -25,10 +25,6 @@ namespace EngineCore {
 
 	}
 
-	bool MouseInput::operator==(const MouseInput& other) const {
-		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
-	}
-
 	MouseButton MouseInput::GetMouseButton() {
 		return static_cast<MouseButton>(Button);
 	}

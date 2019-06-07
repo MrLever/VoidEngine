@@ -22,10 +22,6 @@ namespace EngineCore {
 
 	}
 
-	bool GamepadInput::operator==(const GamepadInput& other) const {
-		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
-	}
-
 	GamepadButton GamepadInput::GetGamepadButton() const {
 		return static_cast<GamepadButton>(Button);
 	}

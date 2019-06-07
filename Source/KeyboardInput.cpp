@@ -25,11 +25,6 @@ namespace EngineCore {
 
 	}
 
-
-	bool KeyboardInput::operator==(const KeyboardInput& other) const {
-		return (this->GetButton() == other.GetButton() && this->GetButtonState() == other.GetButtonState());
-	}
-
 	KeyboardButton KeyboardInput::GetKeyboardButton() const {
 		return static_cast<KeyboardButton>(Button);
 	}

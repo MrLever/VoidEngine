@@ -27,6 +27,8 @@ namespace EngineCore {
 		GenericInput(unsigned button, ButtonState state, EngineUtilities::GameTime time);
 		~GenericInput() = default;
 
+		virtual bool operator==(const GenericInput& other) const;
+
 	public:
 		unsigned GetButton() const;
 		ButtonState GetButtonState() const;

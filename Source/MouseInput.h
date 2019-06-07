@@ -28,8 +28,6 @@ namespace EngineCore {
 		MouseInput(MouseButton button, ButtonState state, EngineUtilities::GameTime timeStamp);
 		~MouseInput();
 
-		bool operator==(const MouseInput& other) const;
-
 	private:
 		//Private Class Members
 

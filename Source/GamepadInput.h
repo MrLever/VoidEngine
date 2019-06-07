@@ -21,8 +21,6 @@ namespace EngineCore {
 		GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time);
 		~GamepadInput();
 
-		bool operator==(const GamepadInput &other) const;
-	
 	public:
 
 		GamepadButton GetGamepadButton() const;

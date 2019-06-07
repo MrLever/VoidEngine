@@ -9,7 +9,11 @@
 namespace EngineCore {
 	//tors
 
-	GenericInput::GenericInput( unsigned button, ButtonState state, EngineUtilities::GameTime time) 
+	bool GenericInput::operator==(const GenericInput& other) const {
+		return (this->Button == other.Button && this->State == other.State);
+	}
+
+	GenericInput::GenericInput( unsigned button, ButtonState state, EngineUtilities::GameTime time)
 		: Button(button), State(state), TimeStamp(time) {
 
 
