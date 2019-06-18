@@ -4,8 +4,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "..\Source\KeyBindings.h"
-#include "..\Source\Message.h"
+#include "KeyBindings.h"
+#include "Message.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "..\Source\MessageBus.h"
-#include "..\Source\MessageBusNode.h"
-#include "..\Source\Console.h"
+#include "MessageBus.h"
+#include "MessageBusNode.h"
+#include "Console.h"
 
 namespace ProjectCoatiTestSuite
 {

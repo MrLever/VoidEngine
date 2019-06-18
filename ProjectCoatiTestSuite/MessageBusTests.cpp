@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "..\Source\MessageBus.h"
-#include "..\Source\MessageBusNode.h"
-#include "..\Source\Message.h"
+#include "MessageBus.h"
+#include "MessageBusNode.h"
+#include "Message.h"
 #include "TestingUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

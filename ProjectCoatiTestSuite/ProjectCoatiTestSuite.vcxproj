@@ -25,6 +25,7 @@
     <RootNamespace>ProjectCoatiTestSuite</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
+    <ProjectName>EngineTestSuite</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -94,7 +95,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\EngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -110,7 +111,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\EngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -127,7 +128,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\EngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -146,7 +147,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\EngineCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -159,66 +160,64 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Action.h" />
-    <ClInclude Include="..\Source\AudioManager.h" />
+    <ClInclude Include="..\EngineCore\Action.h" />
+    <ClInclude Include="..\EngineCore\AudioManager.h" />
+    <ClInclude Include="..\EngineCore\Console.h" />
+    <ClInclude Include="..\EngineCore\EngineUtilities.h" />
+    <ClInclude Include="..\EngineCore\EventTable.h" />
+    <ClInclude Include="..\EngineCore\Game.h" />
+    <ClInclude Include="..\EngineCore\GamepadInput.h" />
+    <ClInclude Include="..\EngineCore\GamepadInterface.h" />
+    <ClInclude Include="..\EngineCore\GenericInput.h" />
+    <ClInclude Include="..\EngineCore\GenericInputInterface.h" />
+    <ClInclude Include="..\EngineCore\InputAxis.h" />
+    <ClInclude Include="..\EngineCore\InputInterfaceManager.h" />
+    <ClInclude Include="..\EngineCore\InputManager.h" />
+    <ClInclude Include="..\EngineCore\Keybindings.h" />
+    <ClInclude Include="..\EngineCore\KeyboardInput.h" />
+    <ClInclude Include="..\EngineCore\KeyboardInterface.h" />
+    <ClInclude Include="..\EngineCore\Level.h" />
+    <ClInclude Include="..\EngineCore\Message.h" />
+    <ClInclude Include="..\EngineCore\MessageBus.h" />
+    <ClInclude Include="..\EngineCore\MessageBusNode.h" />
+    <ClInclude Include="..\EngineCore\MouseInput.h" />
+    <ClInclude Include="..\EngineCore\MouseInterface.h" />
+    <ClInclude Include="..\EngineCore\Renderer.h" />
+    <ClInclude Include="..\EngineCore\Serializable.h" />
+    <ClInclude Include="..\EngineCore\WindowManager.h" />
+    <ClInclude Include="..\EngineCore\World.h" />
     <ClInclude Include="..\Source\Console.h" />
-    <ClInclude Include="..\Source\Core.h" />
-    <ClInclude Include="..\Source\EngineUtilities.h" />
-    <ClInclude Include="..\Source\EventTable.h" />
-    <ClInclude Include="..\Source\Game.h" />
-    <ClInclude Include="..\Source\GamepadInput.h" />
-    <ClInclude Include="..\Source\GamepadInterface.h" />
-    <ClInclude Include="..\Source\GenericInput.h" />
-    <ClInclude Include="..\Source\GenericInputInterface.h" />
-    <ClInclude Include="..\Source\GenericInputObject.h" />
-    <ClInclude Include="..\Source\InputAxis.h" />
-    <ClInclude Include="..\Source\InputInterfaceManager.h" />
-    <ClInclude Include="..\Source\InputManager.h" />
-    <ClInclude Include="..\Source\Keybindings.h" />
-    <ClInclude Include="..\Source\KeyboardInput.h" />
-    <ClInclude Include="..\Source\KeyboardInterface.h" />
-    <ClInclude Include="..\Source\Level.h" />
-    <ClInclude Include="..\Source\Message.h" />
-    <ClInclude Include="..\Source\MessageBus.h" />
-    <ClInclude Include="..\Source\MessageBusNode.h" />
-    <ClInclude Include="..\Source\MouseInput.h" />
-    <ClInclude Include="..\Source\MouseInterface.h" />
-    <ClInclude Include="..\Source\Renderer.h" />
-    <ClInclude Include="..\Source\Serializable.h" />
-    <ClInclude Include="..\Source\WindowManager.h" />
-    <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="..\Source\Action.cpp" />
-    <ClCompile Include="..\Source\AudioManager.cpp" />
-    <ClCompile Include="..\Source\Console.cpp" />
-    <ClCompile Include="..\Source\Core.cpp" />
-    <ClCompile Include="..\Source\EventTable.cpp" />
-    <ClCompile Include="..\Source\Game.cpp" />
-    <ClCompile Include="..\Source\GamepadInput.cpp" />
-    <ClCompile Include="..\Source\GamepadInterface.cpp" />
-    <ClCompile Include="..\Source\GenericInput.cpp" />
-    <ClCompile Include="..\Source\GenericInputInterface.cpp" />
-    <ClCompile Include="..\Source\InputAxis.cpp" />
-    <ClCompile Include="..\Source\InputInterfaceManager.cpp" />
-    <ClCompile Include="..\Source\InputManager.cpp" />
-    <ClCompile Include="..\Source\Keybindings.cpp" />
-    <ClCompile Include="..\Source\KeyboardInput.cpp" />
-    <ClCompile Include="..\Source\KeyboardInterface.cpp" />
-    <ClCompile Include="..\Source\Level.cpp" />
-    <ClCompile Include="..\Source\Message.cpp" />
-    <ClCompile Include="..\Source\MessageBus.cpp" />
-    <ClCompile Include="..\Source\MessageBusNode.cpp" />
-    <ClCompile Include="..\Source\MouseInput.cpp" />
-    <ClCompile Include="..\Source\MouseInterface.cpp" />
-    <ClCompile Include="..\Source\Renderer.cpp" />
-    <ClCompile Include="..\Source\Serializable.cpp" />
-    <ClCompile Include="..\Source\WindowManager.cpp" />
-    <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="..\EngineCore\Action.cpp" />
+    <ClCompile Include="..\EngineCore\AudioManager.cpp" />
+    <ClCompile Include="..\EngineCore\Console.cpp" />
+    <ClCompile Include="..\EngineCore\Core.cpp" />
+    <ClCompile Include="..\EngineCore\EventTable.cpp" />
+    <ClCompile Include="..\EngineCore\Game.cpp" />
+    <ClCompile Include="..\EngineCore\GamepadInput.cpp" />
+    <ClCompile Include="..\EngineCore\GamepadInterface.cpp" />
+    <ClCompile Include="..\EngineCore\GenericInput.cpp" />
+    <ClCompile Include="..\EngineCore\GenericInputInterface.cpp" />
+    <ClCompile Include="..\EngineCore\InputAxis.cpp" />
+    <ClCompile Include="..\EngineCore\InputInterfaceManager.cpp" />
+    <ClCompile Include="..\EngineCore\InputManager.cpp" />
+    <ClCompile Include="..\EngineCore\Keybindings.cpp" />
+    <ClCompile Include="..\EngineCore\KeyboardInput.cpp" />
+    <ClCompile Include="..\EngineCore\KeyboardInterface.cpp" />
+    <ClCompile Include="..\EngineCore\Level.cpp" />
+    <ClCompile Include="..\EngineCore\Message.cpp" />
+    <ClCompile Include="..\EngineCore\MessageBus.cpp" />
+    <ClCompile Include="..\EngineCore\MessageBusNode.cpp" />
+    <ClCompile Include="..\EngineCore\MouseInput.cpp" />
+    <ClCompile Include="..\EngineCore\MouseInterface.cpp" />
+    <ClCompile Include="..\EngineCore\Renderer.cpp" />
+    <ClCompile Include="..\EngineCore\Serializable.cpp" />
+    <ClCompile Include="..\EngineCore\WindowManager.cpp" />
+    <ClCompile Include="..\EngineCore\World.cpp" />
     <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />

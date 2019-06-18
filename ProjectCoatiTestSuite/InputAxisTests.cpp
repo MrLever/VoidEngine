@@ -5,7 +5,7 @@
 #include "CppUnitTest.h"
 
 
-#include "..\Source\InputAxis.h"
+#include "InputAxis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

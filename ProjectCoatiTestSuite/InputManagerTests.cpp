@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "..\Source\MessageBus.h"
-#include "..\Source\InputManager.h"
-#include "..\Source\InputInterfaceManager.h"
+#include "MessageBus.h"
+#include "InputManager.h"
+#include "InputInterfaceManager.h"
 #include "TestingUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

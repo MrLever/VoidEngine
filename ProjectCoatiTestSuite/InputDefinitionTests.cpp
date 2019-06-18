@@ -4,12 +4,12 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "..\Source\EngineUtilities.h"
-#include "..\Source\GenericInput.h"
-#include "..\Source\KeyboardInput.h"
-#include "..\Source\MouseInput.h"
-#include "..\Source\GamepadInput.h"
-#include "..\Source\InputAxis.h"
+#include "EngineUtilities.h"
+#include "GenericInput.h"
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
+#include "InputAxis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
