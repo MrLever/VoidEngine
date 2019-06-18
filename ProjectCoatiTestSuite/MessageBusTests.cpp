@@ -20,7 +20,7 @@ namespace ProjectCoatiTestSuite
 		TEST_METHOD(RecieveMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			DummyReceiver testReceiver(testBus);
-			Message testMessage("Test", MessageType::DebugAck);
+			Message testMessage("Test", MessageType::DebugACK);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();
@@ -31,7 +31,7 @@ namespace ProjectCoatiTestSuite
 		TEST_METHOD(IgnoreMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			DummyReceiver testReceiver(testBus);
-			Message testMessage("Test", MessageType::DebugIgnore);
+			Message testMessage("Test", MessageType::DebugNACK);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();

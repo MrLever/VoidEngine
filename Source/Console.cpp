@@ -26,7 +26,7 @@ namespace EngineCore {
 	void Console::RegisterReciever() {
 		GameMessageBus->AddReceiver(
 			this,
-			MessageType::DebugAck
+			MessageType::DebugACK
 		);
 	}
 

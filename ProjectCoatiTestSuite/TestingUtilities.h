@@ -50,7 +50,7 @@ namespace ProjectCoatiTestSuite
 		}
 
 		void DebugPublishEvent(std::string s) {
-			this->PublishMessage(Message(s, MessageType::DebugAck));
+			this->PublishMessage(Message(s, MessageType::DebugACK));
 		}
 
 		void FireEvent() {

@@ -15,8 +15,8 @@ namespace EngineCore {
 		GenericEvent = 4,
 		Error = 8,
 		Termination = 16,
-		DebugIgnore = 0,
-		DebugAck = 0xFFFFFFFF
+		DebugNACK = 0,
+		DebugACK = 0xFFFFFFFF
 	};
 
 
