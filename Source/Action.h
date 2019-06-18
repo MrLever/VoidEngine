@@ -31,7 +31,7 @@ namespace EngineCore {
 		~Action();
 
 		//Operator overloads
-		bool operator==(const Action& other) const;
+		bool operator== (const Action& other) const;
 		void operator() () const;
 
 

@@ -23,11 +23,11 @@ namespace EngineCore {
 
 	}
 
-	bool Action::operator==(const Action& other) const {
+	bool Action::operator== (const Action& other) const {
 		return this->ActionID == other.ActionID;
 	}
 
-	void Action::operator()() const {
+	void Action::operator() () const {
 		if (Event) {
 			Event();
 		}
