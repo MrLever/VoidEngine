@@ -40,12 +40,9 @@ namespace EngineCore {
 	public:
 		std::string GetName() const;
 		unsigned long long GetID() const;
-		ActionType GetAction();
+		ActionType GetActionType();
 
 		void BindAction(std::function<void()> newAction);
-		void TriggerAction();
-		
-
 	};
 
 }

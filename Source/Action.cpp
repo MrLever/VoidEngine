@@ -42,23 +42,11 @@ namespace EngineCore {
 		return ActionID;
 	}
 
-	ActionType Action::GetAction() {
+	ActionType Action::GetActionType() {
 		return Type;
 	}
 
 	void Action::BindAction(std::function<void()> newAction) {
 		this->Event = newAction;
 	}
-
-	void Action::TriggerAction() {
-		if (Event == nullptr) {
-			std::cerr << "Error, no action bound";
-			return;
-		}
-
-		Event();
-	}
-
-
-
 }
