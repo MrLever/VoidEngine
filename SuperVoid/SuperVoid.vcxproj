@@ -155,11 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
+      <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\EngineMath\EngineMath.vcxproj">
       <Project>{98b17f35-40dd-48cb-be6b-5c2f8fec57e7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Project-Coati.vcxproj">
-      <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

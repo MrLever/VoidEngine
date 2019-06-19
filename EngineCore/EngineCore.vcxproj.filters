@@ -42,162 +42,162 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Dependencies\GLAD\src\glad.c">
+    <ClCompile Include="GamepadInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxis.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInput.cpp">
+      <Filter>Source Files\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="GamepadInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="GenericInputInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="InputInterfaceManager.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInterface.cpp">
+      <Filter>Source Files\Input System\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="Keybindings.cpp">
+      <Filter>Source Files\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="EventTable.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBus.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBusNode.cpp">
+      <Filter>Source Files\Messaging Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
       <Filter>Dependencies</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Action.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\EventTable.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\GamepadInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\GamepadInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\GenericInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\GenericInputInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\InputAxis.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\InputInterfaceManager.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\InputManager.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Keybindings.cpp">
-      <Filter>Source Files\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\KeyboardInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\KeyboardInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Message.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\MessageBus.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\MessageBusNode.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\MouseInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\MouseInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\Serializable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineCore\World.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineCore\Action.h">
+    <ClInclude Include="GamepadInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxis.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInput.h">
+      <Filter>Header Files\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="GamepadInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="GenericInputInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="InputInterfaceManager.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInterface.h">
+      <Filter>Header Files\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\AudioManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\Console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\EngineUtilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\EventTable.h">
-      <Filter>Header Files\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\GamepadInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\GamepadInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\GenericInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\GenericInputInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\InputAxis.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\InputInterfaceManager.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\InputManager.h">
+    <ClInclude Include="InputManager.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\Keybindings.h">
+    <ClInclude Include="Keybindings.h">
       <Filter>Header Files\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\KeyboardInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\KeyboardInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\Message.h">
+    <ClInclude Include="EventTable.h">
       <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\MessageBus.h">
+    <ClInclude Include="Message.h">
       <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\MessageBusNode.h">
+    <ClInclude Include="MessageBus.h">
       <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\MouseInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+    <ClInclude Include="MessageBusNode.h">
+      <Filter>Header Files\Messaging Systems</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\MouseInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineCore\Renderer.h">
+    <ClInclude Include="AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\Serializable.h">
+    <ClInclude Include="Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\WindowManager.h">
+    <ClInclude Include="EngineUtilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineCore\World.h">
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
