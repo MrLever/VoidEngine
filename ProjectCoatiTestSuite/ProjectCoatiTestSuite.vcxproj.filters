@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="SourceReference">
-      <UniqueIdentifier>{fd5c0550-f766-4153-8183-711986b16633}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -29,84 +26,6 @@
     </ClInclude>
     <ClInclude Include="..\Source\Console.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Action.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\AudioManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Console.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\EngineUtilities.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\EventTable.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Game.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\GamepadInput.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\GamepadInterface.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\GenericInput.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\GenericInputInterface.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\InputAxis.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\InputInterfaceManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\InputManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Keybindings.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\KeyboardInput.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\KeyboardInterface.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Level.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Message.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\MessageBus.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\MessageBusNode.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\MouseInput.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\MouseInterface.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Renderer.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\Serializable.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\WindowManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineCore\World.h">
-      <Filter>SourceReference</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,84 +58,6 @@
     </ClCompile>
     <ClCompile Include="InputDefinitionTests.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Action.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\AudioManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Console.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\EventTable.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Game.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\GamepadInput.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\GamepadInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\GenericInput.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\GenericInputInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\InputAxis.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\InputInterfaceManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\InputManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Keybindings.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\KeyboardInput.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\KeyboardInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Level.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Message.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\MessageBus.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\MessageBusNode.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\MouseInput.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\MouseInterface.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Renderer.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\Serializable.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\WindowManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineCore\World.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
-      <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
