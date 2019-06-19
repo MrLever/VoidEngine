@@ -5,7 +5,7 @@
 #include "CppUnitTest.h"
 
 
-#include "..\Source\EventTable.h"
+#include "EventTable.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

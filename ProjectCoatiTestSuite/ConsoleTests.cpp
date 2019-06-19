@@ -4,7 +4,7 @@
 #include "CppUnitTest.h"
 
 #include "TestingUtilities.h"
-#include "..\Source\Console.h"
+#include "Console.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineCore;

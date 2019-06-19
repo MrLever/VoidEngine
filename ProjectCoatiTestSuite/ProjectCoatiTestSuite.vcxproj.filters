@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="SourceReference">
-      <UniqueIdentifier>{fd5c0550-f766-4153-8183-711986b16633}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -24,118 +21,22 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Core.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Game.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\MessageBus.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\World.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\AudioManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\InputManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Renderer.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Message.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\WindowManager.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\MessageBusNode.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Level.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Keybindings.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\KeyboardInput.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Serializable.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\EngineUtilities.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\EventTable.h">
-      <Filter>SourceReference</Filter>
-    </ClInclude>
     <ClInclude Include="TestingUtilities.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Console.h">
-      <Filter>SourceReference</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Core.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Game.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\MessageBus.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\World.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\AudioManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\InputManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Renderer.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Message.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\WindowManager.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
     <ClCompile Include="WindowManagerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\MessageBusNode.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Level.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Keybindings.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\KeyboardInput.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Serializable.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
     <ClCompile Include="MessageBusTests.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\EventTable.cpp">
-      <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="EngineUtilitiesTests.cpp">
       <Filter>Source Files</Filter>
@@ -149,10 +50,13 @@
     <ClCompile Include="EventTableTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Console.cpp">
-      <Filter>SourceReference</Filter>
+    <ClCompile Include="InputAxisTests.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConsoleTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDefinitionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

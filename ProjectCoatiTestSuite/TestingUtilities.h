@@ -1,8 +1,8 @@
 #pragma once
 
-#include "..\Source\MessageBus.h"
-#include "..\Source\MessageBusNode.h"
-#include "..\Source\Console.h"
+#include "MessageBus.h"
+#include "MessageBusNode.h"
+#include "Console.h"
 
 namespace ProjectCoatiTestSuite
 {
@@ -41,7 +41,7 @@ namespace ProjectCoatiTestSuite
 			bus->AddReceiver(this, MessageType::Termination);
 		}
 
-		void ReceiveMessage(Message message) override {
+		void ReceiveMessage(const Message &message) override {
 			MessageReceived = true;
 			if (Events[message]) {
 				Events[message]();
@@ -50,7 +50,7 @@ namespace ProjectCoatiTestSuite
 		}
 
 		void DebugPublishEvent(std::string s) {
-			this->PublishMessage(Message(s, MessageType::DebugAck));
+			this->PublishMessage(Message(s, MessageType::DebugACK));
 		}
 
 		void FireEvent() {
@@ -67,7 +67,7 @@ namespace ProjectCoatiTestSuite
 			ToggleSignalReceived = false;
 		}
 
-		void ReceiveMessage(Message message) override {
+		void ReceiveMessage(const Message &message) override {
 			if (message.GetEvent() == "Toggle Console Output") {
 				ToggleSignalReceived = true;
 			}

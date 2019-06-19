@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,26 +18,32 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Vector.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{6EE6B15C-5DB5-44A6-AD68-CC478ABDE558}</ProjectGuid>
-    <RootNamespace>ProjectCoati</RootNamespace>
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{98B17F35-40DD-48CB-BE6B-5C2F8FEC57E7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EngineMath</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>EngineCore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -71,154 +77,89 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\EngineMath;$(ProjectDir)Dependencies\GLFW\include;$(ProjectDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)\EngineMath;$(ProjectDir)Dependencies\GLFW\include;$(ProjectDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)\EngineMath;$(ProjectDir)Dependencies\GLFW\include;$(ProjectDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)\EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <EnablePREfast>false</EnablePREfast>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-    </ClCompile>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <EnablePREfast>false</EnablePREfast>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\*.*" "$(TargetDir)Settings\"</Command>
-    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <EnablePREfast>false</EnablePREfast>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalOptions>/GL %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <EnablePREfast>false</EnablePREfast>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalOptions>/GL %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\*.*" "$(TargetDir)Settings\"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="EngineCore\GenericInputInterface.cpp" />
-    <ClCompile Include="EngineCore\GenericInput.cpp" />
-    <ClCompile Include="EngineCore\Action.cpp" />
-    <ClCompile Include="Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="EngineCore\GamepadInput.cpp" />
-    <ClCompile Include="EngineCore\GamepadInterface.cpp" />
-    <ClCompile Include="EngineCore\MouseInput.cpp" />
-    <ClCompile Include="EngineCore\MouseInterface.cpp" />
-    <ClCompile Include="EngineCore\InputInterfaceManager.cpp" />
-    <ClCompile Include="EngineCore\Console.cpp" />
-    <ClCompile Include="EngineCore\EventTable.cpp" />
-    <ClCompile Include="EngineCore\InputAxis.cpp" />
-    <ClCompile Include="EngineCore\KeyboardInput.cpp" />
-    <ClCompile Include="EngineCore\Keybindings.cpp" />
-    <ClCompile Include="EngineCore\InputManager.cpp" />
-    <ClCompile Include="EngineCore\KeyboardInterface.cpp" />
-    <ClCompile Include="EngineCore\Level.cpp" />
-    <ClCompile Include="EngineCore\Serializable.cpp" />
-    <ClCompile Include="EngineCore\WindowManager.cpp" />
-    <ClCompile Include="EngineCore\MessageBusNode.cpp" />
-    <ClCompile Include="EngineCore\Message.cpp" />
-    <ClCompile Include="EngineCore\AudioManager.cpp" />
-    <ClCompile Include="EngineCore\Game.cpp" />
-    <ClCompile Include="EngineCore\MessageBus.cpp" />
-    <ClCompile Include="EngineCore\Renderer.cpp" />
-    <ClCompile Include="EngineCore\World.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="EngineCore\Action.h" />
-    <ClInclude Include="EngineCore\GenericInput.h" />
-    <ClInclude Include="EngineCore\GamepadInput.h" />
-    <ClInclude Include="EngineCore\GamepadInterface.h" />
-    <ClInclude Include="EngineCore\MouseInput.h" />
-    <ClInclude Include="EngineCore\GenericInputInterface.h" />
-    <ClInclude Include="EngineCore\MouseInterface.h" />
-    <ClInclude Include="EngineCore\InputInterfaceManager.h" />
-    <ClInclude Include="EngineCore\Console.h" />
-    <ClInclude Include="EngineCore\EventTable.h" />
-    <ClInclude Include="EngineCore\InputAxis.h" />
-    <ClInclude Include="EngineCore\KeyboardInput.h" />
-    <ClInclude Include="EngineCore\Keybindings.h" />
-    <ClInclude Include="EngineCore\InputManager.h" />
-    <ClInclude Include="EngineCore\KeyboardInterface.h" />
-    <ClInclude Include="EngineCore\Level.h" />
-    <ClInclude Include="EngineCore\Serializable.h" />
-    <ClInclude Include="EngineCore\EngineUtilities.h" />
-    <ClInclude Include="EngineCore\WindowManager.h" />
-    <ClInclude Include="EngineCore\MessageBusNode.h" />
-    <ClInclude Include="EngineCore\Message.h" />
-    <ClInclude Include="EngineCore\AudioManager.h" />
-    <ClInclude Include="EngineCore\Game.h" />
-    <ClInclude Include="EngineCore\MessageBus.h" />
-    <ClInclude Include="EngineCore\Renderer.h" />
-    <ClInclude Include="EngineCore\World.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="EngineMath\EngineMath.vcxproj">
-      <Project>{98b17f35-40dd-48cb-be6b-5c2f8fec57e7}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,0 +1,32 @@
+#pragma once
+//STD Headers
+#include <memory>
+
+//Library Headers
+
+namespace EngineCore {
+
+	//Forward Class declarations
+	class WindowManager;
+
+	class Renderer {
+	private:
+		//Private class members
+		std::shared_ptr<WindowManager> Window;
+
+	public:
+		//CTORS
+		Renderer(std::shared_ptr<WindowManager> window);
+		~Renderer();
+
+	private:
+		//Private member functions
+
+
+	public:
+		//Public member functions
+		void Render();
+
+	};
+
+}
