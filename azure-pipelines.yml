@@ -12,7 +12,8 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'x64'
-  buildConfiguration: 'Debug'
+  debugConfiguration: 'Debug'
+  releaseConfiguration: 'Release'
 
 steps:
 - task: NuGetToolInstaller@0
@@ -21,11 +22,17 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+- task: VSDebugBuild@1
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    configuration: '$(debugConfiguration)'
+
+- task: VSReleaseBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(releaseConfiguration)'
 
 # TODO: Figure out why my unit tests freeze this thing
 #- task: VSTest@2
