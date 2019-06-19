@@ -55,7 +55,10 @@ namespace EngineMath {
 		
 		}
 
-		Vector3 Dot(const Vector3 &other);
+		
+		auto Dot(const Vector3<T> &other) -> decltype(other.X) {
+			return (X * other.X) + (Y * other.Y) + (Z + other.Z);
+		}
 
 		//operator overloads
 		virtual bool operator== (const Vector3& other) {
