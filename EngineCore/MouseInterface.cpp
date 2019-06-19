@@ -10,8 +10,6 @@ namespace EngineCore {
 
 	//Tors
 	MouseInterface::MouseInterface(int ID) : GenericInputInterface(ID) {
-		MouseXPos = 0;
-		MouseYPos = 0;
 	}
 
 
@@ -22,7 +20,7 @@ namespace EngineCore {
 
 	//Public Member Functions
 	void MouseInterface::UpdateMousePosition(double xPos, double yPos) {
-		MouseXPos = xPos;
-		MouseYPos = yPos;
+		Position.X = xPos;
+		Position.Y = yPos;
 	}
 }

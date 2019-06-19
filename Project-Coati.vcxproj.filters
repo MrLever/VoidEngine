@@ -54,9 +54,6 @@
     <ClCompile Include="EngineCore\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineCore\Core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EngineCore\EventTable.cpp">
       <Filter>Source Files\Messaging Systems</Filter>
     </ClCompile>

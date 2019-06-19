@@ -79,16 +79,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)..\Dependencies\GLFW\include;$(ProjectDir)..\Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -124,7 +128,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -143,7 +147,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -157,6 +161,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -192,10 +197,10 @@
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="..\EngineCore\Action.cpp" />
     <ClCompile Include="..\EngineCore\AudioManager.cpp" />
     <ClCompile Include="..\EngineCore\Console.cpp" />
-    <ClCompile Include="..\EngineCore\Core.cpp" />
     <ClCompile Include="..\EngineCore\EventTable.cpp" />
     <ClCompile Include="..\EngineCore\Game.cpp" />
     <ClCompile Include="..\EngineCore\GamepadInput.cpp" />
@@ -235,6 +240,9 @@
     <ClCompile Include="WindowManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EngineMath\EngineMath.vcxproj">
+      <Project>{98b17f35-40dd-48cb-be6b-5c2f8fec57e7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Project-Coati.vcxproj">
       <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
     </ProjectReference>

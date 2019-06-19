@@ -149,9 +149,6 @@
     <ClCompile Include="..\EngineCore\Console.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
-    <ClCompile Include="..\EngineCore\Core.cpp">
-      <Filter>SourceReference</Filter>
-    </ClCompile>
     <ClCompile Include="..\EngineCore\EventTable.cpp">
       <Filter>SourceReference</Filter>
     </ClCompile>
@@ -216,6 +213,9 @@
       <Filter>SourceReference</Filter>
     </ClCompile>
     <ClCompile Include="..\EngineCore\World.cpp">
+      <Filter>SourceReference</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
       <Filter>SourceReference</Filter>
     </ClCompile>
   </ItemGroup>

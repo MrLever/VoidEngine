@@ -6,6 +6,7 @@
 //Coati Headers
 #include "MouseInput.h"
 #include "GenericInputInterface.h"
+#include "Vector.h"
 
 namespace EngineCore {
 
@@ -13,8 +14,7 @@ namespace EngineCore {
 	
 	private:
 		//Private Class Members
-		double MouseXPos;
-		double MouseYPos;
+		EngineMath::Vector2<double> Position;
 
 	public:
 		MouseInterface(int ID);
