@@ -71,16 +71,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)\EngineMath;$(ProjectDir)Dependencies\GLFW\include;$(ProjectDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)\EngineMath;$(ProjectDir)Dependencies\GLFW\include;$(ProjectDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
@@ -159,63 +159,63 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EngineCore\GenericInputInterface.cpp" />
-    <ClCompile Include="EngineCore\GenericInput.cpp" />
-    <ClCompile Include="EngineCore\Action.cpp" />
-    <ClCompile Include="Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="EngineCore\GamepadInput.cpp" />
-    <ClCompile Include="EngineCore\GamepadInterface.cpp" />
-    <ClCompile Include="EngineCore\MouseInput.cpp" />
-    <ClCompile Include="EngineCore\MouseInterface.cpp" />
-    <ClCompile Include="EngineCore\InputInterfaceManager.cpp" />
-    <ClCompile Include="EngineCore\Console.cpp" />
-    <ClCompile Include="EngineCore\EventTable.cpp" />
-    <ClCompile Include="EngineCore\InputAxis.cpp" />
-    <ClCompile Include="EngineCore\KeyboardInput.cpp" />
-    <ClCompile Include="EngineCore\Keybindings.cpp" />
-    <ClCompile Include="EngineCore\InputManager.cpp" />
-    <ClCompile Include="EngineCore\KeyboardInterface.cpp" />
-    <ClCompile Include="EngineCore\Level.cpp" />
-    <ClCompile Include="EngineCore\Serializable.cpp" />
-    <ClCompile Include="EngineCore\WindowManager.cpp" />
-    <ClCompile Include="EngineCore\MessageBusNode.cpp" />
-    <ClCompile Include="EngineCore\Message.cpp" />
-    <ClCompile Include="EngineCore\AudioManager.cpp" />
-    <ClCompile Include="EngineCore\Game.cpp" />
-    <ClCompile Include="EngineCore\MessageBus.cpp" />
-    <ClCompile Include="EngineCore\Renderer.cpp" />
-    <ClCompile Include="EngineCore\World.cpp" />
+    <ClCompile Include="GenericInputInterface.cpp" />
+    <ClCompile Include="GenericInput.cpp" />
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
+    <ClCompile Include="GamepadInput.cpp" />
+    <ClCompile Include="GamepadInterface.cpp" />
+    <ClCompile Include="MouseInput.cpp" />
+    <ClCompile Include="MouseInterface.cpp" />
+    <ClCompile Include="InputInterfaceManager.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="EventTable.cpp" />
+    <ClCompile Include="InputAxis.cpp" />
+    <ClCompile Include="KeyboardInput.cpp" />
+    <ClCompile Include="Keybindings.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="KeyboardInterface.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Serializable.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="MessageBusNode.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineCore\Action.h" />
-    <ClInclude Include="EngineCore\GenericInput.h" />
-    <ClInclude Include="EngineCore\GamepadInput.h" />
-    <ClInclude Include="EngineCore\GamepadInterface.h" />
-    <ClInclude Include="EngineCore\MouseInput.h" />
-    <ClInclude Include="EngineCore\GenericInputInterface.h" />
-    <ClInclude Include="EngineCore\MouseInterface.h" />
-    <ClInclude Include="EngineCore\InputInterfaceManager.h" />
-    <ClInclude Include="EngineCore\Console.h" />
-    <ClInclude Include="EngineCore\EventTable.h" />
-    <ClInclude Include="EngineCore\InputAxis.h" />
-    <ClInclude Include="EngineCore\KeyboardInput.h" />
-    <ClInclude Include="EngineCore\Keybindings.h" />
-    <ClInclude Include="EngineCore\InputManager.h" />
-    <ClInclude Include="EngineCore\KeyboardInterface.h" />
-    <ClInclude Include="EngineCore\Level.h" />
-    <ClInclude Include="EngineCore\Serializable.h" />
-    <ClInclude Include="EngineCore\EngineUtilities.h" />
-    <ClInclude Include="EngineCore\WindowManager.h" />
-    <ClInclude Include="EngineCore\MessageBusNode.h" />
-    <ClInclude Include="EngineCore\Message.h" />
-    <ClInclude Include="EngineCore\AudioManager.h" />
-    <ClInclude Include="EngineCore\Game.h" />
-    <ClInclude Include="EngineCore\MessageBus.h" />
-    <ClInclude Include="EngineCore\Renderer.h" />
-    <ClInclude Include="EngineCore\World.h" />
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="GenericInput.h" />
+    <ClInclude Include="GamepadInput.h" />
+    <ClInclude Include="GamepadInterface.h" />
+    <ClInclude Include="MouseInput.h" />
+    <ClInclude Include="GenericInputInterface.h" />
+    <ClInclude Include="MouseInterface.h" />
+    <ClInclude Include="InputInterfaceManager.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="EventTable.h" />
+    <ClInclude Include="InputAxis.h" />
+    <ClInclude Include="KeyboardInput.h" />
+    <ClInclude Include="Keybindings.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="KeyboardInterface.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Serializable.h" />
+    <ClInclude Include="EngineUtilities.h" />
+    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="MessageBusNode.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="EngineMath\EngineMath.vcxproj">
+    <ProjectReference Include="..\EngineMath\EngineMath.vcxproj">
       <Project>{98b17f35-40dd-48cb-be6b-5c2f8fec57e7}</Project>
     </ProjectReference>
   </ItemGroup>
