@@ -19,7 +19,7 @@ namespace EngineCore {
 		//Private Class Members
 		std::unordered_map<KeyboardInput, Action> KeyboardBindings;
 		std::unordered_map<MouseInput, Action> MouseBindings;
-		std::unordered_map<GamepadInput, GamepadInput> GamepadBindings;
+		std::unordered_map<GamepadInput, Action> GamepadBindings;
 
 		const std::string CustomInputPath = "Settings/UserCustomInput.ini";
 
