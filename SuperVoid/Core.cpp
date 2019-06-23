@@ -10,7 +10,7 @@
 using namespace EngineCore;
 
 int main() {
-	Game game("Supervoid");
+	Game game("SuperVoid");
 
 	return 0;
 }
