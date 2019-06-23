@@ -2,7 +2,7 @@
 #include <iostream>
 
 //Library Headers
-
+#include "lua.hpp"
 
 //Coati Headers
 #include "Game.h"
