@@ -159,6 +159,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="GenericInputInterface.cpp" />
     <ClCompile Include="GenericInput.cpp" />
     <ClCompile Include="Action.cpp" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="Configurable.h" />
     <ClInclude Include="GenericInput.h" />
     <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="GamepadInterface.h" />
