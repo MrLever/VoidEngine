@@ -19,10 +19,6 @@ namespace EngineCore {
 
 	}
 
-	unsigned GenericInput::GetButton() const {
-		return Button;
-	}
-
 	ButtonState GenericInput::GetButtonState() const {
 		return State;
 	}

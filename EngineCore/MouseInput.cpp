@@ -25,10 +25,6 @@ namespace EngineCore {
 
 	}
 
-	MouseButton MouseInput::GetMouseButton() {
-		return static_cast<MouseButton>(Button);
-	}
-
 	std::size_t MouseInput::Hash() const {
 		return std::hash<int>()(static_cast<int>(Button));
 	}

@@ -33,7 +33,6 @@ namespace EngineCore {
 
 	public:
 		//Public Class Members
-		MouseButton GetMouseButton();
 		std::size_t Hash() const override;
 	};
 

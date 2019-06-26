@@ -28,7 +28,7 @@ namespace ProjectCoatiTestSuite {
 				time
 			);
 			
-			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton())) {
+			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton<KeyboardButton>())) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -82,7 +82,7 @@ namespace ProjectCoatiTestSuite {
 			//Bring it back to the correct handle
 			KeyboardInput* keyboardHandle = dynamic_cast<KeyboardInput*>(genericHandle);
 
-			if (keyboardHandle->GetKeyboardButton() == button) {
+			if (keyboardHandle->GetButton<KeyboardButton>() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -100,7 +100,7 @@ namespace ProjectCoatiTestSuite {
 			//Bring it back to the correct handle
 			MouseInput* mouseHandle = dynamic_cast<MouseInput*>(genericHandle);
 
-			if (mouseHandle->GetMouseButton() == button) {
+			if (mouseHandle->GetButton<MouseButton>() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -118,7 +118,7 @@ namespace ProjectCoatiTestSuite {
 			//Bring it back to the correct handle
 			GamepadInput* gamepadHandle = dynamic_cast<GamepadInput*>(genericHandle);
 
-			if (gamepadHandle->GetGamepadButton() == button) {
+			if (gamepadHandle->GetButton<GamepadButton>() == button) {
 				Assert::IsTrue(true);
 			}
 			else {

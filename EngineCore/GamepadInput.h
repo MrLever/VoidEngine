@@ -36,8 +36,6 @@ namespace EngineCore {
 		~GamepadInput();
 
 	public:
-
-		GamepadButton GetGamepadButton() const;
 		std::size_t Hash() const override;
 	};
 
