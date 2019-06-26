@@ -14,6 +14,6 @@ namespace EngineCore {
 		luaL_openlibs(LuaState);
 		lua_pcall(LuaState, 0, 0, 0);
 
-		luabridge::LuaRef s = luabridge::getGlobal(LuaState, "testString");
+		ConfigTable = std::make_unique<luabridge::LuaRef*>(luabridge::getGlobal(LuaState, "testString"));
 	}
 }

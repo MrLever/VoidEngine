@@ -1,6 +1,0 @@
-EngineSettings = {
-    Rendering = {
-
-    }
-    
-}

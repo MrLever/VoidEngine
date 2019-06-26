@@ -8,6 +8,7 @@
 //Library Headers
 
 //Coati Headers
+#include "Configurable.h"
 
 namespace EngineCore {
 
@@ -22,7 +23,7 @@ namespace EngineCore {
 	class Console;
 
 
-	class Game {
+	class Game : Configurable{
 		using Timer = std::chrono::high_resolution_clock;
 	private:
 		//Private Class Members
@@ -43,11 +44,13 @@ namespace EngineCore {
 
 	public:
 		//CTORS
-		Game(std::string name);
+		Game(std::string name, std::string configFile);
 		~Game();
 
 	private:
 		//Private member functions
+		void Configure() override;
+
 		void InitGame();
 
 		void ProcessInput();
