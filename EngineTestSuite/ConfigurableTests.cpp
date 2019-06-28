@@ -42,7 +42,7 @@ namespace ProjectCoatiTestSuite {
 		TEST_METHOD(ConfigureTest) {
 			DummyConfigurable d;
 
-
+			Assert::Fail();
 		}
 	};
 }
