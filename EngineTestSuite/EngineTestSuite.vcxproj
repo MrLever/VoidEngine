@@ -201,6 +201,9 @@
     <ClCompile Include="WindowManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dependencies\LUA\LUA.vcxproj">
+      <Project>{2d6b9a6f-b61c-42bd-bafb-37d51adc760a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
       <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
     </ProjectReference>
