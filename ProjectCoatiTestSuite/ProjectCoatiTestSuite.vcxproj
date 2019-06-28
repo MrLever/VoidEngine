@@ -79,19 +79,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -178,12 +178,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Console.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConfigurableTests.cpp" />
     <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
