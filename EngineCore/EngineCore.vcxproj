@@ -103,6 +103,9 @@
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>echo F|xcopy /y "$(SolutionDir)Settings\" "$(TargetDir)Settings\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -117,7 +120,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\*.*" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,6 +139,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>echo F|xcopy /y "$(SolutionDir)Settings\" "$(TargetDir)Settings\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -155,7 +161,7 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\*.*" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
