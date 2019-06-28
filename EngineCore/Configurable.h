@@ -15,25 +15,33 @@ namespace EngineCore {
 	private:
 		//Private member variables
 		lua_State* LuaState;
-		std::unique_ptr<luabridge::LuaRef*> ConfigTable;
+		luabridge::LuaRef ConfigTable;
 
-		std::string configFile;
+		std::string ConfigFilePath;
 
+	public:
+		//ctors
+		Configurable(std::string configFileName);
+		~Configurable();
 	protected:
 		virtual void Configure() = 0;
 
 		template<typename T>
 		T GetAttribute(std::string attribute);
 
-	public:
-		Configurable(std::string configFileName);
+		void ReloadConfigurationFile();
+		void LoadNewConfigurationFile(std::string newConfigFile);
 
+	private:
+		//Private member functions
+		void LoadConfigurationFile();
+		
 	};
 
 	template<typename T>
-	inline T Configurable::GetAttribute(std::string attribute)
-	{
-		luabridge::LuaRef result = ConfigTable[attribute.c_str()];
+	inline T Configurable::GetAttribute(std::string attribute) {
+		luabridge::LuaRef result = ConfigTable[attribute];
+		
 		return result.cast<T>();
 	}
 
