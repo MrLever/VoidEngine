@@ -13,6 +13,7 @@ namespace ProjectCoatiTestSuite {
 
 	class DummyConfigurable : Configurable {
 		DummyConfigurable() : Configurable("testConfig.lua") {
+			
 		}
 	};
 
