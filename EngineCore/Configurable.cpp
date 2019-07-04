@@ -15,17 +15,17 @@ namespace EngineCore {
 		: ConfigFilePath(configFileName), LuaState(luaL_newstate()), ConfigTable(LuaState) {
 		
 		//Open standard lua libs
-		luaL_openlibs(LuaState);
+		//luaL_openlibs(LuaState);
 
 		//Reset config table
 		//ConfigTable(LuaState);
 
-		LoadConfigurationFile();
+		//LoadConfigurationFile();
 	}
 
 	Configurable::~Configurable(){
 		if (LuaState) {
-			lua_close(LuaState);
+			//lua_close(LuaState);
 		}
 	}
 
