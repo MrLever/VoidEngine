@@ -16,12 +16,8 @@ namespace EngineCore {
 	InputManager::InputManager(
 		std::shared_ptr<MessageBus> bus,
 		std::shared_ptr<InputInterfaceManager> playerInterface
-	) : MessageBusNode(std::move(bus)), PlayerInterface(std::move(playerInterface)) {
+	) :  PlayerInterface(std::move(playerInterface)) {
 
-		this->RegisterReciever();
-		this->RegisterEvents();
-
-		PublishMessage("Input Manager Initialized", MessageType::Initialization);
 	}
 
 
@@ -29,23 +25,12 @@ namespace EngineCore {
 
 	void InputManager::LoadKeybindings() {
 		if (!Bindings.Load()) {
-			PublishMessage("Keybinding failed to load", MessageType::Termination);
+			std::cerr << "Keybindings failed to load\n";
 		}
 	}
 
 	//Protected Member Functions
-
-	void InputManager::RegisterReciever() {
-		GameMessageBus->AddReceiver(
-			this,
-			MessageType::Initialization
-		);
-	}
-
-	void InputManager::RegisterEvents() {
-		//Input manager does not react to incomming messages.
-	}
-
+	// N/A
 
 	//Private Member Functions
 	
@@ -54,13 +39,13 @@ namespace EngineCore {
 
 		for (const auto& input : KeyboardEvents.Inputs) {
 			if (input->GetButtonState() == ButtonState::Pressed)
-				PublishMessage(Message("Keyboard button Pressed", MessageType::Input));
+				std::cout << "Keyboard button Pressed\n";
 
 			if (input->GetButtonState() == ButtonState::Held)
-				PublishMessage(Message("Keyboard button held", MessageType::Input));
+				std::cout << "Keyboard button Held\n";
 
 			if (input->GetButtonState() == ButtonState::Released)
-				PublishMessage(Message("Keyboard button released", MessageType::Input));
+				std::cout << "Keyboard button Released\n";
 		}
 
 		//TODO(MrLever): Finsish
@@ -71,14 +56,14 @@ namespace EngineCore {
 		
 		//TODO(MrLever): Finish
 		for (const auto& input : MouseButtonEvents.Inputs) {
-			if(input->GetButtonState() == ButtonState::Pressed)
-				PublishMessage(Message("Mouse button Pressed", MessageType::Input));
+			if (input->GetButtonState() == ButtonState::Pressed)
+				std::cout << "Mouse button Pressed\n";
 
-			if(input->GetButtonState() == ButtonState::Held)
-				PublishMessage(Message("Mouse button held", MessageType::Input));
+			if (input->GetButtonState() == ButtonState::Held)
+				std::cout << "Mouse button Held\n";
 
-			if(input->GetButtonState() == ButtonState::Released)
-				PublishMessage(Message("Mouse button released", MessageType::Input));
+			if (input->GetButtonState() == ButtonState::Released)
+				std::cout << "Mouse button Released\n";
 		}
 	}
 
@@ -94,10 +79,6 @@ namespace EngineCore {
 		HandleKeyboard();
 		HandleMouse();
 		HandleGamepad();
-	}
-
-	void InputManager::ReceiveMessage(const Message &message) {
-		//Input manager does not react to incomming messages.
 	}
 
 }
