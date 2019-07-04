@@ -13,7 +13,7 @@ namespace EngineCore {
 		: GenericInput(static_cast<unsigned>(button), state, 0) {
 
 	}
-	GamepadInput::GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time) 
+	GamepadInput::GamepadInput(GamepadButton button, ButtonState state, EngineUtils::GameTime time) 
 		: GenericInput(static_cast<unsigned>(button), state, time) {
 
 	}

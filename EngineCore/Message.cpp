@@ -13,13 +13,13 @@ namespace EngineCore {
 	//CTORS
 
 	Message::Message(const std::string &message, const MessageType &type) : Event(message), Type(type) {
-		this->ID = EngineUtilities::FNV1aHash(message);
+		this->ID = EngineUtils::FNV1aHash(message);
 	}
 
 	Message::Message(const std::string &message, unsigned type) 
 		: Event(message), Type(static_cast<MessageType>(type))
 	{
-		this->ID = EngineUtilities::FNV1aHash(message);
+		this->ID = EngineUtils::FNV1aHash(message);
 	}
 
 

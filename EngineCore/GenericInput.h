@@ -7,6 +7,7 @@
 
 //Coati Headers
 #include "EngineUtilities.h"
+#include "TimeUtils.h"
 
 namespace EngineCore {
 	enum class ButtonState : unsigned {
@@ -21,10 +22,10 @@ namespace EngineCore {
 	protected:
 		unsigned Button;
 		ButtonState State;
-		EngineUtilities::GameTime TimeStamp;
+		EngineUtils::GameTime TimeStamp;
 
 	public:
-		GenericInput(unsigned button, ButtonState state, EngineUtilities::GameTime time);
+		GenericInput(unsigned button, ButtonState state, EngineUtils::GameTime time);
 		~GenericInput() = default;
 
 		virtual bool operator==(const GenericInput& other) const;
@@ -34,7 +35,7 @@ namespace EngineCore {
 		template<typename T>
 		T GetButton() const;
 		ButtonState GetButtonState() const;
-		EngineUtilities::GameTime GetTimeStamp() const;
+		EngineUtils::GameTime GetTimeStamp() const;
 
 		virtual std::size_t Hash() const;
 	};

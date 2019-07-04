@@ -6,7 +6,7 @@
 
 //Coati headers
 #include "GenericInput.h"
-#include "EngineUtilities.h"
+#include "TimeUtils.h"
 
 namespace EngineCore {
 	enum class GamepadButton : unsigned {
@@ -32,7 +32,7 @@ namespace EngineCore {
 	public:
 		//tors
 		GamepadInput(GamepadButton button, ButtonState state);
-		GamepadInput(GamepadButton button, ButtonState state, EngineUtilities::GameTime time);
+		GamepadInput(GamepadButton button, ButtonState state, EngineUtils::GameTime time);
 		~GamepadInput();
 
 	public:

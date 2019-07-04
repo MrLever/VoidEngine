@@ -4,6 +4,7 @@
 
 //Coati Headers
 #include "GenericInputInterface.h"
+#include "TimeUtils.h"
 
 namespace EngineCore {
 	//tors
@@ -19,7 +20,7 @@ namespace EngineCore {
 		EventQueue.push_back(input);
 		HistoryQueue.push_back(input);
 
-		EngineUtilities::GameTime now = EngineUtilities::GetGameTime();
+		EngineUtils::GameTime now = EngineUtils::GetGameTime();
 
 		//Clear old history data on report.
 		while (now - HistoryQueue.front()->GetTimeStamp() > HistoryLifetime) {

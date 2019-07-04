@@ -148,7 +148,7 @@ namespace EngineCore {
 	public:
 		//CTORS
 		KeyboardInput(KeyboardButton key, ButtonState state);
-		KeyboardInput(KeyboardButton key, ButtonState state, EngineUtilities::GameTime time);
+		KeyboardInput(KeyboardButton key, ButtonState state, EngineUtils::GameTime time);
 		~KeyboardInput();
 
 	private:

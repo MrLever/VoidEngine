@@ -14,15 +14,15 @@ namespace ProjectCoatiTestSuite{
 	TEST_CLASS(EngineUtilitiesTests) {
 	public:
 		TEST_METHOD(FNV1aEqualityTest) {
-			auto first = EngineUtilities::FNV1aHash("ThisIsATest");
-			auto second = EngineUtilities::FNV1aHash("ThisIsATest");
+			auto first = EngineUtils::FNV1aHash("ThisIsATest");
+			auto second = EngineUtils::FNV1aHash("ThisIsATest");
 
 			Assert::AreEqual(first, second);
 		}
 
 		TEST_METHOD(FNV1aInequalityTest) {
-			auto first = EngineUtilities::FNV1aHash("ThisIsATest");
-			auto second = EngineUtilities::FNV1aHash("SoSoThisIsATest");
+			auto first = EngineUtils::FNV1aHash("ThisIsATest");
+			auto second = EngineUtils::FNV1aHash("SoSoThisIsATest");
 
 			Assert::AreNotEqual(first, second);
 		}
