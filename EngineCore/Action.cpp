@@ -10,12 +10,12 @@ namespace EngineCore {
 
 	//tors
 	Action::Action(std::string name, ActionType type) : ActionName(name), Type(type) {
-		ActionID = EngineUtilities::FNV1aHash(name);
+		ActionID = EngineUtils::FNV1aHash(name);
 		Event = nullptr;
 	}
 
 	Action::Action(std::string name, ActionType type, std::function<void()> event) : ActionName(name), Type(type), Event(event){
-		ActionID = EngineUtilities::FNV1aHash(name);
+		ActionID = EngineUtils::FNV1aHash(name);
 	}
 
 

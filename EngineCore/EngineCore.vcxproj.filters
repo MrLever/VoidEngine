@@ -16,195 +16,243 @@
     <Filter Include="Dependencies">
       <UniqueIdentifier>{d68b8e3f-3aeb-4554-95ad-4e400fa582c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Input System">
-      <UniqueIdentifier>{1aa93e2b-c429-438f-9e01-99d1a600f11d}</UniqueIdentifier>
+    <Filter Include="Header Files\Engine Core">
+      <UniqueIdentifier>{9910fc7b-f670-4932-b912-cce9c97c25ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Input System">
+    <Filter Include="Header Files\Engine Core\Rendering System">
+      <UniqueIdentifier>{637b8c7d-d168-475c-ab88-9e4366d4c1a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Engine Utilities">
+      <UniqueIdentifier>{84aa6ca0-4105-4183-ae32-d96c63b44742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Engine Utilities\Resource Manager">
+      <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Engine Utilities\Configuration Manager">
+      <UniqueIdentifier>{3916f485-6976-4a06-9e2c-d89e6f530762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Input System">
       <UniqueIdentifier>{72599593-0d51-4965-a79e-bbe391b6eb1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Messaging Systems">
-      <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Messaging Systems">
-      <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Input System\Interfaces">
+    <Filter Include="Header Files\Engine Core\Input System\Interfaces">
       <UniqueIdentifier>{e48106c0-51f7-4822-9338-2e11ba667808}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Input System\Input Definitions">
+    <Filter Include="Header Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{0d511677-f97d-4271-99d8-606d305b8b95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Input System\Interfaces">
+    <Filter Include="Header Files\Engine Core\Audio System">
+      <UniqueIdentifier>{7951ca86-6394-4e3c-8a50-834d3694ed25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameplay Framework">
+      <UniqueIdentifier>{c24a4aa2-2c1f-45b9-a780-ca6af7fe5207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Messaging Systems">
+      <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core">
+      <UniqueIdentifier>{4810fcaa-e4e2-4835-9f69-40d80122ded6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Engine Utilities">
+      <UniqueIdentifier>{b2bf4e35-68e7-4827-a5dc-f9ddbaae10b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Engine Utilities\Configuration Manager">
+      <UniqueIdentifier>{b8550037-cd20-4d4b-a946-9bb1260f2f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Engine Utilities\Resource Manager">
+      <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Audio System">
+      <UniqueIdentifier>{e93b257c-8b6d-4991-b18b-03ffc6e05158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System">
+      <UniqueIdentifier>{1aa93e2b-c429-438f-9e01-99d1a600f11d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System\Interfaces">
       <UniqueIdentifier>{fe33d38c-87ff-4d25-8af3-b4a44e235abb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Input System\Input Definitions">
+    <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{0daf5dde-0cb6-445c-93ea-465cf09b930b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Rendering System">
+      <UniqueIdentifier>{c5fbbfc7-8ac3-4225-9a69-fb651d029003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework">
+      <UniqueIdentifier>{a4ddcfa2-9504-4903-be1e-8367d36efbae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Messaging Systems">
+      <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GamepadInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="GenericInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="InputAxis.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="MouseInput.cpp">
-      <Filter>Source Files\Input System\Input Definitions</Filter>
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
     <ClCompile Include="GamepadInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
+      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="GenericInputInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
+      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="InputInterfaceManager.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
+      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
+      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="MouseInterface.cpp">
-      <Filter>Source Files\Input System\Interfaces</Filter>
+      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
     <ClCompile Include="Keybindings.cpp">
-      <Filter>Source Files\Input System</Filter>
+      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
     <ClCompile Include="EventTable.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
+      <Filter>Source Files\Gameplay Framework\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="Message.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
+      <Filter>Source Files\Gameplay Framework\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="MessageBus.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
+      <Filter>Source Files\Gameplay Framework\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="MessageBusNode.cpp">
-      <Filter>Source Files\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Serializable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gameplay Framework\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
       <Filter>Dependencies</Filter>
     </ClCompile>
+    <ClCompile Include="TimeUtils.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files\Engine Core\Audio System</Filter>
+    </ClCompile>
     <ClCompile Include="Configurable.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializable.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Engine Core\Rendering System</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Gameplay Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files\Gameplay Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\Gameplay Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="GenericInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="MouseInput.h">
-      <Filter>Header Files\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="GamepadInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="GenericInputInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InputInterfaceManager.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="MouseInterface.h">
-      <Filter>Header Files\Input System\Interfaces</Filter>
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="Keybindings.h">
-      <Filter>Header Files\Input System</Filter>
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="EventTable.h">
-      <Filter>Header Files\Messaging Systems</Filter>
+      <Filter>Header Files\Gameplay Framework\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="Message.h">
-      <Filter>Header Files\Messaging Systems</Filter>
+      <Filter>Header Files\Gameplay Framework\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="MessageBus.h">
-      <Filter>Header Files\Messaging Systems</Filter>
+      <Filter>Header Files\Gameplay Framework\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="MessageBusNode.h">
-      <Filter>Header Files\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gameplay Framework\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="EngineUtilities.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TimeUtils.h">
+      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Serializable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files\Engine Core\Audio System</Filter>
     </ClInclude>
     <ClInclude Include="Configurable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializable.h">
+      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Engine Core\Rendering System</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files\Engine Core\Rendering System</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

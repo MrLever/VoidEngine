@@ -11,11 +11,7 @@
 
 namespace EngineCore {
 
-	//Forward Class declarations
-	class MessageBus;
-
-
-	class AudioManager : MessageBusNode {
+	class AudioManager {
 	private:
 		//Private class members
 
@@ -28,11 +24,10 @@ namespace EngineCore {
 		//Private member functions
 
 	protected:
-		void RegisterEvents() override;
+
 
 	public:
 		//Public Member functions
-		void ReceiveMessage(const Message &message) override;
 
 	};
 

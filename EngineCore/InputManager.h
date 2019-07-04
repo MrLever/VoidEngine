@@ -20,7 +20,7 @@ namespace EngineCore {
 	class InputEvent;
 
 
-	class InputManager : MessageBusNode {
+	class InputManager {
 	private:
 		//Private class members
 		Keybindings Bindings;
@@ -35,9 +35,6 @@ namespace EngineCore {
 		~InputManager() = default;
 
 	private:
-		void RegisterReciever() override;
-		void RegisterEvents() override;
-
 		//Private member functions
 		void LoadKeybindings();
 
@@ -48,7 +45,6 @@ namespace EngineCore {
 	public:
 		//Public member functions
 		void HandleInput();
-		void ReceiveMessage(const Message &message) override;
 	};
 
 }

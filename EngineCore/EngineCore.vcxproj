@@ -187,6 +187,7 @@
     <ClCompile Include="KeyboardInterface.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Serializable.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="MessageBusNode.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="MessageBusNode.h" />
     <ClInclude Include="Message.h" />

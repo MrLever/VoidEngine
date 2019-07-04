@@ -19,7 +19,7 @@ namespace ProjectCoatiTestSuite {
 	using namespace EngineCore;
 	TEST_CLASS(InputDefinitionTests) {
 		TEST_METHOD(GenericInputGetButtonTest) {
-			auto time = EngineUtilities::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 			
 
 			GenericInput test(
@@ -37,7 +37,7 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetButtonStateTest) {
-			auto time = EngineUtilities::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 
 
 			GenericInput test(
@@ -55,7 +55,7 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetTimestampTest) {
-			auto time = EngineUtilities::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 
 
 			GenericInput test(
