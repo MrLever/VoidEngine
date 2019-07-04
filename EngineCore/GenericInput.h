@@ -30,12 +30,20 @@ namespace EngineCore {
 		virtual bool operator==(const GenericInput& other) const;
 
 	public:
-		unsigned GetButton() const;
+
+		template<typename T>
+		T GetButton() const;
 		ButtonState GetButtonState() const;
 		EngineUtilities::GameTime GetTimeStamp() const;
 
 		virtual std::size_t Hash() const;
 	};
+
+	template<typename T>
+	T GenericInput::GetButton() const {
+		return static_cast<T>(Button);
+	}
+
 
 	using GenericInputPtr = std::shared_ptr<GenericInput>;
 }

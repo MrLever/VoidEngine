@@ -25,10 +25,6 @@ namespace EngineCore {
 
 	}
 
-	KeyboardButton KeyboardInput::GetKeyboardButton() const {
-		return static_cast<KeyboardButton>(Button);
-	}
-
 	std::size_t KeyboardInput::Hash() const {
 		return std::hash<int>()(static_cast<int>(Button));
 	}

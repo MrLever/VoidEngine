@@ -26,7 +26,7 @@ namespace EngineCore {
 	{
 		//Remove all instances of key being released in the command queue.
 		for (auto it = CommandQueue.begin(); it != CommandQueue.end(); ) {
-			if (*it == input->GetKeyboardButton()) {
+			if (*it == input->GetButton<KeyboardButton>()) {
 				it = CommandQueue.erase(it);
 			}
 			else {
@@ -45,8 +45,8 @@ namespace EngineCore {
 	}
 
 	void InputAxis::TriggerBinding(const EngineCore::KeyboardInputPtr input) {
-		AxisValue = AxisBindings[input->GetKeyboardButton()];
-		CommandQueue.push_back(input->GetKeyboardButton());
+		AxisValue = AxisBindings[input->GetButton<KeyboardButton>()];
+		CommandQueue.push_back(input->GetButton<KeyboardButton>());
 	}
 
 
@@ -63,7 +63,7 @@ namespace EngineCore {
 		if (input->GetButtonState() == ButtonState::Held) {
 			return;
 		}
-		if (AxisBindings.find(input->GetKeyboardButton()) == AxisBindings.end()) {
+		if (AxisBindings.find(input->GetButton<KeyboardButton>()) == AxisBindings.end()) {
 			return;
 		}
 

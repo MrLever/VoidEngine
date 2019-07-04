@@ -18,7 +18,9 @@
 namespace EngineCore {
 
 	//CTORS
-	Game::Game(std::string name) : GameName(std::move(name)) {
+	Game::Game(std::string name, std::string configFile) 
+		: Configurable(std::move(configFile)), GameName(std::move(name)) {
+
 		FrameRate = 0;
 
 		//Init Higher Level Game Objects
@@ -34,6 +36,10 @@ namespace EngineCore {
 	}
 
 	//Private Functions
+
+	void Game::Configure() {
+
+	}
 
 	//Initialize higher level game objects
 	void Game::InitGame() {

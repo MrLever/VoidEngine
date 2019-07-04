@@ -24,10 +24,11 @@ namespace ProjectCoatiTestSuite {
 
 			GenericInput test(
 				static_cast<unsigned>(KeyboardButton::A), 
-				ButtonState::Pressed, time
+				ButtonState::Pressed, 
+				time
 			);
 			
-			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton())) {
+			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton<KeyboardButton>())) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -41,7 +42,8 @@ namespace ProjectCoatiTestSuite {
 
 			GenericInput test(
 				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::Pressed, time
+				ButtonState::Pressed, 
+				time
 			);
 
 			if (ButtonState::Pressed == static_cast<ButtonState>(test.GetButtonState())) {
@@ -58,7 +60,8 @@ namespace ProjectCoatiTestSuite {
 
 			GenericInput test(
 				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::Pressed, time
+				ButtonState::Pressed, 
+				time
 			);
 
 			if (time == test.GetTimeStamp()) {
@@ -79,7 +82,7 @@ namespace ProjectCoatiTestSuite {
 			//Bring it back to the correct handle
 			KeyboardInput* keyboardHandle = dynamic_cast<KeyboardInput*>(genericHandle);
 
-			if (keyboardHandle->GetKeyboardButton() == button) {
+			if (keyboardHandle->GetButton<KeyboardButton>() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -95,9 +98,9 @@ namespace ProjectCoatiTestSuite {
 			GenericInput* genericHandle = &keyboardInput;
 
 			//Bring it back to the correct handle
-			MouseInput* keyboardHandle = dynamic_cast<MouseInput*>(genericHandle);
+			MouseInput* mouseHandle = dynamic_cast<MouseInput*>(genericHandle);
 
-			if (keyboardHandle->GetMouseButton() == button) {
+			if (mouseHandle->GetButton<MouseButton>() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -106,10 +109,21 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(GamepadInputGetGamepadInputTest) {
-			
-			//Gamepad input is not properly defined yet.
-			//Assert fail until defined.
-			Assert::Fail();
+			auto button = GamepadButton::A;
+			GamepadInput keyboardInput(button, ButtonState::Pressed, 0);
+
+			//Shove it into a generic handle
+			GenericInput* genericHandle = &keyboardInput;
+
+			//Bring it back to the correct handle
+			GamepadInput* gamepadHandle = dynamic_cast<GamepadInput*>(genericHandle);
+
+			if (gamepadHandle->GetButton<GamepadButton>() == button) {
+				Assert::IsTrue(true);
+			}
+			else {
+				Assert::Fail();
+			}
 		}
 	};
 

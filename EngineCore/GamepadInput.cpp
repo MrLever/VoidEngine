@@ -22,10 +22,6 @@ namespace EngineCore {
 
 	}
 
-	GamepadButton GamepadInput::GetGamepadButton() const {
-		return static_cast<GamepadButton>(Button);
-	}
-
 	std::size_t GamepadInput::Hash() const {
 		return std::hash<int>()(static_cast<int>(Button));
 	}

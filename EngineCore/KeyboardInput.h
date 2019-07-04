@@ -154,7 +154,6 @@ namespace EngineCore {
 	private:
 
 	public:
-		KeyboardButton GetKeyboardButton() const;
 		std::size_t Hash() const override;
 	};
 
