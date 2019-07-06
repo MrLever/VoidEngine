@@ -14,12 +14,12 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace ProjectCoatiTestSuite {
+namespace EngineTestSuite {
 
 	using namespace EngineCore;
 	TEST_CLASS(InputDefinitionTests) {
 		TEST_METHOD(GenericInputGetButtonTest) {
-			auto time = EngineUtils::GetGameTime();
+			auto time = EngineCore::GetGameTime();
 			
 
 			GenericInput test(
@@ -37,7 +37,7 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetButtonStateTest) {
-			auto time = EngineUtils::GetGameTime();
+			auto time = EngineCore::GetGameTime();
 
 
 			GenericInput test(
@@ -55,7 +55,7 @@ namespace ProjectCoatiTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetTimestampTest) {
-			auto time = EngineUtils::GetGameTime();
+			auto time = EngineCore::GetGameTime();
 
 
 			GenericInput test(

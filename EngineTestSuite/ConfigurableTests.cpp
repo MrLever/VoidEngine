@@ -9,7 +9,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineCore;
 
-namespace ProjectCoatiTestSuite {
+namespace EngineTestSuite {
 
 	struct DummyConfigurable : Configurable {
 		
