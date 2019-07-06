@@ -20,7 +20,7 @@ namespace EngineCore {
 		EventQueue.push_back(input);
 		HistoryQueue.push_back(input);
 
-		EngineUtils::GameTime now = EngineUtils::GetGameTime();
+		EngineCore::GameTime now = EngineCore::GetGameTime();
 
 		//Clear old history data on report.
 		while (now - HistoryQueue.front()->GetTimeStamp() > HistoryLifetime) {

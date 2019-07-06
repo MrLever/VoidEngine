@@ -15,7 +15,7 @@ namespace EngineCore {
 
 	}
 
-	MouseInput::MouseInput(MouseButton button, ButtonState state, EngineUtils::GameTime timeStamp) 
+	MouseInput::MouseInput(MouseButton button, ButtonState state, EngineCore::GameTime timeStamp) 
 		: GenericInput(static_cast<unsigned>(button), state, timeStamp) {
 	
 	}

@@ -2,20 +2,20 @@
 
 //Library Headers
 
-//Coati headers
+//SuperVoid headers
 #include "Action.h"
-#include "EngineUtilities.h"
+
 
 namespace EngineCore {
 
 	//tors
-	Action::Action(std::string name, ActionType type) : ActionName(name), Type(type) {
-		ActionID = EngineUtils::FNV1aHash(name);
+	Action::Action(std::string name, ActionType type) : ActionID(name), Type(type) {
 		Event = nullptr;
 	}
 
-	Action::Action(std::string name, ActionType type, std::function<void()> event) : ActionName(name), Type(type), Event(event){
-		ActionID = EngineUtils::FNV1aHash(name);
+	Action::Action(std::string name, ActionType type, std::function<void()> event) 
+		: ActionID(name), Type(type), Event(event) {
+
 	}
 
 
@@ -34,11 +34,7 @@ namespace EngineCore {
 	}
 
 	//Public Member Functions
-	std::string Action::GetName() const {
-		return ActionName;
-	}
-
-	unsigned long long Action::GetID() const {
+	UUID Action::GetID() const {
 		return ActionID;
 	}
 

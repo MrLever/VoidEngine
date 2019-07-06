@@ -68,7 +68,7 @@ namespace EngineCore {
 
 		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 			//Get time stamp for KeyBoardInput
-			auto timeStamp = EngineUtils::GetGameTime();
+			auto timeStamp = EngineCore::GetGameTime();
 
 			//Create Coati KeyboardInput
 			KeyboardInputPtr input = std::make_shared<KeyboardInput>(
@@ -84,7 +84,7 @@ namespace EngineCore {
 
 		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 			//Get time stamp for MouseButton event
-			auto timeStamp = EngineUtils::GetGameTime();
+			auto timeStamp = EngineCore::GetGameTime();
 			
 			//Create Coati MouseInput
 			MouseInputPtr input = std::make_shared<MouseInput>(

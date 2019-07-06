@@ -6,7 +6,8 @@
 
 //Library Headers
 
-//Coati Headers
+//SuperVoid Headers
+#include "UUID.h"
 
 namespace EngineCore {
 	enum class ActionType : unsigned {
@@ -18,8 +19,7 @@ namespace EngineCore {
 	class Action {
 	
 	private:
-		std::string ActionName;
-		unsigned long long ActionID;
+		UUID ActionID;
 
 		ActionType Type;
 
@@ -38,8 +38,7 @@ namespace EngineCore {
 	private:
 
 	public:
-		std::string GetName() const;
-		unsigned long long GetID() const;
+		UUID GetID() const;
 		ActionType GetActionType();
 
 		void BindAction(std::function<void()> newAction);

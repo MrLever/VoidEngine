@@ -25,7 +25,7 @@ namespace EngineCore {
 	public:
 		//tors
 		MouseInput(MouseButton button, ButtonState state);
-		MouseInput(MouseButton button, ButtonState state, EngineUtils::GameTime timeStamp);
+		MouseInput(MouseButton button, ButtonState state, EngineCore::GameTime timeStamp);
 		~MouseInput();
 
 	private:

@@ -13,7 +13,7 @@ namespace EngineCore {
 		return (this->Button == other.Button && this->State == other.State);
 	}
 
-	GenericInput::GenericInput( unsigned button, ButtonState state, EngineUtils::GameTime time)
+	GenericInput::GenericInput( unsigned button, ButtonState state, EngineCore::GameTime time)
 		: Button(button), State(state), TimeStamp(time) {
 
 
@@ -23,7 +23,7 @@ namespace EngineCore {
 		return State;
 	}
 
-	EngineUtils::GameTime GenericInput::GetTimeStamp() const {
+	EngineCore::GameTime GenericInput::GetTimeStamp() const {
 		return TimeStamp;
 	}
 

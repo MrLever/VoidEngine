@@ -16,7 +16,7 @@ namespace EngineCore {
 
 	}
 
-	KeyboardInput::KeyboardInput(KeyboardButton key, ButtonState state, EngineUtils::GameTime time)
+	KeyboardInput::KeyboardInput(KeyboardButton key, ButtonState state, EngineCore::GameTime time)
 		: GenericInput(static_cast<unsigned>(key), state, time){
 
 	}
