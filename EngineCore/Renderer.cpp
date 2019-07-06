@@ -9,7 +9,7 @@
 #include "WindowManager.h"
 
 namespace EngineCore {
-
+	//CTORS
 	Renderer::Renderer(std::shared_ptr<WindowManager> window) : Window(std::move(window)){
 		this->Window = Window;
 
@@ -19,10 +19,6 @@ namespace EngineCore {
 	Renderer::~Renderer() {
 	}
 
-	//Private Member Functions
-
-
-
 	//Public Member Functions
 
 	void Renderer::Render() {
@@ -31,4 +27,7 @@ namespace EngineCore {
 
 		Window->SwapBuffers();
 	}
+
+	//Private Member Functions
+
 }

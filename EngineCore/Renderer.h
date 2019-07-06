@@ -10,22 +10,28 @@ namespace EngineCore {
 	class WindowManager;
 
 	class Renderer {
-	private:
-		//Private class members
-		std::shared_ptr<WindowManager> Window;
-
 	public:
 		//CTORS
+		
+		/**
+		 * Constructor
+		 * @param window The Window the renderer draws to
+		 */
 		Renderer(std::shared_ptr<WindowManager> window);
+
+		/**
+		 * Destructor
+		 */
 		~Renderer();
+
+		//Public member functions
+		void Render();
 
 	private:
 		//Private member functions
 
-
-	public:
-		//Public member functions
-		void Render();
+		//Private class members
+		std::shared_ptr<WindowManager> Window;
 
 	};
 
