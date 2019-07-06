@@ -11,7 +11,7 @@ namespace EngineCore {
 
 	class Renderer {
 	public:
-		//CTORS
+		///CTORS
 		
 		/**
 		 * Constructor
@@ -24,13 +24,19 @@ namespace EngineCore {
 		 */
 		~Renderer();
 
-		//Public member functions
+		///Public member functions
+		
+		/** 
+		 * Draws to the sceen
+		 */
 		void Render();
 
 	private:
-		//Private member functions
+		///Private member functions
 
-		//Private class members
+		///Private class members
+		
+		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;
 
 	};
