@@ -22,10 +22,10 @@ namespace EngineCore {
 	protected:
 		unsigned Button;
 		ButtonState State;
-		EngineUtils::GameTime TimeStamp;
+		EngineCore::GameTime TimeStamp;
 
 	public:
-		GenericInput(unsigned button, ButtonState state, EngineUtils::GameTime time);
+		GenericInput(unsigned button, ButtonState state, EngineCore::GameTime time);
 		~GenericInput() = default;
 
 		virtual bool operator==(const GenericInput& other) const;
@@ -35,7 +35,7 @@ namespace EngineCore {
 		template<typename T>
 		T GetButton() const;
 		ButtonState GetButtonState() const;
-		EngineUtils::GameTime GetTimeStamp() const;
+		EngineCore::GameTime GetTimeStamp() const;
 
 		virtual std::size_t Hash() const;
 	};

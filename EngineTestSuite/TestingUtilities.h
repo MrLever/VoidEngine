@@ -4,7 +4,7 @@
 #include "MessageBusNode.h"
 #include "Console.h"
 
-namespace ProjectCoatiTestSuite
+namespace EngineTestSuite
 {
 
 	using namespace EngineCore;

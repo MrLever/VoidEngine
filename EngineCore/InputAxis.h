@@ -49,7 +49,7 @@ namespace std {
 
 		//Hash functor
 		std::size_t operator()(const EngineCore::InputAxis& axis) const {
-			return EngineUtils::FNV1aHash(axis.GetID());
+			return EngineCore::FNV1aHash(axis.GetID());
 		}
 
 	};

@@ -12,8 +12,8 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace ProjectCoatiTestSuite
-{
+namespace EngineTestSuite {
+
 	TEST_CLASS(MessageBusTests) {
 	public:
 
@@ -50,6 +50,6 @@ namespace ProjectCoatiTestSuite
 
 			Assert::IsTrue(testReceiver.EventFired);
 		}
-
 	};
+
 }

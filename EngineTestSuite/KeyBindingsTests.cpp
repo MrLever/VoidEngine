@@ -10,7 +10,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace ProjectCoatiTestSuite {
+namespace EngineTestSuite {
 
 	using namespace EngineCore;
 

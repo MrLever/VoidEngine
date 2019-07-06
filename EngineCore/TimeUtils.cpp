@@ -8,8 +8,8 @@
 //Engine Core Headers
 #include "TimeUtils.h"
 
-namespace EngineUtils {
-	GameTime EngineUtils::GetGameTime() {
+namespace EngineCore {
+	GameTime EngineCore::GetGameTime() {
 		auto timeSinceEpoch = std::chrono::duration_cast<std::chrono::milliseconds>(
 			std::chrono::system_clock::now().time_since_epoch()
 			);

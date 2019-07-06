@@ -6,7 +6,7 @@
 
 //Library Headers
 
-namespace EngineUtils {
+namespace EngineCore {
 	using GameTime = unsigned long long;
 
 	/**

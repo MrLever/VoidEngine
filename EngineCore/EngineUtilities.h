@@ -8,7 +8,7 @@
 //Library Headers
 
 
-namespace EngineUtils {
+namespace EngineCore {
 
 	static unsigned long long FNV1aHash(const std::string &input) {
 

@@ -9,7 +9,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineCore;
 
-namespace ProjectCoatiTestSuite {
+namespace EngineTestSuite {
 
 	TEST_CLASS(ConsoleTests) {
 	public:

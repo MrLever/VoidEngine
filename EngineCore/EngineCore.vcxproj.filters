@@ -254,5 +254,8 @@
     <ClInclude Include="Console.h">
       <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
+    <ClInclude Include="UUID.h">
+      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
