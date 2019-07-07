@@ -8,7 +8,7 @@
 #include "UUID.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace EngineCore;
+using namespace EngineUtils;
 
 namespace EngineTestSuite {
 

@@ -14,7 +14,7 @@
 
 namespace EngineCore {
 
-	class Keybindings : Serializable {
+	class Keybindings : EngineUtils::Serializable {
 	private:
 		//Private Class Members
 		std::unordered_map<KeyboardInput, Action> KeyboardBindings;

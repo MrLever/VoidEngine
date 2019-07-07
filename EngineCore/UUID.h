@@ -8,7 +8,7 @@
 //Void Engine Headers
 #include "EngineUtilities.h"
 
-namespace EngineCore {
+namespace EngineUtils {
 	struct UUID {
 
 		///CTORS

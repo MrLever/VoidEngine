@@ -16,11 +16,11 @@
 
 namespace EngineCore {
 
-	Keybindings::Keybindings() : Serializable("Settings/EngineDefaultInput.ini") {
+	Keybindings::Keybindings() : EngineUtils::Serializable("Settings/EngineDefaultInput.ini") {
 		Load();
 	}
 
-	Keybindings::Keybindings(std::string filePath) : Serializable(std::move(filePath)) {
+	Keybindings::Keybindings(std::string filePath) : EngineUtils::Serializable(std::move(filePath)) {
 		Load();
 	}
 
