@@ -188,6 +188,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="ThreadPoolWorker.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="MessageBusNode.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="ThreadPool.h" />
+    <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="UUID.h" />

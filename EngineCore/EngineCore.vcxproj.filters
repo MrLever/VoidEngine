@@ -177,6 +177,9 @@
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadPoolWorker.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -270,6 +273,9 @@
       <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
     <ClInclude Include="ThreadSafeQueue.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPoolWorker.h">
       <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
   </ItemGroup>

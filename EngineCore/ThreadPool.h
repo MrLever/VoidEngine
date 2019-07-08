@@ -39,10 +39,10 @@ namespace EngineUtils {
 
 		///Public Member Function
 		/**
-		 * Submits work to be executed on an abritray thread
+		 * Variadic template function that submits work to be executed on an abritray thread
 		 */
 		template<class F, class... Args>
-		auto SubmitJob(F&& f, Args&& ... args)->std::future<decltype(f(args...))>;
+		auto SubmitJob(F&& f, Args&& ... args) -> std::future<decltype(f(args...))>;
 
 	private:
 		/** Number of active threads in the pool */
