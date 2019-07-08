@@ -28,7 +28,6 @@ namespace EngineCore {
 
 		//Start game loop
 		ExecuteGameLoop();
-
 	}
 
 	Game::~Game() {

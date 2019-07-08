@@ -219,6 +219,7 @@
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="ThreadPool.h" />
+    <ClInclude Include="ThreadSafeQueue.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="UUID.h" />
     <ClInclude Include="WindowManager.h" />
