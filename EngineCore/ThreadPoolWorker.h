@@ -1,6 +1,8 @@
 #pragma once
 //STD Headers
 #include <thread>
+#include <functional>
+#include <condition_variable>
 
 //Library Headers
 
@@ -22,8 +24,21 @@ namespace EngineUtils {
 		///CTORS
 
 		/**
-		 *
+		 * Constructor
+		 * @param masterPool The owning threadpool of this worker
+		 * @param id This worker's id
 		 */
-		ThreadPoolWorker();
+		ThreadPoolWorker(ThreadPool* masterPool, int id);
+
+		/// Operator Overloads
+		/**
+		 * Function call operator
+		 * This function will run on the thread until the thread is to be destroyed
+		 */
+		void operator() ( );
+
+	private:
+		ThreadPool* Pool;
+		int ID;
 	};
 }

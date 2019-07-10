@@ -122,7 +122,7 @@ namespace EngineTestSuite {
 			Assert::AreNotEqual(size, size2);
 		}
 		
-		TEST_METHOD(PopTest) {
+		TEST_METHOD(PopNoResultReturnTest) {
 			ThreadSafeQueue <int> q;
 			q.push(5);
 			
@@ -131,6 +131,17 @@ namespace EngineTestSuite {
 			int size2 = q.size();
 
 			Assert::IsTrue(size > size2);
+		}
+		
+		TEST_METHOD(PopResultReturnTest) {
+			ThreadSafeQueue <int> q;
+			q.push(5);
+
+			int res;
+
+			q.pop(res);
+
+			Assert::AreEqual(5, res);
 		}
 	};
 }
