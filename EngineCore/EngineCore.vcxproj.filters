@@ -82,6 +82,12 @@
     <Filter Include="Source Files\Gameplay Framework\Messaging Systems">
       <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Engine Utilities\ThreadPool">
+      <UniqueIdentifier>{17acf3c0-45e7-43ba-bb38-b494261bbc0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Engine Utilities\ThreadPool">
+      <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GamepadInput.cpp">
@@ -167,6 +173,12 @@
     </ClCompile>
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPoolWorker.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +268,15 @@
     </ClInclude>
     <ClInclude Include="UUID.h">
       <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadSafeQueue.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPoolWorker.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

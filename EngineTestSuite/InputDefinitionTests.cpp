@@ -19,7 +19,7 @@ namespace EngineTestSuite {
 	using namespace EngineCore;
 	TEST_CLASS(InputDefinitionTests) {
 		TEST_METHOD(GenericInputGetButtonTest) {
-			auto time = EngineCore::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 			
 
 			GenericInput test(
@@ -37,7 +37,7 @@ namespace EngineTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetButtonStateTest) {
-			auto time = EngineCore::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 
 
 			GenericInput test(
@@ -55,7 +55,7 @@ namespace EngineTestSuite {
 		}
 
 		TEST_METHOD(GenericInputGetTimestampTest) {
-			auto time = EngineCore::GetGameTime();
+			auto time = EngineUtils::GetGameTime();
 
 
 			GenericInput test(

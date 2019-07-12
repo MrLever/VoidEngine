@@ -8,17 +8,19 @@
 
 //Coati Headesr
 #include "KeyboardInput.h"
-#include "EngineUtilities.h"
+#include "UUID.h"
 
 namespace EngineCore {
 
 	class InputAxis	{
 
 	private:
-		double AxisValue;
 		std::unordered_map<KeyboardButton, double> AxisBindings;
 		std::list<KeyboardButton> CommandQueue;
-		std::string ID;
+		
+		double AxisValue;
+		std::string AxisName;
+		EngineUtils::UUID AxisID;
 
 
 	public:
@@ -32,7 +34,7 @@ namespace EngineCore {
 
 	public:
 		void AddBinding(KeyboardButton input, double scale);
-		std::string GetID() const;
+		EngineUtils::UUID GetID() const;
 		
 		void UpdateAxis(const KeyboardInputPtr input);
 		void Reset();
@@ -45,11 +47,11 @@ namespace EngineCore {
 //It is acceptable to extend the std namespace to add template specifications for 
 //standard library templates to work with custom data types.
 namespace std {
-	template <> struct hash<EngineCore::InputAxis> { //Class to define hash function for Keyboard Input
-
+	template <> 
+	struct hash<EngineCore::InputAxis> { //Class to define hash function for Keyboard Input
 		//Hash functor
 		std::size_t operator()(const EngineCore::InputAxis& axis) const {
-			return EngineCore::FNV1aHash(axis.GetID());
+			return axis.GetID().ID;
 		}
 
 	};

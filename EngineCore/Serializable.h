@@ -10,7 +10,7 @@
 
 //Coati Headers
 
-namespace EngineCore {
+namespace EngineUtils {
 
 	class Serializable {
 

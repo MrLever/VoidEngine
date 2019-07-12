@@ -19,7 +19,7 @@ namespace EngineCore {
 	class Action {
 	
 	private:
-		UUID ActionID;
+		EngineUtils::UUID ActionID;
 
 		ActionType Type;
 
@@ -38,7 +38,7 @@ namespace EngineCore {
 	private:
 
 	public:
-		UUID GetID() const;
+		EngineUtils::UUID GetID() const;
 		ActionType GetActionType();
 
 		void BindAction(std::function<void()> newAction);

@@ -6,7 +6,7 @@
 //Coati headers
 #include "Serializable.h"
 
-namespace EngineCore {
+namespace EngineUtils {
 
 	Serializable::Serializable(std::string targetFilePath) : FilePath(std::move(targetFilePath)) {
 

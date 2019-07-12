@@ -4,6 +4,8 @@
 
 //Library Headers
 
+//Void Engine Headers
+#include "UUID.h"
 
 namespace EngineCore {
 
@@ -26,7 +28,7 @@ namespace EngineCore {
 		//Private class members
 		std::string Event;
 		MessageType Type;
-		unsigned long long ID;
+		EngineUtils::UUID ID;
 
 	public:
 		Message(const std::string &message, const MessageType &type);
@@ -41,7 +43,7 @@ namespace EngineCore {
 	public:
 		//Public member functions
 		std::string GetEvent() const;
-		unsigned long long GetEventID() const;
+		EngineUtils::UUID GetEventID() const;
 		MessageType GetType() const;
 
 	};
@@ -52,12 +54,11 @@ namespace EngineCore {
 //It is acceptable to extend the std namespace to add template specifications for 
 //standard library templates to work with custom data types.
 namespace std {
-	template <> struct hash<EngineCore::Message> { //Class to define hash function for Keyboard Input
-
+	template <> 
+	struct hash<EngineCore::Message> { //Class to define hash function for Keyboard Input
 		//Hash functor
 		std::size_t operator()(const EngineCore::Message& t) const {
-			return t.GetEventID();
+			return t.GetEventID().ID;
 		}
-
 	};
 }

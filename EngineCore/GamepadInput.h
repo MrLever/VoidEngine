@@ -32,7 +32,7 @@ namespace EngineCore {
 	public:
 		//tors
 		GamepadInput(GamepadButton button, ButtonState state);
-		GamepadInput(GamepadButton button, ButtonState state, EngineCore::GameTime time);
+		GamepadInput(GamepadButton button, ButtonState state, EngineUtils::GameTime time);
 		~GamepadInput();
 
 	public:
