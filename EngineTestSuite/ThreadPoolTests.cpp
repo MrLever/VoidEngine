@@ -98,6 +98,10 @@ namespace EngineTestSuite {
 			auto res2 = p.SubmitJob(std::bind(&DummyObject::ParamAdd, &d, 1, 2));
 			Assert::AreEqual(3, res2.get());
 		}
+
+		TEST_METHOD(AsyncFileIoTest) {
+			ThreadPool p;
+		}
 	};
 
 	TEST_CLASS(ThreadSafeQueueTests) {

@@ -1,8 +1,11 @@
 #pragma once
 //STD Headers
 #include <atomic>
+#include <condition_variable>
 #include <future>
 #include <thread>
+#include <utility>
+#include <vector>
 
 //Library Headers
 
@@ -19,6 +22,7 @@ namespace EngineUtils {
 	class ThreadPool {
 	public:
 
+		/** Reveals private threadpool data to the thread pool workers */
 		friend class ThreadPoolWorker;
 
 		///CTORS
@@ -62,12 +66,18 @@ namespace EngineUtils {
 		void Terminate();
 
 	private:
+		///Private member functions
+		void StartThreads();
+
 		///Private class members
 		/** Number of active threads in the pool */
 		int NumThreads;
 
 		/** Flag for the workers to query if the thread pool has been shut down */
 		bool Terminated;
+
+		/** */
+		std::vector<std::thread> WorkerThreads;
 
 		/** Queue of submitted jobs to process */
 		ThreadSafeQueue<std::function<void()>> WorkQueue;
@@ -81,9 +91,28 @@ namespace EngineUtils {
 
 	///Template function definitions
 	template<class F, class ...Args>
-	inline auto ThreadPool::SubmitJob(F&& f, Args&& ...args) -> std::future<decltype(f(args ...))>
-	{
-		return std::future<decltype(f(args ...))>();
+	inline auto ThreadPool::SubmitJob(F&& f, Args&&... args) -> std::future<decltype(f(args ...))> {
+
+		//Bind arguments to the function, and place it on the heap
+		auto jobPtr = std::make_shared<std::packaged_task<decltype(f(args...))()>> (
+			std::bind(
+				std::forward<F>(f), 
+				std::forward<Args>(args)...
+			)
+		);
+
+		//Wrap job into a void function so it can be stored iin the queue;
+		std::function<void()> jobWrapper = [jobPtr]() {
+			(*jobPtr)();
+		};
+
+		//Submit job to the work queue
+		WorkQueue.push(jobWrapper);
+
+		//Wake up a waiting thread, if any
+		WorkSignal.notify_one();
+
+		return jobPtr->get_future();
 	}
 
 }
