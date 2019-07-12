@@ -26,14 +26,21 @@ namespace EngineUtils {
 		~UUID() = default;
 
 		/**
-		 * Equality operator
+		 * Equality operator, other UUID
 		 */
 		inline bool operator== (const UUID& other) const {
 			return ID == other.ID;
 		}
 
 		/**
-		 * Equality operator
+		 * Equality operator, UUID and string
+		 */
+		inline bool operator== (const std::string& other) const {
+			return ID == FNV1aHash(other);
+		}
+
+		/**
+		 * Inequality operator
 		 */
 		inline bool operator!= (const UUID& other) const {
 			return ID != other.ID;

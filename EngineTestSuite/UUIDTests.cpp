@@ -29,6 +29,7 @@ namespace EngineTestSuite {
 
 			Assert::IsTrue(idA != idB);
 			Assert::IsTrue(idA == idC);
+			Assert::IsTrue(idA == "Foo");
 
 			// Relational operators are available but untested
 		}
