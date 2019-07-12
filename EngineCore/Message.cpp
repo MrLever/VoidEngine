@@ -12,14 +12,14 @@ namespace EngineCore {
 
 	//CTORS
 
-	Message::Message(const std::string &message, const MessageType &type) : Event(message), Type(type) {
-		this->ID = EngineUtils::FNV1aHash(message);
+	Message::Message(const std::string &message, const MessageType &type) 
+		: Event(message), Type(type), ID(message) {
+
 	}
 
 	Message::Message(const std::string &message, unsigned type) 
-		: Event(message), Type(static_cast<MessageType>(type))
-	{
-		this->ID = EngineUtils::FNV1aHash(message);
+		: Event(message), Type(static_cast<MessageType>(type)), ID(message) {
+
 	}
 
 
@@ -34,7 +34,7 @@ namespace EngineCore {
 		return Event;
 	}
 
-	unsigned long long Message::GetEventID() const {
+	EngineUtils::UUID Message::GetEventID() const {
 		return ID;
 	}
 

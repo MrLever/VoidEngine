@@ -4,6 +4,8 @@
 
 //Library Headers
 
+//Void Engine Headers
+#include "UUID.h"
 
 namespace EngineCore {
 
@@ -26,7 +28,7 @@ namespace EngineCore {
 		//Private class members
 		std::string Event;
 		MessageType Type;
-		unsigned long long ID;
+		EngineUtils::UUID ID;
 
 	public:
 		Message(const std::string &message, const MessageType &type);
@@ -41,7 +43,7 @@ namespace EngineCore {
 	public:
 		//Public member functions
 		std::string GetEvent() const;
-		unsigned long long GetEventID() const;
+		EngineUtils::UUID GetEventID() const;
 		MessageType GetType() const;
 
 	};

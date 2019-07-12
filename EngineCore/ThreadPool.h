@@ -51,7 +51,7 @@ namespace EngineUtils {
 		 * @return A future of type decltype(f(args...)) to the result of f
 		 */
 		template<class F, class... Args>
-		auto SubmitJob(F&& f, Args&& ... args) -> std::future<decltype(f(args...))>;
+		auto SubmitJob(F&& f, Args&&... args) -> std::future<decltype(f(args...))>;
 
 		/**
 		 * A query for whether the thread pool has been terminated
