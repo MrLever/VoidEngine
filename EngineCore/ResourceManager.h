@@ -49,7 +49,7 @@ namespace EngineUtils {
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
 		/** Registry of all loaded resources */
-		std::unordered_map<UUID, Resource> ResourceRegistry;
+		std::unordered_map<UUID, Resource*> ResourceRegistry;
 	};
 
 	//template<typename T>
