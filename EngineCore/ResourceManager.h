@@ -74,7 +74,7 @@ namespace EngineUtils {
 		ResourceHandle handle(resource, jobResult);
 
 		//Insert the new resource into the registry
-		ResourceRegistry.insert_or_assign(resourceID, handle);
+		ResourceRegistry.insert({ resourceID, handle });
 
 		//Return the resource handle
 		return handle;
