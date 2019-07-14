@@ -109,8 +109,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>rmdir /Q "$(TargetDir)Resources"
+rmdir /q /f "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -131,8 +132,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>rmdir /Q "$(TargetDir)Resources"
+rmdir /q /f "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -154,10 +156,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <PostBuildEvent>
       <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
 echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>rmdir /Q "$(TargetDir)Resources"
+rmdir /q /f "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,8 +187,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>rmdir /Q "$(TargetDir)Resources"
+rmdir /q /f "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
