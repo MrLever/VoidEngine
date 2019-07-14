@@ -109,8 +109,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /Q "$(TargetDir)Settings"</Command>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -132,8 +132,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /Q "$(TargetDir)Settings"</Command>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -159,8 +159,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /Q "$(TargetDir)Settings"</Command>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -187,8 +187,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /Q "$(TargetDir)Settings"</Command>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
