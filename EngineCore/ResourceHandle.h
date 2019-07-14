@@ -15,7 +15,6 @@ namespace EngineUtils {
 	 * until the resource is loaded to use it.
 	 */
 	class ResourceHandle {
-		friend class ResourceManager;
 	public:
 		///CTORS
 		/**

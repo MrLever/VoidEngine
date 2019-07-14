@@ -63,7 +63,8 @@ namespace EngineTestSuite {
 			ResourceManager resourceMan(pool);
 
 			//Request resource to be loaded.
-			auto dummyReq = resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto dummyReq = 
+				resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			//Request resource be loaded again
 			ResourceHandle handle =

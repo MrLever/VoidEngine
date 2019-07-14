@@ -7,7 +7,8 @@
 
 namespace EngineUtils {
 	///Public Functions
-	ResourceManager::ResourceManager(std::shared_ptr<ThreadPool> gameThreadPool) : GameThreadPool(std::move(gameThreadPool)) {
+	ResourceManager::ResourceManager(std::shared_ptr<ThreadPool> gameThreadPool) 
+		: GameThreadPool(std::move(gameThreadPool)) {
 	
 	}
 
