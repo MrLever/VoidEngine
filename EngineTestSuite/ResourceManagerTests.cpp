@@ -40,7 +40,7 @@ namespace EngineTestSuite {
 		};
 
 		TEST_METHOD(LoadNewResourceTest) {
-			std::string SuccessString = "Wow engine programming is fuckin' hard";
+			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
 			ResourceManager resourceMan(pool);
