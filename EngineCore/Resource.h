@@ -33,14 +33,16 @@ namespace EngineUtils {
 		virtual bool Load() = 0;
 
 		/**
+		 * Loads the resource's defualt value if the path provided is invalid
+		 */
+		virtual bool LoadErrorResource() = 0;
+
+		bool GetResourceValid();
+
+		/**
 		 * Gets the resources' ID
 		 */
 		UUID GetResourceID();
-
-		/**
-		 * Queries whether or not the resource has been loaded
-		 */
-		bool GetLoadComplete();
 
 	protected:
 		/** Unique identifier for resource lookup and comparison */
@@ -51,9 +53,5 @@ namespace EngineUtils {
 
 		/** Flag specifying if the resource was found in main memory */
 		std::atomic<bool> ResourceValid;
-
-		/** Flag specifying if the resource has been loaded */
-		std::atomic<bool> LoadComplete;
-
 	};
 }

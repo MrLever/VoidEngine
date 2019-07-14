@@ -19,19 +19,22 @@ namespace EngineUtils {
 		///CTORS
 		/**
 		 * Constructor
+		 * @param resource The resource wrapped by this handle
 		 * @param resourcePromise The promise used by the handles' future
 		 */
 		ResourceHandle(std::shared_ptr<Resource> resource, std::promise<bool>& resourcePromise);
 
 		/**
 		 * Constructor
-		 * @param resourceFuture The promise used by the handles' future
+		 * @param resource The resource wrapped by this handle
+		 * @param resourceFuture The future used by the handles' future
 		 */
 		ResourceHandle(std::shared_ptr<Resource> resource, std::future<bool>& resourceFuture);
 
 		///Public Member Functions
 		/**
 		 * Gets the resource that was loaded, or blocks until loading is finished
+		 * @return The resource requested, dynamically casted to the specified type
 		 */
 		template <typename T>
 		std::shared_ptr<T> GetResource();
@@ -39,6 +42,8 @@ namespace EngineUtils {
 	private:
 		/** Future to the resource to be loaded */
 		std::shared_future<bool> ResourceReady;
+
+		/** Shared base pointer to the resource requested */
 		std::shared_ptr<Resource> RequestedResource;
 	};
 

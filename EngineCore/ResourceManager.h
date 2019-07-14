@@ -37,6 +37,7 @@ namespace EngineUtils {
 		 * Function to command the resource manager to load a resource.
 		 * If the resource has already been loaded, it will not be loaded again
 		 * @param resourceLocation The resource's file location (which is translated to UUID)
+		 * @return A thread safe handle to the requested resource
 		 */
 		template <class T>
 		ResourceHandle LoadResource(const std::string& resourceLocation);
@@ -68,9 +69,15 @@ namespace EngineUtils {
 
 		//Construct the resource handle
 		auto resource = std::make_shared<T>(resourceLocation);
-		std::future<bool> jobResult = GameThreadPool->SubmitJob(
-			std::bind(&T::Load, resource.get())
-		);
+		std::future<bool> jobResult;
+
+		if (!resource->GetResourceValid()) {
+			jobResult = GameThreadPool->SubmitJob(std::bind(&T::LoadErrorResource, resource.get()));
+		}
+		else {
+			jobResult = GameThreadPool->SubmitJob(std::bind(&T::Load, resource.get()));
+		}
+
 		ResourceHandle handle(resource, jobResult);
 
 		//Insert the new resource into the registry

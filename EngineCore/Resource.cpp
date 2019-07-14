@@ -8,7 +8,7 @@
 namespace EngineUtils {
 	///Public Functions
 	Resource::Resource(const std::string& filePath) 
-		: ResourceID(filePath), ResourcePath(filePath), LoadComplete(false) {
+		: ResourceID(filePath), ResourcePath(filePath) {
 		ResourceValid = std::filesystem::exists(ResourcePath);
 	}
 
@@ -16,11 +16,12 @@ namespace EngineUtils {
 
 	}
 
+	bool Resource::GetResourceValid() {
+		return ResourceValid;
+	}
+
 	UUID Resource::GetResourceID() {
 		return ResourceID;
 	}
 
-	bool Resource::GetLoadComplete() {
-		return LoadComplete;
-	}
 }

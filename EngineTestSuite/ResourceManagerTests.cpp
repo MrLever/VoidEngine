@@ -29,12 +29,15 @@ namespace EngineTestSuite {
 				ifs.open(ResourcePath);
 
 				if (!ifs.is_open()) {
-					FileContents = ErrorString;
-				}
-				else {
-					std::getline(ifs, FileContents);
+					return false;
 				}
 
+				std::getline(ifs, FileContents);
+				return true;
+			}
+
+			bool LoadErrorResource() override {
+				FileContents = ErrorString;
 				return true;
 			}
 		};
@@ -69,6 +72,15 @@ namespace EngineTestSuite {
 			auto raw = handle.GetResource<RawFile>();
 
 			Assert::AreEqual(SuccessString, raw->FileContents);
+		}
+
+		TEST_METHOD(RequestInvalidResourceTest) {
+			std::string SuccessString = "Error";
+			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
+			ResourceManager resourceMan(pool);
+
+			auto invalidRequest = resourceMan.LoadResource<RawFile>("FooBar");
+			Assert::AreEqual(SuccessString, invalidRequest.GetResource<RawFile>()->FileContents);
 		}
 	};
 }
