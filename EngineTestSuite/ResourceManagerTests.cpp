@@ -32,7 +32,7 @@ namespace EngineTestSuite {
 					FileContents = ErrorString;
 				}
 				else {
-					ifs >> FileContents;
+					std::getline(ifs, FileContents);
 				}
 
 				return true;
