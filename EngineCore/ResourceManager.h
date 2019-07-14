@@ -52,7 +52,7 @@ namespace EngineUtils {
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
 		/** Registry of all loaded resources */
-		std::unordered_map<UUID, std::shared_ptr<Resource>> ResourceRegistry;
+		std::unordered_map<UUID, ResourceHandle> ResourceRegistry;
 	};
 
 	template<class T>
@@ -63,26 +63,21 @@ namespace EngineUtils {
 		//If the resource has been loaded, 
 		//return a resource handle with the resource already loaded
 		if (RegistryEntry != ResourceRegistry.end()) {
-			std::promise<bool> resourcePromise;
-
-			resourcePromise.set_value(
-				RegistryEntry->second->GetLoadComplete()
-			);
-
-			std::shared_ptr<Resource> resource = RegistryEntry->second;
-
-			return ResourceHandle(resource, resourcePromise);
+			return RegistryEntry->second;
 		}
 
+		//Construct the resource handle
 		auto resource = std::make_shared<T>(resourceLocation);
-
-		ResourceRegistry[resource->GetResourceID()] = resource;
-
 		std::future<bool> jobResult = GameThreadPool->SubmitJob(
 			std::bind(&T::Load, resource.get())
 		);
+		ResourceHandle handle(resource, jobResult);
 
-		return ResourceHandle(resource, jobResult);
+		//Insert the new resource into the registry
+		ResourceRegistry.insert_or_assign(resourceID, handle);
+
+		//Return the resource handle
+		return handle;
 	}
 }
 

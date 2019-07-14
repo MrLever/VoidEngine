@@ -54,7 +54,21 @@ namespace EngineTestSuite {
 		}
 
 		TEST_METHOD(RequestLoadedResourceTest) {
-			Assert::Fail();
+			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
+
+			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
+			ResourceManager resourceMan(pool);
+
+			//Request resource to be loaded.
+			auto dummyReq = resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+
+			//Request resource be loaded again
+			ResourceHandle handle =
+				resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+
+			auto raw = handle.GetResource<RawFile>();
+
+			Assert::AreEqual(SuccessString, raw->FileContents);
 		}
 	};
 }

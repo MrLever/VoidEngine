@@ -110,7 +110,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /q /f "$(TargetDir)Settings"</Command>
+rmdir /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /q /f "$(TargetDir)Settings"</Command>
+rmdir /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -160,7 +160,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /q /f "$(TargetDir)Settings"</Command>
+rmdir /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -188,7 +188,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>rmdir /Q "$(TargetDir)Resources"
-rmdir /q /f "$(TargetDir)Settings"</Command>
+rmdir /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
   </ItemDefinitionGroup>

@@ -38,7 +38,7 @@ namespace EngineUtils {
 
 	private:
 		/** Future to the resource to be loaded */
-		std::future<bool> ResourceReady;
+		std::shared_future<bool> ResourceReady;
 		std::shared_ptr<Resource> RequestedResource;
 	};
 
