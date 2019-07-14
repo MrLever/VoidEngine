@@ -187,6 +187,7 @@
     <ClCompile Include="KeyboardInterface.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceHandle.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="KeyboardInterface.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceHandle.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />

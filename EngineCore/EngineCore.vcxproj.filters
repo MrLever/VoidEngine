@@ -186,6 +186,9 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Source Files\Engine Core\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceHandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -288,6 +291,9 @@
       <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceHandle.h">
       <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
     </ClInclude>
   </ItemGroup>

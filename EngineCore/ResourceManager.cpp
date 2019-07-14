@@ -12,6 +12,11 @@ namespace EngineUtils {
 	}
 
 	ResourceManager::~ResourceManager() {
+	
+	}
+
+	void ResourceManager::GarbageCollect() {
+
 	}
 
 }

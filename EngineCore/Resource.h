@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <atomic>
 #include <string>
 #include <filesystem>
 
@@ -32,11 +33,14 @@ namespace EngineUtils {
 		virtual void Load() = 0;
 
 		/**
-		 * De-allocates resource data from memory
+		 * Gets the resources' ID
 		 */
-		virtual void Unload() = 0;
+		UUID GetResourceID();
 
-
+		/**
+		 * Queries whether or not the resource has been loaded
+		 */
+		bool GetLoadComplete();
 
 	protected:
 		/** Unique identifier for resource lookup and comparison */
@@ -46,7 +50,10 @@ namespace EngineUtils {
 		std::filesystem::path ResourcePath;
 
 		/** Flag specifying if the resource was found in main memory */
-		bool ResourceValid;
+		std::atomic<bool> ResourceValid;
+
+		/** Flag specifying if the resource has been loaded */
+		std::atomic<bool> LoadComplete;
 
 	};
 }
