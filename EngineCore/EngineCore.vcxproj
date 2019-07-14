@@ -104,9 +104,15 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,9 +127,15 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -142,8 +154,15 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /y "$(SolutionDir)Settings\" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -163,9 +182,15 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(TargetDir)Resources"
+rmdir /S /Q "$(TargetDir)Settings"</Command>
+      <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Configurable.cpp" />
@@ -186,6 +211,9 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyboardInterface.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceHandle.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="ThreadPoolWorker.cpp" />
@@ -217,6 +245,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyboardInterface.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceHandle.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="ThreadPool.h" />

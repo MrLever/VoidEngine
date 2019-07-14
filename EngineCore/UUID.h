@@ -68,3 +68,15 @@ namespace EngineUtils {
 	};
 
 }
+
+//It is acceptable to extend the std namespace to add template specifications for 
+//standard library templates to work with custom data types.
+namespace std {
+	template <>
+	struct hash<EngineUtils::UUID> { //Class to define hash function for Keyboard Input
+		//Hash functor
+		std::size_t operator()(const EngineUtils::UUID& t) const {
+			return t.ID;
+		}
+	};
+}
