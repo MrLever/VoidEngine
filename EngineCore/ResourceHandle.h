@@ -15,6 +15,7 @@ namespace EngineUtils {
 	 * until the resource is loaded to use it.
 	 */
 	class ResourceHandle {
+		friend class ResourceManager;
 	public:
 		///CTORS
 		/**
@@ -30,6 +31,11 @@ namespace EngineUtils {
 		 * @param resourceFuture The future used by the handles' future
 		 */
 		ResourceHandle(std::shared_ptr<Resource> resource, std::future<bool>& resourceFuture);
+
+		/**
+		 * Destructor
+		 */
+		~ResourceHandle();
 
 		///Public Member Functions
 		/**

@@ -15,8 +15,4 @@ namespace EngineUtils {
 	
 	}
 
-	void ResourceManager::GarbageCollect() {
-
-	}
-
 }

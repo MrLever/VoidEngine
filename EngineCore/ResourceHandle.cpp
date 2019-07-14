@@ -15,4 +15,7 @@ namespace EngineUtils {
 	ResourceHandle::ResourceHandle(std::shared_ptr<Resource> resource, std::future<bool>& resourceFuture)
 		: RequestedResource(std::move(resource)), ResourceReady(std::move(resourceFuture)) {
 	}
+	
+	ResourceHandle::~ResourceHandle() {
+	}
 }

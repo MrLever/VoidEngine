@@ -41,11 +41,6 @@ namespace EngineUtils {
 		 */
 		template <class T>
 		ResourceHandle LoadResource(const std::string& resourceLocation);
-	
-		/**
-		 * Iterates through the resourceRegistry and removes all unused assets
-		 */
-		void GarbageCollect();
 
 	private:
 		///Private Member Variables
