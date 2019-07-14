@@ -30,7 +30,7 @@ namespace EngineUtils {
 		/**
 		 * Loads a given resource from main memory
 		 */
-		virtual void Load() = 0;
+		virtual bool Load() = 0;
 
 		/**
 		 * Gets the resources' ID

@@ -76,12 +76,13 @@ namespace EngineUtils {
 
 		auto resource = std::make_shared<T>(resourceLocation);
 
-		/*return ResourceHandle(
-			resource,
-			GameThreadPool->SubmitJob(
-				std::bind(resource->Load)
-			);
-		);*/
+		ResourceRegistry[resource->GetResourceID()] = resource;
+
+		std::future<bool> jobResult = GameThreadPool->SubmitJob(
+			std::bind(&T::Load, resource.get())
+		);
+
+		return ResourceHandle(resource, jobResult);
 	}
 }
 
