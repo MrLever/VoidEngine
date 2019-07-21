@@ -1,4 +1,3 @@
-tablename = "EngineSettings"
 EngineSettings = {
     AudioConfig = "AudioConfig.lua",
     InputConfig = "InputConfig.lua",

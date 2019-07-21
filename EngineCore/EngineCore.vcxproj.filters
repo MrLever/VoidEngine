@@ -189,6 +189,9 @@
     <ClCompile Include="ResourceHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="ResourceHandle.h">
       <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

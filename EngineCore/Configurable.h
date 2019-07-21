@@ -7,7 +7,7 @@
 #include "lua.hpp"
 #include "LuaBridge\LuaBridge.h"
 
-//Coati Headers
+//Void Engine Headers
 
 namespace EngineCore {
 
