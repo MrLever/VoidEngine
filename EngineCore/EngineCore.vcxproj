@@ -201,6 +201,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="GamepadInput.cpp" />
     <ClCompile Include="GamepadInterface.cpp" />
+    <ClCompile Include="LuaScript.cpp" />
     <ClCompile Include="MouseInput.cpp" />
     <ClCompile Include="MouseInterface.cpp" />
     <ClCompile Include="InputInterfaceManager.cpp" />
@@ -235,6 +236,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="GenericInput.h" />
     <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="GamepadInterface.h" />
+    <ClInclude Include="LuaScript.h" />
     <ClInclude Include="MouseInput.h" />
     <ClInclude Include="GenericInputInterface.h" />
     <ClInclude Include="MouseInterface.h" />

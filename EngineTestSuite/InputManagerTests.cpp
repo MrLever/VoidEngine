@@ -19,20 +19,15 @@ namespace EngineTestSuite {
 
 			//Keybindings are meant to trigger events.
 
-			std::shared_ptr<MessageBus> dummyBus = std::make_shared<MessageBus>();
 			std::shared_ptr<InputInterfaceManager> DummyInterface;
-			InputManager dummyManager(dummyBus, DummyInterface);
-			DummyReceiver dummyReciever(dummyBus);
+			InputManager dummyManager(DummyInterface);
 
 			KeyboardInput dummyInput(KeyboardButton::ESC, ButtonState::Pressed);
 			Message dummyMessage("End Game", MessageType::Termination);
 			
 			//dummyManager.AddKeyBinding(dummyInput, dummyMessage);
 
-			dummyManager.HandleInput();
-			dummyBus->DispatchMessages();
-
-			Assert::IsTrue(dummyReciever.EventFired);
+			Assert::Fail();
 		}
 
 	};
