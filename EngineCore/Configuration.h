@@ -39,8 +39,25 @@ namespace EngineUtils {
 		 */
 		bool LoadErrorResource() override;
 
+		/**
+		 * Function for retrieving values from a Lua Config file
+		 * @tparam T The expected type of the attribute
+		 * @param attribute The requested attribute's key
+		 * @return The requested attribute
+		 */
+		template<typename T>
+		T GetAttribute(std::string attribute);
+
 	private:
 		/** The Lua State associated with this configuration script */
 		lua_State* LuaState;
+		std::unique_ptr<luabridge::LuaRef> ConfigTable;
 	};
+
+	template<typename T>
+	inline T Configuration::GetAttribute(std::string attribute) {
+		luabridge::LuaRef result = (*ConfigTable)[attribute];
+		
+		return result.cast<T>();
+	}
 }
