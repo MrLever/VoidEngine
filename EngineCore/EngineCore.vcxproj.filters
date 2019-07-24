@@ -88,12 +88,6 @@
     <Filter Include="Source Files\Engine Core\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Core\Engine Utilities\LuaWrapper">
-      <UniqueIdentifier>{2a410044-6f90-40cb-8892-69329322c86d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Engine Utilities\LuaWrapper">
-      <UniqueIdentifier>{938c8310-6296-4389-adc3-d4987ca1938c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GamepadInput.cpp">
@@ -197,9 +191,6 @@
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
       <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaScript.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\LuaWrapper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +301,6 @@
     </ClInclude>
     <ClInclude Include="Configuration.h">
       <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaScript.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\LuaWrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
