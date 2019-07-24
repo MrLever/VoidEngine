@@ -9,7 +9,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace EngineTestSuite{
+namespace GenericUtilityTests{
 
 	TEST_CLASS(EngineUtilitiesTests) {
 	public:

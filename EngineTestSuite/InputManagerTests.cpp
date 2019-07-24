@@ -12,7 +12,8 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace InputTests {
+	using namespace EngineCore;
 	TEST_CLASS(InputManagerTests) {
 	public:
 		TEST_METHOD(TriggerKeybindingTest) {

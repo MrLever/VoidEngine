@@ -10,6 +10,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineCore;
 
 namespace EngineTestSuite {
+	using namespace EngineCore;
+	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(ConsoleTests) {
 	public:

@@ -12,7 +12,10 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace MessageBusTests {
+	using namespace EngineCore;
+	using namespace EngineUtils;
+	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(MessageBusTests) {
 	public:
