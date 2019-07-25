@@ -10,7 +10,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace GenericUtilityTests {
+namespace EngineUtilitiesTests {
 
 	TEST_CLASS(UUIDTests) {
 		public:

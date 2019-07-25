@@ -12,7 +12,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace MessageBusTests {
+namespace GameplayFrameworkTests {
 	using namespace EngineCore;
 	using namespace EngineUtils;
 	using namespace EngineTestSuiteUtils;

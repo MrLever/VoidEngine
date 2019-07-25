@@ -13,7 +13,8 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace EngineTestSuite {
+namespace EngineUtilitiesTests {
+
 	TEST_CLASS(ResourceManagerTests) {
 	public:
 		struct RawFile : public Resource {
@@ -84,4 +85,5 @@ namespace EngineTestSuite {
 			Assert::AreEqual(SuccessString, invalidRequest.GetResource<RawFile>()->FileContents);
 		}
 	};
+
 }

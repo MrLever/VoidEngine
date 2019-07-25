@@ -3,8 +3,7 @@
 #include "WindowManager.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace EngineTestSuite
-{		
+namespace EngineCoreTests {		
 
 	using namespace EngineCore;
 

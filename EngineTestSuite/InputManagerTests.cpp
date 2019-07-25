@@ -12,7 +12,8 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace InputTests {
+namespace EngineCoreTests {
+
 	using namespace EngineCore;
 	TEST_CLASS(InputManagerTests) {
 	public:

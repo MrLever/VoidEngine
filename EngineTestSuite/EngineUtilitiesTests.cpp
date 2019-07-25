@@ -9,9 +9,9 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace GenericUtilityTests{
+namespace EngineUtilitiesTests{
 
-	TEST_CLASS(EngineUtilitiesTests) {
+	TEST_CLASS(GenericEngineUtilitiesTests) {
 	public:
 		TEST_METHOD(FNV1aEqualityTest) {
 			auto first = FNV1aHash("ThisIsATest");

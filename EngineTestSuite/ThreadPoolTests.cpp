@@ -12,7 +12,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace ThreadPoolTests {
+namespace EngineUtilitiesTests {
 
 		int testFunc() {
 			const int UniversalAnswer = 42;

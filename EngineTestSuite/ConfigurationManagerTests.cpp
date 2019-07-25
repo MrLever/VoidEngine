@@ -16,7 +16,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace ConfigurationSystemTests {
+namespace EngineUtilitiesTests {
 
 		TEST_CLASS(ConfigurationResourceTests) {
 			TEST_METHOD(ConfigurationLoadTest) {
