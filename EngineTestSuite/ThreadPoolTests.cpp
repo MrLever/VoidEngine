@@ -113,35 +113,7 @@ public:
 
 		delete(ptr);
 	}
-
-	TEST_METHOD(ThreadPoolStressTest) {
-		ThreadPool p;
-
-		//A recursive fibonacci function, meant to eat up time.
-		std::function<int(int)> stressFunction;
-		stressFunction = [&stressFunction](int n) {
-			if (n == 0) return 0;
-			if (n == 1) return 1;
-
-			return stressFunction(n - 1) + stressFunction(n - 2);
-		};
-
-		int desired = stressFunction(25);
-
-		//Push 500 very expensive jobs into the thread pool all at once
-		//500 is not a lot, but since it is a unit test, it cannot spend forever working on this.
-		const int numTrials = 500;
-		std::vector<std::future<int>> results;
-		for (int i = 0; i < numTrials; i++) {
-			results.push_back(p.SubmitJob(stressFunction, 25));
-		}
-
-		//Assert that every job has finished and has the correct result.
-		for (auto& x : results) {
-			Assert::AreEqual(desired, x.get());
-		}
-	}
-		};
+};
 
 		TEST_CLASS(ThreadSafeQueueTests) {
 public:
