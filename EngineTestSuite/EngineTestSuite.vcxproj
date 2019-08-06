@@ -183,7 +183,6 @@
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigurableTests.cpp" />
     <ClCompile Include="ConfigurationManagerTests.cpp" />
     <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
