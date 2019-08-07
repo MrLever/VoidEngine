@@ -115,7 +115,7 @@ public:
 	}
 };
 
-		TEST_CLASS(ThreadSafeQueueTests) {
+TEST_CLASS(ThreadSafeQueueTests) {
 public:
 	TEST_METHOD(SizeTest) {
 		ThreadSafeQueue <int> q;

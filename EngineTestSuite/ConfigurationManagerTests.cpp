@@ -28,6 +28,7 @@ namespace EngineUtilitiesTests {
 			TEST_METHOD(ConfigurationGetAttributeTest) {
 				Configuration config("Settings/Testing/ConfigurableTest2.lua");
 				config.Load();
+
 				auto res = config.GetAttribute<std::string>("stringProperty");
 				Assert::AreEqual(std::string("test2"), res);
 

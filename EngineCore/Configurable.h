@@ -1,48 +1,22 @@
 #pragma once
 //STD Headers
-#include <string>
 #include <memory>
 
 //Library Headers
-#include "lua.hpp"
-#include "LuaBridge\LuaBridge.h"
 
 //Void Engine Headers
 
 namespace EngineCore {
-
+	
+	/**
+	 * Configurable is an abstract base class that allows subclasses to interact with a configuration manager
+	 */
 	class Configurable {
-	private:
-		//Private member variables
-		lua_State* LuaState;
-		luabridge::LuaRef ConfigTable;
-
-		std::string ConfigFilePath;
-
 	public:
-		//ctors
-		Configurable(std::string configFileName);
-		~Configurable();
+		Configurable(std::string configFile);
 	protected:
-		virtual void Configure() = 0;
-
-		template<typename T>
-		T GetAttribute(std::string attribute);
-
-		void ReloadConfigurationFile();
-		void LoadNewConfigurationFile(std::string newConfigFile);
 
 	private:
-		//Private member functions
-		void LoadConfigurationFile();
-		
+	
 	};
-
-	template<typename T>
-	inline T Configurable::GetAttribute(std::string attribute) {
-		luabridge::LuaRef result = ConfigTable[attribute];
-		
-		return result.cast<T>();
-	}
-
 }

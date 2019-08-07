@@ -34,13 +34,7 @@ namespace EngineCore {
 		std::cout << "Goodbye!";
 	}
 
-	//Private Functions
-
-	void Game::Configure() {
-
-	}
-
-	//Initialize higher level game objects
+	///Private Functions
 	void Game::InitGame() {
 
 		GameMessageBus = std::make_shared<MessageBus>();
@@ -73,7 +67,6 @@ namespace EngineCore {
 	void Game::Render() {
 		GameRenderer->Render();
 	}
-
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();

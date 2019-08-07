@@ -48,9 +48,6 @@ namespace EngineCore {
 		~Game();
 
 	private:
-		//Private member functions
-		void Configure() override;
-
 		void InitGame();
 
 		void ProcessInput();
