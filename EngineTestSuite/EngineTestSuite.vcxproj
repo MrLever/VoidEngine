@@ -199,6 +199,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TestConfigManager.cpp" />
     <ClCompile Include="ThreadPoolTests.cpp" />
     <ClCompile Include="UUIDTests.cpp" />
     <ClCompile Include="WindowManagerTests.cpp" />
