@@ -36,28 +36,14 @@ namespace EngineUtils {
 		 * Equality operator, UUID and string
 		 */
 		inline bool operator== (const std::string& other) const {
-			return ID == FNV1aHash(other);
+			return ID == UUID(other).ID;
 		}
 
 		/**
-		 * Inequality operator
+		 * Three-way comparison operator for UUID objects
 		 */
-		inline bool operator!= (const UUID& other) const {
-			return ID != other.ID;
-		}
-
-		/**
-		 * Less-than comparison operator
-		 */
-		inline bool operator< (const UUID& other) const {
-			return ID < other.ID;
-		}
-
-		/**
-		 * Greater-than comparison operator
-		 */
-		inline bool operator> (const UUID& other) const {
-			return ID > other.ID;
+		inline std::strong_ordering operator<=>(const UUID& other) const {
+			return ID <=> other.ID;
 		}
 
 		/** The string used to generate the UUID*/
