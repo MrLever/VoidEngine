@@ -65,10 +65,10 @@
     <ClCompile Include="ResourceManagerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConfigurationManagerTests.cpp">
+    <ClCompile Include="TestConfigManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestConfigManager.cpp">
+    <ClCompile Include="TestConfigurationResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
