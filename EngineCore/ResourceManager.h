@@ -40,7 +40,15 @@ namespace EngineUtils {
 		 * @return A thread safe handle to the requested resource
 		 */
 		template <class T>
-		ResourceHandle LoadResource(const std::string& resourceLocation);
+		void LoadResource(const std::string& resourceLocation);
+
+		/**
+		 * Function to fetch a resource the caller thinks is already loaded.
+		 * If it was not loaded, attempt to load it now
+		 * @param resourceLocation The resources location on the hard drive
+		 */
+		template <class T>
+		[[nodiscard]] std::shared_ptr<T> GetResource(const std::string& resourceLocation);
 
 	private:
 		///Private Member Variables
@@ -52,14 +60,14 @@ namespace EngineUtils {
 	};
 
 	template<class T>
-	ResourceHandle ResourceManager::LoadResource(const std::string& resourceLocation) {
+	void ResourceManager::LoadResource(const std::string& resourceLocation) {
 		UUID resourceID = UUID(resourceLocation);
 		auto RegistryEntry = ResourceRegistry.find(resourceID);
 
 		//If the resource has been loaded, 
 		//return a resource handle with the resource already loaded
 		if (RegistryEntry != ResourceRegistry.end()) {
-			return RegistryEntry->second;
+			return;
 		}
 
 		//Construct the resource handle
@@ -77,9 +85,19 @@ namespace EngineUtils {
 
 		//Insert the new resource into the registry
 		ResourceRegistry.insert({ resourceID, handle });
-
-		//Return the resource handle
-		return handle;
 	}
+	template<class T>
+	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation)
+	{
+		UUID resourceID(resourceLocation);
+
+		if (ResourceRegistry.find(resourceID) == ResourceRegistry.end()) {
+			LoadResource<T>(resourceLocation);
+		}
+
+		auto handle = ResourceRegistry.find(resourceID)->second;
+		return handle.GetResource<T>();
+	}
+
 }
 

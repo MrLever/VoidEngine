@@ -49,12 +49,23 @@ namespace EngineUtilitiesTests {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
 			ResourceManager resourceMan(pool);
 
-			ResourceHandle handle =
-				resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto raw = handle.GetResource<RawFile>();
+			auto raw = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 			
 			Assert::AreEqual(SuccessString, raw->FileContents);
+		}
+
+		TEST_METHOD(GetResourceTest) {
+			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
+
+			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
+			ResourceManager resourceMan(pool);
+
+			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+
+			auto file = resourceMan.GetResource<RawFile>("Resources / Testing / ResourceManagerDummyResource.txt");
+			Assert::AreEqual(SuccessString, file->FileContents);
 		}
 
 		TEST_METHOD(RequestLoadedResourceTest) {
@@ -64,14 +75,12 @@ namespace EngineUtilitiesTests {
 			ResourceManager resourceMan(pool);
 
 			//Request resource to be loaded.
-			auto dummyReq = 
-				resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			//Request resource be loaded again
-			ResourceHandle handle =
-				resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto raw = handle.GetResource<RawFile>();
+			auto raw = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			Assert::AreEqual(SuccessString, raw->FileContents);
 		}
@@ -81,8 +90,9 @@ namespace EngineUtilitiesTests {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
 			ResourceManager resourceMan(pool);
 
-			auto invalidRequest = resourceMan.LoadResource<RawFile>("FooBar");
-			Assert::AreEqual(SuccessString, invalidRequest.GetResource<RawFile>()->FileContents);
+			resourceMan.LoadResource<RawFile>("FooBar");
+			auto invalidRequest = resourceMan.GetResource<RawFile>("FooBar");
+			Assert::AreEqual(SuccessString, invalidRequest->FileContents);
 		}
 	};
 
