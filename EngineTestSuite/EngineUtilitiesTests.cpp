@@ -1,9 +1,12 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "EngineUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

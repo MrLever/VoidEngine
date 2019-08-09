@@ -1,6 +1,12 @@
+//STD Headers
+
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "WindowManager.h"
+
+//Void Engine Headers
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EngineCoreTests {		

@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-//SuperVoid Headers
+//Void Engine Headers
 #include "UUID.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
