@@ -12,7 +12,7 @@
 #include "Resource.h"
 
 namespace EngineUtils {
-	class Configuration : Resource {
+	class Configuration : public Resource {
 	public:
 		///CTORS
 		/**
