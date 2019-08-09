@@ -30,6 +30,7 @@ namespace EngineUtilitiesTests {
 			Assert::IsTrue(idA != idB);
 			Assert::IsTrue(idA == idC);
 			Assert::IsTrue(idA == "Foo");
+			Assert::IsTrue("Foo" == idA);
 
 			// Relational operators are available but untested
 		}
