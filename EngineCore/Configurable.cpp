@@ -7,13 +7,20 @@
 #include "Configurable.h"
 
 namespace EngineUtils {
-	Configurable::Configurable(std::string configFile) : ID(std::move(configFile)) {
-	
-	}
-	Configurable::Configurable(std::string configFile, std::string name) : ID(std::move(name)) {
+	Configurable::Configurable(
+			std::string name, 
+			std::string configFile, 
+			std::shared_ptr<ResourceManager> resourceManager
+		) : ID(std::move(name)), ConfigFilePath(configFile), ResourceMngr(resourceManager) {
+
+		Config = nullptr;
 	}
 
 	std::strong_ordering Configurable::operator<=>(const Configurable& other) const {
 		return ID <=> other.ID;
+	}
+
+	void Configurable::LoadConfiguration() {
+		ResourceMngr->LoadResource<Configuration>(ConfigFilePath);
 	}
 }
