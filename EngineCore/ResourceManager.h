@@ -34,13 +34,20 @@ namespace EngineUtils {
 
 		///Public Member Functions
 		/**
-		 * Function to command the resource manager to load a resource.
+		 * A non-blocking function to command the resource manager to load a resource.
 		 * If the resource has already been loaded, it will not be loaded again
 		 * @param resourceLocation The resource's file location (which is translated to UUID)
-		 * @return A thread safe handle to the requested resource
 		 */
 		template <class T>
 		void LoadResource(const std::string& resourceLocation);
+
+		/**
+		 * Non-blocking function to command the resource manager to reload a resource.
+		 * If the resource has already been loaded, it *will*  reload from main memory update the resource registry accordingly
+		 * @param resourceLocation The resource's file location (which is translated to UUID)
+		 */
+		template <class T> 
+		void ReloadResource(const std::string& resourceLocation);
 
 		/**
 		 * Function to fetch a resource the caller thinks is already loaded.
@@ -61,11 +68,9 @@ namespace EngineUtils {
 
 	template<class T>
 	void ResourceManager::LoadResource(const std::string& resourceLocation) {
-		UUID resourceID = UUID(resourceLocation);
-		auto RegistryEntry = ResourceRegistry.find(resourceID);
+		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
 
-		//If the resource has been loaded, 
-		//return a resource handle with the resource already loaded
+		//If the resource has been loaded abort the operation
 		if (RegistryEntry != ResourceRegistry.end()) {
 			return;
 		}
@@ -96,7 +101,46 @@ namespace EngineUtils {
 		ResourceHandle handle(resource, jobResult);
 
 		//Insert the new resource into the registry
-		ResourceRegistry.insert({ resourceID, handle });
+		ResourceRegistry.insert({ UUID(resourceLocation), handle });
+	}
+	
+	template<class T>
+	inline void ResourceManager::ReloadResource(const std::string& resourceLocation) {
+		UUID resourceID = UUID(resourceLocation);
+		auto RegistryEntry = ResourceRegistry.find(resourceID);
+
+		//If the resource has not been loaded, load as normal
+		if (RegistryEntry == ResourceRegistry.end()) {
+			return LoadResource<T>(resourceLocation);
+		}
+
+		//Construct and allocate a resource on the heap
+		auto resource = std::make_shared<T>(resourceLocation);
+		std::future<bool> jobResult;
+
+		if (!resource->GetResourceValid()) {
+			//Submit the job to the threadpool and store a future to it's result.
+			//Submitting the job as a lambda avoid expensive calls to std::bind
+			jobResult = GameThreadPool->SubmitJob(
+				[&]() {
+					return resource->LoadErrorResource();
+				}
+			);
+		}
+		else {
+			//Submit the job to the threadpool and store a future to it's result.
+			//Submitting the job as a lambda avoid expensive calls to std::bind
+			jobResult = GameThreadPool->SubmitJob(
+				[&]() {
+					return resource->Load();
+				}
+			);
+		}
+
+		ResourceHandle handle(resource, jobResult);
+
+		//Insert the new resource into the registry
+		RegistryEntry->second = std::move(handle);
 	}
 	template<class T>
 	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation)

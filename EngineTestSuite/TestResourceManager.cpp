@@ -77,9 +77,10 @@ namespace EngineUtilitiesTests {
 			//Request resource to be loaded.
 			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			//Request resource be loaded again
-			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			//Explicitly request resource be loaded again
+			resourceMan.ReloadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
+			//Aquire the resource
 			auto raw = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			Assert::AreEqual(SuccessString, raw->FileContents);
