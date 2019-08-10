@@ -16,7 +16,7 @@ namespace EngineUtils {
 		 * UUID Constructor
 		 * @param id The string from which the UUID is generated.
 		 */
-		UUID(std::string id) : StringID(id), ID(FNV1aHash(id)) {
+		UUID(const std::string &id) : StringID(id), ID(FNV1aHash(id)) {
 
 		}
 		
@@ -31,16 +31,29 @@ namespace EngineUtils {
 		inline bool operator== (const UUID& other) const;
 
 		/**
+		 * Allows equality comparison of UUID to string
+		 */
+		friend inline bool operator== (const UUID& lhs, const std::string& rhs);
+		
+		/**
+		 * Allows equality comparison of string to UUID
+		 */
+		friend inline bool operator== (const std::string& lhs, const UUID& rhs);
+
+		/*
+		 * Allows inequality comparison of UUID to string
+		 */
+		friend inline bool operator!= (const UUID& lhs, const std::string& rhs);
+
+		/**
+		 * Allows inequality comparison of string to UUID
+		 */
+		friend inline bool operator!= (const std::string& lhs, const UUID& rhs);
+
+		/**
 		 * Three-way comparison operator for UUID objects
 		 */
 		inline std::strong_ordering operator<=>(const UUID& other) const;
-
-		/**
-		 * The next two function overloads allow for implicit equality comparisions
-		 * between strings and UUIDs
-		 */
-		friend inline bool operator== (const UUID& lhs, const std::string& rhs);
-		friend inline bool operator== (const std::string& lhs, const UUID& rhs);
 
 		/** The string used to generate the UUID*/
 		std::string StringID;
@@ -53,16 +66,24 @@ namespace EngineUtils {
 		return ID == other.ID;
 	}
 
-	inline std::strong_ordering UUID::operator<=>(const UUID& other) const {
-		return ID <=> other.ID;
-	}
-
 	inline bool operator== (const UUID& lhs, const std::string& rhs) {
 		return lhs == UUID(rhs);
 	}
 
 	inline bool operator== (const std::string& lhs, const UUID& rhs) {
 		return UUID(lhs) == rhs;
+	}
+
+	inline bool operator!= (const UUID& lhs, const std::string& rhs) {
+		return !(lhs == rhs);
+	}
+
+	inline bool operator!= (const std::string& lhs, const UUID& rhs) {
+		return !(lhs == rhs);
+	}
+
+	inline std::strong_ordering UUID::operator<=>(const UUID& other) const {
+		return ID <=> other.ID;
 	}
 }
 
