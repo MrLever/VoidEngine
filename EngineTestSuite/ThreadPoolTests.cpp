@@ -93,21 +93,25 @@ public:
 
 		DummyObject d;
 
-		auto res = p.SubmitJob(std::bind(&DummyObject::DummyAdd, &d));
+		auto res = p.SubmitJob(
+			[&]() {	return d.DummyAdd(); }
+		);
 		Assert::AreEqual(10, res.get());
 
-		auto res2 = p.SubmitJob(std::bind(&DummyObject::ParamAdd, &d, 1, 2));
+		auto res2 = p.SubmitJob(
+			[&]() { return d.ParamAdd(1, 2); }
+		);
 		Assert::AreEqual(3, res2.get());
 
 		DummyObject* ptr = new DummyObject();
 
 		auto res3 = p.SubmitJob(
-			std::bind(&DummyObject::DummyAdd, d)
+			[&]() { return ptr->DummyAdd(); }
 		);
 		Assert::AreEqual(10, res3.get());
 
 		auto res4 = p.SubmitJob(
-			std::bind(&DummyObject::ParamAdd, d, 1, 2)
+			[&]() { return ptr->ParamAdd(1, 2); }
 		);
 		Assert::AreEqual(3, res4.get());
 

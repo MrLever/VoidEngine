@@ -93,15 +93,17 @@ namespace EngineUtils {
 	template<class F, class ...Args>
 	inline auto ThreadPool::SubmitJob(F&& f, Args&&... args) -> std::future<decltype(f(args ...))> {
 
+		//Bind arguments to supplied function using a lambda.
+		auto jobLambda = [&]() {
+			return f(std::forward<Args>(args)...);
+		};
+
 		//Bind arguments to the function, and place it on the heap
 		auto jobPtr = std::make_shared<std::packaged_task<decltype(f(args...))()>> (
-			std::bind(
-				std::forward<F>(f), 
-				std::forward<Args>(args)...
-			)
+			jobLambda
 		);
 
-		//Wrap job into a void function so it can be stored iin the queue;
+		//Wrap job into a void function so it can be stored in the task queue;
 		std::function<void()> jobWrapper = [jobPtr]() {
 			(*jobPtr)();
 		};

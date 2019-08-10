@@ -70,15 +70,27 @@ namespace EngineUtils {
 			return;
 		}
 
-		//Construct the resource handle
+		//Construct and allocate a resource on the heap
 		auto resource = std::make_shared<T>(resourceLocation);
 		std::future<bool> jobResult;
 
 		if (!resource->GetResourceValid()) {
-			jobResult = GameThreadPool->SubmitJob(std::bind(&T::LoadErrorResource, resource.get()));
+			//Submit the job to the threadpool and store a future to it's result.
+			//Submitting the job as a lambda avoid expensive calls to std::bind
+			jobResult = GameThreadPool->SubmitJob(
+				[&]() { 
+					return resource->LoadErrorResource(); 
+				}
+			);
 		}
 		else {
-			jobResult = GameThreadPool->SubmitJob(std::bind(&T::Load, resource.get()));
+			//Submit the job to the threadpool and store a future to it's result.
+			//Submitting the job as a lambda avoid expensive calls to std::bind
+			jobResult = GameThreadPool->SubmitJob(
+				[&]() { 
+					return resource->Load(); 
+				}
+			);
 		}
 
 		ResourceHandle handle(resource, jobResult);
