@@ -8,10 +8,8 @@
 
 namespace EngineUtils {
 	Configurable::Configurable(
-			std::string name, 
-			std::string configFile, 
-			std::shared_ptr<ResourceManager> resourceManager
-		) : ID(std::move(name)), ConfigFilePath(configFile), ResourceMngr(resourceManager) {
+		const std::string& name, const std::string& configFile, std::shared_ptr<ResourceManager> resourceManager) 
+		: ID(std::move(name)), ConfigFilePath(std::move(configFile)), ResourceMngr(std::move(resourceManager)) {
 
 		Config = nullptr;
 	}
@@ -22,5 +20,19 @@ namespace EngineUtils {
 
 	void Configurable::LoadConfiguration() {
 		ResourceMngr->LoadResource<Configuration>(ConfigFilePath);
+	}
+
+	void Configurable::ReloadConfiguration() {
+		ResourceMngr->ReloadResource<Configuration>(ConfigFilePath);
+	}
+
+	void Configurable::Reconfigure(const std::string& newConfigFilePath) {
+		ResourceMngr->LoadResource<Configuration>(newConfigFilePath);
+		ConfigFilePath = std::move(newConfigFilePath);
+		Configure();
+	}
+
+	UUID Configurable::GetUUID() {
+		return ID;
 	}
 }

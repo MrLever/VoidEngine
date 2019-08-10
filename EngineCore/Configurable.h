@@ -14,7 +14,8 @@
 namespace EngineUtils {
 	
 	/**
-	 * Configurable is an abstract base class that allows implementers to load and use configuration scripts
+	 * Configurable is an abstract base class that allows implementers to 
+	 * load and use configuration scripts
 	 */
 	class Configurable {
 	public:
@@ -24,7 +25,11 @@ namespace EngineUtils {
 		 * @param configFile The configuration file used by the configurable object
 		 * @param resourceManager The resource manager this object depends on to load resources
 		 */
-		Configurable(std::string name, std::string configFile, std::shared_ptr<ResourceManager> resourceManager);
+		Configurable(
+			const std::string& name, 
+			const std::string& configFile, 
+			std::shared_ptr<ResourceManager> resourceManager
+		);
 		
 		/**
 		 * Three way comparison operator overload
@@ -38,10 +43,24 @@ namespace EngineUtils {
 		virtual void LoadConfiguration();
 
 		/**
-		 * Abstract function to ensure all subclasses define configuration behavior
+		 * Instructs the resource manager to begin reloading the configuration file
+		 */
+		virtual void ReloadConfiguration();
+
+		/**
+		 * Allows the caller to instruct this object to load and apply a new configuration
+		 */
+		virtual void Reconfigure(const std::string &newConfigFilePath);
+
+		/**
+		 * Pure virtual function to ensure all subclasses define configuration behavior
 		 */
 		virtual void Configure() = 0;
 
+		/**
+		 * Allows callers to request this Configurable's unique ID
+		 */
+		UUID GetUUID();
 
 	protected:
 		/** The unique ID of this configurable object */
