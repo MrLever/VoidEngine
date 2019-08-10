@@ -13,7 +13,7 @@
 namespace EngineUtils {
 	
 	///CTORS
-	Configuration::Configuration(std::string configFile) : Resource(configFile) {
+	Configuration::Configuration(const std::string& configFile) : Resource(configFile) {
 		//Create the Lua state
 		LuaState = luaL_newstate();
 	}

@@ -19,7 +19,7 @@ namespace EngineUtils {
 		 * Constructor
 		 * @param configFile the resource's filepath
 		 */
-		Configuration(std::string configFile);
+		Configuration(const std::string& configFile);
 
 		/**
 		 * Destructor
@@ -47,7 +47,7 @@ namespace EngineUtils {
 		 * @return The requested attribute
 		 */
 		template<typename T>
-		T GetAttribute(std::string attribute);
+		T GetAttribute(const std::string& attribute);
 
 	private:
 		///Private Member Functions
@@ -73,7 +73,7 @@ namespace EngineUtils {
 	};
 
 	template<typename T>
-	inline T Configuration::GetAttribute(std::string attribute) {
+	inline T Configuration::GetAttribute(const std::string& attribute) {
 		//auto configTable = luabridge::getGlobal(LuaState, "Settings");
 		luabridge::LuaRef result = (*ConfigTable)[attribute];
 		
