@@ -64,7 +64,7 @@ namespace EngineUtilitiesTests {
 
 			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto file = resourceMan.GetResource<RawFile>("Resources / Testing / ResourceManagerDummyResource.txt");
+			auto file = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 			Assert::AreEqual(SuccessString, file->FileContents);
 		}
 
