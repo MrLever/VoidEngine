@@ -62,9 +62,6 @@
     <ClCompile Include="ThreadPoolTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestConfigManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestConfigurationResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

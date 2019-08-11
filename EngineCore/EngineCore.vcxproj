@@ -193,7 +193,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="GenericInputInterface.cpp" />
@@ -231,7 +230,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
-    <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="GenericInput.h" />

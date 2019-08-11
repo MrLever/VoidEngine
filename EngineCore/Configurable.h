@@ -50,7 +50,7 @@ namespace EngineUtils {
 		/**
 		 * Allows the caller to instruct this object to load and apply a new configuration
 		 */
-		virtual void Reconfigure(const std::string &newConfigFilePath);
+		virtual void Reconfigure(const std::string& newConfigFilePath);
 
 		/**
 		 * Pure virtual function to ensure all subclasses define configuration behavior
