@@ -1,17 +1,18 @@
 #pragma once
-#include "Vector3D.h"
+#include "Vector2D.h"
 
 namespace EngineMath {
 
 	template <typename T>
 
 	class Vector3D {
-		public T x;
-		public T y;
+		public Vector2D xy;
 		public T z;
 
 	public:
-		Vector3D(T x, T y);
+		Vector3D();
+		Vector3D(T nx, T ny, T nz);
+		Vector3D(Vector2D nv, T nz);
 		Vector3D sum(Vector3D b);
 		Vector3D subtract(Vector3D b);
 		Vector3D scalar(T c);
