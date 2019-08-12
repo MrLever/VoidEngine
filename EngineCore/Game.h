@@ -9,6 +9,7 @@
 
 //Coati Headers
 #include "Configurable.h"
+#include "EngineInterface.h"
 
 namespace EngineCore {
 
@@ -66,12 +67,15 @@ namespace EngineCore {
 		void UpdateFramerate(double timeSinceLastFrame);
 
 	private:
+		/** A Handle to the Engine's main Utilities */
+		std::shared_ptr<EngineInterface> VoidEngineInterface;
+
 		/** The Message bus used to pass events through the simulation */
 		std::shared_ptr<MessageBus> GameMessageBus;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
-
+		
 		/** Pointer to the game's Rendering Engine */
 		std::unique_ptr<Renderer> GameRenderer;
 

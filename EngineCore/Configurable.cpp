@@ -8,14 +8,11 @@
 
 namespace EngineUtils {
 	Configurable::Configurable(
-		const std::string& name, const std::string& configFile, std::shared_ptr<ResourceManager> resourceManager) 
-		: ID(std::move(name)), ConfigFilePath(std::move(configFile)), ResourceMngr(std::move(resourceManager)) {
+		const std::string& configFile, std::shared_ptr<ResourceManager> resourceManager) 
+		: ConfigFilePath(std::move(configFile)), ResourceMngr(std::move(resourceManager)) {
 
 		Config = nullptr;
-	}
-
-	std::strong_ordering Configurable::operator<=>(const Configurable& other) const {
-		return ID <=> other.ID;
+		LoadConfiguration();
 	}
 
 	void Configurable::LoadConfiguration() {
@@ -32,7 +29,4 @@ namespace EngineUtils {
 		Configure();
 	}
 
-	UUID Configurable::GetUUID() {
-		return ID;
-	}
 }

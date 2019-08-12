@@ -25,18 +25,8 @@ namespace EngineUtils {
 		 * @param configFile The configuration file used by the configurable object
 		 * @param resourceManager The resource manager this object depends on to load resources
 		 */
-		Configurable(
-			const std::string& name, 
-			const std::string& configFile, 
-			std::shared_ptr<ResourceManager> resourceManager
-		);
+		Configurable(const std::string& configFile, std::shared_ptr<ResourceManager> resourceManager);
 		
-		/**
-		 * Three way comparison operator overload
-		 * @param other The configurable to compare to this
-		 */
-		std::strong_ordering operator<=>(const Configurable& other) const;
-
 		/**
 		 * Instructs the resource manager to begin loading the configuration file
 		 */
@@ -57,15 +47,7 @@ namespace EngineUtils {
 		 */
 		virtual void Configure() = 0;
 
-		/**
-		 * Allows callers to request this Configurable's unique ID
-		 */
-		UUID GetUUID();
-
 	protected:
-		/** The unique ID of this configurable object */
-		UUID ID;
-
 		/** The file*/
 		std::string ConfigFilePath;
 

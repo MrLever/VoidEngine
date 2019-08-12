@@ -3,6 +3,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <future>
+#include <memory>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -88,6 +89,8 @@ namespace EngineUtils {
 		/** Conditionaly Variable the workers will wait on for more work */
 		std::condition_variable WorkSignal;
 	};
+
+	using ThreadPoolPtr = std::shared_ptr<EngineUtils::ThreadPool>;
 
 	///Template function definitions
 	template<class F, class ...Args>

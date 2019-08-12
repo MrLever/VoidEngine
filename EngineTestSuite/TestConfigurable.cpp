@@ -17,8 +17,11 @@ namespace EngineUtilitiesTests {
 
 	class DummyConfigurable : public Configurable {
 	public:
-		DummyConfigurable(std::string name, std::string configFile, std::shared_ptr<ResourceManager> resourceManager) 
-			: Configurable(name, configFile, resourceManager) {
+		DummyConfigurable(std::string configFile, std::shared_ptr<ResourceManager> resourceManager) 
+			: Configurable(configFile, resourceManager) {
+			StringProperty = "Error";
+			IntegerProperty = -1;
+			FloatProperty = -1.0f;
 			LoadConfiguration();
 		}
 
@@ -40,7 +43,6 @@ namespace EngineUtilitiesTests {
 			ResourceManager resourceMngr(pool);
 
 			DummyConfigurable d(
-				"DummyConfigurable", 
 				"Settings/Testing/ConfigurableTest1.lua", 
 				std::make_shared<ResourceManager>(resourceMngr)
 			);
@@ -57,7 +59,6 @@ namespace EngineUtilitiesTests {
 			ResourceManager resourceMngr(pool);
 
 			DummyConfigurable d(
-				"DummyConfigurable",
 				"Settings/Testing/ConfigurableTest1.lua",
 				std::make_shared<ResourceManager>(resourceMngr)
 			);

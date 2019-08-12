@@ -13,8 +13,11 @@
 namespace EngineCore {
 
 	///Ctors
-	InputManager::InputManager( std::shared_ptr<InputInterfaceManager> playerInterface) 
-		:  PlayerInterface(std::move(playerInterface)) {
+	InputManager::InputManager(
+		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const std::string& configFile)
+		: Configurable(configFile, engineInterface->GetResourceManager()), 
+		  PlayerInterface(std::move(playerInterface)), 
+		  VoidEngineInterface(std::move(engineInterface)) {
 
 	}
 
@@ -70,6 +73,10 @@ namespace EngineCore {
 		auto GamepadEvents = PlayerInterface->GetGamepadButtonEvents();
 
 		//TODO(MrLever): Finish
+	}
+
+	void InputManager::Configure() {
+		; //TODO (MrLever): Actually configure this thing
 	}
 
 }

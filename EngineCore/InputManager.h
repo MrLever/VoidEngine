@@ -7,6 +7,8 @@
 //Library Headers
 
 //Coati Headers
+#include "Configurable.h"
+#include "EngineInterface.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "Keybindings.h"
@@ -20,17 +22,14 @@ namespace EngineCore {
 	class InputEvent;
 
 
-	class InputManager {
-	private:
-
-
+	class InputManager : public EngineUtils::Configurable {
 	public:
 		///CTORS
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface);
+		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface, EngineInterfacePtr voidEngineInterface, const std::string& configFile);
 
 		/**
 		 * Destructor
@@ -45,7 +44,6 @@ namespace EngineCore {
 
 	private:
 		///Private member functions
-		
 		/**
 		 * Loads keybindings from HDD
 		 */
@@ -66,6 +64,10 @@ namespace EngineCore {
 		 */
 		void HandleGamepad();
 
+		/**
+		 * Applies input configuration settings 
+		 */
+		void Configure() override;
 
 		///Private class members
 		/** The keybindings currently used by the input manager */
@@ -73,6 +75,10 @@ namespace EngineCore {
 
 		/** The engine's current input interface */
 		std::shared_ptr<InputInterfaceManager> PlayerInterface;
+		
+		/** Interface the Input Manager uses to access Engine Utility classes */
+		std::shared_ptr<EngineInterface> VoidEngineInterface;
+
 	};
 
 }

@@ -66,6 +66,8 @@ namespace EngineUtils {
 		std::unordered_map<UUID, ResourceHandle> ResourceRegistry;
 	};
 
+	using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
+
 	template<class T>
 	void ResourceManager::LoadResource(const std::string& resourceLocation) {
 		auto RegistryEntry = ResourceRegistry.find(resourceLocation);

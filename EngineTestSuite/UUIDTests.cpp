@@ -18,7 +18,7 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(UUIDConstructorTest) {
 			UUID id("Test");
 
-			Assert::AreNotEqual((unsigned long long)0, id.ID);
+			Assert::AreEqual(EngineUtils::FNV1aHash("Test"), id.ID);
 			Assert::AreEqual(std::string("Test"), id.StringID);
 		}
 

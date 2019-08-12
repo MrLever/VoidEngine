@@ -14,6 +14,8 @@
 #include "Renderer.h"
 #include "InputManager.h"
 #include "AudioManager.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 
 namespace EngineCore {
 
@@ -35,17 +37,42 @@ namespace EngineCore {
 
 	///Private Functions
 	void Game::InitGame() {
+		//Initialize Engine Utilities
+		auto threadPool = std::make_shared<EngineUtils::ThreadPool>();
+		auto resourceManager = std::make_shared<EngineUtils::ResourceManager>(threadPool);
+
+		//Construct the interface through which Core Engine Systems should access engine utilities
+		VoidEngineInterface = std::make_shared<EngineInterface>(
+			threadPool,
+			resourceManager
+		);
+
+		//Initialize game window and input interface
+		Window = std::make_shared<WindowManager>(GameName, 800, 600);
+		
+		//Initialize Renderer
+		GameRenderer = std::make_unique<Renderer>(
+			Window, 
+			VoidEngineInterface, 
+			"Settings/RenderingConfig.lua"
+		);
+		
+		//Initialize Input Manager
+		GameInputManager = std::make_unique<InputManager>(
+			Window->GetInputInterface(),
+			VoidEngineInterface,
+			"Settings/InputConfig.lua"
+		);
+
+		//Initialize Audio Manager
+		GameAudioManager = std::make_unique<AudioManager>(
+			VoidEngineInterface,
+			"Settings/AudioConfig.lua"
+		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
-		Window = std::make_shared<WindowManager>(GameName, 800, 600);
-
 		GameConsole = std::make_unique<Console>(GameMessageBus);
 		GameWorld = std::make_unique<World>(GameMessageBus);
-		GameRenderer = std::make_unique<Renderer>(Window);
-		GameInputManager = std::make_unique<InputManager>(
-			Window->GetInputInterface()
-		);
-		GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
 	}
 
 	void Game::ProcessInput() {

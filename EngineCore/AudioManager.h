@@ -7,28 +7,24 @@
 //Library Headers
 
 //Coati Headers
+#include "Configurable.h"
+#include "EngineInterface.h"
 #include "MessageBusNode.h"
 
 namespace EngineCore {
 
-	class AudioManager {
-	private:
-		//Private class members
-
+	class AudioManager : public EngineUtils::Configurable {
 	public:
-		//CTORS
-		AudioManager(std::shared_ptr<MessageBus> GameMessageBus);
+		///CTORS
+		AudioManager(EngineInterfacePtr engineInterface, const std::string& configFile);
 		~AudioManager() = default;
 
+
+		void Configure() override;
+
 	private:
-		//Private member functions
-
-	protected:
-
-
-	public:
-		//Public Member functions
-
+		/** Interface the Audio Manager uses to access Engine Utility classes */
+		std::shared_ptr<EngineInterface> VoidEngineInterface;
 	};
 
 }
