@@ -5,7 +5,7 @@
 
 //Library Headers
 #include "lua.hpp"
-#include "LuaBridge\LuaBridge.h"
+#include "LuaBridge/LuaBridge.h"
 
 //Void Engine Headers
 #include "Configuration.h"

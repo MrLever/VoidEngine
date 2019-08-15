@@ -6,16 +6,16 @@
 
 
 //Coati Headers
-#include "Game.h"
+#include "AudioManager.h"
 #include "Console.h"
+#include "Game.h"
+#include "InputManager.h"
 #include "MessageBus.h"
+#include "Renderer.h"
+#include "ResourceManager.h"
+#include "ThreadPool.h"
 #include "WindowManager.h"
 #include "World.h"
-#include "Renderer.h"
-#include "InputManager.h"
-#include "AudioManager.h"
-#include "ThreadPool.h"
-#include "ResourceManager.h"
 
 namespace EngineCore {
 

@@ -1,4 +1,3 @@
-#pragma once
 //STD Headers
 #include <limits>
 #include <memory>
@@ -6,7 +5,7 @@
 
 //Library Headers
 #include "lua.hpp"
-#include "LuaBridge\LuaBridge.h"
+#include "LuaBridge/LuaBridge.h"
 
 //Void Engine Headers
 #include "Resource.h"

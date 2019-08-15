@@ -48,7 +48,7 @@ namespace EngineUtils {
 		virtual void Configure() = 0;
 
 	protected:
-		/** The file*/
+		/** The file path to the Configurable's configuration */
 		std::string ConfigFilePath;
 
 		/** The configuration resource to be used by this object */

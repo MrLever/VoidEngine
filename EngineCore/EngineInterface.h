@@ -36,7 +36,10 @@ namespace EngineCore{
 		EngineUtils::ResourceManagerPtr GetResourceManager() const;
 
 	private:
+		/** Shared pointer to the Engine's active threadpool */
 		EngineUtils::ThreadPoolPtr EngineThreadPool;
+
+		/** Shared pointer to the Engine's active resource manager */
 		EngineUtils::ResourceManagerPtr EngineResourceManager;
 	};
 

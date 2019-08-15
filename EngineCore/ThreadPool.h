@@ -46,7 +46,7 @@ namespace EngineUtils {
 
 		///Public Member Function
 		/**
-		 * Variadic template function that submits work to be executed on an abritray thread
+		 * Variadic template function that submits work to be executed on an arbitrary thread
 		 * @param f Universal reference to a function
 		 * @param Args... A variable number of arguments to f
 		 * @return A future of type decltype(f(args...)) to the result of f
