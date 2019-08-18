@@ -3,13 +3,11 @@
 //Library Headers
 
 //Void Engine Headers
-#include "EntityManager.h"
 #include "SceneManager.h"
 
 namespace EngineCore {
 
-	EngineCore::SceneManager::SceneManager()
-	{
+	EngineCore::SceneManager::SceneManager() {
 	}
 
 	void SceneManager::UpdateScene(double deltaTime) {
