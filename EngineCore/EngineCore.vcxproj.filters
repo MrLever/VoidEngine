@@ -204,6 +204,9 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -318,6 +321,9 @@
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
   </ItemGroup>
