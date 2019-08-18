@@ -8,6 +8,10 @@
 //Void Engine Headers
 
 namespace EngineCore {
+
+	/**
+	 * @class The Entity class defines the basic definition of what it takes to partake in the simulation
+	 */
 	class Entity {
 	public:
 		/**
