@@ -159,12 +159,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Source Files\Engine Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Gameplay Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
@@ -188,6 +182,18 @@
     </ClCompile>
     <ClCompile Include="ResourceHandle.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInterface.cpp">
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,14 +272,8 @@
     <ClInclude Include="Level.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Gameplay Framework</Filter>
-    </ClInclude>
     <ClInclude Include="WindowManager.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
     <ClInclude Include="UUID.h">
       <Filter>Header Files\Engine Core\Engine Utilities</Filter>
@@ -295,6 +295,18 @@
     </ClInclude>
     <ClInclude Include="ResourceHandle.h">
       <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInterface.h">
+      <Filter>Header Files\Engine Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Engine Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,12 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "MessageBus.h"
 #include "MessageBusNode.h"
 #include "Message.h"
@@ -12,7 +15,10 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace GameplayFrameworkTests {
+	using namespace EngineCore;
+	using namespace EngineUtils;
+	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(MessageBusTests) {
 	public:

@@ -11,8 +11,14 @@
 
 namespace EngineCore {
 
-	AudioManager::AudioManager(std::shared_ptr<MessageBus> GameMessageBus) {
+	AudioManager::AudioManager(EngineInterfacePtr engineInterface, const std::string& configFile) 
+		: Configurable(configFile, engineInterface->GetResourceManager()),
+		  VoidEngineInterface(std::move(engineInterface)) {
+		
+	}
 
+	void AudioManager::Configure() {
+		; //TODO (MrLever): Actually configure this thing
 	}
 
 }

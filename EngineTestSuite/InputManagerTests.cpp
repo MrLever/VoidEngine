@@ -1,9 +1,12 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "MessageBus.h"
 #include "InputManager.h"
 #include "InputInterfaceManager.h"
@@ -11,28 +14,23 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+namespace EngineCoreTests {
 
-namespace EngineTestSuite {
+	using namespace EngineCore;
 	TEST_CLASS(InputManagerTests) {
 	public:
 		TEST_METHOD(TriggerKeybindingTest) {
-
 			//Keybindings are meant to trigger events.
-
-			std::shared_ptr<MessageBus> dummyBus = std::make_shared<MessageBus>();
+			auto engineInterface = EngineTestSuiteUtils::CreateEngineInterface();
 			std::shared_ptr<InputInterfaceManager> DummyInterface;
-			InputManager dummyManager(dummyBus, DummyInterface);
-			DummyReceiver dummyReciever(dummyBus);
+			InputManager dummyManager(DummyInterface, engineInterface, "Settings/Testing/InputConfig.lua");
 
 			KeyboardInput dummyInput(KeyboardButton::ESC, ButtonState::Pressed);
 			Message dummyMessage("End Game", MessageType::Termination);
 			
 			//dummyManager.AddKeyBinding(dummyInput, dummyMessage);
 
-			dummyManager.HandleInput();
-			dummyBus->DispatchMessages();
-
-			Assert::IsTrue(dummyReciever.EventFired);
+			Assert::Fail();
 		}
 
 	};

@@ -1,6 +1,7 @@
-tablename = "DummyConfigurable2"
-DummyConfigurable = {
-    stringProperty = "test1",
-    integerProperty = 1,
-    floatProperty = 1.0
+Settings = {
+    stringProperty = "test2",
+    integerProperty = 2,
+    floatProperty = 2.0
 }
+
+testVar = 200;

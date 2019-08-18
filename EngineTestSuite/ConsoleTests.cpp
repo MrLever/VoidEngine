@@ -1,15 +1,20 @@
+//STD Headers
 #include <memory>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "TestingUtilities.h"
 #include "Console.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineCore;
 
-namespace EngineTestSuite {
+namespace EngineUtilitiesTests {
+	using namespace EngineCore;
+	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(ConsoleTests) {
 	public:

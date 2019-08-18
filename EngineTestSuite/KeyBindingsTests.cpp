@@ -1,16 +1,19 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "KeyBindings.h"
 #include "Message.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace EngineCoreTests {
 
 	using namespace EngineCore;
 

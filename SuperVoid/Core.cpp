@@ -10,7 +10,7 @@
 using namespace EngineCore;
 
 int main() {
-	Game game("SuperVoid", "Settings/EngineConfig.lua");
+	Game game("SuperVoid");
 
 	return 0;
 }

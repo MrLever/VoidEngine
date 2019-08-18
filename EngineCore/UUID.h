@@ -16,7 +16,7 @@ namespace EngineUtils {
 		 * UUID Constructor
 		 * @param id The string from which the UUID is generated.
 		 */
-		UUID(std::string id) : StringID(id), ID(FNV1aHash(id)) {
+		UUID(const std::string &id) : StringID(id), ID(FNV1aHash(id)) {
 
 		}
 		
@@ -28,37 +28,32 @@ namespace EngineUtils {
 		/**
 		 * Equality operator, other UUID
 		 */
-		inline bool operator== (const UUID& other) const {
-			return ID == other.ID;
-		}
+		inline bool operator== (const UUID& other) const;
 
 		/**
-		 * Equality operator, UUID and string
+		 * Allows equality comparison of UUID to string
 		 */
-		inline bool operator== (const std::string& other) const {
-			return ID == FNV1aHash(other);
-		}
+		friend inline bool operator== (const UUID& lhs, const std::string& rhs);
+		
+		/**
+		 * Allows equality comparison of string to UUID
+		 */
+		friend inline bool operator== (const std::string& lhs, const UUID& rhs);
+
+		/*
+		 * Allows inequality comparison of UUID to string
+		 */
+		friend inline bool operator!= (const UUID& lhs, const std::string& rhs);
 
 		/**
-		 * Inequality operator
+		 * Allows inequality comparison of string to UUID
 		 */
-		inline bool operator!= (const UUID& other) const {
-			return ID != other.ID;
-		}
+		friend inline bool operator!= (const std::string& lhs, const UUID& rhs);
 
 		/**
-		 * Less-than comparison operator
+		 * Three-way comparison operator for UUID objects
 		 */
-		inline bool operator< (const UUID& other) const {
-			return ID < other.ID;
-		}
-
-		/**
-		 * Greater-than comparison operator
-		 */
-		inline bool operator> (const UUID& other) const {
-			return ID > other.ID;
-		}
+		inline std::strong_ordering operator<=>(const UUID& other) const;
 
 		/** The string used to generate the UUID*/
 		std::string StringID;
@@ -66,7 +61,30 @@ namespace EngineUtils {
 		/** The UUID */
 		unsigned long long ID;
 	};
+	
+	inline bool UUID::operator== (const UUID& other) const {
+		return ID == other.ID;
+	}
 
+	inline bool operator== (const UUID& lhs, const std::string& rhs) {
+		return lhs == UUID(rhs);
+	}
+
+	inline bool operator== (const std::string& lhs, const UUID& rhs) {
+		return UUID(lhs) == rhs;
+	}
+
+	inline bool operator!= (const UUID& lhs, const std::string& rhs) {
+		return !(lhs == rhs);
+	}
+
+	inline bool operator!= (const std::string& lhs, const UUID& rhs) {
+		return !(lhs == rhs);
+	}
+
+	inline std::strong_ordering UUID::operator<=>(const UUID& other) const {
+		return ID <=> other.ID;
+	}
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

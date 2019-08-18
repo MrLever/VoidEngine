@@ -12,16 +12,23 @@
 
 namespace EngineCore {
 
-	//Ctors
+	///CTORS
 	InputManager::InputManager(
-		std::shared_ptr<MessageBus> bus,
-		std::shared_ptr<InputInterfaceManager> playerInterface
-	) :  PlayerInterface(std::move(playerInterface)) {
+		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const std::string& configFile)
+		: Configurable(configFile, engineInterface->GetResourceManager()), 
+		  PlayerInterface(std::move(playerInterface)), 
+		  VoidEngineInterface(std::move(engineInterface)) {
 
 	}
 
+	///Public Member Functions
+	void InputManager::HandleInput() {
+		HandleKeyboard();
+		HandleMouse();
+		HandleGamepad();
+	}
 
-	//Private Member Functions
+	///Private Member Functions
 
 	void InputManager::LoadKeybindings() {
 		if (!Bindings.Load()) {
@@ -29,11 +36,6 @@ namespace EngineCore {
 		}
 	}
 
-	//Protected Member Functions
-	// N/A
-
-	//Private Member Functions
-	
 	void InputManager::HandleKeyboard() {
 		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
 
@@ -73,12 +75,8 @@ namespace EngineCore {
 		//TODO(MrLever): Finish
 	}
 
-	//Public Member Functions
-
-	void InputManager::HandleInput() {
-		HandleKeyboard();
-		HandleMouse();
-		HandleGamepad();
+	void InputManager::Configure() {
+		; //TODO (MrLever): Actually configure this thing
 	}
 
 }

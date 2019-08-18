@@ -9,6 +9,7 @@
 
 //Coati Headers
 #include "Configurable.h"
+#include "EngineInterface.h"
 
 namespace EngineCore {
 
@@ -23,43 +24,81 @@ namespace EngineCore {
 	class Console;
 
 
-	class Game : Configurable{
+	class Game {
 		using Timer = std::chrono::high_resolution_clock;
-	private:
-		//Private Class Members
-		std::shared_ptr<MessageBus> GameMessageBus;
-		std::shared_ptr<WindowManager> Window;
-
-		std::unique_ptr<Console> GameConsole;
-		std::unique_ptr<World> GameWorld;
-		std::unique_ptr<Renderer> GameRenderer;
-		std::unique_ptr<InputManager> GameInputManager;
-		std::unique_ptr<AudioManager> GameAudioManager;
-
-		std::string GameName;
-
-		std::queue<double> FrameQueue;
-
-		int FrameRate;
 
 	public:
-		//CTORS
-		Game(std::string name, std::string configFile);
+		/**
+		 * Constructor
+		 * @param name The game's name
+		 */
+		Game(std::string name);
 		~Game();
 
 	private:
-		//Private member functions
-		void Configure() override;
-
+		/**
+		 * Initializes all of the game's major utilities and core systems
+		 */
 		void InitGame();
 
+		/**
+		 * Instructs the InputManager to poll and process user input 
+		 */
 		void ProcessInput();
+
+		/**
+		 * Instructs entities to update themselves using the current time step
+		 */
 		void Update(double deltaSeconds);
+
+		/**
+		 * Instruct the renderer to draw the current scene
+		 */
 		void Render();
 
+		/**
+		 * Runs the game simulation
+		 */
 		void ExecuteGameLoop();
-
+		
+		/**
+		 * Tracks the game's frame rate.
+		 */
 		void UpdateFramerate(double timeSinceLastFrame);
+
+	private:
+		/** A Handle to the Engine's main Utilities */
+		std::shared_ptr<EngineInterface> VoidEngineInterface;
+
+		/** The Message bus used to pass events through the simulation */
+		std::shared_ptr<MessageBus> GameMessageBus;
+
+		/** A handle to the game's display */
+		std::shared_ptr<WindowManager> Window;
+		
+		/** Pointer to the game's Rendering Engine */
+		std::unique_ptr<Renderer> GameRenderer;
+
+		/** Pointer to the game's Input Manager*/
+		std::unique_ptr<InputManager> GameInputManager;
+
+		/** Pointer to the game's Audio Manger */
+		std::unique_ptr<AudioManager> GameAudioManager;
+
+		/** Reference to the currently active game space */
+		std::unique_ptr<World> GameWorld;
+		
+		/** Pointer to the game's active debug console object */
+		std::unique_ptr<Console> GameConsole;
+
+		/** The name displayed in the game window's title bar */
+		std::string GameName;
+
+		/** A queue of the last 10 frame durations for framerate calculations */
+		std::queue<double> FrameQueue;
+
+		/** The game's current framerate */
+		int FrameRate;
 	};
 
 }

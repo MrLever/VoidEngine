@@ -6,20 +6,21 @@
 
 
 //Coati Headers
-#include "Game.h"
+#include "AudioManager.h"
 #include "Console.h"
+#include "Game.h"
+#include "InputManager.h"
 #include "MessageBus.h"
+#include "Renderer.h"
+#include "ResourceManager.h"
+#include "ThreadPool.h"
 #include "WindowManager.h"
 #include "World.h"
-#include "Renderer.h"
-#include "InputManager.h"
-#include "AudioManager.h"
 
 namespace EngineCore {
 
 	//CTORS
-	Game::Game(std::string name, std::string configFile) 
-		: Configurable(std::move(configFile)), GameName(std::move(name)) {
+	Game::Game(std::string name) : GameName(std::move(name)) {
 
 		FrameRate = 0;
 
@@ -34,26 +35,44 @@ namespace EngineCore {
 		std::cout << "Goodbye!";
 	}
 
-	//Private Functions
-
-	void Game::Configure() {
-
-	}
-
-	//Initialize higher level game objects
+	///Private Functions
 	void Game::InitGame() {
+		//Initialize Engine Utilities
+		auto threadPool = std::make_shared<EngineUtils::ThreadPool>();
+		auto resourceManager = std::make_shared<EngineUtils::ResourceManager>(threadPool);
+
+		//Construct the interface through which Core Engine Systems should access engine utilities
+		VoidEngineInterface = std::make_shared<EngineInterface>(
+			threadPool,
+			resourceManager
+		);
+
+		//Initialize game window and input interface
+		Window = std::make_shared<WindowManager>(GameName, 800, 600);
+		
+		//Initialize Renderer
+		GameRenderer = std::make_unique<Renderer>(
+			Window, 
+			VoidEngineInterface, 
+			"Settings/RenderingConfig.lua"
+		);
+		
+		//Initialize Input Manager
+		GameInputManager = std::make_unique<InputManager>(
+			Window->GetInputInterface(),
+			VoidEngineInterface,
+			"Settings/InputConfig.lua"
+		);
+
+		//Initialize Audio Manager
+		GameAudioManager = std::make_unique<AudioManager>(
+			VoidEngineInterface,
+			"Settings/AudioConfig.lua"
+		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
-		Window = std::make_shared<WindowManager>(GameName, 800, 600);
-
 		GameConsole = std::make_unique<Console>(GameMessageBus);
 		GameWorld = std::make_unique<World>(GameMessageBus);
-		GameRenderer = std::make_unique<Renderer>(Window);
-		GameInputManager = std::make_unique<InputManager>(
-			GameMessageBus, 
-			Window->GetInputInterface()
-		);
-		GameAudioManager = std::make_unique<AudioManager>(GameMessageBus);
 	}
 
 	void Game::ProcessInput() {
@@ -74,7 +93,6 @@ namespace EngineCore {
 	void Game::Render() {
 		GameRenderer->Render();
 	}
-
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();

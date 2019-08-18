@@ -1,16 +1,18 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-
+//Void Engine Headers
 #include "InputAxis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace EngineCoreTests {
 
 	using namespace EngineCore;
 

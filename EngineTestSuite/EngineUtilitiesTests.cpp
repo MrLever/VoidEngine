@@ -1,17 +1,20 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+//Void Engine Headers
 #include "EngineUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace EngineTestSuite{
+namespace EngineUtilitiesTests{
 
-	TEST_CLASS(EngineUtilitiesTests) {
+	TEST_CLASS(GenericEngineUtilitiesTests) {
 	public:
 		TEST_METHOD(FNV1aEqualityTest) {
 			auto first = FNV1aHash("ThisIsATest");

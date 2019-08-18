@@ -1,10 +1,16 @@
 #pragma once
+//STD Headers
+#include <memory>
 
+//Library Headers
+
+//Void Engine Headers
+#include "EngineInterface.h"
 #include "MessageBus.h"
 #include "MessageBusNode.h"
 #include "Console.h"
 
-namespace EngineTestSuite
+namespace EngineTestSuiteUtils
 {
 
 	using namespace EngineCore;
@@ -73,4 +79,12 @@ namespace EngineTestSuite
 			}
 		}
 	};
+
+	static std::shared_ptr<EngineInterface> CreateEngineInterface() {
+		auto threadPool = std::make_shared<EngineUtils::ThreadPool>();
+		auto resourceManager = std::make_shared<EngineUtils::ResourceManager>(threadPool);
+
+		//Construct the interface through which Core Engine Systems should access engine utilities
+		return std::make_shared<EngineInterface>(threadPool,resourceManager);
+	}
 }

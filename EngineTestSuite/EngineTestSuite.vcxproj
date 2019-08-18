@@ -183,7 +183,8 @@
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigurableTests.cpp" />
+    <ClCompile Include="TestConfigurable.cpp" />
+    <ClCompile Include="TestConfigurationResource.cpp" />
     <ClCompile Include="ConsoleTests.cpp" />
     <ClCompile Include="EngineUtilitiesTests.cpp" />
     <ClCompile Include="EventTableTests.cpp" />
@@ -192,7 +193,7 @@
     <ClCompile Include="InputManagerTests.cpp" />
     <ClCompile Include="KeyBindingsTests.cpp" />
     <ClCompile Include="MessageBusTests.cpp" />
-    <ClCompile Include="ResourceManagerTests.cpp" />
+    <ClCompile Include="TestResourceManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

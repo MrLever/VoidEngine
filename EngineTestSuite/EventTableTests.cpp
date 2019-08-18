@@ -1,16 +1,18 @@
+//STD Headers
 #include <memory>
 #include <iostream>
 
+//Library Headers
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-
+//Void Engine Headers
 #include "EventTable.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace EngineTestSuite {
+namespace GameplayFrameworkTests {
 
 	using namespace EngineCore;
 	

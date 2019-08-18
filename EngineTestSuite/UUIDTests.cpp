@@ -4,13 +4,13 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-//SuperVoid Headers
+//Void Engine Headers
 #include "UUID.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
-namespace EngineTestSuite {
+namespace EngineUtilitiesTests {
 
 	TEST_CLASS(UUIDTests) {
 		public:
@@ -18,7 +18,7 @@ namespace EngineTestSuite {
 		TEST_METHOD(UUIDConstructorTest) {
 			UUID id("Test");
 
-			Assert::AreNotEqual((unsigned long long)0, id.ID);
+			Assert::AreEqual(EngineUtils::FNV1aHash("Test"), id.ID);
 			Assert::AreEqual(std::string("Test"), id.StringID);
 		}
 
@@ -30,6 +30,7 @@ namespace EngineTestSuite {
 			Assert::IsTrue(idA != idB);
 			Assert::IsTrue(idA == idC);
 			Assert::IsTrue(idA == "Foo");
+			Assert::IsTrue("Foo" == idA);
 
 			// Relational operators are available but untested
 		}
