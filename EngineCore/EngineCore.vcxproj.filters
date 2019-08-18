@@ -88,6 +88,12 @@
     <Filter Include="Source Files\Engine Core\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Entity System">
+      <UniqueIdentifier>{9c56a83f-7801-4f31-acc5-47db73bf201d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Entity System">
+      <UniqueIdentifier>{d8078736-ae91-4294-887a-b657c793bd87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GamepadInput.cpp">
@@ -194,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="Console.h">
       <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
