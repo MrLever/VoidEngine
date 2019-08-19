@@ -70,9 +70,6 @@ namespace EngineCore {
 		/** A Handle to the Engine's main Utilities */
 		std::shared_ptr<EngineInterface> VoidEngineInterface;
 
-		/** The Message bus used to pass events through the simulation */
-		std::shared_ptr<MessageBus> GameMessageBus;
-
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
 		
@@ -88,9 +85,6 @@ namespace EngineCore {
 		/** Reference to the currently active game space */
 		std::unique_ptr<World> GameWorld;
 		
-		/** Pointer to the game's active debug console object */
-		std::unique_ptr<Console> GameConsole;
-
 		/** The name displayed in the game window's title bar */
 		std::string GameName;
 

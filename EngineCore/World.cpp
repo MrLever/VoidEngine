@@ -1,58 +1,32 @@
 //STD Headers
 #include <iostream>
 #include <utility>
+#include <memory>
 
 //Library Headers
 
 
 //Coati Headers
 #include "World.h"
-#include "MessageBus.h"
+
 
 namespace EngineCore {
 
-	World::World(std::shared_ptr<MessageBus> bus) : GameMessageBus(std::move(bus)) {
-
-		currentLevel = std::make_unique<Level>(Level(1));
-
-		levelList.push_back(*currentLevel);
-
+	World::World() {
 		std::cout << "Hello world!\n";
+		GameMessageBus = std::make_shared<MessageBus>();
+		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
-
 
 	World::~World() {
 		std::cout << "Goodbye world!\n";
 	}
 
 	void World::Update(double deltaSeconds) {
+		//Triggers Events
+		GameMessageBus->DispatchMessages();
 
+		GameSceneManager->UpdateScene(deltaSeconds);
 	}
 
-
-	void World::SwitchLevel(int levelID) {
-
-		//reset the currentLevel pointer
-		currentLevel.reset();
-
-		bool levelAlreadyGenerated = false;
-		for (int i = 0; i < levelList.size(); i++) {
-			if (levelList[i].GetID() == levelID) {
-				currentLevel = std::make_unique<Level>(levelList.at(i));
-				levelAlreadyGenerated = true;
-			}
-		}
-
-		if (!levelAlreadyGenerated) {
-			currentLevel = std::make_unique<Level>(Level(levelID));
-			levelList.push_back(*currentLevel);
-		}
-
-	}
-
-	void World::Tick() {
-
-		currentLevel->Tick();
-
-	}
 }

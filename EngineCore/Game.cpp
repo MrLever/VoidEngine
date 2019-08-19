@@ -70,9 +70,7 @@ namespace EngineCore {
 			"Settings/AudioConfig.lua"
 		);
 
-		GameMessageBus = std::make_shared<MessageBus>();
-		GameConsole = std::make_unique<Console>(GameMessageBus);
-		GameWorld = std::make_unique<World>(GameMessageBus);
+		GameWorld = std::make_unique<World>();
 	}
 
 	void Game::ProcessInput() {
@@ -82,9 +80,6 @@ namespace EngineCore {
 	void Game::Update(double deltaSeconds) {
 		//Send the deltaSeconds to the framerate updating function
 		UpdateFramerate(deltaSeconds);
-
-		//Triggers Events
-		GameMessageBus->DispatchMessages();
 
 		//Ticks actors
 		GameWorld->Update(deltaSeconds);

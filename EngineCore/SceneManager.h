@@ -20,16 +20,28 @@ namespace EngineCore {
 		SceneManager();
 
 		/**
+		 * Destructor
+		 */
+		~SceneManager();
+
+		/**
 		 * Instructs the SceneManager to update all entities in the scene
 		 * @param deltaTime Time since the last update
 		 */
 		void UpdateScene(double deltaTime);
 
+		/**
+		 * Facilitates drawing every entity in the scene
+		 */
 		void DrawScene();
 
+		/**
+		 * Instructs every Enity to perform it's BeginPlay logic
+		 */
 		void StartLevel();
 
 	private:
+		/** List of all the Entities present in the scene */
 		std::vector<std::shared_ptr<Entity>> Entities;
 	};
 
