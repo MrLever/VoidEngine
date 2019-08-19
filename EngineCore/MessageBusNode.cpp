@@ -43,13 +43,4 @@ namespace EngineCore {
 		GameMessageBus->PublishMessage(message);
 	}
 
-	// Public Member Functions
-
-	std::function<void(Message)>MessageBusNode::GetMessageReceiveFunction() {
-		auto receiveFunction = [=](const Message &message) -> void {
-			this->ReceiveMessage(message);
-		};
-		return receiveFunction;
-	}
-
 }

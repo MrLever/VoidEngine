@@ -6,7 +6,6 @@
 
 //Library Headers
 
-
 //Coati Headers
 #include "MessageBus.h"
 #include "MessageBusNode.h"
@@ -18,9 +17,7 @@ namespace EngineCore {
 
 	//Public Member Functions
 	void MessageBus::AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag) {
-
-		Subscriber subscriber(receiver->GetMessageReceiveFunction(), subscriptionFlag);
-		Receivers.push_back(subscriber);
+		Receivers.push_back(Subscriber(receiver, subscriptionFlag));
 	}
 
 	void MessageBus::AddReceiver(MessageBusNode* receiver, MessageType subscriptionFlag) {
@@ -47,10 +44,10 @@ namespace EngineCore {
 		while (!Messages.empty()) {
 			Message outgoingMessage = Messages.front();
 			for (const auto &receiver : Receivers) {
-				auto subsription = static_cast<unsigned>(receiver.subscriptionFlag);
+				auto subsription = static_cast<unsigned>(receiver.SubscriptionFlag);
 				auto messageType = static_cast<unsigned>(outgoingMessage.GetType());
 				if ((subsription & messageType) != 0) {
-					receiver.receivingFunction(Messages.front());
+					receiver.Send(Messages.front());
 				}
 			}
 			Messages.pop();

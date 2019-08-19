@@ -23,29 +23,56 @@ namespace EngineCore {
 
 
 	class Message {
-
-	private:
-		//Private class members
-		std::string Event;
-		MessageType Type;
-		EngineUtils::UUID ID;
-
 	public:
+		/**
+		 * Constructor
+		 * @param message The body of the message
+		 * @param type The message type flag
+		 */
 		Message(const std::string &message, const MessageType &type);
+
+		/**
+		 * Constructor
+		 * @param message The body of the message
+		 * @param type The message type flag
+		 */
 		Message(const std::string &message, unsigned type);
+
+		/**
+		 * Destructor
+		 */
 		~Message();
 
+		/**
+		 * Equality comparison operator
+		 * @param other The other message to compare against
+		 */
 		bool operator==(const Message& other) const;
 
-	private:
-		//Private member functions
-
-	public:
-		//Public member functions
+		/**
+		 * Returns the message body of this event
+		 */
 		std::string GetEvent() const;
+
+		/**
+		 * Returns the UniqueID of this message for fast comparisons
+		 */
 		EngineUtils::UUID GetEventID() const;
+
+		/**
+		 * Gets this message's type
+		 */
 		MessageType GetType() const;
 
+	private:
+		/** The body of the message */
+		std::string Event;
+		
+		/** The type of the message */
+		MessageType Type;
+
+		/** Message ID based on a hash of the message body */
+		EngineUtils::UUID ID;
 	};
 
 }

@@ -51,8 +51,6 @@ namespace EngineCore {
 		void PublishMessage(const Message &message);
 
 	public:
-		//Public Member Functions
-		std::function<void(Message)> GetMessageReceiveFunction();
 		virtual void ReceiveMessage(const Message &message) = 0;
 
 	};

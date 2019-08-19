@@ -23,7 +23,9 @@ namespace EngineCore {
 	class AudioManager;
 	class Console;
 
-
+	/**
+	 * @class Game Framework that defines what a game is in the Void Engine
+	 */
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;
 
