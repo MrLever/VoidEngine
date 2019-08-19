@@ -37,7 +37,6 @@ namespace EngineCore {
 				if (Receiver) {
 					Receiver->ReceiveMessage(message);
 				}
-				
 			}
 		};
 

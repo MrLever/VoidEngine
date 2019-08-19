@@ -24,7 +24,6 @@ namespace EngineCore {
 
 	class InputManager : public EngineUtils::Configurable {
 	public:
-		///CTORS
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
@@ -36,14 +35,12 @@ namespace EngineCore {
 		 */
 		~InputManager() = default;
 
-		///Public member functions
 		/**
 		 * Polls and process all input events for the current frame
 		 */
 		void HandleInput();
 
 	private:
-		///Private member functions
 		/**
 		 * Loads keybindings from HDD
 		 */

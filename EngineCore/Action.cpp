@@ -9,11 +9,11 @@
 namespace EngineCore {
 
 	//tors
-	Action::Action(std::string name, ActionType type) : ActionID(name), Type(type) {
+	Action::Action(const std::string& name, ActionType type) : ActionID(name), Type(type) {
 		Event = nullptr;
 	}
 
-	Action::Action(std::string name, ActionType type, std::function<void()> event) 
+	Action::Action(const std::string& name, ActionType type, const std::function<void()>& event) 
 		: ActionID(name), Type(type), Event(event) {
 
 	}

@@ -18,30 +18,64 @@ namespace EngineCore {
 
 	class Action {
 	
-	private:
-		EngineUtils::UUID ActionID;
-
-		ActionType Type;
-
-		std::function<void()> Event;
-
 	public:
-		Action(std::string name, ActionType type);
-		Action(std::string name, ActionType type, std::function<void()> event);
+		/**
+		 * Constructor
+		 * @param name The name of the action
+		 * @param type The action's type
+		 */
+		Action(const std::string& name, ActionType type);
+
+		/**
+		 * Constructor
+		 * @param name The name of the action
+		 * @param type The action's type
+		 * @param event The callable behavior associated with this action
+		 */
+		Action(const std::string& name, ActionType type, const std::function<void()>& event);
+
+		/**
+		 * Destructor
+		 */
 		~Action();
 
-		//Operator overloads
+		/**
+		 * Equality comparision overload
+		 * @param other The action to compare to this one
+		 */
 		bool operator== (const Action& other) const;
+
+		/**
+		 * Functor operator overload
+		 */
 		void operator() () const;
 
-
-	private:
-
-	public:
+		/**
+		 * Get's this objects UUID
+		 * @return the Object's ID
+		 */
 		EngineUtils::UUID GetID() const;
+
+		/**
+		 * Get the Action's type
+		 * @return the Action's type
+		 */
 		ActionType GetActionType();
 
+		/** 
+		 * Bind a behavior to this action
+		 */
 		void BindAction(std::function<void()> newAction);
+
+	private:
+		/** Hash of the objects name for fast comparisions */
+		EngineUtils::UUID ActionID;
+
+		/** This action's type */
+		ActionType Type;
+
+		/** The event this action binds to */
+		std::function<void()> Event;
 	};
 
 }

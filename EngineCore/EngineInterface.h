@@ -14,7 +14,6 @@ namespace EngineCore{
 	 */
 	class EngineInterface{
 	public:
-		///CTORS
 		/*
 		 * @param threadPool The engine's main threadpool
 		 * @param resourceManager The egine's main resourceManager
@@ -24,7 +23,6 @@ namespace EngineCore{
 			EngineUtils::ResourceManagerPtr resourceManager
 		);
 
-		///Public Member Functions
 		/**
 		 * Returns a shared_ptr to the Engine's thread pool
 		 */
