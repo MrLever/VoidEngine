@@ -32,7 +32,7 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The game's name
 		 */
-		Game(std::string name);
+		Game(const std::string& name);
 		~Game();
 
 	private:

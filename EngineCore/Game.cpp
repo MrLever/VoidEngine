@@ -20,7 +20,7 @@
 namespace EngineCore {
 
 	//CTORS
-	Game::Game(std::string name) : GameName(std::move(name)) {
+	Game::Game(const std::string& name) : GameName(std::move(name)) {
 
 		FrameRate = 0;
 
