@@ -20,6 +20,9 @@ namespace EngineCore {
 	}
 
 	void SceneManager::StartLevel() {
+		for (auto& entity : Entities) {
+			entity->BeginPlay();
+		}
 	}
 
 }
