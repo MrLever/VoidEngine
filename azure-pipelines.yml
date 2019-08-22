@@ -11,24 +11,34 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x64'
-  buildConfiguration: 'Release'
+  buildPlatform_x64: 'x64'
+  buildConfigurationRelease: 'Release'
+  buildConfigurationDebug: 'Debug'
 
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: VSBuild@1
   inputs:
-    restoreSolution: '$(solution)'
+    solution: '$(solution)'
+    platform: '$(buildPlatform_x64)'
+    configuration: '$(buildConfigurationRelease)'
+    maximumCpuCount: true
 
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    platform: '$(buildPlatform_x64)'
+    configuration: '$(buildConfigurationDebug)'
+    maximumCpuCount: true
 
 # TODO: Figure out why my unit tests freeze this thing
-#- task: VSTest@2
-#  inputs:
-#    platform: '$(buildPlatform)'
-#    configuration: '$(buildConfiguration)'
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    diagnosticsEnabled: true
