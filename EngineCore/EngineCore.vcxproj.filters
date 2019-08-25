@@ -205,7 +205,7 @@
       <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+      <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,7 +324,7 @@
       <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
+      <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
