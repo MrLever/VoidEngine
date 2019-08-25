@@ -1,13 +1,17 @@
 #pragma once
 
-#include "Vector3D.h"
+#include<array>
 
 namespace EngineMath {
 
 	template <typename T, int count>
 	class Vector {
+		
+		const int size;
+		T* data;
 
 	public:
+
 		//CTORS
 		/**
 		* Default Constructor
@@ -18,44 +22,43 @@ namespace EngineMath {
 		* Default Constructor
 		* @param values The variadic set of values to fill the void
 		*/
-		template <typename... Ts> Vector(Ts... values);
+		template <typename... Ts> Vector(Ts... args);
 
 		//Public Member Functions
-		//NOTE: Most of these will be changed to 
 		/**
 		* Calculates the sum of two Vectors
 		* @param other Other vector to sum
 		* @return Vector of the sum
 		*/
-		Vector Sum(Vector other);
+		Vector& operator+(const Vector& other);
 
 		/**
 		* Subtracts two Vectors
 		* @param other Other vector to subtract from original
 		* @return Vector of the sum
 		*/
-		Vector Subtract(Vector other);
+		Vector& operator-(const Vector& other);
 
 		/**
 		* Permits the scalar action upon the Vector class
 		* @param scalar The scalar from the valid field
 		* @return Vector of the scaled action
 		*/
-		Vector Scalar(T scalar);
+		Vector& operator*(const T& scalar);
 
 		/**
 		* Dot products two vectors
 		* @param other Other vector to dot product
 		* @return Scalar resultant
 		*/
-		auto Dot(Vector other);
+		auto Dot(const Vector& other);
 
 		/**
 		* Cross products two vectors. 
 		* @param other Other vector to cross product
 		* @return Vector resultant
 		*/
-		Vector Cross(Vector other);
+		Vector& operator*(const Vector& other);
 
 		//static Vector Interpolate(T xa, T ya, T za, T wa, T xb, T yb, T zb, T wb);
 
@@ -64,6 +67,6 @@ namespace EngineMath {
 		* @param other Other vector to project onto
 		* @return Vector resultant
 		*/
-		Vector Project(Vector other);
+		Vector Project(const Vector& other);
 	};
 }
