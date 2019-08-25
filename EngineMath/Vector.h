@@ -7,7 +7,7 @@ namespace EngineMath {
 	template <typename T, int count>
 	class Vector {
 		
-		const int size;
+		const int size = count;
 		T* data;
 
 	public:
