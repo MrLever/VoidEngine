@@ -12,7 +12,7 @@
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
 
-	WindowManager::WindowManager(std::string gameName, int windowWidth, int windowHeight) 
+	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
 		: GameName(std::move(gameName)) {
 		
 		WindowWidth = windowWidth;
