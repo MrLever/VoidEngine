@@ -17,8 +17,15 @@ namespace EngineCore {
 	public:
 		/**
 		 * Constructor
+		 * @param name The entity's name
 		 */
 		Entity(const std::string& name);
+
+		/**
+		 * Constructor
+		 * @param name The entity's name
+		 */
+		Entity(const EngineUtils::Name& name);
 
 		/**
 		 * Destructor
@@ -32,7 +39,7 @@ namespace EngineCore {
 		virtual void BeginPlay() = 0;
 
 		/**
-		 * Pure virtual function that defines how an entity processes 
+		 * Pure virtual function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
 		virtual void Tick(double deltaSeconds) = 0;

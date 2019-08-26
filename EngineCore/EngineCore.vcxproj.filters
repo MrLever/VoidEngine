@@ -207,6 +207,9 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
