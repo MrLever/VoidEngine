@@ -1,11 +1,10 @@
 //STD Headers
 
 //Library Headers
-#include "stdafx.h"
 #include "CppUnitTest.h"
-#include "WindowManager.h"
 
 //Void Engine Headers
+#include "WindowManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

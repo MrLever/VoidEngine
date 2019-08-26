@@ -3,7 +3,6 @@
 #include <iostream>
 
 //Library headers
-#include "stdafx.h"
 #include "CppUnitTest.h"
 
 //Void Engine Headers
