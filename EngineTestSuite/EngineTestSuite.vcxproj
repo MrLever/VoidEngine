@@ -201,7 +201,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ThreadPoolTests.cpp" />
-    <ClCompile Include="UUIDTests.cpp" />
+    <ClCompile Include="TestName.cpp" />
     <ClCompile Include="WindowManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>

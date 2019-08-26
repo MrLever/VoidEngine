@@ -287,9 +287,6 @@
     <ClInclude Include="WindowManager.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
     </ClInclude>
-    <ClInclude Include="UUID.h">
-      <Filter>Header Files\Engine Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
@@ -325,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Name.h">
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

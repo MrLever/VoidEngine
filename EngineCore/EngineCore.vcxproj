@@ -262,7 +262,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />
     <ClInclude Include="TimeUtils.h" />
-    <ClInclude Include="UUID.h" />
+    <ClInclude Include="Name.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="MessageBusNode.h" />
     <ClInclude Include="Message.h" />

@@ -55,7 +55,7 @@ namespace EngineCore {
 		AxisBindings[input] = scale;
 	}
 
-	EngineUtils::UUID InputAxis::GetID() const{
+	EngineUtils::Name InputAxis::GetID() const{
 		return AxisID;
 	}
 

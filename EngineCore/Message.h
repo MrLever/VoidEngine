@@ -5,7 +5,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "UUID.h"
+#include "Name.h"
 
 namespace EngineCore {
 
@@ -57,7 +57,7 @@ namespace EngineCore {
 		/**
 		 * Returns the UniqueID of this message for fast comparisons
 		 */
-		EngineUtils::UUID GetEventID() const;
+		EngineUtils::Name GetEventID() const;
 
 		/**
 		 * Gets this message's type
@@ -72,7 +72,7 @@ namespace EngineCore {
 		MessageType Type;
 
 		/** Message ID based on a hash of the message body */
-		EngineUtils::UUID ID;
+		EngineUtils::Name ID;
 	};
 
 }

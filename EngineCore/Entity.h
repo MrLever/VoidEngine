@@ -6,6 +6,7 @@
 #include "Vector.h"
 
 //Void Engine Headers
+#include "Name.h"
 
 namespace EngineCore {
 
@@ -17,7 +18,7 @@ namespace EngineCore {
 		/**
 		 * Constructor
 		 */
-		Entity();
+		Entity(const std::string& name);
 
 		/**
 		 * Destructor
@@ -45,10 +46,21 @@ namespace EngineCore {
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() = 0;
-
+		
+		/**
+		 * Function to request position of this entity
+		 * @return The entity's position
+		 */
 		EngineMath::Vector3<float> GetPostion();
 	
-	private:
+	protected:
+		/** The entity's position in 3D space */
 		EngineMath::Vector3<float> Position;
+
+		/** The entity's rotation (pitch, roll, yaw) */
+		//EngineMath::Rotator<float> Rotation;
+		
+		/** Entity's name */
+		EngineUtils::Name ID;
 	};
 }

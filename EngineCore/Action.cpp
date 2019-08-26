@@ -34,7 +34,7 @@ namespace EngineCore {
 	}
 
 	//Public Member Functions
-	EngineUtils::UUID Action::GetID() const {
+	EngineUtils::Name Action::GetID() const {
 		return ActionID;
 	}
 

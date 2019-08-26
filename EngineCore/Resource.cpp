@@ -20,7 +20,7 @@ namespace EngineUtils {
 		return ResourceValid;
 	}
 
-	UUID Resource::GetResourceID() {
+	Name Resource::GetResourceID() {
 		return ResourceID;
 	}
 

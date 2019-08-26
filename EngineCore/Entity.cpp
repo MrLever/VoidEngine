@@ -7,7 +7,7 @@
 
 namespace EngineCore {
 	///CTORS
-	Entity::Entity() {
+	Entity::Entity(const std::string& name) : ID(name) {
 
 	}
 

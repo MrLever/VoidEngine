@@ -5,27 +5,27 @@
 #include "CppUnitTest.h"
 
 //Void Engine Headers
-#include "UUID.h"
+#include "Name.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace EngineUtils;
 
 namespace EngineUtilitiesTests {
 
-	TEST_CLASS(UUIDTests) {
+	TEST_CLASS(NameTests) {
 		public:
 
-		TEST_METHOD(UUIDConstructorTest) {
-			UUID id("Test");
+		TEST_METHOD(NameConstructorTest) {
+			Name id("Test");
 
 			Assert::AreEqual(EngineUtils::FNV1aHash("Test"), id.ID);
 			Assert::AreEqual(std::string("Test"), id.StringID);
 		}
 
-		TEST_METHOD(UUIDComparisonTest) {
-			UUID idA("Foo");
-			UUID idB("Bar");
-			UUID idC("Foo");
+		TEST_METHOD(NameComparisonTest) {
+			Name idA("Foo");
+			Name idB("Bar");
+			Name idC("Foo");
 
 			Assert::IsTrue(idA != idB);
 			Assert::IsTrue(idA == idC);

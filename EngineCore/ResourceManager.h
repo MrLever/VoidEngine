@@ -10,7 +10,7 @@
 #include "ResourceHandle.h"
 #include "ThreadPool.h"
 #include "Resource.h"
-#include "UUID.h"
+#include "Name.h"
 
 namespace EngineUtils {
 
@@ -36,7 +36,7 @@ namespace EngineUtils {
 		/**
 		 * A non-blocking function to command the resource manager to load a resource.
 		 * If the resource has already been loaded, it will not be loaded again
-		 * @param resourceLocation The resource's file location (which is translated to UUID)
+		 * @param resourceLocation The resource's file location (which is translated to Name)
 		 */
 		template <class T>
 		void LoadResource(const std::string& resourceLocation);
@@ -44,7 +44,7 @@ namespace EngineUtils {
 		/**
 		 * Non-blocking function to command the resource manager to reload a resource.
 		 * If the resource has already been loaded, it *will*  reload from main memory update the resource registry accordingly
-		 * @param resourceLocation The resource's file location (which is translated to UUID)
+		 * @param resourceLocation The resource's file location (which is translated to Name)
 		 */
 		template <class T> 
 		void ReloadResource(const std::string& resourceLocation);
@@ -63,7 +63,7 @@ namespace EngineUtils {
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
 		/** Registry of all loaded resources */
-		std::unordered_map<UUID, ResourceHandle> ResourceRegistry;
+		std::unordered_map<Name, ResourceHandle> ResourceRegistry;
 	};
 
 	using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
@@ -103,12 +103,12 @@ namespace EngineUtils {
 		ResourceHandle handle(resource, jobResult);
 
 		//Insert the new resource into the registry
-		ResourceRegistry.insert({ UUID(resourceLocation), handle });
+		ResourceRegistry.insert({ Name(resourceLocation), handle });
 	}
 	
 	template<class T>
 	inline void ResourceManager::ReloadResource(const std::string& resourceLocation) {
-		UUID resourceID = UUID(resourceLocation);
+		Name resourceID = Name(resourceLocation);
 		auto RegistryEntry = ResourceRegistry.find(resourceID);
 
 		//If the resource has not been loaded, load as normal
@@ -147,7 +147,7 @@ namespace EngineUtils {
 	template<class T>
 	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation)
 	{
-		UUID resourceID(resourceLocation);
+		Name resourceID(resourceLocation);
 
 		if (ResourceRegistry.find(resourceID) == ResourceRegistry.end()) {
 			LoadResource<T>(resourceLocation);

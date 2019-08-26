@@ -7,7 +7,7 @@
 //Library Headers
 
 //SuperVoid Headers
-#include "UUID.h"
+#include "Name.h"
 
 namespace EngineCore {
 	enum class ActionType : unsigned {
@@ -51,10 +51,10 @@ namespace EngineCore {
 		void operator() () const;
 
 		/**
-		 * Get's this objects UUID
+		 * Get's this objects Name
 		 * @return the Object's ID
 		 */
-		EngineUtils::UUID GetID() const;
+		EngineUtils::Name GetID() const;
 
 		/**
 		 * Get the Action's type
@@ -69,7 +69,7 @@ namespace EngineCore {
 
 	private:
 		/** Hash of the objects name for fast comparisions */
-		EngineUtils::UUID ActionID;
+		EngineUtils::Name ActionID;
 
 		/** This action's type */
 		ActionType Type;

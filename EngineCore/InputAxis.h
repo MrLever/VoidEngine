@@ -8,7 +8,7 @@
 
 //Coati Headesr
 #include "KeyboardInput.h"
-#include "UUID.h"
+#include "Name.h"
 
 namespace EngineCore {
 
@@ -20,7 +20,7 @@ namespace EngineCore {
 		
 		double AxisValue;
 		std::string AxisName;
-		EngineUtils::UUID AxisID;
+		EngineUtils::Name AxisID;
 
 
 	public:
@@ -34,7 +34,7 @@ namespace EngineCore {
 
 	public:
 		void AddBinding(KeyboardButton input, double scale);
-		EngineUtils::UUID GetID() const;
+		EngineUtils::Name GetID() const;
 		
 		void UpdateAxis(const KeyboardInputPtr input);
 		void Reset();

@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "Configuration.h"
-#include "UUID.h"
+#include "Name.h"
 #include "ResourceManager.h"
 
 
