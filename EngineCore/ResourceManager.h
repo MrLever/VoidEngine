@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <memory>
 #include <unordered_map>
+#include <iostream>
 
 //Library Headers
 
@@ -80,6 +81,11 @@ namespace EngineUtils {
 		//Construct and allocate a resource on the heap
 		auto resource = std::make_shared<T>(resourceLocation);
 		std::future<bool> jobResult;
+
+		if (!resource) {
+			std::cout << "Thread pool fatal error! Could not construct shared pointer for resource at: " << resourceLocation;
+			return;
+		}
 
 		if (!resource->GetResourceValid()) {
 			//Submit the job to the threadpool and store a future to it's result.
