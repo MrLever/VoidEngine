@@ -47,12 +47,12 @@ namespace EngineCore {
 
 	//Public Member Functions
 
-	bool Keybindings::AddBinding(const KeyboardInput &input, const Action &action) {
+	bool Keybindings::AddBinding(const KeyboardInput& input, const Action& action) {
 
 		return false;
 	}
 
-	bool Keybindings::AddBinding(const MouseInput &input, const Action &action)	{
+	bool Keybindings::AddBinding(const MouseInput& input, const Action& action)	{
 
 		return false;
 	}
@@ -61,7 +61,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::RemoveBinding(const KeyboardInput &key) {
+	bool Keybindings::RemoveBinding(const KeyboardInput& key) {
 		if (KeyboardBindings.erase(key) > 0) {
 			//Save modification
 			Save();
@@ -72,7 +72,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	bool Keybindings::RemoveBinding(const MouseInput &key) {
+	bool Keybindings::RemoveBinding(const MouseInput& key) {
 		if (MouseBindings.erase(key) > 0) {
 			//Save modification
 			Save();
@@ -109,7 +109,7 @@ namespace EngineCore {
 		return false;
 	}
 
-	Action Keybindings::GetBinding(const KeyboardInput &input) const {
+	Action Keybindings::GetBinding(const KeyboardInput& input) const {
 		auto binding = KeyboardBindings.find(input);
 
 		if (binding == KeyboardBindings.end()) {
