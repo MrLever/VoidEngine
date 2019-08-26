@@ -30,8 +30,9 @@ namespace EngineCoreTests {
 			InputAxis dummyAxis("test");
 			dummyAxis.AddBinding(KeyboardButton::W, 1.0);
 
-			KeyboardInputPtr dummyIn 
-				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Pressed);
+			KeyboardInput dummyIn(
+				KeyboardButton::W, ButtonState::Pressed
+			);
 
 			dummyAxis.UpdateAxis(dummyIn);
 			dummyAxis.Reset();
@@ -53,19 +54,13 @@ namespace EngineCoreTests {
 				Assert::Fail();
 			}
 
-			KeyboardInputPtr dummyWPress 
-				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Pressed);
-			KeyboardInputPtr dummyWHold 
-				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Held);
-			KeyboardInputPtr dummyWRelease 
-				= std::make_shared<KeyboardInput>(KeyboardButton::W, ButtonState::Released);
+			KeyboardInput dummyWPress(KeyboardButton::W, ButtonState::Pressed);
+			KeyboardInput dummyWHold(KeyboardButton::W, ButtonState::Held);
+			KeyboardInput dummyWRelease(KeyboardButton::W, ButtonState::Released);
 
-			KeyboardInputPtr dummySPress 
-				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Pressed);
-			KeyboardInputPtr dummySHold 
-				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Held);
-			KeyboardInputPtr dummySRelease 
-				= std::make_shared<KeyboardInput>(KeyboardButton::S, ButtonState::Released);
+			KeyboardInput dummySPress(KeyboardButton::S, ButtonState::Pressed);
+			KeyboardInput dummySHold(KeyboardButton::S, ButtonState::Held);
+			KeyboardInput dummySRelease(KeyboardButton::S, ButtonState::Released);
 
 			//Pressing should update axis with associated scale value
 			dummyAxis.UpdateAxis(dummyWPress);

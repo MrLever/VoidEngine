@@ -29,14 +29,14 @@ namespace EngineCore {
 	
 		bool operator==(const InputAxis& other);
 	private:
-		void TriggerBinding(const KeyboardInputPtr input);
-		void ReleaseBinding(const KeyboardInputPtr input);
+		void TriggerBinding(const KeyboardInput& input);
+		void ReleaseBinding(const KeyboardInput& input);
 
 	public:
 		void AddBinding(KeyboardButton input, double scale);
 		EngineUtils::Name GetID() const;
 		
-		void UpdateAxis(const KeyboardInputPtr input);
+		void UpdateAxis(const KeyboardInput& input);
 		void Reset();
 		
 		double Poll() const;

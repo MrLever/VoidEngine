@@ -22,11 +22,11 @@ namespace EngineCore {
 	}
 	
 	//Private Member functions
-	void InputAxis::ReleaseBinding(const KeyboardInputPtr input)
+	void InputAxis::ReleaseBinding(const KeyboardInput& input)
 	{
 		//Remove all instances of key being released in the command queue.
 		for (auto it = CommandQueue.begin(); it != CommandQueue.end(); ) {
-			if (*it == input->GetButton<KeyboardButton>()) {
+			if (*it == input.GetButton()) {
 				it = CommandQueue.erase(it);
 			}
 			else {
@@ -44,9 +44,9 @@ namespace EngineCore {
 		}
 	}
 
-	void InputAxis::TriggerBinding(const EngineCore::KeyboardInputPtr input) {
-		AxisValue = AxisBindings[input->GetButton<KeyboardButton>()];
-		CommandQueue.push_back(input->GetButton<KeyboardButton>());
+	void InputAxis::TriggerBinding(const KeyboardInput& input) {
+		AxisValue = AxisBindings[input.GetButton()];
+		CommandQueue.push_back(input.GetButton());
 	}
 
 
@@ -59,18 +59,18 @@ namespace EngineCore {
 		return AxisID;
 	}
 
-	void InputAxis::UpdateAxis(const KeyboardInputPtr input)	{
-		if (input->GetButtonState() == ButtonState::Held) {
+	void InputAxis::UpdateAxis(const KeyboardInput& input)	{
+		if (input.GetButtonState() == ButtonState::Held) {
 			return;
 		}
-		if (AxisBindings.find(input->GetButton<KeyboardButton>()) == AxisBindings.end()) {
+		if (AxisBindings.find(input.GetButton()) == AxisBindings.end()) {
 			return;
 		}
 
-		if (input->GetButtonState() == ButtonState::Pressed) {
+		if (input.GetButtonState() == ButtonState::Pressed) {
 			TriggerBinding(input);
 		}
-		else if(input->GetButtonState() == ButtonState::Released) {
+		else if(input.GetButtonState() == ButtonState::Released) {
 			ReleaseBinding(input);
 		}
 	}

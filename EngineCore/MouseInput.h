@@ -5,7 +5,7 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInput.h"
+#include "Input.h"
 #include "EngineUtilities.h"
 
 namespace EngineCore {
@@ -18,25 +18,7 @@ namespace EngineCore {
 		Thumb_2 = 4
 	};
 
-	class MouseInput : public GenericInput{
-	private:
-
-
-	public:
-		//tors
-		MouseInput(MouseButton button, ButtonState state);
-		MouseInput(MouseButton button, ButtonState state, EngineUtils::GameTime timeStamp);
-		~MouseInput();
-
-	private:
-		//Private Class Members
-
-	public:
-		//Public Class Members
-		std::size_t Hash() const override;
-	};
-
-	using MouseInputPtr = std::shared_ptr<MouseInput>;
+	using MouseInput = Input<MouseButton>;
 
 }
 

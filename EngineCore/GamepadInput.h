@@ -5,7 +5,7 @@
 //Library headers
 
 //Coati headers
-#include "GenericInput.h"
+#include "Input.h"
 #include "TimeUtils.h"
 
 namespace EngineCore {
@@ -27,19 +27,7 @@ namespace EngineCore {
 		DPAD_LEFT = 14
 	};
 
-	class GamepadInput : public GenericInput {
-	
-	public:
-		//tors
-		GamepadInput(GamepadButton button, ButtonState state);
-		GamepadInput(GamepadButton button, ButtonState state, EngineUtils::GameTime time);
-		~GamepadInput();
-
-	public:
-		std::size_t Hash() const override;
-	};
-
-	using GamepadInputPtr = std::shared_ptr<GamepadInput>;
+	using GamepadInput = Input<GamepadButton>;
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

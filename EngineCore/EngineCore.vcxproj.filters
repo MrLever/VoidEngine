@@ -102,25 +102,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GamepadInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="GenericInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
     <ClCompile Include="GamepadInterface.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="GenericInputInterface.cpp">
       <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="InputInterfaceManager.cpp">
@@ -216,15 +201,12 @@
     <ClCompile Include="PlayerEntity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Gameplay Framework\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="GenericInput.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="InputAxis.h">
@@ -237,9 +219,6 @@
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="GamepadInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GenericInputInterface.h">
       <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InputInterfaceManager.h">
@@ -341,8 +320,14 @@
     <ClInclude Include="PlayerEntity.h">
       <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="PlayerController.h">
       <Filter>Header Files\Gameplay Framework\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputInterface.h">
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

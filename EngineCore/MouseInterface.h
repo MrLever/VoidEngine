@@ -5,27 +5,29 @@
 
 //Coati Headers
 #include "MouseInput.h"
-#include "GenericInputInterface.h"
+#include "InputInterface.h"
 #include "Vector.h"
 
 namespace EngineCore {
 
-	class MouseInterface : public GenericInputInterface{
-	
-	private:
-		//Private Class Members
-		EngineMath::Vector2<double> Position;
-
+	/**
+	 * @class MouseInterface
+	 * @brief Provides extra interface functionalities for aquiring mouse position
+	 *        and scroll wheel actions
+	 */
+	class MouseInterface : public InputInterface<MouseInput>{
 	public:
-		MouseInterface(int ID);
-		~MouseInterface();
-	
-	private:
-		//Private Member Functions
+		MouseInterface() = default;
+		~MouseInterface() = default;
 
-	public:
-		//Public Member Functions
+		/**
+		 * Callback function for reporting the mouse's position
+		 */
 		void UpdateMousePosition(double xPos, double yPos);
+
+	private:
+		/** The mouse's 2D position in the game's window */
+		EngineMath::Vector2<double> Position;
 	};
 
 }

@@ -34,14 +34,14 @@ namespace EngineCore {
 
 	public:
 		//Public Member Functions
-		void ReportKeyboardInput(const KeyboardInputPtr input);
-		void ReportMouseKeyInput(const MouseInputPtr input);
+		void ReportKeyboardInput(const KeyboardInput& input);
+		void ReportMouseKeyInput(const MouseInput& input);
 		void ReportMousePosition(double x, double y);
-		void ReportGamepadInput(const GamepadInputPtr input);
+		void ReportGamepadInput(const GamepadInput& input);
 
-		InputReport GetKeyboardEvents();
-		InputReport GetMouseButtonEvents();
-		InputReport GetGamepadButtonEvents();
+		InputReport<KeyboardInput> GetKeyboardEvents();
+		InputReport<MouseInput> GetMouseButtonEvents();
+		InputReport<GamepadInput> GetGamepadButtonEvents();
 	};
 
 }

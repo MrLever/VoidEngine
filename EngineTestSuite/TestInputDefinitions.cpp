@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "EngineUtilities.h"
-#include "GenericInput.h"
+#include "Input.h"
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
@@ -24,13 +24,13 @@ namespace EngineCoreTests {
 			auto time = EngineUtils::GetGameTime();
 			
 
-			GenericInput test(
+			Input test(
 				static_cast<unsigned>(KeyboardButton::A), 
 				ButtonState::Pressed, 
 				time
 			);
 			
-			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton<KeyboardButton>())) {
+			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton())) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -42,7 +42,7 @@ namespace EngineCoreTests {
 			auto time = EngineUtils::GetGameTime();
 
 
-			GenericInput test(
+			Input test(
 				static_cast<unsigned>(KeyboardButton::A),
 				ButtonState::Pressed, 
 				time
@@ -60,7 +60,7 @@ namespace EngineCoreTests {
 			auto time = EngineUtils::GetGameTime();
 
 
-			GenericInput test(
+			Input test(
 				static_cast<unsigned>(KeyboardButton::A),
 				ButtonState::Pressed, 
 				time
@@ -79,12 +79,12 @@ namespace EngineCoreTests {
 			KeyboardInput keyboardInput(button, ButtonState::Pressed, 0);
 			
 			//Shove it into a generic handle
-			GenericInput* genericHandle = &keyboardInput;
+			Input<KeyboardButton>* genericHandle = &keyboardInput;
 
 			//Bring it back to the correct handle
 			KeyboardInput* keyboardHandle = dynamic_cast<KeyboardInput*>(genericHandle);
 
-			if (keyboardHandle->GetButton<KeyboardButton>() == button) {
+			if (keyboardHandle->GetButton() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -97,12 +97,12 @@ namespace EngineCoreTests {
 			MouseInput keyboardInput(button, ButtonState::Pressed, 0);
 
 			//Shove it into a generic handle
-			GenericInput* genericHandle = &keyboardInput;
+			Input<MouseButton>* genericHandle = &keyboardInput;
 
 			//Bring it back to the correct handle
 			MouseInput* mouseHandle = dynamic_cast<MouseInput*>(genericHandle);
 
-			if (mouseHandle->GetButton<MouseButton>() == button) {
+			if (mouseHandle->GetButton() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -115,12 +115,12 @@ namespace EngineCoreTests {
 			GamepadInput keyboardInput(button, ButtonState::Pressed, 0);
 
 			//Shove it into a generic handle
-			GenericInput* genericHandle = &keyboardInput;
+			Input<GamepadButton>* genericHandle = &keyboardInput;
 
 			//Bring it back to the correct handle
 			GamepadInput* gamepadHandle = dynamic_cast<GamepadInput*>(genericHandle);
 
-			if (gamepadHandle->GetButton<GamepadButton>() == button) {
+			if (gamepadHandle->GetButton() == button) {
 				Assert::IsTrue(true);
 			}
 			else {
