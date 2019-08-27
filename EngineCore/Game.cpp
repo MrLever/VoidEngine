@@ -8,6 +8,7 @@
 //Coati Headers
 #include "AudioManager.h"
 #include "Console.h"
+#include "Configuration.h"
 #include "Game.h"
 #include "InputManager.h"
 #include "MessageBus.h"
@@ -54,20 +55,21 @@ namespace EngineCore {
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
 			VoidEngineInterface, 
-			"Settings/RenderingConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
 		//Initialize Input Manager
 		GameInputManager = std::make_unique<InputManager>(
 			Window->GetInputInterface(),
 			VoidEngineInterface,
-			"Settings/InputConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
 		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			VoidEngineInterface,
-			"Settings/AudioConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
+			
 		);
 
 		GameWorld = std::make_unique<World>();

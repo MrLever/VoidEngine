@@ -28,7 +28,7 @@ namespace EngineCore {
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface, EngineInterfacePtr voidEngineInterface, const std::string& configFile);
+		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface, EngineInterfacePtr voidEngineInterface, const EngineUtils::ResourceHandle& configuration);
 
 		/**
 		 * Destructor

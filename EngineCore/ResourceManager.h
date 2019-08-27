@@ -21,7 +21,6 @@ namespace EngineUtils {
 	 */
 	class ResourceManager {
 	public:
-		///CTORS
 		/**
 		 * Constructor
 		 * @param gameThreadPool A thread pool to be used for asynchronous file IO
@@ -33,14 +32,13 @@ namespace EngineUtils {
 		 */
 		~ResourceManager();
 
-		///Public Member Functions
 		/**
 		 * A non-blocking function to command the resource manager to load a resource.
 		 * If the resource has already been loaded, it will not be loaded again
 		 * @param resourceLocation The resource's file location (which is translated to Name)
 		 */
 		template <class T>
-		void LoadResource(const std::string& resourceLocation);
+		ResourceHandle LoadResource(const std::string& resourceLocation);
 
 		/**
 		 * Non-blocking function to command the resource manager to reload a resource.
@@ -48,7 +46,7 @@ namespace EngineUtils {
 		 * @param resourceLocation The resource's file location (which is translated to Name)
 		 */
 		template <class T> 
-		void ReloadResource(const std::string& resourceLocation);
+		ResourceHandle ReloadResource(const std::string& resourceLocation);
 
 		/**
 		 * Function to fetch a resource the caller thinks is already loaded.
@@ -56,42 +54,41 @@ namespace EngineUtils {
 		 * @param resourceLocation The resources location on the hard drive
 		 */
 		template <class T>
-		[[nodiscard]] std::shared_ptr<T> GetResource(const std::string& resourceLocation);
+		[[nodiscard]] ResourceHandle GetResource(const std::string& resourceLocation);
 
 	private:
-		///Private Member Variables
 		/** The thread pool the Resource Manager depends on for async file IO */
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
 		/** Registry of all loaded resources */
 		std::unordered_map<Name, ResourceHandle> ResourceRegistry;
+
+		/** Mutex to synchronise access to the Resource Manager */
+		std::mutex ResourceManagerLock;
 	};
 
 	using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
 
 	template<class T>
-	void ResourceManager::LoadResource(const std::string& resourceLocation) {
+	ResourceHandle ResourceManager::LoadResource(const std::string& resourceLocation) {
+		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+
 		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
 
 		//If the resource has been loaded abort the operation
 		if (RegistryEntry != ResourceRegistry.end()) {
-			return;
+			return RegistryEntry->second;
 		}
 
 		//Construct and allocate a resource on the heap
 		auto resource = std::make_shared<T>(resourceLocation);
 		std::future<bool> jobResult;
 
-		if (!resource) {
-			std::cout << "Thread pool fatal error! Could not construct shared pointer for resource at: " << resourceLocation;
-			return;
-		}
-
 		if (!resource->GetResourceValid()) {
 			//Submit the job to the threadpool and store a future to it's result.
 			//Submitting the job as a lambda avoid expensive calls to std::bind
 			jobResult = GameThreadPool->SubmitJob(
-				[&]() { 
+				[resource]() {
 					return resource->LoadErrorResource(); 
 				}
 			);
@@ -100,26 +97,33 @@ namespace EngineUtils {
 			//Submit the job to the threadpool and store a future to it's result.
 			//Submitting the job as a lambda avoid expensive calls to std::bind
 			jobResult = GameThreadPool->SubmitJob(
-				[&]() { 
-					return resource->Load(); 
+				[resource]() {
+					return resource->Load();
 				}
 			);
 		}
 
+		Name resourceName(resourceLocation);
 		ResourceHandle handle(resource, jobResult);
 
 		//Insert the new resource into the registry
-		ResourceRegistry.insert({ Name(resourceLocation), handle });
+		ResourceRegistry.insert({ resourceName, handle });
+		return ResourceRegistry.find(resourceName)->second;
 	}
 	
 	template<class T>
-	inline void ResourceManager::ReloadResource(const std::string& resourceLocation) {
-		Name resourceID = Name(resourceLocation);
-		auto RegistryEntry = ResourceRegistry.find(resourceID);
+	inline ResourceHandle ResourceManager::ReloadResource(const std::string& resourceLocation) {
+		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+
+		Name resourceName = Name(resourceLocation);
+		auto RegistryEntry = ResourceRegistry.find(resourceName);
 
 		//If the resource has not been loaded, load as normal
 		if (RegistryEntry == ResourceRegistry.end()) {
 			return LoadResource<T>(resourceLocation);
+		}
+		else {
+			ResourceRegistry.erase(resourceName);
 		}
 
 		//Construct and allocate a resource on the heap
@@ -130,7 +134,7 @@ namespace EngineUtils {
 			//Submit the job to the threadpool and store a future to it's result.
 			//Submitting the job as a lambda avoid expensive calls to std::bind
 			jobResult = GameThreadPool->SubmitJob(
-				[&]() {
+				[resource]() {
 					return resource->LoadErrorResource();
 				}
 			);
@@ -139,28 +143,29 @@ namespace EngineUtils {
 			//Submit the job to the threadpool and store a future to it's result.
 			//Submitting the job as a lambda avoid expensive calls to std::bind
 			jobResult = GameThreadPool->SubmitJob(
-				[&]() {
+				[resource]() {
 					return resource->Load();
 				}
 			);
 		}
 
 		ResourceHandle handle(resource, jobResult);
-
-		//Insert the new resource into the registry
 		RegistryEntry->second = std::move(handle);
+		
+		return ResourceRegistry.find(resourceName)->second;
 	}
+	
 	template<class T>
-	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation)
-	{
-		Name resourceID(resourceLocation);
+	inline ResourceHandle ResourceManager::GetResource(const std::string& resourceLocation) {
+		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+		Name resourceName(resourceLocation);
 
-		if (ResourceRegistry.find(resourceID) == ResourceRegistry.end()) {
-			LoadResource<T>(resourceLocation);
+		if (ResourceRegistry.find(resourceName) == ResourceRegistry.end()) {
+			return LoadResource<T>(resourceLocation);
 		}
 
-		auto handle = ResourceRegistry.find(resourceID)->second;
-		return handle.GetResource<T>();
+		auto handle = ResourceRegistry.find(resourceName)->second;
+		return handle;
 	}
 
 }

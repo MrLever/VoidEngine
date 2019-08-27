@@ -22,7 +22,7 @@ namespace EngineCore {
 		Renderer(
 			std::shared_ptr<WindowManager> window,
 			EngineInterfacePtr engineInterface,
-			const std::string& configFile
+			const EngineUtils::ResourceHandle& configuration
 		);
 
 		/**

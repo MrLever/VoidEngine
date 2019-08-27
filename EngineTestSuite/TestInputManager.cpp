@@ -19,16 +19,6 @@ namespace EngineCoreTests {
 	TEST_CLASS(InputManagerTests) {
 	public:
 		TEST_METHOD(TriggerKeybindingTest) {
-			//Keybindings are meant to trigger events.
-			auto engineInterface = EngineTestSuiteUtils::CreateEngineInterface();
-			std::shared_ptr<InputInterfaceManager> DummyInterface;
-			InputManager dummyManager(DummyInterface, engineInterface, "Settings/Testing/InputConfig.lua");
-
-			KeyboardInput dummyInput(KeyboardButton::ESC, ButtonState::Pressed);
-			Message dummyMessage("End Game", MessageType::Termination);
-			
-			//dummyManager.AddKeyBinding(dummyInput, dummyMessage);
-
 			Assert::Fail();
 		}
 

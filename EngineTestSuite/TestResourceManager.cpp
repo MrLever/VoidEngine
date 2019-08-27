@@ -50,9 +50,9 @@ namespace EngineUtilitiesTests {
 
 			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto raw = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
-			
-			Assert::AreEqual(SuccessString, raw->FileContents);
+			auto rawHandle = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto rawFile = rawHandle.GetResource<RawFile>();
+			Assert::AreEqual(SuccessString, rawFile->FileContents);
 		}
 
 		TEST_METHOD(GetResourceTest) {
@@ -63,7 +63,8 @@ namespace EngineUtilitiesTests {
 
 			resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto file = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto fileHandle = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto file = fileHandle.GetResource<RawFile>();
 			Assert::AreEqual(SuccessString, file->FileContents);
 		}
 
@@ -80,9 +81,10 @@ namespace EngineUtilitiesTests {
 			resourceMan.ReloadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			//Aquire the resource
-			auto raw = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto rawHandle = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
+			auto rawFile = rawHandle.GetResource<RawFile>();
 
-			Assert::AreEqual(SuccessString, raw->FileContents);
+			Assert::AreEqual(SuccessString, rawFile->FileContents);
 		}
 
 		TEST_METHOD(RequestInvalidResourceTest) {
@@ -91,8 +93,9 @@ namespace EngineUtilitiesTests {
 			ResourceManager resourceMan(pool);
 
 			resourceMan.LoadResource<RawFile>("FooBar");
-			auto invalidRequest = resourceMan.GetResource<RawFile>("FooBar");
-			Assert::AreEqual(SuccessString, invalidRequest->FileContents);
+			auto invalidRequestHandle = resourceMan.GetResource<RawFile>("FooBar");
+			auto invalidResouce = invalidRequestHandle.GetResource<RawFile>();
+			Assert::AreEqual(SuccessString, invalidResouce->FileContents);
 		}
 	};
 

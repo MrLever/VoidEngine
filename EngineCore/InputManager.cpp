@@ -14,9 +14,8 @@ namespace EngineCore {
 
 	///CTORS
 	InputManager::InputManager(
-		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const std::string& configFile)
-		: Configurable(configFile, engineInterface->GetResourceManager()), 
-		  PlayerInterface(std::move(playerInterface)), 
+		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration)
+		: Configurable(configuration), PlayerInterface(std::move(playerInterface)), 
 		  VoidEngineInterface(std::move(engineInterface)) {
 
 	}

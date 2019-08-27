@@ -1,3 +1,4 @@
+#pragma once
 //STD Headers
 #include <limits>
 #include <memory>
@@ -13,7 +14,6 @@
 namespace EngineUtils {
 	class Configuration : public Resource {
 	public:
-		///CTORS
 		/**
 		 * Constructor
 		 * @param configFile the resource's filepath
