@@ -26,7 +26,6 @@ namespace EngineUtils {
 		 */
 		~Configuration();
 
-		///Public Member Functions
 		/**
 		 * Loads a lua configuration script from main memory
 		 * @return whether the load was successful. 
@@ -49,7 +48,6 @@ namespace EngineUtils {
 		T GetAttribute(const std::string& attribute);
 
 	private:
-		///Private Member Functions
 		/**
 		 * Helper function for returning an error value if a key is not found in a config file
 		 * @return defualt error value for type T
@@ -62,12 +60,15 @@ namespace EngineUtils {
 		 */
 		void LoadConfigTable();
 
-		///Private Member Variables
-
+		/**
+		 * Hard-coded error script to be used when a script is not found in main memory
+		 */
 		inline static const std::string ErrorScript = "Settings = { Error = true }";
 
 		/** The Lua State associated with this configuration script */
 		lua_State* LuaState;
+
+		/** Table mapping key -> config value */
 		std::unique_ptr<luabridge::LuaRef> ConfigTable;
 	};
 
