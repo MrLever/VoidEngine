@@ -15,28 +15,20 @@ namespace EngineUtils {
 	 * until the resource is loaded to use it.
 	 */
 	class ResourceHandle {
+		friend class ResourceManager;
 	public:
-		///CTORS
-		/**
-		 * Constructor
-		 * @param resource The resource wrapped by this handle
-		 * @param resourcePromise The promise used by the handles' future
-		 */
-		ResourceHandle(std::shared_ptr<Resource> resource, std::promise<bool>& resourcePromise);
-
 		/**
 		 * Constructor
 		 * @param resource The resource wrapped by this handle
 		 * @param resourceFuture The future used by the handles' future
 		 */
-		ResourceHandle(std::shared_ptr<Resource> resource, std::future<bool>& resourceFuture);
+		ResourceHandle(std::future<std::shared_ptr<Resource>>& resourceFuture);
 
 		/**
 		 * Destructor
 		 */
 		~ResourceHandle();
 
-		///Public Member Functions
 		/**
 		 * Gets the resource that was loaded, or blocks until loading is finished
 		 * @return The resource requested, dynamically casted to the specified type
@@ -46,16 +38,14 @@ namespace EngineUtils {
 
 	private:
 		/** Future to the resource to be loaded */
-		std::shared_future<bool> ResourceReady;
-
-		/** Shared base pointer to the resource requested */
-		std::shared_ptr<Resource> RequestedResource;
+		std::shared_future<std::shared_ptr<Resource>> RequestedResource;		 
 	};
 
 	template<class T>
 	inline std::shared_ptr<T> ResourceHandle::GetResource() {
-		if (ResourceReady.get()) {
-			return std::dynamic_pointer_cast<T>(RequestedResource);
+		auto res = RequestedResource.get();
+		if (res != nullptr) {
+			return std::dynamic_pointer_cast<T>(res);
 		}
 		else {
 			return nullptr;

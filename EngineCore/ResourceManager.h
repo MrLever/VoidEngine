@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <atomic>
 #include <filesystem>
 #include <memory>
 #include <unordered_map>
@@ -64,14 +65,14 @@ namespace EngineUtils {
 		std::unordered_map<Name, ResourceHandle> ResourceRegistry;
 
 		/** Mutex to synchronise access to the Resource Manager */
-		std::mutex ResourceManagerLock;
+		std::recursive_mutex ResourceManagerLock;
 	};
 
 	using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
 
 	template<class T>
 	ResourceHandle ResourceManager::LoadResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
 
 		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
 
@@ -80,31 +81,48 @@ namespace EngineUtils {
 			return RegistryEntry->second;
 		}
 
-		//Construct and allocate a resource on the heap
-		auto resource = std::make_shared<T>(resourceLocation);
-		std::future<bool> jobResult;
-
-		if (!resource->GetResourceValid()) {
-			//Submit the job to the threadpool and store a future to it's result.
-			//Submitting the job as a lambda avoid expensive calls to std::bind
-			jobResult = GameThreadPool->SubmitJob(
-				[resource]() {
-					return resource->LoadErrorResource(); 
-				}
-			);
-		}
-		else {
-			//Submit the job to the threadpool and store a future to it's result.
-			//Submitting the job as a lambda avoid expensive calls to std::bind
-			jobResult = GameThreadPool->SubmitJob(
-				[resource]() {
-					return resource->Load();
-				}
-			);
-		}
-
 		Name resourceName(resourceLocation);
-		ResourceHandle handle(resource, jobResult);
+
+		auto resourceFuture = GameThreadPool->SubmitJob(
+			[resourceLocation]() -> std::shared_ptr<Resource> {
+				std::shared_ptr<Resource> resource = std::make_shared<T>(resourceLocation);
+				if (!resource) {
+					return nullptr;
+				}
+
+				if (resource->GetResourceValid()) {
+					resource->Load();
+				}
+				else {
+					resource->LoadErrorResource();
+				}
+
+				return resource;
+			}
+		);
+
+		ResourceHandle handle(resourceFuture);
+
+		//if (!resource->GetResourceValid()) {
+		//	//Submit the job to the threadpool and store a future to it's result.
+		//	//Submitting the job as a lambda avoid expensive calls to std::bind
+		//	handle.ResourceReady = GameThreadPool->SubmitJob(
+		//		[handle]() {
+		//			auto res = handle.RequestedResource;
+		//			return res->LoadErrorResource(); 
+		//		}
+		//	);
+		//}
+		//else {
+		//	//Submit the job to the threadpool and store a future to it's result.
+		//	//Submitting the job as a lambda avoid expensive calls to std::bind
+		//	handle.ResourceReady = GameThreadPool->SubmitJob(
+		//		[handle]() {
+		//			auto res = handle.RequestedResource;
+		//			return res->Load();
+		//		}
+		//	);
+		//}
 
 		//Insert the new resource into the registry
 		ResourceRegistry.insert({ resourceName, handle });
@@ -113,59 +131,36 @@ namespace EngineUtils {
 	
 	template<class T>
 	inline ResourceHandle ResourceManager::ReloadResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
 
-		Name resourceName = Name(resourceLocation);
-		auto RegistryEntry = ResourceRegistry.find(resourceName);
-
-		//If the resource has not been loaded, load as normal
+		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
 		if (RegistryEntry == ResourceRegistry.end()) {
 			return LoadResource<T>(resourceLocation);
 		}
 		else {
-			ResourceRegistry.erase(resourceName);
-		}
+			auto handle = RegistryEntry->second;
 
-		//Construct and allocate a resource on the heap
-		auto resource = std::make_shared<T>(resourceLocation);
-		std::future<bool> jobResult;
+			//Block until previous load is completed.
+			handle.RequestedResource.wait();
 
-		if (!resource->GetResourceValid()) {
-			//Submit the job to the threadpool and store a future to it's result.
-			//Submitting the job as a lambda avoid expensive calls to std::bind
-			jobResult = GameThreadPool->SubmitJob(
-				[resource]() {
-					return resource->LoadErrorResource();
-				}
-			);
+			//Erase entry from map
+			ResourceRegistry.erase(RegistryEntry);
+			return LoadResource<T>(resourceLocation);
 		}
-		else {
-			//Submit the job to the threadpool and store a future to it's result.
-			//Submitting the job as a lambda avoid expensive calls to std::bind
-			jobResult = GameThreadPool->SubmitJob(
-				[resource]() {
-					return resource->Load();
-				}
-			);
-		}
-
-		ResourceHandle handle(resource, jobResult);
-		RegistryEntry->second = std::move(handle);
-		
-		return ResourceRegistry.find(resourceName)->second;
 	}
 	
 	template<class T>
 	inline ResourceHandle ResourceManager::GetResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::mutex> lock(ResourceManagerLock);
+		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
 		Name resourceName(resourceLocation);
 
-		if (ResourceRegistry.find(resourceName) == ResourceRegistry.end()) {
+		auto RegistryEntry = ResourceRegistry.find(resourceName);
+
+		if ( RegistryEntry == ResourceRegistry.end()) {
 			return LoadResource<T>(resourceLocation);
 		}
 
-		auto handle = ResourceRegistry.find(resourceName)->second;
-		return handle;
+		return RegistryEntry->second;
 	}
 
 }
