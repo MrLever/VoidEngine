@@ -103,27 +103,6 @@ namespace EngineUtils {
 
 		ResourceHandle handle(resourceFuture);
 
-		//if (!resource->GetResourceValid()) {
-		//	//Submit the job to the threadpool and store a future to it's result.
-		//	//Submitting the job as a lambda avoid expensive calls to std::bind
-		//	handle.ResourceReady = GameThreadPool->SubmitJob(
-		//		[handle]() {
-		//			auto res = handle.RequestedResource;
-		//			return res->LoadErrorResource(); 
-		//		}
-		//	);
-		//}
-		//else {
-		//	//Submit the job to the threadpool and store a future to it's result.
-		//	//Submitting the job as a lambda avoid expensive calls to std::bind
-		//	handle.ResourceReady = GameThreadPool->SubmitJob(
-		//		[handle]() {
-		//			auto res = handle.RequestedResource;
-		//			return res->Load();
-		//		}
-		//	);
-		//}
-
 		//Insert the new resource into the registry
 		ResourceRegistry.insert({ resourceName, handle });
 		return ResourceRegistry.find(resourceName)->second;
