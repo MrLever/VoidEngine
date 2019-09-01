@@ -65,7 +65,7 @@ public:
 				return a + b;
 			},
 			5, 5
-				);
+		);
 		Assert::AreEqual(10, res3.get());
 	}
 

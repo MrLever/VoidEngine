@@ -69,7 +69,7 @@ namespace EngineUtilitiesTests {
 			Assert::AreEqual(1.0f, d.FloatProperty);
 
 			d.Reconfigure(
-				resourceMngr->GetResource<Configuration>("Settings/Testing/ConfigurableTest1.lua")
+				resourceMngr->GetResource<Configuration>("Settings/Testing/ConfigurableTest2.lua")
 			);
 
 			Assert::AreEqual(std::string("test2"), d.StringProperty);
