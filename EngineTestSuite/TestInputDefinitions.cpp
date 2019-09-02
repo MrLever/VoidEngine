@@ -23,109 +23,36 @@ namespace EngineCoreTests {
 		TEST_METHOD(GenericInputGetButtonTest) {
 			auto time = EngineUtils::GetGameTime();
 			
-
-			Input test(
-				static_cast<unsigned>(KeyboardButton::A), 
-				ButtonState::PRESSED, 
-				time
-			);
-			
-			if (KeyboardButton::A == static_cast<KeyboardButton>(test.GetButton())) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
-		}
-
-		TEST_METHOD(GenericInputGetButtonStateTest) {
-			auto time = EngineUtils::GetGameTime();
-
-
-			Input test(
-				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::PRESSED, 
-				time
-			);
-
-			if (ButtonState::PRESSED == static_cast<ButtonState>(test.GetButtonState())) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
-		}
-
-		TEST_METHOD(GenericInputGetTimestampTest) {
-			auto time = EngineUtils::GetGameTime();
-
-
-			Input test(
-				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::PRESSED, 
-				time
-			);
-
-			if (time == test.GetTimeStamp()) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
-		}
-
-		TEST_METHOD(KeyboardInputGetKeyboardInputTest) {
 			auto button = KeyboardButton::A;
-			KeyboardInput keyboardInput(button, ButtonState::PRESSED, 0);
+
+			KeyboardInput test(
+				button, 
+				ButtonState::PRESSED, 
+				InputModifier::NONE,
+				time
+			);
 			
-			//Shove it into a generic handle
-			Input<KeyboardButton>* genericHandle = &keyboardInput;
-
-			//Bring it back to the correct handle
-			KeyboardInput* keyboardHandle = dynamic_cast<KeyboardInput*>(genericHandle);
-
-			if (keyboardHandle->GetButton() == button) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
+			Assert::IsTrue(KeyboardButton::A == test.GetButton());
+		}
+		TEST_METHOD(KeyboardInputGetButtonTest) {
+			auto button = KeyboardButton::A;
+			KeyboardInput keyboardInput(button, ButtonState::PRESSED);
+			
+			Assert::IsTrue(button == keyboardInput.GetButton());
 		}
 
-		TEST_METHOD(MouseInputGetMouseInputTest) {
+		TEST_METHOD(MouseInputGetButtonTest) {
 			auto button = MouseButton::Left;
-			MouseInput keyboardInput(button, ButtonState::PRESSED, 0);
+			MouseInput mouseInput(button, ButtonState::PRESSED);
 
-			//Shove it into a generic handle
-			Input<MouseButton>* genericHandle = &keyboardInput;
-
-			//Bring it back to the correct handle
-			MouseInput* mouseHandle = dynamic_cast<MouseInput*>(genericHandle);
-
-			if (mouseHandle->GetButton() == button) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
+			Assert::IsTrue(button == mouseInput.GetButton());
 		}
 
 		TEST_METHOD(GamepadInputGetGamepadInputTest) {
 			auto button = GamepadButton::A;
-			GamepadInput keyboardInput(button, ButtonState::PRESSED, 0);
+			GamepadInput gamepadInput(button, ButtonState::PRESSED, 0);
 
-			//Shove it into a generic handle
-			Input<GamepadButton>* genericHandle = &keyboardInput;
-
-			//Bring it back to the correct handle
-			GamepadInput* gamepadHandle = dynamic_cast<GamepadInput*>(genericHandle);
-
-			if (gamepadHandle->GetButton() == button) {
-				Assert::IsTrue(true);
-			}
-			else {
-				Assert::Fail();
-			}
+			Assert::IsTrue(button == gamepadInput.GetButton());
 		}
 	};
 

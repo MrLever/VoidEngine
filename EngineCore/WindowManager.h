@@ -143,6 +143,8 @@ namespace EngineCore {
 
 		/** OpenGL Minor version */
 		static const int OPENGL_MINOR = 5;
+	
+		static const KeyboardInput ToggleFullscreenInput;
 	};
 
 }

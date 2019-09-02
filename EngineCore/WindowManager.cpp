@@ -11,6 +11,12 @@
 
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
+	
+	const KeyboardInput WindowManager::ToggleFullscreenInput(
+		KeyboardButton::ENTER, 
+		ButtonState::PRESSED, 
+		InputModifier::CTRL
+	);
 
 	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
 		: GameName(std::move(gameName)) {
@@ -118,12 +124,17 @@ namespace EngineCore {
 		KeyboardInput input(
 			static_cast<KeyboardButton>(key),
 			static_cast<ButtonState>(action),
+			mods,
 			timeStamp
 		);
 
-		//Report Input to Input Interface for later polling.
-		CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
-
+		if (input == ToggleFullscreenInput) {
+			std::cout << "Toggle fullscreen";
+		}
+		else {
+			//Report Input to Input Interface for later polling.
+			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
+		}
 	}
 
 	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
@@ -134,6 +145,7 @@ namespace EngineCore {
 		MouseInput input(
 			static_cast<MouseButton>(button),
 			static_cast<ButtonState>(action),
+			0,
 			timeStamp
 		);
 

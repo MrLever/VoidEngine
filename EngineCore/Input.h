@@ -18,6 +18,7 @@ namespace EngineCore {
 	};
 
 	enum class InputModifier : unsigned {
+		NONE = 0x0000,
 		SHIFT = 0x0001,
 		CTRL = 0x0002,
 		ALT = 0x0004,
@@ -45,9 +46,35 @@ namespace EngineCore {
 		 * Constructor
 		 * @param button The button this input is reporting for
 		 * @param state The state of the button being reported
+		 * @param modifier Modifier flags applied to the input
+		 */
+		Input(T button, ButtonState state, unsigned modifiers);
+
+		/**
+		 * Constructor
+		 * @param button The button this input is reporting for
+		 * @param state The state of the button being reported
+		 * @param modifier Modifier flag applied to the input
+		 */
+		Input(T button, ButtonState state, InputModifier modifier);
+
+		/**
+		 * Constructor
+		 * @param button The button this input is reporting for
+		 * @param state The state of the button being reported
+		 * @param modifier Modifier flags applied to the input
 		 * @param time The time stamp of the input event
 		 */
-		Input(T button, ButtonState state, EngineUtils::GameTime time);
+		Input(T button, ButtonState state, unsigned modifiers, EngineUtils::GameTime time);
+
+		/**
+		 * Constructor
+		 * @param button The button this input is reporting for
+		 * @param state The state of the button being reported
+		 * @param modifier Modifier applied to the input
+		 * @param time The time stamp of the input event
+		 */
+		Input(T button, ButtonState state, InputModifier modifier, EngineUtils::GameTime time);
 
 		/**
 		 * Equality operator
@@ -85,26 +112,48 @@ namespace EngineCore {
 		/** The button's state for this input event*/
 		ButtonState State;
 
+		/** Bitfield to represent input modifiers defined by InputModifier enumeration */
+		unsigned Modifiers;
+
 		/** Time stamp of this input event */
 		EngineUtils::GameTime TimeStamp;
 	};
 
-	template <class T>
-	inline Input<T>::Input(T button, ButtonState state)
-		: Button(button), State(state), TimeStamp(-1) {
+	template<class T>
+	inline Input<T>::Input(T button, ButtonState state) 
+		: Button(button), State(state), Modifiers(0), TimeStamp(-1) {
 
 	}
 
 	template <class T>
-	inline Input<T>::Input(T button, ButtonState state, EngineUtils::GameTime time)
-		: Button(button), State(state), TimeStamp(time) {
+	inline Input<T>::Input(T button, ButtonState state, unsigned modifiers)
+		: Button(button), State(state), Modifiers(modifiers), TimeStamp(-1) {
+
+	}
+
+	template<class T>
+	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier)
+		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(-1) {
+
+	}
+
+	template <class T>
+	inline Input<T>::Input(T button, ButtonState state, unsigned modifiers, EngineUtils::GameTime time)
+		: Button(button), State(state), Modifiers(modifiers), TimeStamp(time) {
 		
+	}
+
+	template<class T>
+	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier, EngineUtils::GameTime time)
+		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(time) {
+
 	}
 
 	template<class T>
 	inline bool Input<T>::operator==(const Input& other) const {
 		return this->Button == other.Button &&
-			this->State == other.State;
+			this->State == other.State &&
+			this->Modifiers == other.Modifiers;
 	}
 
 	template<class T>
