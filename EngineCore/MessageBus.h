@@ -48,8 +48,9 @@ namespace EngineCore {
 
 		/**
 		 * Destructor
+		 * Dispatches all pending log messages to std::out
 		 */
-		~MessageBus() = default;
+		~MessageBus();
 
 		/**
 		 * Adds a receiver to the distribution list

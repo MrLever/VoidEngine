@@ -47,4 +47,8 @@ namespace EngineCore {
 
 	//Public Functions
 
+	std::ostream& operator<<(std::ostream& out, const Message& message){
+		return out << message.Event;
+	}
+
 }

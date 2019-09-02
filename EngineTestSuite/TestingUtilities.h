@@ -56,7 +56,7 @@ namespace EngineTestSuiteUtils
 		}
 
 		void DebugPublishEvent(std::string s) {
-			this->PublishMessage(Message(s, MessageType::DebugACK));
+			this->PublishMessage(Message(s, MessageType::ACK));
 		}
 
 		void FireEvent() {

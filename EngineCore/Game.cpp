@@ -22,7 +22,6 @@ namespace EngineCore {
 
 	//CTORS
 	Game::Game(const std::string& name) : GameName(std::move(name)) {
-
 		FrameRate = 0;
 
 		//Init Higher Level Game Objects
@@ -33,7 +32,7 @@ namespace EngineCore {
 	}
 
 	Game::~Game() {
-		std::cout << "Goodbye!";
+
 	}
 
 	///Private Functions

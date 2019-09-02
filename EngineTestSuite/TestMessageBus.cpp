@@ -25,7 +25,7 @@ namespace GameplayFrameworkTests {
 		TEST_METHOD(RecieveMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			DummyReceiver testReceiver(testBus);
-			Message testMessage("Test", MessageType::DebugACK);
+			Message testMessage("Test", MessageType::ACK);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();
@@ -36,7 +36,7 @@ namespace GameplayFrameworkTests {
 		TEST_METHOD(IgnoreMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
 			DummyReceiver testReceiver(testBus);
-			Message testMessage("Test", MessageType::DebugNACK);
+			Message testMessage("Test", MessageType::NACK);
 
 			testBus->PublishMessage(testMessage);
 			testBus->DispatchMessages();

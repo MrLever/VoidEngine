@@ -12,10 +12,17 @@
 #include "Message.h"
 
 namespace EngineCore {
-
-	//Private Member Functions
-
-	//Public Member Functions
+	
+	MessageBus::~MessageBus() {
+		while (!Messages.empty()) {
+			auto currMsg = Messages.front();
+			if (currMsg.GetType() == MessageType::Log) {
+				std::cout << currMsg;
+			}
+			Messages.pop();
+		}
+	}
+	
 	void MessageBus::AddReceiver(MessageBusNode* receiver, unsigned subscriptionFlag) {
 		Receivers.push_back(Subscriber(receiver, subscriptionFlag));
 	}
@@ -25,10 +32,12 @@ namespace EngineCore {
 	}
 
 	void MessageBus::AddReceiver(MessageBusNode* receiver, const std::vector<MessageType> &flags) {
+		//Bitwise OR all of the flags together to make a super flag
 		unsigned flag = 0;
 		for (auto inputFlag : flags) {
 			flag |= static_cast<unsigned>(inputFlag);
 		}
+		
 		AddReceiver(receiver, flag);
 	}
 

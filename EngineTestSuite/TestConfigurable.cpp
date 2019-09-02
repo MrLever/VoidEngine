@@ -55,11 +55,11 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(ConfigurableReconfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
 			auto resourceMngr = std::make_shared<ResourceManager>(pool);
-			resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua");
-			resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.lua");
+			auto resource1 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua");
+			auto resource2 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.lua");
 			
 			DummyConfigurable d(
-				resourceMngr->GetResource<Configuration>("Settings/Testing/ConfigurableTest1.lua")
+				resource1
 			);
 
 			d.Configure();
@@ -69,7 +69,7 @@ namespace EngineUtilitiesTests {
 			Assert::AreEqual(1.0f, d.FloatProperty);
 
 			d.Reconfigure(
-				resourceMngr->GetResource<Configuration>("Settings/Testing/ConfigurableTest2.lua")
+				resource2
 			);
 
 			Assert::AreEqual(std::string("test2"), d.StringProperty);

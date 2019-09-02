@@ -35,6 +35,10 @@ namespace EngineCore {
 		 * @param name The game's name
 		 */
 		Game(const std::string& name);
+
+		/**
+		 * Destructor
+		 */
 		~Game();
 
 	private:

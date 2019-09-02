@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <string>
+#include <iostream>
 
 //Library Headers
 
@@ -12,13 +13,14 @@ namespace EngineCore {
 	//Forward Declarations
 
 	enum class MessageType : unsigned {
-		Initialization = 1,
-		Input = 2,
-		GenericEvent = 4,
-		Error = 8,
-		Termination = 16,
-		DebugNACK = 0,
-		DebugACK = 0xFFFFFFFF
+		Log = 1,
+		Initialization = 2,
+		Input = 4,
+		GenericEvent = 8,
+		Error = 16,
+		Termination = 32,
+		NACK = 0,
+		ACK = 0xFFFFFFFF
 	};
 
 
@@ -48,6 +50,8 @@ namespace EngineCore {
 		 * @param other The other message to compare against
 		 */
 		bool operator==(const Message& other) const;
+
+		friend std::ostream& operator << (std::ostream& out, const Message& message);
 
 		/**
 		 * Returns the message body of this event
