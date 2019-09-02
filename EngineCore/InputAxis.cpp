@@ -60,17 +60,17 @@ namespace EngineCore {
 	}
 
 	void InputAxis::UpdateAxis(const KeyboardInput& input)	{
-		if (input.GetButtonState() == ButtonState::Held) {
+		if (input.GetButtonState() == ButtonState::HELD) {
 			return;
 		}
 		if (AxisBindings.find(input.GetButton()) == AxisBindings.end()) {
 			return;
 		}
 
-		if (input.GetButtonState() == ButtonState::Pressed) {
+		if (input.GetButtonState() == ButtonState::PRESSED) {
 			TriggerBinding(input);
 		}
-		else if(input.GetButtonState() == ButtonState::Released) {
+		else if(input.GetButtonState() == ButtonState::RELEASED) {
 			ReleaseBinding(input);
 		}
 	}

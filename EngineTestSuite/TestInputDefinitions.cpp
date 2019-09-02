@@ -26,7 +26,7 @@ namespace EngineCoreTests {
 
 			Input test(
 				static_cast<unsigned>(KeyboardButton::A), 
-				ButtonState::Pressed, 
+				ButtonState::PRESSED, 
 				time
 			);
 			
@@ -44,11 +44,11 @@ namespace EngineCoreTests {
 
 			Input test(
 				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::Pressed, 
+				ButtonState::PRESSED, 
 				time
 			);
 
-			if (ButtonState::Pressed == static_cast<ButtonState>(test.GetButtonState())) {
+			if (ButtonState::PRESSED == static_cast<ButtonState>(test.GetButtonState())) {
 				Assert::IsTrue(true);
 			}
 			else {
@@ -62,7 +62,7 @@ namespace EngineCoreTests {
 
 			Input test(
 				static_cast<unsigned>(KeyboardButton::A),
-				ButtonState::Pressed, 
+				ButtonState::PRESSED, 
 				time
 			);
 
@@ -76,7 +76,7 @@ namespace EngineCoreTests {
 
 		TEST_METHOD(KeyboardInputGetKeyboardInputTest) {
 			auto button = KeyboardButton::A;
-			KeyboardInput keyboardInput(button, ButtonState::Pressed, 0);
+			KeyboardInput keyboardInput(button, ButtonState::PRESSED, 0);
 			
 			//Shove it into a generic handle
 			Input<KeyboardButton>* genericHandle = &keyboardInput;
@@ -94,7 +94,7 @@ namespace EngineCoreTests {
 
 		TEST_METHOD(MouseInputGetMouseInputTest) {
 			auto button = MouseButton::Left;
-			MouseInput keyboardInput(button, ButtonState::Pressed, 0);
+			MouseInput keyboardInput(button, ButtonState::PRESSED, 0);
 
 			//Shove it into a generic handle
 			Input<MouseButton>* genericHandle = &keyboardInput;
@@ -112,7 +112,7 @@ namespace EngineCoreTests {
 
 		TEST_METHOD(GamepadInputGetGamepadInputTest) {
 			auto button = GamepadButton::A;
-			GamepadInput keyboardInput(button, ButtonState::Pressed, 0);
+			GamepadInput keyboardInput(button, ButtonState::PRESSED, 0);
 
 			//Shove it into a generic handle
 			Input<GamepadButton>* genericHandle = &keyboardInput;

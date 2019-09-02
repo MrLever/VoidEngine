@@ -11,10 +11,19 @@
 
 namespace EngineCore {
 	enum class ButtonState : unsigned {
-		Released = 0,
-		Pressed = 1,
-		Held = 2,
-		Any = 4
+		RELEASED = 0,
+		PRESSED = 1,
+		HELD = 2,
+		ANY = 4
+	};
+
+	enum class InputModifier : unsigned {
+		SHIFT = 0x0001,
+		CTRL = 0x0002,
+		ALT = 0x0004,
+		SUPER = 0x0008,
+		CAPS_LOCK = 0x0010,
+		NUM_LOCK = 0x0020
 	};
 
 	/**

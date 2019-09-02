@@ -29,13 +29,13 @@ namespace EngineCore {
 		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
 
 		for (const auto& input : KeyboardEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::Pressed)
+			if (input.GetButtonState() == ButtonState::PRESSED)
 				std::cout << "Keyboard button Pressed\n";
 
-			if (input.GetButtonState() == ButtonState::Held)
+			if (input.GetButtonState() == ButtonState::HELD)
 				std::cout << "Keyboard button Held\n";
 
-			if (input.GetButtonState() == ButtonState::Released)
+			if (input.GetButtonState() == ButtonState::RELEASED)
 				std::cout << "Keyboard button Released\n";
 		}
 
@@ -47,13 +47,13 @@ namespace EngineCore {
 		
 		//TODO(MrLever): Finish
 		for (const auto& input : MouseButtonEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::Pressed)
+			if (input.GetButtonState() == ButtonState::PRESSED)
 				std::cout << "Mouse button Pressed\n";
 
-			if (input.GetButtonState() == ButtonState::Held)
+			if (input.GetButtonState() == ButtonState::HELD)
 				std::cout << "Mouse button Held\n";
 
-			if (input.GetButtonState() == ButtonState::Released)
+			if (input.GetButtonState() == ButtonState::RELEASED)
 				std::cout << "Mouse button Released\n";
 		}
 	}

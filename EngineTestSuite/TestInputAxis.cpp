@@ -31,7 +31,7 @@ namespace EngineCoreTests {
 			dummyAxis.AddBinding(KeyboardButton::W, 1.0);
 
 			KeyboardInput dummyIn(
-				KeyboardButton::W, ButtonState::Pressed
+				KeyboardButton::W, ButtonState::PRESSED
 			);
 
 			dummyAxis.UpdateAxis(dummyIn);
@@ -54,13 +54,13 @@ namespace EngineCoreTests {
 				Assert::Fail();
 			}
 
-			KeyboardInput dummyWPress(KeyboardButton::W, ButtonState::Pressed);
-			KeyboardInput dummyWHold(KeyboardButton::W, ButtonState::Held);
-			KeyboardInput dummyWRelease(KeyboardButton::W, ButtonState::Released);
+			KeyboardInput dummyWPress(KeyboardButton::W, ButtonState::PRESSED);
+			KeyboardInput dummyWHold(KeyboardButton::W, ButtonState::HELD);
+			KeyboardInput dummyWRelease(KeyboardButton::W, ButtonState::RELEASED);
 
-			KeyboardInput dummySPress(KeyboardButton::S, ButtonState::Pressed);
-			KeyboardInput dummySHold(KeyboardButton::S, ButtonState::Held);
-			KeyboardInput dummySRelease(KeyboardButton::S, ButtonState::Released);
+			KeyboardInput dummySPress(KeyboardButton::S, ButtonState::PRESSED);
+			KeyboardInput dummySHold(KeyboardButton::S, ButtonState::HELD);
+			KeyboardInput dummySRelease(KeyboardButton::S, ButtonState::RELEASED);
 
 			//Pressing should update axis with associated scale value
 			dummyAxis.UpdateAxis(dummyWPress);

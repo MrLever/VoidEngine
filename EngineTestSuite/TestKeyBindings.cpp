@@ -26,7 +26,7 @@ namespace EngineCoreTests {
 		TEST_METHOD(SaveBindingsTest) {
 			Keybindings dummyBindings("Settings/debugInput.ini");
 			
-			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::Pressed);
+			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::PRESSED);
 			Message dummyMessage("test", MessageType::GenericEvent);
 
 			//dummyBindings.AddBinding(dummyInput, dummyMessage);
@@ -40,7 +40,7 @@ namespace EngineCoreTests {
 		TEST_METHOD(AddBindingTest) {
 			//Initialization
 			Keybindings dummyBindings;
-			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::Pressed);
+			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::PRESSED);
 			Message dummyMessage("test", MessageType::GenericEvent);
 
 			//Test
@@ -49,7 +49,7 @@ namespace EngineCoreTests {
 		TEST_METHOD(RemoveBindingTest) {
 			//Initialization
 			Keybindings dummyBindings;
-			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::Pressed);
+			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::PRESSED);
 			Message dummyMessage("test", MessageType::GenericEvent);
 
 			//dummyBindings.AddBinding(dummyInput, dummyMessage);
@@ -61,7 +61,7 @@ namespace EngineCoreTests {
 		TEST_METHOD(ReassignBindingTest) {
 			//Initialization
 			Keybindings dummyBindings;
-			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::Pressed);
+			KeyboardInput dummyInput(KeyboardButton::NUM_9, ButtonState::PRESSED);
 			Message dummyMessage("test", MessageType::GenericEvent);
 
 			//dummyBindings.AddBinding(dummyInput, dummyMessage);
