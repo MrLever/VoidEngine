@@ -42,6 +42,10 @@ namespace EngineCore {
 	}
 
 
+	void WindowManager::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
+		std::cout << "\nScroll captured x: " << xOffset << " y: " << yOffset;
+	}
+
 	void WindowManager::InitGLFW() {
 		if (glfwInit() == GLFW_FALSE) {
 			// Initialization failed
@@ -69,6 +73,7 @@ namespace EngineCore {
 		glfwSetKeyCallback(Window.get(), KeyboardInputCallback);
 		glfwSetMouseButtonCallback(Window.get(), MouseButtonCallback);
 		glfwSetCursorPosCallback(Window.get(), MousePositionCallback);
+		glfwSetScrollCallback(Window.get(), MouseScrollCallback);
 
 		glfwSetWindowUserPointer(Window.get(), this);
 	}

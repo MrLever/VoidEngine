@@ -109,6 +109,14 @@ namespace EngineCore {
 		 */
 		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos);
 
+		/**
+		 * Callback to capture mouse scroll events 
+		 * @param window The window triggering the callback
+		 * @param xOffset the horizontal value of the scroll action
+		 * @param yOffset the vertical value of the scroll action
+		 */
+		static void MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
+
 	private:
 		/** 
 		 * Performs initialization of the GLFW library
@@ -152,6 +160,7 @@ namespace EngineCore {
 		/** OpenGL Minor version */
 		static const int OPENGL_MINOR = 5;
 	
+		/** Static constant to earmark special Input for toggling fullscreen */
 		static const KeyboardInput ToggleFullscreenInput;
 	};
 
