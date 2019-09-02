@@ -92,11 +92,22 @@ namespace EngineCore {
 			WindowWidth = mode->width;
 			WindowHeight = mode->height;
 
-			glfwSetWindowMonitor(Window.get(), glfwGetPrimaryMonitor(), 0, 0, WindowWidth, WindowHeight, GLFW_DONT_CARE);
+			glfwSetWindowMonitor(
+				Window.get(), 
+				glfwGetPrimaryMonitor(), 
+				0, 0, WindowWidth, WindowHeight, 
+				GLFW_DONT_CARE
+			);
+
 			IsFullscreen = true;
 		}
 		else {
-			glfwSetWindowMonitor(Window.get(), NULL, mode->width / 2, mode->height / 2, RESTORE_WIDTH, RESTORE_HEIGHT, GLFW_DONT_CARE);
+			glfwSetWindowMonitor(
+				Window.get(), 
+				NULL, mode->width / 2, mode->height / 2, 
+				RESTORE_WIDTH, RESTORE_HEIGHT, 
+				GLFW_DONT_CARE
+			);
 			IsFullscreen = false;
 		}
 
