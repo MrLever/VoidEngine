@@ -12,7 +12,6 @@
 
 namespace EngineCore {
 
-	///CTORS
 	InputManager::InputManager(
 		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration)
 		: Configurable(configuration), PlayerInterface(std::move(playerInterface)), 
@@ -20,19 +19,10 @@ namespace EngineCore {
 
 	}
 
-	///Public Member Functions
 	void InputManager::HandleInput() {
 		HandleKeyboard();
 		HandleMouse();
 		HandleGamepad();
-	}
-
-	///Private Member Functions
-
-	void InputManager::LoadKeybindings() {
-		if (!Bindings.Load()) {
-			std::cerr << "Keybindings failed to load\n";
-		}
 	}
 
 	void InputManager::HandleKeyboard() {

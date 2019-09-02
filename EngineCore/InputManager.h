@@ -21,14 +21,22 @@ namespace EngineCore {
 	class MessageBus;
 	class InputEvent;
 
-
+	/**
+	 * @class InputManager
+	 * @brief The InputManager is responsible for processing input events to handle debouncing
+	 *        and detect higher order patterns like double-taps and chords 
+	 */
 	class InputManager : public EngineUtils::Configurable {
 	public:
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface, EngineInterfacePtr voidEngineInterface, const EngineUtils::ResourceHandle& configuration);
+		InputManager(
+			std::shared_ptr<InputInterfaceManager> playerInterface, 
+			EngineInterfacePtr voidEngineInterface, 
+			const EngineUtils::ResourceHandle& configuration
+		);
 
 		/**
 		 * Destructor
@@ -41,11 +49,6 @@ namespace EngineCore {
 		void HandleInput();
 
 	private:
-		/**
-		 * Loads keybindings from HDD
-		 */
-		void LoadKeybindings();
-
 		/**
 		 * Polls and processes keyboard events from the current frame
 		 */
@@ -66,7 +69,6 @@ namespace EngineCore {
 		 */
 		void Configure() override;
 
-		///Private class members
 		/** The keybindings currently used by the input manager */
 		Keybindings Bindings;
 
