@@ -9,7 +9,7 @@
 
 namespace EngineCore {
 
-	InputAxis::InputAxis(std::string axisName) : AxisName(axisName), AxisID(axisName){
+	InputAxis::InputAxis(std::string axisName) : AxisName(axisName){
 		AxisValue = 0;
 	}
 
@@ -18,7 +18,7 @@ namespace EngineCore {
 	}
 
 	bool InputAxis::operator==(const InputAxis& other){
-		return this->AxisID == other.AxisID;
+		return this->AxisName == other.AxisName;
 	}
 	
 	//Private Member functions
@@ -55,8 +55,8 @@ namespace EngineCore {
 		AxisBindings[input] = scale;
 	}
 
-	EngineUtils::Name InputAxis::GetID() const{
-		return AxisID;
+	EngineUtils::Name InputAxis::GetName() const{
+		return AxisName;
 	}
 
 	void InputAxis::UpdateAxis(const KeyboardInput& input)	{
