@@ -7,8 +7,14 @@
 //Coati Headers
 #include "MessageBusNode.h"
 
-
 namespace EngineCore {
+
+	enum class LogLevel {
+		INFO,
+		DEBUG,
+		WARNING,
+		ERROR
+	};
 
 	class Console : MessageBusNode {
 	public:
@@ -27,6 +33,13 @@ namespace EngineCore {
 		 * @param message The incomming message
 		 */
 		void ReceiveMessage(const Message &message) override;
+
+		/**
+		 * Allows caller to log message to message bus
+		 * @param message The message to log
+		 * @param level The log's level
+		 */
+		void Log(const std::string message, LogLevel level);
 	
 	private:
 		/**
