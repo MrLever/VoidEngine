@@ -61,77 +61,63 @@ namespace EngineCore {
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks
+		 * @param window The GLFWwindow to destroy
 		 */
-		static void DeleteWindow(GLFWwindow* window) {
-			glfwDestroyWindow(window);
-		}
+		static void DeleteWindow(GLFWwindow* window);
 
 		/**
 		 * Callback to display GLFW errors
+		 * @param error The error's numerical code
+		 * @param description The Error's description
 		 */
-		static void ReportWindowError(int error, const char* description) {
-			std::cerr << "Error: " << description << std::endl;
-		}
+		static void ReportWindowError(int error, const char* description);
 
 		/** 
 		 * Callback to resize the window/draw frame buffer
+		 * @param window The window to be resized
+		 * @param width The new width to apply to the window
+		 * @param height The new height to apply to the window
 		 */
-		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
-			glViewport(0, 0, width, height);
-
-			CurrWindowManager->WindowWidth = width;
-			CurrWindowManager->WindowHeight = height;
-		}
+		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height);
 
 		/**
 		 * Callback to capture keyboard input
+		 * @param window The window reporting this input
+		 * @param key The keyboard key being reported
+		 * @param scancode The platform-specific key code for the key being pressed
+		 * @param action The type of key action being reported
+		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
+		 *             held in conjunction with this button
 		 */
-		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			//Get time stamp for KeyBoardInput
-			auto timeStamp = EngineUtils::GetGameTime();
-
-			//Create Coati KeyboardInput
-			KeyboardInput input(
-				static_cast<KeyboardButton>(key), 
-				static_cast<ButtonState>(action), 
-				timeStamp
-			);
-			
-			//Report Input to Input Interface for later polling.
-			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
-
-		}
+		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 		/**
 		 * Callback to capture mouse button events
+		 * @param window The window reporting this input
+		 * @param button The mouse being reported
+		 * @param action The type of key action being reported
+		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
+		 *             held in conjunction with this button
 		 */
-		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-			//Get time stamp for MouseButton event
-			auto timeStamp = EngineUtils::GetGameTime();
-			
-			//Create Coati MouseInput
-			MouseInput input(
-				static_cast<MouseButton>(button),
-				static_cast<ButtonState>(action),
-				timeStamp
-			);
-
-			//Report input to InputInterface
-			CurrWindowManager->PlayerInterface->ReportMouseKeyInput(input);
-		}
+		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 		/**
 		 * Callback to capture deltas in mouse position
+		 * @param window The window reporting the change in mouse position
+		 * @param xPos The X-coordinate of the cursor's new position
+		 * @param yPos The Y-coordinate of the cursor's new position
 		 */
-		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-			CurrWindowManager->PlayerInterface->ReportMousePosition(xPos, yPos);
-		}
+		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos);
 
 	private:
-		/** Performs initialization of the GLFW library */
+		/** 
+		 * Performs initialization of the GLFW library
+		 */
 		void InitGLFW();
 
-		/** Performs initialization of the GLAD library */
+		/** 
+		 * Performs initialization of the GLAD library 
+		 */
 		void InitGLAD();
 
 		/** The game's window */

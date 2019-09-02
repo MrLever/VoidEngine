@@ -31,8 +31,10 @@ namespace EngineCore {
 		glfwTerminate();
 	}
 
+	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
+		CurrWindowManager->PlayerInterface->ReportMousePosition(xPos, yPos);
+	}
 
-	//Private Member Functions
 
 	void WindowManager::InitGLFW() {
 		if (glfwInit() == GLFW_FALSE) {
@@ -76,8 +78,6 @@ namespace EngineCore {
 		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
-	//Public Member Functions
-
 	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
 		return Window;
 	}
@@ -93,6 +93,52 @@ namespace EngineCore {
 
 	std::shared_ptr<InputInterfaceManager> WindowManager::GetInputInterface() {
 		return PlayerInterface;
+	}
+
+	void WindowManager::DeleteWindow(GLFWwindow* window) {
+		glfwDestroyWindow(window);
+	}
+
+	void WindowManager::ReportWindowError(int error, const char* description) {
+		std::cerr << "Error: " << description << std::endl;
+	}
+
+	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
+		glViewport(0, 0, width, height);
+
+		CurrWindowManager->WindowWidth = width;
+		CurrWindowManager->WindowHeight = height;
+	}
+
+	void WindowManager::KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		//Get time stamp for KeyBoardInput
+		auto timeStamp = EngineUtils::GetGameTime();
+
+		//Create Input wrapper object
+		KeyboardInput input(
+			static_cast<KeyboardButton>(key),
+			static_cast<ButtonState>(action),
+			timeStamp
+		);
+
+		//Report Input to Input Interface for later polling.
+		CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
+
+	}
+
+	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+		//Get time stamp for MouseButton event
+		auto timeStamp = EngineUtils::GetGameTime();
+
+		//Create Coati MouseInput
+		MouseInput input(
+			static_cast<MouseButton>(button),
+			static_cast<ButtonState>(action),
+			timeStamp
+		);
+
+		//Report input to InputInterface
+		CurrWindowManager->PlayerInterface->ReportMouseKeyInput(input);
 	}
 
 }

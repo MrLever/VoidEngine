@@ -162,9 +162,6 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files\Engine Core\Rendering System</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Gameplay Framework\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files\Engine Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +275,6 @@
     <ClInclude Include="Level.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\Engine Core\Rendering System</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
@@ -328,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
