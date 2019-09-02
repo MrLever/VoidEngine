@@ -22,7 +22,7 @@ namespace EngineCore {
 
 	}
 
-	int Level::GetID() const {
+	int Level::GetName() const {
 
 		return levelID;
 

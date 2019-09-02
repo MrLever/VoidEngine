@@ -17,7 +17,7 @@ namespace EngineCore {
 		~Level();
 
 		//Accessors
-		int GetID() const;
+		int GetName() const;
 
 		//Tick function;
 		void Tick();

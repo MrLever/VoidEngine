@@ -54,7 +54,7 @@ namespace EngineCore {
 		 * Get's this objects Name
 		 * @return the Object's ID
 		 */
-		EngineUtils::Name GetID() const;
+		EngineUtils::Name GetName() const;
 
 		/**
 		 * Get the Action's type
