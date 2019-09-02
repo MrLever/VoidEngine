@@ -19,7 +19,7 @@ namespace EngineCore {
 	);
 
 	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
-		: GameName(std::move(gameName)) {
+		: GameName(std::move(gameName)), IsFullscreen(false) {
 		
 		WindowWidth = windowWidth;
 		WindowHeight = windowHeight;
@@ -84,6 +84,24 @@ namespace EngineCore {
 		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
+	void WindowManager::ToggleFullscreen() {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		const int RESTORE_WIDTH = 640;
+		const int RESTORE_HEIGHT = 480;
+		if (!IsFullscreen) {
+			WindowWidth = mode->width;
+			WindowHeight = mode->height;
+
+			glfwSetWindowMonitor(Window.get(), glfwGetPrimaryMonitor(), 0, 0, WindowWidth, WindowHeight, GLFW_DONT_CARE);
+			IsFullscreen = true;
+		}
+		else {
+			glfwSetWindowMonitor(Window.get(), NULL, mode->width / 2, mode->height / 2, RESTORE_WIDTH, RESTORE_HEIGHT, GLFW_DONT_CARE);
+			IsFullscreen = false;
+		}
+
+	}
+
 	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
 		return Window;
 	}
@@ -129,7 +147,7 @@ namespace EngineCore {
 		);
 
 		if (input == ToggleFullscreenInput) {
-			std::cout << "Toggle fullscreen";
+			CurrWindowManager->ToggleFullscreen();
 		}
 		else {
 			//Report Input to Input Interface for later polling.

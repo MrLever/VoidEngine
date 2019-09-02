@@ -120,6 +120,11 @@ namespace EngineCore {
 		 */
 		void InitGLAD();
 
+		/**
+		 * Toggle fullscreen
+		 */
+		void ToggleFullscreen();
+
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> Window;
 		
@@ -134,6 +139,9 @@ namespace EngineCore {
 
 		/** The window's height */
 		int WindowHeight;
+
+		/** Flag to determine if the current window is fullscreen */
+		bool IsFullscreen;
 
 		/** Pointer to the active window manager to allow static callback functions to work properly */
 		static WindowManager* CurrWindowManager;
