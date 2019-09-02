@@ -11,7 +11,8 @@
 
 namespace EngineCore {
 	/**
-	 * @class EventTable Data structure to represent a map of Message -> Callable
+	 * @class EventTable 
+	 * @brief Data structure to represent a map of Message -> Callable
 	 */
 	class EventTable {
 	public:
