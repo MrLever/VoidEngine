@@ -7,17 +7,41 @@
 //Coati Headers
 #include "Console.h"
 #include "MessageBus.h"
+#include "TimeUtils.h"
 
 namespace EngineCore {
 
 	//CTORS
 	Console::Console(std::shared_ptr<MessageBus> Bus) : MessageBusNode(std::move(Bus)){
 		OutputActive = true;
-		this->RegisterReciever();
-		this->RegisterEvents();
+		RegisterReciever();
+		RegisterEvents();
 	}
 
 	//Private Member Functions
+
+	void Console::Log(const std::string message, LogLevel level = LogLevel::DEBUG) {
+		std::string prefix = std::to_string(EngineUtils::GetGameTime());
+		switch (level) {
+			case LogLevel::INFO:
+				prefix += " INFO: ";
+				break;
+			case LogLevel::DEBUG:
+				prefix += " DEBUG: ";
+				break;
+			case LogLevel::WARNING:
+				prefix += " WARNING: ";
+				break;
+			case LogLevel::ERROR:
+			default:
+				prefix += " ERROR: ";
+		}
+
+		Message logMessage(prefix + message, MessageType::Log);
+
+		GameMessageBus->PublishMessage(logMessage);
+
+	}
 
 	void Console::ToggleOutputActive(){
 		OutputActive = !OutputActive;
@@ -26,7 +50,7 @@ namespace EngineCore {
 	void Console::RegisterReciever() {
 		GameMessageBus->AddReceiver(
 			this,
-			MessageType::DebugACK
+			MessageType::ACK
 		);
 	}
 
@@ -45,12 +69,10 @@ namespace EngineCore {
 	//Public Member Functions
 	void Console::ReceiveMessage(const Message &message) {
 		if (OutputActive) {
-			std::cout << "CONSOLE: " << message.GetEvent() << "\n";
+			std::cout << message.GetEvent() << "\n";
 		}
 		
-		if (Events[message]) {
-			Events[message]();
-		}
+		MessageBusNode::ReceiveMessage(message);
 	}
 
 }

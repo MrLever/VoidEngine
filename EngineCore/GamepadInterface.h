@@ -4,17 +4,20 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInputInterface.h"
+#include "InputInterface.h"
 #include "GamepadInput.h"
 
 namespace EngineCore {
 
-	class GamepadInterface : public GenericInputInterface {
-
+	/**
+	 * @class MouseInterface
+	 * @brief Provides extra interface functionalities for handling joystick 
+	 *        and analog trigger inputs
+	 */
+	class GamepadInterface : public InputInterface<GamepadInput>{
 	public:
-		GamepadInterface(int ID);
-		~GamepadInterface();
-
+		GamepadInterface() = default;
+		~GamepadInterface() = default;
 	};
 
 }

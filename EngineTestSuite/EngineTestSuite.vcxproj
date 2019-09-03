@@ -178,31 +178,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestConfigurable.cpp" />
     <ClCompile Include="TestConfigurationResource.cpp" />
-    <ClCompile Include="ConsoleTests.cpp" />
-    <ClCompile Include="EngineUtilitiesTests.cpp" />
-    <ClCompile Include="EventTableTests.cpp" />
-    <ClCompile Include="InputAxisTests.cpp" />
-    <ClCompile Include="InputDefinitionTests.cpp" />
-    <ClCompile Include="InputManagerTests.cpp" />
-    <ClCompile Include="KeyBindingsTests.cpp" />
-    <ClCompile Include="MessageBusTests.cpp" />
+    <ClCompile Include="TestConsole.cpp" />
+    <ClCompile Include="TestEngineUtilities.cpp" />
+    <ClCompile Include="TestEventTable.cpp" />
+    <ClCompile Include="TestInputAxis.cpp" />
+    <ClCompile Include="TestInputDefinitions.cpp" />
+    <ClCompile Include="TestInputManager.cpp" />
+    <ClCompile Include="TestKeyBindings.cpp" />
+    <ClCompile Include="TestMessageBus.cpp" />
     <ClCompile Include="TestResourceManager.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="ThreadPoolTests.cpp" />
-    <ClCompile Include="UUIDTests.cpp" />
-    <ClCompile Include="WindowManagerTests.cpp" />
+    <ClCompile Include="TestThreadPool.cpp" />
+    <ClCompile Include="TestName.cpp" />
+    <ClCompile Include="TestWindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\LUA\LUA.vcxproj">

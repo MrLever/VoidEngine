@@ -34,7 +34,7 @@ namespace EngineCore {
 		return Event;
 	}
 
-	EngineUtils::UUID Message::GetEventID() const {
+	EngineUtils::Name Message::GetEventID() const {
 		return ID;
 	}
 
@@ -46,5 +46,9 @@ namespace EngineCore {
 
 
 	//Public Functions
+
+	std::ostream& operator<<(std::ostream& out, const Message& message){
+		return out << message.Event;
+	}
 
 }

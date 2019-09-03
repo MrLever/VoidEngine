@@ -5,27 +5,18 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInputInterface.h"
+#include "InputInterface.h"
 #include "KeyboardInput.h"
 
 namespace EngineCore {
 
-	class KeyboardInterface : public GenericInputInterface {
-	private:
-
-
+	/**
+	 * @class KeyboardInterface
+	 */
+	class KeyboardInterface : public InputInterface<KeyboardInput> {
 	public:
-		//tors
-		KeyboardInterface(int ID);
-		~KeyboardInterface();
-	
-	private:
-		//private member functions
-	
-	public:
-		//public member functions
-
-
+		KeyboardInterface() = default;
+		~KeyboardInterface() = default;
 	};
 
 }

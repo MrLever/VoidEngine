@@ -22,15 +22,6 @@
     <Filter Include="Header Files\Engine Core\Rendering System">
       <UniqueIdentifier>{637b8c7d-d168-475c-ab88-9e4366d4c1a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Core\Engine Utilities">
-      <UniqueIdentifier>{84aa6ca0-4105-4183-ae32-d96c63b44742}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine Core\Engine Utilities\Resource Manager">
-      <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine Core\Engine Utilities\Configuration Manager">
-      <UniqueIdentifier>{3916f485-6976-4a06-9e2c-d89e6f530762}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Core\Input System">
       <UniqueIdentifier>{72599593-0d51-4965-a79e-bbe391b6eb1f}</UniqueIdentifier>
     </Filter>
@@ -51,15 +42,6 @@
     </Filter>
     <Filter Include="Source Files\Engine Core">
       <UniqueIdentifier>{4810fcaa-e4e2-4835-9f69-40d80122ded6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Engine Utilities">
-      <UniqueIdentifier>{b2bf4e35-68e7-4827-a5dc-f9ddbaae10b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Engine Utilities\Configuration Manager">
-      <UniqueIdentifier>{b8550037-cd20-4d4b-a946-9bb1260f2f47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Engine Utilities\Resource Manager">
-      <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine Core\Audio System">
       <UniqueIdentifier>{e93b257c-8b6d-4991-b18b-03ffc6e05158}</UniqueIdentifier>
@@ -82,33 +64,48 @@
     <Filter Include="Source Files\Gameplay Framework\Messaging Systems">
       <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Core\Engine Utilities\ThreadPool">
+    <Filter Include="Header Files\Gameplay Framework\Entity System">
+      <UniqueIdentifier>{9c56a83f-7801-4f31-acc5-47db73bf201d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Entity System">
+      <UniqueIdentifier>{d8078736-ae91-4294-887a-b657c793bd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Utilities">
+      <UniqueIdentifier>{84aa6ca0-4105-4183-ae32-d96c63b44742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Utilities\Resource Manager">
+      <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Utilities\Configuration Manager">
+      <UniqueIdentifier>{3916f485-6976-4a06-9e2c-d89e6f530762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{17acf3c0-45e7-43ba-bb38-b494261bbc0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine Core\Engine Utilities\ThreadPool">
+    <Filter Include="Source Files\Engine Utilities">
+      <UniqueIdentifier>{b2bf4e35-68e7-4827-a5dc-f9ddbaae10b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Utilities\Configuration Manager">
+      <UniqueIdentifier>{b8550037-cd20-4d4b-a946-9bb1260f2f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Utilities\Resource Manager">
+      <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Controllers">
+      <UniqueIdentifier>{084256e0-f99d-450b-8dfd-bc35940830dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Controllers">
+      <UniqueIdentifier>{9ae49d10-50d6-4924-9aad-d3801e6a81db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GamepadInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="GenericInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseInput.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
     <ClCompile Include="GamepadInterface.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="GenericInputInterface.cpp">
       <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="InputInterfaceManager.cpp">
@@ -145,16 +142,16 @@
       <Filter>Dependencies</Filter>
     </ClCompile>
     <ClCompile Include="TimeUtils.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities</Filter>
+      <Filter>Source Files\Engine Utilities</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files\Engine Core\Audio System</Filter>
     </ClCompile>
     <ClCompile Include="Configurable.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+      <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
     </ClCompile>
     <ClCompile Include="Serializable.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities</Filter>
+      <Filter>Source Files\Engine Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
@@ -165,26 +162,23 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files\Engine Core\Rendering System</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+      <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
     <ClCompile Include="ThreadPoolWorker.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+      <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
     <ClCompile Include="ResourceHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
-      <Filter>Source Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+      <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
     </ClCompile>
     <ClCompile Include="EngineInterface.cpp">
       <Filter>Source Files\Engine Core</Filter>
@@ -195,12 +189,24 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Gameplay Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Source Files\Gameplay Framework\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="GenericInput.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="InputAxis.h">
@@ -213,9 +219,6 @@
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="GamepadInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GenericInputInterface.h">
       <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="InputInterfaceManager.h">
@@ -249,19 +252,19 @@
       <Filter>Header Files\Gameplay Framework\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="EngineUtilities.h">
-      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
     <ClInclude Include="TimeUtils.h">
-      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Header Files\Engine Core\Audio System</Filter>
     </ClInclude>
     <ClInclude Include="Configurable.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
     </ClInclude>
     <ClInclude Include="Serializable.h">
-      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
@@ -272,32 +275,26 @@
     <ClInclude Include="Level.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\Engine Core\Rendering System</Filter>
-    </ClInclude>
-    <ClInclude Include="UUID.h">
-      <Filter>Header Files\Engine Core\Engine Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadPool.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+      <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
     <ClInclude Include="ThreadSafeQueue.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+      <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
     <ClInclude Include="ThreadPoolWorker.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\ThreadPool</Filter>
+      <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHandle.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\Resource Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
     </ClInclude>
     <ClInclude Include="Configuration.h">
-      <Filter>Header Files\Engine Core\Engine Utilities\Configuration Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
     </ClInclude>
     <ClInclude Include="EngineInterface.h">
       <Filter>Header Files\Engine Core</Filter>
@@ -307,6 +304,30 @@
     </ClInclude>
     <ClInclude Include="Console.h">
       <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\Gameplay Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Name.h">
+      <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Header Files\Gameplay Framework\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputInterface.h">
+      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,7 +13,8 @@
 
 namespace EngineCore {
 
-	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> Bus) : GameMessageBus(std::move(Bus)) {
+	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> messageBus) 
+		: GameMessageBus(std::move(messageBus)) {
 
 		if (!this->GameMessageBus) {
 			std::cout << "no message bus";
@@ -27,7 +28,7 @@ namespace EngineCore {
 	// Protected Member Functions
 
 	void MessageBusNode::RegisterReciever() {
-		GameMessageBus->AddReceiver(this, MessageType::DebugNACK);
+		GameMessageBus->AddReceiver(this, MessageType::NACK);
 	}
 
 	void MessageBusNode::UnregisterReciever() {
@@ -43,13 +44,10 @@ namespace EngineCore {
 		GameMessageBus->PublishMessage(message);
 	}
 
-	// Public Member Functions
-
-	std::function<void(Message)>MessageBusNode::GetMessageReceiveFunction() {
-		auto receiveFunction = [=](const Message &message) -> void {
-			this->ReceiveMessage(message);
-		};
-		return receiveFunction;
+	void MessageBusNode::ReceiveMessage(const Message& message) {
+		if (Events[message]) {
+			Events[message]();
+		}
 	}
 
 }

@@ -11,9 +11,8 @@
 namespace EngineCore {
 	//CTORS
 	Renderer::Renderer(
-		std::shared_ptr<WindowManager> window, EngineInterfacePtr engineInterface, const std::string& configFile) 
-		: Configurable(configFile, engineInterface->GetResourceManager()), 
-		  VoidEngineInterface(std::move(engineInterface)),
+		std::shared_ptr<WindowManager> window, EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration) 
+		: Configurable(configuration), VoidEngineInterface(std::move(engineInterface)),
 		  Window(std::move(window)) {
 		
 		this->Window = Window;
@@ -27,7 +26,7 @@ namespace EngineCore {
 	//Public Member Functions
 
 	void Renderer::Render() {
-		glClearColor(0.8f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		Window->SwapBuffers();

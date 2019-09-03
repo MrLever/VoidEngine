@@ -9,6 +9,7 @@
 //Coati Headers
 #include "Configurable.h"
 #include "EngineInterface.h"
+#include "ResourceHandle.h"
 #include "MessageBusNode.h"
 
 namespace EngineCore {
@@ -21,7 +22,7 @@ namespace EngineCore {
 		 * @param engineInterface Shared pointer to the engine utility interface this system will use
 		 * @param configFile The file location of the configuration file this system will use
 		 */
-		AudioManager(EngineInterfacePtr engineInterface, const std::string& configFile);
+		AudioManager(EngineInterfacePtr engineInterface, EngineUtils::ResourceHandle configuration);
 		
 		/**
 		 * Destructor

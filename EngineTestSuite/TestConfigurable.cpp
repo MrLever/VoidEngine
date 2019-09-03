@@ -1,12 +1,12 @@
 //STD Headers
 
 //Library Headers
-#include "stdafx.h"
 #include "CppUnitTest.h"
 
 //Void Engine Headers
 #include "Configurable.h"
-
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 
 
 
@@ -17,19 +17,18 @@ namespace EngineUtilitiesTests {
 
 	class DummyConfigurable : public Configurable {
 	public:
-		DummyConfigurable(std::string configFile, std::shared_ptr<ResourceManager> resourceManager) 
-			: Configurable(configFile, resourceManager) {
+		DummyConfigurable(ResourceHandle handle) 
+			: Configurable(handle) {
 			StringProperty = "Error";
 			IntegerProperty = -1;
 			FloatProperty = -1.0f;
-			LoadConfiguration();
 		}
 
 		void Configure() override {
-			Config = ResourceMngr->GetResource<Configuration>(ConfigFilePath);
-			StringProperty = Config->GetAttribute<std::string>("stringProperty");
-			IntegerProperty = Config->GetAttribute<int>("integerProperty");
-			FloatProperty = Config->GetAttribute<float>("floatProperty");
+			auto config = Config.GetResource<Configuration>();
+			StringProperty = config->GetAttribute<std::string>("stringProperty");
+			IntegerProperty = config->GetAttribute<int>("integerProperty");
+			FloatProperty = config->GetAttribute<float>("floatProperty");
 		}
 
 		std::string StringProperty;
@@ -40,11 +39,10 @@ namespace EngineUtilitiesTests {
 	TEST_CLASS(ConfigurableTests) {
 		TEST_METHOD(ConfigurableConfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager resourceMngr(pool);
+			auto resourceMngr = std::make_shared<ResourceManager>(pool);
 
 			DummyConfigurable d(
-				"Settings/Testing/ConfigurableTest1.lua", 
-				std::make_shared<ResourceManager>(resourceMngr)
+				resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua")
 			);
 
 			d.Configure();
@@ -56,11 +54,12 @@ namespace EngineUtilitiesTests {
 
 		TEST_METHOD(ConfigurableReconfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager resourceMngr(pool);
-
+			auto resourceMngr = std::make_shared<ResourceManager>(pool);
+			auto resource1 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua");
+			auto resource2 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.lua");
+			
 			DummyConfigurable d(
-				"Settings/Testing/ConfigurableTest1.lua",
-				std::make_shared<ResourceManager>(resourceMngr)
+				resource1
 			);
 
 			d.Configure();
@@ -69,7 +68,10 @@ namespace EngineUtilitiesTests {
 			Assert::AreEqual(1, d.IntegerProperty);
 			Assert::AreEqual(1.0f, d.FloatProperty);
 
-			d.Reconfigure("Settings/Testing/ConfigurableTest2.lua");
+			d.Reconfigure(
+				resource2
+			);
+
 			Assert::AreEqual(std::string("test2"), d.StringProperty);
 			Assert::AreEqual(2, d.IntegerProperty);
 			Assert::AreEqual(2.0f, d.FloatProperty);

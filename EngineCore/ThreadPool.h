@@ -26,7 +26,6 @@ namespace EngineUtils {
 		/** Reveals private threadpool data to the thread pool workers */
 		friend class ThreadPoolWorker;
 
-		///CTORS
 		/**
 		 * Default Constructor
 		 */
@@ -44,7 +43,6 @@ namespace EngineUtils {
 		 */
 		~ThreadPool();
 
-		///Public Member Function
 		/**
 		 * Variadic template function that submits work to be executed on an arbitrary thread
 		 * @param f Universal reference to a function
@@ -67,17 +65,15 @@ namespace EngineUtils {
 		void Terminate();
 
 	private:
-		///Private member functions
 		void StartThreads();
 
-		///Private class members
 		/** Number of active threads in the pool */
 		int NumThreads;
 
 		/** Flag for the workers to query if the thread pool has been shut down */
 		bool Terminated;
 
-		/** */
+		/** Collection of worker threads */
 		std::vector<std::thread> WorkerThreads;
 
 		/** Queue of submitted jobs to process */
@@ -92,18 +88,14 @@ namespace EngineUtils {
 
 	using ThreadPoolPtr = std::shared_ptr<EngineUtils::ThreadPool>;
 
-	///Template function definitions
 	template<class F, class ...Args>
 	inline auto ThreadPool::SubmitJob(F&& f, Args&&... args) -> std::future<decltype(f(args ...))> {
-
-		//Bind arguments to supplied function using a lambda.
-		auto jobLambda = [&]() {
-			return f(std::forward<Args>(args)...);
-		};
+		//Bind arguments to supplied function with perfect forwarding
+		auto boundJob = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
 
 		//Bind arguments to the function, and place it on the heap
 		auto jobPtr = std::make_shared<std::packaged_task<decltype(f(args...))()>> (
-			jobLambda
+			boundJob
 		);
 
 		//Wrap job into a void function so it can be stored in the task queue;

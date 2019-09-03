@@ -14,92 +14,154 @@
 
 
 namespace EngineCore {
-
+	/**
+	 * @class WindowManager
+	 * @brief Object to manage the OS-specific window/input context.
+	 */
 	class WindowManager {
 
-	private:
-		//Private class members
-		std::shared_ptr<GLFWwindow> Window;
-		std::string GameName;
-		std::shared_ptr<InputInterfaceManager> PlayerInterface;
-
-		int WindowWidth;
-		int WindowHeight;
-
-		static WindowManager* CurrWindowManager;
-
-		static const int OPENGL_MAJOR = 4;
-		static const int OPENGL_MINOR = 5;
-
 	public:
-		//CTORS
-		WindowManager(std::string gameName, int windowWidth, int windowHeight);
+		/**
+		 * Constructor
+		 * @param gameName The name to display in the game's window title bar
+		 * @param windowWidth The width of the game window
+		 * @param windowHeight The height of the game window
+		 */
+		WindowManager(const std::string& gameName, int windowWidth, int windowHeight);
+		
+		/**
+		 * Destructor
+		 */
 		~WindowManager();
 
-	private:
-		//Private member functions
-		void InitGLFW();
-		void InitGLAD();
-
-	public:
-		//Public member functions
+		/**
+		 * Function to access a pointer to the GLFW window
+		 * @return Shared_Pointer the active GLFW window
+		 */
 		std::shared_ptr<GLFWwindow> getWindow();
 
+		/**
+		 * Instructs the window to swap buffers, drawing the result of the last render frame
+		 */
 		void SwapBuffers();
+
+		/**
+		 * Function to query status of the managed window
+		 * @return whether the window was terminated or not
+		 */
 		bool WindowTerminated();
 
+		/**
+		 * Provides caller access to the game's active Input Interfaces
+		 * @return A shared pointer to the game's active input interface manager
+		 */
 		std::shared_ptr<InputInterfaceManager> GetInputInterface();
 
-		//Static Functions
-		static void DeleteWindow(GLFWwindow* window) {
-			glfwDestroyWindow(window);
-		}
+		
+		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
+		/**
+		 * Properly deletes the window supplied to avoid memory leaks
+		 * @param window The GLFWwindow to destroy
+		 */
+		static void DeleteWindow(GLFWwindow* window);
 
-		static void ReportWindowError(int error, const char* description) {
-			std::cerr << "Error: " << description << std::endl;
-		}
+		/**
+		 * Callback to display GLFW errors
+		 * @param error The error's numerical code
+		 * @param description The Error's description
+		 */
+		static void ReportWindowError(int error, const char* description);
 
-		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
-			glViewport(0, 0, width, height);
+		/** 
+		 * Callback to resize the window/draw frame buffer
+		 * @param window The window to be resized
+		 * @param width The new width to apply to the window
+		 * @param height The new height to apply to the window
+		 */
+		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height);
 
-			CurrWindowManager->WindowWidth = width;
-			CurrWindowManager->WindowHeight = height;
-		}
+		/**
+		 * Callback to capture keyboard input
+		 * @param window The window reporting this input
+		 * @param key The keyboard key being reported
+		 * @param scancode The platform-specific key code for the key being pressed
+		 * @param action The type of key action being reported
+		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
+		 *             held in conjunction with this button
+		 */
+		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			//Get time stamp for KeyBoardInput
-			auto timeStamp = EngineUtils::GetGameTime();
+		/**
+		 * Callback to capture mouse button events
+		 * @param window The window reporting this input
+		 * @param button The mouse being reported
+		 * @param action The type of key action being reported
+		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
+		 *             held in conjunction with this button
+		 */
+		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
-			//Create Coati KeyboardInput
-			KeyboardInputPtr input = std::make_shared<KeyboardInput>(
-				static_cast<KeyboardButton>(key), 
-				static_cast<ButtonState>(action), 
-				timeStamp
-			);
-			
-			//Report Input to Input Interface for later polling.
-			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
+		/**
+		 * Callback to capture deltas in mouse position
+		 * @param window The window reporting the change in mouse position
+		 * @param xPos The X-coordinate of the cursor's new position
+		 * @param yPos The Y-coordinate of the cursor's new position
+		 */
+		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos);
 
-		}
+		/**
+		 * Callback to capture mouse scroll events 
+		 * @param window The window triggering the callback
+		 * @param xOffset the horizontal value of the scroll action
+		 * @param yOffset the vertical value of the scroll action
+		 */
+		static void MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
-		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-			//Get time stamp for MouseButton event
-			auto timeStamp = EngineUtils::GetGameTime();
-			
-			//Create Coati MouseInput
-			MouseInputPtr input = std::make_shared<MouseInput>(
-				static_cast<MouseButton>(button),
-				static_cast<ButtonState>(action),
-				timeStamp
-			);
+	private:
+		/** 
+		 * Performs initialization of the GLFW library
+		 */
+		void InitGLFW();
 
-			//Report input to InputInterface
-			CurrWindowManager->PlayerInterface->ReportMouseKeyInput(input);
-		}
+		/** 
+		 * Performs initialization of the GLAD library 
+		 */
+		void InitGLAD();
 
-		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-			CurrWindowManager->PlayerInterface->ReportMousePosition(xPos, yPos);
-		}
+		/**
+		 * Toggle fullscreen
+		 */
+		void ToggleFullscreen();
+
+		/** The game's window */
+		std::shared_ptr<GLFWwindow> Window;
+		
+		/** The game's name */
+		std::string GameName;
+
+		/** The interface for all input devices */
+		std::shared_ptr<InputInterfaceManager> PlayerInterface;
+
+		/** The window's width */
+		int WindowWidth;
+
+		/** The window's height */
+		int WindowHeight;
+
+		/** Flag to determine if the current window is fullscreen */
+		bool IsFullscreen;
+
+		/** Pointer to the active window manager to allow static callback functions to work properly */
+		static WindowManager* CurrWindowManager;
+
+		/** OpenGL Major version */
+		static const int OPENGL_MAJOR = 4;
+
+		/** OpenGL Minor version */
+		static const int OPENGL_MINOR = 5;
+	
+		/** Static constant to earmark special Input for toggling fullscreen */
+		static const KeyboardInput ToggleFullscreenInput;
 	};
 
 }

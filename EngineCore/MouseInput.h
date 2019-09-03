@@ -5,38 +5,19 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInput.h"
-#include "EngineUtilities.h"
+#include "Input.h"
 
 namespace EngineCore {
 
 	enum class MouseButton : unsigned {
-		Left = 0,
-		Right = 1,
-		Middle = 2,
-		Thumb_1 = 3,
-		Thumb_2 = 4
+		LEFT = 0,
+		RIGHT = 1,
+		MIDDLE = 2,
+		THUMB_1 = 3,
+		THUMB_2 = 4
 	};
 
-	class MouseInput : public GenericInput{
-	private:
-
-
-	public:
-		//tors
-		MouseInput(MouseButton button, ButtonState state);
-		MouseInput(MouseButton button, ButtonState state, EngineUtils::GameTime timeStamp);
-		~MouseInput();
-
-	private:
-		//Private Class Members
-
-	public:
-		//Public Class Members
-		std::size_t Hash() const override;
-	};
-
-	using MouseInputPtr = std::shared_ptr<MouseInput>;
+	using MouseInput = Input<MouseButton>;
 
 }
 

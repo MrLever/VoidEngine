@@ -23,7 +23,9 @@ namespace EngineCore {
 	class AudioManager;
 	class Console;
 
-
+	/**
+	 * @class Game Framework that defines what a game is in the Void Engine
+	 */
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;
 
@@ -32,7 +34,11 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The game's name
 		 */
-		Game(std::string name);
+		Game(const std::string& name);
+
+		/**
+		 * Destructor
+		 */
 		~Game();
 
 	private:
@@ -70,9 +76,6 @@ namespace EngineCore {
 		/** A Handle to the Engine's main Utilities */
 		std::shared_ptr<EngineInterface> VoidEngineInterface;
 
-		/** The Message bus used to pass events through the simulation */
-		std::shared_ptr<MessageBus> GameMessageBus;
-
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
 		
@@ -88,9 +91,6 @@ namespace EngineCore {
 		/** Reference to the currently active game space */
 		std::unique_ptr<World> GameWorld;
 		
-		/** Pointer to the game's active debug console object */
-		std::unique_ptr<Console> GameConsole;
-
 		/** The name displayed in the game window's title bar */
 		std::string GameName;
 

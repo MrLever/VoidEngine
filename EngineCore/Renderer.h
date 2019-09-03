@@ -15,8 +15,6 @@ namespace EngineCore {
 
 	class Renderer : public EngineUtils::Configurable{
 	public:
-		///CTORS
-		
 		/**
 		 * Constructor
 		 * @param window The Window the renderer draws to
@@ -24,7 +22,7 @@ namespace EngineCore {
 		Renderer(
 			std::shared_ptr<WindowManager> window,
 			EngineInterfacePtr engineInterface,
-			const std::string& configFile
+			const EngineUtils::ResourceHandle& configuration
 		);
 
 		/**
@@ -32,8 +30,6 @@ namespace EngineCore {
 		 */
 		~Renderer();
 
-		///Public member functions
-		
 		/** 
 		 * Draws to the sceen
 		 */
@@ -45,9 +41,6 @@ namespace EngineCore {
 		void Configure() override;
 
 	private:
-		///Private member functions
-
-		///Private class members
 		/** Interface the Renderer uses to access Engine Utility classes */
 		std::shared_ptr<EngineInterface> VoidEngineInterface;
 

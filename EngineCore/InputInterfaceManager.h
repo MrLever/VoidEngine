@@ -13,35 +13,80 @@
 
 namespace EngineCore {
 
+	/**
+	 * @class InputInterfaceManager
+	 * @brief Manages the interfaces for HID devices the engine recognizes
+	 */
 	class InputInterfaceManager {
-		//Forward class Definitions
-
 	public:
-		//Public Class members
-
-	private:
-		//Private Class Members
-		KeyboardInterface Keyboard;
-		MouseInterface Mouse;
-		GamepadInterface Gamepad;
-
-	public:
-		//tors
+		/**
+		 * Constructor
+		 */
 		InputInterfaceManager();
+
+		/**
+		 * Destructor
+		 */
 		~InputInterfaceManager();
 
+		/**
+		 * Callback function for recording captured keyboard input events
+		 * @param input The keyboard input being captured
+		 */
+		void ReportKeyboardInput(const KeyboardInput& input);
+		
+		/**
+		 * Callback function for recording captured mouse button input
+		 * @param input The mouse button input being captured
+		 */
+		void ReportMouseInput(const MouseInput& input);
+
+		/**
+		 * Callback function for recording captured mouse scroll wheel events
+		 * @param scrollOffset The amount of scroll wheel movement being reported
+		 */
+		void ReportMouseInput(double scrollOffset);
+
+		/**
+		 * Callback function for recording captured mouse movement input
+		 * @param x The mouse cursor's new x position
+		 * @param y The mouse cursor's new y position
+		 */
+		void ReportMouseInput(double x, double y);
+
+		/**
+		 * Callback function for recording captured gamepad button input
+		 * @param input The gamebad input being captured
+		 */
+		void ReportGamepadInput(const GamepadInput& input);
+
+		/**
+		 * Function get get a reference to the current keyboard
+		 * @return The engine's active keyboard
+		 */
+		std::shared_ptr<KeyboardInterface> GetKeyboard();
+
+		/**
+		 * Function get get a reference to the current mouse
+		 * @return The engine's active mouse
+		 */
+		std::shared_ptr<MouseInterface> GetMouse();
+
+		/**
+		 * Function get get a reference to the current gamepad
+		 * @return The engine's active gamepad
+		 */
+		std::shared_ptr<GamepadInterface> GetGamepad();
+
 	private:
+		/** The engine's active keeyboard object */
+		std::shared_ptr<KeyboardInterface> Keyboard;
 
-	public:
-		//Public Member Functions
-		void ReportKeyboardInput(const KeyboardInputPtr input);
-		void ReportMouseKeyInput(const MouseInputPtr input);
-		void ReportMousePosition(double x, double y);
-		void ReportGamepadInput(const GamepadInputPtr input);
+		/** The engine's active mouse object */
+		std::shared_ptr<MouseInterface> Mouse;
 
-		InputReport GetKeyboardEvents();
-		InputReport GetMouseButtonEvents();
-		InputReport GetGamepadButtonEvents();
+		/** The engine's active Gamepad object */
+		std::shared_ptr<GamepadInterface> Gamepad;
 	};
 
 }

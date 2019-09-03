@@ -10,7 +10,7 @@
 //Library Headers
 
 //Coati Headers
-#include "GenericInput.h"
+#include "Input.h"
 #include "EngineUtilities.h"
 
 namespace EngineCore {
@@ -141,23 +141,7 @@ namespace EngineCore {
 		MENU = 348
 	};
 
-	class KeyboardInput : public GenericInput{
-	
-	private:
-
-	public:
-		//CTORS
-		KeyboardInput(KeyboardButton key, ButtonState state);
-		KeyboardInput(KeyboardButton key, ButtonState state, EngineUtils::GameTime time);
-		~KeyboardInput();
-
-	private:
-
-	public:
-		std::size_t Hash() const override;
-	};
-
-	using KeyboardInputPtr = std::shared_ptr<KeyboardInput>;
+	using KeyboardInput = Input<KeyboardButton>;
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

@@ -8,6 +8,7 @@
 //Coati Headers
 #include "AudioManager.h"
 #include "Console.h"
+#include "Configuration.h"
 #include "Game.h"
 #include "InputManager.h"
 #include "MessageBus.h"
@@ -20,8 +21,7 @@
 namespace EngineCore {
 
 	//CTORS
-	Game::Game(std::string name) : GameName(std::move(name)) {
-
+	Game::Game(const std::string& name) : GameName(std::move(name)) {
 		FrameRate = 0;
 
 		//Init Higher Level Game Objects
@@ -32,7 +32,7 @@ namespace EngineCore {
 	}
 
 	Game::~Game() {
-		std::cout << "Goodbye!";
+
 	}
 
 	///Private Functions
@@ -54,25 +54,24 @@ namespace EngineCore {
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
 			VoidEngineInterface, 
-			"Settings/RenderingConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
 		//Initialize Input Manager
 		GameInputManager = std::make_unique<InputManager>(
 			Window->GetInputInterface(),
 			VoidEngineInterface,
-			"Settings/InputConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
 		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			VoidEngineInterface,
-			"Settings/AudioConfig.lua"
+			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
+			
 		);
 
-		GameMessageBus = std::make_shared<MessageBus>();
-		GameConsole = std::make_unique<Console>(GameMessageBus);
-		GameWorld = std::make_unique<World>(GameMessageBus);
+		GameWorld = std::make_unique<World>();
 	}
 
 	void Game::ProcessInput() {
@@ -82,9 +81,6 @@ namespace EngineCore {
 	void Game::Update(double deltaSeconds) {
 		//Send the deltaSeconds to the framerate updating function
 		UpdateFramerate(deltaSeconds);
-
-		//Triggers Events
-		GameMessageBus->DispatchMessages();
 
 		//Ticks actors
 		GameWorld->Update(deltaSeconds);

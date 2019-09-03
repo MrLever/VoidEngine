@@ -21,34 +21,34 @@ namespace EngineCore {
 	class MessageBus;
 	class InputEvent;
 
-
+	/**
+	 * @class InputManager
+	 * @brief The InputManager is responsible for processing input events to handle debouncing
+	 *        and detect higher order patterns like double-taps and chords 
+	 */
 	class InputManager : public EngineUtils::Configurable {
 	public:
-		///CTORS
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(std::shared_ptr<InputInterfaceManager> playerInterface, EngineInterfacePtr voidEngineInterface, const std::string& configFile);
+		InputManager(
+			std::shared_ptr<InputInterfaceManager> playerInterface, 
+			EngineInterfacePtr voidEngineInterface, 
+			const EngineUtils::ResourceHandle& configuration
+		);
 
 		/**
 		 * Destructor
 		 */
 		~InputManager() = default;
 
-		///Public member functions
 		/**
 		 * Polls and process all input events for the current frame
 		 */
 		void HandleInput();
 
 	private:
-		///Private member functions
-		/**
-		 * Loads keybindings from HDD
-		 */
-		void LoadKeybindings();
-
 		/**
 		 * Polls and processes keyboard events from the current frame
 		 */
@@ -69,12 +69,17 @@ namespace EngineCore {
 		 */
 		void Configure() override;
 
-		///Private class members
 		/** The keybindings currently used by the input manager */
 		Keybindings Bindings;
 
-		/** The engine's current input interface */
-		std::shared_ptr<InputInterfaceManager> PlayerInterface;
+		/** The engine's active keeyboard object */
+		std::shared_ptr<KeyboardInterface> Keyboard;
+
+		/** The engine's active mouse object */
+		std::shared_ptr<MouseInterface> Mouse;
+
+		/** The engine's active Gamepad object */
+		std::shared_ptr<GamepadInterface> Gamepad;
 		
 		/** Interface the Input Manager uses to access Engine Utility classes */
 		std::shared_ptr<EngineInterface> VoidEngineInterface;

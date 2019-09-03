@@ -11,9 +11,8 @@
 
 namespace EngineCore {
 
-	AudioManager::AudioManager(EngineInterfacePtr engineInterface, const std::string& configFile) 
-		: Configurable(configFile, engineInterface->GetResourceManager()),
-		  VoidEngineInterface(std::move(engineInterface)) {
+	AudioManager::AudioManager(EngineInterfacePtr engineInterface, EngineUtils::ResourceHandle configuration) 
+		: Configurable(configuration), VoidEngineInterface(std::move(engineInterface)) {
 		
 	}
 

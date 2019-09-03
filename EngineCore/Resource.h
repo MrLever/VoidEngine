@@ -7,7 +7,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "UUID.h"
+#include "Name.h"
 
 namespace EngineUtils {
 	/**
@@ -42,11 +42,11 @@ namespace EngineUtils {
 		/**
 		 * Gets the resources' ID
 		 */
-		UUID GetResourceID();
+		Name GetResourceID();
 
 	protected:
 		/** Unique identifier for resource lookup and comparison */
-		UUID ResourceID;
+		Name ResourceID;
 
 		/** Path to the desired resource */
 		std::filesystem::path ResourcePath;

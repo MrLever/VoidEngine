@@ -9,7 +9,7 @@
 
 namespace EngineCore {
 
-	InputAxis::InputAxis(std::string axisName) : AxisName(axisName), AxisID(axisName){
+	InputAxis::InputAxis(std::string axisName) : AxisName(axisName){
 		AxisValue = 0;
 	}
 
@@ -18,15 +18,15 @@ namespace EngineCore {
 	}
 
 	bool InputAxis::operator==(const InputAxis& other){
-		return this->AxisID == other.AxisID;
+		return this->AxisName == other.AxisName;
 	}
 	
 	//Private Member functions
-	void InputAxis::ReleaseBinding(const KeyboardInputPtr input)
+	void InputAxis::ReleaseBinding(const KeyboardInput& input)
 	{
 		//Remove all instances of key being released in the command queue.
 		for (auto it = CommandQueue.begin(); it != CommandQueue.end(); ) {
-			if (*it == input->GetButton<KeyboardButton>()) {
+			if (*it == input.GetButton()) {
 				it = CommandQueue.erase(it);
 			}
 			else {
@@ -44,9 +44,9 @@ namespace EngineCore {
 		}
 	}
 
-	void InputAxis::TriggerBinding(const EngineCore::KeyboardInputPtr input) {
-		AxisValue = AxisBindings[input->GetButton<KeyboardButton>()];
-		CommandQueue.push_back(input->GetButton<KeyboardButton>());
+	void InputAxis::TriggerBinding(const KeyboardInput& input) {
+		AxisValue = AxisBindings[input.GetButton()];
+		CommandQueue.push_back(input.GetButton());
 	}
 
 
@@ -55,22 +55,22 @@ namespace EngineCore {
 		AxisBindings[input] = scale;
 	}
 
-	EngineUtils::UUID InputAxis::GetID() const{
-		return AxisID;
+	EngineUtils::Name InputAxis::GetName() const{
+		return AxisName;
 	}
 
-	void InputAxis::UpdateAxis(const KeyboardInputPtr input)	{
-		if (input->GetButtonState() == ButtonState::Held) {
+	void InputAxis::UpdateAxis(const KeyboardInput& input)	{
+		if (input.GetButtonState() == ButtonState::HELD) {
 			return;
 		}
-		if (AxisBindings.find(input->GetButton<KeyboardButton>()) == AxisBindings.end()) {
+		if (AxisBindings.find(input.GetButton()) == AxisBindings.end()) {
 			return;
 		}
 
-		if (input->GetButtonState() == ButtonState::Pressed) {
+		if (input.GetButtonState() == ButtonState::PRESSED) {
 			TriggerBinding(input);
 		}
-		else if(input->GetButtonState() == ButtonState::Released) {
+		else if(input.GetButtonState() == ButtonState::RELEASED) {
 			ReleaseBinding(input);
 		}
 	}

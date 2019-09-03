@@ -7,9 +7,8 @@
 
 //Void Engine Headers
 #include "Configuration.h"
-#include "UUID.h"
-#include "ResourceManager.h"
-
+#include "Name.h"
+#include "ResourceHandle.h"
 
 namespace EngineUtils {
 	
@@ -25,22 +24,12 @@ namespace EngineUtils {
 		 * @param configFile The configuration file used by the configurable object
 		 * @param resourceManager The resource manager this object depends on to load resources
 		 */
-		Configurable(const std::string& configFile, std::shared_ptr<ResourceManager> resourceManager);
+		Configurable(const ResourceHandle& config);
 		
-		/**
-		 * Instructs the resource manager to begin loading the configuration file
-		 */
-		virtual void LoadConfiguration();
-
-		/**
-		 * Instructs the resource manager to begin reloading the configuration file
-		 */
-		virtual void ReloadConfiguration();
-
 		/**
 		 * Allows the caller to instruct this object to load and apply a new configuration
 		 */
-		virtual void Reconfigure(const std::string& newConfigFilePath);
+		virtual void Reconfigure(ResourceHandle newResource);
 
 		/**
 		 * Pure virtual function to ensure all subclasses define configuration behavior
@@ -52,9 +41,7 @@ namespace EngineUtils {
 		std::string ConfigFilePath;
 
 		/** The configuration resource to be used by this object */
-		std::shared_ptr<Configuration> Config;
+		ResourceHandle Config;
 
-		/** The resource manager to be used by this object */
-		std::shared_ptr<ResourceManager> ResourceMngr;
 	};
 }

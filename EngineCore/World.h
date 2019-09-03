@@ -8,37 +8,44 @@
 //Library Headers
 
 //Project-Coati Headers
-#include "Level.h"
+#include "Console.h"
+#include "SceneManager.h"
+#include "MessageBus.h"
 
 namespace EngineCore {
 
 	//Forward Class declarations
 	class MessageBus;
 
+	/**
+	 * @class World The World is responsible for defining time and space in the simulation
+	 */
 	class World {
-	private:
-		//Private Class Members
-		std::shared_ptr<MessageBus> GameMessageBus;
-		std::unique_ptr<Level> currentLevel;
-
-		std::vector<Level> levelList;
-
 	public:
-		//CTORS
-		World(std::shared_ptr<MessageBus> GameMessageBus);
+		/**
+		 * Constructor
+		 */
+		World();
+		
+		/**
+		 * Destructor
+		 */
 		~World();
 
-
-	private:
-		//Private Class Methods
-
-	public:
-		//Public Class Methods
+		/**
+		 * Instructs the world to update the simulation
+		 */
 		void Update(double deltaSeconds);
 
-		void SwitchLevel(int levelID);
+	private:
+		/** Message Bus used to coordinate game events */
+		std::shared_ptr<MessageBus> GameMessageBus;
+		
+		/** Scene Manager used to coordinate the entities in the simulation */
+		std::shared_ptr<SceneManager> GameSceneManager;
 
-		void Tick();
+		/** The Debug Console used */
+		std::shared_ptr<Console> GameConsole;
 	};
 
 }

@@ -9,27 +9,12 @@
 
 namespace EngineCore {
 
-	Level::Level(int ID) {
-
-		levelID = ID;
+	Level::Level() {
 
 	}
 
 
 	Level::~Level() {
-
-
-
-	}
-
-	int Level::GetID() const {
-
-		return levelID;
-
-	}
-
-	void Level::Tick() {
-
 
 	}
 
