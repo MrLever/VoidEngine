@@ -8,7 +8,7 @@
 namespace SuperVoid {
 	
 	MainMenu::MainMenu() {
-		Entities.emplace_back(std::make_shared<CubeEntity>());
+		Entities.emplace_back(std::make_shared<CubeEntity>("TestCubeEntitiy"));
 	}
 
 	MainMenu::~MainMenu() {
