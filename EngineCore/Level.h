@@ -1,30 +1,34 @@
 #pragma once
 //STD Headers
-
+#include <memory>
+#include <vector>
 
 //Library Headers
 
 
-//Coati Headers
+//Void Engine Headers
+#include "Entity.h"
 
 namespace EngineCore {
 
+	/**
+	 * @class Level
+	 * @brief Class to represent a level in the game
+	 */
 	class Level {
-
 	public:
-		//CTORS
-		Level(int levelID);
+		/**
+		 * Constructor
+		 */
+		Level();
+
+		/**
+		 * Destructor
+		 */
 		~Level();
 
-		//Accessors
-		int GetName() const;
-
-		//Tick function;
-		void Tick();
-
-	private:
-		//Identifier for the Level, 1 will be basic world.
-		int levelID;
+	protected:
+		std::vector<std::shared_ptr<Entity>> Entities;
 
 	};
 

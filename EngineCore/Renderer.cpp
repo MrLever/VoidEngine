@@ -26,7 +26,7 @@ namespace EngineCore {
 	//Public Member Functions
 
 	void Renderer::Render() {
-		glClearColor(0.8f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		Window->SwapBuffers();
