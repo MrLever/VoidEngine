@@ -14,7 +14,10 @@ namespace EngineCore {
 
 	InputManager::InputManager(
 		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration)
-		: Configurable(configuration), PlayerInterface(std::move(playerInterface)), 
+		: Configurable(configuration), 
+		  Keyboard(std::move(playerInterface->GetKeyboard())),
+		  Mouse(std::move(playerInterface->GetMouse())),
+		  Gamepad(std::move(playerInterface->GetGamepad())),
 		  VoidEngineInterface(std::move(engineInterface)) {
 
 	}
@@ -26,7 +29,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::HandleKeyboard() {
-		auto KeyboardEvents = PlayerInterface->GetKeyboardEvents();
+		auto KeyboardEvents = Keyboard->Poll();
 
 		for (const auto& input : KeyboardEvents.Inputs) {
 			if (input.GetButtonState() == ButtonState::PRESSED)
@@ -43,8 +46,10 @@ namespace EngineCore {
 	}
 
 	void InputManager::HandleMouse() {
-		auto MouseButtonEvents = PlayerInterface->GetMouseButtonEvents();
-		
+		auto MouseButtonEvents = Mouse->Poll();
+		auto cursorPosition = Mouse->PollCursorPosition();
+		auto scrollOffset = Mouse->PollScrollOffset();
+
 		//TODO(MrLever): Finish
 		for (const auto& input : MouseButtonEvents.Inputs) {
 			if (input.GetButtonState() == ButtonState::PRESSED)
@@ -59,7 +64,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::HandleGamepad() {
-		auto GamepadEvents = PlayerInterface->GetGamepadButtonEvents();
+		auto GamepadEvents = Gamepad->Poll();
 
 		//TODO(MrLever): Finish
 	}

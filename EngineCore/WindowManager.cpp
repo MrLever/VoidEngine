@@ -38,12 +38,12 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		CurrWindowManager->PlayerInterface->ReportMousePosition(xPos, yPos);
+		CurrWindowManager->PlayerInterface->ReportMouseInput(xPos, yPos);
 	}
 
 
 	void WindowManager::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		std::cout << "\nScroll captured x: " << xOffset << " y: " << yOffset;
+		CurrWindowManager->PlayerInterface->ReportMouseInput(yOffset);
 	}
 
 	void WindowManager::InitGLFW() {
@@ -184,7 +184,7 @@ namespace EngineCore {
 		);
 
 		//Report input to InputInterface
-		CurrWindowManager->PlayerInterface->ReportMouseKeyInput(input);
+		CurrWindowManager->PlayerInterface->ReportMouseInput(input);
 	}
 
 }

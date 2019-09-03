@@ -8,7 +8,10 @@
 namespace EngineCore {
 
 	//tors
-	InputInterfaceManager::InputInterfaceManager() : Keyboard(), Mouse(), Gamepad() {
+	InputInterfaceManager::InputInterfaceManager() 
+		: Keyboard(std::make_shared<KeyboardInterface>()), 
+		  Mouse(std::make_shared<MouseInterface>()), 
+		  Gamepad(std::make_shared<GamepadInterface>()) {
 
 	}
 
@@ -17,37 +20,37 @@ namespace EngineCore {
 
 	}
 
-	
-
-	//Private Member Functions
-
-	//Public Member Functions
 	void InputInterfaceManager::ReportKeyboardInput(const KeyboardInput& input) {
-		Keyboard.PublishInput(input);
+		Keyboard->PublishInput(input);
 	}
 
-	void InputInterfaceManager::ReportMouseKeyInput(const MouseInput& input) {
-		Mouse.PublishInput(input);
+	void InputInterfaceManager::ReportMouseInput(const MouseInput& input) {
+		Mouse->PublishInput(input);
 	}
 
-	void InputInterfaceManager::ReportMousePosition(double x, double y) {
-		Mouse.UpdateMousePosition(x, y);
+	void InputInterfaceManager::ReportMouseInput(double scrollOffset) {
+		Mouse->ReportScrollAction(scrollOffset);
 	}
 
-	void InputInterfaceManager::ReportGamepadInput(const GamepadInput& input)	{
-		Gamepad.PublishInput(input);
+	void InputInterfaceManager::ReportMouseInput(double x, double y) {
+		Mouse->UpdateMousePosition(x, y);
 	}
 
-	InputReport<KeyboardInput> InputInterfaceManager::GetKeyboardEvents() {
-		return Keyboard.Poll();
+	void InputInterfaceManager::ReportGamepadInput(const GamepadInput& input) {
+		Gamepad->PublishInput(input);
 	}
 
-	InputReport<MouseInput> InputInterfaceManager::GetMouseButtonEvents() {
-		return Mouse.Poll();
+	std::shared_ptr<KeyboardInterface> InputInterfaceManager::GetKeyboard(){
+		return Keyboard;
 	}
 
-	InputReport<GamepadInput> InputInterfaceManager::GetGamepadButtonEvents() {
-		return Gamepad.Poll();
+	std::shared_ptr<MouseInterface> InputInterfaceManager::GetMouse() {
+		return Mouse;
+	}
+
+	std::shared_ptr<GamepadInterface> InputInterfaceManager::GetGamepad()
+	{
+		return Gamepad;
 	}
 
 }

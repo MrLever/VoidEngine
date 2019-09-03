@@ -13,7 +13,7 @@ namespace EngineCore {
 		CursorPosition.Y = yPos;
 	}
 
-	void MouseInterface::ReportScrollAction(int delta) {
+	void MouseInterface::ReportScrollAction(double delta) {
 		ScrollOffset += delta;
 	}
 
@@ -21,7 +21,7 @@ namespace EngineCore {
 		return CursorPosition;
 	}
 	
-	int MouseInterface::PollScrollOffset() {
+	double MouseInterface::PollScrollOffset() {
 		auto res = ScrollOffset;
 		
 		//Reset offset after polling

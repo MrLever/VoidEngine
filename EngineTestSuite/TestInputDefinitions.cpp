@@ -42,7 +42,7 @@ namespace EngineCoreTests {
 		}
 
 		TEST_METHOD(MouseInputGetButtonTest) {
-			auto button = MouseButton::Left;
+			auto button = MouseButton::LEFT;
 			MouseInput mouseInput(button, ButtonState::PRESSED);
 
 			Assert::IsTrue(button == mouseInput.GetButton());

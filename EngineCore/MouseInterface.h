@@ -28,7 +28,7 @@ namespace EngineCore {
 		 * Callback function to allow scroll actions to be reported to the input manager
 		 * @param delta The reported scroll movement (Positive means up)
 		 */
-		void ReportScrollAction(int delta);
+		void ReportScrollAction(double delta);
 
 		/**
 		 * Function to allow user to poll most recent cursor position
@@ -40,11 +40,11 @@ namespace EngineCore {
 		 * Function to allow user to poll most recent scroll action
 		 * @return The scroll wheel's delta since the last poll (0 means no action)
 		 */
-		int PollScrollOffset();
+		double PollScrollOffset();
 
 	private:
 		/** The total delta of the scroll wheel since the last polling */
-		int ScrollOffset;
+		double ScrollOffset;
 
 		/** The mouse's 2D position in the game's window */
 		EngineMath::Vector2<double> CursorPosition;

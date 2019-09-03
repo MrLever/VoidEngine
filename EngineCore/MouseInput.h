@@ -11,11 +11,11 @@
 namespace EngineCore {
 
 	enum class MouseButton : unsigned {
-		Left = 0,
-		Right = 1,
-		Middle = 2,
-		Thumb_1 = 3,
-		Thumb_2 = 4
+		LEFT = 0,
+		RIGHT = 1,
+		MIDDLE = 2,
+		THUMB_1 = 3,
+		THUMB_2 = 4
 	};
 
 	using MouseInput = Input<MouseButton>;

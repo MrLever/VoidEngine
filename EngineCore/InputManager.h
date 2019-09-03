@@ -72,8 +72,14 @@ namespace EngineCore {
 		/** The keybindings currently used by the input manager */
 		Keybindings Bindings;
 
-		/** The engine's current input interface */
-		std::shared_ptr<InputInterfaceManager> PlayerInterface;
+		/** The engine's active keeyboard object */
+		std::shared_ptr<KeyboardInterface> Keyboard;
+
+		/** The engine's active mouse object */
+		std::shared_ptr<MouseInterface> Mouse;
+
+		/** The engine's active Gamepad object */
+		std::shared_ptr<GamepadInterface> Gamepad;
 		
 		/** Interface the Input Manager uses to access Engine Utility classes */
 		std::shared_ptr<EngineInterface> VoidEngineInterface;
