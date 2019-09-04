@@ -3,10 +3,11 @@
 #include <string>
 
 //Library headers
-#include "Vector.h"
 
 //Void Engine Headers
 #include "Name.h"
+#include "GraphicsComponent.h"
+#include "Vector.h"
 
 namespace EngineCore {
 
@@ -47,7 +48,7 @@ namespace EngineCore {
 		/**
 		 * Sends draw data for this entity's graphics components to the renderer
 		 */
-		virtual void Draw() = 0;
+		virtual GraphicsComponent Draw();
 
 		/**
 		 * Defines entity death behaviors

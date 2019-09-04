@@ -18,6 +18,10 @@ namespace EngineCore {
 
 	}
 
+	GraphicsComponent Entity::Draw() {
+		return GraphicsComponent();
+	}
+
 	EngineMath::Vector3<float> Entity::GetPostion() {
 		return Position;
 	}

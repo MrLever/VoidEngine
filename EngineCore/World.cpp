@@ -32,4 +32,8 @@ namespace EngineCore {
 		GameSceneManager->UpdateScene(deltaSeconds);
 	}
 
+	std::vector<std::shared_ptr<Entity>> World::GetCurrentScene() {
+		return GameSceneManager->GetScene();
+	}
+
 }

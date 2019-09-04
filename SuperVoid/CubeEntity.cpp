@@ -7,7 +7,14 @@
 
 namespace SuperVoid {
 	CubeEntity::CubeEntity(const std::string& name) : Entity(name) {
-	
+		auto verts = {
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.0f,  0.5f, 0.0f 
+		};
+
+		Model = EngineCore::GraphicsComponent(verts);
+
 	}
 
 	void CubeEntity::BeginPlay() {
@@ -16,7 +23,8 @@ namespace SuperVoid {
 	void CubeEntity::Tick(double deltaSeconds) {
 	}
 	
-	void CubeEntity::Draw() {
+	EngineCore::GraphicsComponent CubeEntity::Draw() {
+		return Model;
 	}
 	
 	void CubeEntity::Terminate() {

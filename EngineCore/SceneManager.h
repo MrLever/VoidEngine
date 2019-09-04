@@ -31,14 +31,11 @@ namespace EngineCore {
 		void UpdateScene(double deltaTime);
 
 		/**
-		 * Facilitates drawing every entity in the scene
-		 */
-		void DrawScene();
-
-		/**
 		 * Instructs every Enity to perform it's BeginPlay logic
 		 */
 		void StartLevel();
+
+		std::vector<std::shared_ptr<Entity>> GetScene();
 
 	private:
 		/** List of all the Entities present in the scene */

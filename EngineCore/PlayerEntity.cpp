@@ -15,8 +15,8 @@ namespace EngineCore {
 
 	}
 
-	void PlayerEntity::Draw() {
-
+	GraphicsComponent PlayerEntity::Draw() {
+		return GraphicsComponent();
 	}
 
 	void PlayerEntity::Terminate() {

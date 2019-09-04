@@ -6,6 +6,7 @@
 
 //Void Engine Headers
 #include "Configurable.h"
+#include "Entity.h"
 #include "EngineInterface.h"
 
 namespace EngineCore {
@@ -32,8 +33,9 @@ namespace EngineCore {
 
 		/** 
 		 * Draws to the sceen
+		 * @param scene The scene to draw
 		 */
-		void Render();
+		void Render(std::vector<std::shared_ptr<Entity>> scene);
 
 		/**
 		 * Applies Renderer Configuration Settings

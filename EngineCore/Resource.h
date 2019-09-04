@@ -37,6 +37,9 @@ namespace EngineUtils {
 		 */
 		virtual bool LoadErrorResource() = 0;
 
+		/**
+		 * Returns whether the resource is valid
+		 */
 		bool GetResourceValid();
 
 		/**

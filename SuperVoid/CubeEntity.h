@@ -2,7 +2,8 @@
 //STD Headers
 
 //Engine Headers
-#include <Entity.h>
+#include "Entity.h"
+#include "GraphicsComponent.h"
 
 //SuperVoid Headers
 
@@ -30,12 +31,16 @@ namespace SuperVoid {
 		/**
 		 * Sends draw data for this entity's graphics components to the renderer
 		 */
-		void Draw() override;
+		EngineCore::GraphicsComponent Draw() override;
 
 		/**
 		 * Defines entity death behaviors
 		 */
 		void Terminate() override;
+
+	private:
+		EngineCore::GraphicsComponent Model;
+
 	};
 
 }

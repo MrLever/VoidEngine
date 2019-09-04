@@ -100,6 +100,18 @@
     <Filter Include="Header Files\Gameplay Framework\Controllers">
       <UniqueIdentifier>{9ae49d10-50d6-4924-9aad-d3801e6a81db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Entity System\Entities">
+      <UniqueIdentifier>{b1f42b01-f380-4c6a-9191-883ce45427ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Entity System\Components">
+      <UniqueIdentifier>{f50cc68b-fc2b-40ec-af4d-3f11928f574a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Entity System\Entities">
+      <UniqueIdentifier>{e175334b-ff60-4aae-aba6-3f9d2e480dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Entity System\Components">
+      <UniqueIdentifier>{973bd7be-457f-4946-852d-5e3705d62e49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputAxis.cpp">
@@ -189,20 +201,26 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerEntity.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Gameplay Framework\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,17 +323,11 @@
     <ClInclude Include="Console.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>Header Files\Engine Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerEntity.h">
-      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Header Files\Gameplay Framework\Controllers</Filter>
@@ -328,6 +340,18 @@
     </ClInclude>
     <ClInclude Include="WindowManager.h">
       <Filter>Header Files\Engine Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

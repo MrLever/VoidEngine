@@ -37,6 +37,11 @@ namespace EngineCore {
 		 */
 		void Update(double deltaSeconds);
 
+		/**
+		 * Instructs the world to get the current scene for rendering
+		 */
+		std::vector<std::shared_ptr<Entity>> GetCurrentScene();
+
 	private:
 		/** Message Bus used to coordinate game events */
 		std::shared_ptr<MessageBus> GameMessageBus;

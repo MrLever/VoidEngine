@@ -107,6 +107,8 @@ namespace EngineCore {
 			IsFullscreen = true;
 		}
 		else {
+			WindowWidth = mode->width / 2;
+			WindowHeight = mode->height / 2;
 			glfwSetWindowMonitor(
 				Window.get(), 
 				NULL, mode->width / 2, mode->height / 2, 
@@ -116,6 +118,7 @@ namespace EngineCore {
 			IsFullscreen = false;
 		}
 
+		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {

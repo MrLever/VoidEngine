@@ -19,13 +19,14 @@ namespace EngineCore {
 		}
 	}
 
-	void SceneManager::DrawScene() {
-	}
-
 	void SceneManager::StartLevel() {
 		for (auto& entity : Entities) {
 			entity->BeginPlay();
 		}
+	}
+
+	std::vector<std::shared_ptr<Entity>> SceneManager::GetScene() {
+		return Entities;
 	}
 
 }

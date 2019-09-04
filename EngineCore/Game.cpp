@@ -87,7 +87,7 @@ namespace EngineCore {
 	}
 
 	void Game::Render() {
-		GameRenderer->Render();
+		GameRenderer->Render(GameWorld->GetCurrentScene());
 	}
 
 	void Game::ExecuteGameLoop() {

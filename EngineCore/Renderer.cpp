@@ -4,30 +4,46 @@
 //Library Headers
 #include "glad/glad.h"
 
-//Coati Headers
+//Void Engine Headers
+#include "Entity.h"
 #include "Renderer.h"
 #include "WindowManager.h"
 
 namespace EngineCore {
-	//CTORS
+
 	Renderer::Renderer(
 		std::shared_ptr<WindowManager> window, EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration) 
 		: Configurable(configuration), VoidEngineInterface(std::move(engineInterface)),
 		  Window(std::move(window)) {
-		
-		this->Window = Window;
 
 	}
 
-
 	Renderer::~Renderer() {
+
 	}
 
 	//Public Member Functions
 
-	void Renderer::Render() {
+	void Renderer::Render(std::vector<std::shared_ptr<Entity>> scene) {
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		for (const auto& entity : scene) {
+			//Aquire the entity's draw data
+			auto drawable = entity->Draw();
+			if (!drawable.IsValid) {
+				continue;
+			}
+
+			//Bind bind the entity's vertex buffer
+			glBindBuffer(GL_ARRAY_BUFFER, drawable.VBO);
+			glBufferData(
+				GL_ARRAY_BUFFER, 
+				sizeof(drawable.Vertices.data()), 
+				drawable.Vertices.data(), 
+				GL_STREAM_DRAW
+			);
+		}
 
 		Window->SwapBuffers();
 	}
