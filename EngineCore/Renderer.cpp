@@ -22,8 +22,6 @@ namespace EngineCore {
 
 	}
 
-	//Public Member Functions
-
 	void Renderer::Render(std::vector<std::shared_ptr<Entity>> scene) {
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -51,7 +49,5 @@ namespace EngineCore {
 	void Renderer::Configure() {
 		//TODO (MrLever): Leverage configuration settings
 	}
-
-	//Private Member Functions
 
 }

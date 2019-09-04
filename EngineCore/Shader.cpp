@@ -14,6 +14,8 @@ namespace EngineCore {
 	}
 
 	Shader::~Shader() {
+		//When the shader is no longer needed, instruct OpenGL to discard it
+		glDeleteShader(ShaderHandle);
 	}
 
 	bool Shader::Load() {

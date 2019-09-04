@@ -218,6 +218,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="ThreadPoolWorker.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
@@ -261,6 +262,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />

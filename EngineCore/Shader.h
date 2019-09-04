@@ -27,6 +27,9 @@ namespace EngineCore {
 		 */
 		Shader(const std::string& name, ShaderType type, const std::string& filePath);
 
+		/**
+		 * Destructor
+		 */
 		~Shader();
 
 		/**
