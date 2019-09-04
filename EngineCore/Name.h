@@ -2,6 +2,7 @@
 //STD Headers
 #include <compare>
 #include <string>
+#include <iostream>
 
 //Library Headers
 
@@ -51,6 +52,11 @@ namespace EngineUtils {
 		friend inline bool operator!= (const std::string& lhs, const Name& rhs);
 
 		/**
+		 * Output stream operator overload
+		 */
+		friend inline std::ostream& operator<< (std::ostream& out, const Name& other);
+
+		/**
 		 * Three-way comparison operator for Name objects
 		 */
 		inline std::strong_ordering operator<=>(const Name& other) const;
@@ -80,6 +86,11 @@ namespace EngineUtils {
 
 	inline bool operator!= (const std::string& lhs, const Name& rhs) {
 		return !(lhs == rhs);
+	}
+
+	std::ostream& operator<< (std::ostream& out, const Name& name) {
+		out << name.StringID;
+		return out;
 	}
 
 	inline std::strong_ordering Name::operator<=>(const Name& other) const {
