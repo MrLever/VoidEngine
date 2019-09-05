@@ -27,20 +27,16 @@ namespace EngineCore {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		for (const auto& entity : scene) {
-			//Aquire the entity's draw data
-			auto drawable = entity->Draw();
-			if (!drawable.IsValid) {
-				continue;
-			}
+			//entity->Draw();
 
-			//Bind bind the entity's vertex buffer
-			glBindBuffer(GL_ARRAY_BUFFER, drawable.VBO);
-			glBufferData(
-				GL_ARRAY_BUFFER, 
-				sizeof(drawable.Vertices.data()), 
-				drawable.Vertices.data(), 
-				GL_STREAM_DRAW
-			);
+			////Bind bind the entity's vertex buffer
+			//glBindBuffer(GL_ARRAY_BUFFER, drawable.VBO);
+			//glBufferData(
+			//	GL_ARRAY_BUFFER, 
+			//	sizeof(drawable.Vertices.data()), 
+			//	drawable.Vertices.data(), 
+			//	GL_STREAM_DRAW
+			//);
 		}
 
 		Window->SwapBuffers();

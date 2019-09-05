@@ -29,7 +29,7 @@ namespace EngineCore {
 		/**
 		 * Sends draw data for this entity's graphics components to the renderer
 		 */
-		virtual GraphicsComponent Draw() override;
+		virtual void Draw() override;
 
 		/**
 		 * Defines entity death behaviors

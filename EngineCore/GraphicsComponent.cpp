@@ -8,11 +8,8 @@
 
 namespace EngineCore {
 
-	GraphicsComponent::GraphicsComponent() : VAO(-1), VBO(-1), IsValid(false) {
-	}
-
-	GraphicsComponent::GraphicsComponent(const std::vector<float>& verts) 
-		: VAO(-1), VBO(-1), IsValid(true), Vertices(std::move(verts)) {
+	GraphicsComponent::GraphicsComponent(const std::vector<float>& model, const ShaderProgram& material)
+	 : VAO(-1), IsValid(true), Vertices(std::move(model)), Material(std::move(material)) {
 		glGenBuffers(1, &VBO);
 	}
 

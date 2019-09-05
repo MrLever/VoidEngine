@@ -12,14 +12,11 @@ namespace EngineCore {
 	}
 
 	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)) {
+	
 	}
 
 	Entity::~Entity() {
 
-	}
-
-	GraphicsComponent Entity::Draw() {
-		return GraphicsComponent();
 	}
 
 	EngineMath::Vector3<float> Entity::GetPostion() {

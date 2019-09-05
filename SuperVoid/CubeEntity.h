@@ -17,6 +17,11 @@ namespace SuperVoid {
 		CubeEntity(const std::string& name);
 
 		/**
+		 * Destructor
+		 */
+		~CubeEntity();
+
+		/**
 		 * Function that defines what the entity does once a level begins.
 		 * @note This function largely acts like an initialization function
 		 */
@@ -31,7 +36,7 @@ namespace SuperVoid {
 		/**
 		 * Sends draw data for this entity's graphics components to the renderer
 		 */
-		EngineCore::GraphicsComponent Draw() override;
+		void Draw() override;
 
 		/**
 		 * Defines entity death behaviors
@@ -39,7 +44,7 @@ namespace SuperVoid {
 		void Terminate() override;
 
 	private:
-		EngineCore::GraphicsComponent Model;
+		EngineCore::GraphicsComponent* Model;
 
 	};
 

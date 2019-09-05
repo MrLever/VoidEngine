@@ -10,7 +10,7 @@
 namespace EngineCore {
 	Shader::Shader(const std::string& name, ShaderType type, const std::string& filePath) 
 		: Resource(filePath), ShaderName(name), Type(type), ShaderHandle(-1) {
-
+		Load();
 	}
 
 	Shader::~Shader() {
@@ -42,5 +42,29 @@ namespace EngineCore {
 	bool Shader::LoadErrorResource() {
 		ShaderSource = "";
 		return false;
+	}
+
+	bool Shader::Compile() {
+		//Attempt to compile shader
+		const char* shaderCode = ShaderSource.c_str();
+		ShaderHandle = glCreateShader(static_cast<GLuint>(Type));
+		glShaderSource(ShaderHandle, 1, &shaderCode, NULL);
+		glCompileShader(ShaderHandle);
+
+		//Verify shader compilation
+		int success;
+		char infoBuffer[1024];
+		glGetShaderiv(ShaderHandle, GL_COMPILE_STATUS, &success);
+
+		if (!success) {
+			glGetShaderInfoLog(ShaderHandle, 1024, NULL, infoBuffer);
+			std::cout << "SHADER COMPILATION ERROR:\n";
+			std::cout << "\tShader Name: " << ShaderName << "\n";
+			std::cout << "\tShader Location: " << ResourcePath << "\n";
+			std::cout << "\tShader Source: \n" << ShaderSource << "\n";
+			return false;
+		}
+
+		return true;
 	}
 }

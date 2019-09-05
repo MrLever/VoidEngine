@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 
 //Void Engine Headers
+#include "ShaderProgram.h"
 
 namespace EngineCore {
 	/**
@@ -19,22 +20,22 @@ namespace EngineCore {
 	public:
 		/**
 		 * Constructor
+		 * @param model The model's vertices
+		 * @param material The model's shader
 		 */
-		GraphicsComponent();
-
-		/**
-		 * Constructor
-		 * @param verts The model's vertices
-		 */
-		GraphicsComponent(const std::vector<float>& verts);
+		GraphicsComponent(const std::vector<float>& model, const ShaderProgram& material);
 
 		/**
 		 * Destructor
 		 */
 		~GraphicsComponent();
 
+	private:
 		/** Vector of vertex data for the entity's model */
 		std::vector<float> Vertices;
+
+		/** The Shader Program to use when drawing this model */
+		ShaderProgram Material;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

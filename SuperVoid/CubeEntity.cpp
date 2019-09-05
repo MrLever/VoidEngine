@@ -1,6 +1,7 @@
 //STD Headers
 
 //Engine Headers
+#include "Shader.h"
 
 //SuperVoid Headers
 #include "CubeEntity.h"
@@ -13,18 +14,26 @@ namespace SuperVoid {
 			 0.0f,  0.5f, 0.0f 
 		};
 
-		Model = EngineCore::GraphicsComponent(verts);
+		EngineCore::Shader vertShader("SimpleVertexShader", EngineCore::ShaderType::VERTEX, "foo");
+		EngineCore::Shader fragShader("SimpleFragShader", EngineCore::ShaderType::FRAGMENT, "bar");
 
+		Model = new EngineCore::GraphicsComponent(verts, EngineCore::ShaderProgram("Simple program", vertShader, fragShader));
+	}
+
+	CubeEntity::~CubeEntity() {
+		delete Model;
 	}
 
 	void CubeEntity::BeginPlay() {
+	
 	}
 
 	void CubeEntity::Tick(double deltaSeconds) {
+	
 	}
 	
-	EngineCore::GraphicsComponent CubeEntity::Draw() {
-		return Model;
+	void CubeEntity::Draw() {
+		
 	}
 	
 	void CubeEntity::Terminate() {

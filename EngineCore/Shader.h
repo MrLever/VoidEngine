@@ -12,13 +12,14 @@
 namespace EngineCore {
 
 	enum class ShaderType {
-		VERTEX,
-		GEOMETRY,
-		FRAGMENT,
-		COMPUTE
+		VERTEX = GL_VERTEX_SHADER,
+		GEOMETRY = GL_GEOMETRY_SHADER,
+		FRAGMENT = GL_FRAGMENT_SHADER,
+		COMPUTE = GL_COMPUTE_SHADER
 	};
-
 	class Shader : public EngineUtils::Resource {
+		friend class ShaderProgram;
+
 	public:
 		/**
 		 * Constructor 
@@ -41,6 +42,11 @@ namespace EngineCore {
 		 * Loads the resource's defualt value if the path provided is invalid
 		 */
 		bool LoadErrorResource() override;
+
+		/**
+		 * Compiles shader code
+		 */
+		bool Compile();
 
 	private:
 		EngineUtils::Name ShaderName;

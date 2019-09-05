@@ -10,7 +10,8 @@
 
 namespace EngineCore {
 	/**
-	 * @class The SceneMangager is responsible for managing active game entities in the simulation
+	 * @class SceneManager
+	 * @brief The SceneMangager is responsible for managing active game entities in the simulation
 	 */
 	class SceneManager {
 	public:
@@ -35,6 +36,10 @@ namespace EngineCore {
 		 */
 		void StartLevel();
 
+		/**
+		 * Member function to allow access the the current scene
+		 * @return The current scene
+		 */
 		std::vector<std::shared_ptr<Entity>> GetScene();
 
 	private:
