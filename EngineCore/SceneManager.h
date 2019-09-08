@@ -26,15 +26,21 @@ namespace EngineCore {
 		~SceneManager();
 
 		/**
-		 * Instructs the SceneManager to update all entities in the scene
-		 * @param deltaTime Time since the last update
+		 * Loads level to prepare it for gameplay
 		 */
-		void UpdateScene(double deltaTime);
+		//void LoadLevel(Level level);
 
 		/**
 		 * Instructs every Enity to perform it's BeginPlay logic
 		 */
 		void StartLevel();
+
+		/**
+		 * Instructs the SceneManager to update all entities in the scene
+		 * @param deltaTime Time since the last update
+		 */
+		void UpdateScene(double deltaTime);
+
 
 		/**
 		 * Member function to allow access the the current scene

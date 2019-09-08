@@ -50,6 +50,10 @@ namespace EngineCore {
 		auto cursorPosition = Mouse->PollCursorPosition();
 		auto scrollOffset = Mouse->PollScrollOffset();
 
+		if (scrollOffset != 0) {
+			std::cout << "Scroll detected, magnitute: " << scrollOffset << "\n";
+		}
+
 		//TODO(MrLever): Finish
 		for (const auto& input : MouseButtonEvents.Inputs) {
 			if (input.GetButtonState() == ButtonState::PRESSED)
