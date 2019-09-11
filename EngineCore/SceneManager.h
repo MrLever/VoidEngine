@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "Level.h"
 
 namespace EngineCore {
 	/**
@@ -28,7 +29,7 @@ namespace EngineCore {
 		/**
 		 * Loads level to prepare it for gameplay
 		 */
-		//void LoadLevel(Level level);
+		void LoadLevel(const Level& level);
 
 		/**
 		 * Instructs every Enity to perform it's BeginPlay logic

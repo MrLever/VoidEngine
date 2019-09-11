@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Levels">
-      <UniqueIdentifier>{bfba6814-79b6-4e26-a053-9bc6185706c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Levels">
-      <UniqueIdentifier>{682dd8cc-9651-4dc6-8e1a-79f34f9a92fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{8a19c926-0a0b-4aef-ad0f-d8773cdc44fd}</UniqueIdentifier>
     </Filter>
@@ -30,17 +24,11 @@
     <ClCompile Include="Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="CubeEntity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Levels</Filter>
-    </ClInclude>
     <ClInclude Include="CubeEntity.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>

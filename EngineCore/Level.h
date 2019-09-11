@@ -1,13 +1,15 @@
 #pragma once
 //STD Headers
+#include <string>
 #include <memory>
 #include <vector>
 
 //Library Headers
-
+#include "nlohmann/json.hpp"
 
 //Void Engine Headers
-#include "Entity.h"
+#include "Name.h"
+#include "Resource.h"
 
 namespace EngineCore {
 
@@ -15,21 +17,32 @@ namespace EngineCore {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level {
+	class Level : EngineUtils::Resource {
 	public:
 		/**
 		 * Constructor
 		 */
-		Level();
+		Level(const std::string& filepath);
 
 		/**
 		 * Destructor
 		 */
 		~Level();
 
-	protected:
-		std::vector<std::shared_ptr<Entity>> Entities;
+		/**
+		 * Loads level JSON data from main memory
+		 * @return whether the load was successful
+		 */
+		bool Load() override;
 
+		/**
+		 * Loads an error level to signify invalid resource location
+		 * @return whether the operation was a success
+		 */
+		bool LoadErrorResource() override;
+
+	private:
+		nlohmann::json LevelData;
 	};
 
 }

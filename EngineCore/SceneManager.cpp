@@ -13,6 +13,10 @@ namespace EngineCore {
 	SceneManager::~SceneManager() {
 	}
 
+	void SceneManager::LoadLevel(const Level& level) {
+		
+	}
+
 	void SceneManager::UpdateScene(double deltaTime) {
 		for (auto entity : Entities) {
 			entity->Tick(deltaTime);
