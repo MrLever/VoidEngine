@@ -43,6 +43,8 @@ namespace EngineCore {
 
 	private:
 		nlohmann::json LevelData;
+
+		EngineUtils::Name LevelName;
 	};
 
 }

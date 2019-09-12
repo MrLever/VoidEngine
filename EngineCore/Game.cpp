@@ -71,7 +71,9 @@ namespace EngineCore {
 			
 		);
 
-		GameWorld = std::make_unique<World>();
+		GameWorld = std::make_unique<World>(
+			std::make_unique<SceneManager>(threadPool, resourceManager)
+		);
 	}
 
 	void Game::ProcessInput() {

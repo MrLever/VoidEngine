@@ -9,7 +9,14 @@
 #include "Entity.h"
 #include "Level.h"
 
+//Forward class definitions
+namespace EngineUtils {
+	class ThreadPool;
+	class ResourceManager;
+}
+
 namespace EngineCore {
+	
 	/**
 	 * @class SceneManager
 	 * @brief The SceneMangager is responsible for managing active game entities in the simulation
@@ -19,7 +26,10 @@ namespace EngineCore {
 		/**
 		 * Constructor
 		 */
-		SceneManager();
+		SceneManager(
+			std::shared_ptr<EngineUtils::ThreadPool> pool, 
+			std::shared_ptr<EngineUtils::ResourceManager> resourceManager
+		);
 
 		/**
 		 * Destructor
@@ -52,6 +62,12 @@ namespace EngineCore {
 	private:
 		/** List of all the Entities present in the scene */
 		std::vector<std::shared_ptr<Entity>> Entities;
+
+		/** The game's active thread pool */
+		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
+
+		/** The game's active resource manager */
+		std::shared_ptr<EngineUtils::ResourceManager> GameResourceManager;
 	};
 
 }

@@ -25,7 +25,7 @@ namespace EngineCore {
 		/**
 		 * Constructor
 		 */
-		World();
+		World(std::unique_ptr<SceneManager> sceneManager);
 		
 		/**
 		 * Destructor

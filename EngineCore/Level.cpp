@@ -9,7 +9,7 @@
 
 namespace EngineCore {
 
-	Level::Level(const std::string& filepath) : Resource(filepath) {
+	Level::Level(const std::string& filepath) : Resource(filepath), LevelName("Error") {
 
 	}
 
@@ -27,7 +27,12 @@ namespace EngineCore {
 
 		level >> LevelData;
 
-		std::cout << LevelData;
+		auto levelName = LevelData.find("name");
+
+		if (levelName != LevelData.end()) {
+			LevelName = levelName.key();
+		}
+
 		return true;
 	}
 

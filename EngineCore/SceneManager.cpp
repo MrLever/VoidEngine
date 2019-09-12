@@ -4,10 +4,15 @@
 
 //Void Engine Headers
 #include "SceneManager.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 
 namespace EngineCore {
 
-	EngineCore::SceneManager::SceneManager() {
+	EngineCore::SceneManager::SceneManager(
+			ThreadPoolPtr pool,	ResourceManagerPtr resourceManager
+		) : GameThreadPool(std::move(pool)), GameResourceManager(std::move(resourceManager)) {
+
 	}
 
 	SceneManager::~SceneManager() {

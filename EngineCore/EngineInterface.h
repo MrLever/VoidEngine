@@ -19,26 +19,26 @@ namespace EngineCore{
 		 * @param resourceManager The egine's main resourceManager
 		 */
 		EngineInterface(
-			EngineUtils::ThreadPoolPtr threadPool,
-			EngineUtils::ResourceManagerPtr resourceManager
+			ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager
 		);
 
 		/**
 		 * Returns a shared_ptr to the Engine's thread pool
 		 */
-		EngineUtils::ThreadPoolPtr GetThreadPool() const;
+		ThreadPoolPtr GetThreadPool() const;
 
 		/**
 		 * Returns a shared_ptr to the Engine's Resource manager
 		 */
-		EngineUtils::ResourceManagerPtr GetResourceManager() const;
+		ResourceManagerPtr GetResourceManager() const;
 
 	private:
 		/** Shared pointer to the Engine's active threadpool */
-		EngineUtils::ThreadPoolPtr EngineThreadPool;
+		ThreadPoolPtr EngineThreadPool;
 
 		/** Shared pointer to the Engine's active resource manager */
-		EngineUtils::ResourceManagerPtr EngineResourceManager;
+		ResourceManagerPtr EngineResourceManager;
 	};
 
 	using EngineInterfacePtr = std::shared_ptr<EngineInterface>;

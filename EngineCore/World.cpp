@@ -12,10 +12,9 @@
 
 namespace EngineCore {
 
-	World::World() {
+	World::World(std::unique_ptr<SceneManager> sceneManager) : GameSceneManager(std::move(sceneManager)) {
 		GameMessageBus = std::make_shared<MessageBus>();
 		GameConsole = std::make_shared<Console>(GameMessageBus);
-		GameSceneManager = std::make_shared<SceneManager>();
 
 		GameConsole->Log("Hello World", LogLevel::INFO);
 	}

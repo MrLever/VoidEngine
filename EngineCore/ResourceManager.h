@@ -68,8 +68,6 @@ namespace EngineUtils {
 		std::recursive_mutex ResourceManagerLock;
 	};
 
-	using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
-
 	template<class T>
 	ResourceHandle ResourceManager::LoadResource(const std::string& resourceLocation) {
 		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
@@ -143,4 +141,6 @@ namespace EngineUtils {
 	}
 
 }
+
+using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
 
