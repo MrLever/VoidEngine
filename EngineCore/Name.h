@@ -27,6 +27,18 @@ namespace EngineUtils {
 		~Name() = default;
 
 		/**
+		 * Assignment operator, other name
+		 * @param other the name to assign to this instance
+		 */
+		Name& operator= (const Name& other);
+
+		/**
+		 * Assignment operator, string
+		 * @param name, the name to assign to this instance
+		 */
+		Name& operator= (const std::string name);
+
+		/**
 		 * Equality operator, other Name
 		 */
 		inline bool operator== (const Name& other) const;
@@ -68,6 +80,26 @@ namespace EngineUtils {
 		unsigned long long ID;
 	};
 	
+	inline Name& Name::operator=(const Name& other) {
+		if (other == *this) {
+			return *this;
+		}
+
+		ID = other.ID;
+		StringID = other.StringID;
+		return *this;
+	}
+
+	inline Name& Name::operator=(const std::string name) {
+		if (StringID == name) {
+			return *this;
+		}
+
+		StringID = name;
+		ID = FNV1aHash(name);
+		return *this;
+	}
+
 	inline bool Name::operator== (const Name& other) const {
 		return ID == other.ID;
 	}
