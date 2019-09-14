@@ -17,7 +17,7 @@ namespace EngineCore {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level : EngineUtils::Resource {
+	class Level : public EngineUtils::Resource {
 	public:
 		/**
 		 * Constructor
@@ -41,9 +41,17 @@ namespace EngineCore {
 		 */
 		bool LoadErrorResource() override;
 
+		/**
+		 * Getter for level's name
+		 * @return The level's name
+		 */
+		EngineUtils::Name GetName();
+
 	private:
+		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;
 
+		/** The level's name */
 		EngineUtils::Name LevelName;
 	};
 

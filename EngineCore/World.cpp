@@ -17,6 +17,8 @@ namespace EngineCore {
 		GameConsole = std::make_shared<Console>(GameMessageBus);
 
 		GameConsole->Log("Hello World", LogLevel::INFO);
+
+		GameSceneManager->LoadLevel("Resources/Levels/DemoLevel.json");
 	}
 
 	World::~World() {

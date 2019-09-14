@@ -9,7 +9,8 @@
 
 namespace EngineCore {
 
-	Level::Level(const std::string& filepath) : Resource(filepath), LevelName("Error") {
+	Level::Level(const std::string& filepath) 
+		: Resource(filepath), LevelName("Error") {
 
 	}
 
@@ -38,6 +39,10 @@ namespace EngineCore {
 
 	bool Level::LoadErrorResource() {
 		return false;
+	}
+
+	EngineUtils::Name Level::GetName() {
+		return LevelName;
 	}
 
 }

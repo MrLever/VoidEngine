@@ -18,8 +18,14 @@ namespace EngineCore {
 	SceneManager::~SceneManager() {
 	}
 
-	void SceneManager::LoadLevel(const Level& level) {
-		
+	void SceneManager::LoadLevel(const std::string& levelPath) {
+		Level l(levelPath);
+		l.Load();
+
+		std::cout << std::filesystem::current_path();
+
+		std::cout << "Level Name: " << l.GetName() << "\n";
+
 	}
 
 	void SceneManager::UpdateScene(double deltaTime) {

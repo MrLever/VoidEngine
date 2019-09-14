@@ -39,7 +39,7 @@ namespace EngineCore {
 		/**
 		 * Loads level to prepare it for gameplay
 		 */
-		void LoadLevel(const Level& level);
+		void LoadLevel(const std::string& levelPath);
 
 		/**
 		 * Instructs every Enity to perform it's BeginPlay logic
@@ -51,7 +51,6 @@ namespace EngineCore {
 		 * @param deltaTime Time since the last update
 		 */
 		void UpdateScene(double deltaTime);
-
 
 		/**
 		 * Member function to allow access the the current scene
