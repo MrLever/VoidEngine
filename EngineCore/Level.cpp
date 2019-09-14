@@ -31,7 +31,7 @@ namespace EngineCore {
 		auto levelName = LevelData.find("name");
 
 		if (levelName != LevelData.end()) {
-			LevelName = levelName.key();
+			LevelName = levelName.value();
 		}
 
 		return true;

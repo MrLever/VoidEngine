@@ -55,7 +55,7 @@ namespace EngineUtils {
 		 * @param resourceLocation The resources location on the hard drive
 		 */
 		template <class T>
-		[[nodiscard]] ResourceHandle GetResource(const std::string& resourceLocation);
+		[[nodiscard]] std::shared_ptr<T> GetResource(const std::string& resourceLocation);
 
 	private:
 		/** The thread pool the Resource Manager depends on for async file IO */
@@ -127,17 +127,17 @@ namespace EngineUtils {
 	}
 	
 	template<class T>
-	inline ResourceHandle ResourceManager::GetResource(const std::string& resourceLocation) {
+	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation) {
 		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
 		Name resourceName(resourceLocation);
 
 		auto RegistryEntry = ResourceRegistry.find(resourceName);
 
 		if ( RegistryEntry == ResourceRegistry.end()) {
-			return LoadResource<T>(resourceLocation);
+			return LoadResource<T>(resourceLocation).GetResource<T>();
 		}
 
-		return RegistryEntry->second;
+		return RegistryEntry->second.GetResource<T>();
 	}
 
 }

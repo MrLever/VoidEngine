@@ -22,10 +22,7 @@ namespace EngineCore {
 		Level l(levelPath);
 		l.Load();
 
-		std::cout << std::filesystem::current_path();
-
 		std::cout << "Level Name: " << l.GetName() << "\n";
-
 	}
 
 	void SceneManager::UpdateScene(double deltaTime) {
