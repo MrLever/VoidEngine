@@ -24,12 +24,24 @@ namespace EngineCore {
 		/**
 		 * Constructor
 		 */
-		Level();
+		Level(const std::string& levelPath);
 
 		/**
 		 * Destructor
 		 */
 		~Level();
+
+		/**
+		 * Loads level JSON data from main memory
+		 * @return whether the load was successful
+		 */
+		bool Load() override;
+
+		/**
+		 * Loads an error level to signify invalid resource location
+		 * @return whether the operation was a success
+		 */
+		bool LoadErrorResource() override;
 
 		/**
 		 * Getter for level's name
