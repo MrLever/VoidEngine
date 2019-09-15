@@ -64,17 +64,13 @@ namespace EngineCore {
 			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
 			
 		);
-
 	}
 
-	void Game::ProcessInput() {
-		GameInputManager->HandleInput();
-	}
-
-	void Game::Update(double deltaSeconds) {
+	void Game::Update(double deltaTime) {
 		//Send the deltaSeconds to the framerate updating function
-		UpdateFramerate(deltaSeconds);
+		UpdateFramerate(deltaTime);
 
+		CurrentLevel->Update(deltaTime);
 	}
 
 	void Game::Render() {
@@ -83,12 +79,13 @@ namespace EngineCore {
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
+		auto currentTime = Timer::now();
 		while (!Window->WindowTerminated()) {
 			//Get current time
-			auto currentTime = Timer::now();
+			currentTime = Timer::now();
 			std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
 
-			ProcessInput();
+			GameInputManager->HandleInput();
 			Update(deltaSeconds.count());
 			Render();
 
@@ -98,18 +95,19 @@ namespace EngineCore {
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
-		const int NumFrames = 10;
-		FrameQueue.push(timeSinceLastFrame);
+		const int FRAME_LIMIT = 10;
+		static int FrameCount;
+		static double CumulativeFrameTime;
 		
-		//Sums the queue if its of size 10
-		if (FrameQueue.size() >= NumFrames) {
-			double frameQueueSum = 0;
-			while(!FrameQueue.empty()){
-				frameQueueSum = frameQueueSum + (FrameQueue.front());
-				FrameQueue.pop();
-			}
-			//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-			FrameRate = static_cast<int>(NumFrames / (frameQueueSum));
+		CumulativeFrameTime += timeSinceLastFrame;
+		
+		if (FrameCount < FRAME_LIMIT) {
+			FrameCount++;
+		}
+		else {
+			FrameRate = static_cast<int>(FRAME_LIMIT / CumulativeFrameTime);
+			FrameCount = 0;
+			CumulativeFrameTime = 0;
 		}
 	}
 

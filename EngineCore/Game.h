@@ -11,6 +11,7 @@
 #include "Configurable.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
+#include "Level.h"
 
 namespace EngineCore {
 
@@ -46,14 +47,10 @@ namespace EngineCore {
 		void InitGame();
 
 		/**
-		 * Instructs the InputManager to poll and process user input 
-		 */
-		void ProcessInput();
-
-		/**
 		 * Instructs entities to update themselves using the current time step
+		 * @param deltaTime Time since the last update in seconds
 		 */
-		void Update(double deltaSeconds);
+		void Update(double deltaTime);
 
 		/**
 		 * Instruct the renderer to draw the current scene
@@ -67,10 +64,14 @@ namespace EngineCore {
 		
 		/**
 		 * Tracks the game's frame rate.
+		 * @param timeSinceLastFrame Time since the last frame, in seconds
 		 */
 		void UpdateFramerate(double timeSinceLastFrame);
 
 	private:
+		/** The game's current level */
+		std::shared_ptr<Level> CurrentLevel;
+
 		/** A Handle to the Engine's thread pool */
 		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
 
@@ -91,9 +92,6 @@ namespace EngineCore {
 		
 		/** The name displayed in the game window's title bar */
 		std::string GameName;
-
-		/** A queue of the last 10 frame durations for framerate calculations */
-		std::queue<double> FrameQueue;
 
 		/** The game's current framerate */
 		int FrameRate;

@@ -18,7 +18,7 @@ namespace EngineCore {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level {
+	class Level : public EngineUtils::Resource {
 	
 	public:
 		/**
@@ -36,6 +36,12 @@ namespace EngineCore {
 		 * @return The level's name
 		 */
 		EngineUtils::Name GetName();
+
+		/**
+		 * Updates all the entities in the level
+		 * @param deltaTime time elapsed since last update
+		 */
+		void Update(double deltaTime);
 
 	private:
 		/** All the entities spawned in the level */

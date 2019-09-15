@@ -21,4 +21,10 @@ namespace EngineCore {
 		return LevelName;
 	}
 
+	void Level::Update(double deltaTime) {
+		for (auto entity : Entities) {
+			entity->Tick(deltaTime);
+		}
+	}
+
 }
