@@ -8,7 +8,7 @@
 
 namespace EngineCore {
 	//Public Member Functions
-	void MouseInterface::UpdateMousePosition(double xPos, double yPos) {
+	void MouseInterface::UpdateMousePosition(float xPos, float yPos) {
 		CursorPosition.X = xPos;
 		CursorPosition.Y = yPos;
 	}
@@ -17,7 +17,7 @@ namespace EngineCore {
 		ScrollOffset += delta;
 	}
 
-	EngineMath::Vector2<double> MouseInterface::PollCursorPosition(){
+	EngineMath::Vector2 MouseInterface::PollCursorPosition(){
 		return CursorPosition;
 	}
 	

@@ -5,6 +5,8 @@
         {
             "name":"TestCube",
             "type":"CubeEntity",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0],
             "graphicsComponent":
             {
                 "model":
@@ -15,12 +17,11 @@
                 ],
                 "material":
                 {
+                    "name":"CubeMaterial",
                     "vertexShader":"Resources/Shaders/cube.vert",
                     "fragmentShader":"Resources/Shaders/cube.frag"
                 }
-            },
-            "location": [0, 0, 0],
-            "rotation": [0, 0, 0]
+            }
         }
     ]
 }

@@ -8,8 +8,8 @@
 #include "Shader.h"
 
 namespace EngineCore {
-	Shader::Shader(const std::string& name, ShaderType type, const std::string& filePath) 
-		: Resource(filePath), ShaderName(name), Type(type), ShaderHandle(-1) {
+	Shader::Shader(ShaderType type, const std::string& filePath) 
+		: Resource(filePath), Type(type), ShaderHandle(-1) {
 		Load();
 	}
 
@@ -59,7 +59,6 @@ namespace EngineCore {
 		if (!success) {
 			glGetShaderInfoLog(ShaderHandle, 1024, NULL, infoBuffer);
 			std::cout << "SHADER COMPILATION ERROR:\n";
-			std::cout << "\tShader Name: " << ShaderName << "\n";
 			std::cout << "\tShader Location: " << ResourcePath << "\n";
 			std::cout << "\tShader Source: \n" << ShaderSource << "\n";
 			return false;

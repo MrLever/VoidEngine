@@ -59,22 +59,27 @@ namespace EngineCore {
 		 * Function to request position of this entity
 		 * @return The entity's position
 		 */
-		EngineMath::Vector3<float> GetPostion();
+		EngineMath::Vector3 GetPostion();
 
 		/**
-		 * Function to set Grahpics Component
+		 * Setter for object's position
 		 */
-		void SetGraphicsComponent(GraphicsComponent* component);
+		void SetPosition(const EngineMath::Vector3& newPosition);
 
 		/**
 		 * Function to get a pointer to this entity's graphics data
 		 * @return this enity's graphics component
 		 */
 		GraphicsComponent* GetGraphicsComponent();
+
+		/**
+		 * Function to set Grahpics Component
+		 */
+		void SetGraphicsComponent(GraphicsComponent* component);
 	
 	protected:
 		/** The entity's position in 3D space */
-		EngineMath::Vector3<float> Position;
+		EngineMath::Vector3 Position;
 
 		/** The entity's rotation (pitch, roll, yaw) */
 		//EngineMath::Rotator<float> Rotation;

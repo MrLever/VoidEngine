@@ -38,7 +38,7 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput(xPos, yPos);
+		CurrWindowManager->PlayerInterface->ReportMouseInput((float)xPos, (float)yPos);
 	}
 
 

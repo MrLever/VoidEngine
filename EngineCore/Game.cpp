@@ -17,6 +17,7 @@
 #include "ThreadPool.h"
 #include "WindowManager.h"
 
+
 namespace EngineCore {
 
 	Game::Game(const std::string& name) : GameName(std::move(name)) {
@@ -24,6 +25,9 @@ namespace EngineCore {
 
 		//Init Higher Level Game Objects
 		InitGame();
+
+		//Set the current level to the default level
+		SetLevel("Resources/Levels/DemoLevel.json");
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -62,8 +66,10 @@ namespace EngineCore {
 			GameThreadPool,
 			GameResourceManager,
 			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
-			
 		);
+
+		GameMessageBus = std::make_shared<MessageBus>();
+		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
 
 	void Game::Update(double deltaTime) {
@@ -109,6 +115,17 @@ namespace EngineCore {
 			FrameCount = 0;
 			CumulativeFrameTime = 0;
 		}
+	}
+
+	void Game::SetLevel(const std::string& newLevelPath) {
+		if (CurrentLevel != nullptr) {
+			//Level unloading logic
+		}
+
+		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		auto entities = CurrentLevel->GetEntityData();
+
+		GameEntityFactory->CreateEntityList(CurrentLevel->GetEntityData());
 	}
 
 }

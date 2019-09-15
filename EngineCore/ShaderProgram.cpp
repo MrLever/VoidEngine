@@ -26,8 +26,8 @@ namespace EngineCore {
 			glGetShaderInfoLog(ProgramHandle, 1024, NULL, infoBuffer);
 
 			std::cout << "SHADER LINK ERROR:\n";
-			std::cout << "\tVertex Shader: " << vertex.ShaderName << "\n";
-			std::cout << "\tFragment Shader: " << fragment.ShaderName << "\n";
+			std::cout << "\tVertex Shader: " << vertex.ResourcePath << "\n";
+			std::cout << "\tFragment Shader: " << fragment.ResourcePath << "\n";
 
 			ProgramValid = false;
 		}

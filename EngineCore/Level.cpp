@@ -14,7 +14,9 @@ namespace EngineCore {
 	}
 
 	Level::~Level() {
-
+		for (auto& entity : Entities) {
+			delete entity;
+		}
 	}
 
 	bool Level::Load() {
@@ -34,13 +36,6 @@ namespace EngineCore {
 
 		LevelName = levelName.value();
 
-		//auto entities = LevelData.find("entities").value();
-		//std::cout << "Entities in level: \n";
-
-		//for (auto& entity : entities) {
-		//	std::cout << "Entity: " << entity["name"] << "\n";
-		//}
-
 		return true;
 	}
 
@@ -52,10 +47,20 @@ namespace EngineCore {
 		return LevelName;
 	}
 
+	void Level::BeginPlay() {
+		for (auto& entity : Entities) {
+			entity->BeginPlay();
+		}
+	}
+
 	void Level::Update(double deltaTime) {
-		for (auto entity : Entities) {
+		for (auto& entity : Entities) {
 			entity->Tick(deltaTime);
 		}
+	}
+
+	nlohmann::json Level::GetEntityData() {
+		return LevelData["entities"];
 	}
 
 }

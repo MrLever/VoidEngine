@@ -50,10 +50,20 @@ namespace EngineCore {
 		EngineUtils::Name GetName();
 
 		/**
+		 * Instructs all entities in level to begin play
+		 */
+		void BeginPlay();
+
+		/**
 		 * Updates all the entities in the level
 		 * @param deltaTime time elapsed since last update
 		 */
 		void Update(double deltaTime);
+
+		/**
+		 * Function to get entity data to send to an entity factory for contruction
+		 */
+		nlohmann::json GetEntityData();
 
 	private:
 		/** All the entities spawned in the level */

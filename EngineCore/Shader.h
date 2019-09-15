@@ -26,7 +26,7 @@ namespace EngineCore {
 		 * @param name The shader's name
 		 * @param filePath Location of the shader source code
 		 */
-		Shader(const std::string& name, ShaderType type, const std::string& filePath);
+		Shader(ShaderType type, const std::string& filePath);
 
 		/**
 		 * Destructor
@@ -45,14 +45,11 @@ namespace EngineCore {
 
 
 	private:
-		
 		/**
 		 * Compiles shader code
 		 * @return Whether that compilation was successful
 		 */
 		bool Compile();
-		
-		EngineUtils::Name ShaderName;
 
 		ShaderType Type;
 

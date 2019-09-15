@@ -19,8 +19,12 @@ namespace EngineCore {
 		delete GraphicsData;
 	}
 
-	EngineMath::Vector3<float> Entity::GetPostion() {
+	EngineMath::Vector3 Entity::GetPostion() {
 		return Position;
+	}
+
+	void Entity::SetPosition(const EngineMath::Vector3& newPosition) {
+		Position = newPosition;
 	}
 	
 	void Entity::SetGraphicsComponent(GraphicsComponent* component) {

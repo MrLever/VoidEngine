@@ -9,9 +9,11 @@
 
 //Coati Headers
 #include "Configurable.h"
+#include "EntityFactory.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 #include "Level.h"
+#include "MessageBus.h"
 
 namespace EngineCore {
 
@@ -68,9 +70,18 @@ namespace EngineCore {
 		 */
 		void UpdateFramerate(double timeSinceLastFrame);
 
+		/**
+		 * Set the game's current level
+		 * @param newLevelPath path to the new level's data file
+		 */
+		void SetLevel(const std::string& newLevelPath);
+
 	private:
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
+
+		/** Entity factory used by levels to generate a scene */
+		std::shared_ptr<EntityFactory> GameEntityFactory;
 
 		/** A Handle to the Engine's thread pool */
 		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
@@ -80,6 +91,12 @@ namespace EngineCore {
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
+
+		/** The game's message bus */
+		std::shared_ptr<MessageBus> GameMessageBus;
+
+		/** The game's console */
+		std::shared_ptr<Console> GameConsole;
 		
 		/** Pointer to the game's Rendering Engine */
 		std::unique_ptr<Renderer> GameRenderer;

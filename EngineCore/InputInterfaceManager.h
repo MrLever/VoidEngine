@@ -52,7 +52,7 @@ namespace EngineCore {
 		 * @param x The mouse cursor's new x position
 		 * @param y The mouse cursor's new y position
 		 */
-		void ReportMouseInput(double x, double y);
+		void ReportMouseInput(float x, float y);
 
 		/**
 		 * Callback function for recording captured gamepad button input
