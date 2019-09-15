@@ -1,14 +1,20 @@
 {
     "name":"TestLevel",
-    "entities":[
+    "entities":
+    [
         {
             "name":"TestCube",
             "type":"CubeEntity",
             "graphicsComponent":{
-                "model":"",
+                "model":
+                [
+                    -0.5, -0.5, 0.0,
+			         0.5, -0.5, 0.0,
+			         0.0,  0.5, 0.0 
+                ],
                 "material":{
-                    "vertexShader":"",
-                    "fragmentShader":""
+                    "vertexShader":"Resources/Shaders/cube.vert",
+                    "fragmentShader":"Resources/Shaders/cube.frag"
                 }
             },
             "location": [0, 0, 0],
