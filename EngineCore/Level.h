@@ -10,6 +10,7 @@
 //Void Engine Headers
 #include "Name.h"
 #include "Resource.h"
+#include "Entity.h"
 
 namespace EngineCore {
 
@@ -17,35 +18,18 @@ namespace EngineCore {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level : public EngineUtils::Resource {
-		/*
-		 * Make SceneManager a friend class to prohbit 
-		 * the proliferation of JSON data out of the level / scene system
-		 */
-		friend class SceneManager;
+	class Level {
 	
 	public:
 		/**
 		 * Constructor
 		 */
-		Level(const std::string& filepath);
+		Level();
 
 		/**
 		 * Destructor
 		 */
 		~Level();
-
-		/**
-		 * Loads level JSON data from main memory
-		 * @return whether the load was successful
-		 */
-		bool Load() override;
-
-		/**
-		 * Loads an error level to signify invalid resource location
-		 * @return whether the operation was a success
-		 */
-		bool LoadErrorResource() override;
 
 		/**
 		 * Getter for level's name
@@ -54,6 +38,9 @@ namespace EngineCore {
 		EngineUtils::Name GetName();
 
 	private:
+		/** All the entities spawned in the level */
+		std::vector<Entity*> Entities;
+
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;
 

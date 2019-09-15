@@ -13,12 +13,11 @@
 namespace EngineCore {
 
 	InputManager::InputManager(
-		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration)
-		: Configurable(configuration), 
-		  Keyboard(std::move(playerInterface->GetKeyboard())),
-		  Mouse(std::move(playerInterface->GetMouse())),
-		  Gamepad(std::move(playerInterface->GetGamepad())),
-		  VoidEngineInterface(std::move(engineInterface)) {
+			std::shared_ptr<InputInterfaceManager> playerInterface, ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
+		) : Configurable(configuration), Keyboard(std::move(playerInterface->GetKeyboard())),
+		  Mouse(std::move(playerInterface->GetMouse())), Gamepad(std::move(playerInterface->GetGamepad())),
+		  GameThreadPool(std::move(threadPool)), GameResourceManager(std::move(resourceManager)) {
 
 	}
 

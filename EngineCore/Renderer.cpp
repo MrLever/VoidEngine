@@ -12,9 +12,10 @@
 namespace EngineCore {
 
 	Renderer::Renderer(
-		std::shared_ptr<WindowManager> window, EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration) 
-		: Configurable(configuration), VoidEngineInterface(std::move(engineInterface)),
-		  Window(std::move(window)) {
+			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
+		  GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
 
 	}
 
@@ -22,22 +23,9 @@ namespace EngineCore {
 
 	}
 
-	void Renderer::Render(std::vector<std::shared_ptr<Entity>> scene) {
+	void Renderer::Render() {
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		for (const auto& entity : scene) {
-			//entity->Draw();
-
-			////Bind bind the entity's vertex buffer
-			//glBindBuffer(GL_ARRAY_BUFFER, drawable.VBO);
-			//glBufferData(
-			//	GL_ARRAY_BUFFER, 
-			//	sizeof(drawable.Vertices.data()), 
-			//	drawable.Vertices.data(), 
-			//	GL_STREAM_DRAW
-			//);
-		}
 
 		Window->SwapBuffers();
 	}

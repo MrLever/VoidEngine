@@ -11,8 +11,11 @@
 
 namespace EngineCore {
 
-	AudioManager::AudioManager(EngineInterfacePtr engineInterface, EngineUtils::ResourceHandle configuration) 
-		: Configurable(configuration), VoidEngineInterface(std::move(engineInterface)) {
+	AudioManager::AudioManager(
+			ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, 
+			EngineUtils::ResourceHandle configuration
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
+		    GameResourceManager(std::move(resourceManager)) {
 		
 	}
 

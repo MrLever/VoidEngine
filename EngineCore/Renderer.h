@@ -7,7 +7,8 @@
 //Void Engine Headers
 #include "Configurable.h"
 #include "Entity.h"
-#include "EngineInterface.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 
 namespace EngineCore {
 
@@ -22,7 +23,8 @@ namespace EngineCore {
 		 */
 		Renderer(
 			std::shared_ptr<WindowManager> window,
-			EngineInterfacePtr engineInterface,
+			ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager,
 			const EngineUtils::ResourceHandle& configuration
 		);
 
@@ -35,7 +37,7 @@ namespace EngineCore {
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render(std::vector<std::shared_ptr<Entity>> scene);
+		void Render();
 
 		/**
 		 * Applies Renderer Configuration Settings
@@ -43,8 +45,11 @@ namespace EngineCore {
 		void Configure() override;
 
 	private:
-		/** Interface the Renderer uses to access Engine Utility classes */
-		std::shared_ptr<EngineInterface> VoidEngineInterface;
+		/** The game's active thread pool */
+		ThreadPoolPtr GameThreadPool;
+
+		/** The game's active resource manager */
+		ResourceManagerPtr GameResourceManager;
 
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;

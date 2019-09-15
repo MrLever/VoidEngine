@@ -19,8 +19,7 @@ namespace EngineCore {
 	}
 
 	void SceneManager::LoadLevel(const std::string& levelPath) {
-		auto level = GameResourceManager->GetResource<Level>(levelPath);
-
+	
 	}
 
 	void SceneManager::UpdateScene(double deltaTime) {

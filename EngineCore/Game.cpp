@@ -16,11 +16,9 @@
 #include "ResourceManager.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
-#include "World.h"
 
 namespace EngineCore {
 
-	//CTORS
 	Game::Game(const std::string& name) : GameName(std::move(name)) {
 		FrameRate = 0;
 
@@ -35,17 +33,10 @@ namespace EngineCore {
 
 	}
 
-	///Private Functions
 	void Game::InitGame() {
 		//Initialize Engine Utilities
-		auto threadPool = std::make_shared<EngineUtils::ThreadPool>();
-		auto resourceManager = std::make_shared<EngineUtils::ResourceManager>(threadPool);
-
-		//Construct the interface through which Core Engine Systems should access engine utilities
-		VoidEngineInterface = std::make_shared<EngineInterface>(
-			threadPool,
-			resourceManager
-		);
+		GameThreadPool = std::make_shared<EngineUtils::ThreadPool>();
+		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(GameName, 800, 600);
@@ -53,27 +44,27 @@ namespace EngineCore {
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
-			VoidEngineInterface, 
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
 		//Initialize Input Manager
 		GameInputManager = std::make_unique<InputManager>(
 			Window->GetInputInterface(),
-			VoidEngineInterface,
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
 		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
-			VoidEngineInterface,
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
 			
 		);
 
-		GameWorld = std::make_unique<World>(
-			std::make_unique<SceneManager>(threadPool, resourceManager)
-		);
 	}
 
 	void Game::ProcessInput() {
@@ -84,12 +75,10 @@ namespace EngineCore {
 		//Send the deltaSeconds to the framerate updating function
 		UpdateFramerate(deltaSeconds);
 
-		//Ticks actors
-		GameWorld->Update(deltaSeconds);
 	}
 
 	void Game::Render() {
-		GameRenderer->Render(GameWorld->GetCurrentScene());
+		GameRenderer->Render();
 	}
 
 	void Game::ExecuteGameLoop() {

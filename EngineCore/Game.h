@@ -9,15 +9,13 @@
 
 //Coati Headers
 #include "Configurable.h"
-#include "EngineInterface.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 
 namespace EngineCore {
 
 	//Forward Class declarations
-	class MessageBus;
 	class WindowManager;
-
-	class World;
 	class Renderer;
 	class InputManager;
 	class AudioManager;
@@ -73,8 +71,11 @@ namespace EngineCore {
 		void UpdateFramerate(double timeSinceLastFrame);
 
 	private:
-		/** A Handle to the Engine's main Utilities */
-		std::shared_ptr<EngineInterface> VoidEngineInterface;
+		/** A Handle to the Engine's thread pool */
+		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
+
+		/** A handle to the Engine's resource manager */
+		std::shared_ptr<EngineUtils::ResourceManager> GameResourceManager;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
@@ -87,9 +88,6 @@ namespace EngineCore {
 
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;
-
-		/** Reference to the currently active game space */
-		std::unique_ptr<World> GameWorld;
 		
 		/** The name displayed in the game window's title bar */
 		std::string GameName;
