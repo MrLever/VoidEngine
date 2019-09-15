@@ -17,11 +17,11 @@ namespace SuperVoid {
 		EngineCore::Shader vertShader("SimpleVertexShader", EngineCore::ShaderType::VERTEX, "foo");
 		EngineCore::Shader fragShader("SimpleFragShader", EngineCore::ShaderType::FRAGMENT, "bar");
 
-		Model = new EngineCore::GraphicsComponent(verts, EngineCore::ShaderProgram("Simple program", vertShader, fragShader));
+		GraphicsData = new EngineCore::GraphicsComponent(verts, EngineCore::ShaderProgram("Simple program", vertShader, fragShader));
 	}
 
 	CubeEntity::~CubeEntity() {
-		delete Model;
+
 	}
 
 	void CubeEntity::BeginPlay() {
@@ -37,5 +37,6 @@ namespace SuperVoid {
 	}
 	
 	void CubeEntity::Terminate() {
+
 	}
 }

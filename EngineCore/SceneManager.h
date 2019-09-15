@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "EntityFactory.h"
 #include "Level.h"
 
 //Forward class definitions
@@ -67,6 +68,9 @@ namespace EngineCore {
 
 		/** The game's active resource manager */
 		std::shared_ptr<EngineUtils::ResourceManager> GameResourceManager;
+		
+		/** Factory object to create Entities for scene */
+		EntityFactory Factory;
 	};
 
 }

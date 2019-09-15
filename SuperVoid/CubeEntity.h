@@ -42,10 +42,6 @@ namespace SuperVoid {
 		 * Defines entity death behaviors
 		 */
 		void Terminate() override;
-
-	private:
-		EngineCore::GraphicsComponent* Model;
-
 	};
 
 }

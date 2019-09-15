@@ -19,10 +19,8 @@ namespace EngineCore {
 	}
 
 	void SceneManager::LoadLevel(const std::string& levelPath) {
-		Level l(levelPath);
-		l.Load();
+		auto level = GameResourceManager->GetResource<Level>(levelPath);
 
-		std::cout << "Level Name: " << l.GetName() << "\n";
 	}
 
 	void SceneManager::UpdateScene(double deltaTime) {

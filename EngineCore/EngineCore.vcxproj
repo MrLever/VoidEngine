@@ -197,6 +197,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="EngineInterface.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
@@ -237,6 +238,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="EngineInterface.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputInterface.h" />
     <ClInclude Include="PlayerController.h" />

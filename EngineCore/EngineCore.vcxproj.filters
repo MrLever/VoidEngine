@@ -225,6 +225,9 @@
     <ClCompile Include="ResourceHandle.cpp">
       <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
+    <ClCompile Include="EntityFactory.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -358,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,6 +18,12 @@ namespace EngineCore {
 	 * @brief Class to represent a level in the game
 	 */
 	class Level : public EngineUtils::Resource {
+		/*
+		 * Make SceneManager a friend class to prohbit 
+		 * the proliferation of JSON data out of the level / scene system
+		 */
+		friend class SceneManager;
+	
 	public:
 		/**
 		 * Constructor

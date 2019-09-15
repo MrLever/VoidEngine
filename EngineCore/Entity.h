@@ -60,6 +60,17 @@ namespace EngineCore {
 		 * @return The entity's position
 		 */
 		EngineMath::Vector3<float> GetPostion();
+
+		/**
+		 * Function to set Grahpics Component
+		 */
+		void SetGraphicsComponent(GraphicsComponent* component);
+
+		/**
+		 * Function to get a pointer to this entity's graphics data
+		 * @return this enity's graphics component
+		 */
+		GraphicsComponent* GetGraphicsComponent();
 	
 	protected:
 		/** The entity's position in 3D space */
@@ -70,5 +81,8 @@ namespace EngineCore {
 		
 		/** Entity's name */
 		EngineUtils::Name ID;
+
+
+		GraphicsComponent* GraphicsData;
 	};
 }

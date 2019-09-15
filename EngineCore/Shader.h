@@ -43,12 +43,15 @@ namespace EngineCore {
 		 */
 		bool LoadErrorResource() override;
 
-		/**
-		 * Compiles shader code
-		 */
-		bool Compile();
 
 	private:
+		
+		/**
+		 * Compiles shader code
+		 * @return Whether that compilation was successful
+		 */
+		bool Compile();
+		
 		EngineUtils::Name ShaderName;
 
 		ShaderType Type;
