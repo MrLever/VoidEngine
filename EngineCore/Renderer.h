@@ -37,12 +37,14 @@ namespace EngineCore {
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render();
+		void Render(std::vector<GraphicsComponent*> components);
 
 		/**
 		 * Applies Renderer Configuration Settings
 		 */
 		void Configure() override;
+
+		void SetDrawTargets(std::vector<GraphicsComponent*> components);
 
 	private:
 		/** The game's active thread pool */
@@ -55,4 +57,10 @@ namespace EngineCore {
 		std::shared_ptr<WindowManager> Window;
 	};
 
+	static void OpenGLDebugCallback(
+		GLenum source, GLenum type,
+		GLuint id, GLenum severity,
+		GLsizei length, const GLchar* message,
+		const void* userParam
+	);
 }

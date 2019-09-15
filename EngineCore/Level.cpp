@@ -14,29 +14,24 @@ namespace EngineCore {
 	}
 
 	Level::~Level() {
-		for (auto& entity : Entities) {
-			delete entity;
-		}
+
 	}
 
 	bool Level::Load() {
-		std::ifstream level(ResourcePath);
+		bool dataLoaded = LoadLevelData();
 
-		if (!level.is_open()) {
-			return LoadErrorResource();
-		}
-
-		level >> LevelData;
-
-		auto levelName = LevelData.find("name");
-
-		if (levelName == LevelData.end()) {
+		if (!dataLoaded) {
 			return false;
 		}
 
-		LevelName = levelName.value();
+		SpawnEntities();
 
 		return true;
+	}
+
+	void Level::SpawnEntities() {
+		auto entityData = LevelData["entities"];
+		Entities = LevelEntityFactory.CreateEntityList(entityData);
 	}
 
 	bool Level::LoadErrorResource() {
@@ -59,8 +54,34 @@ namespace EngineCore {
 		}
 	}
 
-	nlohmann::json Level::GetEntityData() {
-		return LevelData["entities"];
+	std::vector<GraphicsComponent*> Level::GetScene() {
+		std::vector<GraphicsComponent*> scene;
+
+		for (auto entity : Entities) {
+			scene.push_back(entity->GetGraphicsComponent());
+		}
+
+		return scene;
+	}
+
+	bool Level::LoadLevelData() {
+		std::ifstream level(ResourcePath);
+
+		if (!level.is_open()) {
+			return LoadErrorResource();
+		}
+
+		level >> LevelData;
+
+		auto levelName = LevelData.find("name");
+
+		if (levelName == LevelData.end()) {
+			return false;
+		}
+
+		LevelName = levelName.value();
+
+		return true;
 	}
 
 }

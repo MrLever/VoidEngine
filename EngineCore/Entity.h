@@ -46,11 +46,6 @@ namespace EngineCore {
 		virtual void Tick(double deltaSeconds) = 0;
 
 		/**
-		 * Sends draw data for this entity's graphics components to the renderer
-		 */
-		virtual void Draw() = 0;
-
-		/**
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() = 0;

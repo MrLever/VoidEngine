@@ -80,7 +80,7 @@ namespace EngineCore {
 	}
 
 	void Game::Render() {
-		GameRenderer->Render();
+		GameRenderer->Render(CurrentLevel->GetScene());
 	}
 
 	void Game::ExecuteGameLoop() {
@@ -122,10 +122,10 @@ namespace EngineCore {
 			//Level unloading logic
 		}
 
-		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		auto entities = CurrentLevel->GetEntityData();
-
-		GameEntityFactory->CreateEntityList(CurrentLevel->GetEntityData());
+		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel = std::make_shared<Level>(newLevelPath);
+		CurrentLevel->Load();
+		CurrentLevel->BeginPlay();
 	}
 
 }

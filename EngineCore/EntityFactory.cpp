@@ -20,7 +20,7 @@ namespace EngineCore {
 
 		}
 
-		return std::vector<std::shared_ptr<Entity>>();
+		return scene;
 	}
 
 }

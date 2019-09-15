@@ -200,7 +200,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="GamepadInterface.cpp" />
@@ -240,7 +239,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="InputInterface.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="GamepadInterface.h" />

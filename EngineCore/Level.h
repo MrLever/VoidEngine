@@ -8,9 +8,10 @@
 #include "nlohmann/json.hpp"
 
 //Void Engine Headers
+#include "Entity.h"
+#include "EntityFactory.h"
 #include "Name.h"
 #include "Resource.h"
-#include "Entity.h"
 
 namespace EngineCore {
 
@@ -61,13 +62,23 @@ namespace EngineCore {
 		void Update(double deltaTime);
 
 		/**
-		 * Function to get entity data to send to an entity factory for contruction
+		 * Function to get the current scene of drawables
+		 * @return All the drawable objects in the scene
 		 */
-		nlohmann::json GetEntityData();
+		std::vector<GraphicsComponent*> GetScene();
 
 	private:
+		/**
+		 * Helper function to load level data from JSON
+		 */
+		bool LoadLevelData();
+
+		void SpawnEntities();
+
+		EntityFactory LevelEntityFactory;
+
 		/** All the entities spawned in the level */
-		std::vector<Entity*> Entities;
+		std::vector<std::shared_ptr<Entity>> Entities;
 
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;

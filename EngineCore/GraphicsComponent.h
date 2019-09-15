@@ -30,7 +30,13 @@ namespace EngineCore {
 		 */
 		~GraphicsComponent();
 
+
 	private:
+		/**
+		 * Function to allow the renderer to draw this component
+		 */
+		void Draw();
+		
 		/** Vector of vertex data for the entity's model */
 		std::vector<float> Vertices;
 

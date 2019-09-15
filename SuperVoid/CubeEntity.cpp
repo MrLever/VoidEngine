@@ -16,15 +16,11 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::BeginPlay() {
-		std::cout << "Cube Began Play";
+		
 	}
 
 	void CubeEntity::Tick(double deltaSeconds) {
 	
-	}
-	
-	void CubeEntity::Draw() {
-		
 	}
 	
 	void CubeEntity::Terminate() {

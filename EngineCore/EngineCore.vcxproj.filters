@@ -192,9 +192,6 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Gameplay Framework</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Gameplay Framework\Controllers</Filter>
     </ClCompile>
@@ -315,9 +312,6 @@
       <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
     <ClInclude Include="Console.h">
-      <Filter>Header Files\Gameplay Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">

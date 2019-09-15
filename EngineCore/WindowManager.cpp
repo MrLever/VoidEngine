@@ -52,10 +52,10 @@ namespace EngineCore {
 			return;
 		}
 
-		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 		Window = std::shared_ptr<GLFWwindow>(
 			glfwCreateWindow(WindowWidth, WindowHeight, GameName.c_str(), nullptr, nullptr),

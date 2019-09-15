@@ -34,11 +34,6 @@ namespace SuperVoid {
 		void Tick(double deltaSeconds) override;
 
 		/**
-		 * Sends draw data for this entity's graphics components to the renderer
-		 */
-		void Draw() override;
-
-		/**
 		 * Defines entity death behaviors
 		 */
 		void Terminate() override;
