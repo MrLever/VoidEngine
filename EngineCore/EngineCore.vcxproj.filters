@@ -171,9 +171,6 @@
     <ClCompile Include="Level.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files\Gameplay Framework</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
@@ -188,9 +185,6 @@
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
       <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineInterface.cpp">
-      <Filter>Source Files\Engine Core</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Engine Core</Filter>
@@ -293,9 +287,6 @@
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Header Files\Gameplay Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
@@ -319,9 +310,6 @@
     </ClInclude>
     <ClInclude Include="Configuration.h">
       <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineInterface.h">
-      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Engine Core</Filter>
