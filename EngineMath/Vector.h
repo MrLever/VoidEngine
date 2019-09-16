@@ -6,22 +6,21 @@
 //Math Headers
 
 namespace EngineMath {
-	template <typename T>
 	class Vector2 {
 	public:
-		T X;
-		T Y;
+		float X;
+		float Y;
 
 		//tors
 		Vector2() : X(0), Y(0) {
 
 		}
 
-		Vector2(T x) : X(x), Y(0) {
+		Vector2(float x) : X(x), Y(0) {
 
 		}
 
-		Vector2(T x, T y) : X(x), Y(y) {
+		Vector2(float x, float y) : X(x), Y(y) {
 
 		}
 
@@ -31,32 +30,30 @@ namespace EngineMath {
 		}
 	};
 
-	template <typename T>
 	class Vector3 {
 	public:
-		T X;
-		T Y;
-		T Z;
+		float X;
+		float Y;
+		float Z;
 
 		//tors
 		Vector3() : X(0), Y(0), Z(0) {
 
 		}
 
-		Vector3(T x) : X(x), Y(0), Z(0) {
+		Vector3(float x) : X(x), Y(0), Z(0) {
 
 		}
 
-		Vector3(T x, T y) : X(x), Y(y), Z(0) {
+		Vector3(float x, float y) : X(x), Y(y), Z(0) {
 
 		}
 		
-		Vector3(T x, T y, T z) : X(x), Y(y), Z(z) {
+		Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {
 		
 		}
 
-		
-		auto Dot(const Vector3<T> &other) -> decltype(other.X) {
+		float Dot(const Vector3 &other) {
 			return (X * other.X) + (Y * other.Y) + (Z + other.Z);
 		}
 

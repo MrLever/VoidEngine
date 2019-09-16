@@ -86,8 +86,6 @@ namespace EngineUtils {
 		std::condition_variable WorkSignal;
 	};
 
-	using ThreadPoolPtr = std::shared_ptr<EngineUtils::ThreadPool>;
-
 	template<class F, class ...Args>
 	inline auto ThreadPool::SubmitJob(F&& f, Args&&... args) -> std::future<decltype(f(args ...))> {
 		//Bind arguments to supplied function with perfect forwarding
@@ -113,3 +111,5 @@ namespace EngineUtils {
 	}
 
 }
+
+using ThreadPoolPtr = std::shared_ptr<EngineUtils::ThreadPool>;

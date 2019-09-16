@@ -16,16 +16,18 @@
 #include "ResourceManager.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
-#include "World.h"
+
 
 namespace EngineCore {
 
-	//CTORS
 	Game::Game(const std::string& name) : GameName(std::move(name)) {
 		FrameRate = 0;
 
 		//Init Higher Level Game Objects
 		InitGame();
+
+		//Set the current level to the default level
+		SetLevel("Resources/Levels/DemoLevel.json");
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -35,17 +37,10 @@ namespace EngineCore {
 
 	}
 
-	///Private Functions
 	void Game::InitGame() {
 		//Initialize Engine Utilities
-		auto threadPool = std::make_shared<EngineUtils::ThreadPool>();
-		auto resourceManager = std::make_shared<EngineUtils::ResourceManager>(threadPool);
-
-		//Construct the interface through which Core Engine Systems should access engine utilities
-		VoidEngineInterface = std::make_shared<EngineInterface>(
-			threadPool,
-			resourceManager
-		);
+		GameThreadPool = std::make_shared<EngineUtils::ThreadPool>();
+		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(GameName, 800, 600);
@@ -53,51 +48,50 @@ namespace EngineCore {
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
-			VoidEngineInterface, 
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
 		//Initialize Input Manager
 		GameInputManager = std::make_unique<InputManager>(
 			Window->GetInputInterface(),
-			VoidEngineInterface,
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
 		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
-			VoidEngineInterface,
-			resourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
-			
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
 		);
 
-		GameWorld = std::make_unique<World>();
+		GameMessageBus = std::make_shared<MessageBus>();
+		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
 
-	void Game::ProcessInput() {
-		GameInputManager->HandleInput();
-	}
-
-	void Game::Update(double deltaSeconds) {
+	void Game::Update(double deltaTime) {
 		//Send the deltaSeconds to the framerate updating function
-		UpdateFramerate(deltaSeconds);
+		UpdateFramerate(deltaTime);
 
-		//Ticks actors
-		GameWorld->Update(deltaSeconds);
+		CurrentLevel->Update(deltaTime);
 	}
 
 	void Game::Render() {
-		GameRenderer->Render();
+		GameRenderer->Render(CurrentLevel->GetScene());
 	}
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
+		auto currentTime = Timer::now();
 		while (!Window->WindowTerminated()) {
 			//Get current time
-			auto currentTime = Timer::now();
+			currentTime = Timer::now();
 			std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
 
-			ProcessInput();
+			GameInputManager->HandleInput();
 			Update(deltaSeconds.count());
 			Render();
 
@@ -107,19 +101,37 @@ namespace EngineCore {
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
-		const int NumFrames = 10;
-		FrameQueue.push(timeSinceLastFrame);
-		
-		//Sums the queue if its of size 10
-		if (FrameQueue.size() >= NumFrames) {
-			double frameQueueSum = 0;
-			while(!FrameQueue.empty()){
-				frameQueueSum = frameQueueSum + (FrameQueue.front());
-				FrameQueue.pop();
-			}
-			//Once the sum is completed, convert from seconds/10frames to frames and ship to FrameRate
-			FrameRate = static_cast<int>(NumFrames / (frameQueueSum));
+		const static int ONE_SECOND = 1000;
+		static auto lastTime = EngineUtils::GetGameTime();
+		static int numFrames = 0;
+
+		auto currentTime = EngineUtils::GetGameTime();
+		numFrames++;
+
+		if (currentTime - lastTime >= ONE_SECOND) {
+			GameThreadPool->SubmitJob(
+				[] (double frameTime){
+					std::cout << "FrameTime: " << frameTime << "ms\n";
+				},
+				(ONE_SECOND + 0.0) / numFrames
+			);
+			numFrames = 0;
+			lastTime = EngineUtils::GetGameTime();
 		}
+
+
+
+	}
+
+	void Game::SetLevel(const std::string& newLevelPath) {
+		if (CurrentLevel != nullptr) {
+			//Level unloading logic
+		}
+
+		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel = std::make_shared<Level>(newLevelPath);
+		CurrentLevel->Load();
+		CurrentLevel->BeginPlay();
 	}
 
 }

@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -79,19 +79,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -195,11 +195,11 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
   <ItemGroup>
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
-    <ClCompile Include="EngineInterface.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="GamepadInterface.cpp" />
@@ -216,6 +216,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="ResourceHandle.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Serializable.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="ThreadPoolWorker.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
@@ -226,18 +228,17 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
-    <ClInclude Include="EngineInterface.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputInterface.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="GamepadInterface.h" />
@@ -257,6 +258,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />
@@ -269,7 +272,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="Game.h" />
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

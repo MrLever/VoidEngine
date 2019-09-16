@@ -178,7 +178,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TestingUtilities.h" />
   </ItemGroup>
   <ItemGroup>

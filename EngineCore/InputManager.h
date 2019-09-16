@@ -8,7 +8,8 @@
 
 //Coati Headers
 #include "Configurable.h"
-#include "EngineInterface.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "Keybindings.h"
@@ -34,7 +35,8 @@ namespace EngineCore {
 		 */
 		InputManager(
 			std::shared_ptr<InputInterfaceManager> playerInterface, 
-			EngineInterfacePtr voidEngineInterface, 
+			ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager,
 			const EngineUtils::ResourceHandle& configuration
 		);
 
@@ -81,8 +83,11 @@ namespace EngineCore {
 		/** The engine's active Gamepad object */
 		std::shared_ptr<GamepadInterface> Gamepad;
 		
-		/** Interface the Input Manager uses to access Engine Utility classes */
-		std::shared_ptr<EngineInterface> VoidEngineInterface;
+		/** The game's active thread pool */
+		ThreadPoolPtr GameThreadPool;
+
+		/** The game's active resource manager */
+		ResourceManagerPtr GameResourceManager;
 
 	};
 

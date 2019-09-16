@@ -3,10 +3,11 @@
 #include <string>
 
 //Library headers
-#include "Vector.h"
 
 //Void Engine Headers
 #include "Name.h"
+#include "GraphicsComponent.h"
+#include "Vector.h"
 
 namespace EngineCore {
 
@@ -45,11 +46,6 @@ namespace EngineCore {
 		virtual void Tick(double deltaSeconds) = 0;
 
 		/**
-		 * Sends draw data for this entity's graphics components to the renderer
-		 */
-		virtual void Draw() = 0;
-
-		/**
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() = 0;
@@ -58,16 +54,35 @@ namespace EngineCore {
 		 * Function to request position of this entity
 		 * @return The entity's position
 		 */
-		EngineMath::Vector3<float> GetPostion();
+		EngineMath::Vector3 GetPostion();
+
+		/**
+		 * Setter for object's position
+		 */
+		void SetPosition(const EngineMath::Vector3& newPosition);
+
+		/**
+		 * Function to get a pointer to this entity's graphics data
+		 * @return this enity's graphics component
+		 */
+		GraphicsComponent* GetGraphicsComponent();
+
+		/**
+		 * Function to set Grahpics Component
+		 */
+		void SetGraphicsComponent(GraphicsComponent* component);
 	
 	protected:
 		/** The entity's position in 3D space */
-		EngineMath::Vector3<float> Position;
+		EngineMath::Vector3 Position;
 
 		/** The entity's rotation (pitch, roll, yaw) */
 		//EngineMath::Rotator<float> Rotation;
 		
 		/** Entity's name */
 		EngineUtils::Name ID;
+
+		/** Object that represents all the information needed to draw this entity */
+		GraphicsComponent* GraphicsData;
 	};
 }

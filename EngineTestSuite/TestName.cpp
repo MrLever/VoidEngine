@@ -21,6 +21,22 @@ namespace EngineUtilitiesTests {
 			Assert::AreEqual(std::string("Test"), id.StringID);
 		}
 
+		TEST_METHOD(NameAssignmentTest) {
+			Name id("Test");
+			auto hash = id.ID;
+
+			//String re-assignment test
+			id = "Bar";
+			Assert::AreEqual(std::string("Bar"), id.StringID);
+			Assert::AreNotEqual(hash, id.ID);
+
+			//Name re-assignment test
+			Name id2("Foo");
+			id = id2;
+			Assert::AreEqual(id2.ID, id.ID);
+			Assert::AreEqual(id2.StringID, id.StringID);
+		}
+
 		TEST_METHOD(NameComparisonTest) {
 			Name idA("Foo");
 			Name idB("Bar");

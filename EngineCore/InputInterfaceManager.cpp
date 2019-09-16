@@ -32,7 +32,7 @@ namespace EngineCore {
 		Mouse->ReportScrollAction(scrollOffset);
 	}
 
-	void InputInterfaceManager::ReportMouseInput(double x, double y) {
+	void InputInterfaceManager::ReportMouseInput(float x, float y) {
 		Mouse->UpdateMousePosition(x, y);
 	}
 

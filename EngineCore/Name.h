@@ -2,6 +2,7 @@
 //STD Headers
 #include <compare>
 #include <string>
+#include <iostream>
 
 //Library Headers
 
@@ -24,6 +25,18 @@ namespace EngineUtils {
 		 * Name Destructor
 		 */
 		~Name() = default;
+
+		/**
+		 * Assignment operator, other name
+		 * @param other the name to assign to this instance
+		 */
+		Name& operator= (const Name& other);
+
+		/**
+		 * Assignment operator, string
+		 * @param name, the name to assign to this instance
+		 */
+		Name& operator= (const std::string name);
 
 		/**
 		 * Equality operator, other Name
@@ -51,6 +64,11 @@ namespace EngineUtils {
 		friend inline bool operator!= (const std::string& lhs, const Name& rhs);
 
 		/**
+		 * Output stream operator overload
+		 */
+		friend inline std::ostream& operator<< (std::ostream& out, const Name& other);
+
+		/**
 		 * Three-way comparison operator for Name objects
 		 */
 		inline std::strong_ordering operator<=>(const Name& other) const;
@@ -62,6 +80,26 @@ namespace EngineUtils {
 		unsigned long long ID;
 	};
 	
+	inline Name& Name::operator=(const Name& other) {
+		if (other == *this) {
+			return *this;
+		}
+
+		ID = other.ID;
+		StringID = other.StringID;
+		return *this;
+	}
+
+	inline Name& Name::operator=(const std::string name) {
+		if (StringID == name) {
+			return *this;
+		}
+
+		StringID = name;
+		ID = FNV1aHash(name);
+		return *this;
+	}
+
 	inline bool Name::operator== (const Name& other) const {
 		return ID == other.ID;
 	}
@@ -80,6 +118,11 @@ namespace EngineUtils {
 
 	inline bool operator!= (const std::string& lhs, const Name& rhs) {
 		return !(lhs == rhs);
+	}
+
+	std::ostream& operator<< (std::ostream& out, const Name& name) {
+		out << name.StringID;
+		return out;
 	}
 
 	inline std::strong_ordering Name::operator<=>(const Name& other) const {

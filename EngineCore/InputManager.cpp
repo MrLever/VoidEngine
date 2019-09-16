@@ -13,12 +13,11 @@
 namespace EngineCore {
 
 	InputManager::InputManager(
-		std::shared_ptr<InputInterfaceManager> playerInterface,	EngineInterfacePtr engineInterface, const EngineUtils::ResourceHandle& configuration)
-		: Configurable(configuration), 
-		  Keyboard(std::move(playerInterface->GetKeyboard())),
-		  Mouse(std::move(playerInterface->GetMouse())),
-		  Gamepad(std::move(playerInterface->GetGamepad())),
-		  VoidEngineInterface(std::move(engineInterface)) {
+			std::shared_ptr<InputInterfaceManager> playerInterface, ThreadPoolPtr threadPool,
+			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
+		) : Configurable(configuration), Keyboard(std::move(playerInterface->GetKeyboard())),
+		  Mouse(std::move(playerInterface->GetMouse())), Gamepad(std::move(playerInterface->GetGamepad())),
+		  GameThreadPool(std::move(threadPool)), GameResourceManager(std::move(resourceManager)) {
 
 	}
 
@@ -49,6 +48,10 @@ namespace EngineCore {
 		auto MouseButtonEvents = Mouse->Poll();
 		auto cursorPosition = Mouse->PollCursorPosition();
 		auto scrollOffset = Mouse->PollScrollOffset();
+
+		if (scrollOffset != 0) {
+			std::cout << "Scroll detected, magnitute: " << scrollOffset << "\n";
+		}
 
 		//TODO(MrLever): Finish
 		for (const auto& input : MouseButtonEvents.Inputs) {

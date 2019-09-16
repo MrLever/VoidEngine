@@ -38,7 +38,7 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput(xPos, yPos);
+		CurrWindowManager->PlayerInterface->ReportMouseInput((float)xPos, (float)yPos);
 	}
 
 
@@ -52,10 +52,10 @@ namespace EngineCore {
 			return;
 		}
 
-		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 		Window = std::shared_ptr<GLFWwindow>(
 			glfwCreateWindow(WindowWidth, WindowHeight, GameName.c_str(), nullptr, nullptr),
@@ -107,6 +107,8 @@ namespace EngineCore {
 			IsFullscreen = true;
 		}
 		else {
+			WindowWidth = mode->width / 2;
+			WindowHeight = mode->height / 2;
 			glfwSetWindowMonitor(
 				Window.get(), 
 				NULL, mode->width / 2, mode->height / 2, 
@@ -116,6 +118,7 @@ namespace EngineCore {
 			IsFullscreen = false;
 		}
 
+		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {

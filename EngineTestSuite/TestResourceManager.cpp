@@ -62,8 +62,7 @@ namespace EngineUtilitiesTests {
 
 			auto res = resourceMan.LoadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
-			auto fileHandle = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
-			auto file = fileHandle.GetResource<RawFile>();
+			auto file = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 			Assert::AreEqual(SuccessString, file->FileContents);
 		}
 
@@ -80,8 +79,7 @@ namespace EngineUtilitiesTests {
 			res1 = resourceMan.ReloadResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			//Aquire the resource
-			auto rawHandle = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
-			auto rawFile = rawHandle.GetResource<RawFile>();
+			auto rawFile = resourceMan.GetResource<RawFile>("Resources/Testing/ResourceManagerDummyResource.txt");
 
 			Assert::AreEqual(SuccessString, rawFile->FileContents);
 		}
@@ -92,8 +90,7 @@ namespace EngineUtilitiesTests {
 			ResourceManager resourceMan(pool);
 
 			auto res = resourceMan.LoadResource<RawFile>("FooBar");
-			auto invalidRequestHandle = resourceMan.GetResource<RawFile>("FooBar");
-			auto invalidResouce = invalidRequestHandle.GetResource<RawFile>();
+			auto invalidResouce = resourceMan.GetResource<RawFile>("FooBar");
 			Assert::AreEqual(SuccessString, invalidResouce->FileContents);
 		}
 	};

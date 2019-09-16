@@ -3,6 +3,7 @@
 #include <atomic>
 #include <string>
 #include <filesystem>
+#include <fstream>
 
 //Library Headers
 
@@ -33,10 +34,13 @@ namespace EngineUtils {
 		virtual bool Load() = 0;
 
 		/**
-		 * Loads the resource's defualt value if the path provided is invalid
+		 * Loads the resource's default value if the path provided is invalid
 		 */
 		virtual bool LoadErrorResource() = 0;
 
+		/**
+		 * Returns whether the resource is valid
+		 */
 		bool GetResourceValid();
 
 		/**

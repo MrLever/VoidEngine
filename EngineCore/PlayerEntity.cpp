@@ -15,10 +15,6 @@ namespace EngineCore {
 
 	}
 
-	void PlayerEntity::Draw() {
-
-	}
-
 	void PlayerEntity::Terminate() {
 
 	}

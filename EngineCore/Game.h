@@ -9,15 +9,16 @@
 
 //Coati Headers
 #include "Configurable.h"
-#include "EngineInterface.h"
+#include "EntityFactory.h"
+#include "ThreadPool.h"
+#include "ResourceManager.h"
+#include "Level.h"
+#include "MessageBus.h"
 
 namespace EngineCore {
 
 	//Forward Class declarations
-	class MessageBus;
 	class WindowManager;
-
-	class World;
 	class Renderer;
 	class InputManager;
 	class AudioManager;
@@ -48,14 +49,10 @@ namespace EngineCore {
 		void InitGame();
 
 		/**
-		 * Instructs the InputManager to poll and process user input 
-		 */
-		void ProcessInput();
-
-		/**
 		 * Instructs entities to update themselves using the current time step
+		 * @param deltaTime Time since the last update in seconds
 		 */
-		void Update(double deltaSeconds);
+		void Update(double deltaTime);
 
 		/**
 		 * Instruct the renderer to draw the current scene
@@ -69,15 +66,37 @@ namespace EngineCore {
 		
 		/**
 		 * Tracks the game's frame rate.
+		 * @param timeSinceLastFrame Time since the last frame, in seconds
 		 */
 		void UpdateFramerate(double timeSinceLastFrame);
 
+		/**
+		 * Set the game's current level
+		 * @param newLevelPath path to the new level's data file
+		 */
+		void SetLevel(const std::string& newLevelPath);
+
 	private:
-		/** A Handle to the Engine's main Utilities */
-		std::shared_ptr<EngineInterface> VoidEngineInterface;
+		/** The game's current level */
+		std::shared_ptr<Level> CurrentLevel;
+
+		/** Entity factory used by levels to generate a scene */
+		std::shared_ptr<EntityFactory> GameEntityFactory;
+
+		/** A Handle to the Engine's thread pool */
+		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
+
+		/** A handle to the Engine's resource manager */
+		std::shared_ptr<EngineUtils::ResourceManager> GameResourceManager;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
+
+		/** The game's message bus */
+		std::shared_ptr<MessageBus> GameMessageBus;
+
+		/** The game's console */
+		std::shared_ptr<Console> GameConsole;
 		
 		/** Pointer to the game's Rendering Engine */
 		std::unique_ptr<Renderer> GameRenderer;
@@ -87,15 +106,9 @@ namespace EngineCore {
 
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;
-
-		/** Reference to the currently active game space */
-		std::unique_ptr<World> GameWorld;
 		
 		/** The name displayed in the game window's title bar */
 		std::string GameName;
-
-		/** A queue of the last 10 frame durations for framerate calculations */
-		std::queue<double> FrameQueue;
 
 		/** The game's current framerate */
 		int FrameRate;
