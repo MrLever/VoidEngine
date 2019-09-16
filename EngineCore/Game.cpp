@@ -101,20 +101,26 @@ namespace EngineCore {
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
-		const int FRAME_LIMIT = 10;
-		static int FrameCount;
-		static double CumulativeFrameTime;
-		
-		CumulativeFrameTime += timeSinceLastFrame;
-		
-		if (FrameCount < FRAME_LIMIT) {
-			FrameCount++;
+		const static int ONE_SECOND = 1000;
+		static auto lastTime = EngineUtils::GetGameTime();
+		static int numFrames = 0;
+
+		auto currentTime = EngineUtils::GetGameTime();
+		numFrames++;
+
+		if (currentTime - lastTime >= ONE_SECOND) {
+			GameThreadPool->SubmitJob(
+				[] (double frameTime){
+					std::cout << "FrameTime: " << frameTime << "ms\n";
+				},
+				(ONE_SECOND + 0.0) / numFrames
+			);
+			numFrames = 0;
+			lastTime = EngineUtils::GetGameTime();
 		}
-		else {
-			FrameRate = static_cast<int>(FRAME_LIMIT / CumulativeFrameTime);
-			FrameCount = 0;
-			CumulativeFrameTime = 0;
-		}
+
+
+
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
