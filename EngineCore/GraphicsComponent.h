@@ -14,9 +14,9 @@ namespace EngineCore {
 	 * @brief A graphics component represents all the data needed for the 
 	 *        renderer to render an entity
 	 */
-	class GraphicsComponent	{
+	class GraphicsComponent {
 		friend class Renderer;
-	
+
 	public:
 		/**
 		 * Constructor
@@ -36,7 +36,7 @@ namespace EngineCore {
 		 * Function to allow the renderer to draw this component
 		 */
 		void Draw();
-		
+
 		/** Vector of vertex data for the entity's model */
 		std::vector<float> Vertices;
 
@@ -48,5 +48,8 @@ namespace EngineCore {
 
 		GLuint VAO;
 		GLuint VBO;
+		GLuint EBO;
+
+		float* debugVertices;
 	};
 }

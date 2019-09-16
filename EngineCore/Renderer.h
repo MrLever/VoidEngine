@@ -44,8 +44,6 @@ namespace EngineCore {
 		 */
 		void Configure() override;
 
-		void SetDrawTargets(std::vector<GraphicsComponent*> components);
-
 	private:
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
