@@ -73,6 +73,9 @@ namespace EngineCore {
 		 */
 		bool LoadLevelData();
 
+		/**
+		 * Helper function that spawns entities into the scene
+		 */
 		void SpawnEntities();
 
 		EntityFactory LevelEntityFactory;

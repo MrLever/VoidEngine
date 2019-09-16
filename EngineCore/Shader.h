@@ -51,10 +51,19 @@ namespace EngineCore {
 		 */
 		bool Compile();
 
+		/**
+		 * Enumeration value that specifies what type of shader this is
+		 */
 		ShaderType Type;
 
+		/**
+		 * The shader's source code
+		 */
 		std::string ShaderSource;
 
+		/**
+		 * OpenGL object used to address this shader
+		 */
 		GLuint ShaderHandle;
 	};
 

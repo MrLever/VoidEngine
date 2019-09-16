@@ -82,7 +82,7 @@ namespace EngineCore {
 		/** Entity's name */
 		EngineUtils::Name ID;
 
-
+		/** Object that represents all the information needed to draw this entity */
 		GraphicsComponent* GraphicsData;
 	};
 }

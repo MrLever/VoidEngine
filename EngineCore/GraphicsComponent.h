@@ -30,7 +30,6 @@ namespace EngineCore {
 		 */
 		~GraphicsComponent();
 
-
 	private:
 		/**
 		 * Function to allow the renderer to draw this component

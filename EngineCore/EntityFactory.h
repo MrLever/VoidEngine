@@ -19,8 +19,16 @@ namespace EngineCore {
 	 */
 	class EntityFactory	{
 	public:
+		/**
+		 * Function to create a set of entities from JSON data
+		 * @param entityList The data for the entities to spawn
+		 */
 		[[nodiscard]] std::vector<std::shared_ptr<Entity>> CreateEntityList(const nlohmann::json& entityList);
 
+		/**
+		 * Function to create a single entity from JSON data
+		 * @param entityData The data for a single entity
+		 */
 		template<class T>
 		[[nodiscard]] std::shared_ptr<T> CreateEntity(const nlohmann::json& entityData);
 
