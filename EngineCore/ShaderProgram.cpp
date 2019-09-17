@@ -7,17 +7,17 @@
 
 namespace EngineCore {
 
-	ShaderProgram::ShaderProgram(const std::string& name, Shader& vertex, Shader& fragment) 
-		: ProgramName(std::move(name)) {
+	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
+		: ProgramName(std::move(name)), ProgramHandle(-1) {
 
-		bool vertexValid = vertex.Compile();
-		bool fragmentValid = fragment.Compile();
+		bool vertexValid = vertex->Compile();
+		bool fragmentValid = fragment->Compile();
 
 		if (vertexValid && fragmentValid) {
 
 			ProgramHandle = glCreateProgram();
-			glAttachShader(ProgramHandle, vertex.ShaderHandle);
-			glAttachShader(ProgramHandle, fragment.ShaderHandle);
+			glAttachShader(ProgramHandle, vertex->ShaderHandle);
+			glAttachShader(ProgramHandle, fragment->ShaderHandle);
 			glLinkProgram(ProgramHandle);
 
 			int success;
@@ -28,8 +28,8 @@ namespace EngineCore {
 				glGetShaderInfoLog(ProgramHandle, 1024, NULL, infoBuffer);
 				
 				std::cout << "SHADER LINK ERROR:\n";
-				std::cout << "\tVertex Shader: " << vertex.ResourcePath << "\n";
-				std::cout << "\tFragment Shader: " << fragment.ResourcePath << "\n";
+				std::cout << "\tVertex Shader: " << vertex->ResourcePath << "\n";
+				std::cout << "\tFragment Shader: " << fragment->ResourcePath << "\n";
 
 				ProgramValid = false;
 			}
@@ -39,10 +39,13 @@ namespace EngineCore {
 		else {
 			ProgramValid = false;
 		}
+
+		delete vertex;
+		delete fragment;
 	}
 
 	ShaderProgram::~ShaderProgram() {
-		//glDeleteProgram(ProgramHandle);
+		
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, float value) {

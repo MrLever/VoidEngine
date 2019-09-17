@@ -8,9 +8,17 @@
 
 namespace EngineCore {
 
-	GraphicsComponent::GraphicsComponent(const std::vector<float>& model, const ShaderProgram& material)
-	 : VAO(-1), IsValid(true), Vertices(std::move(model)), Material(std::move(material)) {
-		
+	GraphicsComponent::GraphicsComponent()
+	 : VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
+
+	}
+
+	GraphicsComponent::~GraphicsComponent() {
+		delete Material;
+	}
+
+	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
+		Vertices = std::move(verts);
 		unsigned int indices[] = {  // note that we start from 0!
 			0, 1, 3,  // first Triangle
 			1, 2, 3   // second Triangle
@@ -36,14 +44,29 @@ namespace EngineCore {
 		glEnableVertexAttribArray(0);
 	}
 
-	GraphicsComponent::~GraphicsComponent() {
+	void GraphicsComponent::AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath) {
+		Material = new ShaderProgram(
+			name,
+			new Shader(
+				ShaderType::VERTEX,
+				vertShaderPath
+			),
+			new Shader(
+				ShaderType::FRAGMENT,
+				fragShaderPath
+			)
+		);
 	}
 
 	void GraphicsComponent::Draw() {	
 		static float col = 0;
+		Material->SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
+		
 		//Specify shader program
-		Material.SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
-		Material.Use();
+		if (Material) {
+			Material->Use();
+		}
+
 		//Activate VAO
 		glBindVertexArray(VAO);
 

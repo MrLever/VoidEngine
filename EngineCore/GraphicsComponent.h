@@ -20,10 +20,8 @@ namespace EngineCore {
 	public:
 		/**
 		 * Constructor
-		 * @param model The model's vertices
-		 * @param material The model's shader
 		 */
-		GraphicsComponent(const std::vector<float>& model, const ShaderProgram& material);
+		GraphicsComponent();
 
 		/**
 		 * Destructor
@@ -32,9 +30,9 @@ namespace EngineCore {
 
 		void SetModel(const std::vector<float>& verts);
 
-		void AddMaterial();
+		void AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath);
 
-		void AddTexture();
+		void AddTexture(const std::string& texturePath);
 
 	private:
 		/**
@@ -46,7 +44,7 @@ namespace EngineCore {
 		std::vector<float> Vertices;
 
 		/** The Shader Program to use when drawing this model */
-		ShaderProgram Material;
+		ShaderProgram* Material;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;
@@ -54,7 +52,5 @@ namespace EngineCore {
 		GLuint VAO;
 		GLuint VBO;
 		GLuint EBO;
-
-		float* debugVertices;
 	};
 }

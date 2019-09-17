@@ -47,14 +47,13 @@ namespace EngineCore {
 		entity->SetPosition(position);
 		
 		std::vector<float> verts;
-
 		auto graphicsData = entityData["graphicsComponent"];
 
 		for (auto vert : graphicsData["model"]) {
 			verts.push_back(vert.get<float>());
 		}
 
-		Shader vertShader(
+		/*Shader vertShader(
 			ShaderType::VERTEX, 
 			graphicsData["material"]["vertexShader"].get<std::string>()
 		);
@@ -71,6 +70,14 @@ namespace EngineCore {
 				vertShader, 
 				fragShader
 			)
+		);*/
+
+		GraphicsComponent* entityDrawData = new GraphicsComponent();
+		entityDrawData->SetModel(verts);
+		entityDrawData->AddMaterial(
+			graphicsData["material"]["name"].get<std::string>(),
+			graphicsData["material"]["vertexShader"].get<std::string>(),
+			graphicsData["material"]["fragmentShader"].get<std::string>()
 		);
 
 		entity->SetGraphicsComponent(entityDrawData);

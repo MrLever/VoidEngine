@@ -22,7 +22,7 @@ namespace EngineCore {
 		 * @param vertex The vertex shader this program will use
 		 * @param fragment The fragment shader this program will use
 		 */
-		ShaderProgram(const std::string& name, Shader& vertex, Shader& fragment);
+		ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment);
 
 		/**
 		 * Destructor
