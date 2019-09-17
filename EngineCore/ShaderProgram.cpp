@@ -26,7 +26,7 @@ namespace EngineCore {
 
 			if (!success) {
 				glGetShaderInfoLog(ProgramHandle, 1024, NULL, infoBuffer);
-
+				
 				std::cout << "SHADER LINK ERROR:\n";
 				std::cout << "\tVertex Shader: " << vertex.ResourcePath << "\n";
 				std::cout << "\tFragment Shader: " << fragment.ResourcePath << "\n";
@@ -45,6 +45,18 @@ namespace EngineCore {
 		//glDeleteProgram(ProgramHandle);
 	}
 
+	void ShaderProgram::SetUniform(const std::string& uniformName, float value) {
+		glProgramUniform1f(ProgramHandle, GetUniformLocation(uniformName), value);
+	}
+
+	void ShaderProgram::SetUniform(const std::string& uniformName, int value) {
+		glProgramUniform1i(ProgramHandle, GetUniformLocation(uniformName), value);
+	}
+
+	void ShaderProgram::SetUniform(const std::string& uniformName, bool value) {
+		SetUniform(uniformName, (int)value);
+	}
+
 	void ShaderProgram::Use() {
 		if (!ProgramValid) {
 			std::cout << "Error: Attempted to use invalid shader program!\n";
@@ -52,6 +64,10 @@ namespace EngineCore {
 		}
 
 		glUseProgram(ProgramHandle);
+	}
+
+	GLint ShaderProgram::GetUniformLocation(const std::string& uniformName){
+		return glGetUniformLocation(ProgramHandle, uniformName.c_str());
 	}
 
 }

@@ -6,20 +6,30 @@
 //Math Headers
 
 namespace EngineMath {
-	class Vector2 {
-	public:
+	struct Vector2 {
 		float X;
 		float Y;
 
-		//tors
+		/**
+		 * Defualt Constructor
+		 */
 		Vector2() : X(0), Y(0) {
 
 		}
 
+		/**
+		 * Constructor 
+		 * @param x The vector's X value
+		 */
 		Vector2(float x) : X(x), Y(0) {
 
 		}
 
+		/**
+		 * Constructor
+		 * @param x The vector's X value
+		 * @param y The vector's Y value
+		 */
 		Vector2(float x, float y) : X(x), Y(y) {
 
 		}
@@ -30,8 +40,7 @@ namespace EngineMath {
 		}
 	};
 
-	class Vector3 {
-	public:
+	struct Vector3 {
 		float X;
 		float Y;
 		float Z;
@@ -65,4 +74,20 @@ namespace EngineMath {
 				&& this->Z == other.Z;
 		}
 	};
+
+	struct Vector4 {
+		float X;
+		float& R = X;
+
+		float Y;
+		float& G = Y;
+
+		float Z;
+		float& B = Z;
+
+		float W;
+		float& A = W;
+	};
+
+	using Color = Vector4;
 }

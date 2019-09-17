@@ -30,6 +30,12 @@ namespace EngineCore {
 		 */
 		~GraphicsComponent();
 
+		void SetModel(const std::vector<float>& verts);
+
+		void AddMaterial();
+
+		void AddTexture();
+
 	private:
 		/**
 		 * Function to allow the renderer to draw this component

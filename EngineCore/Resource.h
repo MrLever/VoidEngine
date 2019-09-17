@@ -16,7 +16,6 @@ namespace EngineUtils {
 	 */
 	class Resource {
 	public:
-		///CTORS
 		/**
 		 * Constructor
 		 * @param filePath the resources location

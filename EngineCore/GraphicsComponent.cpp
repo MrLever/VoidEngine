@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "GraphicsComponent.h"
+#include "TimeUtils.h"
 
 namespace EngineCore {
 
@@ -39,9 +40,10 @@ namespace EngineCore {
 	}
 
 	void GraphicsComponent::Draw() {	
+		static float col = 0;
 		//Specify shader program
+		Material.SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
 		Material.Use();
-
 		//Activate VAO
 		glBindVertexArray(VAO);
 

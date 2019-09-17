@@ -112,6 +112,9 @@
     <Filter Include="Source Files\Gameplay Framework\Entity System\Components">
       <UniqueIdentifier>{973bd7be-457f-4946-852d-5e3705d62e49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Rendering System\Resources">
+      <UniqueIdentifier>{11f3bd42-1114-4d55-a144-55136128c725}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputAxis.cpp">
@@ -218,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

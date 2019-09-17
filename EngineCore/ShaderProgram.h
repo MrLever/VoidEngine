@@ -34,7 +34,33 @@ namespace EngineCore {
 		 */
 		void Use();
 
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
+		void SetUniform(const std::string& uniformName, float value);
+		
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
+		void SetUniform(const std::string& uniformName, int value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
+		void SetUniform(const std::string& uniformName, bool value);
+
 	private:
+		/**
+		 * Helper functions to allow the SetUniform functions to query uniform locations 
+		 */
+		GLint GetUniformLocation(const std::string& uniformName);
+
 		/** Name used to identify this shader program */
 		EngineUtils::Name ProgramName;
 
