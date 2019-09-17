@@ -53,25 +53,6 @@ namespace EngineCore {
 			verts.push_back(vert.get<float>());
 		}
 
-		/*Shader vertShader(
-			ShaderType::VERTEX, 
-			graphicsData["material"]["vertexShader"].get<std::string>()
-		);
-
-		Shader fragShader(
-			ShaderType::FRAGMENT,
-			 graphicsData["material"]["fragmentShader"].get<std::string>()
-		);
-
-		GraphicsComponent* entityDrawData = new GraphicsComponent(
-			verts,
-			ShaderProgram(
-				graphicsData["material"]["name"].get<std::string>(), 
-				vertShader, 
-				fragShader
-			)
-		);*/
-
 		GraphicsComponent* entityDrawData = new GraphicsComponent();
 		entityDrawData->SetModel(verts);
 		entityDrawData->AddMaterial(
