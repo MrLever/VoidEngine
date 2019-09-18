@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "ShaderProgram.h"
+#include "Texture.h"
 
 namespace EngineCore {
 	/**
@@ -45,6 +46,9 @@ namespace EngineCore {
 
 		/** The Shader Program to use when drawing this model */
 		ShaderProgram* Material;
+
+		/** The texture to be used when drawing this component */
+		Texture* Tex;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

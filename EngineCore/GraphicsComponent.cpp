@@ -58,6 +58,10 @@ namespace EngineCore {
 		);
 	}
 
+	void GraphicsComponent::AddTexture(const std::string& texturePath) {
+
+	}
+
 	void GraphicsComponent::Draw() {	
 		static float col = 0;
 		Material->SetUniform("desiredColor", std::sin(col++) / 2 + .5f);

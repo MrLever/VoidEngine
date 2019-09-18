@@ -11,17 +11,18 @@
             {
                 "model":
                 [
-                     0.5,  0.5, 0.0,
-			         0.5, -0.5, 0.0,
-                    -0.5, -0.5, 0.0,
-                    -0.5,  0.5, 0.0 
+                     0.5,  0.5, 0.0, 1.0, 1.0,
+			         0.5, -0.5, 0.0, 1.0, 0.0,
+                    -0.5, -0.5, 0.0, 0.0, 0.0,
+                    -0.5,  0.5, 0.0, 0.0, 1.0
                 ],
                 "material":
                 {
                     "name":"CubeMaterial",
                     "vertexShader":"Resources/Shaders/cube.vert",
                     "fragmentShader":"Resources/Shaders/cube.frag"
-                }
+                },
+                "texture":"Resources/Textures/stars.jpg"
             }
         }
     ]

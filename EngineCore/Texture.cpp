@@ -35,6 +35,11 @@ namespace EngineCore {
 	}
 
 	void Texture::GenerateTextureInfo() {
+		if (!ImageData) {
+			std::cout << "Error: Texture not loaded. Cannot generate OpenGL texture info\n";
+			return;
+		}
+
 		glGenTextures(1, &TextureHandle);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 
