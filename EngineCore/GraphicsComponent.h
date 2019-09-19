@@ -48,7 +48,7 @@ namespace EngineCore {
 		ShaderProgram* Material;
 
 		/** The texture to be used when drawing this component */
-		Texture* Tex;
+		Texture* CurrTexture;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

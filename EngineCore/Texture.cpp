@@ -1,6 +1,10 @@
 //STD Headers
 
 //Library Headers
+#ifndef STB_IMAGE_IMPLEMENTATION
+	#define STB_IMAGE_IMPLEMENTATION
+#endif // !STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
 
 //Void Engine Headers
 #include "Texture.h"
@@ -59,6 +63,10 @@ namespace EngineCore {
 
 		//Once the image is bound by OpenGL, the raw data is no longer necessary
 		stbi_image_free(ImageData);
+	}
+
+	void Texture::Use() {
+		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 	}
 
 }

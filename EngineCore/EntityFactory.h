@@ -60,6 +60,9 @@ namespace EngineCore {
 			graphicsData["material"]["vertexShader"].get<std::string>(),
 			graphicsData["material"]["fragmentShader"].get<std::string>()
 		);
+		entityDrawData->AddTexture(
+			graphicsData["texture"].get<std::string>()
+		);
 
 		entity->SetGraphicsComponent(entityDrawData);
 

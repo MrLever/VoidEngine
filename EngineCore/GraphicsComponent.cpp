@@ -40,8 +40,13 @@ namespace EngineCore {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		//Set Vertex Attributes for VAO
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		//Verticies
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
+		
+		//Texture-coords
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
 	}
 
 	void GraphicsComponent::AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath) {
@@ -59,7 +64,9 @@ namespace EngineCore {
 	}
 
 	void GraphicsComponent::AddTexture(const std::string& texturePath) {
-
+		CurrTexture = new Texture(texturePath);
+		CurrTexture->Load();
+		CurrTexture->GenerateTextureInfo();
 	}
 
 	void GraphicsComponent::Draw() {	
@@ -69,6 +76,10 @@ namespace EngineCore {
 		//Specify shader program
 		if (Material) {
 			Material->Use();
+		}
+
+		if (CurrTexture) {
+			CurrTexture->Use();
 		}
 
 		//Activate VAO

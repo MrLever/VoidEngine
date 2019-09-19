@@ -5,7 +5,6 @@
 
 //Library Headers
 #include <glad/glad.h>
-#include <stb/stb_image.h>
 
 //Void Engine Headers
 
@@ -37,6 +36,11 @@ namespace EngineCore {
 		 * Generates OpenGL data needed to use this texture in rendering
 		 */
 		void GenerateTextureInfo();
+
+		/**
+		 * Instructs OpenGL we'd like to use this texture in our next draw call
+		 */
+		void Use();
 
 	private:
 		/** Handle used by OpenGL to address this texture */
