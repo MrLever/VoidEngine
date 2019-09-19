@@ -22,7 +22,17 @@
                     "vertexShader":"Resources/Shaders/cube.vert",
                     "fragmentShader":"Resources/Shaders/cube.frag"
                 },
-                "texture":"Resources/Textures/stars.jpg"
+                "textures":
+                [
+                    {
+                        "name":"space",
+                        "location":"Resources/Textures/stars.jpg"
+                    },
+                    {
+                        "name":"bricks",
+                        "location":"Resources/Textures/bricks.jpg"
+                    }
+                ]
             }
         }
     ]

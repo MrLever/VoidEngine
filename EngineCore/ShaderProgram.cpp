@@ -52,6 +52,10 @@ namespace EngineCore {
 		glProgramUniform1f(ProgramHandle, GetUniformLocation(uniformName), value);
 	}
 
+	void ShaderProgram::SetUniform(const std::string& uniformName, unsigned int value) {
+		glProgramUniform1ui(ProgramHandle, GetUniformLocation(uniformName), value);
+	}
+
 	void ShaderProgram::SetUniform(const std::string& uniformName, int value) {
 		glProgramUniform1i(ProgramHandle, GetUniformLocation(uniformName), value);
 	}

@@ -9,13 +9,23 @@
 //Void Engine Headers
 
 namespace EngineCore {
-
+	/**
+	 * @class Texture
+	 * @brief Class to define how to handle OpenGL Textures
+	 */
 	class Texture : public EngineUtils::Resource {
 	public:
 		/**
 		 * Constructor
+		 * @param texturePath Path to the texture's data
 		 */
-		Texture(const std::string& texturePath);
+		Texture(const std::string& name, const std::string& texturePath);
+
+		/**
+		 * Constructor
+		 * @param texturePath Path to the texture's data
+		 */
+		Texture(const std::string& name, const std::string& texturePath, GLint textureUnit);
 
 		/**
 		 * Destructor
@@ -42,9 +52,25 @@ namespace EngineCore {
 		 */
 		void Use();
 
+		/**
+		 * Getter for the Texture's name
+		 */
+		std::string GetName();
+
+		/**
+		 * Getter for the Texture's OpenGL Texture Unit
+		 */
+		GLint GetUnit();
+
 	private:
+		/** The texure's name, used for setting uniforms */
+		std::string Name;
+
 		/** Handle used by OpenGL to address this texture */
 		GLuint TextureHandle;
+
+		/** Defines this textures corresponding Texture Unit */
+		GLint TextureUnit;
 
 		/** The raw data of the image loaded for the texture */
 		unsigned char* ImageData;

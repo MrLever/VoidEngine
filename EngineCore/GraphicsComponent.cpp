@@ -15,6 +15,9 @@ namespace EngineCore {
 
 	GraphicsComponent::~GraphicsComponent() {
 		delete Material;
+		for (auto &texture : Textures) {
+			delete texture;
+		}
 	}
 
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
@@ -63,10 +66,16 @@ namespace EngineCore {
 		);
 	}
 
-	void GraphicsComponent::AddTexture(const std::string& texturePath) {
-		CurrTexture = new Texture(texturePath);
-		CurrTexture->Load();
-		CurrTexture->GenerateTextureInfo();
+	void GraphicsComponent::AddTexture(const std::string& name, const std::string& texturePath, GLint unit = 0) {
+		auto texture = new Texture(name, texturePath, unit);
+		texture->Load();
+		texture->GenerateTextureInfo();
+
+		if (Material) {
+			Material->SetUniform(texture->GetName().c_str(), texture->GetUnit());
+		}
+
+		Textures.push_back(texture);
 	}
 
 	void GraphicsComponent::Draw() {	
@@ -78,8 +87,8 @@ namespace EngineCore {
 			Material->Use();
 		}
 
-		if (CurrTexture) {
-			CurrTexture->Use();
+		for (auto& texture : Textures) {
+			texture->Use();
 		}
 
 		//Activate VAO

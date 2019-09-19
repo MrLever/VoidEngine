@@ -143,7 +143,7 @@ namespace EngineCore {
 	}
 
 	void WindowManager::ReportWindowError(int error, const char* description) {
-		std::cerr << "Error: " << description << std::endl;
+		std::cerr << "Error: #" << error << ", " << description << std::endl;
 	}
 
 	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {

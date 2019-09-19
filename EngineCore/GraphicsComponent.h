@@ -33,7 +33,7 @@ namespace EngineCore {
 
 		void AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath);
 
-		void AddTexture(const std::string& texturePath);
+		void AddTexture(const std::string& name, const std::string& texturePath, GLint unit);
 
 	private:
 		/**
@@ -49,6 +49,8 @@ namespace EngineCore {
 
 		/** The texture to be used when drawing this component */
 		Texture* CurrTexture;
+
+		std::vector<Texture*> Textures;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

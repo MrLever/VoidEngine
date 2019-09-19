@@ -1,4 +1,5 @@
 #pragma once
+#pragma system_header
 
 #include <array> // array
 #include <cassert> // assert

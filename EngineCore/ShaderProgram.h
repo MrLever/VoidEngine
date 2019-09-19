@@ -46,6 +46,13 @@ namespace EngineCore {
 		 * @param uniformName The name of the uniform to modify
 		 * @param value The value to place in that uniform
 		 */
+		void SetUniform(const std::string& uniformName, unsigned int value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
 		void SetUniform(const std::string& uniformName, int value);
 
 		/**
