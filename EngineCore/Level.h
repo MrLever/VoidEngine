@@ -67,16 +67,17 @@ namespace EngineCore {
 		 */
 		std::vector<GraphicsComponent*> GetScene();
 
+		/**
+		 * Spawns entities into the scene from level data
+		 * @note This function must be called from the main thread
+		 */
+		void SpawnEntities();
+
 	private:
 		/**
 		 * Helper function to load level data from JSON
 		 */
 		bool LoadLevelData();
-
-		/**
-		 * Helper function that spawns entities into the scene
-		 */
-		void SpawnEntities();
 
 		EntityFactory LevelEntityFactory;
 

@@ -24,8 +24,6 @@ namespace EngineCore {
 			return false;
 		}
 
-		SpawnEntities();
-
 		return true;
 	}
 

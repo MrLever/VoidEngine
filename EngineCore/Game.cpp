@@ -129,8 +129,8 @@ namespace EngineCore {
 		}
 
 		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel = std::make_shared<Level>(newLevelPath);
-		CurrentLevel->Load();
+		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel->SpawnEntities();
 		CurrentLevel->BeginPlay();
 	}
 
