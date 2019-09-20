@@ -3,6 +3,10 @@
 #include <memory>
 
 //Library Headers
+#include "glad/glad.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
 #include "Configurable.h"
@@ -52,6 +56,10 @@ namespace EngineCore {
 
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;
+
+		glm::mat4 ViewMatrix;
+
+		glm::mat4 ProjectionMatrix;
 	};
 
 	static void OpenGLDebugCallback(

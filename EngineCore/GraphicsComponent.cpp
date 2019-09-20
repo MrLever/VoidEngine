@@ -9,7 +9,7 @@
 namespace EngineCore {
 
 	GraphicsComponent::GraphicsComponent()
-	 : VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
+	 : ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
 
 	}
 
@@ -39,8 +39,8 @@ namespace EngineCore {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * Vertices.size(), Vertices.data(), GL_STATIC_DRAW);
 
 		//Bind EBO to VAO
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		//Set Vertex Attributes for VAO
 		//Verticies
@@ -78,13 +78,18 @@ namespace EngineCore {
 		Textures.push_back(texture);
 	}
 
-	void GraphicsComponent::Draw() {	
-		static float col = 0;
-		Material->SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
+	void GraphicsComponent::Draw(glm::mat4 view, glm::mat4 projection) {
+		//static float col = 0;
+		//Material->SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
 		
+		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(-1.0f), glm::vec3(0.2f, 0.3f, 1.0f));
+
 		//Specify shader program
 		if (Material) {
 			Material->Use();
+			Material->SetUniform("model", ModelMatrix);
+			Material->SetUniform("view", view);
+			Material->SetUniform("projection", projection);
 		}
 
 		for (auto& texture : Textures) {
@@ -95,7 +100,7 @@ namespace EngineCore {
 		glBindVertexArray(VAO);
 
 		//Draw component
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, Vertices.size());
 	}
 
 }

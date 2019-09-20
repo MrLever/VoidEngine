@@ -4,6 +4,9 @@
 
 //Library Headers
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
 #include "ShaderProgram.h"
@@ -29,17 +32,29 @@ namespace EngineCore {
 		 */
 		~GraphicsComponent();
 
+		/**
+		 * Sets this component's 3D model
+		 */
 		void SetModel(const std::vector<float>& verts);
 
+		/** 
+		 * Assigns this component's 3D model a shader
+		 */
 		void AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath);
 
+		/**
+		 * Adds a texture the the 3D model
+		 */
 		void AddTexture(const std::string& name, const std::string& texturePath, GLint unit);
 
 	private:
 		/**
 		 * Function to allow the renderer to draw this component
 		 */
-		void Draw();
+		void Draw(glm::mat4 view, glm::mat4 projection);
+
+		/** The this object's model matrix used for transformations in the vertex shader */
+		glm::mat4 ModelMatrix;
 
 		/** Vector of vertex data for the entity's model */
 		std::vector<float> Vertices;
@@ -47,16 +62,19 @@ namespace EngineCore {
 		/** The Shader Program to use when drawing this model */
 		ShaderProgram* Material;
 
-		/** The texture to be used when drawing this component */
-		Texture* CurrTexture;
-
+		/** The set of textures this onject uses when drawn */
 		std::vector<Texture*> Textures;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;
 
+		/** The Vertex Array Object used to draw this component */
 		GLuint VAO;
+
+		/** The Vertex Buffer Object used to draw this component */
 		GLuint VBO;
+
+		/** The Element Buffer Object used to draw this component */
 		GLuint EBO;
 	};
 }

@@ -73,6 +73,10 @@ namespace EngineCore {
 		glUseProgram(ProgramHandle);
 	}
 
+	void ShaderProgram::SetUniform(const std::string& uniformName, glm::mat4 value) {
+		glProgramUniformMatrix4fv(ProgramHandle, GetUniformLocation(uniformName), 1, GL_FALSE, glm::value_ptr(value));
+	}
+
 	GLint ShaderProgram::GetUniformLocation(const std::string& uniformName){
 		return glGetUniformLocation(ProgramHandle, uniformName.c_str());
 	}

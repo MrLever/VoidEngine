@@ -4,6 +4,9 @@
 
 //Library Headers
 #include "glad/glad.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
 #include "Shader.h"
@@ -61,6 +64,13 @@ namespace EngineCore {
 		 * @param value The value to place in that uniform
 		 */
 		void SetUniform(const std::string& uniformName, bool value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
+		void SetUniform(const std::string& uniformName, glm::mat4 value);
 
 	private:
 		/**

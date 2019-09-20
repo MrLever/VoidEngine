@@ -2,7 +2,6 @@
 #include <memory>
 
 //Library Headers
-#include "glad/glad.h"
 
 //Void Engine Headers
 #include "Entity.h"
@@ -15,11 +14,21 @@ namespace EngineCore {
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
-		  GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+		
+		glEnable(GL_DEPTH_TEST);
+
+		ViewMatrix = glm::mat4(1.0f);
+		ViewMatrix = glm::translate(ViewMatrix, glm::vec3(0, 0, -3));
+		ProjectionMatrix = glm::perspective<float>(
+			glm::radians(45.0f),
+			(Window->GetWindowWidth() + 0.0f) / Window->GetWindowHeight(),
+			0.1f, 100.0f
+		);
 	}
 
 	Renderer::~Renderer() {
@@ -28,10 +37,10 @@ namespace EngineCore {
 
 	void Renderer::Render(std::vector<GraphicsComponent*> components) {
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		for (auto component : components) {
-			component->Draw();
+			component->Draw(ViewMatrix, ProjectionMatrix);
 		}
 
 		Window->SwapBuffers();

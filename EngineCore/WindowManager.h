@@ -117,6 +117,16 @@ namespace EngineCore {
 		 */
 		static void MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
+		/**
+		 * Get's the current rendering context's width
+		 */
+		int GetWindowWidth();
+
+		/**
+		 * Get's the current rendering context's height
+		 */
+		int GetWindowHeight();
+
 	private:
 		/** 
 		 * Performs initialization of the GLFW library

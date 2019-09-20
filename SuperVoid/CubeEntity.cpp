@@ -20,7 +20,6 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::Tick(double deltaSeconds) {
-	
 	}
 	
 	void CubeEntity::Terminate() {
