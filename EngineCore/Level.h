@@ -65,7 +65,7 @@ namespace EngineCore {
 		 * Function to get the current scene of drawables
 		 * @return All the drawable objects in the scene
 		 */
-		std::vector<GraphicsComponent*> GetScene();
+		std::vector<Entity*> GetScene();
 
 		/**
 		 * Spawns entities into the scene from level data
@@ -82,7 +82,7 @@ namespace EngineCore {
 		EntityFactory LevelEntityFactory;
 
 		/** All the entities spawned in the level */
-		std::vector<std::shared_ptr<Entity>> Entities;
+		std::vector<Entity*> Entities;
 
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;

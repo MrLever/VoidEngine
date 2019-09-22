@@ -19,6 +19,16 @@ namespace EngineCore {
 		delete GraphicsData;
 	}
 
+	void Entity::Draw() const {
+		if (GraphicsData == nullptr) {
+			return;
+		}
+
+		GraphicsData->SetPosition(Position);
+
+		GraphicsData->Draw();
+	}
+
 	EngineMath::Vector3 Entity::GetPostion() {
 		return Position;
 	}
@@ -36,7 +46,7 @@ namespace EngineCore {
 		GraphicsData = component;
 	}
 
-	GraphicsComponent* Entity::GetGraphicsComponent() {
+	GraphicsComponent* Entity::GetGraphicsComponent() const {
 		return GraphicsData;
 	}
 }

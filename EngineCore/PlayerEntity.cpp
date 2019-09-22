@@ -11,7 +11,7 @@ namespace EngineCore {
 		std::cout << "Player Entity Online";
 	}
 
-	void PlayerEntity::Tick(double deltaSeconds) {
+	void PlayerEntity::Tick(float deltaSeconds) {
 
 	}
 

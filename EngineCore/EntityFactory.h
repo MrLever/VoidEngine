@@ -23,23 +23,23 @@ namespace EngineCore {
 		 * Function to create a set of entities from JSON data
 		 * @param entityList The data for the entities to spawn
 		 */
-		[[nodiscard]] std::vector<std::shared_ptr<Entity>> CreateEntityList(const nlohmann::json& entityList);
+		[[nodiscard]] std::vector<Entity*> CreateEntityList(const nlohmann::json& entityList);
 
 		/**
 		 * Function to create a single entity from JSON data
 		 * @param entityData The data for a single entity
 		 */
 		template<class T>
-		[[nodiscard]] std::shared_ptr<T> CreateEntity(const nlohmann::json& entityData);
+		[[nodiscard]] T* CreateEntity(const nlohmann::json& entityData);
 
 	};
 
 	template<class T>
-	inline std::shared_ptr<T> EntityFactory::CreateEntity(const nlohmann::json& entityData) {
+	inline T* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
 		auto entityName = entityData["name"].get<std::string>();
 		
 		//Construct the entity on the heap
-		auto entity = std::make_shared<T>(entityName);
+		auto entity = new T(entityName);
 
 		//Extract Entity position
 		EngineMath::Vector3 position;

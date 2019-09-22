@@ -43,12 +43,17 @@ namespace EngineCore {
 		 * Pure virtual function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		virtual void Tick(double deltaSeconds) = 0;
+		virtual void Tick(float deltaSeconds) = 0;
 
 		/**
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() = 0;
+
+		/**
+		 * Command for the renderer to draw the entity
+		 */
+		virtual void Draw() const;
 		
 		/**
 		 * Function to request position of this entity
@@ -65,7 +70,7 @@ namespace EngineCore {
 		 * Function to get a pointer to this entity's graphics data
 		 * @return this enity's graphics component
 		 */
-		GraphicsComponent* GetGraphicsComponent();
+		GraphicsComponent* GetGraphicsComponent() const;
 
 		/**
 		 * Function to set Grahpics Component

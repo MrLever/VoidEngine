@@ -24,7 +24,7 @@ namespace EngineCore {
 		 * Function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		virtual void Tick(double deltaSeconds) override;
+		virtual void Tick(float deltaSeconds) override;
 
 		/**
 		 * Defines entity death behaviors

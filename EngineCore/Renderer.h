@@ -10,6 +10,7 @@
 
 //Void Engine Headers
 #include "Configurable.h"
+#include "Entity.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 
@@ -40,7 +41,7 @@ namespace EngineCore {
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render(std::vector<GraphicsComponent*> components);
+		void Render(std::vector<Entity*> scene);
 
 		/**
 		 * Applies Renderer Configuration Settings

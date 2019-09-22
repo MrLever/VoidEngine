@@ -52,7 +52,7 @@ namespace EngineCore {
 		 * Instructs entities to update themselves using the current time step
 		 * @param deltaTime Time since the last update in seconds
 		 */
-		void Update(double deltaTime);
+		void Update(float deltaTime);
 
 		/**
 		 * Instruct the renderer to draw the current scene

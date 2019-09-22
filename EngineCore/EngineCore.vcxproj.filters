@@ -115,6 +115,9 @@
     <Filter Include="Header Files\Engine Core\Rendering System\Resources">
       <UniqueIdentifier>{11f3bd42-1114-4d55-a144-55136128c725}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine Core\Rendering System\Resources">
+      <UniqueIdentifier>{483c1b9a-0a88-485c-a308-e944bc387a1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputAxis.cpp">
@@ -210,9 +213,6 @@
     <ClCompile Include="GraphicsComponent.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files\Engine Core\Rendering System</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
@@ -224,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -344,9 +347,6 @@
     <ClInclude Include="GraphicsComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files\Engine Core\Rendering System</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
     </ClInclude>
@@ -355,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

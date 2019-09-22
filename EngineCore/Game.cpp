@@ -72,7 +72,7 @@ namespace EngineCore {
 		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
 
-	void Game::Update(double deltaTime) {
+	void Game::Update(float deltaTime) {
 		//Send the deltaSeconds to the framerate updating function
 		UpdateFramerate(deltaTime);
 
@@ -89,9 +89,16 @@ namespace EngineCore {
 		while (!Window->WindowTerminated()) {
 			//Get current time
 			currentTime = Timer::now();
-			std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
+			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
+			
+			//Limit maximum time step to 500ms
+			auto deltaTime = deltaSeconds.count();
+			if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
+				deltaTime = 0.5f;
+			}
 
 			GameInputManager->HandleInput();
+
 			Update(deltaSeconds.count());
 			Render();
 

@@ -15,15 +15,18 @@ namespace EngineCore {
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
 		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+		
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 		
+		//Enable Depth Buffer
 		glEnable(GL_DEPTH_TEST);
 
+		//Statically set view and projection matrices
 		ViewMatrix = glm::mat4(1.0f);
-		ViewMatrix = glm::translate(ViewMatrix, glm::vec3(0, 0, -3));
+		ViewMatrix = glm::translate(ViewMatrix, glm::vec3(0, 0, -5));
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
 			(Window->GetWindowWidth() + 0.0f) / Window->GetWindowHeight(),
@@ -35,12 +38,18 @@ namespace EngineCore {
 
 	}
 
-	void Renderer::Render(std::vector<GraphicsComponent*> components) {
+	void Renderer::Render(std::vector<Entity*> scene) {
+		//Set the view and projection matrices for all graphics components for this draw call 
+		GraphicsComponent::ViewMatrix = ViewMatrix;
+		GraphicsComponent::ProjectionMatrix = ProjectionMatrix;
+
+		//Clear the color and depth buffer
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		for (auto component : components) {
-			component->Draw(ViewMatrix, ProjectionMatrix);
+		//Draw entities
+		for (const auto& entity : scene) {
+			entity->Draw();
 		}
 
 		Window->SwapBuffers();
@@ -54,8 +63,8 @@ namespace EngineCore {
 		// ignore non-significant error/warning codes
 		if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
 
-		std::cout << "---------------" << std::endl;
-		std::cout << "OpenGL Debug message (" << id << "): " << message << std::endl;
+		std::cout << "---------------\n";
+		std::cout << "OpenGL Debug message (" << id << "): " << message << "\n";
 
 		switch (source) {
 		case GL_DEBUG_SOURCE_API:             std::cout << "Source: API"; break;
@@ -65,7 +74,7 @@ namespace EngineCore {
 		case GL_DEBUG_SOURCE_APPLICATION:     std::cout << "Source: Application"; break;
 		case GL_DEBUG_SOURCE_OTHER:           std::cout << "Source: Other"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 
 		switch (type) {
 		case GL_DEBUG_TYPE_ERROR:               std::cout << "Type: Error"; break;
@@ -78,7 +87,7 @@ namespace EngineCore {
 		case GL_DEBUG_TYPE_POP_GROUP:           std::cout << "Type: Pop Group"; break;
 		case GL_DEBUG_TYPE_OTHER:               std::cout << "Type: Other"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 
 		switch (severity) {
 		case GL_DEBUG_SEVERITY_HIGH:         std::cout << "Severity: high"; break;
@@ -86,7 +95,7 @@ namespace EngineCore {
 		case GL_DEBUG_SEVERITY_LOW:          std::cout << "Severity: low"; break;
 		case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 		std::cout << std::endl;
 	}
 

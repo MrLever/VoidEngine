@@ -8,8 +8,8 @@
 
 namespace EngineCore {
 
-	std::vector<std::shared_ptr<Entity>> EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
-		std::vector<std::shared_ptr<Entity>> scene;
+	std::vector<Entity*> EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
+		std::vector<Entity*> scene;
 
 		for (const auto& entity : entityList) {
 			std::string type = entity["type"].get<std::string>();
@@ -17,7 +17,6 @@ namespace EngineCore {
 			if (type == "CubeEntity") {
 				scene.push_back(CreateEntity<SuperVoid::CubeEntity>(entity));
 			}
-
 		}
 
 		return scene;

@@ -7,6 +7,8 @@
 #include "TimeUtils.h"
 
 namespace EngineCore {
+	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
+	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 
 	GraphicsComponent::GraphicsComponent()
 	 : ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
@@ -18,6 +20,10 @@ namespace EngineCore {
 		for (auto &texture : Textures) {
 			delete texture;
 		}
+	}
+
+	void GraphicsComponent::SetPosition(const EngineMath::Vector3& position) {
+		Position = position;
 	}
 
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
@@ -78,18 +84,17 @@ namespace EngineCore {
 		Textures.push_back(texture);
 	}
 
-	void GraphicsComponent::Draw(glm::mat4 view, glm::mat4 projection) {
-		//static float col = 0;
-		//Material->SetUniform("desiredColor", std::sin(col++) / 2 + .5f);
-		
-		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(-1.0f), glm::vec3(0.2f, 0.3f, 1.0f));
+	void GraphicsComponent::Draw() {
+		ModelMatrix = glm::mat4(1.0f);
+		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
+		//ModelMatrix = glm::rotate(ModelMatrix, glm::radians(-1.0f), glm::vec3(0.2f, 0.3f, 1.0f));
 
 		//Specify shader program
 		if (Material) {
 			Material->Use();
 			Material->SetUniform("model", ModelMatrix);
-			Material->SetUniform("view", view);
-			Material->SetUniform("projection", projection);
+			Material->SetUniform("view", ViewMatrix);
+			Material->SetUniform("projection", ProjectionMatrix);
 		}
 
 		for (auto& texture : Textures) {
@@ -100,7 +105,7 @@ namespace EngineCore {
 		glBindVertexArray(VAO);
 
 		//Draw component
-		glDrawArrays(GL_TRIANGLES, 0, Vertices.size());
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)Vertices.size());
 	}
 
 }

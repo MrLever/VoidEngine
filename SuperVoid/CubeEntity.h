@@ -31,7 +31,7 @@ namespace SuperVoid {
 		 * Function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		void Tick(double deltaSeconds) override;
+		void Tick(float deltaSeconds) override;
 
 		/**
 		 * Defines entity death behaviors
