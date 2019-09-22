@@ -49,17 +49,6 @@ namespace EngineCore {
 		void InitGame();
 
 		/**
-		 * Instructs entities to update themselves using the current time step
-		 * @param deltaTime Time since the last update in seconds
-		 */
-		void Update(float deltaTime);
-
-		/**
-		 * Instruct the renderer to draw the current scene
-		 */
-		void Render();
-
-		/**
 		 * Runs the game simulation
 		 */
 		void ExecuteGameLoop();

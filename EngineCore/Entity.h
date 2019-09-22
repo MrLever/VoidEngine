@@ -8,6 +8,7 @@
 #include "Name.h"
 #include "GraphicsComponent.h"
 #include "Vector.h"
+#include "Rotator.h"
 
 namespace EngineCore {
 
@@ -67,6 +68,18 @@ namespace EngineCore {
 		void SetPosition(const EngineMath::Vector3& newPosition);
 
 		/**
+		 * Function to request position of this entity
+		 * @return The entity's position
+		 */
+		EngineMath::Rotator GetRotation();
+
+		/**
+		 * Setter for object's position
+		 */
+		void SetRotation(const EngineMath::Rotator& newRotation);
+
+
+		/**
 		 * Function to get a pointer to this entity's graphics data
 		 * @return this enity's graphics component
 		 */
@@ -81,8 +94,8 @@ namespace EngineCore {
 		/** The entity's position in 3D space */
 		EngineMath::Vector3 Position;
 
-		/** The entity's rotation (pitch, roll, yaw) */
-		//EngineMath::Rotator<float> Rotation;
+		/** The entity's rotation in 3D space */
+		EngineMath::Rotator Rotation;
 		
 		/** Entity's name */
 		EngineUtils::Name ID;

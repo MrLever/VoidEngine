@@ -37,6 +37,10 @@ namespace SuperVoid {
 		 * Defines entity death behaviors
 		 */
 		void Terminate() override;
+
+	private:
+		float Velocity;
+
 	};
 
 }

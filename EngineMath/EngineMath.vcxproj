@@ -19,9 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MathConstants.h" />
+    <ClInclude Include="Rotator.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Rotator.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

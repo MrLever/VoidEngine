@@ -1,4 +1,7 @@
 #version 450 core
+
+precision highp float;
+
 //Uniforms
 uniform mat4 model;
 uniform mat4 view;

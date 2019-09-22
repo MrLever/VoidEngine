@@ -25,6 +25,7 @@ namespace EngineCore {
 		}
 
 		GraphicsData->SetPosition(Position);
+		GraphicsData->SetRotation(Rotation);
 
 		GraphicsData->Draw();
 	}
@@ -35,6 +36,14 @@ namespace EngineCore {
 
 	void Entity::SetPosition(const EngineMath::Vector3& newPosition) {
 		Position = newPosition;
+	}
+
+	EngineMath::Rotator Entity::GetRotation() {
+		return Rotation;
+	}
+
+	void Entity::SetRotation(const EngineMath::Rotator& newRotation) {
+		Rotation = newRotation;
 	}
 	
 	void Entity::SetGraphicsComponent(GraphicsComponent* component) {

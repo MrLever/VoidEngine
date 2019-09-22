@@ -26,6 +26,10 @@ namespace EngineCore {
 		Position = position;
 	}
 
+	void GraphicsComponent::SetRotation(const EngineMath::Rotator& rotation) {
+		Rotation = rotation;
+	}
+
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
 		Vertices = std::move(verts);
 		unsigned int indices[] = {  // note that we start from 0!
@@ -87,7 +91,9 @@ namespace EngineCore {
 	void GraphicsComponent::Draw() {
 		ModelMatrix = glm::mat4(1.0f);
 		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
-		//ModelMatrix = glm::rotate(ModelMatrix, glm::radians(-1.0f), glm::vec3(0.2f, 0.3f, 1.0f));
+		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Pitch), glm::vec3(1.0f, 0.0f, 0.0f));
+		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Yaw), glm::vec3(0.0f, 1.0f, 0.0f));
+		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		//Specify shader program
 		if (Material) {

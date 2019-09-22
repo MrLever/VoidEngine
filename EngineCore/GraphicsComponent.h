@@ -12,6 +12,7 @@
 #include "ShaderProgram.h"
 #include "Texture.h"
 #include "Vector.h"
+#include "Rotator.h"
 
 namespace EngineCore {
 	/**
@@ -34,6 +35,8 @@ namespace EngineCore {
 		~GraphicsComponent();
 
 		void SetPosition(const EngineMath::Vector3& position);
+
+		void SetRotation(const EngineMath::Rotator& rotation);
 
 		/**
 		 * Sets this component's 3D model
@@ -63,10 +66,11 @@ namespace EngineCore {
 		void Draw();
 
 	private:
-		/**
-		 * The position to be used for the translation of the model matrix in the next draw call
-		 */
+		/** The position to be used for the translation of the model matrix in the next draw call */
 		EngineMath::Vector3 Position;
+
+		/** The rotation to be used when rotating the model matrix for drawing */
+		EngineMath::Rotator Rotation;
 
 		/** The this object's model matrix used for transformations in the vertex shader */
 		glm::mat4 ModelMatrix;
