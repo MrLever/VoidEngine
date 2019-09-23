@@ -61,6 +61,12 @@ namespace EngineCore {
 		glm::mat4 ViewMatrix;
 
 		glm::mat4 ProjectionMatrix;
+
+		/** The Rendering context's width */
+		int ContextWidth;
+
+		/** The Rendering context's height */
+		int ContexHeight;
 	};
 
 	static void OpenGLDebugCallback(

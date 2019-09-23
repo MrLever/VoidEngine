@@ -24,12 +24,15 @@ namespace EngineCore {
 		//Enable Depth Buffer
 		glEnable(GL_DEPTH_TEST);
 
+		ContextWidth = Window->GetWindowWidth();
+		ContexHeight = Window->GetWindowHeight();
+
 		//Statically set view and projection matrices
 		ViewMatrix = glm::mat4(1.0f);
 		ViewMatrix = glm::translate(ViewMatrix, glm::vec3(0, 0, -5));
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
-			(Window->GetWindowWidth() + 0.0f) / Window->GetWindowHeight(),
+			(float)ContextWidth / ContexHeight,
 			0.1f, 100.0f
 		);
 	}
@@ -42,6 +45,23 @@ namespace EngineCore {
 		//Set the view and projection matrices for all graphics components for this draw call 
 		GraphicsComponent::ViewMatrix = ViewMatrix;
 		GraphicsComponent::ProjectionMatrix = ProjectionMatrix;
+
+		auto windowWidth = Window->GetWindowWidth();
+		auto windowHeight = Window->GetWindowHeight();
+
+		//If the window was resized from the last call
+		if (ContextWidth != windowWidth || ContexHeight != windowHeight) [[unlikely]] {
+			//Reset the render's context size
+			ContextWidth = windowWidth;
+			ContexHeight = windowHeight;
+
+			//Re-create the projection matrix
+			ProjectionMatrix = glm::perspective<float>(
+				glm::radians(45.0f),
+				(float)ContextWidth / ContexHeight,
+				0.1f, 100.0f
+			);
+		}
 
 		//Clear the color and depth buffer
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
