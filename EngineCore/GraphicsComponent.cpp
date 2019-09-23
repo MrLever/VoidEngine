@@ -4,14 +4,15 @@
 
 //Void Engine Headers
 #include "GraphicsComponent.h"
+#include "Entity.h"
 #include "TimeUtils.h"
 
 namespace EngineCore {
 	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
 	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 
-	GraphicsComponent::GraphicsComponent()
-	 : ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
+	GraphicsComponent::GraphicsComponent(Entity* parent)
+	 : Component(parent), ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), Material(nullptr), IsValid(true){
 
 	}
 
@@ -20,14 +21,6 @@ namespace EngineCore {
 		for (auto &texture : Textures) {
 			delete texture;
 		}
-	}
-
-	void GraphicsComponent::SetPosition(const EngineMath::Vector3& position) {
-		Position = position;
-	}
-
-	void GraphicsComponent::SetRotation(const EngineMath::Rotator& rotation) {
-		Rotation = rotation;
 	}
 
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {

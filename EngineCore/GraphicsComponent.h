@@ -9,34 +9,35 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
+#include "Component.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
 #include "Vector.h"
 #include "Rotator.h"
 
 namespace EngineCore {
+	//forward class declarations
+	class Entity;
+
 	/**
 	 * @class GraphicsComponent
 	 * @brief A graphics component represents all the data needed for the 
 	 *        renderer to render an entity
 	 */
-	class GraphicsComponent {
+	class GraphicsComponent : public Component {
 		friend class Renderer;
 
 	public:
 		/**
 		 * Constructor
+		 * @param parent This component's parent
 		 */
-		GraphicsComponent();
+		GraphicsComponent(Entity* parent);
 
 		/**
 		 * Destructor
 		 */
 		~GraphicsComponent();
-
-		void SetPosition(const EngineMath::Vector3& position);
-
-		void SetRotation(const EngineMath::Rotator& rotation);
 
 		/**
 		 * Sets this component's 3D model
@@ -63,15 +64,9 @@ namespace EngineCore {
 		/**
 		 * Function to allow the renderer to draw this component
 		 */
-		void Draw();
+		void Draw() override;
 
 	private:
-		/** The position to be used for the translation of the model matrix in the next draw call */
-		EngineMath::Vector3 Position;
-
-		/** The rotation to be used when rotating the model matrix for drawing */
-		EngineMath::Rotator Rotation;
-
 		/** The this object's model matrix used for transformations in the vertex shader */
 		glm::mat4 ModelMatrix;
 

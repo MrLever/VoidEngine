@@ -29,4 +29,12 @@ namespace EngineCore {
 	void Component::Draw() {
 		;
 	}
+
+	void Component::SetPosition(const EngineMath::Vector3& position) {
+		Position = position;
+	}
+
+	void Component::SetRotation(const EngineMath::Rotator& rotation) {
+		Rotation = rotation;
+	}
 }

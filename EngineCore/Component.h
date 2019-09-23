@@ -8,6 +8,8 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
+#include "Vector.h"
+#include "Rotator.h"
 
 namespace EngineCore {
 	class Entity;
@@ -49,8 +51,21 @@ namespace EngineCore {
 		 */
 		virtual void Draw();
 
+		/**
+		 * Set's this component's position
+		 * @param position The position to use
+		 */
+		void SetPosition(const EngineMath::Vector3& position);
 
-	private:
+		/**
+		 * Set's this component's rotation
+		 * @param position The position to use
+		 */
+		void SetRotation(const EngineMath::Rotator& rotation);
+
+	protected:
+		EngineMath::Vector3 Position;
+		EngineMath::Rotator Rotation;
 		Entity* Parent;
 	};
 }

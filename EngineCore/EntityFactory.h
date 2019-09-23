@@ -65,7 +65,7 @@ namespace EngineCore {
 			}
 
 			//Populate entity draw data
-			GraphicsComponent* entityDrawData = new GraphicsComponent();
+			GraphicsComponent* entityDrawData = new GraphicsComponent(entity);
 			entityDrawData->SetModel(verts);
 			entityDrawData->AddMaterial(
 				graphicsData["material"]["name"].get<std::string>(),
