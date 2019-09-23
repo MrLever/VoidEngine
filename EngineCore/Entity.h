@@ -35,6 +35,24 @@ namespace EngineCore {
 		virtual ~Entity();
 
 		/**
+		 * Function to allow this component to process input
+		 * @param input Input fromt the keyboard to process
+		 */
+		virtual void Input(const KeyboardInput& input);
+
+		/**
+		 * Function to allow this component to process input
+		 * @param input Input fromt the mouse to process
+		 */
+		virtual void Input(const MouseInput& input);
+
+		/**
+		 * Function to allow this component to process input
+		 * @param input Input fromt the gamepad to process
+		 */
+		virtual void Input(const GamepadInput& input);
+
+		/**
 		 * Pure virtual function that defines what the entity does once a level begins.
 		 * @note This function largely acts like an initialization function
 		 */
@@ -43,8 +61,9 @@ namespace EngineCore {
 		/**
 		 * Pure virtual function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
+		 * @note This function should be called by the derived class tick function
 		 */
-		virtual void Tick(float deltaSeconds) = 0;
+		virtual void Tick(float deltaSeconds);
 
 		/**
 		 * Defines entity death behaviors
@@ -78,6 +97,11 @@ namespace EngineCore {
 		 */
 		void SetRotation(const EngineMath::Rotator& newRotation);
 
+		/**
+		 * Gives ownership of a component to this entity
+		 * @param component The component to add
+		 */
+		void AddComponent(Component* component);
 
 		/**
 		 * Function to get a pointer to this entity's graphics data
@@ -99,6 +123,9 @@ namespace EngineCore {
 		
 		/** Entity's name */
 		EngineUtils::Name ID;
+
+		/** All of the components for this entity */
+		std::vector<Component*> Components;
 
 		/** Object that represents all the information needed to draw this entity */
 		GraphicsComponent* GraphicsData;

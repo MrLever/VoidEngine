@@ -17,6 +17,33 @@ namespace EngineCore {
 
 	Entity::~Entity() {
 		delete GraphicsData;
+		for (auto& component : Components) {
+			delete component;
+		}
+	}
+
+	void Entity::Input(const KeyboardInput& input){
+		for (auto& component : Components) {
+			component->Input(input);
+		}
+	}
+
+	void Entity::Input(const MouseInput& input){
+		for (auto& component : Components) {
+			component->Input(input);
+		}
+	}
+
+	void Entity::Input(const GamepadInput& input) {
+		for (auto& component : Components) {
+			component->Input(input);
+		}
+	}
+
+	void Entity::Tick(float deltaSeconds) {
+		for (auto& component : Components) {
+			component->Tick(deltaSeconds);
+		}
 	}
 
 	void Entity::Draw() const {

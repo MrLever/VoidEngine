@@ -22,6 +22,8 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::Tick(float deltaSeconds) {
+		Entity::Tick(deltaSeconds);
+
 		auto deltaHeight = deltaSeconds * Velocity;
 		auto deltaPitch = deltaSeconds * 1.0f;
 
