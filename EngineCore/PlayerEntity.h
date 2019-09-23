@@ -16,6 +16,12 @@ namespace EngineCore {
 	class PlayerEntity : public Entity {
 	public:
 		/**
+		 * Constructor
+		 * @param The entity's name
+		 */
+		PlayerEntity(const std::string& name);
+		
+		/**
 		 * Defines what the entity does once a level begins.
 		 */
 		virtual void BeginPlay() override;

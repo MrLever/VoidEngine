@@ -3,6 +3,12 @@
     "entities":
     [
         {
+            "name":"FloatingPawn",
+            "type":"PlayerEntity",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0]
+        },
+        {
             "name":"TestCube",
             "type":"CubeEntity",
             "location": [0, 0, 0],

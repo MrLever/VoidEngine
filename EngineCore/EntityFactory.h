@@ -47,39 +47,47 @@ namespace EngineCore {
 		position.Y = entityData["location"][1].get<float>();
 		position.Z = entityData["location"][2].get<float>();
 
+		EngineMath::Rotator rotation;
+		rotation.Pitch = entityData["rotation"][0].get<float>();
+		rotation.Yaw = entityData["rotation"][1].get<float>();
+		rotation.Roll = entityData["rotation"][2].get<float>();
+
 		entity->SetPosition(position);
-		
-		//Load entity model
-		std::vector<float> verts;
-		auto graphicsData = entityData["graphicsComponent"];
+		entity->SetRotation(rotation);
 
-		for (auto vert : graphicsData["model"]) {
-			verts.push_back(vert.get<float>());
-		}
+		if (entityData.find("graphicsComponent") != entityData.end()) {
+			//Load entity model
+			std::vector<float> verts;
+			auto graphicsData = entityData["graphicsComponent"];
 
-		//Populate entity draw data
-		GraphicsComponent* entityDrawData = new GraphicsComponent();
-		entityDrawData->SetModel(verts);
-		entityDrawData->AddMaterial(
-			graphicsData["material"]["name"].get<std::string>(),
-			graphicsData["material"]["vertexShader"].get<std::string>(),
-			graphicsData["material"]["fragmentShader"].get<std::string>()
-		);
+			for (auto vert : graphicsData["model"]) {
+				verts.push_back(vert.get<float>());
+			}
 
-		auto textureList = graphicsData["textures"];
-
-		int i = 0;
-		for (auto& texture : textureList) {
-			entityDrawData->AddTexture(
-				texture["name"].get<std::string>(),
-				texture["location"].get<std::string>(),
-				i
+			//Populate entity draw data
+			GraphicsComponent* entityDrawData = new GraphicsComponent();
+			entityDrawData->SetModel(verts);
+			entityDrawData->AddMaterial(
+				graphicsData["material"]["name"].get<std::string>(),
+				graphicsData["material"]["vertexShader"].get<std::string>(),
+				graphicsData["material"]["fragmentShader"].get<std::string>()
 			);
-			i++;
+
+			auto textureList = graphicsData["textures"];
+
+			int i = 0;
+			for (auto& texture : textureList) {
+				entityDrawData->AddTexture(
+					texture["name"].get<std::string>(),
+					texture["location"].get<std::string>(),
+					i
+				);
+				i++;
+			}
+
+			//Transfer ownership of graphics component to the entity
+			entity->SetGraphicsComponent(entityDrawData);
 		}
-		
-		//Transfer ownership of graphics component to the entity
-		entity->SetGraphicsComponent(entityDrawData);
 
 		return entity;
 	}

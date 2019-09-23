@@ -5,6 +5,7 @@
 //Void Engine Headers
 #include "EntityFactory.h"
 #include "CubeEntity.h"
+#include "PlayerEntity.h"
 
 namespace EngineCore {
 
@@ -16,6 +17,9 @@ namespace EngineCore {
 
 			if (type == "CubeEntity") {
 				scene.push_back(CreateEntity<SuperVoid::CubeEntity>(entity));
+			}
+			if (type == "PlayerEntity") {
+				scene.push_back(CreateEntity<EngineCore::PlayerEntity>(entity));
 			}
 		}
 
