@@ -102,17 +102,6 @@ namespace EngineCore {
 		 * @param component The component to add
 		 */
 		void AddComponent(Component* component);
-
-		/**
-		 * Function to get a pointer to this entity's graphics data
-		 * @return this enity's graphics component
-		 */
-		GraphicsComponent* GetGraphicsComponent() const;
-
-		/**
-		 * Function to set Grahpics Component
-		 */
-		void SetGraphicsComponent(GraphicsComponent* component);
 	
 	protected:
 		/** The entity's position in 3D space */
@@ -126,8 +115,5 @@ namespace EngineCore {
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;
-
-		/** Object that represents all the information needed to draw this entity */
-		GraphicsComponent* GraphicsData;
 	};
 }

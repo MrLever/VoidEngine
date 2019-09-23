@@ -82,6 +82,9 @@ namespace EngineCore {
 	}
 
 	void GraphicsComponent::Draw() {
+		Position = Parent->GetPostion();
+		Rotation = Parent->GetRotation();
+
 		ModelMatrix = glm::mat4(1.0f);
 		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
 		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Pitch), glm::vec3(1.0f, 0.0f, 0.0f));

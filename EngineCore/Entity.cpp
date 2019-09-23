@@ -7,16 +7,15 @@
 
 namespace EngineCore {
 	///CTORS
-	Entity::Entity(const std::string& name) : ID(std::move(name)), GraphicsData(nullptr) {
+	Entity::Entity(const std::string& name) : ID(std::move(name)) {
 
 	}
 
-	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), GraphicsData(nullptr) {
+	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)) {
 	
 	}
 
 	Entity::~Entity() {
-		delete GraphicsData;
 		for (auto& component : Components) {
 			delete component;
 		}
@@ -47,14 +46,9 @@ namespace EngineCore {
 	}
 
 	void Entity::Draw() const {
-		if (GraphicsData == nullptr) {
-			return;
+		for (auto& component : Components) {
+			component->Draw();
 		}
-
-		GraphicsData->SetPosition(Position);
-		GraphicsData->SetRotation(Rotation);
-
-		GraphicsData->Draw();
 	}
 
 	EngineMath::Vector3 Entity::GetPostion() {
@@ -72,17 +66,9 @@ namespace EngineCore {
 	void Entity::SetRotation(const EngineMath::Rotator& newRotation) {
 		Rotation = newRotation;
 	}
+
+	void Entity::AddComponent(Component* component) {
+		Components.push_back(component);
+	}
 	
-	void Entity::SetGraphicsComponent(GraphicsComponent* component) {
-		if (GraphicsData != nullptr) {
-			delete GraphicsData;
-			GraphicsData = nullptr;
-		}
-
-		GraphicsData = component;
-	}
-
-	GraphicsComponent* Entity::GetGraphicsComponent() const {
-		return GraphicsData;
-	}
 }

@@ -85,8 +85,7 @@ namespace EngineCore {
 				i++;
 			}
 
-			//Transfer ownership of graphics component to the entity
-			entity->SetGraphicsComponent(entityDrawData);
+			entity->AddComponent(entityDrawData);
 		}
 
 		return entity;
