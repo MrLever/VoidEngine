@@ -10,14 +10,14 @@
 
 //Void Engine Headers
 #include "Component.h"
-#include "ShaderProgram.h"
-#include "Texture.h"
 #include "Vector.h"
 #include "Rotator.h"
 
 namespace EngineCore {
-	//forward class declarations
+	//Forward class declarations
 	class Entity;
+	class ShaderProgram;
+	class Texture;
 
 	/**
 	 * @class GraphicsComponent

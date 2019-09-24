@@ -4,7 +4,10 @@
 
 //Void Engine Headers
 #include "GraphicsComponent.h"
+
 #include "Entity.h"
+#include "ShaderProgram.h"
+#include "Texture.h"
 #include "TimeUtils.h"
 
 namespace EngineCore {
