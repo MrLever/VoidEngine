@@ -205,7 +205,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="Action.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="EventTable.cpp" />
@@ -230,7 +229,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configurable.h" />

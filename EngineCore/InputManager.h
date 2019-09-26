@@ -75,12 +75,14 @@ namespace EngineCore {
 		 */
 		void Configure() override;
 
+		/** Buffer for unprocessed keyboard inputs */
 		std::deque<KeyboardInput> KeyboardInputBuffer;
 
+		/** Buffer for unprocessed mouse inputs */
 		std::deque<MouseInput> MouseInputBuffer;
 
+		/** Buffer for unprocessed Gamepad inputs */
 		std::deque<GamepadInput> GamepadInputBuffer;
-
 
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
