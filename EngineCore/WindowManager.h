@@ -38,7 +38,7 @@ namespace EngineCore {
 		 * Function to access a pointer to the GLFW window
 		 * @return Shared_Pointer the active GLFW window
 		 */
-		std::shared_ptr<GLFWwindow> getWindow();
+		std::shared_ptr<GLFWwindow> GetWindow();
 
 		/**
 		 * Instructs the window to swap buffers, drawing the result of the last render frame

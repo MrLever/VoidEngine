@@ -133,7 +133,7 @@ namespace EngineCore {
 		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
-	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
+	std::shared_ptr<GLFWwindow> WindowManager::GetWindow() {
 		return Window;
 	}
 
