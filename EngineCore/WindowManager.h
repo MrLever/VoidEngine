@@ -120,12 +120,17 @@ namespace EngineCore {
 		/**
 		 * Get's the current rendering context's width
 		 */
-		int GetWindowWidth();
+		int GetWindowWidth() const;
 
 		/**
 		 * Get's the current rendering context's height
 		 */
-		int GetWindowHeight();
+		int GetWindowHeight() const;
+
+		/**
+		 * Global function to allow any user to query data about the active window in a const fashion
+		 */
+		static const WindowManager* GetActiveWindow();
 
 	private:
 		/** 

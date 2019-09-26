@@ -46,12 +46,16 @@ namespace EngineCore {
 		CurrWindowManager->PlayerInterface->ReportMouseInput(yOffset);
 	}
 
-	int WindowManager::GetWindowWidth() {
+	int WindowManager::GetWindowWidth() const {
 		return WindowWidth;
 	}
 
-	int WindowManager::GetWindowHeight() {
+	int WindowManager::GetWindowHeight() const {
 		return WindowHeight;
+	}
+
+	const WindowManager* WindowManager::GetActiveWindow(){
+		return CurrWindowManager;
 	}
 
 	void WindowManager::InitGLFW() {
