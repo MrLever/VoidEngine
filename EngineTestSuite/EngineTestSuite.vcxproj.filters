@@ -41,9 +41,6 @@
     <ClCompile Include="TestMessageBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestKeyBindings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestInputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

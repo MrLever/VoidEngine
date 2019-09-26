@@ -7,9 +7,7 @@
 
 //Coati Headers
 #include "WindowManager.h"
-#include "KeyboardInput.h"
-#include "MouseInput.h"
-#include "GamepadInput.h"
+#include "InputManager.h"
 
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -137,9 +135,16 @@ namespace EngineCore {
 		return Window;
 	}
 
+	void WindowManager::PollEvents() {
+		glfwPollEvents();
+	}
+
 	void WindowManager::SwapBuffers() {
 		glfwSwapBuffers(Window.get());
-		glfwPollEvents();
+	}
+
+	void WindowManager::SetInputManager(std::shared_ptr<InputManager> inputManager) {
+		GameInputManager = std::move(inputManager);
 	}
 
 	bool WindowManager::WindowTerminated() {
@@ -173,6 +178,7 @@ namespace EngineCore {
 			timeStamp
 		);
 
+		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
@@ -187,6 +193,7 @@ namespace EngineCore {
 			timeStamp
 		);
 
+		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 }

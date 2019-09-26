@@ -117,9 +117,6 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
-    <ClCompile Include="Keybindings.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="EventTable.cpp">
       <Filter>Source Files\Gameplay Framework\Messaging Systems</Filter>
     </ClCompile>
@@ -225,9 +222,6 @@
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="Keybindings.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="EventTable.h">

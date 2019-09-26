@@ -53,6 +53,8 @@ namespace EngineCore {
 		 */
 		void Update(float deltaTime);
 		
+		void ProcessInput();
+
 		/**
 		 * Runs the game simulation
 		 */
@@ -92,11 +94,11 @@ namespace EngineCore {
 		/** The game's console */
 		std::shared_ptr<Console> GameConsole;
 		
+		/** Pointer to the game's Input Manager*/
+		std::shared_ptr<InputManager> GameInputManager;
+
 		/** Pointer to the game's Rendering Engine */
 		std::unique_ptr<Renderer> GameRenderer;
-
-		/** Pointer to the game's Input Manager*/
-		std::unique_ptr<InputManager> GameInputManager;
 
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;

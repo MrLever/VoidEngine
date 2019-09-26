@@ -14,6 +14,9 @@
 
 
 namespace EngineCore {
+	//Forward Class Declarations
+	class InputManager;
+
 	/**
 	 * @class WindowManager
 	 * @brief Object to manage the OS-specific window/input context.
@@ -41,9 +44,19 @@ namespace EngineCore {
 		std::shared_ptr<GLFWwindow> GetWindow();
 
 		/**
+		 * Wrapper function to instruct GLFW to poll for window and input events
+		 */
+		void PollEvents();
+
+		/**
 		 * Instructs the window to swap buffers, drawing the result of the last render frame
 		 */
 		void SwapBuffers();
+
+		/**
+		 * Attaches an input manager to this window to handle input callbacks
+		 */
+		void SetInputManager(std::shared_ptr<InputManager> inputManager);
 
 		/**
 		 * Function to query status of the managed window
@@ -143,6 +156,9 @@ namespace EngineCore {
 
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> Window;
+
+		/** The game's input manager */
+		std::shared_ptr<InputManager> GameInputManager;
 		
 		/** The game's name */
 		std::string GameName;

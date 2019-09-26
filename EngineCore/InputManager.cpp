@@ -20,22 +20,28 @@ namespace EngineCore {
 
 	}
 
-	void InputManager::HandleInput() {
-		HandleKeyboard();
-		HandleMouse();
-		HandleGamepad();
+	void InputManager::ReportInput(const KeyboardInput& input) {
+		KeyboardInputBuffer.push_back(input);
 	}
 
-	void InputManager::HandleKeyboard() {
-
+	void InputManager::ReportInput(const MouseInput& input) {
+		MouseInputBuffer.push_back(input);
 	}
 
-	void InputManager::HandleMouse() {
-
+	void InputManager::ReportInput(const GamepadInput& input) {
+		GamepadInputBuffer.push_back(input);
 	}
 
-	void InputManager::HandleGamepad() {
+	void InputManager::ProcessInput(const std::vector<Entity*> scene) {
+		//Process Mouse Input
+		auto input = MouseInputBuffer.front();
 
+		while (!MouseInputBuffer.empty()) {
+			for (auto& entity : scene) {
+				entity->Input();
+			}
+			MouseInputBuffer.pop_front();
+		}
 	}
 
 	void InputManager::Configure() {

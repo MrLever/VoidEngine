@@ -3,16 +3,20 @@
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
+#include <deque>
 
 //Library Headers
 
 //Coati Headers
 #include "Configurable.h"
+#include "Entity.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
-#include "Keybindings.h"
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
 
 namespace EngineCore {
 
@@ -43,33 +47,40 @@ namespace EngineCore {
 		~InputManager() = default;
 
 		/**
-		 * Polls and process all input events for the current frame
+		 * Proccesses keyboard input events
+		 * @param input The keyboard input to process
 		 */
-		void HandleInput();
+		void ReportInput(const KeyboardInput& input);
+
+		/**
+		 * Proccesses mouse input events
+		 * @param input The mouse input to process
+		 */
+		void ReportInput(const MouseInput& input);
+
+		/**
+		 * Proccesses gamepad input events
+		 * @param input The gamepad input to process
+		 */
+		void ReportInput(const GamepadInput& input);
+
+		/**
+		 * Instructs the input manager to process and dispatch events to the game entities
+		 */
+		void ProcessInput(const std::vector<Entity*> scene);
 
 	private:
-		/**
-		 * Polls and processes keyboard events from the current frame
-		 */
-		void HandleKeyboard();
-
-		/**
-		 * Polls and processes mouse events from the current frame
-		 */
-		void HandleMouse();
-
-		/**
-		 * Polls and processes gamepad events fromt he current frame
-		 */
-		void HandleGamepad();
-
 		/**
 		 * Applies input configuration settings 
 		 */
 		void Configure() override;
 
-		/** The keybindings currently used by the input manager */
-		Keybindings Bindings;
+		std::deque<KeyboardInput> KeyboardInputBuffer;
+
+		std::deque<MouseInput> MouseInputBuffer;
+
+		std::deque<GamepadInput> GamepadInputBuffer;
+
 
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;

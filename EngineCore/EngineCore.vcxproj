@@ -208,7 +208,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="EventTable.cpp" />
-    <ClCompile Include="Keybindings.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
@@ -246,7 +245,6 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="Console.h" />
     <ClInclude Include="EventTable.h" />
     <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="Keybindings.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Resource.h" />

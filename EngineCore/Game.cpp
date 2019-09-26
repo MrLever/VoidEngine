@@ -44,7 +44,17 @@ namespace EngineCore {
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(GameName, 800, 600);
-		
+
+		//Initialize Input Manager
+		GameInputManager = std::make_shared<InputManager>(
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+		);
+
+		//Attach input manager to window to address hardware callbacks
+		Window->SetInputManager(GameInputManager);
+
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
@@ -53,13 +63,6 @@ namespace EngineCore {
 			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
-		//Initialize Input Manager
-		GameInputManager = std::make_unique<InputManager>(
-			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
-		);
-
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
@@ -80,6 +83,10 @@ namespace EngineCore {
 		CurrentLevel->Update(deltaTime);
 	}
 
+	void Game::ProcessInput() {
+		Window->PollEvents();
+	}
+
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
@@ -88,7 +95,7 @@ namespace EngineCore {
 			currentTime = Timer::now();
 			
 			//Handle input
-			GameInputManager->HandleInput();
+			ProcessInput();
 			
 			//Update the scene
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
