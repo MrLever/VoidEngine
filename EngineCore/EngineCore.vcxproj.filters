@@ -222,9 +222,6 @@
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
@@ -233,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -359,9 +359,6 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
@@ -370,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
