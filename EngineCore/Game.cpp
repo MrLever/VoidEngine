@@ -72,6 +72,15 @@ namespace EngineCore {
 		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
 
+	void Game::Update(float deltaTime) {
+		if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
+			deltaTime = 0.5f;
+		}
+
+		UpdateFramerate(deltaTime);
+		CurrentLevel->Update(deltaTime);
+	}
+
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
@@ -84,16 +93,8 @@ namespace EngineCore {
 			
 			//Update the scene
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
-			
-			//Limit maximum time step to 500ms
 			auto deltaTime = deltaSeconds.count();
-			if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
-				deltaTime = 0.5f;
-			}
-
-
-			UpdateFramerate(deltaTime);
-			CurrentLevel->Update(deltaTime);
+			Update(deltaTime);
 			
 			//Draw the scene
 			GameRenderer->Render(CurrentLevel->GetScene());

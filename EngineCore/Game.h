@@ -49,10 +49,15 @@ namespace EngineCore {
 		void InitGame();
 
 		/**
+		 * Instructs the game to update the entities in it's simulation
+		 */
+		void Update(float deltaTime);
+		
+		/**
 		 * Runs the game simulation
 		 */
 		void ExecuteGameLoop();
-		
+	
 		/**
 		 * Tracks the game's frame rate.
 		 * @param timeSinceLastFrame Time since the last frame, in seconds
