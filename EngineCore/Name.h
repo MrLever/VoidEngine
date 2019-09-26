@@ -2,7 +2,7 @@
 //STD Headers
 #include <compare>
 #include <string>
-#include <iostream>
+#include <unordered_map>
 
 //Library Headers
 
@@ -10,9 +10,12 @@
 #include "EngineUtilities.h"
 
 namespace EngineUtils {
+	/**
+	 * @class Name
+	 * @brief Name is a class used to enable fast string comparisons through use of hashing
+	 */
 	struct Name {
 
-		///CTORS
 		/**
 		 * Name Constructor
 		 * @param id The string from which the Name is generated.
@@ -78,6 +81,9 @@ namespace EngineUtils {
 
 		/** The Name's Unique Hash for fast comparisons */
 		unsigned long long ID;
+
+	private:
+		static std::unor
 	};
 	
 	inline Name& Name::operator=(const Name& other) {

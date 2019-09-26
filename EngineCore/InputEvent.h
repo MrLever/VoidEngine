@@ -7,6 +7,11 @@
 #include "Name.h"
 
 namespace EngineCore {
+
 	class InputEvent {
+	public:
+	private:
+		EngineUtils::Name EventLabel;
 	};
+
 }
