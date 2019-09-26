@@ -13,11 +13,10 @@
 namespace EngineCore {
 
 	InputManager::InputManager(
-			std::shared_ptr<InputInterfaceManager> playerInterface, ThreadPoolPtr threadPool,
+			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
-		) : Configurable(configuration), Keyboard(std::move(playerInterface->GetKeyboard())),
-		  Mouse(std::move(playerInterface->GetMouse())), Gamepad(std::move(playerInterface->GetGamepad())),
-		  GameThreadPool(std::move(threadPool)), GameResourceManager(std::move(resourceManager)) {
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
+		    GameResourceManager(std::move(resourceManager)) {
 
 	}
 
@@ -28,48 +27,15 @@ namespace EngineCore {
 	}
 
 	void InputManager::HandleKeyboard() {
-		auto KeyboardEvents = Keyboard->Poll();
 
-		for (const auto& input : KeyboardEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::PRESSED)
-				std::cout << "Keyboard button Pressed\n";
-
-			if (input.GetButtonState() == ButtonState::HELD)
-				std::cout << "Keyboard button Held\n";
-
-			if (input.GetButtonState() == ButtonState::RELEASED)
-				std::cout << "Keyboard button Released\n";
-		}
-
-		//TODO(MrLever): Finsish
 	}
 
 	void InputManager::HandleMouse() {
-		auto MouseButtonEvents = Mouse->Poll();
-		auto cursorPosition = Mouse->PollCursorPosition();
-		auto scrollOffset = Mouse->PollScrollOffset();
 
-		if (scrollOffset != 0) {
-			std::cout << "Scroll detected, magnitute: " << scrollOffset << "\n";
-		}
-
-		//TODO(MrLever): Finish
-		for (const auto& input : MouseButtonEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::PRESSED)
-				std::cout << "Mouse button Pressed\n";
-
-			if (input.GetButtonState() == ButtonState::HELD)
-				std::cout << "Mouse button Held\n";
-
-			if (input.GetButtonState() == ButtonState::RELEASED)
-				std::cout << "Mouse button Released\n";
-		}
 	}
 
 	void InputManager::HandleGamepad() {
-		auto GamepadEvents = Gamepad->Poll();
 
-		//TODO(MrLever): Finish
 	}
 
 	void InputManager::Configure() {

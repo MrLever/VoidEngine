@@ -7,7 +7,9 @@
 
 //Coati Headers
 #include "WindowManager.h"
-
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
 
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -15,7 +17,7 @@ namespace EngineCore {
 	const KeyboardInput WindowManager::ToggleFullscreenInput(
 		KeyboardButton::ENTER, 
 		ButtonState::PRESSED, 
-		InputModifier::CTRL
+		InputModifier::ALT
 	);
 
 	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
@@ -27,8 +29,6 @@ namespace EngineCore {
 		InitGLFW();
 		InitGLAD();
 
-		PlayerInterface = std::make_shared<InputInterfaceManager>();
-
 		CurrWindowManager = this;
 	}
 
@@ -38,12 +38,12 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput((float)xPos, (float)yPos);
+		
 	}
 
 
 	void WindowManager::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput(yOffset);
+		
 	}
 
 	int WindowManager::GetWindowWidth() const {
@@ -146,10 +146,6 @@ namespace EngineCore {
 		return (glfwWindowShouldClose(Window.get()) == GLFW_TRUE);
 	}
 
-	std::shared_ptr<InputInterfaceManager> WindowManager::GetInputInterface() {
-		return PlayerInterface;
-	}
-
 	void WindowManager::DeleteWindow(GLFWwindow* window) {
 		glfwDestroyWindow(window);
 	}
@@ -177,13 +173,6 @@ namespace EngineCore {
 			timeStamp
 		);
 
-		if (input == ToggleFullscreenInput) {
-			CurrWindowManager->ToggleFullscreen();
-		}
-		else {
-			//Report Input to Input Interface for later polling.
-			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
-		}
 	}
 
 	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
@@ -194,12 +183,10 @@ namespace EngineCore {
 		MouseInput input(
 			static_cast<MouseButton>(button),
 			static_cast<ButtonState>(action),
-			0,
+			mods,
 			timeStamp
 		);
 
-		//Report input to InputInterface
-		CurrWindowManager->PlayerInterface->ReportMouseInput(input);
 	}
 
 }

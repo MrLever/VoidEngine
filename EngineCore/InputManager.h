@@ -13,8 +13,6 @@
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "Keybindings.h"
-#include "InputInterfaceManager.h"
-
 
 namespace EngineCore {
 
@@ -34,7 +32,6 @@ namespace EngineCore {
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
 		InputManager(
-			std::shared_ptr<InputInterfaceManager> playerInterface, 
 			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager,
 			const EngineUtils::ResourceHandle& configuration
@@ -74,15 +71,6 @@ namespace EngineCore {
 		/** The keybindings currently used by the input manager */
 		Keybindings Bindings;
 
-		/** The engine's active keeyboard object */
-		std::shared_ptr<KeyboardInterface> Keyboard;
-
-		/** The engine's active mouse object */
-		std::shared_ptr<MouseInterface> Mouse;
-
-		/** The engine's active Gamepad object */
-		std::shared_ptr<GamepadInterface> Gamepad;
-		
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
 

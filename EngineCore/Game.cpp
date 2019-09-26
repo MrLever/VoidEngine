@@ -55,7 +55,6 @@ namespace EngineCore {
 		
 		//Initialize Input Manager
 		GameInputManager = std::make_unique<InputManager>(
-			Window->GetInputInterface(),
 			GameThreadPool,
 			GameResourceManager,
 			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")

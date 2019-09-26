@@ -8,7 +8,6 @@
 //Void Engine Headers
 #include "MessageBus.h"
 #include "InputManager.h"
-#include "InputInterfaceManager.h"
 #include "TestingUtilities.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

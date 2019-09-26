@@ -8,9 +8,9 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-//Coati Headers
-#include "InputInterfaceManager.h"
+//Void Engine Headers
 #include "EngineUtilities.h"
+#include "KeyboardInput.h"
 
 
 namespace EngineCore {
@@ -51,13 +51,6 @@ namespace EngineCore {
 		 */
 		bool WindowTerminated();
 
-		/**
-		 * Provides caller access to the game's active Input Interfaces
-		 * @return A shared pointer to the game's active input interface manager
-		 */
-		std::shared_ptr<InputInterfaceManager> GetInputInterface();
-
-		
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks
@@ -153,9 +146,6 @@ namespace EngineCore {
 		
 		/** The game's name */
 		std::string GameName;
-
-		/** The interface for all input devices */
-		std::shared_ptr<InputInterfaceManager> PlayerInterface;
 
 		/** The window's width */
 		int WindowWidth;

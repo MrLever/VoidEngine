@@ -25,9 +25,6 @@
     <Filter Include="Header Files\Engine Core\Input System">
       <UniqueIdentifier>{72599593-0d51-4965-a79e-bbe391b6eb1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Core\Input System\Interfaces">
-      <UniqueIdentifier>{e48106c0-51f7-4822-9338-2e11ba667808}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{0d511677-f97d-4271-99d8-606d305b8b95}</UniqueIdentifier>
     </Filter>
@@ -48,9 +45,6 @@
     </Filter>
     <Filter Include="Source Files\Engine Core\Input System">
       <UniqueIdentifier>{1aa93e2b-c429-438f-9e01-99d1a600f11d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Input System\Interfaces">
-      <UniqueIdentifier>{fe33d38c-87ff-4d25-8af3-b4a44e235abb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{0daf5dde-0cb6-445c-93ea-465cf09b930b}</UniqueIdentifier>
@@ -122,18 +116,6 @@
   <ItemGroup>
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
-    <ClCompile Include="GamepadInterface.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="InputInterfaceManager.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardInterface.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseInterface.cpp">
-      <Filter>Source Files\Engine Core\Input System\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
@@ -248,18 +230,6 @@
     <ClInclude Include="MouseInput.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="GamepadInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="InputInterfaceManager.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyboardInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Action.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
@@ -334,9 +304,6 @@
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Header Files\Gameplay Framework\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputInterface.h">
-      <Filter>Header Files\Engine Core\Input System\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
