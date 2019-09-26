@@ -4,6 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "Entity.h"
 #include "Input.h"
 #include "KeyboardInput.h"
 #include "MouseInput.h"
@@ -12,8 +13,6 @@
 #include "Rotator.h"
 
 namespace EngineCore {
-	class Entity;
-
 	class Component {
 	public:
 		/**

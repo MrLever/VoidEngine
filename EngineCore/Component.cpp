@@ -6,7 +6,8 @@
 #include "Component.h"
 
 namespace EngineCore {
-	Component::Component(Entity* parent) : Parent(parent) {
+	Component::Component(Entity* parent) 
+		: Parent(parent), Position(parent->GetPostion()), Rotation(parent->GetRotation()) {
 
 	}
 
