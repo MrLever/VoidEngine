@@ -85,6 +85,7 @@ namespace EngineCore {
 
 	void Game::ProcessInput() {
 		Window->PollEvents();
+		GameInputManager->ProcessInput(CurrentLevel->GetScene());
 	}
 
 	void Game::ExecuteGameLoop() {

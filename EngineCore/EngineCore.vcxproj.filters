@@ -207,6 +207,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="InputEvent.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -322,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEvent.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

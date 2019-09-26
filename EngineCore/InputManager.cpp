@@ -34,14 +34,23 @@ namespace EngineCore {
 
 	void InputManager::ProcessInput(const std::vector<Entity*> scene) {
 		//Process Mouse Input
-		auto input = MouseInputBuffer.front();
 
 		while (!MouseInputBuffer.empty()) {
-			for (auto& entity : scene) {
+			auto button = MouseInputBuffer.front();
+			std::cout << "Mouse Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
+
+			//Convert button to event
+			//Send event to entity
+
+			/*for (auto& entity : scene) {
 				entity->Input();
-			}
+			}*/
 			MouseInputBuffer.pop_front();
 		}
+
+		//Process KB like mouse
+
+		//Process Gamepad like mouse
 	}
 
 	void InputManager::Configure() {
