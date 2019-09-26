@@ -5,6 +5,7 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "GraphicsComponent.h"
 #include "Renderer.h"
 #include "WindowManager.h"
 

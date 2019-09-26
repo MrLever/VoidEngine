@@ -15,7 +15,6 @@
 
 namespace EngineCore {
 	//Forward class declarations
-	class Entity;
 	class ShaderProgram;
 	class Texture;
 
