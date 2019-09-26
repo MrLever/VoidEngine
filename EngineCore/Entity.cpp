@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "Component.h"
 
 namespace EngineCore {
 	///CTORS

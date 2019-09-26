@@ -6,14 +6,19 @@
 
 //Void Engine Headers
 #include "Name.h"
-#include "GraphicsComponent.h"
 #include "Vector.h"
 #include "Rotator.h"
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
 
 namespace EngineCore {
+	//Forward class declarations
+	class Component;
 
 	/**
-	 * @class The Entity class defines the basic definition of what it takes to partake in the simulation
+	 * @class Entity 
+	 * @brief The Entity class provides the basic definition of what it takes to partake in the simulation
 	 */
 	class Entity {
 	public:
