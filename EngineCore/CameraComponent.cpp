@@ -7,15 +7,21 @@
 
 namespace EngineCore {
 
-	CameraComponent::CameraComponent(Entity* parent) : Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0) {
+	CameraComponent::CameraComponent(Entity* parent) 
+		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0) {
+		
 		UpdateProjectionMatrix();
+		LookDirection = Rotation.ToVector();
+		LookDirection = LookDirection.Normalize();
 	}
 
 	CameraComponent::~CameraComponent() {
+	
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
 		Position = Parent->GetPostion();
+		LookDirection = Rotation.ToVector();
 
 		auto target = Position + LookDirection;
 		ViewMatrix = glm::lookAt(
