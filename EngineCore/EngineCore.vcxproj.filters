@@ -231,6 +231,9 @@
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -363,6 +366,9 @@
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
   </ItemGroup>
