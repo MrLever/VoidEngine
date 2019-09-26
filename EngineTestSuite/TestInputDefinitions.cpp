@@ -11,7 +11,6 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "InputAxis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

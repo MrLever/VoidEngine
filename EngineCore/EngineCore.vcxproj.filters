@@ -46,9 +46,6 @@
     <Filter Include="Source Files\Engine Core\Input System">
       <UniqueIdentifier>{1aa93e2b-c429-438f-9e01-99d1a600f11d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
-      <UniqueIdentifier>{0daf5dde-0cb6-445c-93ea-465cf09b930b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine Core\Rendering System">
       <UniqueIdentifier>{c5fbbfc7-8ac3-4225-9a69-fb651d029003}</UniqueIdentifier>
     </Filter>
@@ -114,9 +111,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputAxis.cpp">
-      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
@@ -219,9 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardInput.h">

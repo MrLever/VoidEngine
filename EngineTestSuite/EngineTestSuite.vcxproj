@@ -186,7 +186,6 @@
     <ClCompile Include="TestConsole.cpp" />
     <ClCompile Include="TestEngineUtilities.cpp" />
     <ClCompile Include="TestEventTable.cpp" />
-    <ClCompile Include="TestInputAxis.cpp" />
     <ClCompile Include="TestInputDefinitions.cpp" />
     <ClCompile Include="TestInputManager.cpp" />
     <ClCompile Include="TestKeyBindings.cpp" />
