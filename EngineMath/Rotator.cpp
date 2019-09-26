@@ -39,4 +39,16 @@ namespace EngineMath {
 		Yaw = yaw;
 		Roll = roll;
 	}
+
+	Vector3 Rotator::ToVector() const {
+		//Convert to radians
+		auto pitch = EngineMath::ToRadians(Pitch);
+		auto yaw = EngineMath::ToRadians(Yaw);
+		
+		return Vector3(
+			std::cos(pitch) * std::cos(yaw),
+			std::sin(yaw)*std::cos(pitch),
+			std::sin(pitch)
+		);
+	}
 }

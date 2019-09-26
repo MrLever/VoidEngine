@@ -7,5 +7,9 @@
 //Void Engine Headers 
 
 namespace EngineMath {
-	constexpr double PI() { return std::atan(1) * 4; }
+	static const double PI = 3.14159265358979323846;
+	
+	constexpr float ToRadians(float theta) {
+		return (theta * (float)PI / 180.0f);
+	}
 }

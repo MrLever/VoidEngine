@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <cmath>
 
 //Library Headers
 
@@ -37,7 +38,7 @@ namespace EngineMath {
 		 * Computes the dot product of two 2D vectors
 		 * @return the dot product
 		 */
-		float Dot(const Vector2& other);
+		float Dot(const Vector2& other) const;
 
 		/**
 		 * Equality comparison overload
@@ -94,13 +95,25 @@ namespace EngineMath {
 		 * Computes the dot product of two 3D vectors
 		 * @return the dot product
 		 */
-		float Dot(const Vector3& other);
+		float Dot(const Vector3& other) const;
 
 		/**
 		 * Computes the cross product of two 3D vectors
 		 * @return the perpendicular vector
 		 */
-		Vector3 Cross(const Vector3& other);
+		Vector3 Cross(const Vector3& other) const;
+
+		/**
+		 * Calculates the magnitude of this vector
+		 * @return The magnitude
+		 */
+		float Magnitude() const;
+
+		/**
+		 * Non-destructive method to get this vector's unit vector
+		 * @return the Unit Vector that corresponds to this vector
+		 */
+		[[nodiscard]] Vector3 Normalize() const;
 
 		/**
 		 * Equality comparison overload

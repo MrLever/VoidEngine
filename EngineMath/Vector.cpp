@@ -19,7 +19,7 @@ namespace EngineMath {
 
 	}
 
-	float Vector2::Dot(const Vector2& other) {
+	float Vector2::Dot(const Vector2& other) const {
 		return (X * other.X) + (Y * other.Y);
 	}
 
@@ -87,17 +87,29 @@ namespace EngineMath {
 
 	}
 
-	float Vector3::Dot(const Vector3& other) {
+	float Vector3::Dot(const Vector3& other) const{
 		return (X * other.X) + (Y * other.Y) + (Z + other.Z);
 	}
 
-	Vector3 Vector3::Cross(const Vector3& other) {
+	Vector3 Vector3::Cross(const Vector3& other) const {
 		return 
 			Vector3(
 				(Y * other.Z) - (Z * other.Y),
 				(Z * other.X) - (X * other.Z),
 				(X * other.Y) - (Y * other.X)
 			);
+	}
+
+	float Vector3::Magnitude() const {
+		return 
+			std::sqrt(
+				(X * X) + (Y * Y) + (Z * Z)
+			);
+	}
+
+	Vector3 Vector3::Normalize() const {
+		auto mag = Magnitude();
+		return Vector3(X / mag, Y / mag, Z / mag);
 	}
 
 	bool Vector3::operator== (const Vector3& other) {

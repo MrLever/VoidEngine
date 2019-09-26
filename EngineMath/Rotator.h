@@ -5,6 +5,8 @@
 //Library Headers
 
 //Void Engine Headers
+#include "Vector.h"
+#include "MathConstants.h"
 
 namespace EngineMath {
 	/**
@@ -33,6 +35,11 @@ namespace EngineMath {
 		 * @param roll The rotator's roll
 		 */
 		Rotator(float pitch, float yaw, float roll);
+
+		/**
+		 * Returns a direction vector that corresponds to this rotator
+		 */
+		Vector3 ToVector() const;
 
 	};
 
