@@ -3,6 +3,7 @@
 #include <compare>
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 //Library Headers
 
@@ -83,7 +84,7 @@ namespace EngineUtils {
 		unsigned long long ID;
 
 	private:
-		static std::unor
+		//static std::unordered_map<std::string, unsigned long long> Dictionary;
 	};
 	
 	inline Name& Name::operator=(const Name& other) {
