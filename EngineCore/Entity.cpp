@@ -7,13 +7,12 @@
 #include "Component.h"
 
 namespace EngineCore {
-	///CTORS
-	Entity::Entity(const std::string& name) : ID(std::move(name)) {
-
+	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	
 	}
 
-	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)) {
-	
+	Entity::Entity(const std::string& name) : Entity(EngineUtils::Name(name)) {
+
 	}
 
 	Entity::~Entity() {
@@ -22,27 +21,15 @@ namespace EngineCore {
 		}
 	}
 
-	void Entity::Input(const KeyboardInput& input){
+	void Entity::Input(const InputEvent& input, float deltaTime){
 		for (auto& component : Components) {
-			component->Input(input);
+			component->Input(input, deltaTime);
 		}
 	}
 
-	void Entity::Input(const MouseInput& input){
+	void Entity::Tick(float deltaTime) {
 		for (auto& component : Components) {
-			component->Input(input);
-		}
-	}
-
-	void Entity::Input(const GamepadInput& input) {
-		for (auto& component : Components) {
-			component->Input(input);
-		}
-	}
-
-	void Entity::Tick(float deltaSeconds) {
-		for (auto& component : Components) {
-			component->Tick(deltaSeconds);
+			component->Tick(deltaTime);
 		}
 	}
 

@@ -83,9 +83,9 @@ namespace EngineCore {
 		CurrentLevel->Update(deltaTime);
 	}
 
-	void Game::ProcessInput() {
+	void Game::ProcessInput(float deltaTime) {
 		Window->PollEvents();
-		GameInputManager->ProcessInput(CurrentLevel->GetScene());
+		GameInputManager->ProcessInput(CurrentLevel->GetScene(), deltaTime);
 	}
 
 	void Game::ExecuteGameLoop() {
@@ -94,13 +94,13 @@ namespace EngineCore {
 		while (!Window->WindowTerminated()) {
 			//Get current time
 			currentTime = Timer::now();
-			
-			//Handle input
-			ProcessInput();
-			
-			//Update the scene
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
+			
+			//Handle input
+			ProcessInput(deltaTime);
+			
+			//Update the scene
 			Update(deltaTime);
 			
 			//Draw the scene

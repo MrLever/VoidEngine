@@ -25,19 +25,7 @@ namespace EngineCore {
 		 * Function to allow this component to process input
 		 * @param input Input fromt the keyboard to process
 		 */
-		virtual void Input(const KeyboardInput& input);
-
-		/**
-		 * Function to allow this component to process input
-		 * @param input Input fromt the mouse to process
-		 */
-		virtual void Input(const MouseInput& input);
-
-		/**
-		 * Function to allow this component to process input
-		 * @param input Input fromt the gamepad to process
-		 */
-		virtual void Input(const GamepadInput& input);
+		virtual void Input(const InputEvent& input, float deltaTime);
 
 		/**
 		 * Defines how a component processes updates
@@ -63,8 +51,13 @@ namespace EngineCore {
 		void SetRotation(const EngineMath::Rotator& rotation);
 
 	protected:
+		/** The component's position */
 		EngineMath::Vector3 Position;
+		
+		/** The component's rotation */
 		EngineMath::Rotator Rotation;
+
+		/** The component's parent */
 		Entity* Parent;
 	};
 }

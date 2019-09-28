@@ -53,7 +53,7 @@ namespace EngineCore {
 		 */
 		void Update(float deltaTime);
 		
-		void ProcessInput();
+		void ProcessInput(float deltaTime);
 
 		/**
 		 * Runs the game simulation

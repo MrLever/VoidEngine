@@ -66,13 +66,24 @@ namespace EngineCore {
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
 		 */
-		void ProcessInput(const std::vector<Entity*> scene);
+		void ProcessInput(const std::vector<Entity*> scene, float deltaTime);
 
 	private:
 		/**
 		 * Applies input configuration settings 
 		 */
 		void Configure() override;
+
+		/**
+		 * Helper function to dispatch events to a scene
+		 * @param scene The scene to dispatch events to
+		 * @param event The event to dispatch
+		 */
+		void DispatchEvent(
+			const std::vector<EngineCore::Entity*>& scene, 
+			const EngineCore::InputEvent& event, 
+			float deltaTime
+		);
 
 		/** Buffer for unprocessed keyboard inputs */
 		std::deque<KeyboardInput> KeyboardInputBuffer;

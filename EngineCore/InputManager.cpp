@@ -32,18 +32,20 @@ namespace EngineCore {
 		GamepadInputBuffer.push_back(input);
 	}
 
-	void InputManager::ProcessInput(const std::vector<Entity*> scene) {
+	void InputManager::ProcessInput(const std::vector<Entity*> scene, float deltaTime) {
 		//Process Mouse Input
 		while (!MouseInputBuffer.empty()) {
 			auto button = MouseInputBuffer.front();
 			std::cout << "Mouse Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
 
-			//Convert button to event
-			//Send event to entity
+			std::string eventType;
 
-			/*for (auto& entity : scene) {
-			entity->Input();
-			}*/
+			if (button.GetButton() == MouseButton::LEFT) {
+				eventType = "Fire";
+			}
+
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+
 			MouseInputBuffer.pop_front();
 		}
 
@@ -51,6 +53,22 @@ namespace EngineCore {
 		while (!KeyboardInputBuffer.empty()) {
 			auto button = KeyboardInputBuffer.front();
 			std::cout << "Keyboard Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
+
+			std::string eventType;
+			if (button.GetButton() == KeyboardButton::W) {
+				eventType = "Move Up";
+			}
+			else if (button.GetButton() == KeyboardButton::A) {
+				eventType = "Move Left";
+			}
+			else if (button.GetButton() == KeyboardButton::S) {
+				eventType = "Move Down";
+			}
+			else if (button.GetButton() == KeyboardButton::D) {
+				eventType = "Move Right";
+			}
+
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
 
 			KeyboardInputBuffer.pop_front();
 		}
@@ -66,6 +84,22 @@ namespace EngineCore {
 
 	void InputManager::Configure() {
 		; //TODO (MrLever): Actually configure this thing
+	}
+
+	void InputManager::DispatchEvent(
+			const std::vector<EngineCore::Entity*>& scene, 
+			const EngineCore::InputEvent& event,
+			float deltaTime
+		) {
+		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+
+		if (event.EventName == ERROR_EVENT_ID) {
+			return;
+		}
+
+		for (auto& entity : scene) {
+			entity->Input(event, deltaTime);
+		}
 	}
 
 }

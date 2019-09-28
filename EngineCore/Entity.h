@@ -8,9 +8,6 @@
 #include "Name.h"
 #include "Vector.h"
 #include "Rotator.h"
-#include "KeyboardInput.h"
-#include "MouseInput.h"
-#include "GamepadInput.h"
 #include "InputEvent.h"
 
 namespace EngineCore {
@@ -27,13 +24,13 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const std::string& name);
+		Entity(const EngineUtils::Name& name);
 
 		/**
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const EngineUtils::Name& name);
+		Entity(const std::string& name);
 
 		/**
 		 * Destructor
@@ -41,22 +38,10 @@ namespace EngineCore {
 		virtual ~Entity();
 
 		/**
-		 * Function to allow this component to process input
+		 * Function to allow this component to process input events
 		 * @param input Input fromt the keyboard to process
 		 */
-		virtual void Input(const KeyboardInput& input);
-
-		/**
-		 * Function to allow this component to process input
-		 * @param input Input fromt the mouse to process
-		 */
-		virtual void Input(const MouseInput& input);
-
-		/**
-		 * Function to allow this component to process input
-		 * @param input Input fromt the gamepad to process
-		 */
-		virtual void Input(const GamepadInput& input);
+		virtual void Input(const InputEvent& input, float deltaTime);
 
 		/**
 		 * Pure virtual function that defines what the entity does once a level begins.
@@ -69,7 +54,7 @@ namespace EngineCore {
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 * @note This function should be called by the derived class tick function
 		 */
-		virtual void Tick(float deltaSeconds);
+		virtual void Tick(float deltaTime);
 
 		/**
 		 * Defines entity death behaviors
@@ -116,6 +101,9 @@ namespace EngineCore {
 		/** The entity's rotation in 3D space */
 		EngineMath::Rotator Rotation;
 		
+		/** The entity's velocity */
+		float Velocity;
+
 		/** Entity's name */
 		EngineUtils::Name ID;
 

@@ -207,6 +207,9 @@
     <ClCompile Include="InputEvent.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
+    <ClCompile Include="FlyingMovementComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -322,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="InputEvent.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingMovementComponent.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

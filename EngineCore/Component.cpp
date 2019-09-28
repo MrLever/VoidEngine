@@ -11,15 +11,7 @@ namespace EngineCore {
 
 	}
 
-	void Component::Input(const KeyboardInput& input) {
-		;
-	}
-
-	void Component::Input(const MouseInput& input) {
-		;
-	}
-
-	void Component::Input(const GamepadInput& input) {
+	void Component::Input(const InputEvent& input, float deltaTime) {
 		;
 	}
 
