@@ -5,8 +5,7 @@
 
 //Library Headers
 
-
-//Coati Headers
+//Void Engine Headers
 #include "InputManager.h"
 #include "MessageBus.h"
 
@@ -17,7 +16,8 @@ namespace EngineCore {
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
 		    GameResourceManager(std::move(resourceManager)) {
-
+		
+		Configure();
 	}
 
 	void InputManager::ReportInput(const KeyboardInput& input) {
@@ -34,7 +34,6 @@ namespace EngineCore {
 
 	void InputManager::ProcessInput(const std::vector<Entity*> scene) {
 		//Process Mouse Input
-
 		while (!MouseInputBuffer.empty()) {
 			auto button = MouseInputBuffer.front();
 			std::cout << "Mouse Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
@@ -43,14 +42,26 @@ namespace EngineCore {
 			//Send event to entity
 
 			/*for (auto& entity : scene) {
-				entity->Input();
+			entity->Input();
 			}*/
 			MouseInputBuffer.pop_front();
 		}
 
 		//Process KB like mouse
+		while (!KeyboardInputBuffer.empty()) {
+			auto button = KeyboardInputBuffer.front();
+			std::cout << "Keyboard Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
+
+			KeyboardInputBuffer.pop_front();
+		}
 
 		//Process Gamepad like mouse
+		while (!GamepadInputBuffer.empty()) {
+			auto button = GamepadInputBuffer.front();
+			std::cout << "Keyboard Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
+
+			GamepadInputBuffer.pop_front();
+		}
 	}
 
 	void InputManager::Configure() {

@@ -1,17 +1,17 @@
 #pragma once
 //STD Headers
 
-//Library headers
+//Library Headers
 
 //Void Engine Headers
 #include "Name.h"
 
 namespace EngineCore {
 
-	class InputEvent {
-	public:
-	private:
-		EngineUtils::Name EventLabel;
+	struct InputEvent {
+		EngineUtils::Name EventName;
+
+		InputEvent(const std::string& name);
 	};
 
 }

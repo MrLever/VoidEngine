@@ -11,6 +11,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
+#include "InputEvent.h"
 
 namespace EngineCore {
 	//Forward class declarations

@@ -7,7 +7,7 @@
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
 #include "Configurable.h"
 #include "Entity.h"
 #include "ThreadPool.h"
@@ -22,7 +22,6 @@ namespace EngineCore {
 
 	//Forward Class declarations
 	class MessageBus;
-	class InputEvent;
 
 	/**
 	 * @class InputManager
