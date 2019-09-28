@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Resources">
       <UniqueIdentifier>{483c1b9a-0a88-485c-a308-e944bc387a1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Gameplay Framework\Entity System\Factories">
+      <UniqueIdentifier>{057b6212-a848-4f70-8c55-5d6ede35f935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gameplay Framework\Entity System\Factories">
+      <UniqueIdentifier>{7a10daa1-b5a0-4421-aece-b3c47b7cd224}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -189,9 +195,6 @@
     <ClCompile Include="ResourceHandle.cpp">
       <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
-    <ClCompile Include="EntityFactory.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
@@ -209,6 +212,12 @@
     </ClCompile>
     <ClCompile Include="FlyingMovementComponent.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityFactory.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +317,6 @@
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
     </ClInclude>
-    <ClInclude Include="EntityFactory.h">
-      <Filter>Header Files\Gameplay Framework\Entity System</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
@@ -328,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="FlyingMovementComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

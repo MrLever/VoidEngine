@@ -197,6 +197,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
   <ItemGroup>
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -232,6 +233,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Entity.h" />

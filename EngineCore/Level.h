@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
+#include "CameraComponent.h"
 #include "Entity.h"
 #include "EntityFactory.h"
 #include "Name.h"
@@ -21,6 +22,9 @@ namespace EngineCore {
 	 */
 	class Level : public EngineUtils::Resource {
 	
+		friend class EntityFactory;
+		friend class ComponentFactory;
+
 	public:
 		/**
 		 * Constructor
@@ -83,6 +87,9 @@ namespace EngineCore {
 
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;
+
+		/** The active camera to be used for rendering */
+		CameraComponent* ActiveCamera;
 
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;

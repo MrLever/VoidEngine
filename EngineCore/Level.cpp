@@ -9,8 +9,8 @@
 
 namespace EngineCore {
 
-	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error") {
-
+	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
+		ActiveCamera = nullptr;
 	}
 
 	Level::~Level() {
@@ -32,7 +32,7 @@ namespace EngineCore {
 
 	void Level::SpawnEntities() {
 		auto entityData = LevelData["entities"];
-		Entities = LevelEntityFactory.CreateEntityList(entityData);
+		LevelEntityFactory.CreateEntityList(entityData);
 	}
 
 	bool Level::LoadErrorResource() {

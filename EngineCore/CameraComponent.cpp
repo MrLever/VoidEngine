@@ -36,6 +36,10 @@ namespace EngineCore {
 		return ViewMatrix;
 	}
 
+	glm::mat4 CameraComponent::GetProjectionMatrix() const {
+		return ProjectionMatrix;
+	}
+
 	void CameraComponent::SetFOV(float fov) {
 		FOV = fov;
 		

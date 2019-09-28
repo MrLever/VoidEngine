@@ -6,24 +6,25 @@
 #include "EntityFactory.h"
 #include "CubeEntity.h"
 #include "PlayerEntity.h"
+#include "Level.h"
 
 namespace EngineCore {
+	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel) {
 
-	std::vector<Entity*> EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
-		std::vector<Entity*> scene;
+	}
 
+	void EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
 		for (const auto& entity : entityList) {
 			std::string type = entity["type"].get<std::string>();
 
 			if (type == "CubeEntity") {
-				scene.push_back(CreateEntity<SuperVoid::CubeEntity>(entity));
+				CurrLevel->Entities.push_back(CreateEntity<SuperVoid::CubeEntity>(entity));
 			}
 			if (type == "PlayerEntity") {
-				scene.push_back(CreateEntity<EngineCore::PlayerEntity>(entity));
+				CurrLevel->Entities.push_back(CreateEntity<EngineCore::PlayerEntity>(entity));
 			}
 		}
 
-		return scene;
 	}
 
 }

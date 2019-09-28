@@ -10,6 +10,9 @@
             "components":
             [
                 {
+                    "type":"CameraComponent"
+                },
+                {
                     "type":"FlyingMovementComponent",
                     "speed":5
                 }

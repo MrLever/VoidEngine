@@ -65,6 +65,8 @@ namespace EngineCore {
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
 		 */
 		void ProcessInput(const std::vector<Entity*> scene, float deltaTime);
 

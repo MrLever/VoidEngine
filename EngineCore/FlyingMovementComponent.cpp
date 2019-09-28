@@ -28,4 +28,12 @@ namespace EngineCore {
 		}
 	}
 
+	void FlyingMovementComponent::SetMoveSpeed(float speed) {
+		MoveSpeed = speed;
+	}
+
+	float FlyingMovementComponent::GetMoveSpeed() {
+		return MoveSpeed;
+	}
+
 }

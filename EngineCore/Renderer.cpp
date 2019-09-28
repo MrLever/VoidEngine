@@ -28,10 +28,12 @@ namespace EngineCore {
 		ContextWidth = Window->GetWindowWidth();
 		ContexHeight = Window->GetWindowHeight();
 
-		//Statically set view and projection matrices
-		ViewMatrix = glm::mat4(1.0f);
-		ViewMatrix = glm::translate(ViewMatrix, glm::vec3(0, 0, -5));
-		ProjectionMatrix = glm::perspective<float>(
+		//Set default view matrix
+		DefualtViewMatrix = glm::mat4(1.0f);
+		DefualtViewMatrix = glm::translate(DefualtViewMatrix, glm::vec3(0, 0, -5));
+		
+		//Set default projection matrix
+		DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
 			(float)ContextWidth / ContexHeight,
 			0.1f, 100.0f
@@ -44,8 +46,15 @@ namespace EngineCore {
 
 	void Renderer::Render(std::vector<Entity*> scene) {
 		//Set the view and projection matrices for all graphics components for this draw call 
-		GraphicsComponent::ViewMatrix = ViewMatrix;
-		GraphicsComponent::ProjectionMatrix = ProjectionMatrix;
+		if (ActiveCamera == nullptr) {
+			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
+			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
+		}
+		else {
+			GraphicsComponent::ViewMatrix = ActiveCamera->GetViewMatrix();
+			GraphicsComponent::ProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+		}
+		
 
 		auto windowWidth = Window->GetWindowWidth();
 		auto windowHeight = Window->GetWindowHeight();
@@ -57,7 +66,7 @@ namespace EngineCore {
 			ContexHeight = windowHeight;
 
 			//Re-create the projection matrix
-			ProjectionMatrix = glm::perspective<float>(
+			DefaultProjectionMatrix = glm::perspective<float>(
 				glm::radians(45.0f),
 				(float)ContextWidth / ContexHeight,
 				0.1f, 100.0f

@@ -9,21 +9,26 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "ComponentFactory.h"
 #include "GraphicsComponent.h"
 
 namespace EngineCore {
-	
+	//Forward class declarations
+	class Level;
+
 	/**
 	 * @class EntityFactory
 	 * @brief Factory class to generate game enities from JSON data
 	 */
 	class EntityFactory	{
 	public:
+		EntityFactory(Level* currLevel);
+
 		/**
 		 * Function to create a set of entities from JSON data
 		 * @param entityList The data for the entities to spawn
 		 */
-		[[nodiscard]] std::vector<Entity*> CreateEntityList(const nlohmann::json& entityList);
+		void CreateEntityList(const nlohmann::json& entityList);
 
 		/**
 		 * Function to create a single entity from JSON data
@@ -31,7 +36,10 @@ namespace EngineCore {
 		 */
 		template<class T>
 		[[nodiscard]] T* CreateEntity(const nlohmann::json& entityData);
-
+	
+	private:
+		/** The current level using this factory */
+		Level* CurrLevel;
 	};
 
 	template<class T>

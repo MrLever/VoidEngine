@@ -13,6 +13,12 @@
 #include "Rotator.h"
 
 namespace EngineCore {
+	
+	/**
+	 * @class Component
+	 * @brief Base class for all components in the engine. Compnents allow
+	 *        Entities to respond to engine commands or player actions
+	 */
 	class Component {
 	public:
 		/**

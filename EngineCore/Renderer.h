@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
+#include "CameraComponent.h"
 #include "Configurable.h"
 #include "Entity.h"
 #include "ThreadPool.h"
@@ -58,9 +59,12 @@ namespace EngineCore {
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;
 
-		glm::mat4 ViewMatrix;
+		/** The active camera to be used for rendering */
+		CameraComponent* ActiveCamera;
 
-		glm::mat4 ProjectionMatrix;
+		glm::mat4 DefualtViewMatrix;
+
+		glm::mat4 DefaultProjectionMatrix;
 
 		/** The Rendering context's width */
 		int ContextWidth;

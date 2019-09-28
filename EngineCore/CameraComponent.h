@@ -38,6 +38,12 @@ namespace EngineCore {
 		 * @return ViewMatrix
 		 */
 		glm::mat4 GetViewMatrix() const;
+		
+		/**
+		 * Allows caller to access this camera's projection matrix
+		 * @return ProjectionMatrix
+		 */
+		glm::mat4 GetProjectionMatrix() const;
 
 		/**
 		 * Allows user to set this camera's FOV

@@ -27,6 +27,15 @@ namespace EngineCore {
 		 */
 		void Input(const InputEvent& input, float deltaTime) override;
 
+		/**
+		 * Setter function for MoveSpeed
+		 */
+		void SetMoveSpeed(float speed);
+
+		/**
+		 * Getter function for MoveSpeed
+		 */
+		float GetMoveSpeed();
 
 
 	private:
