@@ -14,6 +14,7 @@ namespace EngineCore {
 	void ComponentFactory::ProcessComponentData(Entity* parent, const nlohmann::json& componentList) {
 		for (auto& componentData : componentList) {
 			auto component = CreateComponent(parent, componentData);
+
 			if (component) {
 				parent->AddComponent(component);
 			}
@@ -37,8 +38,39 @@ namespace EngineCore {
 
 			component = tempHandle;
 		}
+		else if (type == "GraphicsComponent") {
+			//Load entity model
+			std::vector<float> verts;
 
-		return nullptr;
+			for (auto vert : componentData["model"]) {
+				verts.push_back(vert.get<float>());
+			}
+
+			//Populate entity draw data
+			GraphicsComponent* entityDrawData = new GraphicsComponent(parent);
+			entityDrawData->SetModel(verts);
+			entityDrawData->AddMaterial(
+				componentData["material"]["name"].get<std::string>(),
+				componentData["material"]["vertexShader"].get<std::string>(),
+				componentData["material"]["fragmentShader"].get<std::string>()
+			);
+
+			auto textureList = componentData["textures"];
+
+			int i = 0;
+			for (auto& texture : textureList) {
+				entityDrawData->AddTexture(
+					texture["name"].get<std::string>(),
+					texture["location"].get<std::string>(),
+					i
+				);
+				i++;
+			}
+
+			component = entityDrawData;
+		}
+
+		return component;
 	}
 
 }

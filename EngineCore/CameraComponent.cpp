@@ -21,14 +21,16 @@ namespace EngineCore {
 
 	void CameraComponent::Tick(float deltaTime) {
 		Position = Parent->GetPostion();
-		LookDirection = Rotation.ToVector();
+		//LookDirection = Rotation.ToVector();
+
+		LookDirection = EngineMath::Vector3(0, 0, -1);
 
 		auto target = Position + LookDirection;
-		ViewMatrix = glm::lookAt(
+		/*ViewMatrix = glm::lookAt(
 			glm::vec3(Position.X, Position.Y, Position.Z),
 			glm::vec3(target.X, target.Y, target.X),
 			glm::vec3(Up.X, Up.Y, Up.Z)
-	    );
+	    );*/
 
 	}
 

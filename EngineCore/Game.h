@@ -53,6 +53,10 @@ namespace EngineCore {
 		 */
 		void Update(float deltaTime);
 		
+		/**
+		 * Instructs the game to process player input
+		 * @param deltaTime the time step to use when applying user input
+		 */
 		void ProcessInput(float deltaTime);
 
 		/**

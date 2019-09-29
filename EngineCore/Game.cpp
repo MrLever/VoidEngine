@@ -104,7 +104,7 @@ namespace EngineCore {
 			Update(deltaTime);
 			
 			//Draw the scene
-			GameRenderer->Render(CurrentLevel->GetScene());
+			GameRenderer->Render(CurrentLevel.get());
 
 			//Update previous time
 			previousTime = currentTime;

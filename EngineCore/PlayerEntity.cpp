@@ -16,7 +16,7 @@ namespace EngineCore {
 	}
 
 	void PlayerEntity::Tick(float deltaSeconds) {
-
+		Entity::Tick(deltaSeconds);
 	}
 
 	void PlayerEntity::Terminate() {

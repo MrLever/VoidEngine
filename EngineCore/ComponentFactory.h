@@ -22,6 +22,12 @@ namespace EngineCore {
 
 		void ProcessComponentData(Entity* parent, const nlohmann::json& componentList);
 
+		/**
+		 * Helper function to create components and attatch them to a parent
+		 * @param parent The entity to attach this component to
+		 * @param componentData The data needed to construct that component
+		 * @return nullptr if construction fails, the Component if it's successful.
+		 */
 		Component* CreateComponent(Entity* parent, const nlohmann::json& componentData);
 
 	private:

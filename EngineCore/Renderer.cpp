@@ -44,15 +44,16 @@ namespace EngineCore {
 
 	}
 
-	void Renderer::Render(std::vector<Entity*> scene) {
+	void Renderer::Render(Level* scene) {
 		//Set the view and projection matrices for all graphics components for this draw call 
-		if (ActiveCamera == nullptr) {
+		auto activeCamera = scene->GetActiveCamera();
+		if (activeCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
 			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
 		}
 		else {
-			GraphicsComponent::ViewMatrix = ActiveCamera->GetViewMatrix();
-			GraphicsComponent::ProjectionMatrix = ActiveCamera->GetProjectionMatrix();
+			GraphicsComponent::ViewMatrix = activeCamera->GetViewMatrix();
+			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
 		}
 		
 
@@ -73,12 +74,14 @@ namespace EngineCore {
 			);
 		}
 
+		auto entities = scene->GetScene();
+
 		//Clear the color and depth buffer
 		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//Draw entities
-		for (const auto& entity : scene) {
+		for (const auto& entity : entities) {
 			entity->Draw();
 		}
 

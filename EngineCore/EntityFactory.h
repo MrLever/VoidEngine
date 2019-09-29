@@ -22,6 +22,10 @@ namespace EngineCore {
 	 */
 	class EntityFactory	{
 	public:
+		/**
+		 * Constructor
+		 * @param currLevel The level this factory is coupled to
+		 */
 		EntityFactory(Level* currLevel);
 
 		/**
@@ -34,68 +38,16 @@ namespace EngineCore {
 		 * Function to create a single entity from JSON data
 		 * @param entityData The data for a single entity
 		 */
-		template<class T>
-		[[nodiscard]] T* CreateEntity(const nlohmann::json& entityData);
+		[[nodiscard]] Entity* CreateEntity(const nlohmann::json& entityData);
+
+		void SetWorldOrientation(const nlohmann::json& entityData, EngineCore::Entity* entity);
 	
 	private:
 		/** The current level using this factory */
 		Level* CurrLevel;
+
+		/** Factory to create components for entities */
+		ComponentFactory CompFactory;
 	};
 
-	template<class T>
-	inline T* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
-		auto entityName = entityData["name"].get<std::string>();
-		
-		//Construct the entity on the heap
-		auto entity = new T(entityName);
-
-		//Extract Entity position
-		EngineMath::Vector3 position;
-		position.X = entityData["location"][0].get<float>();
-		position.Y = entityData["location"][1].get<float>();
-		position.Z = entityData["location"][2].get<float>();
-
-		EngineMath::Rotator rotation;
-		rotation.Pitch = entityData["rotation"][0].get<float>();
-		rotation.Yaw = entityData["rotation"][1].get<float>();
-		rotation.Roll = entityData["rotation"][2].get<float>();
-
-		entity->SetPosition(position);
-		entity->SetRotation(rotation);
-
-		if (entityData.find("graphicsComponent") != entityData.end()) {
-			//Load entity model
-			std::vector<float> verts;
-			auto graphicsData = entityData["graphicsComponent"];
-
-			for (auto vert : graphicsData["model"]) {
-				verts.push_back(vert.get<float>());
-			}
-
-			//Populate entity draw data
-			GraphicsComponent* entityDrawData = new GraphicsComponent(entity);
-			entityDrawData->SetModel(verts);
-			entityDrawData->AddMaterial(
-				graphicsData["material"]["name"].get<std::string>(),
-				graphicsData["material"]["vertexShader"].get<std::string>(),
-				graphicsData["material"]["fragmentShader"].get<std::string>()
-			);
-
-			auto textureList = graphicsData["textures"];
-
-			int i = 0;
-			for (auto& texture : textureList) {
-				entityDrawData->AddTexture(
-					texture["name"].get<std::string>(),
-					texture["location"].get<std::string>(),
-					i
-				);
-				i++;
-			}
-
-			entity->AddComponent(entityDrawData);
-		}
-
-		return entity;
-	}
 }

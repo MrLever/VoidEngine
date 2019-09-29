@@ -59,6 +59,10 @@ namespace EngineCore {
 		return Entities;
 	}
 
+	CameraComponent* Level::GetActiveCamera() {
+		return ActiveCamera;
+	}
+
 	bool Level::LoadLevelData() {
 		std::ifstream level(ResourcePath);
 

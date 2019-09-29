@@ -72,6 +72,11 @@ namespace EngineCore {
 		std::vector<Entity*> GetScene();
 
 		/**
+		 * Getter for this level's active camera
+		 */
+		CameraComponent* GetActiveCamera();
+
+		/**
 		 * Spawns entities into the scene from level data
 		 * @note This function must be called from the main thread
 		 */

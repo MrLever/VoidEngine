@@ -11,7 +11,7 @@
 //Void Engine Headers
 #include "CameraComponent.h"
 #include "Configurable.h"
-#include "Entity.h"
+#include "Level.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 
@@ -42,7 +42,7 @@ namespace EngineCore {
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render(std::vector<Entity*> scene);
+		void Render(Level* scene);
 
 		/**
 		 * Applies Renderer Configuration Settings
@@ -59,11 +59,10 @@ namespace EngineCore {
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;
 
-		/** The active camera to be used for rendering */
-		CameraComponent* ActiveCamera;
-
+		/** The defualt view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;
 
+		/** The default projection matrix to use if a scene does not provide one */
 		glm::mat4 DefaultProjectionMatrix;
 
 		/** The Rendering context's width */
