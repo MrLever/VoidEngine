@@ -88,6 +88,7 @@ namespace EngineCore {
 		 */
 		bool LoadLevelData();
 
+		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;
 
 		/** All the entities spawned in the level */

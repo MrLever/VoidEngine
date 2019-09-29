@@ -5,6 +5,7 @@
 //Void Engine Headers
 #include "EntityFactory.h"
 #include "CubeEntity.h"
+#include "BouncingCube.h"
 #include "ComponentFactory.h"
 #include "PlayerEntity.h"
 #include "Level.h"
@@ -32,6 +33,9 @@ namespace EngineCore {
 		}
 		else if (type == "CubeEntity") {
 			entity = new SuperVoid::CubeEntity(entityName);
+		}
+		else if (type == "BouncingCube") {
+			entity = new SuperVoid::BouncingCube(entityName);
 		}
 
 		SetWorldOrientation(entityData, entity);

@@ -14,13 +14,13 @@
                 },
                 {
                     "type":"FlyingMovementComponent",
-                    "speed":5
+                    "speed":10
                 }
             ]
         },
         {
             "name":"TestCube",
-            "type":"CubeEntity",
+            "type":"BouncingCube",
             "location": [0, 0, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -93,7 +93,7 @@
         },
         {
             "name":"TestCube2",
-            "type":"CubeEntity",
+            "type":"BouncingCube",
             "location": [2, 2, -1],
             "rotation": [0, 0, 0],
             "components":

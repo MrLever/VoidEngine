@@ -8,7 +8,7 @@
 namespace EngineCore {
 
 	CameraComponent::CameraComponent(Entity* parent) 
-		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0) {
+		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
 		
 		UpdateProjectionMatrix();
 		LookDirection = Rotation.ToVector();
@@ -33,7 +33,7 @@ namespace EngineCore {
 		ViewMatrix = glm::lookAt(
 			glm::vec3(Position.X, Position.Y, Position.Z),
 			glm::vec3(0, 0, 0),
-			glm::vec3(0, 1, 0)
+			glm::vec3(Up.X, Up.Y, Up.Z)
 	    );
 	}
 

@@ -19,13 +19,13 @@ namespace EngineUtilitiesTests {
 
 		TEST_CLASS(ConfigurationResourceTests) {
 			TEST_METHOD(ConfigurationLoadTest) {
-				Configuration config("Settings/Testing/ConfigurableTest1.lua");
+				Configuration config("Settings/Testing/ConfigurableTest1.json");
 				config.Load();
 				auto res = config.GetAttribute<std::string>("stringProperty");
 				Assert::AreEqual(std::string("testString1"), res);
 			}
 			TEST_METHOD(ConfigurationGetAttributeTest) {
-				Configuration config("Settings/Testing/ConfigurableTest2.lua");
+				Configuration config("Settings/Testing/ConfigurableTest2.json");
 				config.Load();
 
 				auto res = config.GetAttribute<std::string>("stringProperty");

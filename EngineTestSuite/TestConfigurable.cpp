@@ -42,7 +42,7 @@ namespace EngineUtilitiesTests {
 			auto resourceMngr = std::make_shared<ResourceManager>(pool);
 
 			DummyConfigurable d(
-				resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua")
+				resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.json")
 			);
 
 			d.Configure();
@@ -55,8 +55,8 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(ConfigurableReconfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
 			auto resourceMngr = std::make_shared<ResourceManager>(pool);
-			auto resource1 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.lua");
-			auto resource2 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.lua");
+			auto resource1 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.json");
+			auto resource2 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.json");
 			
 			DummyConfigurable d(
 				resource1

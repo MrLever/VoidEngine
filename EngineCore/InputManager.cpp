@@ -36,7 +36,6 @@ namespace EngineCore {
 		//Process Mouse Input
 		while (!MouseInputBuffer.empty()) {
 			auto button = MouseInputBuffer.front();
-			std::cout << "Mouse Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
 
 			std::string eventType;
 
@@ -52,8 +51,7 @@ namespace EngineCore {
 		//Process KB like mouse
 		while (!KeyboardInputBuffer.empty()) {
 			auto button = KeyboardInputBuffer.front();
-			std::cout << "Keyboard Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
-
+			
 			std::string eventType;
 			if (button.GetButton() == KeyboardButton::W) {
 				eventType = "Move Up";
@@ -76,7 +74,6 @@ namespace EngineCore {
 		//Process Gamepad like mouse
 		while (!GamepadInputBuffer.empty()) {
 			auto button = GamepadInputBuffer.front();
-			std::cout << "Keyboard Button Pressed: " << static_cast<unsigned>(button.GetButton()) << "\n";
 
 			GamepadInputBuffer.pop_front();
 		}

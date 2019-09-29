@@ -23,19 +23,6 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::Tick(float deltaSeconds) {
-		Entity::Tick(deltaSeconds);
-
-		auto deltaHeight = deltaSeconds * Velocity;
-		auto deltaPitch = deltaSeconds * 1.0f;
-
-		Position.Y += deltaHeight;
-		Rotation.Pitch += deltaPitch;
-		Rotation.Roll += deltaPitch;
-		Rotation.Yaw += deltaPitch;
-
-		if (Position.Y > 2 || Position.Y < -2) {
-			Velocity *= -1;
-		}
 	}
 	
 	void CubeEntity::Terminate() {

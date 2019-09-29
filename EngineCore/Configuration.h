@@ -5,8 +5,7 @@
 #include <string>
 
 //Library Headers
-#include "lua.hpp"
-#include "LuaBridge/LuaBridge.h"
+#include "nlohmann/json.hpp"
 
 //Void Engine Headers
 #include "Resource.h"
@@ -55,34 +54,20 @@ namespace EngineUtils {
 		template<typename T>
 		T ReturnErrorValue();
 
-		/**
-		 * Logic to load Configuration Table into ConfigTable
-		 */
-		void LoadConfigTable();
-
-		/**
-		 * Hard-coded error script to be used when a script is not found in main memory
-		 */
-		inline static const std::string ErrorScript = "Settings = { Error = true }";
-
-		/** The Lua State associated with this configuration script */
-		lua_State* LuaState;
-
 		/** Table mapping key -> config value */
-		std::unique_ptr<luabridge::LuaRef> ConfigTable;
+		nlohmann::json ConfigData;
 	};
 
 	template<typename T>
 	inline T Configuration::GetAttribute(const std::string& attribute) {
-		//auto configTable = luabridge::getGlobal(LuaState, "Settings");
-		luabridge::LuaRef result = (*ConfigTable)[attribute];
-		
-		if (result.isNil()) {
-			std::cerr << "ERROR: Attribute " << attribute << "not found in LuaConfiguration";
+		auto dataIter = ConfigData.find(attribute);
+		if (dataIter == ConfigData.end()) {
 			return ReturnErrorValue<T>();
 		}
-
-		return result.cast<T>();
+		
+		auto res = dataIter->get<T>();
+		
+		return res;
 	}
 
 	template<typename T>

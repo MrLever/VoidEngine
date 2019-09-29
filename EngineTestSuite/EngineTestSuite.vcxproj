@@ -79,19 +79,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDIr)\Dependencies\LUA\include;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -195,9 +195,6 @@
     <ClCompile Include="TestWindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dependencies\LUA\LUA.vcxproj">
-      <Project>{2d6b9a6f-b61c-42bd-bafb-37d51adc760a}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
       <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
     </ProjectReference>

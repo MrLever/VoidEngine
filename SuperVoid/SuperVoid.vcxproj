@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\LUA\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\LUA\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\LUA\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\LUA\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
@@ -157,13 +157,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BouncingCube.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="CubeEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dependencies\LUA\LUA.vcxproj">
-      <Project>{2d6b9a6f-b61c-42bd-bafb-37d51adc760a}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
       <Project>{6ee6b15c-5db5-44a6-ad68-cc478abde558}</Project>
     </ProjectReference>
@@ -172,6 +170,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BouncingCube.h" />
     <ClInclude Include="CubeEntity.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

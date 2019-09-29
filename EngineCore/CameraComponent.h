@@ -72,8 +72,10 @@ namespace EngineCore {
 		/** This camera's field of view */
 		float FOV;
 
+		/** Vector to represent the direction the camera is looking */
 		EngineMath::Vector3 LookDirection;
 		
+		/** Vector to represent the up direction for the camera */
 		EngineMath::Vector3 Up;
 	};
 
