@@ -23,6 +23,7 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::Tick(float deltaSeconds) {
+
 	}
 	
 	void CubeEntity::Terminate() {

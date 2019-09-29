@@ -56,12 +56,12 @@ namespace EngineCore {
 	}
 
 	void CameraComponent::UpdateProjectionMatrix() {
-		auto windowWidth = WindowManager::GetActiveWindow()->GetWindowWidth();
-		auto windowHeight = WindowManager::GetActiveWindow()->GetWindowHeight();
+		float windowWidth = (float)WindowManager::GetActiveWindow()->GetWindowWidth();
+		float windowHeight = (float)WindowManager::GetActiveWindow()->GetWindowHeight();
 
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(FOV),
-			(float)(windowWidth / windowHeight),
+			windowWidth / windowHeight,
 			0.1f,
 			100.0f
 		);

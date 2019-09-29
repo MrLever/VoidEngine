@@ -54,6 +54,7 @@ namespace EngineCore {
 			return;
 		}
 
+		//Generate an OpenGL handle for this texture
 		glGenTextures(1, &TextureHandle);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 

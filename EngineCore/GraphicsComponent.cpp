@@ -28,10 +28,6 @@ namespace EngineCore {
 
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
 		Vertices = std::move(verts);
-		unsigned int indices[] = {  // note that we start from 0!
-			0, 1, 3,  // first Triangle
-			1, 2, 3   // second Triangle
-		};
 
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);

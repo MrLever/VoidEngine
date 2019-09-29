@@ -178,6 +178,10 @@ namespace EngineCore {
 			timeStamp
 		);
 
+		if (input == ToggleFullscreenInput) {
+			CurrWindowManager->ToggleFullscreen();
+		}
+
 		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 

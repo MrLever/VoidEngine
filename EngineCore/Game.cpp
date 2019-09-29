@@ -22,6 +22,8 @@ namespace EngineCore {
 
 	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
 		FrameRate = 0;
+		
+		//Load configuration data
 		EngineConfig.Load();
 
 		//Init Higher Level Game Objects
@@ -130,9 +132,6 @@ namespace EngineCore {
 			numFrames = 0;
 			lastTime = EngineUtils::GetGameTime();
 		}
-
-
-
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
