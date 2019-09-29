@@ -105,8 +105,8 @@
       <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -114,6 +114,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -129,8 +139,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -138,6 +148,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -156,8 +176,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -165,6 +185,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -184,8 +214,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -193,6 +223,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraComponent.cpp" />
