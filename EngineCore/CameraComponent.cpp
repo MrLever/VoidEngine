@@ -20,18 +20,21 @@ namespace EngineCore {
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
+		//Update position to reflect parent's position
 		Position = Parent->GetPostion();
+
 		//LookDirection = Rotation.ToVector();
 
-		LookDirection = EngineMath::Vector3(0, 0, -1);
+		LookDirection = EngineMath::Vector3(0, 0, 0);
 
 		auto target = Position + LookDirection;
-		/*ViewMatrix = glm::lookAt(
+		
+		//Set view matrix for this frame
+		ViewMatrix = glm::lookAt(
 			glm::vec3(Position.X, Position.Y, Position.Z),
-			glm::vec3(target.X, target.Y, target.X),
-			glm::vec3(Up.X, Up.Y, Up.Z)
-	    );*/
-
+			glm::vec3(0, 0, 0),
+			glm::vec3(0, 1, 0)
+	    );
 	}
 
 	glm::mat4 CameraComponent::GetViewMatrix() const {
@@ -48,9 +51,13 @@ namespace EngineCore {
 		UpdateProjectionMatrix();
 	}
 
+	float CameraComponent::GetFOV() {
+		return FOV;
+	}
+
 	void CameraComponent::UpdateProjectionMatrix() {
 		auto windowWidth = WindowManager::GetActiveWindow()->GetWindowWidth();
-		auto windowHeight = WindowManager::GetActiveWindow()->GetWindowWidth();
+		auto windowHeight = WindowManager::GetActiveWindow()->GetWindowHeight();
 
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(FOV),

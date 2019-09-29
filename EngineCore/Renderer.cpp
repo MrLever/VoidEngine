@@ -55,23 +55,27 @@ namespace EngineCore {
 			GraphicsComponent::ViewMatrix = activeCamera->GetViewMatrix();
 			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
 		}
-		
 
 		auto windowWidth = Window->GetWindowWidth();
 		auto windowHeight = Window->GetWindowHeight();
 
 		//If the window was resized from the last call
 		if (ContextWidth != windowWidth || ContexHeight != windowHeight) [[unlikely]] {
-			//Reset the render's context size
-			ContextWidth = windowWidth;
-			ContexHeight = windowHeight;
+			if (activeCamera) {
+				activeCamera->UpdateProjectionMatrix();
+			}
+			else {
+				//Reset the render's context size
+				ContextWidth = windowWidth;
+				ContexHeight = windowHeight;
 
-			//Re-create the projection matrix
-			DefaultProjectionMatrix = glm::perspective<float>(
-				glm::radians(45.0f),
-				(float)ContextWidth / ContexHeight,
-				0.1f, 100.0f
-			);
+				//Re-create the projection matrix
+				DefaultProjectionMatrix = glm::perspective<float>(
+					glm::radians(45.0f),
+					(float)ContextWidth / ContexHeight,
+					0.1f, 100.0f
+				);
+			}
 		}
 
 		auto entities = scene->GetScene();

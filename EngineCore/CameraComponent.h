@@ -50,11 +50,18 @@ namespace EngineCore {
 		 */
 		void SetFOV(float fov);
 
-	private:
 		/**
-		 * Helper function to update the camera's Projection Matrix
+		 * Getter for this camera's FOV
+		 */
+		float GetFOV();
+
+		/**
+		 * Function to update the camera's Projection Matrix in response
+		 * to a change in window size
 		 */
 		void UpdateProjectionMatrix();
+
+	private:
 
 		/** This camera's projection matrix */
 		glm::mat4 ProjectionMatrix;
@@ -62,6 +69,7 @@ namespace EngineCore {
 		/** This camera's view matrix */
 		glm::mat4 ViewMatrix;
 
+		/** This camera's field of view */
 		float FOV;
 
 		EngineMath::Vector3 LookDirection;
