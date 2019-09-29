@@ -35,7 +35,7 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The game's name
 		 */
-		Game(const std::string& name);
+		Game(const std::string& configFile);
 
 		/**
 		 * Destructor
@@ -107,8 +107,8 @@ namespace EngineCore {
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;
 		
-		/** The name displayed in the game window's title bar */
-		std::string GameName;
+		/** Config settings for the game */
+		EngineUtils::Configuration EngineConfig;
 
 		/** The game's current framerate */
 		int FrameRate;

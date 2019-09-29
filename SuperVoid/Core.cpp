@@ -1,5 +1,6 @@
 //STD Headers
 #include <iostream>
+#include <string>
 
 //Library Headers
 
@@ -8,8 +9,14 @@
 
 using namespace EngineCore;
 
-int main(int argc, char* argv) {
-	Game game("SuperVoid");
+int main(int argc, char* argv[]) {
+	std::string config = "Settings/EngineConfig.json";
+
+	if (argc > 1) {
+		config = std::string(argv[1]);
+	}
+
+	Game game(config);
 
 	return 0;
 }

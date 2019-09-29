@@ -20,14 +20,15 @@
 
 namespace EngineCore {
 
-	Game::Game(const std::string& name) : GameName(std::move(name)) {
+	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
 		FrameRate = 0;
+		EngineConfig.Load();
 
 		//Init Higher Level Game Objects
 		InitGame();
 
 		//Set the current level to the default level
-		SetLevel("Resources/Levels/DemoLevel.json");
+		SetLevel(EngineConfig.GetAttribute<std::string>("DefaultLevel"));
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -43,7 +44,7 @@ namespace EngineCore {
 		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
 
 		//Initialize game window and input interface
-		Window = std::make_shared<WindowManager>(GameName, 800, 600);
+		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(

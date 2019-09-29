@@ -1,4 +1,4 @@
 {
     "GameName":"SuperVoid",
-    "DefaultLevel":"Resources/CameraTestLevel.json"
+    "DefaultLevel":"Resources/Levels/CameraTestLevel.json"
 }
