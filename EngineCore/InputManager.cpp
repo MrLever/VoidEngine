@@ -59,16 +59,24 @@ namespace EngineCore {
 
 			std::string eventType;
 			if (button == KeyboardButton::W) {
-				eventType = "Move Up";
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", 1.0f)
+				);
 			}
 			else if (button == KeyboardButton::A) {
-				eventType = "Move Left";
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", -1.0f)
+				);
 			}
 			else if (button == KeyboardButton::S) {
-				eventType = "Move Down";
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", -1.0f)
+				);
 			}
 			else if (button == KeyboardButton::D) {
-				eventType = "Move Right";
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", 1.0f)
+				);
 			}
 
 			DispatchEvent(scene, InputEvent(eventType), deltaTime);
@@ -83,16 +91,24 @@ namespace EngineCore {
 			std::string eventType;
 
 			if (button == GamepadButton::DPAD_UP) {
-				eventType = "Move Up";
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", 1.0f)
+				);
 			}
 			else if (button == GamepadButton::DPAD_DOWN) {
-				eventType = "Move Down";
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", -1.0f)
+				);
 			}
 			else if (button == GamepadButton::DPAD_LEFT) {
-				eventType = "Move Left";
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", -1.0f)
+				);
 			}
 			else if (button == GamepadButton::DPAD_RIGHT) {
-				eventType = "Move Right";
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", 1.0f)
+				);
 			}
 
 			DispatchEvent(scene, InputEvent(eventType), deltaTime);

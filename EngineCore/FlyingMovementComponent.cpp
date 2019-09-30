@@ -14,30 +14,7 @@ namespace EngineCore {
 
 	void FlyingMovementComponent::Input(const InputEvent& input, float deltaTime) {
 		
-		auto speed = MoveSpeed * deltaTime;
-		auto forward = Parent->GetRotation().ToVector();
-		auto right = forward.Cross(EngineMath::Vector3(0, 1, 0)).Normalize();
-		
-		if (input.EventName == "Move Up") {
-			Parent->SetPosition(
-				Parent->GetPostion() + forward * speed
-			);
-		}
-		else if (input.EventName == "Move Down") {
-			Parent->SetPosition(
-				Parent->GetPostion() - forward * speed
-			);
-		}
-		else if (input.EventName == "Move Left") {
-			Parent->SetPosition(
-				Parent->GetPostion() - right * speed
-			);
-		}
-		else if (input.EventName == "Move Right") {
-			Parent->SetPosition(
-				Parent->GetPostion() + right * speed
-			);
-		}
+
 	}
 
 	void FlyingMovementComponent::Input(const InputAxis& axis, float deltaTime) {
@@ -56,6 +33,20 @@ namespace EngineCore {
 				newRotation.Pitch = -89.0F;
 			}
 			Parent->SetRotation(newRotation);
+		}
+		auto speed = MoveSpeed * deltaTime;
+		auto forward = Parent->GetRotation().ToVector();
+		auto right = forward.Cross(EngineMath::Vector3(0, 1, 0)).Normalize();
+
+		if (axis.AxisName == "UpAxis") {
+			Parent->SetPosition(
+				Parent->GetPostion() + forward * axis.Value * speed
+			);
+		}
+		else if (axis.AxisName == "RightAxis") {
+			Parent->SetPosition(
+				Parent->GetPostion() + right * axis.Value * speed
+			);
 		}
 	}
 

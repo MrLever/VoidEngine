@@ -189,9 +189,30 @@ namespace EngineCore {
 
 	void WindowManager::HandleGamepadInput() {
 		GLFWgamepadstate state;
-		static const float JOYSTICK_DEADZONE = 0.05;
-
+		static const float JOYSTICK_DEADZONE = 0.2;
 		auto timestamp = EngineUtils::GetGameTime();
+
+		PollGamepadButtons(state, timestamp);
+		
+		//Process axes
+		static InputAxis LeftJoyX("UpAxis", 0);
+		static InputAxis LeftJoyY("RightAxis", 0);
+
+		//The following axes lookups are inverted intentionally.
+		LeftJoyX.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
+		LeftJoyY.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
+		
+		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(LeftJoyX);
+		}
+		if ((LeftJoyY.Value > JOYSTICK_DEADZONE) || (LeftJoyY.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(LeftJoyY);
+		}
+		
+
+	}
+
+	void WindowManager::PollGamepadButtons(GLFWgamepadstate& state, const EngineUtils::GameTime& timestamp){
 		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
 			return;
 		}
@@ -217,10 +238,6 @@ namespace EngineCore {
 				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
 			);
 		}
-
-		//Process axes
-
-
 	}
 
 	void WindowManager::DeleteWindow(GLFWwindow* window) {
