@@ -21,7 +21,13 @@ namespace EngineCore {
 		}
 	}
 
-	void Entity::Input(const InputEvent& input, float deltaTime){
+	void Entity::Input(const InputEvent& input, float deltaTime) {
+		for (auto& component : Components) {
+			component->Input(input, deltaTime);
+		}
+	}
+
+	void Entity::Input(const InputAxis& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
 		}

@@ -28,6 +28,13 @@ namespace EngineCore {
 		void Input(const InputEvent& input, float deltaTime) override;
 
 		/**
+		 * Function to allow the component to update it's parent's position in accordance with
+		 * the player's input
+		 * @param input The player's input
+		 */
+		void Input(const InputAxis& axis, float deltaTime) override;
+
+		/**
 		 * Setter function for MoveSpeed
 		 */
 		void SetMoveSpeed(float speed);

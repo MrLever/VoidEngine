@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <cmath>
+#include <ostream>
 
 //Library Headers
 
@@ -40,6 +41,11 @@ namespace EngineMath {
 		 * Returns a direction vector that corresponds to this rotator
 		 */
 		Vector3 ToVector() const;
+
+		/**
+		 * Output stream operator overload
+		 */
+		friend std::ostream& operator<< (std::ostream& out, const Rotator& r);
 
 	};
 

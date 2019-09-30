@@ -31,6 +31,7 @@ namespace EngineCore {
 
 		//Set the current level to the default level
 		SetLevel(EngineConfig.GetAttribute<std::string>("DefaultLevel"));
+		Window->ToggleCursor();
 
 		//Start game loop
 		ExecuteGameLoop();

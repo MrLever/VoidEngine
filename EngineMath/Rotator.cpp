@@ -47,8 +47,13 @@ namespace EngineMath {
 		
 		return Vector3(
 			std::cos(pitch) * std::cos(yaw),
-			std::sin(yaw)*std::cos(pitch),
-			std::sin(pitch)
-		);
+			std::sin(pitch),
+			std::cos(pitch) * std::sin(yaw)
+		).Normalize();
+	}
+
+	std::ostream& operator<<(std::ostream& out, const Rotator& r) {
+		out << "rotation: [" << r.Pitch << ", " << r.Yaw << ", " << r.Roll << "]";
+		return out;
 	}
 }

@@ -32,6 +32,10 @@ namespace EngineCore {
 		GamepadInputBuffer.push_back(input);
 	}
 
+	void InputManager::ReportInput(const InputAxis& input){
+		InputAxisDataBuffer.push_back(input);
+	}
+
 	void InputManager::ProcessInput(const std::vector<Entity*> scene, float deltaTime) {
 		//Process Mouse Input
 		while (!MouseInputBuffer.empty()) {
@@ -77,6 +81,14 @@ namespace EngineCore {
 
 			GamepadInputBuffer.pop_front();
 		}
+
+		while (!InputAxisDataBuffer.empty()) {
+			auto axisReading = InputAxisDataBuffer.front();
+
+			DispatchEvent(scene, axisReading, deltaTime);
+
+			InputAxisDataBuffer.pop_front();
+		}
 	}
 
 	void InputManager::Configure() {
@@ -85,7 +97,7 @@ namespace EngineCore {
 
 	void InputManager::DispatchEvent(
 			const std::vector<EngineCore::Entity*>& scene, 
-			const EngineCore::InputEvent& event,
+			const InputEvent& event,
 			float deltaTime
 		) {
 		static const EngineUtils::Name ERROR_EVENT_ID("Error");
@@ -96,6 +108,18 @@ namespace EngineCore {
 
 		for (auto& entity : scene) {
 			entity->Input(event, deltaTime);
+		}
+	}
+
+	void InputManager::DispatchEvent(
+		const std::vector<EngineCore::Entity*>& scene,
+		const InputAxis& axisData,
+		float deltaTime
+	) {
+		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+
+		for (auto& entity : scene) {
+			entity->Input(axisData, deltaTime);
 		}
 	}
 

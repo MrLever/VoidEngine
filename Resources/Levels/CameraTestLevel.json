@@ -6,7 +6,7 @@
             "name":"FloatingPawn",
             "type":"PlayerEntity",
             "location": [0, 0, 5],
-            "rotation": [0, 0, 0],
+            "rotation": [0, -90, 0],
             "components":
             [
                 {

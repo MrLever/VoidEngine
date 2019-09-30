@@ -9,6 +9,7 @@
 #include "Vector.h"
 #include "Rotator.h"
 #include "InputEvent.h"
+#include "InputAxis.h"
 
 namespace EngineCore {
 	//Forward class declarations
@@ -42,6 +43,12 @@ namespace EngineCore {
 		 * @param input Input fromt the keyboard to process
 		 */
 		virtual void Input(const InputEvent& input, float deltaTime);
+
+		/**
+		 * Function to allow this component to process input axis data
+		 * @param input Input fromt the keyboard to process
+		 */
+		virtual void Input(const InputAxis& input, float deltaTime);
 
 		/**
 		 * Pure virtual function that defines what the entity does once a level begins.

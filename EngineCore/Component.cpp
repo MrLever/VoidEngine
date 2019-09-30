@@ -15,6 +15,10 @@ namespace EngineCore {
 		;
 	}
 
+	void Component::Input(const InputAxis& input, float deltaTime) {
+
+	}
+
 	void Component::Tick(float deltaTime) {
 		;
 	}

@@ -29,9 +29,15 @@ namespace EngineCore {
 
 		/**
 		 * Function to allow this component to process input
-		 * @param input Input fromt the keyboard to process
+		 * @param input Input from the keyboard to process
 		 */
 		virtual void Input(const InputEvent& input, float deltaTime);
+
+		/**
+		 * Function to allow this component to process input
+		 * @param input Input axis data to process
+		 */
+		virtual void Input(const InputAxis& input, float deltaTime);
 
 		/**
 		 * Defines how a component processes updates

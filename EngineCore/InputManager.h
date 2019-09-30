@@ -17,6 +17,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
+#include "InputAxis.h"
 
 namespace EngineCore {
 
@@ -64,6 +65,12 @@ namespace EngineCore {
 		void ReportInput(const GamepadInput& input);
 
 		/**
+		 * Proccesses gamepad input events
+		 * @param input The gamepad input to process
+		 */
+		void ReportInput(const InputAxis& input);
+
+		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
 		 * @param scene The scene of entities to propogate commands to
 		 * @param deltaTime the time step for input operations
@@ -83,7 +90,18 @@ namespace EngineCore {
 		 */
 		void DispatchEvent(
 			const std::vector<EngineCore::Entity*>& scene, 
-			const EngineCore::InputEvent& event, 
+			const InputEvent& event, 
+			float deltaTime
+		);
+
+	    /**
+		 * Helper function to dispatch events to a scene
+		 * @param scene The scene to dispatch events to
+		 * @param event The event to dispatch
+		 */
+		void DispatchEvent(
+			const std::vector<EngineCore::Entity*>& scene, 
+			const InputAxis& axisData, 
 			float deltaTime
 		);
 
@@ -95,6 +113,9 @@ namespace EngineCore {
 
 		/** Buffer for unprocessed Gamepad inputs */
 		std::deque<GamepadInput> GamepadInputBuffer;
+
+		/** Buffer for unprocessed Input Axis data */
+		std::deque<InputAxis> InputAxisDataBuffer;
 
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;

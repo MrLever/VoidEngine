@@ -8,6 +8,8 @@
 //Coati Headers
 #include "WindowManager.h"
 #include "InputManager.h"
+#include "InputAxis.h"
+#include "InputEvent.h"
 
 namespace EngineCore {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -19,7 +21,7 @@ namespace EngineCore {
 	);
 
 	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
-		: GameName(std::move(gameName)), IsFullscreen(false) {
+		: GameName(std::move(gameName)), IsFullscreen(false), CursorEnabled(true) {
 		
 		WindowWidth = windowWidth;
 		WindowHeight = windowHeight;
@@ -36,7 +38,25 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		
+		static double MouseXPrev = -1.0f;
+		static double MouseYPrev = -1.0f;
+		static float SENSITIVITY = 0.05f;
+		static InputAxis MouseX("MouseX", 0);
+		static InputAxis MouseY("MouseY", 0);
+
+		if (MouseXPrev == -1.0f	|| MouseYPrev == 1.0f) {
+			MouseXPrev = float(xPos);
+			MouseYPrev = float(yPos);
+		}
+
+		MouseX.Value = (float)(xPos - MouseXPrev) * SENSITIVITY;
+		MouseY.Value = (float)(MouseYPrev - yPos) * SENSITIVITY;
+
+		MouseXPrev = xPos;
+		MouseYPrev = yPos;
+
+		CurrWindowManager->GameInputManager->ReportInput(MouseX);
+		CurrWindowManager->GameInputManager->ReportInput(MouseY);
 	}
 
 
@@ -129,6 +149,17 @@ namespace EngineCore {
 		}
 
 		glViewport(0, 0, WindowWidth, WindowHeight);
+	}
+
+	void WindowManager::ToggleCursor() {
+		if (CursorEnabled) {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		else {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+
+		CursorEnabled = !CursorEnabled;
 	}
 
 	std::shared_ptr<GLFWwindow> WindowManager::GetWindow() {

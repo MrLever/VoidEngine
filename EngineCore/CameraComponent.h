@@ -77,6 +77,7 @@ namespace EngineCore {
 		
 		/** Vector to represent the up direction for the camera */
 		EngineMath::Vector3 Up;
+
 	};
 
 }

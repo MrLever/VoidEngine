@@ -21,9 +21,10 @@ namespace EngineCore {
 	void CameraComponent::Tick(float deltaTime) {
 		//Update position to reflect parent's position
 		Position = Parent->GetPostion();
+		Rotation = Parent->GetRotation();
 
-		//LookDirection = Rotation.ToVector();
-		LookDirection = EngineMath::Vector3(0, 0, -1);
+		LookDirection = Rotation.ToVector();
+		//LookDirection = EngineMath::Vector3(0, 0, -1);
 
 		auto target = Position + LookDirection;
 		

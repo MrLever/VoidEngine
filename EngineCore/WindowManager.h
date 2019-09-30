@@ -134,6 +134,11 @@ namespace EngineCore {
 		int GetWindowHeight() const;
 
 		/**
+		 * Instructs GLFW to toggle cursor visibility
+		 */
+		void ToggleCursor();
+
+		/**
 		 * Global function to allow any user to query data about the active window in a const fashion
 		 */
 		static const WindowManager* GetActiveWindow();
@@ -171,6 +176,9 @@ namespace EngineCore {
 
 		/** Flag to determine if the current window is fullscreen */
 		bool IsFullscreen;
+
+		/** Flag to determine if the cursor is enabled in the window */
+		bool CursorEnabled;
 
 		/** Pointer to the active window manager to allow static callback functions to work properly */
 		static WindowManager* CurrWindowManager;
