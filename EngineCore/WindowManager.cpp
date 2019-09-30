@@ -41,8 +41,8 @@ namespace EngineCore {
 		static double MouseXPrev = -1.0f;
 		static double MouseYPrev = -1.0f;
 		static float SENSITIVITY = 0.05f;
-		static InputAxis MouseX("MouseX", 0);
-		static InputAxis MouseY("MouseY", 0);
+		static InputAxis MouseX("LookRight", 0);
+		static InputAxis MouseY("LookUp", 0);
 
 		if (MouseXPrev == -1.0f	|| MouseYPrev == 1.0f) {
 			MouseXPrev = float(xPos);
@@ -197,16 +197,26 @@ namespace EngineCore {
 		//Process axes
 		static InputAxis LeftJoyX("RightAxis", 0);
 		static InputAxis LeftJoyY("UpAxis", 0);
+		static InputAxis RightJoyX("LookRight", 0);
+		static InputAxis RightJoyY("LookUp", 0);
 
 		//The following axes lookups are inverted intentionally.
 		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
 		LeftJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
-		
+		RightJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X];
+		RightJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y];
+
 		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
 			GameInputManager->ReportInput(LeftJoyX);
 		}
 		if ((LeftJoyY.Value > JOYSTICK_DEADZONE) || (LeftJoyY.Value < -JOYSTICK_DEADZONE)) {
 			GameInputManager->ReportInput(LeftJoyY);
+		}
+		if ((RightJoyX.Value > JOYSTICK_DEADZONE) || (RightJoyX.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(RightJoyX);
+		}
+		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(RightJoyY);
 		}
 		
 

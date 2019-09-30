@@ -18,12 +18,12 @@ namespace EngineCore {
 	}
 
 	void FlyingMovementComponent::Input(const InputAxis& axis, float deltaTime) {
-		if (axis.AxisName == "MouseX") {
+		if (axis.AxisName == "LookRight") {
 			auto newRotation = Parent->GetRotation();
 			newRotation.Yaw += axis.Value;
 			Parent->SetRotation(newRotation);
 		}
-		else if (axis.AxisName == "MouseY") {
+		else if (axis.AxisName == "LookUp") {
 			auto newRotation = Parent->GetRotation();
 			newRotation.Pitch += axis.Value;
 			if (newRotation.Pitch > 89.0f) {
