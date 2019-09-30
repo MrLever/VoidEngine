@@ -168,6 +168,11 @@ namespace EngineCore {
 
 	void WindowManager::PollEvents() {
 		glfwPollEvents();
+
+		if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1)) {
+			HandleGamepadInput();
+		}
+
 	}
 
 	void WindowManager::SwapBuffers() {
@@ -180,6 +185,42 @@ namespace EngineCore {
 
 	bool WindowManager::WindowTerminated() {
 		return (glfwWindowShouldClose(Window.get()) == GLFW_TRUE);
+	}
+
+	void WindowManager::HandleGamepadInput() {
+		GLFWgamepadstate state;
+		static const float JOYSTICK_DEADZONE = 0.05;
+
+		auto timestamp = EngineUtils::GetGameTime();
+		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
+			return;
+		}
+
+		//Process Buttons
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+			);
+		}
+
+		//Process axes
+
+
 	}
 
 	void WindowManager::DeleteWindow(GLFWwindow* window) {

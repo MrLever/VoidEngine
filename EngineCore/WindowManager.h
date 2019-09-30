@@ -64,6 +64,11 @@ namespace EngineCore {
 		 */
 		bool WindowTerminated();
 
+		/**
+		 * Instructs window to poll and report gamepad input
+		 */
+		void HandleGamepadInput();
+
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks

@@ -54,19 +54,20 @@ namespace EngineCore {
 
 		//Process KB like mouse
 		while (!KeyboardInputBuffer.empty()) {
-			auto button = KeyboardInputBuffer.front();
-			
+			auto input = KeyboardInputBuffer.front();
+			auto button = input.GetButton();
+
 			std::string eventType;
-			if (button.GetButton() == KeyboardButton::W) {
+			if (button == KeyboardButton::W) {
 				eventType = "Move Up";
 			}
-			else if (button.GetButton() == KeyboardButton::A) {
+			else if (button == KeyboardButton::A) {
 				eventType = "Move Left";
 			}
-			else if (button.GetButton() == KeyboardButton::S) {
+			else if (button == KeyboardButton::S) {
 				eventType = "Move Down";
 			}
-			else if (button.GetButton() == KeyboardButton::D) {
+			else if (button == KeyboardButton::D) {
 				eventType = "Move Right";
 			}
 
@@ -75,9 +76,26 @@ namespace EngineCore {
 			KeyboardInputBuffer.pop_front();
 		}
 
-		//Process Gamepad like mouse
+		//Process Gamepad input
 		while (!GamepadInputBuffer.empty()) {
-			auto button = GamepadInputBuffer.front();
+			auto input = GamepadInputBuffer.front();
+			auto button = input.GetButton();
+			std::string eventType;
+
+			if (button == GamepadButton::DPAD_UP) {
+				eventType = "Move Up";
+			}
+			else if (button == GamepadButton::DPAD_DOWN) {
+				eventType = "Move Down";
+			}
+			else if (button == GamepadButton::DPAD_LEFT) {
+				eventType = "Move Left";
+			}
+			else if (button == GamepadButton::DPAD_RIGHT) {
+				eventType = "Move Right";
+			}
+
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
 
 			GamepadInputBuffer.pop_front();
 		}
