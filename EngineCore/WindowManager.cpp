@@ -195,12 +195,12 @@ namespace EngineCore {
 		PollGamepadButtons(state, timestamp);
 		
 		//Process axes
-		static InputAxis LeftJoyX("UpAxis", 0);
-		static InputAxis LeftJoyY("RightAxis", 0);
+		static InputAxis LeftJoyX("RightAxis", 0);
+		static InputAxis LeftJoyY("UpAxis", 0);
 
 		//The following axes lookups are inverted intentionally.
-		LeftJoyX.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
-		LeftJoyY.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
+		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
+		LeftJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
 		
 		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
 			GameInputManager->ReportInput(LeftJoyX);
