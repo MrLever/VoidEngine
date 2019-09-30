@@ -220,7 +220,7 @@
       <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
     <ClCompile Include="InputAxis.cpp">
-      <Filter>Header Files\Engine Core\Input System</Filter>
+      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
