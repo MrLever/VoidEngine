@@ -12,7 +12,7 @@
 #include "Message.h"
 #include "MessageBusNode.h"
 
-namespace EngineCore {
+namespace core {
 	/**
 	 * @class MessageBus Class to handle message propogation in the game world
 	 */

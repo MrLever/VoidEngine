@@ -11,7 +11,7 @@
 #include "MessageBusNode.h"
 #include "Message.h"
 
-namespace EngineCore {
+namespace core {
 	
 	MessageBus::~MessageBus() {
 		while (!Messages.empty()) {

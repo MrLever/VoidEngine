@@ -13,7 +13,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace GameplayFrameworkTests {
 
-	using namespace EngineCore;
+	using namespace core;
 	
 	TEST_CLASS(EventTableTests) {
 	public:

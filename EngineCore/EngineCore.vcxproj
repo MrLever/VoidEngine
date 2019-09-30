@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
@@ -79,19 +79,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)Dependencies\LUA\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -102,10 +102,11 @@
       <ConformanceMode>true</ConformanceMode>
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -113,6 +114,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -122,13 +133,14 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <ConformanceMode>true</ConformanceMode>
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -136,6 +148,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,15 +169,15 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <ConformanceMode>true</ConformanceMode>
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalOptions>/GL %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -163,6 +185,16 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -174,7 +206,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <ConformanceMode>true</ConformanceMode>
       <EnablePREfast>false</EnablePREfast>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalOptions>/GL %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -182,8 +214,8 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
-echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+      <Command>
+      </Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -191,26 +223,35 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
 rmdir /S /Q "$(TargetDir)Settings"</Command>
       <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Settings\*" "$(TargetDir)Settings\"
+echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>Copying Engine Resources</Message>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>bar.baz.biz.NonExistentFile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
+    <ClCompile Include="InputAxis.cpp" />
+    <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
-    <ClCompile Include="Action.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="GamepadInterface.cpp" />
-    <ClCompile Include="MouseInterface.cpp" />
-    <ClCompile Include="InputInterfaceManager.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="EventTable.cpp" />
-    <ClCompile Include="InputAxis.cpp" />
-    <ClCompile Include="Keybindings.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="KeyboardInterface.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceHandle.cpp" />
@@ -218,6 +259,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="ThreadPoolWorker.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
@@ -230,28 +272,26 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GraphicsComponent.h" />
-    <ClInclude Include="InputInterface.h" />
+    <ClInclude Include="InputAxis.h" />
+    <ClInclude Include="InputEvent.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
-    <ClInclude Include="GamepadInterface.h" />
     <ClInclude Include="MouseInput.h" />
-    <ClInclude Include="MouseInterface.h" />
-    <ClInclude Include="InputInterfaceManager.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="EventTable.h" />
-    <ClInclude Include="InputAxis.h" />
     <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="Keybindings.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="KeyboardInterface.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceHandle.h" />
@@ -260,6 +300,7 @@ rmdir /S /Q "$(TargetDir)Settings"</Command>
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />

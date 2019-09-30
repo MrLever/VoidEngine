@@ -7,7 +7,7 @@
 //Void Engine Headers
 #include "Shader.h"
 
-namespace EngineCore {
+namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 
 		: Resource(filePath), Type(type), ShaderHandle(-1) {
 		Load();
@@ -15,7 +15,7 @@ namespace EngineCore {
 
 	Shader::~Shader() {
 		//When the shader is no longer needed, instruct OpenGL to discard it
-		//glDeleteShader(ShaderHandle);
+		glDeleteShader(ShaderHandle);
 	}
 
 	bool Shader::Load() {

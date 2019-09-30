@@ -5,22 +5,63 @@
 //Void Engine Headers
 #include "EntityFactory.h"
 #include "CubeEntity.h"
+#include "BouncingCube.h"
+#include "ComponentFactory.h"
+#include "PlayerEntity.h"
+#include "Level.h"
 
-namespace EngineCore {
+namespace core {
+	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel) {
 
-	std::vector<std::shared_ptr<Entity>> EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
-		std::vector<std::shared_ptr<Entity>> scene;
+	}
 
+	void EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
 		for (const auto& entity : entityList) {
-			std::string type = entity["type"].get<std::string>();
-
-			if (type == "CubeEntity") {
-				scene.push_back(CreateEntity<SuperVoid::CubeEntity>(entity));
-			}
-
+			CurrLevel->Entities.push_back(CreateEntity(entity));
 		}
 
-		return scene;
+	}
+
+	Entity* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
+		auto entityName = entityData["name"].get<std::string>();
+		std::string type = entityData["type"].get<std::string>();
+		//Construct the entity on the heap
+		Entity* entity = nullptr;
+
+		if (type == "PlayerEntity") {
+			entity = new PlayerEntity(entityName);
+		}
+		else if (type == "CubeEntity") {
+			entity = new SuperVoid::CubeEntity(entityName);
+		}
+		else if (type == "BouncingCube") {
+			entity = new SuperVoid::BouncingCube(entityName);
+		}
+
+		SetWorldOrientation(entityData, entity);
+
+		if (entityData.find("components") != entityData.end()) {
+			auto componentData = entityData["components"];
+			CompFactory.ProcessComponentData(entity, componentData);
+		}
+
+		return entity;
+	}
+
+	void EntityFactory::SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity) {
+		//Extract Entity position
+		math::Vector3 position;
+		position.X = entityData["location"][0].get<float>();
+		position.Y = entityData["location"][1].get<float>();
+		position.Z = entityData["location"][2].get<float>();
+
+		math::Rotator rotation;
+		rotation.Pitch = entityData["rotation"][0].get<float>();
+		rotation.Yaw = entityData["rotation"][1].get<float>();
+		rotation.Roll = entityData["rotation"][2].get<float>();
+
+		entity->SetPosition(position);
+		entity->SetRotation(rotation);
 	}
 
 }

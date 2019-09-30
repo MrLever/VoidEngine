@@ -18,16 +18,20 @@
 #include "WindowManager.h"
 
 
-namespace EngineCore {
+namespace core {
 
-	Game::Game(const std::string& name) : GameName(std::move(name)) {
+	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
 		FrameRate = 0;
+		
+		//Load configuration data
+		EngineConfig.Load();
 
 		//Init Higher Level Game Objects
 		InitGame();
 
 		//Set the current level to the default level
-		SetLevel("Resources/Levels/DemoLevel.json");
+		SetLevel(EngineConfig.GetAttribute<std::string>("DefaultLevel"));
+		Window->ToggleCursor();
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -43,8 +47,18 @@ namespace EngineCore {
 		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
 
 		//Initialize game window and input interface
-		Window = std::make_shared<WindowManager>(GameName, 800, 600);
-		
+		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
+
+		//Initialize Input Manager
+		GameInputManager = std::make_shared<InputManager>(
+			GameThreadPool,
+			GameResourceManager,
+			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+		);
+
+		//Attach input manager to window to address hardware callbacks
+		Window->SetInputManager(GameInputManager);
+
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
@@ -53,14 +67,6 @@ namespace EngineCore {
 			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
-		//Initialize Input Manager
-		GameInputManager = std::make_unique<InputManager>(
-			Window->GetInputInterface(),
-			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
-		);
-
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
@@ -72,15 +78,18 @@ namespace EngineCore {
 		GameConsole = std::make_shared<Console>(GameMessageBus);
 	}
 
-	void Game::Update(double deltaTime) {
-		//Send the deltaSeconds to the framerate updating function
-		UpdateFramerate(deltaTime);
+	void Game::Update(float deltaTime) {
+		if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
+			deltaTime = 0.5f;
+		}
 
+		UpdateFramerate(deltaTime);
 		CurrentLevel->Update(deltaTime);
 	}
 
-	void Game::Render() {
-		GameRenderer->Render(CurrentLevel->GetScene());
+	void Game::ProcessInput(float deltaTime) {
+		Window->PollEvents();
+		GameInputManager->ProcessInput(CurrentLevel->GetScene(), deltaTime);
 	}
 
 	void Game::ExecuteGameLoop() {
@@ -89,11 +98,17 @@ namespace EngineCore {
 		while (!Window->WindowTerminated()) {
 			//Get current time
 			currentTime = Timer::now();
-			std::chrono::duration<double> deltaSeconds = currentTime - previousTime;
-
-			GameInputManager->HandleInput();
-			Update(deltaSeconds.count());
-			Render();
+			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
+			auto deltaTime = deltaSeconds.count();
+			
+			//Handle input
+			ProcessInput(deltaTime);
+			
+			//Update the scene
+			Update(deltaTime);
+			
+			//Draw the scene
+			GameRenderer->Render(CurrentLevel.get());
 
 			//Update previous time
 			previousTime = currentTime;
@@ -118,9 +133,6 @@ namespace EngineCore {
 			numFrames = 0;
 			lastTime = EngineUtils::GetGameTime();
 		}
-
-
-
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
@@ -129,8 +141,8 @@ namespace EngineCore {
 		}
 
 		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel = std::make_shared<Level>(newLevelPath);
-		CurrentLevel->Load();
+		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel->SpawnEntities();
 		CurrentLevel->BeginPlay();
 	}
 

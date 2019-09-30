@@ -9,7 +9,7 @@
 #include "Resource.h"
 #include "Name.h"
 
-namespace EngineCore {
+namespace core {
 
 	enum class ShaderType {
 		VERTEX = GL_VERTEX_SHADER,

@@ -9,7 +9,7 @@
 #include "MessageBusNode.h"
 #include "AudioManager.h"
 
-namespace EngineCore {
+namespace core {
 
 	AudioManager::AudioManager(
 			ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, 

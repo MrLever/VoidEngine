@@ -11,7 +11,7 @@
 #include "Message.h"
 #include "EventTable.h"
 
-namespace EngineCore {
+namespace core {
 
 	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> messageBus) 
 		: GameMessageBus(std::move(messageBus)) {

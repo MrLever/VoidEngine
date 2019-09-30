@@ -5,15 +5,16 @@
 #include <vector>
 
 //Library Headers
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 //Void Engine Headers
+#include "CameraComponent.h"
 #include "Entity.h"
 #include "EntityFactory.h"
 #include "Name.h"
 #include "Resource.h"
 
-namespace EngineCore {
+namespace core {
 
 	/**
 	 * @class Level
@@ -21,6 +22,9 @@ namespace EngineCore {
 	 */
 	class Level : public EngineUtils::Resource {
 	
+		friend class EntityFactory;
+		friend class ComponentFactory;
+
 	public:
 		/**
 		 * Constructor
@@ -65,7 +69,18 @@ namespace EngineCore {
 		 * Function to get the current scene of drawables
 		 * @return All the drawable objects in the scene
 		 */
-		std::vector<GraphicsComponent*> GetScene();
+		std::vector<Entity*> GetScene();
+
+		/**
+		 * Getter for this level's active camera
+		 */
+		CameraComponent* GetActiveCamera();
+
+		/**
+		 * Spawns entities into the scene from level data
+		 * @note This function must be called from the main thread
+		 */
+		void SpawnEntities();
 
 	private:
 		/**
@@ -73,15 +88,14 @@ namespace EngineCore {
 		 */
 		bool LoadLevelData();
 
-		/**
-		 * Helper function that spawns entities into the scene
-		 */
-		void SpawnEntities();
-
+		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;
 
 		/** All the entities spawned in the level */
-		std::vector<std::shared_ptr<Entity>> Entities;
+		std::vector<Entity*> Entities;
+
+		/** The active camera to be used for rendering */
+		CameraComponent* ActiveCamera;
 
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;

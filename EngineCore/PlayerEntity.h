@@ -7,7 +7,7 @@
 #include "Entity.h"
 #include "Name.h"
 
-namespace EngineCore {
+namespace core {
 	
 	/**
 	 * @class PlayerEntity
@@ -15,6 +15,12 @@ namespace EngineCore {
 	 */
 	class PlayerEntity : public Entity {
 	public:
+		/**
+		 * Constructor
+		 * @param The entity's name
+		 */
+		PlayerEntity(const std::string& name);
+		
 		/**
 		 * Defines what the entity does once a level begins.
 		 */
@@ -24,7 +30,7 @@ namespace EngineCore {
 		 * Function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		virtual void Tick(double deltaSeconds) override;
+		virtual void Tick(float deltaSeconds) override;
 
 		/**
 		 * Defines entity death behaviors

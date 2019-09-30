@@ -8,7 +8,7 @@
 //Void Engine Headers
 #include "Name.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Declarations
 
@@ -86,9 +86,9 @@ namespace EngineCore {
 //standard library templates to work with custom data types.
 namespace std {
 	template <> 
-	struct hash<EngineCore::Message> { //Class to define hash function for Keyboard Input
+	struct hash<core::Message> { //Class to define hash function for Keyboard Input
 		//Hash functor
-		std::size_t operator()(const EngineCore::Message& t) const {
+		std::size_t operator()(const core::Message& t) const {
 			return t.GetEventID().ID;
 		}
 	};

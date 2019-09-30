@@ -6,13 +6,18 @@
 
 //Void Engine Headers
 #include "Name.h"
-#include "GraphicsComponent.h"
 #include "Vector.h"
+#include "Rotator.h"
+#include "InputEvent.h"
+#include "InputAxis.h"
 
-namespace EngineCore {
+namespace core {
+	//Forward class declarations
+	class Component;
 
 	/**
-	 * @class The Entity class defines the basic definition of what it takes to partake in the simulation
+	 * @class Entity 
+	 * @brief The Entity class provides the basic definition of what it takes to partake in the simulation
 	 */
 	class Entity {
 	public:
@@ -20,18 +25,30 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const std::string& name);
+		Entity(const EngineUtils::Name& name);
 
 		/**
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const EngineUtils::Name& name);
+		Entity(const std::string& name);
 
 		/**
 		 * Destructor
 		 */
 		virtual ~Entity();
+
+		/**
+		 * Function to allow this component to process input events
+		 * @param input Input fromt the keyboard to process
+		 */
+		virtual void Input(const InputEvent& input, float deltaTime);
+
+		/**
+		 * Function to allow this component to process input axis data
+		 * @param input Input fromt the keyboard to process
+		 */
+		virtual void Input(const InputAxis& input, float deltaTime);
 
 		/**
 		 * Pure virtual function that defines what the entity does once a level begins.
@@ -42,47 +59,62 @@ namespace EngineCore {
 		/**
 		 * Pure virtual function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
+		 * @note This function should be called by the derived class tick function
 		 */
-		virtual void Tick(double deltaSeconds) = 0;
+		virtual void Tick(float deltaTime);
 
 		/**
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() = 0;
+
+		/**
+		 * Command for the renderer to draw the entity
+		 */
+		virtual void Draw() const;
 		
 		/**
 		 * Function to request position of this entity
 		 * @return The entity's position
 		 */
-		EngineMath::Vector3 GetPostion();
+		math::Vector3 GetPostion();
 
 		/**
 		 * Setter for object's position
 		 */
-		void SetPosition(const EngineMath::Vector3& newPosition);
+		void SetPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Function to get a pointer to this entity's graphics data
-		 * @return this enity's graphics component
+		 * Function to request position of this entity
+		 * @return The entity's position
 		 */
-		GraphicsComponent* GetGraphicsComponent();
+		math::Rotator GetRotation();
 
 		/**
-		 * Function to set Grahpics Component
+		 * Setter for object's position
 		 */
-		void SetGraphicsComponent(GraphicsComponent* component);
+		void SetRotation(const math::Rotator& newRotation);
+
+		/**
+		 * Gives ownership of a component to this entity
+		 * @param component The component to add
+		 */
+		void AddComponent(Component* component);
 	
 	protected:
 		/** The entity's position in 3D space */
-		EngineMath::Vector3 Position;
+		math::Vector3 Position;
 
-		/** The entity's rotation (pitch, roll, yaw) */
-		//EngineMath::Rotator<float> Rotation;
+		/** The entity's rotation in 3D space */
+		math::Rotator Rotation;
 		
+		/** The entity's velocity */
+		float Velocity;
+
 		/** Entity's name */
 		EngineUtils::Name ID;
 
-		/** Object that represents all the information needed to draw this entity */
-		GraphicsComponent* GraphicsData;
+		/** All of the components for this entity */
+		std::vector<Component*> Components;
 	};
 }

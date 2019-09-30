@@ -7,14 +7,17 @@
 //Coati Headers
 #include "Level.h"
 
-namespace EngineCore {
+namespace core {
 
-	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error") {
-
+	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
+		ActiveCamera = nullptr;
 	}
 
 	Level::~Level() {
-
+		for (auto& entity : Entities) {
+			delete entity;
+			entity = nullptr;
+		}
 	}
 
 	bool Level::Load() {
@@ -24,14 +27,12 @@ namespace EngineCore {
 			return false;
 		}
 
-		SpawnEntities();
-
 		return true;
 	}
 
 	void Level::SpawnEntities() {
 		auto entityData = LevelData["entities"];
-		Entities = LevelEntityFactory.CreateEntityList(entityData);
+		LevelEntityFactory.CreateEntityList(entityData);
 	}
 
 	bool Level::LoadErrorResource() {
@@ -54,14 +55,12 @@ namespace EngineCore {
 		}
 	}
 
-	std::vector<GraphicsComponent*> Level::GetScene() {
-		std::vector<GraphicsComponent*> scene;
+	std::vector<Entity*> Level::GetScene() {
+		return Entities;
+	}
 
-		for (auto entity : Entities) {
-			scene.push_back(entity->GetGraphicsComponent());
-		}
-
-		return scene;
+	CameraComponent* Level::GetActiveCamera() {
+		return ActiveCamera;
 	}
 
 	bool Level::LoadLevelData() {

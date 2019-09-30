@@ -2,6 +2,7 @@
 //STD Headers
 #include <compare>
 #include <string>
+#include <unordered_map>
 #include <iostream>
 
 //Library Headers
@@ -10,16 +11,17 @@
 #include "EngineUtilities.h"
 
 namespace EngineUtils {
+	/**
+	 * @class Name
+	 * @brief Name is a class used to enable fast string comparisons through use of hashing
+	 */
 	struct Name {
 
-		///CTORS
 		/**
 		 * Name Constructor
 		 * @param id The string from which the Name is generated.
 		 */
-		Name(const std::string &id) : StringID(id), ID(FNV1aHash(id)) {
-
-		}
+		Name(const std::string& id);
 		
 		/**
 		 * Name Destructor
@@ -78,8 +80,13 @@ namespace EngineUtils {
 
 		/** The Name's Unique Hash for fast comparisons */
 		unsigned long long ID;
+
 	};
 	
+	inline Name::Name(const std::string& id) : StringID(id), ID(FNV1aHash(id)) {
+
+	}
+
 	inline Name& Name::operator=(const Name& other) {
 		if (other == *this) {
 			return *this;
@@ -120,7 +127,7 @@ namespace EngineUtils {
 		return !(lhs == rhs);
 	}
 
-	std::ostream& operator<< (std::ostream& out, const Name& name) {
+	inline std::ostream& operator<< (std::ostream& out, const Name& name) {
 		out << name.StringID;
 		return out;
 	}

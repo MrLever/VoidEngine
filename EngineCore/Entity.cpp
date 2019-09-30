@@ -4,39 +4,65 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "Component.h"
 
-namespace EngineCore {
-	///CTORS
-	Entity::Entity(const std::string& name) : ID(std::move(name)), GraphicsData(nullptr) {
-
+namespace core {
+	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	
 	}
 
-	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), GraphicsData(nullptr) {
-	
+	Entity::Entity(const std::string& name) : Entity(EngineUtils::Name(name)) {
+
 	}
 
 	Entity::~Entity() {
-		delete GraphicsData;
+		for (auto& component : Components) {
+			delete component;
+		}
 	}
 
-	EngineMath::Vector3 Entity::GetPostion() {
+	void Entity::Input(const InputEvent& input, float deltaTime) {
+		for (auto& component : Components) {
+			component->Input(input, deltaTime);
+		}
+	}
+
+	void Entity::Input(const InputAxis& input, float deltaTime) {
+		for (auto& component : Components) {
+			component->Input(input, deltaTime);
+		}
+	}
+
+	void Entity::Tick(float deltaTime) {
+		for (auto& component : Components) {
+			component->Tick(deltaTime);
+		}
+	}
+
+	void Entity::Draw() const {
+		for (auto& component : Components) {
+			component->Draw();
+		}
+	}
+
+	math::Vector3 Entity::GetPostion() {
 		return Position;
 	}
 
-	void Entity::SetPosition(const EngineMath::Vector3& newPosition) {
+	void Entity::SetPosition(const math::Vector3& newPosition) {
 		Position = newPosition;
 	}
+
+	math::Rotator Entity::GetRotation() {
+		return Rotation;
+	}
+
+	void Entity::SetRotation(const math::Rotator& newRotation) {
+		Rotation = newRotation;
+	}
+
+	void Entity::AddComponent(Component* component) {
+		Components.push_back(component);
+	}
 	
-	void Entity::SetGraphicsComponent(GraphicsComponent* component) {
-		if (GraphicsData != nullptr) {
-			delete GraphicsData;
-			GraphicsData = nullptr;
-		}
-
-		GraphicsData = component;
-	}
-
-	GraphicsComponent* Entity::GetGraphicsComponent() {
-		return GraphicsData;
-	}
 }

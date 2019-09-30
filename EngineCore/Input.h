@@ -9,7 +9,7 @@
 #include "EngineUtilities.h"
 #include "TimeUtils.h"
 
-namespace EngineCore {
+namespace core {
 	enum class ButtonState : unsigned {
 		RELEASED = 0,
 		PRESSED = 1,
@@ -133,7 +133,7 @@ namespace EngineCore {
 
 	template<class T>
 	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier)
-		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(-1) {
+		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(0) {
 
 	}
 

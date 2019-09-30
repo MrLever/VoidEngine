@@ -5,75 +5,156 @@
 
 //Library Headers
 
-
-//Coati Headers
+//Void Engine Headers
 #include "InputManager.h"
 #include "MessageBus.h"
 
-namespace EngineCore {
+namespace core {
 
 	InputManager::InputManager(
-			std::shared_ptr<InputInterfaceManager> playerInterface, ThreadPoolPtr threadPool,
+			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
-		) : Configurable(configuration), Keyboard(std::move(playerInterface->GetKeyboard())),
-		  Mouse(std::move(playerInterface->GetMouse())), Gamepad(std::move(playerInterface->GetGamepad())),
-		  GameThreadPool(std::move(threadPool)), GameResourceManager(std::move(resourceManager)) {
-
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
+		    GameResourceManager(std::move(resourceManager)) {
+		
+		Configure();
 	}
 
-	void InputManager::HandleInput() {
-		HandleKeyboard();
-		HandleMouse();
-		HandleGamepad();
+	void InputManager::ReportInput(const KeyboardInput& input) {
+		KeyboardInputBuffer.push_back(input);
 	}
 
-	void InputManager::HandleKeyboard() {
-		auto KeyboardEvents = Keyboard->Poll();
+	void InputManager::ReportInput(const MouseInput& input) {
+		MouseInputBuffer.push_back(input);
+	}
 
-		for (const auto& input : KeyboardEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::PRESSED)
-				std::cout << "Keyboard button Pressed\n";
+	void InputManager::ReportInput(const GamepadInput& input) {
+		GamepadInputBuffer.push_back(input);
+	}
 
-			if (input.GetButtonState() == ButtonState::HELD)
-				std::cout << "Keyboard button Held\n";
+	void InputManager::ReportInput(const InputAxis& input){
+		InputAxisDataBuffer.push_back(input);
+	}
 
-			if (input.GetButtonState() == ButtonState::RELEASED)
-				std::cout << "Keyboard button Released\n";
+	void InputManager::ProcessInput(const std::vector<Entity*> scene, float deltaTime) {
+		//Process Mouse Input
+		while (!MouseInputBuffer.empty()) {
+			auto button = MouseInputBuffer.front();
+
+			std::string eventType;
+
+			if (button.GetButton() == MouseButton::LEFT) {
+				eventType = "Fire";
+			}
+
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+
+			MouseInputBuffer.pop_front();
 		}
 
-		//TODO(MrLever): Finsish
-	}
+		//Process KB like mouse
+		while (!KeyboardInputBuffer.empty()) {
+			auto input = KeyboardInputBuffer.front();
+			auto button = input.GetButton();
 
-	void InputManager::HandleMouse() {
-		auto MouseButtonEvents = Mouse->Poll();
-		auto cursorPosition = Mouse->PollCursorPosition();
-		auto scrollOffset = Mouse->PollScrollOffset();
+			std::string eventType;
+			if (button == KeyboardButton::W) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", 1.0f)
+				);
+			}
+			else if (button == KeyboardButton::A) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", -1.0f)
+				);
+			}
+			else if (button == KeyboardButton::S) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", -1.0f)
+				);
+			}
+			else if (button == KeyboardButton::D) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", 1.0f)
+				);
+			}
 
-		if (scrollOffset != 0) {
-			std::cout << "Scroll detected, magnitute: " << scrollOffset << "\n";
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+
+			KeyboardInputBuffer.pop_front();
 		}
 
-		//TODO(MrLever): Finish
-		for (const auto& input : MouseButtonEvents.Inputs) {
-			if (input.GetButtonState() == ButtonState::PRESSED)
-				std::cout << "Mouse button Pressed\n";
+		//Process Gamepad input
+		while (!GamepadInputBuffer.empty()) {
+			auto input = GamepadInputBuffer.front();
+			auto button = input.GetButton();
+			std::string eventType;
 
-			if (input.GetButtonState() == ButtonState::HELD)
-				std::cout << "Mouse button Held\n";
+			if (button == GamepadButton::DPAD_UP) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", 1.0f)
+				);
+			}
+			else if (button == GamepadButton::DPAD_DOWN) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("UpAxis", -1.0f)
+				);
+			}
+			else if (button == GamepadButton::DPAD_LEFT) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", -1.0f)
+				);
+			}
+			else if (button == GamepadButton::DPAD_RIGHT) {
+				InputAxisDataBuffer.push_back(
+					InputAxis("RightAxis", 1.0f)
+				);
+			}
 
-			if (input.GetButtonState() == ButtonState::RELEASED)
-				std::cout << "Mouse button Released\n";
+			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+
+			GamepadInputBuffer.pop_front();
 		}
-	}
 
-	void InputManager::HandleGamepad() {
-		auto GamepadEvents = Gamepad->Poll();
+		while (!InputAxisDataBuffer.empty()) {
+			auto axisReading = InputAxisDataBuffer.front();
 
-		//TODO(MrLever): Finish
+			DispatchEvent(scene, axisReading, deltaTime);
+
+			InputAxisDataBuffer.pop_front();
+		}
 	}
 
 	void InputManager::Configure() {
 		; //TODO (MrLever): Actually configure this thing
+	}
+
+	void InputManager::DispatchEvent(
+			const std::vector<core::Entity*>& scene, 
+			const InputEvent& event,
+			float deltaTime
+		) {
+		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+
+		if (event.EventName == ERROR_EVENT_ID) {
+			return;
+		}
+
+		for (auto& entity : scene) {
+			entity->Input(event, deltaTime);
+		}
+	}
+
+	void InputManager::DispatchEvent(
+		const std::vector<core::Entity*>& scene,
+		const InputAxis& axisData,
+		float deltaTime
+	) {
+		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+
+		for (auto& entity : scene) {
+			entity->Input(axisData, deltaTime);
+		}
 	}
 
 }

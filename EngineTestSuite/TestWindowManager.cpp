@@ -10,7 +10,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace EngineCoreTests {		
 
-	using namespace EngineCore;
+	using namespace core;
 
 	TEST_CLASS(WindowManagerTests) {
 	public:
@@ -18,7 +18,7 @@ namespace EngineCoreTests {
 		TEST_METHOD(WindowCreationTest) {
 			WindowManager test("Test", 600, 800);
 
-			Assert::IsNotNull(test.getWindow().get());
+			Assert::IsNotNull(test.GetWindow().get());
 		}
 		TEST_METHOD(BufferSwapTest) {
 			WindowManager test("Test", 600, 800);

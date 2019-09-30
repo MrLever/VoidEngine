@@ -7,27 +7,27 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "InputManager.h"
+#include "InputAxis.h"
+#include "InputEvent.h"
 
-
-namespace EngineCore {
+namespace core {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
 	
 	const KeyboardInput WindowManager::ToggleFullscreenInput(
 		KeyboardButton::ENTER, 
 		ButtonState::PRESSED, 
-		InputModifier::CTRL
+		InputModifier::ALT
 	);
 
 	WindowManager::WindowManager(const std::string& gameName, int windowWidth, int windowHeight) 
-		: GameName(std::move(gameName)), IsFullscreen(false) {
+		: GameName(std::move(gameName)), IsFullscreen(false), CursorEnabled(true) {
 		
 		WindowWidth = windowWidth;
 		WindowHeight = windowHeight;
 
 		InitGLFW();
 		InitGLAD();
-
-		PlayerInterface = std::make_shared<InputInterfaceManager>();
 
 		CurrWindowManager = this;
 	}
@@ -38,12 +38,42 @@ namespace EngineCore {
 	}
 
 	void WindowManager::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput((float)xPos, (float)yPos);
+		static double MouseXPrev = -1.0f;
+		static double MouseYPrev = -1.0f;
+		static float SENSITIVITY = 0.05f;
+		static InputAxis MouseX("LookRight", 0);
+		static InputAxis MouseY("LookUp", 0);
+
+		if (MouseXPrev == -1.0f	|| MouseYPrev == 1.0f) {
+			MouseXPrev = float(xPos);
+			MouseYPrev = float(yPos);
+		}
+
+		MouseX.Value = (float)(xPos - MouseXPrev) * SENSITIVITY;
+		MouseY.Value = (float)(MouseYPrev - yPos) * SENSITIVITY;
+
+		MouseXPrev = xPos;
+		MouseYPrev = yPos;
+
+		CurrWindowManager->GameInputManager->ReportInput(MouseX);
+		CurrWindowManager->GameInputManager->ReportInput(MouseY);
 	}
 
 
 	void WindowManager::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		CurrWindowManager->PlayerInterface->ReportMouseInput(yOffset);
+		
+	}
+
+	int WindowManager::GetWindowWidth() const {
+		return WindowWidth;
+	}
+
+	int WindowManager::GetWindowHeight() const {
+		return WindowHeight;
+	}
+
+	const WindowManager* WindowManager::GetActiveWindow(){
+		return CurrWindowManager;
 	}
 
 	void WindowManager::InitGLFW() {
@@ -121,21 +151,103 @@ namespace EngineCore {
 		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
-	std::shared_ptr<GLFWwindow> WindowManager::getWindow() {
+	void WindowManager::ToggleCursor() {
+		if (CursorEnabled) {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+		else {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+
+		CursorEnabled = !CursorEnabled;
+	}
+
+	std::shared_ptr<GLFWwindow> WindowManager::GetWindow() {
 		return Window;
+	}
+
+	void WindowManager::PollEvents() {
+		glfwPollEvents();
+
+		if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1)) {
+			HandleGamepadInput();
+		}
+
 	}
 
 	void WindowManager::SwapBuffers() {
 		glfwSwapBuffers(Window.get());
-		glfwPollEvents();
+	}
+
+	void WindowManager::SetInputManager(std::shared_ptr<InputManager> inputManager) {
+		GameInputManager = std::move(inputManager);
 	}
 
 	bool WindowManager::WindowTerminated() {
 		return (glfwWindowShouldClose(Window.get()) == GLFW_TRUE);
 	}
 
-	std::shared_ptr<InputInterfaceManager> WindowManager::GetInputInterface() {
-		return PlayerInterface;
+	void WindowManager::HandleGamepadInput() {
+		GLFWgamepadstate state;
+		static const float JOYSTICK_DEADZONE = 0.2;
+		auto timestamp = EngineUtils::GetGameTime();
+
+		PollGamepadButtons(state, timestamp);
+		
+		//Process axes
+		static InputAxis LeftJoyX("RightAxis", 0);
+		static InputAxis LeftJoyY("UpAxis", 0);
+		static InputAxis RightJoyX("LookRight", 0);
+		static InputAxis RightJoyY("LookUp", 0);
+
+		//The following axes lookups are inverted intentionally.
+		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
+		LeftJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
+		RightJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X];
+		RightJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y];
+
+		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(LeftJoyX);
+		}
+		if ((LeftJoyY.Value > JOYSTICK_DEADZONE) || (LeftJoyY.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(LeftJoyY);
+		}
+		if ((RightJoyX.Value > JOYSTICK_DEADZONE) || (RightJoyX.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(RightJoyX);
+		}
+		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
+			GameInputManager->ReportInput(RightJoyY);
+		}
+		
+
+	}
+
+	void WindowManager::PollGamepadButtons(GLFWgamepadstate& state, const EngineUtils::GameTime& timestamp){
+		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
+			return;
+		}
+
+		//Process Buttons
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+			);
+		}
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
+			GameInputManager->ReportInput(
+				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+			);
+		}
 	}
 
 	void WindowManager::DeleteWindow(GLFWwindow* window) {
@@ -143,7 +255,7 @@ namespace EngineCore {
 	}
 
 	void WindowManager::ReportWindowError(int error, const char* description) {
-		std::cerr << "Error: " << description << std::endl;
+		std::cerr << "Error: #" << error << ", " << description << std::endl;
 	}
 
 	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
@@ -168,10 +280,8 @@ namespace EngineCore {
 		if (input == ToggleFullscreenInput) {
 			CurrWindowManager->ToggleFullscreen();
 		}
-		else {
-			//Report Input to Input Interface for later polling.
-			CurrWindowManager->PlayerInterface->ReportKeyboardInput(input);
-		}
+
+		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
@@ -182,12 +292,11 @@ namespace EngineCore {
 		MouseInput input(
 			static_cast<MouseButton>(button),
 			static_cast<ButtonState>(action),
-			0,
+			mods,
 			timeStamp
 		);
 
-		//Report input to InputInterface
-		CurrWindowManager->PlayerInterface->ReportMouseInput(input);
+		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 }

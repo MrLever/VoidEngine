@@ -8,12 +8,15 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-//Coati Headers
-#include "InputInterfaceManager.h"
+//Void Engine Headers
 #include "EngineUtilities.h"
+#include "KeyboardInput.h"
 
 
-namespace EngineCore {
+namespace core {
+	//Forward Class Declarations
+	class InputManager;
+
 	/**
 	 * @class WindowManager
 	 * @brief Object to manage the OS-specific window/input context.
@@ -38,12 +41,22 @@ namespace EngineCore {
 		 * Function to access a pointer to the GLFW window
 		 * @return Shared_Pointer the active GLFW window
 		 */
-		std::shared_ptr<GLFWwindow> getWindow();
+		std::shared_ptr<GLFWwindow> GetWindow();
+
+		/**
+		 * Wrapper function to instruct GLFW to poll for window and input events
+		 */
+		void PollEvents();
 
 		/**
 		 * Instructs the window to swap buffers, drawing the result of the last render frame
 		 */
 		void SwapBuffers();
+
+		/**
+		 * Attaches an input manager to this window to handle input callbacks
+		 */
+		void SetInputManager(std::shared_ptr<InputManager> inputManager);
 
 		/**
 		 * Function to query status of the managed window
@@ -52,12 +65,10 @@ namespace EngineCore {
 		bool WindowTerminated();
 
 		/**
-		 * Provides caller access to the game's active Input Interfaces
-		 * @return A shared pointer to the game's active input interface manager
+		 * Instructs window to poll and report gamepad input
 		 */
-		std::shared_ptr<InputInterfaceManager> GetInputInterface();
+		void HandleGamepadInput();
 
-		
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks
@@ -117,6 +128,26 @@ namespace EngineCore {
 		 */
 		static void MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
 
+		/**
+		 * Get's the current rendering context's width
+		 */
+		int GetWindowWidth() const;
+
+		/**
+		 * Get's the current rendering context's height
+		 */
+		int GetWindowHeight() const;
+
+		/**
+		 * Instructs GLFW to toggle cursor visibility
+		 */
+		void ToggleCursor();
+
+		/**
+		 * Global function to allow any user to query data about the active window in a const fashion
+		 */
+		static const WindowManager* GetActiveWindow();
+
 	private:
 		/** 
 		 * Performs initialization of the GLFW library
@@ -133,14 +164,21 @@ namespace EngineCore {
 		 */
 		void ToggleFullscreen();
 
+		/** 
+		 * Helper function to poll gamepad buttons 
+		 * @param state The gamepad state to process
+		 * @param timestamp The timestamp to affix to any reported input
+		 */
+		void PollGamepadButtons(GLFWgamepadstate& state, const EngineUtils::GameTime& timestamp);
+
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> Window;
+
+		/** The game's input manager */
+		std::shared_ptr<InputManager> GameInputManager;
 		
 		/** The game's name */
 		std::string GameName;
-
-		/** The interface for all input devices */
-		std::shared_ptr<InputInterfaceManager> PlayerInterface;
 
 		/** The window's width */
 		int WindowWidth;
@@ -150,6 +188,9 @@ namespace EngineCore {
 
 		/** Flag to determine if the current window is fullscreen */
 		bool IsFullscreen;
+
+		/** Flag to determine if the cursor is enabled in the window */
+		bool CursorEnabled;
 
 		/** Pointer to the active window manager to allow static callback functions to work properly */
 		static WindowManager* CurrWindowManager;

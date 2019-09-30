@@ -15,7 +15,7 @@
 #include "Level.h"
 #include "MessageBus.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class WindowManager;
@@ -35,7 +35,7 @@ namespace EngineCore {
 		 * Constructor
 		 * @param name The game's name
 		 */
-		Game(const std::string& name);
+		Game(const std::string& configFile);
 
 		/**
 		 * Destructor
@@ -49,21 +49,21 @@ namespace EngineCore {
 		void InitGame();
 
 		/**
-		 * Instructs entities to update themselves using the current time step
-		 * @param deltaTime Time since the last update in seconds
+		 * Instructs the game to update the entities in it's simulation
 		 */
-		void Update(double deltaTime);
-
+		void Update(float deltaTime);
+		
 		/**
-		 * Instruct the renderer to draw the current scene
+		 * Instructs the game to process player input
+		 * @param deltaTime the time step to use when applying user input
 		 */
-		void Render();
+		void ProcessInput(float deltaTime);
 
 		/**
 		 * Runs the game simulation
 		 */
 		void ExecuteGameLoop();
-		
+	
 		/**
 		 * Tracks the game's frame rate.
 		 * @param timeSinceLastFrame Time since the last frame, in seconds
@@ -98,17 +98,17 @@ namespace EngineCore {
 		/** The game's console */
 		std::shared_ptr<Console> GameConsole;
 		
+		/** Pointer to the game's Input Manager*/
+		std::shared_ptr<InputManager> GameInputManager;
+
 		/** Pointer to the game's Rendering Engine */
 		std::unique_ptr<Renderer> GameRenderer;
-
-		/** Pointer to the game's Input Manager*/
-		std::unique_ptr<InputManager> GameInputManager;
 
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;
 		
-		/** The name displayed in the game window's title bar */
-		std::string GameName;
+		/** Config settings for the game */
+		EngineUtils::Configuration EngineConfig;
 
 		/** The game's current framerate */
 		int FrameRate;

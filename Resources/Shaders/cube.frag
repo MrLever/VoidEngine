@@ -1,7 +1,17 @@
 #version 450 core
+//Uniforms
+uniform float desiredColor;
+uniform sampler2D space;
+uniform sampler2D bricks;
 
-out vec4 FragColor;
+//Inputs
+in vec2 texCoord;
+
+//Outputs
 
 void main(){
-    FragColor = vec4(1.0f, 0.0f, 1.0f, 1.0f);
+    gl_FragColor = 
+        vec4(1,1,1,0) * mix(
+            texture(space, texCoord), texture(bricks, texCoord), 0.2
+        );
 }

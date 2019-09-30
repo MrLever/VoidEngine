@@ -7,7 +7,7 @@
 //Coati Headers
 #include "MessageBusNode.h"
 
-namespace EngineCore {
+namespace core {
 
 	enum class LogLevel {
 		INFO,

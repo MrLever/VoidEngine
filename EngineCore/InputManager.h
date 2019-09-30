@@ -3,24 +3,26 @@
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
+#include <deque>
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
 #include "Configurable.h"
+#include "Entity.h"
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
-#include "Keybindings.h"
-#include "InputInterfaceManager.h"
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "GamepadInput.h"
+#include "InputAxis.h"
 
-
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class MessageBus;
-	class InputEvent;
 
 	/**
 	 * @class InputManager
@@ -34,7 +36,6 @@ namespace EngineCore {
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
 		InputManager(
-			std::shared_ptr<InputInterfaceManager> playerInterface, 
 			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager,
 			const EngineUtils::ResourceHandle& configuration
@@ -46,43 +47,76 @@ namespace EngineCore {
 		~InputManager() = default;
 
 		/**
-		 * Polls and process all input events for the current frame
+		 * Proccesses keyboard input events
+		 * @param input The keyboard input to process
 		 */
-		void HandleInput();
+		void ReportInput(const KeyboardInput& input);
+
+		/**
+		 * Proccesses mouse input events
+		 * @param input The mouse input to process
+		 */
+		void ReportInput(const MouseInput& input);
+
+		/**
+		 * Proccesses gamepad input events
+		 * @param input The gamepad input to process
+		 */
+		void ReportInput(const GamepadInput& input);
+
+		/**
+		 * Proccesses gamepad input events
+		 * @param input The gamepad input to process
+		 */
+		void ReportInput(const InputAxis& input);
+
+		/**
+		 * Instructs the input manager to process and dispatch events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
+		 */
+		void ProcessInput(const std::vector<Entity*> scene, float deltaTime);
 
 	private:
-		/**
-		 * Polls and processes keyboard events from the current frame
-		 */
-		void HandleKeyboard();
-
-		/**
-		 * Polls and processes mouse events from the current frame
-		 */
-		void HandleMouse();
-
-		/**
-		 * Polls and processes gamepad events fromt he current frame
-		 */
-		void HandleGamepad();
-
 		/**
 		 * Applies input configuration settings 
 		 */
 		void Configure() override;
 
-		/** The keybindings currently used by the input manager */
-		Keybindings Bindings;
+		/**
+		 * Helper function to dispatch events to a scene
+		 * @param scene The scene to dispatch events to
+		 * @param event The event to dispatch
+		 */
+		void DispatchEvent(
+			const std::vector<core::Entity*>& scene, 
+			const InputEvent& event, 
+			float deltaTime
+		);
 
-		/** The engine's active keeyboard object */
-		std::shared_ptr<KeyboardInterface> Keyboard;
+	    /**
+		 * Helper function to dispatch events to a scene
+		 * @param scene The scene to dispatch events to
+		 * @param event The event to dispatch
+		 */
+		void DispatchEvent(
+			const std::vector<core::Entity*>& scene, 
+			const InputAxis& axisData, 
+			float deltaTime
+		);
 
-		/** The engine's active mouse object */
-		std::shared_ptr<MouseInterface> Mouse;
+		/** Buffer for unprocessed keyboard inputs */
+		std::deque<KeyboardInput> KeyboardInputBuffer;
 
-		/** The engine's active Gamepad object */
-		std::shared_ptr<GamepadInterface> Gamepad;
-		
+		/** Buffer for unprocessed mouse inputs */
+		std::deque<MouseInput> MouseInputBuffer;
+
+		/** Buffer for unprocessed Gamepad inputs */
+		std::deque<GamepadInput> GamepadInputBuffer;
+
+		/** Buffer for unprocessed Input Axis data */
+		std::deque<InputAxis> InputAxisDataBuffer;
+
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
 

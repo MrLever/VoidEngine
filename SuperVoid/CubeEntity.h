@@ -9,7 +9,7 @@
 
 namespace SuperVoid {
 
-	class CubeEntity : public EngineCore::Entity {
+	class CubeEntity : public core::Entity {
 	public: 
 		/**
 		 * Constructor
@@ -31,12 +31,16 @@ namespace SuperVoid {
 		 * Function that defines how an entity processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		void Tick(double deltaSeconds) override;
+		void Tick(float deltaSeconds) override;
 
 		/**
 		 * Defines entity death behaviors
 		 */
 		void Terminate() override;
+
+	private:
+		float Velocity;
+
 	};
 
 }

@@ -7,7 +7,7 @@
 //Coati headers
 #include "Input.h"
 
-namespace EngineCore {
+namespace core {
 	enum class GamepadButton : unsigned {
 		A = 0,
 		B = 1,
@@ -32,10 +32,10 @@ namespace EngineCore {
 //It is acceptable to extend the std namespace to add template specifications for 
 //standard library templates to work with custom data types.
 namespace std {
-	template <> struct hash<EngineCore::GamepadInput> { //Class to define hash function for Keyboard Input
+	template <> struct hash<core::GamepadInput> { //Class to define hash function for Keyboard Input
 
 		//Hash functor
-		std::size_t operator()(const EngineCore::GamepadInput& t) const {
+		std::size_t operator()(const core::GamepadInput& t) const {
 			return t.Hash();
 		}
 

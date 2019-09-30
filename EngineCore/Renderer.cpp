@@ -2,36 +2,91 @@
 #include <memory>
 
 //Library Headers
-#include "glad/glad.h"
 
 //Void Engine Headers
 #include "Entity.h"
+#include "GraphicsComponent.h"
 #include "Renderer.h"
 #include "WindowManager.h"
 
-namespace EngineCore {
+namespace core {
 
 	Renderer::Renderer(
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
-		  GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+		
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
 		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+		
+		//Enable Depth Buffer
+		glEnable(GL_DEPTH_TEST);
+
+		ContextWidth = Window->GetWindowWidth();
+		ContexHeight = Window->GetWindowHeight();
+
+		//Set default view matrix
+		DefualtViewMatrix = glm::mat4(1.0f);
+		DefualtViewMatrix = glm::translate(DefualtViewMatrix, glm::vec3(0, 0, -5));
+		
+		//Set default projection matrix
+		DefaultProjectionMatrix = glm::perspective<float>(
+			glm::radians(45.0f),
+			(float)ContextWidth / ContexHeight,
+			0.1f, 100.0f
+		);
 	}
 
 	Renderer::~Renderer() {
 
 	}
 
-	void Renderer::Render(std::vector<GraphicsComponent*> components) {
-		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+	void Renderer::Render(Level* scene) {
+		//Set the view and projection matrices for all graphics components for this draw call 
+		auto activeCamera = scene->GetActiveCamera();
+		if (activeCamera == nullptr) {
+			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
+			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
+		}
+		else {
+			GraphicsComponent::ViewMatrix = activeCamera->GetViewMatrix();
+			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
+		}
 
-		for (auto component : components) {
-			component->Draw();
+		auto windowWidth = Window->GetWindowWidth();
+		auto windowHeight = Window->GetWindowHeight();
+
+		//If the window was resized from the last call
+		if (ContextWidth != windowWidth || ContexHeight != windowHeight) [[unlikely]] {
+			if (activeCamera) {
+				activeCamera->UpdateProjectionMatrix();
+			}
+			else {
+				//Reset the render's context size
+				ContextWidth = windowWidth;
+				ContexHeight = windowHeight;
+
+				//Re-create the projection matrix
+				DefaultProjectionMatrix = glm::perspective<float>(
+					glm::radians(45.0f),
+					(float)ContextWidth / ContexHeight,
+					0.1f, 100.0f
+				);
+			}
+		}
+
+		auto entities = scene->GetScene();
+
+		//Clear the color and depth buffer
+		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Draw entities
+		for (const auto& entity : entities) {
+			entity->Draw();
 		}
 
 		Window->SwapBuffers();
@@ -45,8 +100,8 @@ namespace EngineCore {
 		// ignore non-significant error/warning codes
 		if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
 
-		std::cout << "---------------" << std::endl;
-		std::cout << "OpenGL Debug message (" << id << "): " << message << std::endl;
+		std::cout << "---------------\n";
+		std::cout << "OpenGL Debug message (" << id << "): " << message << "\n";
 
 		switch (source) {
 		case GL_DEBUG_SOURCE_API:             std::cout << "Source: API"; break;
@@ -56,7 +111,7 @@ namespace EngineCore {
 		case GL_DEBUG_SOURCE_APPLICATION:     std::cout << "Source: Application"; break;
 		case GL_DEBUG_SOURCE_OTHER:           std::cout << "Source: Other"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 
 		switch (type) {
 		case GL_DEBUG_TYPE_ERROR:               std::cout << "Type: Error"; break;
@@ -69,7 +124,7 @@ namespace EngineCore {
 		case GL_DEBUG_TYPE_POP_GROUP:           std::cout << "Type: Pop Group"; break;
 		case GL_DEBUG_TYPE_OTHER:               std::cout << "Type: Other"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 
 		switch (severity) {
 		case GL_DEBUG_SEVERITY_HIGH:         std::cout << "Severity: high"; break;
@@ -77,7 +132,7 @@ namespace EngineCore {
 		case GL_DEBUG_SEVERITY_LOW:          std::cout << "Severity: low"; break;
 		case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 		} 
-		std::cout << std::endl;
+		std::cout << "\n";
 		std::cout << std::endl;
 	}
 

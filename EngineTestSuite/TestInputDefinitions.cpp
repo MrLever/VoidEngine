@@ -11,14 +11,13 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "InputAxis.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
 namespace EngineCoreTests {
 
-	using namespace EngineCore;
+	using namespace core;
 	TEST_CLASS(InputDefinitionTests) {
 		TEST_METHOD(GenericInputGetButtonTest) {
 			auto time = EngineUtils::GetGameTime();

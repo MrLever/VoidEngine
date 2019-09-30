@@ -8,7 +8,7 @@
 #include "Message.h"
 #include "EngineUtilities.h"
 
-namespace EngineCore {
+namespace core {
 
 	//CTORS
 

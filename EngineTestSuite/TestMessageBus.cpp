@@ -15,7 +15,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
 namespace GameplayFrameworkTests {
-	using namespace EngineCore;
+	using namespace core;
 	using namespace EngineUtils;
 	using namespace EngineTestSuiteUtils;
 

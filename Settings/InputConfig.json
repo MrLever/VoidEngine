@@ -1,0 +1,12 @@
+{
+    "bindings":
+    [
+        {
+            "input":
+            {
+                
+            },
+            "action":"pause"
+        }
+    ]
+}
