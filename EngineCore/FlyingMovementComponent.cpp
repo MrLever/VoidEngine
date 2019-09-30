@@ -15,15 +15,25 @@ namespace EngineCore {
 	void FlyingMovementComponent::Input(const InputEvent& input, float deltaTime) {
 		
 		auto speed = MoveSpeed * deltaTime;
-
+		auto right = EngineMath::Vector3(0, 0, -1).Cross(EngineMath::Vector3(0, 1, 0)).Normalize();
 		if (input.EventName == "Move Up") {
 			Parent->SetPosition(
-				Parent->GetPostion() + Parent->GetRotation().ToVector() * speed
+				Parent->GetPostion() + EngineMath::Vector3(0,0,-1) * speed
 			);
 		}
-		if (input.EventName == "Move Down") {
+		else if (input.EventName == "Move Down") {
 			Parent->SetPosition(
-				Parent->GetPostion() - Parent->GetRotation().ToVector() * speed
+				Parent->GetPostion() - EngineMath::Vector3(0, 0, -1) * speed
+			);
+		}
+		else if (input.EventName == "Move Left") {
+			Parent->SetPosition(
+				Parent->GetPostion() - right * speed
+			);
+		}
+		else if (input.EventName == "Move Right") {
+			Parent->SetPosition(
+				Parent->GetPostion() + right * speed
 			);
 		}
 	}

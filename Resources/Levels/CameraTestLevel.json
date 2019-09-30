@@ -6,7 +6,7 @@
             "name":"FloatingPawn",
             "type":"PlayerEntity",
             "location": [0, 0, 5],
-            "rotation": [0, 0, -90],
+            "rotation": [0, 0, 0],
             "components":
             [
                 {
@@ -22,7 +22,7 @@
             "name":"TestCube",
             "type":"CubeEntity",
             "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
+            "rotation": [0, 45, 0],
             "components":
             [
                 {

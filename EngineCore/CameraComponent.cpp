@@ -11,8 +11,7 @@ namespace EngineCore {
 		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
 		
 		UpdateProjectionMatrix();
-		LookDirection = Rotation.ToVector();
-		LookDirection = LookDirection.Normalize();
+		LookDirection = EngineMath::Vector3(0, 0, -1);
 	}
 
 	CameraComponent::~CameraComponent() {
@@ -24,15 +23,14 @@ namespace EngineCore {
 		Position = Parent->GetPostion();
 
 		//LookDirection = Rotation.ToVector();
-
-		LookDirection = EngineMath::Vector3(0, 0, 0);
+		LookDirection = EngineMath::Vector3(0, 0, -1);
 
 		auto target = Position + LookDirection;
 		
 		//Set view matrix for this frame
 		ViewMatrix = glm::lookAt(
 			glm::vec3(Position.X, Position.Y, Position.Z),
-			glm::vec3(0, 0, 0),
+			glm::vec3(target.X, target.Y, target.Z),
 			glm::vec3(Up.X, Up.Y, Up.Z)
 	    );
 	}
