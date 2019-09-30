@@ -8,7 +8,7 @@
 
 namespace SuperVoid {
 
-	class BouncingCube : public EngineCore::Entity {
+	class BouncingCube : public core::Entity {
 	public:
 		/**
 		 * Constructor

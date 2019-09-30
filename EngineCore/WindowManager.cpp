@@ -11,7 +11,7 @@
 #include "InputAxis.h"
 #include "InputEvent.h"
 
-namespace EngineCore {
+namespace core {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
 	
 	const KeyboardInput WindowManager::ToggleFullscreenInput(

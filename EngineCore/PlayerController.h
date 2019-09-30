@@ -1,6 +1,6 @@
 #pragma once
 //STD Headers
-namespace EngineCore{
+namespace core{
 	
 	/**
 	 * @class PlayerController

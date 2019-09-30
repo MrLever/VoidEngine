@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "Component.h"
 
-namespace EngineCore {
+namespace core {
 	Component::Component(Entity* parent) 
 		: Parent(parent), Position(parent->GetPostion()), Rotation(parent->GetRotation()) {
 
@@ -27,11 +27,11 @@ namespace EngineCore {
 		;
 	}
 
-	void Component::SetPosition(const EngineMath::Vector3& position) {
+	void Component::SetPosition(const math::Vector3& position) {
 		Position = position;
 	}
 
-	void Component::SetRotation(const EngineMath::Rotator& rotation) {
+	void Component::SetRotation(const math::Rotator& rotation) {
 		Rotation = rotation;
 	}
 }

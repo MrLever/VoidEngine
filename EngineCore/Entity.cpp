@@ -6,7 +6,7 @@
 #include "Entity.h"
 #include "Component.h"
 
-namespace EngineCore {
+namespace core {
 	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
 	
 	}
@@ -45,19 +45,19 @@ namespace EngineCore {
 		}
 	}
 
-	EngineMath::Vector3 Entity::GetPostion() {
+	math::Vector3 Entity::GetPostion() {
 		return Position;
 	}
 
-	void Entity::SetPosition(const EngineMath::Vector3& newPosition) {
+	void Entity::SetPosition(const math::Vector3& newPosition) {
 		Position = newPosition;
 	}
 
-	EngineMath::Rotator Entity::GetRotation() {
+	math::Rotator Entity::GetRotation() {
 		return Rotation;
 	}
 
-	void Entity::SetRotation(const EngineMath::Rotator& newRotation) {
+	void Entity::SetRotation(const math::Rotator& newRotation) {
 		Rotation = newRotation;
 	}
 

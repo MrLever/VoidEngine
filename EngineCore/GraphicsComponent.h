@@ -13,7 +13,7 @@
 #include "Vector.h"
 #include "Rotator.h"
 
-namespace EngineCore {
+namespace core {
 	//Forward class declarations
 	class ShaderProgram;
 	class Texture;

@@ -9,7 +9,7 @@
 #include "MessageBus.h"
 #include "TimeUtils.h"
 
-namespace EngineCore {
+namespace core {
 
 	//CTORS
 	Console::Console(std::shared_ptr<MessageBus> Bus) : MessageBusNode(std::move(Bus)){

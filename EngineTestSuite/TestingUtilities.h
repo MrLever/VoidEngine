@@ -12,7 +12,7 @@
 namespace EngineTestSuiteUtils
 {
 
-	using namespace EngineCore;
+	using namespace core;
 
 	class DummyReceiver : MessageBusNode {
 	public:

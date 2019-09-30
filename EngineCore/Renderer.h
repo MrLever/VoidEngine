@@ -15,7 +15,7 @@
 #include "ThreadPool.h"
 #include "ResourceManager.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class WindowManager;

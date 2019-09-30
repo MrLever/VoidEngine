@@ -9,7 +9,7 @@
 #include "EngineUtilities.h"
 #include "EventTable.h"
 
-namespace EngineCore {
+namespace core {
 
 	//CTORS
 

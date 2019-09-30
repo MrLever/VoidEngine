@@ -10,7 +10,7 @@
 #include "PlayerEntity.h"
 #include "Level.h"
 
-namespace EngineCore {
+namespace core {
 	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel) {
 
 	}
@@ -48,14 +48,14 @@ namespace EngineCore {
 		return entity;
 	}
 
-	void EntityFactory::SetWorldOrientation(const nlohmann::json& entityData, EngineCore::Entity* entity) {
+	void EntityFactory::SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity) {
 		//Extract Entity position
-		EngineMath::Vector3 position;
+		math::Vector3 position;
 		position.X = entityData["location"][0].get<float>();
 		position.Y = entityData["location"][1].get<float>();
 		position.Z = entityData["location"][2].get<float>();
 
-		EngineMath::Rotator rotation;
+		math::Rotator rotation;
 		rotation.Pitch = entityData["rotation"][0].get<float>();
 		rotation.Yaw = entityData["rotation"][1].get<float>();
 		rotation.Roll = entityData["rotation"][2].get<float>();

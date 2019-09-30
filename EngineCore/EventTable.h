@@ -9,7 +9,7 @@
 //Coati Headers
 #include "Message.h"
 
-namespace EngineCore {
+namespace core {
 	/**
 	 * @class EventTable 
 	 * @brief Data structure to represent a map of Message -> Callable

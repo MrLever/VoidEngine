@@ -9,7 +9,7 @@
 #include "EngineUtilities.h"
 #include "TimeUtils.h"
 
-namespace EngineCore {
+namespace core {
 	enum class ButtonState : unsigned {
 		RELEASED = 0,
 		PRESSED = 1,

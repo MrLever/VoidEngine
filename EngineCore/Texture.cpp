@@ -10,7 +10,7 @@
 //Void Engine Headers
 #include "Texture.h"
 
-namespace EngineCore {
+namespace core {
 	Texture::Texture(const std::string& name, const std::string& texturePath)
 		: Resource(texturePath), Name(std::move(name)), TextureHandle(-1), TextureUnit(0), ImageData(nullptr), 
 		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1) {

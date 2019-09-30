@@ -7,7 +7,7 @@
 //Coati Headers
 #include "Input.h"
 
-namespace EngineCore {
+namespace core {
 
 	enum class MouseButton : unsigned {
 		LEFT = 0,
@@ -24,10 +24,10 @@ namespace EngineCore {
 //It is acceptable to extend the std namespace to add template specifications for 
 //standard library templates to work with custom data types.
 namespace std {
-	template <> struct hash<EngineCore::MouseInput> { //Class to define hash function for Keyboard Input
+	template <> struct hash<core::MouseInput> { //Class to define hash function for Keyboard Input
 
 		//Hash functor
-		std::size_t operator()(const EngineCore::MouseInput& t) const {
+		std::size_t operator()(const core::MouseInput& t) const {
 			return t.Hash();
 		}
 

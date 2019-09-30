@@ -8,7 +8,7 @@
 
 //Void Engine Headers
 
-namespace EngineCore {
+namespace core {
 	/**
 	 * @class Texture
 	 * @brief Class to define how to handle OpenGL Textures

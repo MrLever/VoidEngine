@@ -6,7 +6,7 @@
 
 //Math Headers
 
-namespace EngineMath {
+namespace math {
 	struct Vector3;
 
 	struct Vector2 {

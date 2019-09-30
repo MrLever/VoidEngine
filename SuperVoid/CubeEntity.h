@@ -9,7 +9,7 @@
 
 namespace SuperVoid {
 
-	class CubeEntity : public EngineCore::Entity {
+	class CubeEntity : public core::Entity {
 	public: 
 		/**
 		 * Constructor

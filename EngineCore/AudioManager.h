@@ -13,7 +13,7 @@
 #include "ResourceHandle.h"
 #include "MessageBusNode.h"
 
-namespace EngineCore {
+namespace core {
 
 	class AudioManager : public EngineUtils::Configurable {
 	public:

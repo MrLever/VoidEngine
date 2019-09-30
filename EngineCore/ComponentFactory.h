@@ -11,7 +11,7 @@
 #include "GraphicsComponent.h"
 #include "CameraComponent.h"
 
-namespace EngineCore {
+namespace core {
 	//Forward class declarations
 	class Level;
 

@@ -15,7 +15,7 @@
 #include "Level.h"
 #include "MessageBus.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class WindowManager;

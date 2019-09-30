@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "Name.h"
 
-namespace EngineCore {
+namespace core {
 
 	struct InputAxis {
 		EngineUtils::Name AxisName;

@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "ShaderProgram.h"
 
-namespace EngineCore {
+namespace core {
 
 	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
 		: ProgramName(std::move(name)), ProgramHandle(-1) {

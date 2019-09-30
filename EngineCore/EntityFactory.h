@@ -12,7 +12,7 @@
 #include "ComponentFactory.h"
 #include "GraphicsComponent.h"
 
-namespace EngineCore {
+namespace core {
 	//Forward class declarations
 	class Level;
 
@@ -40,7 +40,7 @@ namespace EngineCore {
 		 */
 		[[nodiscard]] Entity* CreateEntity(const nlohmann::json& entityData);
 
-		void SetWorldOrientation(const nlohmann::json& entityData, EngineCore::Entity* entity);
+		void SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity);
 	
 	private:
 		/** The current level using this factory */

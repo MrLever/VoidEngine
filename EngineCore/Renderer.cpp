@@ -9,7 +9,7 @@
 #include "Renderer.h"
 #include "WindowManager.h"
 
-namespace EngineCore {
+namespace core {
 
 	Renderer::Renderer(
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,

@@ -5,13 +5,13 @@
 //Void Engine Headers
 #include "CameraComponent.h"
 
-namespace EngineCore {
+namespace core {
 
 	CameraComponent::CameraComponent(Entity* parent) 
 		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
 		
 		UpdateProjectionMatrix();
-		LookDirection = EngineMath::Vector3(0, 0, -1);
+		LookDirection = math::Vector3(0, 0, -1);
 	}
 
 	CameraComponent::~CameraComponent() {
@@ -24,7 +24,7 @@ namespace EngineCore {
 		Rotation = Parent->GetRotation();
 
 		LookDirection = Rotation.ToVector();
-		//LookDirection = EngineMath::Vector3(0, 0, -1);
+		//LookDirection = math::Vector3(0, 0, -1);
 
 		auto target = Position + LookDirection;
 		

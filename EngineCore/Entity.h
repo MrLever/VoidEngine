@@ -11,7 +11,7 @@
 #include "InputEvent.h"
 #include "InputAxis.h"
 
-namespace EngineCore {
+namespace core {
 	//Forward class declarations
 	class Component;
 
@@ -77,23 +77,23 @@ namespace EngineCore {
 		 * Function to request position of this entity
 		 * @return The entity's position
 		 */
-		EngineMath::Vector3 GetPostion();
+		math::Vector3 GetPostion();
 
 		/**
 		 * Setter for object's position
 		 */
-		void SetPosition(const EngineMath::Vector3& newPosition);
+		void SetPosition(const math::Vector3& newPosition);
 
 		/**
 		 * Function to request position of this entity
 		 * @return The entity's position
 		 */
-		EngineMath::Rotator GetRotation();
+		math::Rotator GetRotation();
 
 		/**
 		 * Setter for object's position
 		 */
-		void SetRotation(const EngineMath::Rotator& newRotation);
+		void SetRotation(const math::Rotator& newRotation);
 
 		/**
 		 * Gives ownership of a component to this entity
@@ -103,10 +103,10 @@ namespace EngineCore {
 	
 	protected:
 		/** The entity's position in 3D space */
-		EngineMath::Vector3 Position;
+		math::Vector3 Position;
 
 		/** The entity's rotation in 3D space */
-		EngineMath::Rotator Rotation;
+		math::Rotator Rotation;
 		
 		/** The entity's velocity */
 		float Velocity;

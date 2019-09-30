@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "InputEvent.h"
 
-namespace EngineCore {
+namespace core {
 	InputEvent::InputEvent(const std::string& name) : EventName(std::move(name)) {
 
 	}

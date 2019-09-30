@@ -13,7 +13,7 @@
 #include "KeyboardInput.h"
 
 
-namespace EngineCore {
+namespace core {
 	//Forward Class Declarations
 	class InputManager;
 

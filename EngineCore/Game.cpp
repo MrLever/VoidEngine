@@ -18,7 +18,7 @@
 #include "WindowManager.h"
 
 
-namespace EngineCore {
+namespace core {
 
 	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
 		FrameRate = 0;

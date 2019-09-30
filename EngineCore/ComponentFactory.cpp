@@ -6,7 +6,7 @@
 #include "ComponentFactory.h"
 #include "Level.h"
 
-namespace EngineCore {
+namespace core {
 	ComponentFactory::ComponentFactory(Level* currLevel) {
 		CurrentLevel = currLevel;
 	}

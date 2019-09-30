@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "Rotator.h"
 
-namespace EngineMath {
+namespace math {
 	Rotator::Rotator() : Pitch(0.0f), Yaw(0.0f), Roll(0.0f) {
 
 	}
@@ -42,8 +42,8 @@ namespace EngineMath {
 
 	Vector3 Rotator::ToVector() const {
 		//Convert to radians
-		auto pitch = EngineMath::ToRadians(Pitch);
-		auto yaw = EngineMath::ToRadians(Yaw);
+		auto pitch = math::ToRadians(Pitch);
+		auto yaw = math::ToRadians(Yaw);
 		
 		return Vector3(
 			std::cos(pitch) * std::cos(yaw),

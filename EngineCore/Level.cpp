@@ -7,7 +7,7 @@
 //Coati Headers
 #include "Level.h"
 
-namespace EngineCore {
+namespace core {
 
 	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
 		ActiveCamera = nullptr;

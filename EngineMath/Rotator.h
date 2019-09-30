@@ -9,7 +9,7 @@
 #include "Vector.h"
 #include "MathConstants.h"
 
-namespace EngineMath {
+namespace math {
 	/**
 	 * @class Rotator
 	 * @brief Struct to encapsulate rotation information as euler angels

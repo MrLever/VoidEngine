@@ -7,7 +7,7 @@
 //Coati Headers
 #include "Game.h"
 
-using namespace EngineCore;
+using namespace core;
 
 int main(int argc, char* argv[]) {
 	std::string config = "Settings/EngineConfig.json";

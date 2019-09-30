@@ -19,7 +19,7 @@
 #include "GamepadInput.h"
 #include "InputAxis.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class MessageBus;
@@ -89,7 +89,7 @@ namespace EngineCore {
 		 * @param event The event to dispatch
 		 */
 		void DispatchEvent(
-			const std::vector<EngineCore::Entity*>& scene, 
+			const std::vector<core::Entity*>& scene, 
 			const InputEvent& event, 
 			float deltaTime
 		);
@@ -100,7 +100,7 @@ namespace EngineCore {
 		 * @param event The event to dispatch
 		 */
 		void DispatchEvent(
-			const std::vector<EngineCore::Entity*>& scene, 
+			const std::vector<core::Entity*>& scene, 
 			const InputAxis& axisData, 
 			float deltaTime
 		);

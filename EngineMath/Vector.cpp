@@ -6,7 +6,7 @@
 //Math Headers
 #include "Vector.h"
 
-namespace EngineMath {
+namespace math {
 	Vector2::Vector2() : X(0), Y(0) {
 
 	}

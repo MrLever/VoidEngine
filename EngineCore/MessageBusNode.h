@@ -12,7 +12,7 @@
 #include "Message.h"
 #include "EventTable.h"
 
-namespace EngineCore {
+namespace core {
 
 	//Forward Class declarations
 	class MessageBus;

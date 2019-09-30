@@ -11,7 +11,7 @@
 //Void Engine Headers
 #include "Shader.h"
 
-namespace EngineCore {
+namespace core {
 
 	/**
 	 * @class ShaderProgram

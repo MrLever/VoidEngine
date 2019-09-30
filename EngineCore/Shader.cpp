@@ -7,7 +7,7 @@
 //Void Engine Headers
 #include "Shader.h"
 
-namespace EngineCore {
+namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 
 		: Resource(filePath), Type(type), ShaderHandle(-1) {
 		Load();

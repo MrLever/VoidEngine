@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "FlyingMovementComponent.h"
 
-namespace EngineCore {
+namespace core {
 
 	FlyingMovementComponent::FlyingMovementComponent(Entity* parent) 
 		: Component(std::move(parent)), MoveSpeed(0.0f) {
@@ -36,7 +36,7 @@ namespace EngineCore {
 		}
 		auto speed = MoveSpeed * deltaTime;
 		auto forward = Parent->GetRotation().ToVector();
-		auto right = forward.Cross(EngineMath::Vector3(0, 1, 0)).Normalize();
+		auto right = forward.Cross(math::Vector3(0, 1, 0)).Normalize();
 
 		if (axis.AxisName == "UpAxis") {
 			Parent->SetPosition(

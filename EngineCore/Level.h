@@ -14,7 +14,7 @@
 #include "Name.h"
 #include "Resource.h"
 
-namespace EngineCore {
+namespace core {
 
 	/**
 	 * @class Level

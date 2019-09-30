@@ -9,7 +9,7 @@
 #include "InputManager.h"
 #include "MessageBus.h"
 
-namespace EngineCore {
+namespace core {
 
 	InputManager::InputManager(
 			ThreadPoolPtr threadPool,
@@ -130,7 +130,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::DispatchEvent(
-			const std::vector<EngineCore::Entity*>& scene, 
+			const std::vector<core::Entity*>& scene, 
 			const InputEvent& event,
 			float deltaTime
 		) {
@@ -146,7 +146,7 @@ namespace EngineCore {
 	}
 
 	void InputManager::DispatchEvent(
-		const std::vector<EngineCore::Entity*>& scene,
+		const std::vector<core::Entity*>& scene,
 		const InputAxis& axisData,
 		float deltaTime
 	) {

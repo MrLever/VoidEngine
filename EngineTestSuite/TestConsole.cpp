@@ -9,10 +9,10 @@
 #include "Console.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace EngineCore;
+using namespace core;
 
 namespace EngineUtilitiesTests {
-	using namespace EngineCore;
+	using namespace core;
 	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(ConsoleTests) {

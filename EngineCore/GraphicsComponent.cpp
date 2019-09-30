@@ -10,7 +10,7 @@
 #include "Texture.h"
 #include "TimeUtils.h"
 
-namespace EngineCore {
+namespace core {
 	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
 	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 

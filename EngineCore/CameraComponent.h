@@ -13,7 +13,7 @@
 #include "Vector.h"
 #include "WindowManager.h"
 
-namespace EngineCore {
+namespace core {
 	class CameraComponent : public Component {
 	public:
 		/**
@@ -73,10 +73,10 @@ namespace EngineCore {
 		float FOV;
 
 		/** Vector to represent the direction the camera is looking */
-		EngineMath::Vector3 LookDirection;
+		math::Vector3 LookDirection;
 		
 		/** Vector to represent the up direction for the camera */
-		EngineMath::Vector3 Up;
+		math::Vector3 Up;
 
 	};
 

@@ -12,7 +12,7 @@
 #include "Vector.h"
 #include "Rotator.h"
 
-namespace EngineCore {
+namespace core {
 	
 	/**
 	 * @class Component
@@ -54,20 +54,20 @@ namespace EngineCore {
 		 * Set's this component's position
 		 * @param position The position to use
 		 */
-		void SetPosition(const EngineMath::Vector3& position);
+		void SetPosition(const math::Vector3& position);
 
 		/**
 		 * Set's this component's rotation
 		 * @param position The position to use
 		 */
-		void SetRotation(const EngineMath::Rotator& rotation);
+		void SetRotation(const math::Rotator& rotation);
 
 	protected:
 		/** The component's position */
-		EngineMath::Vector3 Position;
+		math::Vector3 Position;
 		
 		/** The component's rotation */
-		EngineMath::Rotator Rotation;
+		math::Rotator Rotation;
 
 		/** The component's parent */
 		Entity* Parent;

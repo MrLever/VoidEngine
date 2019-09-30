@@ -7,7 +7,7 @@
 #include "Entity.h"
 #include "Name.h"
 
-namespace EngineCore {
+namespace core {
 	
 	/**
 	 * @class PlayerEntity

@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "PlayerEntity.h"
 
-namespace EngineCore {
+namespace core {
 	PlayerEntity::PlayerEntity(const std::string& name) : Entity(name) {
 
 	}

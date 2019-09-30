@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "Component.h"
 
-namespace EngineCore {
+namespace core {
 	
 	/**
 	 * @class FlyingMovementComponent
