@@ -35,4 +35,8 @@ namespace EngineUtils {
 
 		return true;
 	}
+
+	void Configuration::Initialize() {
+	
+	}
 }

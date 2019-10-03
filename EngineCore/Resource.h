@@ -38,6 +38,11 @@ namespace EngineUtils {
 		virtual bool LoadErrorResource() = 0;
 
 		/**
+		 * Allows the resource to be intialized after loading.
+		 */
+		virtual void Initialize() = 0;
+
+		/**
 		 * Returns whether the resource is valid
 		 */
 		bool GetResourceValid();
@@ -56,5 +61,8 @@ namespace EngineUtils {
 
 		/** Flag specifying if the resource was found in main memory */
 		std::atomic<bool> ResourceValid;
+
+		/** Variable to allow users to query if a resource has been initialized */
+		bool Initialized;
 	};
 }

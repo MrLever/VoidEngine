@@ -14,33 +14,39 @@ using namespace EngineUtils;
 
 namespace EngineUtilitiesTests {
 
+	struct RawFile : public Resource {
+		const std::string ErrorString = "Error";
+		std::string FileContents;
+
+		RawFile(std::string path) : Resource(path) {
+
+		}
+
+		bool Load() override {
+			std::ifstream ifs;
+			ifs.open(ResourcePath);
+
+			if (!ifs.is_open()) {
+				return false;
+			}
+
+			std::getline(ifs, FileContents);
+			return true;
+		}
+
+		bool LoadErrorResource() override {
+			FileContents = ErrorString;
+			return true;
+		}
+
+		virtual void Initialize() {
+
+		}
+
+	};
+
 	TEST_CLASS(ResourceManagerTests) {
 	public:
-		struct RawFile : public Resource {
-			const std::string ErrorString = "Error";
-			std::string FileContents;
-
-			RawFile(std::string path) : Resource(path) {
-
-			}
-
-			bool Load() override {
-				std::ifstream ifs;
-				ifs.open(ResourcePath);
-
-				if (!ifs.is_open()) {
-					return false;
-				}
-
-				std::getline(ifs, FileContents);
-				return true;
-			}
-
-			bool LoadErrorResource() override {
-				FileContents = ErrorString;
-				return true;
-			}
-		};
 
 		TEST_METHOD(LoadNewResourceTest) {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";

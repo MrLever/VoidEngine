@@ -44,6 +44,10 @@ namespace core {
 		return false;
 	}
 
+	void Shader::Initialize() {
+
+	}
+
 	bool Shader::Compile() {
 		//Attempt to compile shader
 		const char* shaderCode = ShaderSource.c_str();

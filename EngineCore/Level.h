@@ -49,6 +49,11 @@ namespace core {
 		bool LoadErrorResource() override;
 
 		/**
+		 * Allows the resource to be intialized after loading.
+		 */
+		virtual void Initialize();
+
+	    /**
 		 * Getter for level's name
 		 * @return The level's name
 		 */
@@ -75,12 +80,6 @@ namespace core {
 		 * Getter for this level's active camera
 		 */
 		CameraComponent* GetActiveCamera();
-
-		/**
-		 * Spawns entities into the scene from level data
-		 * @note This function must be called from the main thread
-		 */
-		void SpawnEntities();
 
 	private:
 		/**

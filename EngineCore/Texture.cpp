@@ -48,7 +48,7 @@ namespace core {
 		return false;
 	}
 
-	void Texture::GenerateTextureInfo() {
+	void Texture::Initialize() {
 		if (!ImageData) {
 			std::cout << "Error: Texture not loaded. Cannot generate OpenGL texture info\n";
 			return;

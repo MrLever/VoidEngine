@@ -142,7 +142,7 @@ namespace core {
 
 		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
 		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel->SpawnEntities();
+		CurrentLevel->Initialize();
 		CurrentLevel->BeginPlay();
 	}
 

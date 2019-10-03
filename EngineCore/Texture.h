@@ -45,7 +45,7 @@ namespace core {
 		/**
 		 * Generates OpenGL data needed to use this texture in rendering
 		 */
-		void GenerateTextureInfo();
+		void Initialize() override;
 
 		/**
 		 * Instructs OpenGL we'd like to use this texture in our next draw call

@@ -43,6 +43,11 @@ namespace core {
 		 */
 		bool LoadErrorResource() override;
 
+		/**
+		 * Allows the resource to be intialized after loading.
+		 */
+		virtual void Initialize();
+
 
 	private:
 		/**

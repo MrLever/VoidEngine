@@ -30,7 +30,7 @@ namespace core {
 		return true;
 	}
 
-	void Level::SpawnEntities() {
+	void Level::Initialize() {
 		auto entityData = LevelData["entities"];
 		LevelEntityFactory.CreateEntityList(entityData);
 	}

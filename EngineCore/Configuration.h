@@ -38,6 +38,11 @@ namespace EngineUtils {
 		bool LoadErrorResource() override;
 
 		/**
+		 * Allows the resource to be intialized after loading.
+		 */
+		virtual void Initialize() override;
+
+		/**
 		 * Function for retrieving values from a Lua Config file
 		 * @tparam T The expected type of the attribute
 		 * @param attribute The requested attribute's key

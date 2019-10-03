@@ -71,7 +71,7 @@ namespace core {
 	void GraphicsComponent::AddTexture(const std::string& name, const std::string& texturePath, GLint unit = 0) {
 		auto texture = new Texture(name, texturePath, unit);
 		texture->Load();
-		texture->GenerateTextureInfo();
+		texture->Initialize();
 
 		if (Material) {
 			Material->SetUniform(texture->GetName().c_str(), texture->GetUnit());
