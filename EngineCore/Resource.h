@@ -63,6 +63,9 @@ namespace EngineUtils {
 		std::atomic<bool> ResourceValid;
 
 		/** Variable to allow users to query if a resource has been initialized */
-		bool Initialized;
+		bool IsInitialized;
+
+		/** Let's Managing objects know whether this resource is can be initialized on other threads */
+		bool IsThreadSafe;
 	};
 }

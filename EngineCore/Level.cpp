@@ -1,8 +1,6 @@
 //STD Headers
 
-
 //Library Headers
-
 
 //Coati Headers
 #include "Level.h"
@@ -30,14 +28,14 @@ namespace core {
 		return true;
 	}
 
-	void Level::Initialize() {
-		auto entityData = LevelData["entities"];
-		LevelEntityFactory.CreateEntityList(entityData);
-	}
-
 	bool Level::LoadErrorResource() {
 		return false;
 	}
+
+	void Level::Initialize() {
+		auto entityData = LevelData["entities"];
+		LevelEntityFactory.CreateEntityList(entityData);
+	}	
 
 	EngineUtils::Name Level::GetName() {
 		return LevelName;

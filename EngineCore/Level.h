@@ -8,8 +8,6 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
-#include "CameraComponent.h"
-#include "Entity.h"
 #include "EntityFactory.h"
 #include "Name.h"
 #include "Resource.h"
@@ -21,7 +19,6 @@ namespace core {
 	 * @brief Class to represent a level in the game
 	 */
 	class Level : public EngineUtils::Resource {
-	
 		friend class EntityFactory;
 		friend class ComponentFactory;
 
@@ -51,7 +48,7 @@ namespace core {
 		/**
 		 * Allows the resource to be intialized after loading.
 		 */
-		virtual void Initialize();
+		virtual void Initialize() override;
 
 	    /**
 		 * Getter for level's name
