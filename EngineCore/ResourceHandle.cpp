@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "ResourceHandle.h"
 
-namespace EngineUtils {
+namespace utils {
 
 	ResourceHandle::ResourceHandle(std::future<std::shared_ptr<Resource>>& resourceFuture)
 		: RequestedResource(std::move(resourceFuture)) {

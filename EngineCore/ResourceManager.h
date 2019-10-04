@@ -14,7 +14,7 @@
 #include "Resource.h"
 #include "Name.h"
 
-namespace EngineUtils {
+namespace utils {
 
 	/**
 	 * A resource manager is responsible for loading 
@@ -26,7 +26,7 @@ namespace EngineUtils {
 		 * Constructor
 		 * @param gameThreadPool A thread pool to be used for asynchronous file IO
 		 */
-		ResourceManager(std::shared_ptr<ThreadPool> gameThreadPool);
+		ResourceManager(ThreadPoolPtr gameThreadPool);
 		
 		/**
 		 * Destructor
@@ -142,5 +142,5 @@ namespace EngineUtils {
 
 }
 
-using ResourceManagerPtr = std::shared_ptr<EngineUtils::ResourceManager>;
+using ResourceManagerPtr = std::shared_ptr<utils::ResourceManager>;
 

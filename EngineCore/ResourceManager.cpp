@@ -5,9 +5,9 @@
 //Void Engine Headers
 #include "ResourceManager.h"
 
-namespace EngineUtils {
+namespace utils {
 	///Public Functions
-	ResourceManager::ResourceManager(std::shared_ptr<ThreadPool> gameThreadPool) 
+	ResourceManager::ResourceManager(ThreadPoolPtr gameThreadPool) 
 		: GameThreadPool(std::move(gameThreadPool)) {
 	
 	}

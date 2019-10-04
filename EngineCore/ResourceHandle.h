@@ -8,7 +8,7 @@
 //Void Engine Headers
 #include "Resource.h"
 
-namespace EngineUtils {
+namespace utils {
 	/**
 	 * The resource handle is a gatekeeper for resources requested
 	 * from the resource manager. It forces requestors to wait 
@@ -43,12 +43,13 @@ namespace EngineUtils {
 
 	template<class T>
 	inline std::shared_ptr<T> ResourceHandle::GetResource() {
-		auto res = RequestedResource.get();
-		if (res != nullptr) {
-			return std::dynamic_pointer_cast<T>(res);
+		auto genericResource = RequestedResource.get();
+		
+		auto resource = std::dynamic_pointer_cast<T>(genericResource);
+		if (resource == nullptr) {
+			std::cout << "***ERROR*** Invalid resource request";
 		}
-		else {
-			return nullptr;
-		}
+
+		return resource;
 	}
 }
