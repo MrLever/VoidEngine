@@ -20,7 +20,7 @@ namespace core {
 	//Forward Class declarations
 	class WindowManager;
 
-	class Renderer : public EngineUtils::Configurable{
+	class Renderer : public utils::Configurable{
 	public:
 		/**
 		 * Constructor
@@ -30,7 +30,7 @@ namespace core {
 			std::shared_ptr<WindowManager> window,
 			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager,
-			const EngineUtils::ResourceHandle& configuration
+			const utils::ResourceHandle& configuration
 		);
 
 		/**

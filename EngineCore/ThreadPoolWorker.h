@@ -9,7 +9,7 @@
 #include "ThreadPool.h"
 #include "ThreadSafeQueue.h"
 
-namespace EngineUtils {
+namespace utils {
 
 	/**
 	 * A threadpool worker runs on an infinite loop until the threadpool is shut down.

@@ -43,8 +43,8 @@ namespace core {
 
 	void Game::InitGame() {
 		//Initialize Engine Utilities
-		GameThreadPool = std::make_shared<EngineUtils::ThreadPool>();
-		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
+		GameThreadPool = std::make_shared<utils::ThreadPool>();
+		GameResourceManager = std::make_shared<utils::ResourceManager>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
@@ -53,7 +53,7 @@ namespace core {
 		GameInputManager = std::make_shared<InputManager>(
 			GameThreadPool,
 			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+			GameResourceManager->LoadResource<utils::Configuration>("Settings/InputConfig.lua")
 		);
 
 		//Attach input manager to window to address hardware callbacks
@@ -64,14 +64,14 @@ namespace core {
 			Window, 
 			GameThreadPool,
 			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
+			GameResourceManager->LoadResource<utils::Configuration>("Settings/RenderingConfig.lua")
 		);
 		
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
 			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
+			GameResourceManager->LoadResource<utils::Configuration>("Settings/AudioConfig.lua")
 		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
@@ -117,10 +117,10 @@ namespace core {
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
 		const static int ONE_SECOND = 1000;
-		static auto lastTime = EngineUtils::GetGameTime();
+		static auto lastTime = utils::GetGameTime();
 		static int numFrames = 0;
 
-		auto currentTime = EngineUtils::GetGameTime();
+		auto currentTime = utils::GetGameTime();
 		numFrames++;
 
 		if (currentTime - lastTime >= ONE_SECOND) {
@@ -131,7 +131,7 @@ namespace core {
 				(ONE_SECOND + 0.0) / numFrames
 			);
 			numFrames = 0;
-			lastTime = EngineUtils::GetGameTime();
+			lastTime = utils::GetGameTime();
 		}
 	}
 

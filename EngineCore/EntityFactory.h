@@ -40,6 +40,12 @@ namespace core {
 		 */
 		[[nodiscard]] Entity* CreateEntity(const nlohmann::json& entityData);
 
+
+		/**
+		 * Uses Entity data to apply location and rotation to an entity
+		 * @param entityData The data to apply
+		 * @param entity The entity to place
+		 */
 		void SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity);
 	
 	private:

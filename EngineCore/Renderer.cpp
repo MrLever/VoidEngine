@@ -13,7 +13,7 @@ namespace core {
 
 	Renderer::Renderer(
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
+			ResourceManagerPtr resourceManager, const utils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
 		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
 		

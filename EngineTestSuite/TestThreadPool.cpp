@@ -9,7 +9,7 @@
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace EngineUtils;
+using namespace utils;
 
 namespace EngineUtilitiesTests {
 

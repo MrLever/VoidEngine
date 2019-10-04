@@ -10,7 +10,7 @@
 #include "Name.h"
 #include "ResourceHandle.h"
 
-namespace EngineUtils {
+namespace utils {
 	
 	/**
 	 * Configurable is an abstract base class that allows implementers to 

@@ -17,7 +17,7 @@ namespace core {
 		FRAGMENT = GL_FRAGMENT_SHADER,
 		COMPUTE = GL_COMPUTE_SHADER
 	};
-	class Shader : public EngineUtils::Resource {
+	class Shader : public utils::Resource {
 		friend class ShaderProgram;
 
 	public:

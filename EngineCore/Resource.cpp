@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "Resource.h"
 
-namespace EngineUtils {
+namespace utils {
 	///Public Functions
 	Resource::Resource(const std::string& filePath) 
 		: ResourceID(filePath), ResourcePath(filePath), IsInitialized(false), IsThreadSafe(false) {

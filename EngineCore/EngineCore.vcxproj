@@ -246,7 +246,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="InputEvent.cpp" />
-    <ClCompile Include="Package.cpp" />
+    <ClCompile Include="PackageResource.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -284,7 +284,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="InputEvent.h" />
-    <ClInclude Include="Package.h" />
+    <ClInclude Include="PackageResource.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />

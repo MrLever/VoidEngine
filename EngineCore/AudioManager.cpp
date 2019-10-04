@@ -13,7 +13,7 @@ namespace core {
 
 	AudioManager::AudioManager(
 			ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, 
-			EngineUtils::ResourceHandle configuration
+			utils::ResourceHandle configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
 		    GameResourceManager(std::move(resourceManager)) {
 		

@@ -7,11 +7,11 @@
 #include "Component.h"
 
 namespace core {
-	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	Entity::Entity(const utils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
 	
 	}
 
-	Entity::Entity(const std::string& name) : Entity(EngineUtils::Name(name)) {
+	Entity::Entity(const std::string& name) : Entity(utils::Name(name)) {
 
 	}
 

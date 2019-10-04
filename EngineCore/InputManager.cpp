@@ -13,7 +13,7 @@ namespace core {
 
 	InputManager::InputManager(
 			ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager, const EngineUtils::ResourceHandle& configuration
+			ResourceManagerPtr resourceManager, const utils::ResourceHandle& configuration
 		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
 		    GameResourceManager(std::move(resourceManager)) {
 		
@@ -134,7 +134,7 @@ namespace core {
 			const InputEvent& event,
 			float deltaTime
 		) {
-		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+		static const utils::Name ERROR_EVENT_ID("Error");
 
 		if (event.EventName == ERROR_EVENT_ID) {
 			return;
@@ -150,7 +150,7 @@ namespace core {
 		const InputAxis& axisData,
 		float deltaTime
 	) {
-		static const EngineUtils::Name ERROR_EVENT_ID("Error");
+		static const utils::Name ERROR_EVENT_ID("Error");
 
 		for (auto& entity : scene) {
 			entity->Input(axisData, deltaTime);

@@ -9,7 +9,7 @@
 namespace core {
 
 	struct InputAxis {
-		EngineUtils::Name AxisName;
+		utils::Name AxisName;
 		float Value;
 
 		/**

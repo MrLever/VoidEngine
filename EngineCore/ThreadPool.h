@@ -13,7 +13,7 @@
 //Void Engine Headers
 #include "ThreadSafeQueue.h"
 
-namespace EngineUtils {
+namespace utils {
 
 	/**
 	 * The threadpool is responsible for accepting and executing jobs asynchronously for engine systems.
@@ -112,4 +112,4 @@ namespace EngineUtils {
 
 }
 
-using ThreadPoolPtr = std::shared_ptr<EngineUtils::ThreadPool>;
+using ThreadPoolPtr = std::shared_ptr<utils::ThreadPool>;

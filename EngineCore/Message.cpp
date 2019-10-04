@@ -34,7 +34,7 @@ namespace core {
 		return Event;
 	}
 
-	EngineUtils::Name Message::GetEventID() const {
+	utils::Name Message::GetEventID() const {
 		return ID;
 	}
 

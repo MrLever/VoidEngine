@@ -8,7 +8,7 @@
 //Void Engine Headers
 #include "Configuration.h"
 
-namespace EngineUtils {
+namespace utils {
 	
 	Configuration::Configuration(const std::string& configFile) : Resource(configFile) {
 

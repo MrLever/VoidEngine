@@ -15,7 +15,7 @@
 
 namespace core {
 
-	class AudioManager : public EngineUtils::Configurable {
+	class AudioManager : public utils::Configurable {
 	public:
 		///CTORS
 		/**
@@ -23,7 +23,7 @@ namespace core {
 		 * @param engineInterface Shared pointer to the engine utility interface this system will use
 		 * @param configFile The file location of the configuration file this system will use
 		 */
-		AudioManager(ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, EngineUtils::ResourceHandle configuration);
+		AudioManager(ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, utils::ResourceHandle configuration);
 		
 		/**
 		 * Destructor

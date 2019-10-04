@@ -13,7 +13,7 @@ namespace core {
 	 * @class Texture
 	 * @brief Class to define how to handle OpenGL Textures
 	 */
-	class Texture : public EngineUtils::Resource {
+	class Texture : public utils::Resource {
 	public:
 		/**
 		 * Constructor

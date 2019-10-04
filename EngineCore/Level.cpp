@@ -37,7 +37,7 @@ namespace core {
 		LevelEntityFactory.CreateEntityList(entityData);
 	}	
 
-	EngineUtils::Name Level::GetName() {
+	utils::Name Level::GetName() {
 		return LevelName;
 	}
 

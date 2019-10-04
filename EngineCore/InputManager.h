@@ -29,7 +29,7 @@ namespace core {
 	 * @brief The InputManager is responsible for processing input events to handle debouncing
 	 *        and detect higher order patterns like double-taps and chords 
 	 */
-	class InputManager : public EngineUtils::Configurable {
+	class InputManager : public utils::Configurable {
 	public:
 		/**
 		 * Constructor
@@ -38,7 +38,7 @@ namespace core {
 		InputManager(
 			ThreadPoolPtr threadPool,
 			ResourceManagerPtr resourceManager,
-			const EngineUtils::ResourceHandle& configuration
+			const utils::ResourceHandle& configuration
 		);
 
 		/**

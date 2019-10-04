@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 
-namespace EngineUtils {
+namespace utils {
 	/**
 	 * Thread safe wrapper for std::queue
 	 */

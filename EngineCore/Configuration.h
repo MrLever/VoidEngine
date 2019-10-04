@@ -10,7 +10,7 @@
 //Void Engine Headers
 #include "Resource.h"
 
-namespace EngineUtils {
+namespace utils {
 	class Configuration : public Resource {
 	public:
 		/**

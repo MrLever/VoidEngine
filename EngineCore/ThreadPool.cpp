@@ -6,7 +6,7 @@
 #include "ThreadPool.h"
 #include "ThreadPoolWorker.h"
 
-namespace EngineUtils {
+namespace utils {
 
 	///Public
 	ThreadPool::ThreadPool() : NumThreads(std::thread::hardware_concurrency() - 1),	Terminated(false){

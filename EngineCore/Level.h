@@ -18,7 +18,7 @@ namespace core {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level : public EngineUtils::Resource {
+	class Level : public utils::Resource {
 		friend class EntityFactory;
 		friend class ComponentFactory;
 
@@ -54,7 +54,7 @@ namespace core {
 		 * Getter for level's name
 		 * @return The level's name
 		 */
-		EngineUtils::Name GetName();
+		utils::Name GetName();
 
 		/**
 		 * Instructs all entities in level to begin play
@@ -97,7 +97,7 @@ namespace core {
 		nlohmann::json LevelData;
 
 		/** The level's name */
-		EngineUtils::Name LevelName;
+		utils::Name LevelName;
 	};
 
 }

@@ -25,7 +25,7 @@ namespace core {
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const EngineUtils::Name& name);
+		Entity(const utils::Name& name);
 
 		/**
 		 * Constructor
@@ -112,7 +112,7 @@ namespace core {
 		float Velocity;
 
 		/** Entity's name */
-		EngineUtils::Name ID;
+		utils::Name ID;
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;

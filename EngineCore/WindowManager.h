@@ -169,7 +169,7 @@ namespace core {
 		 * @param state The gamepad state to process
 		 * @param timestamp The timestamp to affix to any reported input
 		 */
-		void PollGamepadButtons(GLFWgamepadstate& state, const EngineUtils::GameTime& timestamp);
+		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
 
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> Window;

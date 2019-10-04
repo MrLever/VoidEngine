@@ -10,7 +10,7 @@
 //Void Engine Headers
 #include "Name.h"
 
-namespace EngineUtils {
+namespace utils {
 	/**
 	 * Resources are the objects handled by the resource manager.
 	 */

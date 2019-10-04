@@ -84,10 +84,10 @@ namespace core {
 		std::shared_ptr<EntityFactory> GameEntityFactory;
 
 		/** A Handle to the Engine's thread pool */
-		std::shared_ptr<EngineUtils::ThreadPool> GameThreadPool;
+		std::shared_ptr<utils::ThreadPool> GameThreadPool;
 
 		/** A handle to the Engine's resource manager */
-		std::shared_ptr<EngineUtils::ResourceManager> GameResourceManager;
+		std::shared_ptr<utils::ResourceManager> GameResourceManager;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;
@@ -108,7 +108,7 @@ namespace core {
 		std::unique_ptr<AudioManager> GameAudioManager;
 		
 		/** Config settings for the game */
-		EngineUtils::Configuration EngineConfig;
+		utils::Configuration EngineConfig;
 
 		/** The game's current framerate */
 		int FrameRate;

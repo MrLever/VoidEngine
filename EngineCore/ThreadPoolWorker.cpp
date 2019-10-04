@@ -6,7 +6,7 @@
 #include "ThreadPool.h"
 #include "ThreadPoolWorker.h"
 
-namespace EngineUtils {
+namespace utils {
 	ThreadPoolWorker::ThreadPoolWorker(ThreadPool* masterPool, int id) : Pool(masterPool), ID(id) {
 
 	}
