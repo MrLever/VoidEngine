@@ -3,10 +3,12 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Package.h"
+#include "PackageResource.h"
+#include "ResourceManager.h"
 
 namespace utils {
-	Package::Package(const std::string& filePath) : FilePath(filePath) {
+
+	PackageResource::PackageResource(const std::string& filePath) : FilePath(filePath) {
 
 	}
 }

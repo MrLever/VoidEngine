@@ -9,15 +9,13 @@
 #include "Resource.h"
 
 namespace utils{
-	//Forward class declarations
 	class ResourceManager;
-
 	/**
 	 * @class PackageResource
 	 * @brief The package class represents a resource that requires 1 to many 
 	 *        child resources to also be loaded.
 	 */
-	class PackageResource : public Resource{
+	class PackageResource{
 	public:
 		/**
 		 * Constructor
@@ -32,7 +30,6 @@ namespace utils{
 		/** Path to the package's data */
 		std::string FilePath;
 
-		std::vector<std::string> ResourcePaths;
 	};
 }
 
