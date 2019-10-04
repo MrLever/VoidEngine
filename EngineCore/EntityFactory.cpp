@@ -25,9 +25,10 @@ namespace core {
 	Entity* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
 		auto entityName = entityData["name"].get<std::string>();
 		std::string type = entityData["type"].get<std::string>();
-		//Construct the entity on the heap
+		
 		Entity* entity = nullptr;
 
+		//Construct the entity on the heap
 		if (type == "PlayerEntity") {
 			entity = new PlayerEntity(entityName);
 		}

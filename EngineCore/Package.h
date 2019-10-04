@@ -17,7 +17,7 @@ namespace utils{
 	 * @brief The package class represents a resource that requires 1 to many 
 	 *        child resources to also be loaded.
 	 */
-	class PackageResource : public Resource{
+	class PackageResource {
 	public:
 		/**
 		 * Constructor

@@ -6,7 +6,7 @@
 #include "Package.h"
 
 namespace utils {
-	Package::Package(const std::string& filePath) : FilePath(filePath) {
+	PackageResource::PackageResource(const std::string& filePath) : FilePath(filePath) {
 
 	}
 }
