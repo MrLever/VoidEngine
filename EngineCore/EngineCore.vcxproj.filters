@@ -222,6 +222,9 @@
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
+    <ClCompile Include="Package.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="Package.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
