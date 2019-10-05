@@ -80,9 +80,4 @@ namespace core {
 	CameraComponent* Level::GetActiveCamera() {
 		return ActiveCamera;
 	}
-
-	bool Level::LoadLevelData() {
-
-	}
-
 }

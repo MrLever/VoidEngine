@@ -225,6 +225,9 @@
     <ClCompile Include="EntityData.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Engine Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="EntityData.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

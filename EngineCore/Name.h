@@ -3,7 +3,7 @@
 #include <compare>
 #include <string>
 #include <unordered_map>
-#include <iostream>
+#include <ostream>
 
 //Library Headers
 

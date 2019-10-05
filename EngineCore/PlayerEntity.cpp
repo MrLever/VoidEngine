@@ -1,10 +1,10 @@
 //STD Headers
-#include <iostream>
 
 //Library Headers
 
 //Void Engine Headers
 #include "PlayerEntity.h"
+#include "Logger.h"
 
 namespace core {
 	PlayerEntity::PlayerEntity(const std::string& name) : Entity(name) {
@@ -12,7 +12,7 @@ namespace core {
 	}
 
 	void PlayerEntity::BeginPlay() {
-		std::cout << "Player Entity Online\n";
+		utils::Logger::LogDebug("Player Entity Online\n");
 	}
 
 	void PlayerEntity::Tick(float deltaSeconds) {

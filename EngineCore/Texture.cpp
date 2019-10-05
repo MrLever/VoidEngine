@@ -1,5 +1,4 @@
 //STD Headers
-#include <iostream>
 
 //Library Headers
 #ifndef STB_IMAGE_IMPLEMENTATION
@@ -9,6 +8,7 @@
 
 //Void Engine Headers
 #include "Texture.h"
+#include "Logger.h"
 
 namespace core {
 	Texture::Texture(const std::string& name, const std::string& texturePath)
@@ -50,7 +50,7 @@ namespace core {
 
 	void Texture::Initialize() {
 		if (!ImageData) {
-			std::cout << "Error: Texture not loaded. Cannot generate OpenGL texture info\n";
+			utils::Logger::LogError("Texture not loaded. Cannot generate OpenGL texture info");
 			return;
 		}
 

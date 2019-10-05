@@ -1,6 +1,6 @@
 //STD Headers
-#include <iostream>
 #include <utility>
+#include <string>
 
 //Library Headers
 
@@ -16,7 +16,7 @@
 #include "ResourceManager.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
-
+#include "Logger.h"
 
 namespace core {
 
@@ -126,7 +126,8 @@ namespace core {
 		if (currentTime - lastTime >= ONE_SECOND) {
 			GameThreadPool->SubmitJob(
 				[] (double frameTime){
-					std::cout << "FrameTime: " << frameTime << "ms\n";
+					//std::cout << "FrameTime: " << frameTime << "ms\n";
+					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms\n");
 				},
 				(ONE_SECOND + 0.0) / numFrames
 			);

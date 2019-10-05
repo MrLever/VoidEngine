@@ -4,7 +4,6 @@
 #include <filesystem>
 #include <memory>
 #include <unordered_map>
-#include <iostream>
 
 //Library Headers
 
@@ -13,6 +12,7 @@
 #include "ThreadPool.h"
 #include "Resource.h"
 #include "Name.h"
+#include "Logger.h"
 
 namespace utils {
 

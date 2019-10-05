@@ -2,14 +2,14 @@
 #include <functional>
 #include <queue>
 #include <vector>
-#include <iostream>
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
 #include "MessageBus.h"
 #include "MessageBusNode.h"
 #include "Message.h"
+#include "Logger.h"
 
 namespace core {
 	
@@ -17,7 +17,7 @@ namespace core {
 		while (!Messages.empty()) {
 			auto currMsg = Messages.front();
 			if (currMsg.GetType() == MessageType::Log) {
-				std::cout << currMsg;
+				utils::Logger::LogInfo(currMsg.GetEvent());
 			}
 			Messages.pop();
 		}

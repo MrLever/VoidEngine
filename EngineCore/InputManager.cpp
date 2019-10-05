@@ -1,6 +1,5 @@
 //STD Headers
 #include <memory>
-#include <iostream>
 #include <utility>
 
 //Library Headers

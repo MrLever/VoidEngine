@@ -10,6 +10,7 @@
 #include "InputManager.h"
 #include "InputAxis.h"
 #include "InputEvent.h"
+#include "Logger.h"
 
 namespace core {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -112,7 +113,7 @@ namespace core {
 		auto GLADaddress = reinterpret_cast<GLADloadproc>(glfwGetProcAddress);
 		bool success = gladLoadGLLoader(GLADaddress) == 0;
 		if (success) {
-			std::cerr << "Failed to initialize GLAD" << std::endl;
+			utils::Logger::LogError("Failed to initialize GLAD");
 			std::terminate();
 		}
 
@@ -255,7 +256,10 @@ namespace core {
 	}
 
 	void WindowManager::ReportWindowError(int error, const char* description) {
-		std::cerr << "Error: #" << error << ", " << description << std::endl;
+		std::stringstream errorMsg;
+		errorMsg << "Error: #" << error << ", " << description;
+
+		utils::Logger::LogError(errorMsg.str());
 	}
 
 	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
