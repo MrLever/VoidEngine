@@ -13,7 +13,14 @@ namespace core{
 	}
 
 	bool EntityData::Load() {
-		return false;
+		std::ifstream entityDefinition(ResourcePath);
+
+		if (!entityDefinition.is_open()) {
+			return LoadErrorResource();
+		}
+
+		entityDefinition >> Data;
+		return true;
 	}
 	
 	bool EntityData::LoadErrorResource() {

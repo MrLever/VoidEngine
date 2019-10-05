@@ -9,15 +9,17 @@
 
 //Void Engine Headers
 #include "Name.h"
+#include "ThreadPool.h"
 
 namespace utils {
-	//Forward class declarations
-
-
 	/**
 	 * Resources are the objects handled by the resource manager.
 	 */
 	class Resource {
+		//forward class declarations
+		template <class T>
+		friend class ResourceManager;
+
 	public:
 		/**
 		 * Constructor
@@ -45,10 +47,17 @@ namespace utils {
 		 */
 		virtual void Initialize() = 0;
 
+		void AttatchThreadPool(ThreadPoolPtr pool);
+
 		/**
 		 * Returns whether the resource is valid
 		 */
 		bool IsValid();
+
+		/**
+		 * Allows owners to query if this resource is a composite resource
+		 */
+		bool GetIsComposite();
 
 		/**
 		 * Gets the resources' ID
@@ -65,10 +74,19 @@ namespace utils {
 		/** Flag specifying if the resource was found in main memory */
 		std::atomic<bool> ResourceValid;
 
+		/** An optional thread pool object */
+		ThreadPoolPtr GameThreadPool;
+
 		/** Variable to allow users to query if a resource has been initialized */
 		bool IsInitialized;
 
 		/** Let's Managing objects know whether this resource is can be initialized on other threads */
 		bool IsThreadSafe;
+	
+		/** 
+		 * Flag that informs the resource manager to attatch a thread pool to this resource 
+		 * for further resource loading
+		 */
+		bool IsComposite;
 	};
 }

@@ -12,6 +12,8 @@ namespace core {
 	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
 		ActiveCamera = nullptr;
 		EntityDataPool = nullptr;
+		GameThreadPool = nullptr;
+		IsComposite = true;
 	}
 
 	Level::~Level() {
@@ -46,6 +48,13 @@ namespace core {
 	}
 
 	void Level::Initialize() {
+		if (!GameThreadPool) {
+			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool. \nCannot construct resource manager for child resources");
+		}
+		else {
+			EntityDataPool = std::make_shared<utils::ResourceManager<EntityData>>(GameThreadPool);
+		}
+
 		for (auto& entity : LevelData["entities"]) {
 			
 		}

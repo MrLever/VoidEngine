@@ -78,8 +78,10 @@ namespace utils {
 
 		Name resourceIdentifier(filePath);
 
+		ThreadPoolPtr pool = GameThreadPool;
+
 		auto resourceFuture = GameThreadPool->SubmitJob(
-			[filePath]() -> std::shared_ptr<T> {
+			[filePath, pool]() -> std::shared_ptr<T> {
 				std::shared_ptr<T> resource = std::make_shared<T>(filePath);
 				if (!resource) {
 					return nullptr;
@@ -90,6 +92,10 @@ namespace utils {
 				}
 				else {
 					resource->LoadErrorResource();
+				}
+
+				if (resource->GetIsComposite()) {
+					resource->AttatchThreadPool(pool);
 				}
 
 				return resource;
