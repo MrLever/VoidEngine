@@ -9,7 +9,9 @@
 
 //Void Engine Headers
 #include "EntityFactory.h"
+#include "EntityData.h"
 #include "Name.h"
+#include "ResourceManager.h"
 #include "Resource.h"
 
 namespace core {
@@ -38,8 +40,6 @@ namespace core {
 		 * @return whether the load was successful
 		 */
 		bool Load() override;
-
-		void LoadComposite(utils::ResourceManager* manager) override;
 
 		/**
 		 * Loads an error level to signify invalid resource location
@@ -81,6 +81,8 @@ namespace core {
 		CameraComponent* GetActiveCamera();
 
 	private:
+		ResourceManagerPtr<EntityData> EntityDataPool;
+
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;
 

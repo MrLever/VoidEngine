@@ -256,8 +256,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
-    <ClCompile Include="ResourceHandle.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />

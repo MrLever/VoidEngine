@@ -159,9 +159,6 @@
     <ClCompile Include="ThreadPoolWorker.cpp">
       <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Resource.cpp">
       <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
@@ -191,9 +188,6 @@
     </ClCompile>
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceHandle.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>

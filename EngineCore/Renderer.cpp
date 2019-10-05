@@ -13,9 +13,8 @@ namespace core {
 
 	Renderer::Renderer(
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager, const utils::ResourceHandle& configuration
-		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
-		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+			const utils::ResourceHandle<utils::Configuration>& configuration
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), Window(std::move(window)) {
 		
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);

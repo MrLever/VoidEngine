@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <atomic>
+#include <concepts>
 #include <filesystem>
 #include <memory>
 #include <unordered_map>
@@ -17,9 +18,11 @@
 namespace utils {
 
 	/**
-	 * A resource manager is responsible for loading 
-	 * and storing resources from main memory.
+	 * @class ResourceManager
+	 * @brief A ResourceManager is responsible for managing the loading 
+	 *        and distribution of resources of type T
 	 */
+	template <class T>
 	class ResourceManager {
 	public:
 		/**
@@ -33,62 +36,56 @@ namespace utils {
 		 */
 		~ResourceManager();
 
-		/**
-		 * A non-blocking function to command the resource manager to load a resource.
-		 * If the resource has already been loaded, it will not be loaded again
-		 * @param resourceLocation The resource's file location (which is translated to Name)
-		 */
-		template <class T>
-		ResourceHandle LoadResource(const std::string& resourceLocation);
+		ResourceHandle<T> LoadResource(const std::string& filePath);
 
-		/**
-		 * Non-blocking function to command the resource manager to reload a resource.
-		 * If the resource has already been loaded, it *will*  reload from main memory update the resource registry accordingly
-		 * @param resourceLocation The resource's file location (which is translated to Name)
-		 */
-		template <class T> 
-		ResourceHandle ReloadResource(const std::string& resourceLocation);
+		ResourceHandle<T> ReloadResource(const std::string& filePath);
 
-		/**
-		 * Function to fetch a resource the caller thinks is already loaded.
-		 * If it was not loaded, attempt to load it now
-		 * @param resourceLocation The resources location on the hard drive
-		 */
-		template <class T>
-		[[nodiscard]] std::shared_ptr<T> GetResource(const std::string& resourceLocation);
+		void RemoveResource(const std::string& filePath);
+
+		std::shared_ptr<T> GetResource(const std::string& filePath);
+
+		std::shared_ptr<T> GetResource(const Name& filePath);
+
 
 	private:
 		/** The thread pool the Resource Manager depends on for async file IO */
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
 		/** Registry of all loaded resources */
-		std::unordered_map<Name, ResourceHandle> ResourceRegistry;
+		std::unordered_map<Name, ResourceHandle<T>> ResourceCache;
 
 		/** Mutex to synchronise access to the Resource Manager */
 		std::recursive_mutex ResourceManagerLock;
 	};
 
 	template<class T>
-	ResourceHandle ResourceManager::LoadResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
+	inline ResourceManager<T>::ResourceManager(ThreadPoolPtr gameThreadPool) 
+		: GameThreadPool(std::move(gameThreadPool)){
+	
+	}
 
-		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
+	template<class T>
+	inline ResourceManager<T>::~ResourceManager() {
+	}
 
-		//If the resource has been loaded abort the operation
-		if (RegistryEntry != ResourceRegistry.end()) {
-			return RegistryEntry->second;
+	template<class T>
+	inline ResourceHandle<T> ResourceManager<T>::LoadResource(const std::string& filePath) {
+		//Check if resource loaded previously
+		auto cacheIter = ResourceCache.find(utils::Name(filePath));
+		if (cacheIter != ResourceCache.end()) {
+			return cacheIter->second;
 		}
 
-		Name resourceName(resourceLocation);
+		Name resourceIdentifier(filePath);
 
 		auto resourceFuture = GameThreadPool->SubmitJob(
-			[resourceLocation]() -> std::shared_ptr<Resource> {
-				std::shared_ptr<Resource> resource = std::make_shared<T>(resourceLocation);
+			[filePath]() -> std::shared_ptr<T> {
+				std::shared_ptr<T> resource = std::make_shared<T>(filePath);
 				if (!resource) {
 					return nullptr;
 				}
 
-				if (resource->GetResourceValid()) {
+				if (resource->IsValid()) {
 					resource->Load();
 				}
 				else {
@@ -102,45 +99,47 @@ namespace utils {
 		ResourceHandle handle(resourceFuture);
 
 		//Insert the new resource into the registry
-		ResourceRegistry.insert({ resourceName, handle });
-		return ResourceRegistry.find(resourceName)->second;
+		ResourceCache.insert({ resourceIdentifier, handle });
+		return ResourceCache.find(resourceIdentifier)->second;
 	}
-	
-	template<class T>
-	inline ResourceHandle ResourceManager::ReloadResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
 
-		auto RegistryEntry = ResourceRegistry.find(resourceLocation);
-		if (RegistryEntry == ResourceRegistry.end()) {
-			return LoadResource<T>(resourceLocation);
+	template<class T>
+	inline ResourceHandle<T> ResourceManager<T>::ReloadResource(const std::string& filePath) {
+		auto cacheIter = ResourceCache.find(filePath);
+		if (cacheIter != ResourceCache.end()) {
+			ResourceCache.erase(cacheIter->first);
+		}
+
+		return LoadResource(filePath);
+	}
+
+	template<class T>
+	inline void ResourceManager<T>::RemoveResource(const std::string& filePath) {
+		auto cacheIter = ResourceCache.find(filePath);
+
+		if (cacheIter != ResourceCache.end()) {
+			ResourceCache.erase(cacheIter->first);
+		}
+	}
+
+	template<class T>
+	inline std::shared_ptr<T> ResourceManager<T>::GetResource(const std::string& filePath) {
+		return GetResource(Name(filePath));
+	}
+
+	template<class T>
+	inline std::shared_ptr<T> ResourceManager<T>::GetResource(const Name& filePath) {
+		auto cacheIter = ResourceCache.find(filePath);
+
+		if (cacheIter != ResourceCache.end()) {
+			return cacheIter->second.GetResource();
 		}
 		else {
-			auto handle = RegistryEntry->second;
-
-			//Block until previous load is completed.
-			handle.RequestedResource.wait();
-
-			//Erase entry from map
-			ResourceRegistry.erase(RegistryEntry);
-			return LoadResource<T>(resourceLocation);
+			return LoadResource(filePath.StringID).GetResource();
 		}
 	}
-	
-	template<class T>
-	inline std::shared_ptr<T> ResourceManager::GetResource(const std::string& resourceLocation) {
-		std::scoped_lock<std::recursive_mutex> lock(ResourceManagerLock);
-		Name resourceName(resourceLocation);
-
-		auto RegistryEntry = ResourceRegistry.find(resourceName);
-
-		if ( RegistryEntry == ResourceRegistry.end()) {
-			return LoadResource<T>(resourceLocation).GetResource<T>();
-		}
-
-		return RegistryEntry->second.GetResource<T>();
-	}
-
 }
 
-using ResourceManagerPtr = std::shared_ptr<utils::ResourceManager>;
+template <class T>
+using ResourceManagerPtr = std::shared_ptr<utils::ResourceManager<T>>;
 

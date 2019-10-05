@@ -7,8 +7,9 @@
 
 
 namespace core{
+
 	EntityData::EntityData(const std::string& filepath) : utils::Resource(filepath){
-		IsComposite = true;
+
 	}
 
 	bool EntityData::Load() {
@@ -19,10 +20,6 @@ namespace core{
 		return false;
 	}
 
-	void EntityData::LoadComposite(utils::ResourceManager* manager) {
-
-	}
-	
 	void EntityData::Initialize() {
 		;
 	}

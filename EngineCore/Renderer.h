@@ -29,8 +29,7 @@ namespace core {
 		Renderer(
 			std::shared_ptr<WindowManager> window,
 			ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager,
-			const utils::ResourceHandle& configuration
+			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
 		/**
@@ -52,9 +51,6 @@ namespace core {
 	private:
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
-
-		/** The game's active resource manager */
-		ResourceManagerPtr GameResourceManager;
 
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<WindowManager> Window;

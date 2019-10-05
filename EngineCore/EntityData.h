@@ -27,11 +27,6 @@ public:
 	virtual bool LoadErrorResource();
 
 	/**
-	 * Loads composite resources from main memory
-	 */
-	virtual void LoadComposite(utils::ResourceManager* manager);
-
-	/**
 	 * Allows the resource to be intialized after loading.
 	 */
 	virtual void Initialize();

@@ -11,9 +11,7 @@ namespace core {
 
 	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
 		ActiveCamera = nullptr;
-
-		//Inform the resource manager that this resource requires other resources to be loaded 
-		IsComposite = true;
+		EntityDataPool = nullptr;
 	}
 
 	Level::~Level() {
@@ -43,18 +41,14 @@ namespace core {
 		return true;
 	}
 
-	void Level::LoadComposite(utils::ResourceManager* manager) {
-		for (auto& entity : LevelData["entities"]) {
-			manager->LoadResource<EntityData>("Resources/Entities/" + entity["type"].get<std::string>() + ".json");
-		}
-	}
-
 	bool Level::LoadErrorResource() {
 		return false;
 	}
 
 	void Level::Initialize() {
-
+		for (auto& entity : LevelData["entities"]) {
+			
+		}
 	}	
 
 	utils::Name Level::GetName() {

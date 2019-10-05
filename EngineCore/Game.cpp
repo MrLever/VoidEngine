@@ -44,16 +44,16 @@ namespace core {
 	void Game::InitGame() {
 		//Initialize Engine Utilities
 		GameThreadPool = std::make_shared<utils::ThreadPool>();
-		GameResourceManager = std::make_shared<utils::ResourceManager>(GameThreadPool);
+
+		ConfigManager = std::make_shared<utils::ResourceManager<utils::Configuration>>(GameThreadPool);
+		LevelManager = std::make_shared<utils::ResourceManager<Level>>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
-			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/InputConfig.lua")
+			ConfigManager->LoadResource("Settings/InputConfig.json")
 		);
 
 		//Attach input manager to window to address hardware callbacks
@@ -63,15 +63,13 @@ namespace core {
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/RenderingConfig.lua")
+			ConfigManager->LoadResource("Settings/RenderingConfig.json")
 		);
 		
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/AudioConfig.lua")
+			ConfigManager->LoadResource("Settings/AudioConfig.json")
 		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
@@ -141,8 +139,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel = LevelManager->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
 		CurrentLevel->BeginPlay();
 	}
