@@ -241,12 +241,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityData.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="InputEvent.cpp" />
-    <ClCompile Include="PackageResource.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -279,12 +279,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityData.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="InputEvent.h" />
-    <ClInclude Include="PackageResource.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />

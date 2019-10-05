@@ -222,8 +222,8 @@
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
-    <ClCompile Include="PackageResource.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
+    <ClCompile Include="EntityData.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,8 +350,8 @@
     <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="PackageResource.h">
-      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
+    <ClInclude Include="EntityData.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

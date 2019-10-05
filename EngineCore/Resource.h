@@ -11,6 +11,8 @@
 #include "Name.h"
 
 namespace utils {
+	class ResourceManager;
+
 	/**
 	 * Resources are the objects handled by the resource manager.
 	 */
@@ -31,6 +33,11 @@ namespace utils {
 		 * Loads a given resource from main memory
 		 */
 		virtual bool Load() = 0;
+
+		/**
+		 * Loads composite resources from main memory
+		 */
+		virtual void LoadComposite(ResourceManager* manager);
 
 		/**
 		 * Loads the resource's default value if the path provided is invalid
@@ -61,6 +68,8 @@ namespace utils {
 
 		/** Flag specifying if the resource was found in main memory */
 		std::atomic<bool> ResourceValid;
+
+		bool IsComposite;
 
 		/** Variable to allow users to query if a resource has been initialized */
 		bool IsInitialized;

@@ -39,6 +39,8 @@ namespace core {
 		 */
 		bool Load() override;
 
+		void LoadComposite(utils::ResourceManager* manager) override;
+
 		/**
 		 * Loads an error level to signify invalid resource location
 		 * @return whether the operation was a success
@@ -79,11 +81,6 @@ namespace core {
 		CameraComponent* GetActiveCamera();
 
 	private:
-		/**
-		 * Helper function to load level data from JSON
-		 */
-		bool LoadLevelData();
-
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;
 

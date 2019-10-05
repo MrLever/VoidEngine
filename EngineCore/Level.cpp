@@ -4,11 +4,16 @@
 
 //Coati Headers
 #include "Level.h"
+#include "ResourceManager.h"
+#include "EntityData.h"
 
 namespace core {
 
 	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
 		ActiveCamera = nullptr;
+
+		//Inform the resource manager that this resource requires other resources to be loaded 
+		IsComposite = true;
 	}
 
 	Level::~Level() {
@@ -19,13 +24,29 @@ namespace core {
 	}
 
 	bool Level::Load() {
-		bool dataLoaded = LoadLevelData();
+		std::ifstream level(ResourcePath);
 
-		if (!dataLoaded) {
+		if (!level.is_open()) {
+			return LoadErrorResource();
+		}
+
+		level >> LevelData;
+
+		auto levelName = LevelData.find("name");
+
+		if (levelName == LevelData.end()) {
 			return false;
 		}
 
+		LevelName = levelName.value();
+
 		return true;
+	}
+
+	void Level::LoadComposite(utils::ResourceManager* manager) {
+		for (auto& entity : LevelData["entities"]) {
+			manager->LoadResource<EntityData>("Resources/Entities/" + entity["type"].get<std::string>() + ".json");
+		}
 	}
 
 	bool Level::LoadErrorResource() {
@@ -33,8 +54,7 @@ namespace core {
 	}
 
 	void Level::Initialize() {
-		auto entityData = LevelData["entities"];
-		LevelEntityFactory.CreateEntityList(entityData);
+
 	}	
 
 	utils::Name Level::GetName() {
@@ -62,23 +82,7 @@ namespace core {
 	}
 
 	bool Level::LoadLevelData() {
-		std::ifstream level(ResourcePath);
 
-		if (!level.is_open()) {
-			return LoadErrorResource();
-		}
-
-		level >> LevelData;
-
-		auto levelName = LevelData.find("name");
-
-		if (levelName == LevelData.end()) {
-			return false;
-		}
-
-		LevelName = levelName.value();
-
-		return true;
 	}
 
 }
