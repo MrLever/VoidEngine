@@ -20,12 +20,5 @@ namespace EngineCoreTests {
 
 			Assert::IsNotNull(test.GetWindow().get());
 		}
-		TEST_METHOD(BufferSwapTest) {
-			WindowManager test("Test", 600, 800);
-			test.SwapBuffers();
-
-			//It didn't crash.
-			Assert::AreEqual(1, 1);
-		}
 	};
 }

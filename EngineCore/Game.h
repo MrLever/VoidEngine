@@ -9,9 +9,10 @@
 
 //Coati Headers
 #include "Configurable.h"
+#include "Configuration.h"
 #include "EntityFactory.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "Level.h"
 #include "MessageBus.h"
 
@@ -80,14 +81,14 @@ namespace core {
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
 
-		/** Entity factory used by levels to generate a scene */
-		std::shared_ptr<EntityFactory> GameEntityFactory;
-
 		/** A Handle to the Engine's thread pool */
 		std::shared_ptr<utils::ThreadPool> GameThreadPool;
 
-		/** A handle to the Engine's resource manager */
-		std::shared_ptr<utils::ResourceManager> GameResourceManager;
+		/** Resource Manager for the engine's config files */
+		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
+
+		/** Resource Manager for the engine's level files */
+		ResourceAllocatorPtr<Level> LevelCache;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;

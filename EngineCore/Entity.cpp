@@ -61,6 +61,10 @@ namespace core {
 		Rotation = newRotation;
 	}
 
+	std::string Entity::GetName() {
+		return ID.StringID;
+	}
+
 	void Entity::AddComponent(Component* component) {
 		Components.push_back(component);
 	}

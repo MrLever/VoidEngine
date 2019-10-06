@@ -13,9 +13,8 @@ namespace core {
 
 	Renderer::Renderer(
 			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager, const utils::ResourceHandle& configuration
-		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
-		    GameResourceManager(std::move(resourceManager)), Window(std::move(window)) {
+			const utils::ResourceHandle<utils::Configuration>& configuration
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), Window(std::move(window)) {
 		
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -46,7 +45,7 @@ namespace core {
 
 	void Renderer::Render(Level* scene) {
 		//Set the view and projection matrices for all graphics components for this draw call 
-		auto activeCamera = scene->GetActiveCamera();
+		auto activeCamera = WindowManager::GetActiveWindow()->GetView();
 		if (activeCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
 			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;

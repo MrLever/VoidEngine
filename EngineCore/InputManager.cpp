@@ -1,6 +1,5 @@
 //STD Headers
 #include <memory>
-#include <iostream>
 #include <utility>
 
 //Library Headers
@@ -11,11 +10,8 @@
 
 namespace core {
 
-	InputManager::InputManager(
-			ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager, const utils::ResourceHandle& configuration
-		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), 
-		    GameResourceManager(std::move(resourceManager)) {
+	InputManager::InputManager( const utils::ResourceHandle<utils::Configuration>& configuration) 
+		: Configurable(configuration){
 		
 		Configure();
 	}

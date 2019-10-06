@@ -9,9 +9,10 @@
 
 //Void Engine Headers
 #include "Configurable.h"
+#include "Configuration.h"
 #include "Entity.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "KeyboardInput.h"
@@ -35,11 +36,7 @@ namespace core {
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(
-			ThreadPoolPtr threadPool,
-			ResourceManagerPtr resourceManager,
-			const utils::ResourceHandle& configuration
-		);
+		InputManager(const utils::ResourceHandle<utils::Configuration>& configuration);
 
 		/**
 		 * Destructor
@@ -116,13 +113,6 @@ namespace core {
 
 		/** Buffer for unprocessed Input Axis data */
 		std::deque<InputAxis> InputAxisDataBuffer;
-
-		/** The game's active thread pool */
-		ThreadPoolPtr GameThreadPool;
-
-		/** The game's active resource manager */
-		ResourceManagerPtr GameResourceManager;
-
 	};
 
 }

@@ -1,6 +1,5 @@
 #pragma once
 //STD Headers
-#include <iostream>
 #include <memory>
 #include <string>
 
@@ -12,10 +11,11 @@
 #include "EngineUtilities.h"
 #include "KeyboardInput.h"
 
-
 namespace core {
 	//Forward Class Declarations
 	class InputManager;
+	class CameraComponent;
+	class Entity;
 
 	/**
 	 * @class WindowManager
@@ -144,9 +144,21 @@ namespace core {
 		void ToggleCursor();
 
 		/**
-		 * Global function to allow any user to query data about the active window in a const fashion
+		 * Global function to allow an entity to set the window's view of the world
+		 * @param parent The entity requesting this set. Used for victim blaming
+		 * @param comp The camera that is being set as active
 		 */
-		static const WindowManager* GetActiveWindow();
+		void SetView(Entity* parent, CameraComponent* comp);
+
+		/**
+		 * Global function to allow an the renderer get the window's view of the world
+		 */
+		CameraComponent* GetView();
+
+		/**
+		 * Global function to allow any user to query data about the active window
+		 */
+		static WindowManager* GetActiveWindow();
 
 	private:
 		/** 
@@ -176,6 +188,9 @@ namespace core {
 
 		/** The game's input manager */
 		std::shared_ptr<InputManager> GameInputManager;
+
+		/** The active camera to be used for rendering */
+		CameraComponent* ActiveCamera;
 		
 		/** The game's name */
 		std::string GameName;

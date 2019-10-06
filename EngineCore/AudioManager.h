@@ -9,7 +9,7 @@
 //Coati Headers
 #include "Configurable.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ResourceHandle.h"
 #include "MessageBusNode.h"
 
@@ -23,7 +23,7 @@ namespace core {
 		 * @param engineInterface Shared pointer to the engine utility interface this system will use
 		 * @param configFile The file location of the configuration file this system will use
 		 */
-		AudioManager(ThreadPoolPtr threadPool, ResourceManagerPtr resourceManager, utils::ResourceHandle configuration);
+		AudioManager(ThreadPoolPtr threadPool, const utils::ResourceHandle<utils::Configuration>& configuration);
 		
 		/**
 		 * Destructor
@@ -38,9 +38,6 @@ namespace core {
 	private:
 		/** The game's active thread pool */
 		ThreadPoolPtr GameThreadPool;
-
-		/** The game's active resource manager */
-		ResourceManagerPtr GameResourceManager;
 	};
 
 }

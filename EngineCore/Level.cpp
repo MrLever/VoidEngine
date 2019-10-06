@@ -4,11 +4,15 @@
 
 //Coati Headers
 #include "Level.h"
+#include "ResourceAllocator.h"
+#include "EntityData.h"
 
 namespace core {
 
-	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
-		ActiveCamera = nullptr;
+	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"){
+		EntityDataCache = nullptr;
+		GameThreadPool = nullptr;
+		IsComposite = true;
 	}
 
 	Level::~Level() {
@@ -16,14 +20,26 @@ namespace core {
 			delete entity;
 			entity = nullptr;
 		}
+
+		delete LevelEntityFactory;
 	}
 
 	bool Level::Load() {
-		bool dataLoaded = LoadLevelData();
+		std::ifstream level(ResourcePath);
 
-		if (!dataLoaded) {
+		if (!level.is_open()) {
+			return LoadErrorResource();
+		}
+
+		level >> LevelData;
+
+		auto levelName = LevelData.find("name");
+
+		if (levelName == LevelData.end()) {
 			return false;
 		}
+
+		LevelName = levelName.value();
 
 		return true;
 	}
@@ -33,8 +49,28 @@ namespace core {
 	}
 
 	void Level::Initialize() {
-		auto entityData = LevelData["entities"];
-		LevelEntityFactory.CreateEntityList(entityData);
+		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
+
+		if (!GameThreadPool) {
+			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
+			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");
+			return;
+		}
+		
+
+		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
+		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
+
+		LevelEntityFactory = new EntityFactory(this);
+
+		//Preload entity data source files for creation
+		for (auto& entity : LevelData["entities"]) {
+			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
+			EntityDataCache->LoadResource(source);
+		}
+		
+		//Parse entity data source files and spawn actors
+		LevelEntityFactory->CreateEntities(LevelData["entities"]);
 	}	
 
 	utils::Name Level::GetName() {
@@ -55,30 +91,6 @@ namespace core {
 
 	std::vector<Entity*> Level::GetScene() {
 		return Entities;
-	}
-
-	CameraComponent* Level::GetActiveCamera() {
-		return ActiveCamera;
-	}
-
-	bool Level::LoadLevelData() {
-		std::ifstream level(ResourcePath);
-
-		if (!level.is_open()) {
-			return LoadErrorResource();
-		}
-
-		level >> LevelData;
-
-		auto levelName = LevelData.find("name");
-
-		if (levelName == LevelData.end()) {
-			return false;
-		}
-
-		LevelName = levelName.value();
-
-		return true;
 	}
 
 }

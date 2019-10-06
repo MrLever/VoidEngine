@@ -58,7 +58,7 @@ namespace core {
 		 * @param texturePath A path to the texture's raw data
 		 * @param unit The texture unit this texture fills
 		 */
-		void AddTexture(const std::string& name, const std::string& texturePath, GLint unit);
+		void AddTexture(std::shared_ptr<Texture> texture, GLint unit);
 
 		/**
 		 * Function to allow the renderer to draw this component
@@ -76,7 +76,7 @@ namespace core {
 		ShaderProgram* Material;
 
 		/** The set of textures this onject uses when drawn */
-		std::vector<Texture*> Textures;
+		std::vector<std::shared_ptr<Texture>> Textures;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

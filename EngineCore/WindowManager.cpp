@@ -7,9 +7,11 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "CameraComponent.h"
 #include "InputManager.h"
 #include "InputAxis.h"
 #include "InputEvent.h"
+#include "Logger.h"
 
 namespace core {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -72,7 +74,17 @@ namespace core {
 		return WindowHeight;
 	}
 
-	const WindowManager* WindowManager::GetActiveWindow(){
+	void WindowManager::SetView(Entity* parent, CameraComponent* comp) {
+		utils::Logger::LogDebug("Entity " + parent->GetName() + " has set the window's viewport to its camera");
+
+		ActiveCamera = comp;
+	}
+
+	CameraComponent* WindowManager::GetView() {
+		return ActiveCamera;
+	}
+
+	WindowManager* WindowManager::GetActiveWindow(){
 		return CurrWindowManager;
 	}
 
@@ -112,7 +124,7 @@ namespace core {
 		auto GLADaddress = reinterpret_cast<GLADloadproc>(glfwGetProcAddress);
 		bool success = gladLoadGLLoader(GLADaddress) == 0;
 		if (success) {
-			std::cerr << "Failed to initialize GLAD" << std::endl;
+			utils::Logger::LogError("Failed to initialize GLAD");
 			std::terminate();
 		}
 
@@ -255,7 +267,10 @@ namespace core {
 	}
 
 	void WindowManager::ReportWindowError(int error, const char* description) {
-		std::cerr << "Error: #" << error << ", " << description << std::endl;
+		std::stringstream errorMsg;
+		errorMsg << "Error: #" << error << ", " << description;
+
+		utils::Logger::LogError(errorMsg.str());
 	}
 
 	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {

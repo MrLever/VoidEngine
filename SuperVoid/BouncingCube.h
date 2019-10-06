@@ -16,6 +16,12 @@ namespace SuperVoid {
 		BouncingCube(const std::string& name);
 
 		/**
+		 * Constructor
+		 * @param name The entity's name
+		 */
+		BouncingCube(const utils::Name& name);
+
+		/**
 		 * Destructor
 		 */
 		~BouncingCube() = default;

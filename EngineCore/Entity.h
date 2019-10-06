@@ -96,6 +96,11 @@ namespace core {
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
+		 * Getter for this entity's name
+		 */
+		std::string GetName();
+
+		/**
 		 * Gives ownership of a component to this entity
 		 * @param component The component to add
 		 */

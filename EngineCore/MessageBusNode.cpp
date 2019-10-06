@@ -1,6 +1,5 @@
 //STD Headers
 #include <memory>
-#include <iostream>
 
 //Library Headers
 
@@ -10,6 +9,7 @@
 #include "MessageBus.h"
 #include "Message.h"
 #include "EventTable.h"
+#include "Logger.h"
 
 namespace core {
 
@@ -17,7 +17,7 @@ namespace core {
 		: GameMessageBus(std::move(messageBus)) {
 
 		if (!this->GameMessageBus) {
-			std::cout << "no message bus";
+			utils::Logger::LogWarning("Invalid MessageBus supplied to MessageBusNode");
 		}
 	}
 

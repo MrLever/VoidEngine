@@ -5,7 +5,7 @@
 #include "CppUnitTest.h"
 
 //Void Engine Headers
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ThreadPool.h"
 #include "Configuration.h"
 

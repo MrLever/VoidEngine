@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "Configurable.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 
 
 
@@ -17,7 +17,7 @@ namespace EngineUtilitiesTests {
 
 	class DummyConfigurable : public Configurable {
 	public:
-		DummyConfigurable(ResourceHandle handle) 
+		DummyConfigurable(ResourceHandle<Configuration> handle) 
 			: Configurable(handle) {
 			StringProperty = "Error";
 			IntegerProperty = -1;
@@ -25,7 +25,7 @@ namespace EngineUtilitiesTests {
 		}
 
 		void Configure() override {
-			auto config = Config.GetResource<Configuration>();
+			auto config = Config.GetResource();
 			StringProperty = config->GetAttribute<std::string>("stringProperty");
 			IntegerProperty = config->GetAttribute<int>("integerProperty");
 			FloatProperty = config->GetAttribute<float>("floatProperty");
@@ -39,10 +39,10 @@ namespace EngineUtilitiesTests {
 	TEST_CLASS(ConfigurableTests) {
 		TEST_METHOD(ConfigurableConfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			auto resourceMngr = std::make_shared<ResourceManager>(pool);
+			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>(pool);
 
 			DummyConfigurable d(
-				resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.json")
+				resourceMngr->LoadResource("Settings/Testing/ConfigurableTest1.json")
 			);
 
 			d.Configure();
@@ -54,9 +54,9 @@ namespace EngineUtilitiesTests {
 
 		TEST_METHOD(ConfigurableReconfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			auto resourceMngr = std::make_shared<ResourceManager>(pool);
-			auto resource1 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest1.json");
-			auto resource2 = resourceMngr->LoadResource<Configuration>("Settings/Testing/ConfigurableTest2.json");
+			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>(pool);
+			auto resource1 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest1.json");
+			auto resource2 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest2.json");
 			
 			DummyConfigurable d(
 				resource1

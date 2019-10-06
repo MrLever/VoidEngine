@@ -1,6 +1,6 @@
 //STD Headers
-#include <iostream>
 #include <utility>
+#include <string>
 
 //Library Headers
 
@@ -13,10 +13,10 @@
 #include "InputManager.h"
 #include "MessageBus.h"
 #include "Renderer.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
-
+#include "Logger.h"
 
 namespace core {
 
@@ -44,16 +44,16 @@ namespace core {
 	void Game::InitGame() {
 		//Initialize Engine Utilities
 		GameThreadPool = std::make_shared<utils::ThreadPool>();
-		GameResourceManager = std::make_shared<utils::ResourceManager>(GameThreadPool);
+
+		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
-			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/InputConfig.lua")
+			ConfigManager->LoadResource("Settings/InputConfig.json")
 		);
 
 		//Attach input manager to window to address hardware callbacks
@@ -63,15 +63,13 @@ namespace core {
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/RenderingConfig.lua")
+			ConfigManager->LoadResource("Settings/RenderingConfig.json")
 		);
 		
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<utils::Configuration>("Settings/AudioConfig.lua")
+			ConfigManager->LoadResource("Settings/AudioConfig.json")
 		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
@@ -126,7 +124,8 @@ namespace core {
 		if (currentTime - lastTime >= ONE_SECOND) {
 			GameThreadPool->SubmitJob(
 				[] (double frameTime){
-					std::cout << "FrameTime: " << frameTime << "ms\n";
+					//std::cout << "FrameTime: " << frameTime << "ms\n";
+					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
 				(ONE_SECOND + 0.0) / numFrames
 			);
@@ -140,8 +139,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
+		CurrentLevel = LevelCache->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
 		CurrentLevel->BeginPlay();
 	}

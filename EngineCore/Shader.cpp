@@ -1,11 +1,11 @@
 //STD Headers
 #include <fstream>
-#include <iostream>
 
 //Library Headers
 
 //Void Engine Headers
 #include "Shader.h"
+#include "Logger.h"
 
 namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 
@@ -25,7 +25,7 @@ namespace core {
 
 		ifs.open(ResourcePath);
 		if (!ifs.is_open()) {
-			std::cout << "\n**ERROR** shader" << ResourcePath << "not found.";
+			utils::Logger::LogError("Shader " + ResourcePath.string() + "not found.");
 			return false;
 		}
 
