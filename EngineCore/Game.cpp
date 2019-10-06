@@ -13,7 +13,7 @@
 #include "InputManager.h"
 #include "MessageBus.h"
 #include "Renderer.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
 #include "Logger.h"
@@ -45,8 +45,8 @@ namespace core {
 		//Initialize Engine Utilities
 		GameThreadPool = std::make_shared<utils::ThreadPool>();
 
-		ConfigManager = std::make_shared<utils::ResourceManager<utils::Configuration>>(GameThreadPool);
-		LevelManager = std::make_shared<utils::ResourceManager<Level>>(GameThreadPool);
+		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
@@ -125,7 +125,7 @@ namespace core {
 			GameThreadPool->SubmitJob(
 				[] (double frameTime){
 					//std::cout << "FrameTime: " << frameTime << "ms\n";
-					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms\n");
+					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
 				(ONE_SECOND + 0.0) / numFrames
 			);
@@ -139,7 +139,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		CurrentLevel = LevelManager->GetResource(newLevelPath);
+		CurrentLevel = LevelCache->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
 		CurrentLevel->BeginPlay();
 	}

@@ -18,7 +18,7 @@ namespace utils {
 	class Resource {
 		//forward class declarations
 		template <class T>
-		friend class ResourceManager;
+		friend class ResourceAllocator;
 
 	public:
 		/**
@@ -47,6 +47,12 @@ namespace utils {
 		 */
 		virtual void Initialize() = 0;
 
+		/**
+		 * Allows resource manager to attatch a thread pool to this resource.
+		 * Thread pools are attached only when a resource is marked as Composite,
+		 * which means that it needs to load other resources.
+		 * @param pool The game's active thread pool
+		 */
 		void AttatchThreadPool(ThreadPoolPtr pool);
 
 		/**

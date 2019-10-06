@@ -15,7 +15,7 @@ namespace utils {
 		auto time = utils::GetGameTime();
 		logMessage << time << "- INFO: " << message;
 		
-		std::cout << logMessage.str();
+		std::cout << logMessage.str() << std::endl;
 	}
 
 	void Logger::LogDebug(const std::string& message) {
@@ -24,7 +24,7 @@ namespace utils {
 		auto time = utils::GetGameTime();
 		logMessage << time << "- DEBUG: " << message;
 
-		std::cout << logMessage.str();
+		std::cout << logMessage.str() << std::endl;
 	}
 
 	void Logger::LogWarning(const std::string& message) {
@@ -33,7 +33,7 @@ namespace utils {
 		auto time = utils::GetGameTime();
 		logMessage << time << "- WARNING: " << ": " << message;
 
-		std::cout << logMessage.str();
+		std::cout << logMessage.str() << std::endl;
 	}
 
 	void Logger::LogError(const std::string& message) {
@@ -42,6 +42,6 @@ namespace utils {
 		auto time = utils::GetGameTime();
 		logMessage << time << "- ERROR: " << message;
 
-		std::cout << logMessage.str();
+		std::cout << logMessage.str() << std::endl;
 	}
 }

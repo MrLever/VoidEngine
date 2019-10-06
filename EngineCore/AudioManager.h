@@ -9,7 +9,7 @@
 //Coati Headers
 #include "Configurable.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ResourceHandle.h"
 #include "MessageBusNode.h"
 

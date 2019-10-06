@@ -12,7 +12,7 @@
 #include "Configuration.h"
 #include "EntityFactory.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "Level.h"
 #include "MessageBus.h"
 
@@ -85,10 +85,10 @@ namespace core {
 		std::shared_ptr<utils::ThreadPool> GameThreadPool;
 
 		/** Resource Manager for the engine's config files */
-		std::shared_ptr<utils::ResourceManager<utils::Configuration>> ConfigManager;
+		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
 
 		/** Resource Manager for the engine's level files */
-		ResourceManagerPtr<Level> LevelManager;
+		ResourceAllocatorPtr<Level> LevelCache;
 
 		/** A handle to the game's display */
 		std::shared_ptr<WindowManager> Window;

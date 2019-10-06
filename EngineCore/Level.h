@@ -11,7 +11,7 @@
 #include "EntityFactory.h"
 #include "EntityData.h"
 #include "Name.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "Resource.h"
 
 namespace core {
@@ -48,7 +48,7 @@ namespace core {
 		bool LoadErrorResource() override;
 
 		/**
-		 * Allows the resource to be intialized after loading.
+		 * Loads and spawns entities into the level
 		 */
 		virtual void Initialize() override;
 
@@ -81,7 +81,7 @@ namespace core {
 		CameraComponent* GetActiveCamera();
 
 	private:
-		ResourceManagerPtr<EntityData> EntityDataPool;
+		ResourceAllocatorPtr<EntityData> EntityDataPool;
 
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;

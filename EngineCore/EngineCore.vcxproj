@@ -297,7 +297,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Level.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceHandle.h" />
-    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ResourceAllocator.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Shader.h" />

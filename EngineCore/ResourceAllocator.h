@@ -18,23 +18,23 @@
 namespace utils {
 
 	/**
-	 * @class ResourceManager
-	 * @brief A ResourceManager is responsible for managing the loading 
+	 * @class ResourceAllocator
+	 * @brief A ResourceAllocator is responsible for managing the loading, caching 
 	 *        and distribution of resources of type T
 	 */
 	template <class T>
-	class ResourceManager {
+	class ResourceAllocator {
 	public:
 		/**
 		 * Constructor
 		 * @param gameThreadPool A thread pool to be used for asynchronous file IO
 		 */
-		ResourceManager(ThreadPoolPtr gameThreadPool);
+		ResourceAllocator(ThreadPoolPtr gameThreadPool);
 		
 		/**
 		 * Destructor
 		 */
-		~ResourceManager();
+		~ResourceAllocator();
 
 		ResourceHandle<T> LoadResource(const std::string& filePath);
 
@@ -59,17 +59,17 @@ namespace utils {
 	};
 
 	template<class T>
-	inline ResourceManager<T>::ResourceManager(ThreadPoolPtr gameThreadPool) 
+	inline ResourceAllocator<T>::ResourceAllocator(ThreadPoolPtr gameThreadPool) 
 		: GameThreadPool(std::move(gameThreadPool)){
 	
 	}
 
 	template<class T>
-	inline ResourceManager<T>::~ResourceManager() {
+	inline ResourceAllocator<T>::~ResourceAllocator() {
 	}
 
 	template<class T>
-	inline ResourceHandle<T> ResourceManager<T>::LoadResource(const std::string& filePath) {
+	inline ResourceHandle<T> ResourceAllocator<T>::LoadResource(const std::string& filePath) {
 		//Check if resource loaded previously
 		auto cacheIter = ResourceCache.find(utils::Name(filePath));
 		if (cacheIter != ResourceCache.end()) {
@@ -91,6 +91,7 @@ namespace utils {
 					resource->Load();
 				}
 				else {
+					utils::Logger::LogWarning("Resource [" + filePath + "] not found. Loading default resource for this type");
 					resource->LoadErrorResource();
 				}
 
@@ -110,7 +111,7 @@ namespace utils {
 	}
 
 	template<class T>
-	inline ResourceHandle<T> ResourceManager<T>::ReloadResource(const std::string& filePath) {
+	inline ResourceHandle<T> ResourceAllocator<T>::ReloadResource(const std::string& filePath) {
 		auto cacheIter = ResourceCache.find(filePath);
 		if (cacheIter != ResourceCache.end()) {
 			ResourceCache.erase(cacheIter->first);
@@ -120,7 +121,7 @@ namespace utils {
 	}
 
 	template<class T>
-	inline void ResourceManager<T>::RemoveResource(const std::string& filePath) {
+	inline void ResourceAllocator<T>::RemoveResource(const std::string& filePath) {
 		auto cacheIter = ResourceCache.find(filePath);
 
 		if (cacheIter != ResourceCache.end()) {
@@ -129,12 +130,12 @@ namespace utils {
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> ResourceManager<T>::GetResource(const std::string& filePath) {
+	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const std::string& filePath) {
 		return GetResource(Name(filePath));
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> ResourceManager<T>::GetResource(const Name& filePath) {
+	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const Name& filePath) {
 		auto cacheIter = ResourceCache.find(filePath);
 
 		if (cacheIter != ResourceCache.end()) {
@@ -147,5 +148,5 @@ namespace utils {
 }
 
 template <class T>
-using ResourceManagerPtr = std::shared_ptr<utils::ResourceManager<T>>;
+using ResourceAllocatorPtr = std::shared_ptr<utils::ResourceAllocator<T>>;
 

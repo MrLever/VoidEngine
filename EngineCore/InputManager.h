@@ -12,7 +12,7 @@
 #include "Configuration.h"
 #include "Entity.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
 #include "KeyboardInput.h"

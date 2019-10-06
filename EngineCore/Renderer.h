@@ -13,7 +13,7 @@
 #include "Configurable.h"
 #include "Level.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 
 namespace core {
 

@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "Resource.h"
+#include "Logger.h"
 
 namespace utils {
 	///Public Functions
@@ -11,6 +12,9 @@ namespace utils {
 		: ResourceID(filePath), ResourcePath(filePath), IsInitialized(false), IsThreadSafe(false), IsComposite(false) {
 		
 		ResourceValid = std::filesystem::exists(ResourcePath);
+		if (!ResourceValid) {
+			utils::Logger::LogWarning("Resource located at [" + filePath + "] not found");
+		}
 	}
 
 	Resource::~Resource() {

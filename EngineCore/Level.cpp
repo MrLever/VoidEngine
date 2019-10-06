@@ -4,7 +4,7 @@
 
 //Coati Headers
 #include "Level.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "EntityData.h"
 
 namespace core {
@@ -49,15 +49,14 @@ namespace core {
 
 	void Level::Initialize() {
 		if (!GameThreadPool) {
-			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool. \nCannot construct resource manager for child resources");
+			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
+			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");
+			return;
 		}
-		else {
-			EntityDataPool = std::make_shared<utils::ResourceManager<EntityData>>(GameThreadPool);
-		}
+		
+		EntityDataPool = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
 
-		for (auto& entity : LevelData["entities"]) {
-			
-		}
+		LevelEntityFactory.CreateEntityList(LevelData["entities"]);
 	}	
 
 	utils::Name Level::GetName() {

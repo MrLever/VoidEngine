@@ -6,7 +6,7 @@
 
 //Void Engine Headers
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -52,7 +52,7 @@ namespace EngineUtilitiesTests {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager<RawFile> resourceMan(pool);
+			ResourceAllocator<RawFile> resourceMan(pool);
 
 			auto rawHandle = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
 			auto rawFile = rawHandle.GetResource();
@@ -64,7 +64,7 @@ namespace EngineUtilitiesTests {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager<RawFile> resourceMan(pool);
+			ResourceAllocator<RawFile> resourceMan(pool);
 
 			auto res = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
 
@@ -76,7 +76,7 @@ namespace EngineUtilitiesTests {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager<RawFile> resourceMan(pool);
+			ResourceAllocator<RawFile> resourceMan(pool);
 
 			//Request resource to be loaded.
 			auto res1 = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
@@ -93,7 +93,7 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(RequestInvalidResourceTest) {
 			std::string SuccessString = "Error";
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			ResourceManager<RawFile> resourceMan(pool);
+			ResourceAllocator<RawFile> resourceMan(pool);
 
 			auto res = resourceMan.LoadResource("FooBar");
 			auto invalidResouce = resourceMan.GetResource("FooBar");

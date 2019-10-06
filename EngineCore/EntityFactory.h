@@ -9,8 +9,9 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "EntityData.h"
 #include "ComponentFactory.h"
-#include "GraphicsComponent.h"
+#include "ResourceAllocator.h"
 
 namespace core {
 	//Forward class declarations
@@ -38,8 +39,7 @@ namespace core {
 		 * Function to create a single entity from JSON data
 		 * @param entityData The data for a single entity
 		 */
-		[[nodiscard]] Entity* CreateEntity(const nlohmann::json& entityData);
-
+		[[nodiscard]] Entity* CreateEntity(const EntityData& entityData);
 
 		/**
 		 * Uses Entity data to apply location and rotation to an entity

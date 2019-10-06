@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "Configurable.h"
 #include "ThreadPool.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 
 
 
@@ -39,7 +39,7 @@ namespace EngineUtilitiesTests {
 	TEST_CLASS(ConfigurableTests) {
 		TEST_METHOD(ConfigurableConfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			auto resourceMngr = std::make_shared<ResourceManager<Configuration>>(pool);
+			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>(pool);
 
 			DummyConfigurable d(
 				resourceMngr->LoadResource("Settings/Testing/ConfigurableTest1.json")
@@ -54,7 +54,7 @@ namespace EngineUtilitiesTests {
 
 		TEST_METHOD(ConfigurableReconfigureTest) {
 			std::shared_ptr<ThreadPool> pool = std::make_shared<ThreadPool>();
-			auto resourceMngr = std::make_shared<ResourceManager<Configuration>>(pool);
+			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>(pool);
 			auto resource1 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest1.json");
 			auto resource2 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest2.json");
 			

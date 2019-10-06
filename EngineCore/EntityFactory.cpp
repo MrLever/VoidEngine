@@ -16,35 +16,44 @@ namespace core {
 	}
 
 	void EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
+		//Preload entity data for entity factory to take advantage of parallel loading
+		auto list = CurrLevel->LevelData["entities"];
+		for (auto& entity : list) {
+			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
+			CurrLevel->EntityDataPool->LoadResource(source);
+		}
+
 		for (const auto& entity : entityList) {
-			CurrLevel->Entities.push_back(CreateEntity(entity));
+			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
+			auto entityResource = CurrLevel->EntityDataPool->GetResource(source);
+			CurrLevel->Entities.emplace_back(CreateEntity(*entityResource));
 		}
 
 	}
 
-	Entity* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
-		auto entityName = entityData["name"].get<std::string>();
-		std::string type = entityData["type"].get<std::string>();
+	Entity* EntityFactory::CreateEntity(const EntityData& entityData) {
+		/*auto entityName = entityData["name"].get<std::string>();
+		std::string type = entityData["type"].get<std::string>();*/
 		
 		Entity* entity = nullptr;
 
-		//Construct the entity on the heap
-		if (type == "PlayerEntity") {
-			entity = new PlayerEntity(entityName);
-		}
-		else if (type == "CubeEntity") {
-			entity = new SuperVoid::CubeEntity(entityName);
-		}
-		else if (type == "BouncingCube") {
-			entity = new SuperVoid::BouncingCube(entityName);
-		}
+		////Construct the entity on the heap
+		//if (type == "PlayerEntity") {
+		//	entity = new PlayerEntity(entityName);
+		//}
+		//else if (type == "CubeEntity") {
+		//	entity = new SuperVoid::CubeEntity(entityName);
+		//}
+		//else if (type == "BouncingCube") {
+		//	entity = new SuperVoid::BouncingCube(entityName);
+		//}
 
-		SetWorldOrientation(entityData, entity);
+		//SetWorldOrientation(entityData, entity);
 
-		if (entityData.find("components") != entityData.end()) {
-			auto componentData = entityData["components"];
-			CompFactory.ProcessComponentData(entity, componentData);
-		}
+		//if (entityData.find("components") != entityData.end()) {
+		//	auto componentData = entityData["components"];
+		//	CompFactory.ProcessComponentData(entity, componentData);
+		//}
 
 		return entity;
 	}
