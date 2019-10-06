@@ -6,6 +6,7 @@
 #include "ComponentFactory.h"
 #include "WindowManager.h"
 #include "Level.h"
+#include "Texture.h"
 
 namespace core {
 	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator) 
@@ -60,12 +61,11 @@ namespace core {
 			auto textureList = componentData["textures"];
 
 			int i = 0;
-			for (auto& texture : textureList) {
-				entityDrawData->AddTexture(
-					texture["name"].get<std::string>(),
-					texture["location"].get<std::string>(),
-					i
-				);
+			for (auto& textureMetaDeta : textureList) {
+				auto texture = TextureCache->GetResource(textureMetaDeta["location"].get<std::string>());
+				texture->SetName(textureMetaDeta["name"].get<std::string>());
+
+				entityDrawData->AddTexture(texture, i);
 				i++;
 			}
 

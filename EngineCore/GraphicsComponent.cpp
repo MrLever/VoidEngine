@@ -21,9 +21,6 @@ namespace core {
 
 	GraphicsComponent::~GraphicsComponent() {
 		delete Material;
-		for (auto &texture : Textures) {
-			delete texture;
-		}
 	}
 
 	void GraphicsComponent::SetModel(const std::vector<float>& verts) {
@@ -68,13 +65,11 @@ namespace core {
 		);
 	}
 
-	void GraphicsComponent::AddTexture(const std::string& name, const std::string& texturePath, GLint unit = 0) {
-		auto texture = new Texture(name, texturePath, unit);
-		texture->Load();
+	void GraphicsComponent::AddTexture(std::shared_ptr<Texture> texture, GLint unit = 0) {
 		texture->Initialize();
 
 		if (Material) {
-			Material->SetUniform(texture->GetName().c_str(), texture->GetUnit());
+			Material->SetUniform(texture->GetName(), unit);
 		}
 
 		Textures.push_back(texture);

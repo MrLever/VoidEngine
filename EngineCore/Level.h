@@ -80,7 +80,7 @@ namespace core {
 		ResourceAllocatorPtr<Texture> TextureCache;
 
 		/** Factory object used to add entities to this level's scene */
-		EntityFactory LevelEntityFactory;
+		EntityFactory* LevelEntityFactory;
 
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;

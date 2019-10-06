@@ -9,7 +9,7 @@
 
 namespace core {
 
-	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
+	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"){
 		EntityDataCache = nullptr;
 		GameThreadPool = nullptr;
 		IsComposite = true;
@@ -20,6 +20,8 @@ namespace core {
 			delete entity;
 			entity = nullptr;
 		}
+
+		delete LevelEntityFactory;
 	}
 
 	bool Level::Load() {
@@ -55,8 +57,11 @@ namespace core {
 			return;
 		}
 		
+
 		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
 		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
+
+		LevelEntityFactory = new EntityFactory(this);
 
 		//Preload entity data source files for creation
 		for (auto& entity : LevelData["entities"]) {
@@ -65,7 +70,7 @@ namespace core {
 		}
 		
 		//Parse entity data source files and spawn actors
-		LevelEntityFactory.CreateEntities(LevelData["entities"]);
+		LevelEntityFactory->CreateEntities(LevelData["entities"]);
 	}	
 
 	utils::Name Level::GetName() {
