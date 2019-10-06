@@ -5,11 +5,11 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
-#include "Resource.h"
+#include "JsonResource.h"
 
 namespace core {
 
-class EntityData : public utils::Resource {
+class EntityData : public utils::JsonResource {
 public:
 	/**
 	 * Constructor
@@ -17,22 +17,9 @@ public:
 	EntityData(const std::string& filepath);
 	
 	/**
-	 * Loads resource from disk
+	 * Destructor
 	 */
-	bool Load() override;
-
-	/**
-	 * Loads the resource's default value if the path provided is invalid
-	 */
-	virtual bool LoadErrorResource();
-
-	/**
-	 * Allows the resource to be intialized after loading.
-	 */
-	virtual void Initialize();
-
-private:
-	nlohmann::json Data;
+	~EntityData() = default;
 };
 
 }
