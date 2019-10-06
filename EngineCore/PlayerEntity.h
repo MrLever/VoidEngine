@@ -22,6 +22,12 @@ namespace core {
 		PlayerEntity(const std::string& name);
 		
 		/**
+		 * Constructor
+		 * @param name The entity's name
+		 */
+		PlayerEntity(const utils::Name& name);
+
+		/**
 		 * Defines what the entity does once a level begins.
 		 */
 		virtual void BeginPlay() override;

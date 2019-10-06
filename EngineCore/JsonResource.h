@@ -44,7 +44,7 @@ namespace utils {
 		 * @return The requested attribute
 		 */
 		template<typename T>
-		T GetAttribute(const std::string& attribute);
+		T GetAttribute(const std::string& attribute) const;
 
 	private:
 		/**
@@ -52,7 +52,7 @@ namespace utils {
 		 * @return defualt error value for type T
 		 */
 		template<typename T>
-		T ReturnErrorValue();
+		T ReturnErrorValue() const;
 
 		/** A queryable JSON object that can be accessed through GetAttribute() */
 		nlohmann::json Data;
@@ -60,11 +60,11 @@ namespace utils {
 	};
 
 	template<typename T>
-	inline T JsonResource::GetAttribute(const std::string& attribute) {
+	inline T JsonResource::GetAttribute(const std::string& attribute) const {
 		auto dataIter = Data.find(attribute);
 		if (dataIter == Data.end()) {
 			std::stringstream warning;
-			warning << "Key " << attribute << " not found in JSON resource [" << ResourcePath << "]";
+			warning << "Key [" << attribute << "] not found in JSON resource [" << ResourcePath << "]";
 
 			utils::Logger::LogWarning(warning.str());
 			return ReturnErrorValue<T>();
@@ -76,7 +76,7 @@ namespace utils {
 	}
 
 	template<typename T>
-	inline T JsonResource::ReturnErrorValue() {
+	inline T JsonResource::ReturnErrorValue() const {
 		std::stringstream warning;
 		warning << "Generating defualted error value for type " << typeid(T).name();
 		utils::Logger::LogWarning(warning.str());

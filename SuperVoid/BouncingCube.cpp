@@ -4,14 +4,18 @@
 
 //SuperVoid Headers
 #include "BouncingCube.h"
+#include "Logger.h"
 
 namespace SuperVoid {
 	BouncingCube::BouncingCube(const std::string& name) : Entity(name) {
 		Velocity = 0.05f;
 	}
+
+	BouncingCube::BouncingCube(const utils::Name& name) : Entity(name) {
+	}
 	
 	void BouncingCube::BeginPlay() {
-		
+		utils::Logger::LogInfo(ID.StringID + " began play");
 	}
 
 	void SuperVoid::BouncingCube::Tick(float deltaSeconds) {

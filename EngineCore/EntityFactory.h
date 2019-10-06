@@ -33,20 +33,20 @@ namespace core {
 		 * Function to create a set of entities from JSON data
 		 * @param entityList The data for the entities to spawn
 		 */
-		void CreateEntityList(const nlohmann::json& entityList);
+		void CreateEntities(const nlohmann::json& entityList);
 
 		/**
 		 * Function to create a single entity from JSON data
 		 * @param entityData The data for a single entity
 		 */
-		[[nodiscard]] Entity* CreateEntity(const EntityData& entityData);
+		[[nodiscard]] Entity* CreateEntity(const utils::Name& name, const std::string& type, const EntityData& data);
 
 		/**
 		 * Uses Entity data to apply location and rotation to an entity
 		 * @param entityData The data to apply
 		 * @param entity The entity to place
 		 */
-		void SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity);
+		void SetWorldOrientation(const nlohmann::json& levelData, core::Entity* entity);
 	
 	private:
 		/** The current level using this factory */

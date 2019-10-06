@@ -75,22 +75,15 @@ namespace core {
 		 */
 		std::vector<Entity*> GetScene();
 
-		/**
-		 * Getter for this level's active camera
-		 */
-		CameraComponent* GetActiveCamera();
-
 	private:
-		ResourceAllocatorPtr<EntityData> EntityDataPool;
+		ResourceAllocatorPtr<EntityData> EntityDataCache;
+		ResourceAllocatorPtr<Texture> TextureCache;
 
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory LevelEntityFactory;
 
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;
-
-		/** The active camera to be used for rendering */
-		CameraComponent* ActiveCamera;
 
 		/** JSON representation of the level, loaded from main memory */
 		nlohmann::json LevelData;

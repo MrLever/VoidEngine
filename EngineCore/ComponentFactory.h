@@ -10,6 +10,7 @@
 #include "FlyingMovementComponent.h"
 #include "GraphicsComponent.h"
 #include "CameraComponent.h"
+#include "ResourceAllocator.h"
 
 namespace core {
 	//Forward class declarations
@@ -17,9 +18,17 @@ namespace core {
 
 	class ComponentFactory	{
 	public:
+		/**
+		 * Constructor
+		 * @param textureAllocator ResourceAllocator to allow loading and caching of texture loads.
+		 */
+		ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator);
 
-		ComponentFactory(Level* currLevel);
-
+		/**
+		 * Creates and attatches components specified by componentList to parent
+		 * @param parent The entity that will receive references to the newly created components
+		 * @param componentList The list of components to create
+		 */
 		void ProcessComponentData(Entity* parent, const nlohmann::json& componentList);
 
 		/**
@@ -31,7 +40,8 @@ namespace core {
 		Component* CreateComponent(Entity* parent, const nlohmann::json& componentData);
 
 	private:
-		Level* CurrentLevel;
+		/** Allows loading and caching of textures */
+		ResourceAllocatorPtr<Texture> TextureCache;
 	};
 
 }

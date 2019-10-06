@@ -56,10 +56,6 @@
             "textures":
             [
                 {
-                    "name":"space",
-                    "location":"Resources/Textures/stars.jpg"
-                },
-                {
                     "name":"dirt",
                     "location":"Resources/Textures/dirt.jpg"
                 }

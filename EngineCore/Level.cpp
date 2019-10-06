@@ -10,8 +10,7 @@
 namespace core {
 
 	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"), LevelEntityFactory(this) {
-		ActiveCamera = nullptr;
-		EntityDataPool = nullptr;
+		EntityDataCache = nullptr;
 		GameThreadPool = nullptr;
 		IsComposite = true;
 	}
@@ -56,9 +55,17 @@ namespace core {
 			return;
 		}
 		
-		EntityDataPool = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
+		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
+		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
 
-		LevelEntityFactory.CreateEntityList(LevelData["entities"]);
+		//Preload entity data source files for creation
+		for (auto& entity : LevelData["entities"]) {
+			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
+			EntityDataCache->LoadResource(source);
+		}
+		
+		//Parse entity data source files and spawn actors
+		LevelEntityFactory.CreateEntities(LevelData["entities"]);
 	}	
 
 	utils::Name Level::GetName() {
@@ -81,7 +88,4 @@ namespace core {
 		return Entities;
 	}
 
-	CameraComponent* Level::GetActiveCamera() {
-		return ActiveCamera;
-	}
 }

@@ -4,11 +4,13 @@
 
 //Void engine headers
 #include "ComponentFactory.h"
+#include "WindowManager.h"
 #include "Level.h"
 
 namespace core {
-	ComponentFactory::ComponentFactory(Level* currLevel) {
-		CurrentLevel = currLevel;
+	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator) 
+		: TextureCache(textureAllocator) {
+
 	}
 
 	void ComponentFactory::ProcessComponentData(Entity* parent, const nlohmann::json& componentList) {
@@ -27,7 +29,7 @@ namespace core {
 
 		if ( type == "CameraComponent") {
 			auto tempHandle = new CameraComponent(parent);
-			CurrentLevel->ActiveCamera = tempHandle;
+			WindowManager::GetActiveWindow()->SetView(parent, tempHandle);
 			component = tempHandle;
 		}
 		else if (type == "FlyingMovementComponent") {

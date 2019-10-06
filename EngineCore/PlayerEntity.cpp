@@ -11,8 +11,12 @@ namespace core {
 
 	}
 
+	PlayerEntity::PlayerEntity(const utils::Name& name) : Entity(name) {
+	
+	}
+
 	void PlayerEntity::BeginPlay() {
-		utils::Logger::LogDebug("Player Entity Online\n");
+		utils::Logger::LogInfo(ID.StringID + " began play");
 	}
 
 	void PlayerEntity::Tick(float deltaSeconds) {

@@ -7,6 +7,7 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "CameraComponent.h"
 #include "InputManager.h"
 #include "InputAxis.h"
 #include "InputEvent.h"
@@ -73,7 +74,17 @@ namespace core {
 		return WindowHeight;
 	}
 
-	const WindowManager* WindowManager::GetActiveWindow(){
+	void WindowManager::SetView(Entity* parent, CameraComponent* comp) {
+		utils::Logger::LogDebug("Entity " + parent->GetName() + " has set the window's viewport to its camera");
+
+		ActiveCamera = comp;
+	}
+
+	CameraComponent* WindowManager::GetView() {
+		return ActiveCamera;
+	}
+
+	WindowManager* WindowManager::GetActiveWindow(){
 		return CurrWindowManager;
 	}
 

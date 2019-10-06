@@ -45,7 +45,7 @@ namespace core {
 
 	void Renderer::Render(Level* scene) {
 		//Set the view and projection matrices for all graphics components for this draw call 
-		auto activeCamera = scene->GetActiveCamera();
+		auto activeCamera = WindowManager::GetActiveWindow()->GetView();
 		if (activeCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
 			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
