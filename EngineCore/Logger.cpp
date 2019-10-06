@@ -13,7 +13,7 @@ namespace utils {
 		std::stringstream logMessage;
 		
 		auto time = utils::GetGameTime();
-		logMessage << time << "- INFO: " << message;
+		logMessage << time << " INFO| " << message;
 		
 		std::cout << logMessage.str() << std::endl;
 	}
@@ -22,7 +22,7 @@ namespace utils {
 		std::stringstream logMessage;
 
 		auto time = utils::GetGameTime();
-		logMessage << time << "- DEBUG: " << message;
+		logMessage << time << " DEBUG| " << message;
 
 		std::cout << logMessage.str() << std::endl;
 	}
@@ -31,7 +31,7 @@ namespace utils {
 		std::stringstream logMessage;
 
 		auto time = utils::GetGameTime();
-		logMessage << time << "- WARNING: " << ": " << message;
+		logMessage << time << " WARNING| " << message;
 
 		std::cout << logMessage.str() << std::endl;
 	}
@@ -40,7 +40,7 @@ namespace utils {
 		std::stringstream logMessage;
 
 		auto time = utils::GetGameTime();
-		logMessage << time << "- ERROR: " << message;
+		logMessage << time << " ERROR| " << message;
 
 		std::cout << logMessage.str() << std::endl;
 	}

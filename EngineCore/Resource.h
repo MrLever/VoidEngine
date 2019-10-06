@@ -10,6 +10,7 @@
 //Void Engine Headers
 #include "Name.h"
 #include "ThreadPool.h"
+#include "Logger.h"
 
 namespace utils {
 	/**

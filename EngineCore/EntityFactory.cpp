@@ -23,12 +23,18 @@ namespace core {
 			CurrLevel->EntityDataPool->LoadResource(source);
 		}
 
-		for (const auto& entity : entityList) {
-			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
+		for (const auto& entityEntry : entityList) {
+			std::string source = "Resources/Entities/" + entityEntry["type"].get<std::string>() + ".json";
 			auto entityResource = CurrLevel->EntityDataPool->GetResource(source);
-			CurrLevel->Entities.emplace_back(CreateEntity(*entityResource));
-		}
+			auto entity = CreateEntity(*entityResource);
 
+			if (entity == nullptr) {
+				utils::Logger::LogWarning("Entity construction for " + entityEntry["name"].get<std::string>() + " failed");
+				continue;
+			}
+
+			CurrLevel->Entities.push_back(entity);
+		}
 	}
 
 	Entity* EntityFactory::CreateEntity(const EntityData& entityData) {

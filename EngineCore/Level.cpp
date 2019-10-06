@@ -48,6 +48,8 @@ namespace core {
 	}
 
 	void Level::Initialize() {
+		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
+
 		if (!GameThreadPool) {
 			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
 			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");

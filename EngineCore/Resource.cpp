@@ -4,7 +4,6 @@
 
 //Void Engine Headers
 #include "Resource.h"
-#include "Logger.h"
 
 namespace utils {
 	///Public Functions
