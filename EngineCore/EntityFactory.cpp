@@ -11,54 +11,75 @@
 #include "Level.h"
 
 namespace core {
-	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel) {
+	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel->TextureCache) {
 
 	}
 
-	void EntityFactory::CreateEntityList(const nlohmann::json& entityList) {
-		for (const auto& entity : entityList) {
-			CurrLevel->Entities.push_back(CreateEntity(entity));
+	void EntityFactory::CreateEntities(const nlohmann::json& entityList) {
+		//Preload entity data for entity factory to take advantage of parallel loading
+		auto list = CurrLevel->LevelData["entities"];
+		for (const auto& entityEntry : entityList) {
+
+			//Extract data necessary to construct an entity
+			utils::Name entityName(entityEntry["name"].get<std::string>());
+			std::string entityType = entityEntry["type"].get<std::string>();
+
+			//Get resouce file for the entity type you'll be spawning
+			std::string source = "Resources/Entities/" + entityType + ".json";
+			auto entityResource = CurrLevel->EntityDataCache->GetResource(source);
+			
+			//Construct an entity on the heap
+			auto entity = CreateEntity(entityName, entityType, *entityResource);
+
+			if (entity == nullptr) {
+				utils::Logger::LogError("Entity construction for " + entityEntry["name"].get<std::string>() + " failed");
+				continue;
+			}
+
+			//Place entity in the world appropriately
+			SetWorldOrientation(entityEntry, entity);
+
+			//Return handle to entity on the heap
+			CurrLevel->Entities.push_back(entity);
 		}
-
 	}
 
-	Entity* EntityFactory::CreateEntity(const nlohmann::json& entityData) {
-		auto entityName = entityData["name"].get<std::string>();
-		std::string type = entityData["type"].get<std::string>();
-		//Construct the entity on the heap
+	Entity* EntityFactory::CreateEntity(const utils::Name& name, const std::string& type, const EntityData& data) {
 		Entity* entity = nullptr;
 
+		//Construct the entity on the heap
 		if (type == "PlayerEntity") {
-			entity = new PlayerEntity(entityName);
+			entity = new PlayerEntity(name);
 		}
 		else if (type == "CubeEntity") {
-			entity = new SuperVoid::CubeEntity(entityName);
+			entity = new SuperVoid::CubeEntity(name);
 		}
 		else if (type == "BouncingCube") {
-			entity = new SuperVoid::BouncingCube(entityName);
+			entity = new SuperVoid::BouncingCube(name);
 		}
 
-		SetWorldOrientation(entityData, entity);
+		auto componentData = data.GetAttribute<nlohmann::json>("components");
 
-		if (entityData.find("components") != entityData.end()) {
-			auto componentData = entityData["components"];
+		if (componentData.is_array()) {
 			CompFactory.ProcessComponentData(entity, componentData);
 		}
 
 		return entity;
 	}
 
-	void EntityFactory::SetWorldOrientation(const nlohmann::json& entityData, core::Entity* entity) {
+	void EntityFactory::SetWorldOrientation(const nlohmann::json& levelData, core::Entity* entity) {
 		//Extract Entity position
 		math::Vector3 position;
-		position.X = entityData["location"][0].get<float>();
-		position.Y = entityData["location"][1].get<float>();
-		position.Z = entityData["location"][2].get<float>();
+		auto location = levelData["location"];
+		position.X = location[0].get<float>();
+		position.Y = location[1].get<float>();
+		position.Z = location[2].get<float>();
 
 		math::Rotator rotation;
-		rotation.Pitch = entityData["rotation"][0].get<float>();
-		rotation.Yaw = entityData["rotation"][1].get<float>();
-		rotation.Roll = entityData["rotation"][2].get<float>();
+		auto rotationData = levelData["rotation"];
+		rotation.Pitch = rotationData[0].get<float>();
+		rotation.Yaw = rotationData[1].get<float>();
+		rotation.Roll = rotationData[2].get<float>();
 
 		entity->SetPosition(position);
 		entity->SetRotation(rotation);

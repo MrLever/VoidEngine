@@ -65,7 +65,7 @@ namespace core {
 		 * @param modifier Modifier flags applied to the input
 		 * @param time The time stamp of the input event
 		 */
-		Input(T button, ButtonState state, unsigned modifiers, EngineUtils::GameTime time);
+		Input(T button, ButtonState state, unsigned modifiers, utils::GameTime time);
 
 		/**
 		 * Constructor
@@ -74,7 +74,7 @@ namespace core {
 		 * @param modifier Modifier applied to the input
 		 * @param time The time stamp of the input event
 		 */
-		Input(T button, ButtonState state, InputModifier modifier, EngineUtils::GameTime time);
+		Input(T button, ButtonState state, InputModifier modifier, utils::GameTime time);
 
 		/**
 		 * Equality operator
@@ -97,7 +97,7 @@ namespace core {
 		 * Gets the time stamp for this event
 		 * @return The number of milliseconds since epoch that this input event was generated
 		 */
-		EngineUtils::GameTime GetTimeStamp() const;
+		utils::GameTime GetTimeStamp() const;
 
 		/**
 		 * Hash function to allow this class to be used as a key in Associative containers
@@ -116,7 +116,7 @@ namespace core {
 		unsigned Modifiers;
 
 		/** Time stamp of this input event */
-		EngineUtils::GameTime TimeStamp;
+		utils::GameTime TimeStamp;
 	};
 
 	template<class T>
@@ -138,13 +138,13 @@ namespace core {
 	}
 
 	template <class T>
-	inline Input<T>::Input(T button, ButtonState state, unsigned modifiers, EngineUtils::GameTime time)
+	inline Input<T>::Input(T button, ButtonState state, unsigned modifiers, utils::GameTime time)
 		: Button(button), State(state), Modifiers(modifiers), TimeStamp(time) {
 		
 	}
 
 	template<class T>
-	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier, EngineUtils::GameTime time)
+	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier, utils::GameTime time)
 		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(time) {
 
 	}
@@ -167,7 +167,7 @@ namespace core {
 	}
 	
 	template<class T>
-	inline EngineUtils::GameTime Input<T>::GetTimeStamp() const {
+	inline utils::GameTime Input<T>::GetTimeStamp() const {
 		return TimeStamp;
 	}
 	

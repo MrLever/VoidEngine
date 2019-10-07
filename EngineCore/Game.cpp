@@ -1,6 +1,6 @@
 //STD Headers
-#include <iostream>
 #include <utility>
+#include <string>
 
 //Library Headers
 
@@ -13,10 +13,10 @@
 #include "InputManager.h"
 #include "MessageBus.h"
 #include "Renderer.h"
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ThreadPool.h"
 #include "WindowManager.h"
-
+#include "Logger.h"
 
 namespace core {
 
@@ -43,17 +43,17 @@ namespace core {
 
 	void Game::InitGame() {
 		//Initialize Engine Utilities
-		GameThreadPool = std::make_shared<EngineUtils::ThreadPool>();
-		GameResourceManager = std::make_shared<EngineUtils::ResourceManager>(GameThreadPool);
+		GameThreadPool = std::make_shared<utils::ThreadPool>();
+
+		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(GameThreadPool);
 
 		//Initialize game window and input interface
 		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
-			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/InputConfig.lua")
+			ConfigManager->LoadResource("Settings/InputConfig.json")
 		);
 
 		//Attach input manager to window to address hardware callbacks
@@ -63,15 +63,13 @@ namespace core {
 		GameRenderer = std::make_unique<Renderer>(
 			Window, 
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/RenderingConfig.lua")
+			ConfigManager->LoadResource("Settings/RenderingConfig.json")
 		);
 		
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
-			GameResourceManager,
-			GameResourceManager->LoadResource<EngineUtils::Configuration>("Settings/AudioConfig.lua")
+			ConfigManager->LoadResource("Settings/AudioConfig.json")
 		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
@@ -117,21 +115,22 @@ namespace core {
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
 		const static int ONE_SECOND = 1000;
-		static auto lastTime = EngineUtils::GetGameTime();
+		static auto lastTime = utils::GetGameTime();
 		static int numFrames = 0;
 
-		auto currentTime = EngineUtils::GetGameTime();
+		auto currentTime = utils::GetGameTime();
 		numFrames++;
 
 		if (currentTime - lastTime >= ONE_SECOND) {
 			GameThreadPool->SubmitJob(
 				[] (double frameTime){
-					std::cout << "FrameTime: " << frameTime << "ms\n";
+					//std::cout << "FrameTime: " << frameTime << "ms\n";
+					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
 				(ONE_SECOND + 0.0) / numFrames
 			);
 			numFrames = 0;
-			lastTime = EngineUtils::GetGameTime();
+			lastTime = utils::GetGameTime();
 		}
 	}
 
@@ -140,9 +139,8 @@ namespace core {
 			//Level unloading logic
 		}
 
-		//CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel = GameResourceManager->GetResource<Level>(newLevelPath);
-		CurrentLevel->SpawnEntities();
+		CurrentLevel = LevelCache->GetResource(newLevelPath);
+		CurrentLevel->Initialize();
 		CurrentLevel->BeginPlay();
 	}
 

@@ -7,11 +7,11 @@
 #include "Component.h"
 
 namespace core {
-	Entity::Entity(const EngineUtils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	Entity::Entity(const utils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
 	
 	}
 
-	Entity::Entity(const std::string& name) : Entity(EngineUtils::Name(name)) {
+	Entity::Entity(const std::string& name) : Entity(utils::Name(name)) {
 
 	}
 
@@ -59,6 +59,10 @@ namespace core {
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
 		Rotation = newRotation;
+	}
+
+	std::string Entity::GetName() {
+		return ID.StringID;
 	}
 
 	void Entity::AddComponent(Component* component) {

@@ -5,7 +5,7 @@
 #include "CppUnitTest.h"
 
 //Void Engine Headers
-#include "ResourceManager.h"
+#include "ResourceAllocator.h"
 #include "ThreadPool.h"
 #include "Configuration.h"
 
@@ -13,7 +13,7 @@
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace EngineUtils;
+using namespace utils;
 
 namespace EngineUtilitiesTests {
 

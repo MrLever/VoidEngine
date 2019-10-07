@@ -17,7 +17,7 @@ namespace core {
 		FRAGMENT = GL_FRAGMENT_SHADER,
 		COMPUTE = GL_COMPUTE_SHADER
 	};
-	class Shader : public EngineUtils::Resource {
+	class Shader : public utils::Resource {
 		friend class ShaderProgram;
 
 	public:
@@ -43,14 +43,13 @@ namespace core {
 		 */
 		bool LoadErrorResource() override;
 
-
-	private:
 		/**
 		 * Compiles shader code
-		 * @return Whether that compilation was successful
 		 */
-		bool Compile();
+		virtual void Initialize();
 
+
+	private:
 		/**
 		 * Enumeration value that specifies what type of shader this is
 		 */

@@ -79,7 +79,7 @@ namespace core {
 		GLint GetUniformLocation(const std::string& uniformName);
 
 		/** Name used to identify this shader program */
-		EngineUtils::Name ProgramName;
+		utils::Name ProgramName;
 
 		/** Unique Identifier used by OpenGL to address this shader program */
 		GLuint ProgramHandle;

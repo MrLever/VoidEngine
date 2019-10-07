@@ -20,7 +20,7 @@ namespace EngineCoreTests {
 	using namespace core;
 	TEST_CLASS(InputDefinitionTests) {
 		TEST_METHOD(GenericInputGetButtonTest) {
-			auto time = EngineUtils::GetGameTime();
+			auto time = utils::GetGameTime();
 			
 			auto button = KeyboardButton::A;
 

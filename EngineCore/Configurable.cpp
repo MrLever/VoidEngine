@@ -6,13 +6,13 @@
 //Void Engine Headers
 #include "Configurable.h"
 
-namespace EngineUtils {
-	Configurable::Configurable(const ResourceHandle& configuration) 
+namespace utils {
+	Configurable::Configurable(const  ResourceHandle<Configuration>& configuration)
 		: Config(std::move(configuration)) {
 
 	}
 
-	void Configurable::Reconfigure(ResourceHandle newResource) {
+	void Configurable::Reconfigure(ResourceHandle<Configuration> newResource) {
 		Config = newResource;
 		Configure();
 	}

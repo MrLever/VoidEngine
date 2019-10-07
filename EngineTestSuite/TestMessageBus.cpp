@@ -16,7 +16,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace GameplayFrameworkTests {
 	using namespace core;
-	using namespace EngineUtils;
+	using namespace utils;
 	using namespace EngineTestSuiteUtils;
 
 	TEST_CLASS(MessageBusTests) {

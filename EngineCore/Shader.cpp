@@ -1,11 +1,11 @@
 //STD Headers
 #include <fstream>
-#include <iostream>
 
 //Library Headers
 
 //Void Engine Headers
 #include "Shader.h"
+#include "Logger.h"
 
 namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 
@@ -25,7 +25,7 @@ namespace core {
 
 		ifs.open(ResourcePath);
 		if (!ifs.is_open()) {
-			std::cout << "\n**ERROR** shader" << ResourcePath << "not found.";
+			utils::Logger::LogError("Shader " + ResourcePath.string() + "not found.");
 			return false;
 		}
 
@@ -44,7 +44,7 @@ namespace core {
 		return false;
 	}
 
-	bool Shader::Compile() {
+	void Shader::Initialize() {
 		//Attempt to compile shader
 		const char* shaderCode = ShaderSource.c_str();
 		ShaderHandle = glCreateShader(static_cast<GLuint>(Type));
@@ -57,13 +57,16 @@ namespace core {
 		glGetShaderiv(ShaderHandle, GL_COMPILE_STATUS, &success);
 
 		if (!success) {
+			ResourceValid = false;
 			glGetShaderInfoLog(ShaderHandle, 1024, NULL, infoBuffer);
-			std::cout << "SHADER COMPILATION ERROR:\n";
-			std::cout << "\tShader Location: " << ResourcePath << "\n";
-			std::cout << "\tShader Source: \n" << ShaderSource << "\n";
-			return false;
+			std::stringstream errorStream;
+			errorStream << "SHADER COMPILATION ERROR:\n";
+			errorStream << "\tShader Location: " << ResourcePath << "\n";
+			errorStream << "\tShader Source: \n" << ShaderSource << "\n";
+
+			utils::Logger::LogError(errorStream.str());
 		}
 
-		return true;
+		IsInitialized = true;
 	}
 }

@@ -61,7 +61,7 @@ namespace core {
 		/**
 		 * Returns the UniqueID of this message for fast comparisons
 		 */
-		EngineUtils::Name GetEventID() const;
+		utils::Name GetEventID() const;
 
 		/**
 		 * Gets this message's type
@@ -76,7 +76,7 @@ namespace core {
 		MessageType Type;
 
 		/** Message ID based on a hash of the message body */
-		EngineUtils::Name ID;
+		utils::Name ID;
 	};
 
 }

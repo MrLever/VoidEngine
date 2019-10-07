@@ -7,7 +7,7 @@
 #include "Name.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace EngineUtils;
+using namespace utils;
 
 namespace EngineUtilitiesTests {
 
@@ -17,7 +17,7 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(NameConstructorTest) {
 			Name id("Test");
 
-			Assert::AreEqual(EngineUtils::FNV1aHash("Test"), id.ID);
+			Assert::AreEqual(utils::FNV1aHash("Test"), id.ID);
 			Assert::AreEqual(std::string("Test"), id.StringID);
 		}
 

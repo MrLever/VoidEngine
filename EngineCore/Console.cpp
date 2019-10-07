@@ -21,7 +21,7 @@ namespace core {
 	//Private Member Functions
 
 	void Console::Log(const std::string message, LogLevel level = LogLevel::DEBUG) {
-		std::string prefix = std::to_string(EngineUtils::GetGameTime());
+		std::string prefix = std::to_string(utils::GetGameTime());
 		switch (level) {
 			case LogLevel::INFO:
 				prefix += " INFO: ";

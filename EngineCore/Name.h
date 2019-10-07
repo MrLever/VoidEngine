@@ -3,14 +3,14 @@
 #include <compare>
 #include <string>
 #include <unordered_map>
-#include <iostream>
+#include <ostream>
 
 //Library Headers
 
 //Void Engine Headers
 #include "EngineUtilities.h"
 
-namespace EngineUtils {
+namespace utils {
 	/**
 	 * @class Name
 	 * @brief Name is a class used to enable fast string comparisons through use of hashing
@@ -141,9 +141,9 @@ namespace EngineUtils {
 //standard library templates to work with custom data types.
 namespace std {
 	template <>
-	struct hash<EngineUtils::Name> { //Class to define hash function for Keyboard Input
+	struct hash<utils::Name> { //Class to define hash function for Keyboard Input
 		//Hash functor
-		std::size_t operator()(const EngineUtils::Name& t) const {
+		std::size_t operator()(const utils::Name& t) const {
 			return t.ID;
 		}
 	};

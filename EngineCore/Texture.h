@@ -13,19 +13,13 @@ namespace core {
 	 * @class Texture
 	 * @brief Class to define how to handle OpenGL Textures
 	 */
-	class Texture : public EngineUtils::Resource {
+	class Texture : public utils::Resource {
 	public:
 		/**
 		 * Constructor
 		 * @param texturePath Path to the texture's data
 		 */
-		Texture(const std::string& name, const std::string& texturePath);
-
-		/**
-		 * Constructor
-		 * @param texturePath Path to the texture's data
-		 */
-		Texture(const std::string& name, const std::string& texturePath, GLint textureUnit);
+		Texture(const std::string& texturePath);
 
 		/**
 		 * Destructor
@@ -45,7 +39,7 @@ namespace core {
 		/**
 		 * Generates OpenGL data needed to use this texture in rendering
 		 */
-		void GenerateTextureInfo();
+		void Initialize() override;
 
 		/**
 		 * Instructs OpenGL we'd like to use this texture in our next draw call
@@ -53,24 +47,21 @@ namespace core {
 		void Use();
 
 		/**
-		 * Getter for the Texture's name
+		 * Sets this textures name for use in GLSL uniform assignment
+		 */
+		void SetName(const std::string& name);
+
+		/**
+		 * Getter for this Texture's name
 		 */
 		std::string GetName();
 
-		/**
-		 * Getter for the Texture's OpenGL Texture Unit
-		 */
-		GLint GetUnit();
-
 	private:
 		/** The texure's name, used for setting uniforms */
-		std::string Name;
+		std::string TextureName;
 
 		/** Handle used by OpenGL to address this texture */
 		GLuint TextureHandle;
-
-		/** Defines this textures corresponding Texture Unit */
-		GLint TextureUnit;
 
 		/** The raw data of the image loaded for the texture */
 		unsigned char* ImageData;

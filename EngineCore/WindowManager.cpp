@@ -7,9 +7,11 @@
 
 //Coati Headers
 #include "WindowManager.h"
+#include "CameraComponent.h"
 #include "InputManager.h"
 #include "InputAxis.h"
 #include "InputEvent.h"
+#include "Logger.h"
 
 namespace core {
 	WindowManager* WindowManager::CurrWindowManager = nullptr;
@@ -72,7 +74,17 @@ namespace core {
 		return WindowHeight;
 	}
 
-	const WindowManager* WindowManager::GetActiveWindow(){
+	void WindowManager::SetView(Entity* parent, CameraComponent* comp) {
+		utils::Logger::LogDebug("Entity " + parent->GetName() + " has set the window's viewport to its camera");
+
+		ActiveCamera = comp;
+	}
+
+	CameraComponent* WindowManager::GetView() {
+		return ActiveCamera;
+	}
+
+	WindowManager* WindowManager::GetActiveWindow(){
 		return CurrWindowManager;
 	}
 
@@ -112,7 +124,7 @@ namespace core {
 		auto GLADaddress = reinterpret_cast<GLADloadproc>(glfwGetProcAddress);
 		bool success = gladLoadGLLoader(GLADaddress) == 0;
 		if (success) {
-			std::cerr << "Failed to initialize GLAD" << std::endl;
+			utils::Logger::LogError("Failed to initialize GLAD");
 			std::terminate();
 		}
 
@@ -190,7 +202,7 @@ namespace core {
 	void WindowManager::HandleGamepadInput() {
 		GLFWgamepadstate state;
 		static const float JOYSTICK_DEADZONE = 0.2;
-		auto timestamp = EngineUtils::GetGameTime();
+		auto timestamp = utils::GetGameTime();
 
 		PollGamepadButtons(state, timestamp);
 		
@@ -222,7 +234,7 @@ namespace core {
 
 	}
 
-	void WindowManager::PollGamepadButtons(GLFWgamepadstate& state, const EngineUtils::GameTime& timestamp){
+	void WindowManager::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
 		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
 			return;
 		}
@@ -255,7 +267,10 @@ namespace core {
 	}
 
 	void WindowManager::ReportWindowError(int error, const char* description) {
-		std::cerr << "Error: #" << error << ", " << description << std::endl;
+		std::stringstream errorMsg;
+		errorMsg << "Error: #" << error << ", " << description;
+
+		utils::Logger::LogError(errorMsg.str());
 	}
 
 	void WindowManager::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
@@ -267,7 +282,7 @@ namespace core {
 
 	void WindowManager::KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		//Get time stamp for KeyBoardInput
-		auto timeStamp = EngineUtils::GetGameTime();
+		auto timeStamp = utils::GetGameTime();
 
 		//Create Input wrapper object
 		KeyboardInput input(
@@ -286,7 +301,7 @@ namespace core {
 
 	void WindowManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 		//Get time stamp for MouseButton event
-		auto timeStamp = EngineUtils::GetGameTime();
+		auto timeStamp = utils::GetGameTime();
 
 		//Create Coati MouseInput
 		MouseInput input(

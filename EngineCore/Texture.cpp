@@ -1,5 +1,4 @@
 //STD Headers
-#include <iostream>
 
 //Library Headers
 #ifndef STB_IMAGE_IMPLEMENTATION
@@ -9,16 +8,11 @@
 
 //Void Engine Headers
 #include "Texture.h"
+#include "Logger.h"
 
 namespace core {
-	Texture::Texture(const std::string& name, const std::string& texturePath)
-		: Resource(texturePath), Name(std::move(name)), TextureHandle(-1), TextureUnit(0), ImageData(nullptr), 
-		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1) {
-
-	}
-
-	Texture::Texture(const std::string& name, const std::string& texturePath, GLint textureUnit)
-		: Resource(texturePath), Name(std::move(name)), TextureHandle(-1), TextureUnit(textureUnit), ImageData(nullptr),
+	Texture::Texture(const std::string& texturePath)
+		: Resource(texturePath), TextureHandle(-1), ImageData(nullptr), 
 		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1) {
 
 	}
@@ -48,9 +42,13 @@ namespace core {
 		return false;
 	}
 
-	void Texture::GenerateTextureInfo() {
+	void Texture::Initialize() {
+		if (IsInitialized) {
+			utils::Logger::LogDebug("Texture [" + ResourceID.StringID + "] has already been initialized");
+			return;
+		}
 		if (!ImageData) {
-			std::cout << "Error: Texture not loaded. Cannot generate OpenGL texture info\n";
+			utils::Logger::LogError("Texture not loaded. Cannot generate OpenGL texture info");
 			return;
 		}
 
@@ -75,19 +73,21 @@ namespace core {
 		//Once the image is bound by OpenGL, the raw data is no longer necessary
 		stbi_image_free(ImageData);
 		ImageData = nullptr;
+
+		IsInitialized = true;
 	}
 
 	void Texture::Use() {
-		glActiveTexture(GL_TEXTURE0 + TextureUnit);
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 	}
 
-	std::string Texture::GetName() {
-		return Name;
+	void Texture::SetName(const std::string& name) {
+		TextureName = name;
 	}
 
-	GLint Texture::GetUnit() {
-		return TextureUnit;
+	std::string Texture::GetName() {
+		return TextureName;
 	}
 
 }

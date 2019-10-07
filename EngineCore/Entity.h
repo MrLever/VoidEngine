@@ -25,7 +25,7 @@ namespace core {
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const EngineUtils::Name& name);
+		Entity(const utils::Name& name);
 
 		/**
 		 * Constructor
@@ -96,6 +96,11 @@ namespace core {
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
+		 * Getter for this entity's name
+		 */
+		std::string GetName();
+
+		/**
 		 * Gives ownership of a component to this entity
 		 * @param component The component to add
 		 */
@@ -112,7 +117,7 @@ namespace core {
 		float Velocity;
 
 		/** Entity's name */
-		EngineUtils::Name ID;
+		utils::Name ID;
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;

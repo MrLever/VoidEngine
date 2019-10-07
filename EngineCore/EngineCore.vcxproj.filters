@@ -64,9 +64,6 @@
     <Filter Include="Header Files\Engine Utilities">
       <UniqueIdentifier>{84aa6ca0-4105-4183-ae32-d96c63b44742}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Utilities\Resource Manager">
-      <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Utilities\Configuration Manager">
       <UniqueIdentifier>{3916f485-6976-4a06-9e2c-d89e6f530762}</UniqueIdentifier>
     </Filter>
@@ -78,9 +75,6 @@
     </Filter>
     <Filter Include="Source Files\Engine Utilities\Configuration Manager">
       <UniqueIdentifier>{b8550037-cd20-4d4b-a946-9bb1260f2f47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Utilities\Resource Manager">
-      <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
@@ -115,6 +109,12 @@
     <Filter Include="Source Files\Gameplay Framework\Entity System\Factories">
       <UniqueIdentifier>{7a10daa1-b5a0-4421-aece-b3c47b7cd224}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Utilities\Resource Management">
+      <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Utilities\Resource Management">
+      <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -144,9 +144,6 @@
     <ClCompile Include="Configurable.cpp">
       <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Serializable.cpp">
-      <Filter>Source Files\Engine Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
@@ -159,11 +156,8 @@
     <ClCompile Include="ThreadPoolWorker.cpp">
       <Filter>Source Files\Engine Utilities\ThreadPool</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Resource.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
+      <Filter>Source Files\Engine Utilities\Resource Management</Filter>
     </ClCompile>
     <ClCompile Include="Configuration.cpp">
       <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
@@ -192,9 +186,6 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceHandle.cpp">
-      <Filter>Source Files\Engine Utilities\Resource Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
@@ -221,6 +212,15 @@
     </ClCompile>
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityData.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\Engine Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonResource.cpp">
+      <Filter>Source Files\Engine Utilities\Resource Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +260,6 @@
     <ClInclude Include="Configurable.h">
       <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Serializable.h">
-      <Filter>Header Files\Engine Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>
     </ClInclude>
@@ -278,14 +275,11 @@
     <ClInclude Include="ThreadPoolWorker.h">
       <Filter>Header Files\Engine Utilities\ThreadPool</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Resource Management</Filter>
     </ClInclude>
     <ClInclude Include="ResourceHandle.h">
-      <Filter>Header Files\Engine Utilities\Resource Manager</Filter>
+      <Filter>Header Files\Engine Utilities\Resource Management</Filter>
     </ClInclude>
     <ClInclude Include="Configuration.h">
       <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
@@ -346,6 +340,18 @@
     </ClInclude>
     <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityData.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceAllocator.h">
+      <Filter>Header Files\Engine Utilities\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonResource.h">
+      <Filter>Header Files\Engine Utilities\Resource Management</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

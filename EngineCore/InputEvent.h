@@ -12,7 +12,7 @@ namespace core {
 	 * Structure to capture button and axis 
 	 */
 	struct InputEvent {
-		EngineUtils::Name EventName;
+		utils::Name EventName;
 		
 		InputEvent(const std::string& name);
 	};

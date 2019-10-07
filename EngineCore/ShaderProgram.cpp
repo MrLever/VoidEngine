@@ -1,20 +1,20 @@
 //STD Headers
-#include <iostream>
 
 //Library Headers
 
 //Void Engine Headers
 #include "ShaderProgram.h"
+#include "Logger.h"
 
 namespace core {
 
 	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
 		: ProgramName(std::move(name)), ProgramHandle(-1) {
 
-		bool vertexValid = vertex->Compile();
-		bool fragmentValid = fragment->Compile();
+		vertex->Initialize();
+		fragment->Initialize();
 
-		if (vertexValid && fragmentValid) {
+		if (vertex->IsValid() && fragment->IsValid()) {
 
 			ProgramHandle = glCreateProgram();
 			glAttachShader(ProgramHandle, vertex->ShaderHandle);
@@ -28,10 +28,13 @@ namespace core {
 			if (!success) {
 				glGetShaderInfoLog(ProgramHandle, 1024, NULL, infoBuffer);
 				
-				std::cout << "SHADER LINK ERROR:\n";
-				std::cout << "\tVertex Shader: " << vertex->ResourcePath << "\n";
-				std::cout << "\tFragment Shader: " << fragment->ResourcePath << "\n";
+				std::stringstream errorMessage;
 
+				errorMessage << "SHADER LINK ERROR:\n";
+				errorMessage << "\tVertex Shader: " << vertex->ResourcePath << "\n";
+				errorMessage << "\tFragment Shader: " << fragment->ResourcePath << "\n";
+
+				utils::Logger::LogError(errorMessage.str());
 				ProgramValid = false;
 			}
 
@@ -67,7 +70,7 @@ namespace core {
 
 	void ShaderProgram::Use() {
 		if (!ProgramValid) {
-			std::cout << "Error: Attempted to use invalid shader program!\n";
+			utils::Logger::LogError("Attempted to use invalid shader program!");
 			return;
 		}
 

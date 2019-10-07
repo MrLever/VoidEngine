@@ -10,7 +10,7 @@
 #include "Name.h"
 #include "ResourceHandle.h"
 
-namespace EngineUtils {
+namespace utils {
 	
 	/**
 	 * Configurable is an abstract base class that allows implementers to 
@@ -24,12 +24,12 @@ namespace EngineUtils {
 		 * @param configFile The configuration file used by the configurable object
 		 * @param resourceManager The resource manager this object depends on to load resources
 		 */
-		Configurable(const ResourceHandle& config);
+		Configurable(const ResourceHandle<Configuration>& config);
 		
 		/**
 		 * Allows the caller to instruct this object to load and apply a new configuration
 		 */
-		virtual void Reconfigure(ResourceHandle newResource);
+		virtual void Reconfigure(ResourceHandle<Configuration> newResource);
 
 		/**
 		 * Pure virtual function to ensure all subclasses define configuration behavior
@@ -41,7 +41,7 @@ namespace EngineUtils {
 		std::string ConfigFilePath;
 
 		/** The configuration resource to be used by this object */
-		ResourceHandle Config;
+		ResourceHandle<Configuration> Config;
 
 	};
 }

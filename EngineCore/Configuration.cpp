@@ -8,9 +8,9 @@
 //Void Engine Headers
 #include "Configuration.h"
 
-namespace EngineUtils {
+namespace utils {
 	
-	Configuration::Configuration(const std::string& configFile) : Resource(configFile) {
+	Configuration::Configuration(const std::string& configFile) : JsonResource(configFile) {
 
 	}
 
@@ -18,21 +18,4 @@ namespace EngineUtils {
 
 	}
 
-	bool Configuration::Load() {
-		
-		std::ifstream configFile(ResourcePath);
-
-		if (!configFile.is_open()) {
-			return LoadErrorResource();
-		}
-
-		configFile >> ConfigData;
-		return true;
-	}
-
-	bool Configuration::LoadErrorResource() {
-		ConfigData["Error"] = true;
-
-		return true;
-	}
 }
