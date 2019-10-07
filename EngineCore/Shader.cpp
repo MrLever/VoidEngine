@@ -45,10 +45,6 @@ namespace core {
 	}
 
 	void Shader::Initialize() {
-
-	}
-
-	bool Shader::Compile() {
 		//Attempt to compile shader
 		const char* shaderCode = ShaderSource.c_str();
 		ShaderHandle = glCreateShader(static_cast<GLuint>(Type));
@@ -61,13 +57,16 @@ namespace core {
 		glGetShaderiv(ShaderHandle, GL_COMPILE_STATUS, &success);
 
 		if (!success) {
+			ResourceValid = false;
 			glGetShaderInfoLog(ShaderHandle, 1024, NULL, infoBuffer);
-			std::cout << "SHADER COMPILATION ERROR:\n";
-			std::cout << "\tShader Location: " << ResourcePath << "\n";
-			std::cout << "\tShader Source: \n" << ShaderSource << "\n";
-			return false;
+			std::stringstream errorStream;
+			errorStream << "SHADER COMPILATION ERROR:\n";
+			errorStream << "\tShader Location: " << ResourcePath << "\n";
+			errorStream << "\tShader Source: \n" << ShaderSource << "\n";
+
+			utils::Logger::LogError(errorStream.str());
 		}
 
-		return true;
+		IsInitialized = true;
 	}
 }

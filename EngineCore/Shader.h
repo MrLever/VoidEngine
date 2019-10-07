@@ -44,18 +44,12 @@ namespace core {
 		bool LoadErrorResource() override;
 
 		/**
-		 * Allows the resource to be intialized after loading.
+		 * Compiles shader code
 		 */
 		virtual void Initialize();
 
 
 	private:
-		/**
-		 * Compiles shader code
-		 * @return Whether that compilation was successful
-		 */
-		bool Compile();
-
 		/**
 		 * Enumeration value that specifies what type of shader this is
 		 */

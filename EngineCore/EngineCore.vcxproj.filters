@@ -144,9 +144,6 @@
     <ClCompile Include="Configurable.cpp">
       <Filter>Source Files\Engine Utilities\Configuration Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Serializable.cpp">
-      <Filter>Source Files\Engine Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Engine Core\Rendering System</Filter>
     </ClCompile>
@@ -262,9 +259,6 @@
     </ClInclude>
     <ClInclude Include="Configurable.h">
       <Filter>Header Files\Engine Utilities\Configuration Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Serializable.h">
-      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Engine Core\Rendering System</Filter>

@@ -13,8 +13,6 @@
 #include "ResourceAllocator.h"
 
 namespace core {
-	//Forward class declarations
-	class Level;
 
 	class ComponentFactory	{
 	public:

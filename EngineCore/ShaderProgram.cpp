@@ -1,5 +1,4 @@
 //STD Headers
-#include <sstream>
 
 //Library Headers
 
@@ -12,10 +11,10 @@ namespace core {
 	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
 		: ProgramName(std::move(name)), ProgramHandle(-1) {
 
-		bool vertexValid = vertex->Compile();
-		bool fragmentValid = fragment->Compile();
+		vertex->Initialize();
+		fragment->Initialize();
 
-		if (vertexValid && fragmentValid) {
+		if (vertex->IsValid() && fragment->IsValid()) {
 
 			ProgramHandle = glCreateProgram();
 			glAttachShader(ProgramHandle, vertex->ShaderHandle);
