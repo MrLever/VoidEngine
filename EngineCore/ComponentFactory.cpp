@@ -8,6 +8,12 @@
 #include "Level.h"
 #include "Texture.h"
 
+//SuperVoid Component Includes
+#include "FlyingMovementComponent.h"
+#include "GraphicsComponent.h"
+#include "CameraComponent.h"
+#include "PanMovementComponent.h"
+
 namespace core {
 	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator) 
 		: TextureCache(textureAllocator) {
@@ -36,6 +42,14 @@ namespace core {
 		else if (type == "FlyingMovementComponent") {
 			auto tempHandle = new FlyingMovementComponent(parent);
 			
+			float movespeed = componentData["speed"].get<float>();
+			tempHandle->SetMoveSpeed(movespeed);
+
+			component = tempHandle;
+		}
+		else if (type == "PanMovementComponent") {
+			auto tempHandle = new PanMovementComponent(parent);
+
 			float movespeed = componentData["speed"].get<float>();
 			tempHandle->SetMoveSpeed(movespeed);
 
@@ -70,6 +84,9 @@ namespace core {
 			}
 
 			component = entityDrawData;
+		}
+		else {
+			utils::Logger::LogError("Component Factory recieved request to construct unkown component [" + type + "].");
 		}
 
 		return component;

@@ -7,21 +7,21 @@
 #include "MovementComponent.h"
 
 namespace core {
-	
 	/**
-	 * @class FlyingMovementComponent
-	 * @brief The FlyingMovementComponent allows actors (primarily the player actor)
-	 *        to respond to player inputs like a flying FPS camera 
+	 * @class PanMovementComponent
+	 * @brief Class that allows entities to be controlled 
+	 *        with movement restricted to a plane
 	 */
-	class FlyingMovementComponent :	public MovementComponent {
+	class PanMovementComponent : public MovementComponent {
 	public:
 		/**
 		 * Constructor
+		 * @param parent The Entity this Component is attatched to
 		 */
-		FlyingMovementComponent(Entity* parent);
+		PanMovementComponent(Entity* parent);
 
 		/**
-		 * Function to allow the component to update it's parent's position in accordance with 
+		 * Function to allow the component to update it's parent's position in accordance with
 		 * the player's input
 		 * @param input The player's input
 		 */
@@ -34,4 +34,5 @@ namespace core {
 		 */
 		void Input(const InputAxis& axis, float deltaTime) override;
 	};
+
 }
