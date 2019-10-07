@@ -72,9 +72,10 @@ namespace core {
 			return entity;
 		}
 
+		//After the entity has been constructed, it needs it's components to be attatched
 		auto componentData = data.GetAttribute<nlohmann::json>("components");
 
-		if (componentData.is_array()) {
+		if (!componentData.is_null()) {
 			CompFactory.ProcessComponentData(entity, componentData);
 		}
 
