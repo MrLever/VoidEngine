@@ -4,11 +4,14 @@
 
 //Void Engine Headers
 #include "EntityFactory.h"
+#include "ComponentFactory.h"
+#include "Level.h"
+
+//Entity Includes
+#include "PlayerEntity.h"
 #include "CubeEntity.h"
 #include "BouncingCube.h"
-#include "ComponentFactory.h"
-#include "PlayerEntity.h"
-#include "Level.h"
+#include "StaticObserver.h"
 
 namespace core {
 	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel->TextureCache) {
@@ -56,6 +59,13 @@ namespace core {
 		}
 		else if (type == "BouncingCube") {
 			entity = new SuperVoid::BouncingCube(name);
+		}
+		else if (type == "StaticObserver") {
+			entity = new StaticObserver(name);
+		}
+		else {
+			utils::Logger::LogError("EntityFactory received unkown entity type [" + type + "] Please add it to the know list of entities");
+			return entity;
 		}
 
 		auto componentData = data.GetAttribute<nlohmann::json>("components");

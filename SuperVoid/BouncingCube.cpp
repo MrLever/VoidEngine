@@ -12,6 +12,7 @@ namespace SuperVoid {
 	}
 
 	BouncingCube::BouncingCube(const utils::Name& name) : Entity(name) {
+		Velocity = 0.05f;
 	}
 	
 	void BouncingCube::BeginPlay() {
