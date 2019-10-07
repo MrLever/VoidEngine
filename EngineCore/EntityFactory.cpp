@@ -9,6 +9,7 @@
 
 //Entity Includes
 #include "PlayerEntity.h"
+#include "PlayerShip.h"
 #include "CubeEntity.h"
 #include "BouncingCube.h"
 #include "StaticObserver.h"
@@ -62,6 +63,9 @@ namespace core {
 		}
 		else if (type == "StaticObserver") {
 			entity = new StaticObserver(name);
+		}
+		else if (type == "PlayerShip") {
+			entity = new SuperVoid::PlayerShip(name);
 		}
 		else {
 			utils::Logger::LogError("EntityFactory received unkown entity type [" + type + "] Please add it to the know list of entities");

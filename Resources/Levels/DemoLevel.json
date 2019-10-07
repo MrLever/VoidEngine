@@ -3,10 +3,16 @@
     "entities":
     [
         {
-            "name":"FloatingPawn",
+            "name":"Camera1",
             "type":"StaticObserver",
             "location": [0, 0, 15],
             "rotation": [0, -90, 0]
+        },
+        {
+            "name":"Player1",
+            "type":"PlayerShip",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0]
         },
         {
             "name":"TestCube1",

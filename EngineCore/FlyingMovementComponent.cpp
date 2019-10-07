@@ -8,7 +8,7 @@
 namespace core {
 
 	FlyingMovementComponent::FlyingMovementComponent(Entity* parent) 
-		: Component(std::move(parent)), MoveSpeed(0.0f) {
+		: MovementComponent(std::move(parent)) {
 	
 	}
 
@@ -48,14 +48,6 @@ namespace core {
 				Parent->GetPostion() + right * axis.Value * speed
 			);
 		}
-	}
-
-	void FlyingMovementComponent::SetMoveSpeed(float speed) {
-		MoveSpeed = speed;
-	}
-
-	float FlyingMovementComponent::GetMoveSpeed() {
-		return MoveSpeed;
 	}
 
 }

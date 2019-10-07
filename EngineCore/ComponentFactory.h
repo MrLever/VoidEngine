@@ -7,10 +7,8 @@
 //Void Engine Headers
 #include "Entity.h"
 #include "Component.h"
-#include "FlyingMovementComponent.h"
-#include "GraphicsComponent.h"
-#include "CameraComponent.h"
 #include "ResourceAllocator.h"
+#include "Texture.h"
 
 namespace core {
 
