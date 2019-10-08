@@ -1,7 +1,7 @@
 # SuperVoid
 This is the repository for SuperVoid, and asteroids clone made from scratch with C++ and OpenGL. 
 
-This is a side project, development started December 2018.
+This is a side project, development started December 2018. Version 1.0 should be done around December 2019.
 
 ![](docs/Demo.gif)
 
