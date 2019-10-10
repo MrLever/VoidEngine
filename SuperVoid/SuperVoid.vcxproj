@@ -103,6 +103,10 @@
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
+    <CustomBuildStep>
+      <Outputs>nonexistentfile</Outputs>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"</Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,6 +122,10 @@
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
+    <CustomBuildStep>
+      <Outputs>nonexistentfile</Outputs>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"</Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -136,6 +144,10 @@
       <AdditionalDependencies>glfw3.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrtd.lib;</IgnoreSpecificDefaultLibraries>
     </Link>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>
+      <Outputs>nonexistentfile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -155,6 +167,10 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <IgnoreSpecificDefaultLibraries>msvcrtd.lib;</IgnoreSpecificDefaultLibraries>
     </Link>
+    <CustomBuildStep>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>
+      <Outputs>nonexistentfile</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BouncingCube.cpp" />

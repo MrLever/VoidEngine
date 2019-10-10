@@ -61,7 +61,11 @@ namespace core {
 			auto model = ModelCache->GetResource(componentData["model"].get<std::string>());
 			model->Initialize();
 			entityDrawData->SetModel(model);
-
+			entityDrawData->AddMaterial(
+				componentData["shader"]["name"].get<std::string>(),
+				componentData["shader"]["vertexShader"].get<std::string>(),
+				componentData["shader"]["fragmentShader"].get<std::string>()
+			);
 			component = entityDrawData;
 		}
 		else {

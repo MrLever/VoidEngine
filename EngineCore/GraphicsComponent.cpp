@@ -24,7 +24,7 @@ namespace core {
 	}
 
 	void GraphicsComponent::SetModel(std::shared_ptr<Model> model) {
-
+		ComponentModel = std::move(model);
 	}
 
 	void GraphicsComponent::AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath) {
