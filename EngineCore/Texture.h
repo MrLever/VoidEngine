@@ -46,6 +46,9 @@ namespace core {
 		 */
 		void Use();
 
+
+		GLuint GetTextureID();
+
 		/**
 		 * Sets this textures name for use in GLSL uniform assignment
 		 */

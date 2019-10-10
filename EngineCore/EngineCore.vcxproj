@@ -325,6 +325,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticObserver.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureHandle.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="ThreadPoolWorker.h" />
     <ClInclude Include="ThreadSafeQueue.h" />

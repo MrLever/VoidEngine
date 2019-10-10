@@ -6,7 +6,8 @@
 
 //Void Engine Headers
 #include "Vertex.h"
-#include "Texture.h"
+#include "TextureHandle.h"
+#include "ShaderProgram.h"
 
 namespace core {
 
@@ -15,7 +16,7 @@ namespace core {
 		/**
 		 * Constructor 
 		 */
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<Texture> textures);
+		Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TextureHandle> textures);
 
 		/**
 		 * Destructor 
@@ -25,15 +26,14 @@ namespace core {
 		/**
 		 * Function to draw mesh
 		 */
-		void Draw();
+		void Draw(ShaderProgram shader) const;
 
 		/**
 		 * Function to set up OpenGL draw data
 		 */
-		void Intialize();
+		void Initialize();
 
 	private:
-
 		/** The mesh's vertex data */
 		std::vector<Vertex> Vertices;
 
@@ -41,7 +41,7 @@ namespace core {
 		std::vector<unsigned> Indices;
 
 		/** Textures used to draw mesh */
-		std::vector<Texture> Textures;
+		std::vector<TextureHandle> Textures;
 
 		/** Vertex Array Object used to render this mesh */
 		unsigned VAO;

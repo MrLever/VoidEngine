@@ -56,19 +56,19 @@ namespace core {
 		glGenTextures(1, &TextureHandle);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 
+		//Pass image data to OpenGL
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, ImageData);
+
+		//Instruct OpenGL to generate a Mipmap
+		glGenerateMipmap(GL_TEXTURE_2D);
+		
 		//Set textures to repeat at edges
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	
 		//Set texture filtering options
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		//Pass image data to OpenGL
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, ImageData);
-		
-		//Instruct OpenGL to generate a Mipmap
-		glGenerateMipmap(GL_TEXTURE_2D);
 
 		//Once the image is bound by OpenGL, the raw data is no longer necessary
 		stbi_image_free(ImageData);
@@ -80,6 +80,10 @@ namespace core {
 	void Texture::Use() {
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
+	}
+
+	GLuint Texture::GetTextureID() {
+		return TextureHandle;
 	}
 
 	void Texture::SetName(const std::string& name) {

@@ -28,6 +28,10 @@ namespace utils {
 		return ResourceValid;
 	}
 
+	bool Resource::GetIsInitialized() {
+		return IsInitialized;
+	}
+
 	bool Resource::GetIsComposite() {
 		return IsComposite;
 	}
