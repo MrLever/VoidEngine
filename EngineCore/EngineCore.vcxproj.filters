@@ -240,6 +240,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Model Loading</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -385,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
