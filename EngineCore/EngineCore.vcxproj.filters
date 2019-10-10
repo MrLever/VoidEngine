@@ -115,6 +115,12 @@
     <Filter Include="Source Files\Engine Utilities\Resource Management">
       <UniqueIdentifier>{a83170ae-6a1f-4569-90fc-e515ef664027}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Rendering System\Model Loading">
+      <UniqueIdentifier>{052cae24-5aa9-4e73-8158-dec082555685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Rendering System\Model Loading">
+      <UniqueIdentifier>{f555a287-f13d-4852-8a3a-33d88b17eb46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -226,10 +232,13 @@
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
     </ClCompile>
     <ClCompile Include="PanMovementComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Engine Core\Rendering System\Model Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,10 +375,16 @@
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
     <ClInclude Include="PanMovementComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

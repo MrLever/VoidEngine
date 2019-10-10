@@ -71,28 +71,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CodeAnalysisRuleSet>NativeMinimumRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)SuperVoid;$(SolutionDir)Dependencies;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLAD\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +124,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <CustomBuildStep>
       <Outputs>bar.baz.biz.NonExistentFile</Outputs>
     </CustomBuildStep>
+    <Lib>
+      <AdditionalDependencies>assimp-vc142-mtd.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -158,6 +161,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <CustomBuildStep>
       <Outputs>bar.baz.biz.NonExistentFile</Outputs>
     </CustomBuildStep>
+    <Lib>
+      <AdditionalDependencies>assimp-vc142-mtd.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -195,6 +201,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <CustomBuildStep>
       <Outputs>bar.baz.biz.NonExistentFile</Outputs>
     </CustomBuildStep>
+    <Lib>
+      <AdditionalDependencies>assimp-vc142-mt.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -233,6 +242,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <CustomBuildStep>
       <Outputs>bar.baz.biz.NonExistentFile</Outputs>
     </CustomBuildStep>
+    <Lib>
+      <AdditionalDependencies>assimp-vc142-mt.lib</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraComponent.cpp" />
@@ -249,6 +261,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PanMovementComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
@@ -289,6 +302,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PanMovementComponent.h" />
     <ClInclude Include="PlayerController.h" />
@@ -314,6 +328,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="ThreadSafeQueue.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Name.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="MessageBusNode.h" />
     <ClInclude Include="Message.h" />
