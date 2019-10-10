@@ -25,6 +25,7 @@ namespace core {
 
 		/**
 		 * Function to draw mesh
+		 * @param shader The shader to use when drawing this mesh
 		 */
 		void Draw(ShaderProgram* shader) const;
 

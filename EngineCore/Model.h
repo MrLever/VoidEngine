@@ -41,21 +41,38 @@ namespace core {
 
 		/**
 		 * Draws model in scene
+		 * @param shader The shader to use when drawing this model
 		 */
 		void Draw(ShaderProgram* shader) const;
 
 	private:
-
+		/**
+		 * Recursive function to process the Assimp data structures for model loading
+		 * @param node The current node being processed
+		 * @param scene The model's current scene
+		 */
 		void ProcessAssimpNode(aiNode* node, const aiScene* scene);
 
+		/**
+		 * Helper function for ProcessAssimpNode that constructs and populates a mesh
+		 * @param mesh The Assimp mesh data to process
+		 * @param scene The model's current scene
+		 */
 		Mesh ProcessAssimpMesh(aiMesh* mesh, const aiScene* scene);
 
+		/**
+		 * Helper function for ProcessAssimpMesh that loads all the textures referenced by the mesh being loaded
+		 * @param mat The material specifying the textures to load
+		 * @param type The type of texture being loaded
+		 * @param typeName the string literal representing the type name
+		 */
 		std::vector<TextureHandle> LoadTextures(
 			aiMaterial* mat, 
 			aiTextureType type, 
 			const std::string& typeName
 		);
 
+		/** The directory this model was loaded from */
 		std::filesystem::path ModelDirectory;
 
 		/** The set of meshes that make up this model */
