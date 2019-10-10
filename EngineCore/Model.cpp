@@ -133,9 +133,9 @@ namespace core {
 
 			auto texture = TextureCache->GetResource(texturePath);
 
-			if (!texture->GetIsInitialized()) {
+			/*if (!texture->GetIsInitialized()) {
 				texture->Initialize();
-			}
+			}*/
 
 			TextureHandle handle(
 				texture->GetTextureID(),
