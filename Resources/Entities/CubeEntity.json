@@ -3,7 +3,7 @@
     [
         {
             "type": "GraphicsComponent",
-            "model":"Resources/Models/Cube/cube.obj",
+            "model":"Resources/Models/Nanosuit/nanosuit.obj",
             "shader":
             {
                 "name":"CubeMaterial",

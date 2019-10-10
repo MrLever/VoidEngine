@@ -17,6 +17,7 @@ namespace core {
 	}
 
 	bool Model::Load() {
+		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -128,7 +129,7 @@ namespace core {
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
-			auto texturePath = ModelDirectory.string() + str.C_Str();
+			auto texturePath = ModelDirectory.string() + "/" + str.C_Str();
 
 			auto texture = TextureCache->GetResource(texturePath);
 
