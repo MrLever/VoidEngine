@@ -8,7 +8,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "ResourceAllocator.h"
-#include "Texture.h"
+#include "Model.h"
 
 namespace core {
 
@@ -18,7 +18,7 @@ namespace core {
 		 * Constructor
 		 * @param textureAllocator ResourceAllocator to allow loading and caching of texture loads.
 		 */
-		ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator);
+		ComponentFactory(ResourceAllocatorPtr<Model> modelAllocator);
 
 		/**
 		 * Creates and attatches components specified by componentList to parent
@@ -37,7 +37,7 @@ namespace core {
 
 	private:
 		/** Allows loading and caching of textures */
-		ResourceAllocatorPtr<Texture> TextureCache;
+		ResourceAllocatorPtr<Model> ModelCache;
 	};
 
 }

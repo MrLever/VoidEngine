@@ -59,7 +59,7 @@ namespace core {
 		
 
 		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
-		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
+		ModelCache = std::make_shared<utils::ResourceAllocator<Model>>(GameThreadPool);
 
 		LevelEntityFactory = new EntityFactory(this);
 

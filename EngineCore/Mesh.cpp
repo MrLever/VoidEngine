@@ -12,7 +12,7 @@ namespace core {
 		VAO = VBO = EBO = 0;
 	}
 
-	void Mesh::Draw(ShaderProgram shader) const {
+	void Mesh::Draw(ShaderProgram* shader) const {
 		unsigned int diffuseNr = 1;
 		unsigned int specularNr = 1;
 
@@ -28,14 +28,14 @@ namespace core {
 			else if (name == "texture_specular")
 				number = std::to_string(specularNr++);
 
-			shader.SetUniform(("material." + name + number).c_str(), i);
+			shader->SetUniform(("material." + name + number).c_str(), i);
 			glBindTexture(GL_TEXTURE_2D, Textures[i].TextureID);
 		}
 		glActiveTexture(GL_TEXTURE0);
 
 		// draw mesh
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, (GLuint)Indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 

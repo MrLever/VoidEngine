@@ -4,6 +4,9 @@
 #include <filesystem>
 
 //Library Headers
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 //Void Engine Headers
 #include "Resource.h"
@@ -39,7 +42,7 @@ namespace core {
 		/**
 		 * Draws model in scene
 		 */
-		void Draw(ShaderProgram shader) const;
+		void Draw(ShaderProgram* shader) const;
 
 	private:
 

@@ -13,6 +13,7 @@
 #include "Name.h"
 #include "ResourceAllocator.h"
 #include "Resource.h"
+#include "Model.h"
 
 namespace core {
 
@@ -76,8 +77,11 @@ namespace core {
 		std::vector<Entity*> GetScene();
 
 	private:
+		/** Cache of entity data files */
 		ResourceAllocatorPtr<EntityData> EntityDataCache;
-		ResourceAllocatorPtr<Texture> TextureCache;
+
+		/** Cahce of actor models */
+		ResourceAllocatorPtr<Model> ModelCache;
 
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory* LevelEntityFactory;

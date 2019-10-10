@@ -26,7 +26,7 @@ namespace core {
 		/**
 		 * Function to draw mesh
 		 */
-		void Draw(ShaderProgram shader) const;
+		void Draw(ShaderProgram* shader) const;
 
 		/**
 		 * Function to set up OpenGL draw data

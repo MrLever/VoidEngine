@@ -15,7 +15,7 @@
 #include "StaticObserver.h"
 
 namespace core {
-	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel->TextureCache) {
+	EntityFactory::EntityFactory(Level* currLevel) : CurrLevel(currLevel), CompFactory(currLevel->ModelCache) {
 
 	}
 

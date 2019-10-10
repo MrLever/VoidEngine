@@ -12,6 +12,7 @@
 #include "Component.h"
 #include "Vector.h"
 #include "Rotator.h"
+#include "Model.h"
 
 namespace core {
 	//Forward class declarations
@@ -42,7 +43,7 @@ namespace core {
 		 * Sets this component's 3D model
 		 * @param verts The vertices of the 3D model
 		 */
-		void SetModel(const std::vector<float>& verts);
+		void SetModel(std::shared_ptr<Model> model);
 
 		/** 
 		 * Assigns this component's 3D model a shader
@@ -51,14 +52,6 @@ namespace core {
 		 * @param fragShaderPath The path to the materials fragment shader
 		 */
 		void AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath);
-
-		/**
-		 * Adds a texture the the 3D model
-		 * @param name The name of the texture
-		 * @param texturePath A path to the texture's raw data
-		 * @param unit The texture unit this texture fills
-		 */
-		void AddTexture(std::shared_ptr<Texture> texture, GLint unit);
 
 		/**
 		 * Function to allow the renderer to draw this component
@@ -73,10 +66,10 @@ namespace core {
 		std::vector<float> Vertices;
 
 		/** The Shader Program to use when drawing this model */
-		ShaderProgram* Material;
+		ShaderProgram* ComponentShader;
 
-		/** The set of textures this onject uses when drawn */
-		std::vector<std::shared_ptr<Texture>> Textures;
+		/** This component's 3D model */
+		std::shared_ptr<Model> ComponentModel;
 
 		/** Whether this graphics component should be drawn */
 		bool IsValid;

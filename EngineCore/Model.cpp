@@ -1,9 +1,7 @@
 //STD Headers
 
 //Library Headers
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+
 
 //Void Engine Headers
 #include "Model.h"
@@ -42,7 +40,7 @@ namespace core {
 		}
 	}
 
-	void Model::Draw(ShaderProgram shader) const {
+	void Model::Draw(ShaderProgram* shader) const {
 		for (auto& mesh : Meshes) {
 			mesh.Draw(shader);
 		}
