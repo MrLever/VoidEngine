@@ -24,9 +24,6 @@ namespace core {
 	}
 
 	bool Texture::Load() {
-		//stbi is loading files upside down, so flip it back
-		stbi_set_flip_vertically_on_load(true);
-
 		//Load image data from file into heap
 		ImageData = stbi_load(ResourcePath.string().c_str(), &TextureWidth, &TextureHeight, &TextureColorChannels, 0);
 		

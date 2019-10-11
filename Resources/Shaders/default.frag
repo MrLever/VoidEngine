@@ -18,7 +18,11 @@ out vec4 fragColor;
 
 void main(){
     //Calculate diffuse color
-    vec4 diffuse = texture(material.texture_diffuse1, texCoord);
+    //vec4 diffuse = texture(material.texture_diffuse1, texCoord);
+    //vec4 diffuse = vec4(0.5, 0.5, 0.5, 1);
+    vec4 diffuse = 
+        material.base_diffuse + 
+        texture(material.texture_diffuse1, texCoord);;
 
     fragColor = diffuse;
 }

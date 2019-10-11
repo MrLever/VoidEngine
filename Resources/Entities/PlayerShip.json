@@ -11,8 +11,8 @@
             "shader":
             {
                 "name":"CubeMaterial",
-                "vertexShader":"Resources/Shaders/cube.vert",
-                "fragmentShader":"Resources/Shaders/cube.frag"
+                "vertexShader":"Resources/Shaders/default.vert",
+                "fragmentShader":"Resources/Shaders/default.frag"
             }
         }
     ]

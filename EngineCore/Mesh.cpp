@@ -8,7 +8,11 @@
 
 namespace core {
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
-		: Vertices(std::move(vertices)), Indices(std::move(indices)), Textures(std::move(textures)) {
+		: MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
+		  Vertices(std::move(vertices)), 
+		  Indices(std::move(indices)), 
+		  Textures(std::move(textures)) {
+		
 		VAO = VBO = EBO = 0;
 	}
 
@@ -39,6 +43,12 @@ namespace core {
 		}
 		glActiveTexture(GL_TEXTURE0);
 
+		//A diffuseNr of one after the loop above implies there were no diffuse textures
+		if (diffuseNr == 1) {
+			//Therefore we should set the shader's default diffuse color
+			shader->SetUniform("material.base_diffuse", MaterialColor);
+		}
+
 		// draw mesh
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, (GLuint)Indices.size(), GL_UNSIGNED_INT, 0);
@@ -51,6 +61,10 @@ namespace core {
 		for (auto& texture : Textures) {
 			texture->Initialize();
 		}
+	}
+
+	void Mesh::SetMaterialDiffuse(math::Color color) {
+		MaterialColor = color;
 	}
 
 	void Mesh::InitializeGeometryData() {

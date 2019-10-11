@@ -52,7 +52,9 @@ namespace core {
 		 */
 		void Use();
 
-
+		/**
+		 * Returns texture's OpenGL ID
+		 */
 		GLuint GetTextureID();
 
 		/**

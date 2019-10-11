@@ -8,6 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Vector.h"
+
 //Void Engine Headers
 #include "Shader.h"
 
@@ -70,7 +72,14 @@ namespace core {
 		 * @param uniformName The name of the uniform to modify
 		 * @param value The value to place in that uniform
 		 */
-		void SetUniform(const std::string& uniformName, glm::mat4 value);
+		void SetUniform(const std::string& uniformName, const glm::mat4& value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
+		void SetUniform(const std::string& uniformName, const math::Vector4& value);
 
 	private:
 		/**

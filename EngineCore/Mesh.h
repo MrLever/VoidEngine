@@ -3,6 +3,7 @@
 #include <vector>
 
 //Library Headers
+#include "Vector.h"
 
 //Void Engine Headers
 #include "Vertex.h"
@@ -34,6 +35,11 @@ namespace core {
 		 */
 		void Initialize();
 
+		/**
+		 * Function to set the material's diffuse color (in the case of a simple, untextured material)
+		 * @param color The material's color
+		 */
+		void SetMaterialDiffuse(math::Color color);
 
 	private:
 		/**
@@ -41,6 +47,9 @@ namespace core {
 		 */
 		void InitializeGeometryData();
 		
+		/** The material's untextured color */
+		math::Color MaterialColor;
+
 		/** The mesh's vertex data */
 		std::vector<Vertex> Vertices;
 

@@ -1,7 +1,7 @@
 //STD Headers
 
 //Library Headers
-
+#include "Vector.h"
 
 //Void Engine Headers
 #include "Model.h"
@@ -105,9 +105,22 @@ namespace core {
 			}
 		}
 
-		//Load Textures
+		math::Color matDiffuseColor;
+		bool isBasicMaterial = false;
+		//Load Material data
 		if (mesh->mMaterialIndex >= 0) {
 			aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
+
+			aiColor4D diffuseColor;
+
+			auto hasBasicColor = aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &diffuseColor);
+			if (hasBasicColor == aiReturn_SUCCESS) {
+				isBasicMaterial = true;
+				matDiffuseColor.X = diffuseColor.r;
+				matDiffuseColor.Y = diffuseColor.g;
+				matDiffuseColor.Z = diffuseColor.b;
+				matDiffuseColor.W = diffuseColor.a;
+			}
 
 			//Load diffuse maps
 			LoadTextures(mat, aiTextureType_DIFFUSE, "texture_diffuse", textures);
@@ -117,7 +130,13 @@ namespace core {
 
 		}
 
-		return Mesh(vertices, indices, textures);
+		Mesh finalMesh(vertices, indices, textures);
+		
+		if (isBasicMaterial) {
+			finalMesh.SetMaterialDiffuse(matDiffuseColor);
+		}
+
+		return finalMesh;
 	}
 
 	void Model::LoadTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName, std::vector<TexturePtr>& textures) {
