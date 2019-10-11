@@ -2,6 +2,7 @@
 //Uniforms
 uniform float desiredColor;
 uniform struct Material {
+    vec4 base_diffuse;
     sampler2D texture_diffuse1;
     sampler2D texture_diffuse2;
     sampler2D texture_diffuse3;

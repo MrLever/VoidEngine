@@ -3,7 +3,7 @@
     [
         {
             "type": "GraphicsComponent",
-            "model":"Resources/Models/Nanosuit/nanosuit.obj",
+            "model":"Resources/Models/Teapot/UtahTeapot.obj",
             "shader":
             {
                 "name":"CubeMaterial",
