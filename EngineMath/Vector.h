@@ -7,8 +7,6 @@
 //Math Headers
 
 namespace math {
-	struct Vector3;
-
 	struct Vector2 {
 		/** The vector's x-component */
 		float X;
@@ -143,16 +141,37 @@ namespace math {
 
 	struct Vector4 {
 		float X;
-		float& R = X;
 
 		float Y;
-		float& G = Y;
 
 		float Z;
-		float& B = Z;
 
 		float W;
-		float& A = W;
+
+		/**
+		 * Constructor
+		 */
+		Vector4();
+
+		/**
+		 * Constructor
+		 */
+		Vector4(float x);
+
+		/**
+		 * Constructor
+		 */
+		Vector4(float x, float y);
+
+		/**
+		 * Constructor
+		 */
+		Vector4(float x, float y, float z);
+
+		/**
+		 * Constructor
+		 */
+		Vector4(float x, float y, float z, float w);
 	};
 
 	using Color = Vector4;

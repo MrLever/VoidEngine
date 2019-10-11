@@ -119,4 +119,28 @@ namespace math {
 			&& this->Z == other.Z;
 	}
 
+	Vector4::Vector4() {
+		X = Y = Z = W = 0;
+
+	}
+
+	Vector4::Vector4(float x) : X(x) {
+		Y = Z = W = 0;
+	}
+
+	Vector4::Vector4(float x, float y) 
+		: X(x), Y(y) {
+
+		Z = W = 0;
+	}
+
+	Vector4::Vector4(float x, float y, float z) : X(x), Y(y), Z(z), W(0) {
+
+	}
+
+	Vector4::Vector4(float x, float y, float z, float w)
+		: X(x), Y(y), Z(z), W(w) {
+
+	}
+
 }
