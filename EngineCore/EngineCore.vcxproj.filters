@@ -392,8 +392,5 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="TextureHandle.h">
-      <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

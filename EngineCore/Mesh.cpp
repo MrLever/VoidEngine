@@ -7,14 +7,14 @@
 #include "Mesh.h"
 
 namespace core {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TextureHandle> textures)
+	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
 		: Vertices(std::move(vertices)), Indices(std::move(indices)), Textures(std::move(textures)) {
 		VAO = VBO = EBO = 0;
 	}
 
 	void Mesh::Draw(ShaderProgram* shader) const {
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
+		unsigned diffuseNr = 1;
+		unsigned specularNr = 1;
 
 
 		for (unsigned int i = 0; i < Textures.size(); i++)
@@ -22,14 +22,20 @@ namespace core {
 			glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
 			// retrieve texture number (the N in diffuse_textureN)
 			std::string number;
-			std::string name = Textures[i].Type;
-			if (name == "texture_diffuse")
-				number = std::to_string(diffuseNr++);
-			else if (name == "texture_specular")
-				number = std::to_string(specularNr++);
+			auto type = Textures[i]->GetType();
+			std::string typeString;
 
-			shader->SetUniform(("material." + name + number).c_str(), i);
-			glBindTexture(GL_TEXTURE_2D, Textures[i].TextureID);
+			if (type == TextureType::DIFFUSE) {
+				typeString = "texture_diffuse";
+				number = std::to_string(diffuseNr++);
+			}
+			else if (type == TextureType::SPECULAR) {
+				typeString = "texture_specular";
+				number = std::to_string(specularNr++);
+			}
+
+			shader->SetUniform(("material." + typeString + number).c_str(), (int)i);
+			glBindTexture(GL_TEXTURE_2D, Textures[i]->GetTextureID());
 		}
 		glActiveTexture(GL_TEXTURE0);
 
@@ -40,6 +46,14 @@ namespace core {
 	}
 
 	void Mesh::Initialize() {
+		InitializeGeometryData();
+
+		for (auto& texture : Textures) {
+			texture->Initialize();
+		}
+	}
+
+	void Mesh::InitializeGeometryData() {
 		//Generate buffers
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);

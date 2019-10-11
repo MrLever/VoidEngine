@@ -65,11 +65,13 @@ namespace core {
 		 * @param mat The material specifying the textures to load
 		 * @param type The type of texture being loaded
 		 * @param typeName the string literal representing the type name
+		 * @param textures The texture list to insert into
 		 */
-		std::vector<TextureHandle> LoadTextures(
+		void LoadTextures(
 			aiMaterial* mat, 
 			aiTextureType type, 
-			const std::string& typeName
+			const std::string& typeName,
+			std::vector<TexturePtr>& textures
 		);
 
 		/** The directory this model was loaded from */

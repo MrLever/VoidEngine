@@ -66,7 +66,7 @@ namespace core {
 	Mesh Model::ProcessAssimpMesh(aiMesh* mesh, const aiScene* scene) {
 		std::vector<Vertex> vertices;
 		std::vector<unsigned> indices;
-		std::vector<TextureHandle> textures;
+		std::vector<TexturePtr> textures;
 
 		auto numVerts = mesh->mNumVertices;
 
@@ -110,39 +110,42 @@ namespace core {
 			aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 
 			//Load diffuse maps
-			std::vector<TextureHandle> diffuseMaps = LoadTextures(mat, aiTextureType_DIFFUSE, "texture_diffuse");
-			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+			LoadTextures(mat, aiTextureType_DIFFUSE, "texture_diffuse", textures);
 
 			//Load specular maps
-			std::vector<TextureHandle> specularMaps = LoadTextures(mat, aiTextureType_SPECULAR, "texture_specular");
-			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+			LoadTextures(mat, aiTextureType_SPECULAR, "texture_specular", textures);
+
 		}
 
 		return Mesh(vertices, indices, textures);
 	}
 
-	std::vector<TextureHandle> Model::LoadTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName) {
-		std::vector<TextureHandle> handles;
+	void Model::LoadTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName, std::vector<TexturePtr>& textures) {
 		auto textureCount = mat->GetTextureCount(type);
+		TextureType t = (typeName == "texture_diffuse") ? TextureType::DIFFUSE : TextureType::SPECULAR;
 
+		std::vector<utils::ResourceHandle<Texture>> textureHandles;
+
+		//Load all the textures for the model in parrallel (SCATTER)
 		for (auto i = 0u; i < textureCount; i++) {
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
 			auto texturePath = ModelDirectory.string() + "/" + str.C_Str();
 
-			auto texture = TextureCache->GetResource(texturePath);
-
-			/*if (!texture->GetIsInitialized()) {
-				texture->Initialize();
-			}*/
-
-			TextureHandle handle(
-				texture->GetTextureID(),
-				typeName
-			);
+			textureHandles.push_back(TextureCache->LoadResource(texturePath));
 		}
 
-		return handles;
+		//Extract all texture data (GATHER)
+		for (auto& handle : textureHandles) {
+			//Extract texture from thread safe container
+			auto texture = handle.GetResource();
+			
+			//Set pertinent texture data
+			texture->SetType(t);
+
+			//Send it off for rendering
+			textures.push_back(std::move(texture));
+		}
 	}
 }

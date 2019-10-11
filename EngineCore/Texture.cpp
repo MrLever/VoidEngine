@@ -13,7 +13,7 @@
 namespace core {
 	Texture::Texture(const std::string& texturePath)
 		: Resource(texturePath), TextureHandle(-1), ImageData(nullptr), 
-		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1) {
+		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1), Type(TextureType::DIFFUSE) {
 
 	}
 
@@ -88,6 +88,14 @@ namespace core {
 
 	void Texture::SetName(const std::string& name) {
 		TextureName = name;
+	}
+
+	void Texture::SetType(TextureType type) {
+		Type = type;
+	}
+
+	TextureType Texture::GetType() {
+		return Type;
 	}
 
 	std::string Texture::GetName() {

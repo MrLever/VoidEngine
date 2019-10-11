@@ -1,17 +1,23 @@
 #version 450 core
 //Uniforms
 uniform float desiredColor;
-uniform sampler2D space;
-uniform sampler2D bricks;
+uniform struct Material {
+    sampler2D texture_diffuse1;
+    sampler2D texture_diffuse2;
+    sampler2D texture_diffuse3;
+    sampler2D texture_specular1;
+    sampler2D texture_specular2;
+} material;
 
 //Inputs
 in vec2 texCoord;
 
 //Outputs
+out vec4 fragColor;
 
 void main(){
-    gl_FragColor = 
-        vec4(1,1,1,0) * mix(
-            texture(space, texCoord), texture(bricks, texCoord), 0.2
-        );
+    //Calculate diffuse color
+    vec4 diffuse = texture(material.texture_diffuse1, texCoord);
+
+    fragColor = diffuse;
 }
