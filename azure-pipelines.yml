@@ -16,6 +16,30 @@ variables:
   buildConfigurationDebug: 'Debug'
 
 steps:
+- checkout: self
+  submodules: true
+
+#Checkout and build dependencies
+- task: CMake@1
+  inputs:
+   workingDirectory: 'Dependencies/assimp/'
+   cmakeArgs: '.'
+
+- task: VSBuild@1
+  inputs:
+    solution: 'Dependencies/assimp/Assimp.sln'
+    platform: '$(buildPlatform_x64)'
+    configuration: '$(buildConfigurationDebug)'
+    maximumCpuCount: true
+
+- task: VSBuild@1
+  inputs:
+    solution: 'Dependencies/assimp/Assimp.sln'
+    platform: '$(buildPlatform_x64)'
+    configuration: '$(buildConfigurationRelease)'
+    maximumCpuCount: true
+
+#Build SuperVoid
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
