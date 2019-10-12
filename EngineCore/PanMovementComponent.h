@@ -32,7 +32,7 @@ namespace core {
 		 * the player's input
 		 * @param input The player's input
 		 */
-		void Input(const InputAxis& axis, float deltaTime) override;
+		void Input(const InputAxisReport& axis, float deltaTime) override;
 	};
 
 }

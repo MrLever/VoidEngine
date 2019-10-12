@@ -17,7 +17,7 @@ namespace core {
 
 	}
 
-	void PanMovementComponent::Input(const InputAxis& axis, float deltaTime) {
+	void PanMovementComponent::Input(const InputAxisReport& axis, float deltaTime) {
 		auto speed = MoveSpeed * deltaTime;
 		auto up = math::Vector3(0, 1, 0);
 		auto right = math::Vector3(1, 0, 0);

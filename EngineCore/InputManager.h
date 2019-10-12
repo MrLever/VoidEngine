@@ -2,7 +2,6 @@
 //STD Headers
 #include <memory>
 #include <unordered_map>
-#include <unordered_set>
 #include <deque>
 
 //Library Headers
@@ -65,7 +64,7 @@ namespace core {
 		 * Proccesses gamepad input events
 		 * @param input The gamepad input to process
 		 */
-		void ReportInput(const InputAxis& input);
+		void ReportInput(const InputAxisReport& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -81,7 +80,7 @@ namespace core {
 		void Configure() override;
 
 		/**
-		 * Helper function to dispatch events to a scene
+		 * Dispatches InputEvents to Entity-Component System
 		 * @param scene The scene to dispatch events to
 		 * @param event The event to dispatch
 		 */
@@ -92,13 +91,13 @@ namespace core {
 		);
 
 	    /**
-		 * Helper function to dispatch events to a scene
+		 * Dispatchs InputAxisReports to Entity-Component System
 		 * @param scene The scene to dispatch events to
 		 * @param event The event to dispatch
 		 */
 		void DispatchEvent(
 			const std::vector<core::Entity*>& scene, 
-			const InputAxis& axisData, 
+			const InputAxisReport& axisData, 
 			float deltaTime
 		);
 
@@ -112,7 +111,10 @@ namespace core {
 		std::deque<GamepadInput> GamepadInputBuffer;
 
 		/** Buffer for unprocessed Input Axis data */
-		std::deque<InputAxis> InputAxisDataBuffer;
+		std::deque<InputAxisReport> InputAxisDataBuffer;
+
+		/** Maps certain keyboard inputs to InputAxes */
+		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;
 	};
 
 }

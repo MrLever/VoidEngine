@@ -33,6 +33,15 @@ namespace EngineCoreTests {
 			
 			Assert::IsTrue(KeyboardButton::A == test.GetButton());
 		}
+
+		TEST_METHOD(GenericInputEqualityTest) {
+			KeyboardInput input1(KeyboardButton::A, ButtonState::PRESSED, 0, 0);
+			KeyboardInput input2(KeyboardButton::A, ButtonState::PRESSED, 0, 100);
+
+			Assert::IsTrue(input1 == input2);
+			Assert::IsTrue(input1.Hash() == input2.Hash());
+		}
+
 		TEST_METHOD(KeyboardInputGetButtonTest) {
 			auto button = KeyboardButton::A;
 			KeyboardInput keyboardInput(button, ButtonState::PRESSED);

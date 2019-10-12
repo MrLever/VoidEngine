@@ -9,7 +9,7 @@
 #include "WindowManager.h"
 #include "CameraComponent.h"
 #include "InputManager.h"
-#include "InputAxis.h"
+#include "InputAxisReport.h"
 #include "InputEvent.h"
 #include "Logger.h"
 
@@ -43,8 +43,8 @@ namespace core {
 		static double MouseXPrev = -1.0f;
 		static double MouseYPrev = -1.0f;
 		static float SENSITIVITY = 0.05f;
-		static InputAxis MouseX("LookRight", 0);
-		static InputAxis MouseY("LookUp", 0);
+		static InputAxisReport MouseX("LookRight", 0);
+		static InputAxisReport MouseY("LookUp", 0);
 
 		if (MouseXPrev == -1.0f	|| MouseYPrev == 1.0f) {
 			MouseXPrev = float(xPos);
@@ -207,10 +207,10 @@ namespace core {
 		PollGamepadButtons(state, timestamp);
 		
 		//Process axes
-		static InputAxis LeftJoyX("RightAxis", 0);
-		static InputAxis LeftJoyY("UpAxis", 0);
-		static InputAxis RightJoyX("LookRight", 0);
-		static InputAxis RightJoyY("LookUp", 0);
+		static InputAxisReport LeftJoyX("RightAxis", 0);
+		static InputAxisReport LeftJoyY("UpAxis", 0);
+		static InputAxisReport RightJoyX("LookRight", 0);
+		static InputAxisReport RightJoyY("LookUp", 0);
 
 		//The following axes lookups are inverted intentionally.
 		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
@@ -281,6 +281,11 @@ namespace core {
 	}
 
 	void WindowManager::KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+		//IGNORE KEY HELD EVENTS
+		if (static_cast<ButtonState>(action) == ButtonState::HELD) {
+			return;
+		}
+
 		//Get time stamp for KeyBoardInput
 		auto timeStamp = utils::GetGameTime();
 

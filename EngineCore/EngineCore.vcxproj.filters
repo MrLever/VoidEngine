@@ -216,9 +216,6 @@
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="InputAxis.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="EntityData.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
@@ -242,6 +239,12 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxisReport.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxis.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -359,9 +362,6 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClInclude>
-    <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="EntityData.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
@@ -391,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxisReport.h">
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxis.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

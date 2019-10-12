@@ -17,7 +17,7 @@ namespace core {
 
 	}
 
-	void FlyingMovementComponent::Input(const InputAxis& axis, float deltaTime) {
+	void FlyingMovementComponent::Input(const InputAxisReport& axis, float deltaTime) {
 		if (axis.AxisName == "LookRight") {
 			auto newRotation = Parent->GetRotation();
 			newRotation.Yaw += axis.Value;

@@ -27,7 +27,7 @@ namespace core {
 		}
 	}
 
-	void Entity::Input(const InputAxis& input, float deltaTime) {
+	void Entity::Input(const InputAxisReport& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
 		}

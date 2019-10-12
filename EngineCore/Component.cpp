@@ -15,7 +15,7 @@ namespace core {
 		;
 	}
 
-	void Component::Input(const InputAxis& input, float deltaTime) {
+	void Component::Input(const InputAxisReport& input, float deltaTime) {
 
 	}
 
