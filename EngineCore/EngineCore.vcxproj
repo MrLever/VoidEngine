@@ -258,6 +258,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
+    <ClCompile Include="InputAxisReport.cpp" />
     <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -299,6 +300,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GraphicsComponent.h" />
+    <ClInclude Include="InputAxis.h" />
     <ClInclude Include="InputAxisReport.h" />
     <ClInclude Include="InputEvent.h" />
     <ClInclude Include="JsonResource.h" />

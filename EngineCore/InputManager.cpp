@@ -17,6 +17,12 @@ namespace core {
 	}
 
 	void InputManager::ReportInput(const KeyboardInput& input) {
+		auto button = input.GetButton();
+		if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
+			KeyboardAxisBindings[button]->UpdateAxis(input);
+			return;
+		}
+
 		KeyboardInputBuffer.push_back(input);
 	}
 
@@ -52,32 +58,24 @@ namespace core {
 		while (!KeyboardInputBuffer.empty()) {
 			auto input = KeyboardInputBuffer.front();
 			auto button = input.GetButton();
+			KeyboardInputBuffer.pop_front();
 
 			std::string eventType;
-			if (button == KeyboardButton::W) {
-				InputAxisDataBuffer.push_back(
-					InputAxisReport("UpAxis", 1.0f)
-				);
-			}
-			else if (button == KeyboardButton::A) {
-				InputAxisDataBuffer.push_back(
-					InputAxisReport("RightAxis", -1.0f)
-				);
-			}
-			else if (button == KeyboardButton::S) {
-				InputAxisDataBuffer.push_back(
-					InputAxisReport("UpAxis", -1.0f)
-				);
-			}
-			else if (button == KeyboardButton::D) {
-				InputAxisDataBuffer.push_back(
-					InputAxisReport("RightAxis", 1.0f)
-				);
+
+			if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
+				continue;
 			}
 
 			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+		}
 
-			KeyboardInputBuffer.pop_front();
+		//Dispatch Axes updates
+		for (auto& entry : KeyboardAxisBindings) {
+			DispatchEvent(
+				scene,
+				entry.second->Poll(),
+				deltaTime
+			);
 		}
 
 		//Process Gamepad input
@@ -122,7 +120,46 @@ namespace core {
 	}
 
 	void InputManager::Configure() {
-		; //TODO (MrLever): Actually configure this thing
+		//Set up the axes and their bindings
+		auto LeftRightAxis = std::make_shared<InputAxis>("RightAxis");
+		LeftRightAxis->AddBinding(
+			KeyboardInput(KeyboardButton::A, ButtonState::PRESSED), -1.0f
+		);
+
+		LeftRightAxis->AddBinding(
+			KeyboardInput(KeyboardButton::D, ButtonState::PRESSED), 1.0f
+		);
+
+		auto UpDownAxis = std::make_shared<InputAxis>("UpAxis");
+		UpDownAxis->AddBinding(
+			KeyboardInput(KeyboardButton::W, ButtonState::PRESSED), 1.0f
+		);
+		UpDownAxis->AddBinding(
+			KeyboardInput(KeyboardButton::S, ButtonState::PRESSED), -1.0f
+		);
+
+
+		//Set up bindings to route keys to the axes
+		KeyboardAxisBindings.insert({
+			KeyboardButton::A,
+			LeftRightAxis
+		});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::D,
+			LeftRightAxis
+		});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::W,
+			UpDownAxis
+		});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::S,
+			UpDownAxis
+		});
+
 	}
 
 	void InputManager::DispatchEvent(

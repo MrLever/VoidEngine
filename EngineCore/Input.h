@@ -8,8 +8,10 @@
 //Coati Headers
 #include "EngineUtilities.h"
 #include "TimeUtils.h"
+#include "EngineUtilities.h"
 
 namespace core {
+
 	enum class ButtonState : unsigned {
 		RELEASED = 0,
 		PRESSED = 1,
@@ -79,7 +81,7 @@ namespace core {
 		/**
 		 * Equality operator
 		 */
-		virtual bool operator==(const Input& other) const;
+		virtual bool operator==(const Input<T>& other) const;
 
 		/**
 		 * Gets the button for this Input event
@@ -150,7 +152,7 @@ namespace core {
 	}
 
 	template<class T>
-	inline bool Input<T>::operator==(const Input& other) const {
+	inline bool Input<T>::operator==(const Input<T>& other) const {
 		return this->Button == other.Button &&
 			this->State == other.State &&
 			this->Modifiers == other.Modifiers;
@@ -173,6 +175,12 @@ namespace core {
 	
 	template<class T>
 	inline std::size_t Input<T>::Hash() const {
-		return static_cast<std::size_t>(TimeStamp);
+		std::string A(std::to_string(static_cast<unsigned>(Button)));
+		std::string B(std::to_string(static_cast<unsigned>(State)));
+		std::string C(std::to_string(static_cast<unsigned>(Modifiers)));
+
+		return static_cast<std::size_t>(
+			utils::FNV1aHash(A + B + C)
+		);
 	}
 }

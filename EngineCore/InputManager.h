@@ -2,7 +2,6 @@
 //STD Headers
 #include <memory>
 #include <unordered_map>
-#include <unordered_set>
 #include <deque>
 
 //Library Headers
@@ -18,7 +17,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "InputAxisReport.h"
+#include "InputAxis.h"
 
 namespace core {
 
@@ -81,7 +80,7 @@ namespace core {
 		void Configure() override;
 
 		/**
-		 * Helper function to dispatch events to a scene
+		 * Dispatches InputEvents to Entity-Component System
 		 * @param scene The scene to dispatch events to
 		 * @param event The event to dispatch
 		 */
@@ -92,7 +91,7 @@ namespace core {
 		);
 
 	    /**
-		 * Helper function to dispatch events to a scene
+		 * Dispatchs InputAxisReports to Entity-Component System
 		 * @param scene The scene to dispatch events to
 		 * @param event The event to dispatch
 		 */
@@ -113,6 +112,9 @@ namespace core {
 
 		/** Buffer for unprocessed Input Axis data */
 		std::deque<InputAxisReport> InputAxisDataBuffer;
+
+		/** Maps certain keyboard inputs to InputAxes */
+		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;
 	};
 
 }

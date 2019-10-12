@@ -17,7 +17,15 @@ namespace core {
 		 * @param name The axis' name
 		 * @param value The axis' reading
 		 */
+		InputAxisReport(const utils::Name& name, float value);
+
+		/**
+		 * Constructor
+		 * @param name The axis' name
+		 * @param value The axis' reading
+		 */
 		InputAxisReport(const std::string& name, float value);
+
 	};
 
 }
