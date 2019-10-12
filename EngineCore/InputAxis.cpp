@@ -3,10 +3,13 @@
 //Library Headers
 
 //Void Engine Headers
-#include "InputAxis.h"
+#include "InputAxisReport.h"
 
 namespace core {
-	InputAxis::InputAxis(const std::string& name, float value) : AxisName(name), Value(value) {
+
+	InputAxisReport::InputAxisReport(const std::string& name, float value) 
+		: AxisName(name), Value(value) {
 
 	}
+
 }

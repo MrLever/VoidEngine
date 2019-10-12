@@ -18,7 +18,7 @@
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "InputAxis.h"
+#include "InputAxisReport.h"
 
 namespace core {
 
@@ -65,7 +65,7 @@ namespace core {
 		 * Proccesses gamepad input events
 		 * @param input The gamepad input to process
 		 */
-		void ReportInput(const InputAxis& input);
+		void ReportInput(const InputAxisReport& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -98,7 +98,7 @@ namespace core {
 		 */
 		void DispatchEvent(
 			const std::vector<core::Entity*>& scene, 
-			const InputAxis& axisData, 
+			const InputAxisReport& axisData, 
 			float deltaTime
 		);
 
@@ -112,7 +112,7 @@ namespace core {
 		std::deque<GamepadInput> GamepadInputBuffer;
 
 		/** Buffer for unprocessed Input Axis data */
-		std::deque<InputAxis> InputAxisDataBuffer;
+		std::deque<InputAxisReport> InputAxisDataBuffer;
 	};
 
 }

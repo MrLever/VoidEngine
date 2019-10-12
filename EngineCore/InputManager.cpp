@@ -28,7 +28,7 @@ namespace core {
 		GamepadInputBuffer.push_back(input);
 	}
 
-	void InputManager::ReportInput(const InputAxis& input){
+	void InputManager::ReportInput(const InputAxisReport& input){
 		InputAxisDataBuffer.push_back(input);
 	}
 
@@ -56,22 +56,22 @@ namespace core {
 			std::string eventType;
 			if (button == KeyboardButton::W) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("UpAxis", 1.0f)
+					InputAxisReport("UpAxis", 1.0f)
 				);
 			}
 			else if (button == KeyboardButton::A) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("RightAxis", -1.0f)
+					InputAxisReport("RightAxis", -1.0f)
 				);
 			}
 			else if (button == KeyboardButton::S) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("UpAxis", -1.0f)
+					InputAxisReport("UpAxis", -1.0f)
 				);
 			}
 			else if (button == KeyboardButton::D) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("RightAxis", 1.0f)
+					InputAxisReport("RightAxis", 1.0f)
 				);
 			}
 
@@ -88,22 +88,22 @@ namespace core {
 
 			if (button == GamepadButton::DPAD_UP) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("UpAxis", 1.0f)
+					InputAxisReport("UpAxis", 1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_DOWN) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("UpAxis", -1.0f)
+					InputAxisReport("UpAxis", -1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_LEFT) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("RightAxis", -1.0f)
+					InputAxisReport("RightAxis", -1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_RIGHT) {
 				InputAxisDataBuffer.push_back(
-					InputAxis("RightAxis", 1.0f)
+					InputAxisReport("RightAxis", 1.0f)
 				);
 			}
 
@@ -143,7 +143,7 @@ namespace core {
 
 	void InputManager::DispatchEvent(
 		const std::vector<core::Entity*>& scene,
-		const InputAxis& axisData,
+		const InputAxisReport& axisData,
 		float deltaTime
 	) {
 		static const utils::Name ERROR_EVENT_ID("Error");

@@ -359,9 +359,6 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClInclude>
-    <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="EntityData.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
@@ -391,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxisReport.h">
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

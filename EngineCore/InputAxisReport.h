@@ -8,7 +8,7 @@
 
 namespace core {
 
-	struct InputAxis {
+	struct InputAxisReport {
 		utils::Name AxisName;
 		float Value;
 
@@ -17,7 +17,7 @@ namespace core {
 		 * @param name The axis' name
 		 * @param value The axis' reading
 		 */
-		InputAxis(const std::string& name, float value);
+		InputAxisReport(const std::string& name, float value);
 	};
 
 }
