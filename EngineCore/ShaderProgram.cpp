@@ -77,8 +77,32 @@ namespace core {
 		glUseProgram(ProgramHandle);
 	}
 
-	void ShaderProgram::SetUniform(const std::string& uniformName, glm::mat4 value) {
-		glProgramUniformMatrix4fv(ProgramHandle, GetUniformLocation(uniformName), 1, GL_FALSE, glm::value_ptr(value));
+	void ShaderProgram::SetUniform(const std::string& uniformName, const glm::mat4& value) {
+		glProgramUniformMatrix4fv(
+			ProgramHandle, 
+			GetUniformLocation(uniformName), 
+			1, 
+			GL_FALSE, 
+			glm::value_ptr(value)
+		);
+	}
+
+	void ShaderProgram::SetUniform(const std::string& uniformName, const math::Vector4& value) {
+		//Reduce to C array
+		float vec[4];
+		vec[0] = value.X;
+		vec[1] = value.Y;
+		vec[2] = value.Z;
+		vec[3] = value.W;
+
+		//Send to OpenGL
+		glProgramUniform4fv(
+			ProgramHandle, 
+			GetUniformLocation(uniformName), 
+			1, 
+			vec
+		);
+
 	}
 
 	GLint ShaderProgram::GetUniformLocation(const std::string& uniformName){

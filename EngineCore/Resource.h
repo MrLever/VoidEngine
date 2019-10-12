@@ -62,6 +62,11 @@ namespace utils {
 		bool IsValid();
 
 		/**
+		 * Allows user to query if this resource has been initialized
+		 */
+		bool GetIsInitialized();
+
+		/**
 		 * Allows owners to query if this resource is a composite resource
 		 */
 		bool GetIsComposite();

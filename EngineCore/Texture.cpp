@@ -13,7 +13,7 @@
 namespace core {
 	Texture::Texture(const std::string& texturePath)
 		: Resource(texturePath), TextureHandle(-1), ImageData(nullptr), 
-		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1) {
+		  TextureWidth(-1), TextureHeight(-1), TextureColorChannels(-1), Type(TextureType::DIFFUSE) {
 
 	}
 
@@ -24,9 +24,6 @@ namespace core {
 	}
 
 	bool Texture::Load() {
-		//stbi is loading files upside down, so flip it back
-		stbi_set_flip_vertically_on_load(true);
-
 		//Load image data from file into heap
 		ImageData = stbi_load(ResourcePath.string().c_str(), &TextureWidth, &TextureHeight, &TextureColorChannels, 0);
 		
@@ -56,19 +53,19 @@ namespace core {
 		glGenTextures(1, &TextureHandle);
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 
+		//Pass image data to OpenGL
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, ImageData);
+
+		//Instruct OpenGL to generate a Mipmap
+		glGenerateMipmap(GL_TEXTURE_2D);
+		
 		//Set textures to repeat at edges
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	
 		//Set texture filtering options
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		//Pass image data to OpenGL
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, ImageData);
-		
-		//Instruct OpenGL to generate a Mipmap
-		glGenerateMipmap(GL_TEXTURE_2D);
 
 		//Once the image is bound by OpenGL, the raw data is no longer necessary
 		stbi_image_free(ImageData);
@@ -82,8 +79,20 @@ namespace core {
 		glBindTexture(GL_TEXTURE_2D, TextureHandle);
 	}
 
+	GLuint Texture::GetTextureID() {
+		return TextureHandle;
+	}
+
 	void Texture::SetName(const std::string& name) {
 		TextureName = name;
+	}
+
+	void Texture::SetType(TextureType type) {
+		Type = type;
+	}
+
+	TextureType Texture::GetType() {
+		return Type;
 	}
 
 	std::string Texture::GetName() {

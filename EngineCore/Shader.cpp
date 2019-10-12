@@ -62,8 +62,7 @@ namespace core {
 			std::stringstream errorStream;
 			errorStream << "SHADER COMPILATION ERROR:\n";
 			errorStream << "\tShader Location: " << ResourcePath << "\n";
-			errorStream << "\tShader Source: \n" << ShaderSource << "\n";
-
+			errorStream << infoBuffer;
 			utils::Logger::LogError(errorStream.str());
 		}
 

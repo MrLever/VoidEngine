@@ -88,15 +88,14 @@ namespace utils {
 				}
 
 				if (resource->IsValid()) {
+					if (resource->GetIsComposite()) {
+						resource->AttatchThreadPool(pool);
+					}
 					resource->Load();
 				}
 				else {
 					utils::Logger::LogWarning("Resource [" + filePath + "] not found. Loading default resource for this type");
 					resource->LoadErrorResource();
-				}
-
-				if (resource->GetIsComposite()) {
-					resource->AttatchThreadPool(pool);
 				}
 
 				return resource;

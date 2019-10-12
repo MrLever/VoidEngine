@@ -15,8 +15,8 @@
 #include "PanMovementComponent.h"
 
 namespace core {
-	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Texture> textureAllocator) 
-		: TextureCache(textureAllocator) {
+	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Model> modelAllocator) 
+		: ModelCache(modelAllocator) {
 
 	}
 
@@ -56,33 +56,16 @@ namespace core {
 			component = tempHandle;
 		}
 		else if (type == "GraphicsComponent") {
-			//Load entity model
-			std::vector<float> verts;
-
-			for (auto vert : componentData["model"]) {
-				verts.push_back(vert.get<float>());
-			}
-
 			//Populate entity draw data
 			GraphicsComponent* entityDrawData = new GraphicsComponent(parent);
-			entityDrawData->SetModel(verts);
+			auto model = ModelCache->GetResource(componentData["model"].get<std::string>());
+			model->Initialize();
+			entityDrawData->SetModel(model);
 			entityDrawData->AddMaterial(
-				componentData["material"]["name"].get<std::string>(),
-				componentData["material"]["vertexShader"].get<std::string>(),
-				componentData["material"]["fragmentShader"].get<std::string>()
+				componentData["shader"]["name"].get<std::string>(),
+				componentData["shader"]["vertexShader"].get<std::string>(),
+				componentData["shader"]["fragmentShader"].get<std::string>()
 			);
-
-			auto textureList = componentData["textures"];
-
-			int i = 0;
-			for (auto& textureMetaDeta : textureList) {
-				auto texture = TextureCache->GetResource(textureMetaDeta["location"].get<std::string>());
-				texture->SetName(textureMetaDeta["name"].get<std::string>());
-
-				entityDrawData->AddTexture(texture, i);
-				i++;
-			}
-
 			component = entityDrawData;
 		}
 		else {
