@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "InputAxisReport.h"
+#include "InputAxis.h"
 
 namespace core {
 
