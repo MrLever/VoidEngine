@@ -61,7 +61,9 @@ namespace utils {
 		 */
 		bool IsValid();
 
-
+		/**
+		 * Allows user to query if this resource has been initialized
+		 */
 		bool GetIsInitialized();
 
 		/**
