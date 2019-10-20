@@ -9,28 +9,16 @@
 //Library Headers
 
 //Coati Headers
-#include "Configurable.h"
 #include "Configuration.h"
-#include "EntityFactory.h"
 #include "Engine.h"
 #include "GameStateMachine.h"
-#include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
-#include "MessageBus.h"
 
 namespace core {
-
-	//Forward Class declarations
-	class WindowManager;
-	class Renderer;
-	class InputManager;
-	class AudioManager;
-	class Console;
-
 	/**
 	 * @class Game 
-	 * @breif Framework that defines what a game is in the Void Engine
+	 * @brief Framework that defines what a game is in the Void Engine
 	 */
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;

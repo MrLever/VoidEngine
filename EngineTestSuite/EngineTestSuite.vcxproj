@@ -204,6 +204,9 @@
     <ProjectReference Include="..\EngineMath\EngineMath.vcxproj">
       <Project>{98b17f35-40dd-48cb-be6b-5c2f8fec57e7}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\SuperVoid\SuperVoid.vcxproj">
+      <Project>{3f6aafb7-3e4b-477e-93fa-598ee206b69f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
