@@ -124,7 +124,6 @@ namespace core {
 		if (currentTime - lastTime >= ONE_SECOND) {
 			GameThreadPool->SubmitJob(
 				[] (double frameTime){
-					//std::cout << "FrameTime: " << frameTime << "ms\n";
 					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
 				(ONE_SECOND + 0.0) / numFrames

@@ -121,6 +121,12 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Model Loading">
       <UniqueIdentifier>{f555a287-f13d-4852-8a3a-33d88b17eb46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Game State System">
+      <UniqueIdentifier>{4eb35ea1-dee8-4aaa-93e4-893f2f7e24eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Game State System">
+      <UniqueIdentifier>{1c5aa482-7fab-4273-b8b1-6b6edf2c2ada}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -245,6 +251,15 @@
     </ClCompile>
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\Engine Core\Game State System</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Source Files\Engine Core\Game State System</Filter>
+    </ClCompile>
+    <ClCompile Include="RunningState.cpp">
+      <Filter>Source Files\Engine Core\Game State System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +412,15 @@
     </ClInclude>
     <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\Engine Core\Game State System</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Header Files\Engine Core\Game State System</Filter>
+    </ClInclude>
+    <ClInclude Include="RunningState.h">
+      <Filter>Header Files\Engine Core\Game State System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

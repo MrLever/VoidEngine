@@ -4,6 +4,7 @@
 #include <chrono>
 #include <memory>
 #include <queue>
+#include <stack>
 
 //Library Headers
 
@@ -11,6 +12,7 @@
 #include "Configurable.h"
 #include "Configuration.h"
 #include "EntityFactory.h"
+#include "GameState.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
@@ -26,7 +28,8 @@ namespace core {
 	class Console;
 
 	/**
-	 * @class Game Framework that defines what a game is in the Void Engine
+	 * @class Game 
+	 * @breif Framework that defines what a game is in the Void Engine
 	 */
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;
@@ -77,7 +80,6 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-	private:
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
 
@@ -110,6 +112,9 @@ namespace core {
 		
 		/** Config settings for the game */
 		utils::Configuration EngineConfig;
+
+		/** The game's state machine */
+		std::stack<GameState> GameStateMachine;
 
 		/** The game's current framerate */
 		int FrameRate;
