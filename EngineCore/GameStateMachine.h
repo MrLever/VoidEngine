@@ -6,6 +6,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "Level.h"
 
 namespace core {
 	//Forward class declarations
@@ -26,7 +27,7 @@ namespace core {
 		 * Instructs the machine to run the current state's update function
 		 * @param deltaTime The time step for the current update
 		 */
-		void Update(const float deltaTime);
+		void Update(Level* currLevel, const float deltaTime);
 
 		/**
 		 * Push a state onto the state machine

@@ -19,7 +19,7 @@ namespace core {
 		 * Defines how the game should update when this state is selected
 		 * @param deltaTime The time step to use for updates
 		 */
-		void Update(float deltaTime) override;
+		void Update(Level* currentLevel, const float deltaTime) override;
 
 		/**
 		 * Defines what should happen when this state is exited

@@ -12,9 +12,9 @@ namespace core {
 
 	}
 
-	void GameStateMachine::Update(const float deltaTime) {
+	void GameStateMachine::Update(Level* currLevel, const float deltaTime) {
 		if (!StateMachine.empty()) {
-			StateMachine.top()->Update(deltaTime);
+			StateMachine.top()->Update(currLevel, deltaTime);
 		}
 		else {
 			utils::Logger::LogWarning("StateMachine empty, cannot update");

@@ -69,6 +69,11 @@ namespace core {
 		 */
 		void HandleGamepadInput();
 
+		/**
+		 * Allows user to change cursor state
+		 */
+		void SetCursor(bool state);
+
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks

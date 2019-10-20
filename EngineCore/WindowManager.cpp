@@ -234,6 +234,15 @@ namespace core {
 
 	}
 
+	void WindowManager::SetCursor(bool state) {
+		if (state) {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else {
+			glfwSetInputMode(Window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+	}
+
 	void WindowManager::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
 		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
 			return;

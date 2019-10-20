@@ -27,6 +27,7 @@ namespace core {
 		: GameEngine(configFile), StateMachine(this) {
 		FrameRate = 0;
 
+		//Create the level cache
 		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(
 			GameEngine.GetThreadPool()
 		);
@@ -34,6 +35,7 @@ namespace core {
 		//Set the current level to the default level
 		SetLevel(GameEngine.GetDefaultLevel());
 
+		//Set the game state to Running
 		StateMachine.PushState(
 			std::make_unique<RunningState>(this)
 		);
@@ -52,7 +54,8 @@ namespace core {
 		}
 
 		UpdateFramerate(deltaTime);
-		CurrentLevel->Update(deltaTime);
+		StateMachine.Update(CurrentLevel.get(), deltaTime);
+		//CurrentLevel->Update(deltaTime);
 	}
 
 	void Game::ProcessInput(float deltaTime) {

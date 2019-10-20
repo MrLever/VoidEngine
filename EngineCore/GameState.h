@@ -5,6 +5,7 @@
 
 //Void Engine Headers
 #include "Logger.h"
+#include "Level.h"
 
 namespace core {
 	//Forward class declarations
@@ -30,7 +31,7 @@ namespace core {
 		 * Defines how the game should update when this state is selected
 		 * @param deltaTime The time step to use for updates
 		 */
-		virtual void Update(float deltaTime) = 0;
+		virtual void Update(Level* currentLevel, const float deltaTime) = 0;
 
 		/**
 		 * Defines what should happen when this state is exited
