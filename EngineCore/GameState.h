@@ -37,7 +37,7 @@ namespace core {
 		 */
 		virtual void Exit() = 0;
 
-	private:
+	protected:
 		Game* Owner;
 	};
 }

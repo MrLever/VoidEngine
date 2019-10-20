@@ -11,6 +11,11 @@ namespace core {
 	class RunningState : public GameState {
 	public:
 		/**
+		 * Constructor
+		 */
+		RunningState(Game* owner);
+
+		/**
 		 * Defines what should happen when this state is entered
 		 */
 		void Enter() override;

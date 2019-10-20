@@ -219,5 +219,6 @@ namespace core {
 		/** Static constant to earmark special Input for toggling fullscreen */
 		static const KeyboardInput ToggleFullscreenInput;
 	};
-
 }
+
+using WindowManagerPtr = std::shared_ptr<core::WindowManager>;

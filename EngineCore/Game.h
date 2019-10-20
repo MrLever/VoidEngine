@@ -12,7 +12,8 @@
 #include "Configurable.h"
 #include "Configuration.h"
 #include "EntityFactory.h"
-#include "GameState.h"
+#include "Engine.h"
+#include "GameStateMachine.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
@@ -48,11 +49,6 @@ namespace core {
 
 	private:
 		/**
-		 * Initializes all of the game's major utilities and core systems
-		 */
-		void InitGame();
-
-		/**
 		 * Instructs the game to update the entities in it's simulation
 		 */
 		void Update(float deltaTime);
@@ -83,38 +79,14 @@ namespace core {
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
 
-		/** A Handle to the Engine's thread pool */
-		std::shared_ptr<utils::ThreadPool> GameThreadPool;
-
-		/** Resource Manager for the engine's config files */
-		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
+		/** The game's engine */
+		Engine GameEngine;
 
 		/** Resource Manager for the engine's level files */
 		ResourceAllocatorPtr<Level> LevelCache;
 
-		/** A handle to the game's display */
-		std::shared_ptr<WindowManager> Window;
-
-		/** The game's message bus */
-		std::shared_ptr<MessageBus> GameMessageBus;
-
-		/** The game's console */
-		std::shared_ptr<Console> GameConsole;
-		
-		/** Pointer to the game's Input Manager*/
-		std::shared_ptr<InputManager> GameInputManager;
-
-		/** Pointer to the game's Rendering Engine */
-		std::unique_ptr<Renderer> GameRenderer;
-
-		/** Pointer to the game's Audio Manger */
-		std::unique_ptr<AudioManager> GameAudioManager;
-		
-		/** Config settings for the game */
-		utils::Configuration EngineConfig;
-
 		/** The game's state machine */
-		std::stack<GameState> GameStateMachine;
+		GameStateMachine StateMachine;
 
 		/** The game's current framerate */
 		int FrameRate;

@@ -252,11 +252,13 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="InputAxisReport.cpp" />
@@ -298,11 +300,13 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="InputAxisReport.h" />

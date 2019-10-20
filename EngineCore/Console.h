@@ -12,8 +12,7 @@ namespace core {
 	enum class LogLevel {
 		INFO,
 		DEBUG,
-		WARNING,
-		ERROR
+		WARNING
 	};
 
 	class Console : MessageBusNode {

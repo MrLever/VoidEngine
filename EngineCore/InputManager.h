@@ -23,6 +23,7 @@ namespace core {
 
 	//Forward Class declarations
 	class MessageBus;
+	class Level;
 
 	/**
 	 * @class InputManager
@@ -71,7 +72,7 @@ namespace core {
 		 * @param scene The scene of entities to propogate commands to
 		 * @param deltaTime the time step for input operations
 		 */
-		void ProcessInput(const std::vector<Entity*> scene, float deltaTime);
+		void ProcessInput(Level* scene, float deltaTime);
 
 	private:
 		/**
@@ -118,3 +119,5 @@ namespace core {
 	};
 
 }
+
+using InputManagerPtr = std::shared_ptr<core::InputManager>;

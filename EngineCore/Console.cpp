@@ -32,7 +32,6 @@ namespace core {
 			case LogLevel::WARNING:
 				prefix += " WARNING: ";
 				break;
-			case LogLevel::ERROR:
 			default:
 				prefix += " ERROR: ";
 		}

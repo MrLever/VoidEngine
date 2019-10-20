@@ -6,6 +6,8 @@
 #include "RunningState.h"
 
 namespace core {
+	RunningState::RunningState(Game* owner) : GameState(owner) {
+	}
 	void RunningState::Enter() {
 		utils::Logger::LogDebug("Game Running");
 	}

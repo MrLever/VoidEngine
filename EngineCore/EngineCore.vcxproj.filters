@@ -261,6 +261,12 @@
     <ClCompile Include="RunningState.cpp">
       <Filter>Source Files\Engine Core\Game State System</Filter>
     </ClCompile>
+    <ClCompile Include="GameStateMachine.cpp">
+      <Filter>Source Files\Engine Core\Game State System</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -421,6 +427,12 @@
     </ClInclude>
     <ClInclude Include="RunningState.h">
       <Filter>Header Files\Engine Core\Game State System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateMachine.h">
+      <Filter>Header Files\Engine Core\Game State System</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

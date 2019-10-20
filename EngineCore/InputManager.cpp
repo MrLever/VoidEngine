@@ -7,6 +7,7 @@
 //Void Engine Headers
 #include "InputManager.h"
 #include "MessageBus.h"
+#include "Level.h"
 
 namespace core {
 
@@ -38,8 +39,11 @@ namespace core {
 		InputAxisDataBuffer.push_back(input);
 	}
 
-	void InputManager::ProcessInput(const std::vector<Entity*> scene, float deltaTime) {
+	void InputManager::ProcessInput(Level* scene, float deltaTime) {
 		//Process Mouse Input
+
+		auto entities = scene->GetScene();
+
 		while (!MouseInputBuffer.empty()) {
 			auto button = MouseInputBuffer.front();
 
@@ -49,7 +53,7 @@ namespace core {
 				eventType = "Fire";
 			}
 
-			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputEvent(eventType), deltaTime);
 
 			MouseInputBuffer.pop_front();
 		}
@@ -66,13 +70,13 @@ namespace core {
 				continue;
 			}
 
-			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputEvent(eventType), deltaTime);
 		}
 
 		//Dispatch Axes updates
 		for (auto& entry : KeyboardAxisBindings) {
 			DispatchEvent(
-				scene,
+				entities,
 				entry.second->Poll(),
 				deltaTime
 			);
@@ -105,7 +109,7 @@ namespace core {
 				);
 			}
 
-			DispatchEvent(scene, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputEvent(eventType), deltaTime);
 
 			GamepadInputBuffer.pop_front();
 		}
@@ -113,7 +117,7 @@ namespace core {
 		while (!InputAxisDataBuffer.empty()) {
 			auto axisReading = InputAxisDataBuffer.front();
 
-			DispatchEvent(scene, axisReading, deltaTime);
+			DispatchEvent(entities, axisReading, deltaTime);
 
 			InputAxisDataBuffer.pop_front();
 		}
