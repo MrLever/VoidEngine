@@ -44,10 +44,10 @@ namespace core {
 			glActiveTexture(GL_TEXTURE0);
 		}
 		else {
+			//Unbinds any texture from previous draw calls
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		
-
 		//A diffuseNr of one after the loop above implies there were no diffuse textures
 		if (diffuseNr == 1) {
 			//Therefore we should set the shader's default diffuse color
