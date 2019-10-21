@@ -41,7 +41,7 @@ namespace core {
 			);
 
 		GameMessageBus = std::make_shared<MessageBus>();
-		GameConsole = std::make_shared<Console>(GameMessageBus);
+		GameConsole = std::make_shared<Console>(GameMessageBus.get());
 	}
 
 	ThreadPoolPtr Engine::GetThreadPool() {

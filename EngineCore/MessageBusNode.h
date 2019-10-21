@@ -28,7 +28,7 @@ namespace core {
 		 * Constructor
 		 * @param messageBus The MessageBus this node interacts with
 		 */
-		MessageBusNode(std::shared_ptr<MessageBus> messageBus);
+		MessageBusNode(MessageBus* messageBus);
 
 		/**
 		 * Destructor
@@ -73,12 +73,10 @@ namespace core {
 		void PublishMessage(const Message &message);
 
 		/** Pointer to the MessageBus this node interacts with */
-		std::shared_ptr<MessageBus> GameMessageBus;
+		MessageBus* Bus;
 
 		/** Data structure to manage message processing */
 		EventTable Events;
-
-
 	};
 
 }

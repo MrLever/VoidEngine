@@ -56,12 +56,7 @@ namespace core {
 		/**
 		 * Returns the message body of this event
 		 */
-		std::string GetEvent() const;
-
-		/**
-		 * Returns the UniqueID of this message for fast comparisons
-		 */
-		utils::Name GetEventID() const;
+		utils::Name GetEvent() const;
 
 		/**
 		 * Gets this message's type
@@ -69,14 +64,11 @@ namespace core {
 		MessageType GetType() const;
 
 	private:
-		/** The body of the message */
-		std::string Event;
-		
 		/** The type of the message */
 		MessageType Type;
 
 		/** Message ID based on a hash of the message body */
-		utils::Name ID;
+		utils::Name Event;
 	};
 
 }
@@ -89,7 +81,7 @@ namespace std {
 	struct hash<core::Message> { //Class to define hash function for Keyboard Input
 		//Hash functor
 		std::size_t operator()(const core::Message& t) const {
-			return t.GetEventID().ID;
+			return t.GetEvent().ID;
 		}
 	};
 }

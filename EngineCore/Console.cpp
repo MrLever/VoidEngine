@@ -12,7 +12,7 @@
 namespace core {
 
 	//CTORS
-	Console::Console(std::shared_ptr<MessageBus> Bus) : MessageBusNode(std::move(Bus)){
+	Console::Console(MessageBus* bus) : MessageBusNode(std::move(bus)){
 		OutputActive = true;
 		RegisterReciever();
 		RegisterEvents();
@@ -38,7 +38,7 @@ namespace core {
 
 		Message logMessage(prefix + message, MessageType::Log);
 
-		GameMessageBus->PublishMessage(logMessage);
+		Bus->PublishMessage(logMessage);
 
 	}
 
@@ -47,7 +47,7 @@ namespace core {
 	}
 
 	void Console::RegisterReciever() {
-		GameMessageBus->AddReceiver(
+		Bus->AddReceiver(
 			this,
 			MessageType::ACK
 		);

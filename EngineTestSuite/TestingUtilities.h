@@ -18,10 +18,8 @@ namespace EngineTestSuiteUtils
 	public:
 		bool MessageReceived;
 		bool EventFired;
-		std::shared_ptr<MessageBus> bus;
 
-		DummyReceiver(std::shared_ptr<MessageBus> bus) : MessageBusNode(bus) {
-			this->bus = bus;
+		DummyReceiver(MessageBus* bus) : MessageBusNode(bus) {
 			MessageReceived = false;
 			EventFired = false;
 			this->RegisterReciever();
@@ -42,8 +40,8 @@ namespace EngineTestSuiteUtils
 		}
 
 		void RegisterReciever() override {
-			bus->AddReceiver(this, MessageType::Input);
-			bus->AddReceiver(this, MessageType::Termination);
+			Bus->AddReceiver(this, MessageType::Input);
+			Bus->AddReceiver(this, MessageType::Termination);
 		}
 
 		void ReceiveMessage(const Message &message) override {
@@ -68,7 +66,7 @@ namespace EngineTestSuiteUtils
 
 		bool ToggleSignalReceived;
 
-		DebugConsole(std::shared_ptr<MessageBus> bus) : Console(bus){
+		DebugConsole(MessageBus* bus) : Console(bus){
 			ToggleSignalReceived = false;
 		}
 

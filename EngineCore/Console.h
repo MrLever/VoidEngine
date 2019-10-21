@@ -20,7 +20,7 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		Console(std::shared_ptr<MessageBus> Bus);
+		Console(MessageBus* bus);
 		
 		/**
 		 * Destructor

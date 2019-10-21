@@ -17,7 +17,7 @@ namespace core {
 		while (!Messages.empty()) {
 			auto currMsg = Messages.front();
 			if (currMsg.GetType() == MessageType::Log) {
-				utils::Logger::LogInfo(currMsg.GetEvent());
+				utils::Logger::LogInfo(currMsg.GetEvent().StringID);
 			}
 			Messages.pop();
 		}
@@ -42,7 +42,12 @@ namespace core {
 	}
 
 	void MessageBus::RemoveReceiver(MessageBusNode* receiver) {
-
+		for (auto it = Receivers.begin(); it != Receivers.end();){
+			if ((*it).Receiver == receiver)
+				it = Receivers.erase(it);
+			else
+				++it;
+		}
 	}
 
 	void MessageBus::PublishMessage(const Message &message) {

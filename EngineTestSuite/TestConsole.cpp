@@ -19,8 +19,8 @@ namespace EngineUtilitiesTests {
 	public:
 		TEST_METHOD(ToggleOutputTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
-			DummyReceiver dummy(testBus);
-			DebugConsole console(testBus);
+			DummyReceiver dummy(testBus.get());
+			DebugConsole console(testBus.get());
 			dummy.DebugPublishEvent("Toggle Console Output");
 			
 			testBus->DispatchMessages();

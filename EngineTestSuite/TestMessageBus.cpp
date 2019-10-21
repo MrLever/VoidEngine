@@ -14,7 +14,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 
-namespace GameplayFrameworkTests {
+namespace EngineCoreTests {
 	using namespace core;
 	using namespace utils;
 	using namespace EngineTestSuiteUtils;
@@ -24,7 +24,7 @@ namespace GameplayFrameworkTests {
 
 		TEST_METHOD(RecieveMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
-			DummyReceiver testReceiver(testBus);
+			DummyReceiver testReceiver(testBus.get());
 			Message testMessage("Test", MessageType::ACK);
 
 			testBus->PublishMessage(testMessage);
@@ -35,7 +35,7 @@ namespace GameplayFrameworkTests {
 
 		TEST_METHOD(IgnoreMessageTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
-			DummyReceiver testReceiver(testBus);
+			DummyReceiver testReceiver(testBus.get());
 			Message testMessage("Test", MessageType::NACK);
 
 			testBus->PublishMessage(testMessage);
@@ -46,7 +46,7 @@ namespace GameplayFrameworkTests {
 		
 		TEST_METHOD(TriggerEventTest) {
 			std::shared_ptr<MessageBus> testBus = std::make_shared<MessageBus>();
-			DummyReceiver testReceiver(testBus);
+			DummyReceiver testReceiver(testBus.get());
 			Message testMessage("FireTestEvent", MessageType::Input);
 
 			testBus->PublishMessage(testMessage);
