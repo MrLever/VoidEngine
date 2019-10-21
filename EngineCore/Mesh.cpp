@@ -20,28 +20,33 @@ namespace core {
 		unsigned diffuseNr = 1;
 		unsigned specularNr = 1;
 
+		if (Textures.size() > 0) {
+			for (unsigned int i = 0; i < Textures.size(); i++)
+			{
+				glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
+				// retrieve texture number (the N in diffuse_textureN)
+				std::string number;
+				auto type = Textures[i]->GetType();
+				std::string typeString;
 
-		for (unsigned int i = 0; i < Textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-			// retrieve texture number (the N in diffuse_textureN)
-			std::string number;
-			auto type = Textures[i]->GetType();
-			std::string typeString;
+				if (type == TextureType::DIFFUSE) {
+					typeString = "texture_diffuse";
+					number = std::to_string(diffuseNr++);
+				}
+				else if (type == TextureType::SPECULAR) {
+					typeString = "texture_specular";
+					number = std::to_string(specularNr++);
+				}
 
-			if (type == TextureType::DIFFUSE) {
-				typeString = "texture_diffuse";
-				number = std::to_string(diffuseNr++);
+				shader->SetUniform(("material." + typeString + number).c_str(), (int)i);
+				glBindTexture(GL_TEXTURE_2D, Textures[i]->GetTextureID());
 			}
-			else if (type == TextureType::SPECULAR) {
-				typeString = "texture_specular";
-				number = std::to_string(specularNr++);
-			}
-
-			shader->SetUniform(("material." + typeString + number).c_str(), (int)i);
-			glBindTexture(GL_TEXTURE_2D, Textures[i]->GetTextureID());
+			glActiveTexture(GL_TEXTURE0);
 		}
-		glActiveTexture(GL_TEXTURE0);
+		else {
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+		
 
 		//A diffuseNr of one after the loop above implies there were no diffuse textures
 		if (diffuseNr == 1) {
