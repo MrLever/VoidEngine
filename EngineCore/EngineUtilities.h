@@ -18,7 +18,7 @@ namespace utils {
 	inline constexpr uint32_t FNV1aHash(const char* input, const uint32_t value = FNV1aSeed) noexcept {
 		const uint32_t prime = 0x1000193;
 		
-		if (input == '\0') {
+		if (input[0] == '\0') {
 			return value;
 		}
 		else {
