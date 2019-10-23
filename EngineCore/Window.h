@@ -96,32 +96,6 @@ namespace core {
 		static void ReportWindowError(int error, const char* description);
 
 		/**
-		 * Callback to capture mouse button events
-		 * @param window The window reporting this input
-		 * @param button The mouse being reported
-		 * @param action The type of key action being reported
-		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
-		 *             held in conjunction with this button
-		 */
-		static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-
-		/**
-		 * Callback to capture deltas in mouse position
-		 * @param window The window reporting the change in mouse position
-		 * @param xPos The X-coordinate of the cursor's new position
-		 * @param yPos The Y-coordinate of the cursor's new position
-		 */
-		static void MousePositionCallback(GLFWwindow* window, double xPos, double yPos);
-
-		/**
-		 * Callback to capture mouse scroll events 
-		 * @param window The window triggering the callback
-		 * @param xOffset the horizontal value of the scroll action
-		 * @param yOffset the vertical value of the scroll action
-		 */
-		static void MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset);
-
-		/**
 		 * Get's the current rendering context's width
 		 */
 		int GetWindowWidth() const;
