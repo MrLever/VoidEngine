@@ -152,7 +152,7 @@ namespace core {
 			[](GLFWwindow* context, int button, int action, int mods) {
 				Window* window = (Window*)glfwGetWindowUserPointer(context);
 
-				//Create Coati MouseInput
+				//Create Void Engine MouseInput
 				MouseInput input(
 					static_cast<MouseButton>(button),
 					static_cast<ButtonState>(action),
@@ -290,8 +290,6 @@ namespace core {
 		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
 			GameInputManager->ReportInput(RightJoyY);
 		}
-		
-
 	}
 
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
