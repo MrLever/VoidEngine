@@ -15,6 +15,8 @@
 #include "WindowResizedEvent.h"
 #include "MouseButtonEvent.h"
 #include "PauseGameEvent.h"
+#include "MouseMovedEvent.h"
+#include "KeyboardInputEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -55,33 +57,6 @@ namespace core {
 		return 
 			static_cast<unsigned>(EventCategory::WINDOW) |
 			static_cast<unsigned>(EventCategory::GAMEPLAY);
-	}
-
-	void Window::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		static double MouseXPrev = -1.0f;
-		static double MouseYPrev = -1.0f;
-		static float SENSITIVITY = 0.05f;
-		static InputAxisReport MouseX("LookRight", 0);
-		static InputAxisReport MouseY("LookUp", 0);
-
-		if (MouseXPrev == -1.0f	|| MouseYPrev == 1.0f) {
-			MouseXPrev = float(xPos);
-			MouseYPrev = float(yPos);
-		}
-
-		MouseX.Value = (float)(xPos - MouseXPrev) * SENSITIVITY;
-		MouseY.Value = (float)(MouseYPrev - yPos) * SENSITIVITY;
-
-		MouseXPrev = xPos;
-		MouseYPrev = yPos;
-
-		CurrWindowManager->GameInputManager->ReportInput(MouseX);
-		CurrWindowManager->GameInputManager->ReportInput(MouseY);
-	}
-
-
-	void Window::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		
 	}
 
 	int Window::GetWindowWidth() const {
@@ -161,15 +136,12 @@ namespace core {
 					return;
 				}
 
-				//Get time stamp for KeyBoardInput
-				auto timeStamp = utils::GetGameTime();
-
 				//Create Input wrapper object
 				KeyboardInput input(
 					static_cast<KeyboardButton>(key),
 					static_cast<ButtonState>(action),
 					mods,
-					timeStamp
+					utils::GetGameTime()
 				);
 
 				window->PublishEvent(new KeyboardInputEvent(input));
@@ -180,23 +152,24 @@ namespace core {
 			[](GLFWwindow* context, int button, int action, int mods) {
 				Window* window = (Window*)glfwGetWindowUserPointer(context);
 
-				//Get time stamp for MouseButton event
-				auto timeStamp = utils::GetGameTime();
-
-				//Create Coati MouseInput
+				//Create Void Engine MouseInput
 				MouseInput input(
 					static_cast<MouseButton>(button),
 					static_cast<ButtonState>(action),
 					mods,
-					timeStamp
+					utils::GetGameTime()
 				);
 
 				window->PublishEvent(new MouseButtonEvent(input));
 			}
 		);
 
-		glfwSetCursorPosCallback(GLFWContext.get(), MousePositionCallback);
-		glfwSetScrollCallback(GLFWContext.get(), MouseScrollCallback);
+		glfwSetCursorPosCallback(GLFWContext.get(),
+			[](GLFWwindow* context, double xPos, double yPos) {
+				Window* window = (Window*)glfwGetWindowUserPointer(context);
+				window->PublishEvent(new MouseMovedEvent(xPos, yPos));
+			}
+		);
 
 		SetCursorCapture(true);
 	}
@@ -317,8 +290,6 @@ namespace core {
 		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
 			GameInputManager->ReportInput(RightJoyY);
 		}
-		
-
 	}
 
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
@@ -358,21 +329,6 @@ namespace core {
 		errorMsg << "Error: #" << error << ", " << description;
 
 		utils::Logger::LogError(errorMsg.str());
-	}
-
-	void Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		//Get time stamp for MouseButton event
-		auto timeStamp = utils::GetGameTime();
-
-		//Create Coati MouseInput
-		MouseInput input(
-			static_cast<MouseButton>(button),
-			static_cast<ButtonState>(action),
-			mods,
-			timeStamp
-		);
-
-		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 }

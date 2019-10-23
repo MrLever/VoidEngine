@@ -8,6 +8,7 @@
 #include "InputManager.h"
 #include "EventBus.h"
 #include "MouseButtonEvent.h"
+#include "MouseMovedEvent.h"
 #include "PauseGameEvent.h"
 #include "Level.h"
 
@@ -33,6 +34,29 @@ namespace core {
 		dispatcher.Dispatch<MouseButtonEvent>(
 			[this](MouseButtonEvent* event) {
 				ReportInput(event->Input);
+			}
+		);
+
+		dispatcher.Dispatch<MouseMovedEvent>(
+			[this](MouseMovedEvent* event) {
+				static double MouseXPrev = -1.0f;
+				static double MouseYPrev = -1.0f;
+				static float SENSITIVITY = 0.05f;
+				static InputAxisReport MouseX("LookRight", 0);
+				static InputAxisReport MouseY("LookUp", 0);
+
+				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
+					MouseXPrev = float(event->Position.X);
+					MouseYPrev = float(event->Position.Y);
+				}
+
+				MouseX.Value = (float)(event->Position.X - MouseXPrev) * SENSITIVITY;
+				MouseY.Value = (float)(MouseYPrev - event->Position.Y) * SENSITIVITY;
+
+				MouseXPrev = event->Position.X;
+				MouseYPrev = event->Position.Y;
+				ReportInput(MouseX);
+				ReportInput(MouseY);
 			}
 		);
 	}
