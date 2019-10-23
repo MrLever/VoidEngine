@@ -24,16 +24,16 @@ namespace core {
 		EventBusNode(EventBus* bus);
 
 		/**
-		 * Allows node to receive and process events from EventBus
-		 * @param event The event to process
-		 */
-		virtual void ReceiveEvent(Event* event) = 0;
-
-		/**
 		 * Allows nodes to publish events to the EventBus
 		 * @param event The event to publish
 		 */
 		virtual void PublishEvent(Event* event) final;
+
+		/**
+		 * Allows node to receive and process events from EventBus
+		 * @param event The event to process
+		 */
+		virtual void ReceiveEvent(Event* event) = 0;
 
 		/**
 		 * Allows EventBus to query the node's subscription, and filter events accordingly

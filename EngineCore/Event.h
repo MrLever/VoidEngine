@@ -10,8 +10,9 @@ namespace core {
 	
 	enum class EventCategory : unsigned char {
 		NONE = 0x00,
-		INPUT = 0x01,
-		WINDOW = 0x02
+		RAW_INPUT = 0x01,
+		INPUT = 0x02,
+		WINDOW = 0x04
 	};
 
 	class Event {

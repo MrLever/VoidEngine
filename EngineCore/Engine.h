@@ -26,6 +26,9 @@ namespace core {
 		 */
 		Engine(const std::string& engineConfig);
 
+		/**
+		 * Instructs the engine to pump the event bus
+		 */
 		void DispatchEvents();
 
 		/**

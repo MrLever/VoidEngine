@@ -38,16 +38,16 @@ namespace core {
 
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
+			GameEventBus.get(),
 			GameWindow,
-			GameThreadPool,
 			ConfigManager->LoadResource("Settings/RenderingConfig.json")
-			);
+		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
 			ConfigManager->LoadResource("Settings/AudioConfig.json")
-			);
+		);
 
 		GameMessageBus = std::make_shared<MessageBus>();
 		GameConsole = std::make_shared<Console>(GameMessageBus.get());

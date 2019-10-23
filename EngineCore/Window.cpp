@@ -13,6 +13,7 @@
 #include "InputEvent.h"
 #include "Logger.h"
 #include "WindowClosedEvent.h"
+#include "WindowResizedEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -130,7 +131,20 @@ namespace core {
 				window->PublishEvent(new WindowClosedEvent());
 			}
 		);
-		glfwSetFramebufferSizeCallback(GLFWContext.get(), ResizeFrameBuffer);
+
+		glfwSetFramebufferSizeCallback(
+			GLFWContext.get(), 
+			[](GLFWwindow* context, int width, int height) {
+				glViewport(0, 0, width, height);
+
+				Window* window = (Window*)glfwGetWindowUserPointer(context);
+				window->WindowWidth = width;
+				window->WindowHeight = height;
+				
+				window->PublishEvent(new WindowResizedEvent(width, height));
+			}
+		);
+
 		glfwSetKeyCallback(GLFWContext.get(), KeyboardInputCallback);
 		glfwSetMouseButtonCallback(GLFWContext.get(), MouseButtonCallback);
 		glfwSetCursorPosCallback(GLFWContext.get(), MousePositionCallback);
