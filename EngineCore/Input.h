@@ -180,7 +180,7 @@ namespace core {
 		std::string C(std::to_string(static_cast<unsigned>(Modifiers)));
 
 		return static_cast<std::size_t>(
-			utils::FNV1aHash(A + B + C)
+			utils::FNV1aHash((A + B + C).c_str())
 		);
 	}
 }

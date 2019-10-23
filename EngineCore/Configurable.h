@@ -13,7 +13,8 @@
 namespace utils {
 	
 	/**
-	 * Configurable is an abstract base class that allows implementers to 
+	 * @class Configurable
+	 * @brief Configurable is an abstract base class that allows implementers to 
 	 * load and use configuration scripts
 	 */
 	class Configurable {

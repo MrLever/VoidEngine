@@ -16,7 +16,6 @@ namespace utils {
 	 * @brief Name is a class used to enable fast string comparisons through use of hashing
 	 */
 	struct Name {
-
 		/**
 		 * Name Constructor
 		 * @param id The string from which the Name is generated.
@@ -79,11 +78,11 @@ namespace utils {
 		std::string StringID;
 
 		/** The Name's Unique Hash for fast comparisons */
-		unsigned long long ID;
+		uint32_t ID;
 
 	};
-	
-	inline Name::Name(const std::string& id) : StringID(id), ID(FNV1aHash(id)) {
+
+	inline Name::Name(const std::string& id) : StringID(id), ID(FNV1aHash(id.c_str())) {
 
 	}
 
@@ -103,7 +102,7 @@ namespace utils {
 		}
 
 		StringID = name;
-		ID = FNV1aHash(name);
+		ID = FNV1aHash(name.c_str());
 		return *this;
 	}
 

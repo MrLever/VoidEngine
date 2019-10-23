@@ -4,7 +4,7 @@
 
 //Void engine headers
 #include "ComponentFactory.h"
-#include "WindowManager.h"
+#include "Window.h"
 #include "Level.h"
 #include "Texture.h"
 
@@ -36,7 +36,7 @@ namespace core {
 
 		if ( type == "CameraComponent") {
 			auto tempHandle = new CameraComponent(parent);
-			WindowManager::GetActiveWindow()->SetView(parent, tempHandle);
+			Window::GetActiveWindow()->SetView(parent, tempHandle);
 			component = tempHandle;
 		}
 		else if (type == "FlyingMovementComponent") {

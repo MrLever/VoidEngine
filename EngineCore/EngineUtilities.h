@@ -10,20 +10,20 @@
 
 namespace utils {
 
-	static unsigned long long FNV1aHash(const std::string &input) {
+	constexpr uint32_t FNV1aSeed = 0x811c9dc5;
 
-		const auto FNV_prime = 1099511628211;
-		const auto hashSeed = 14695981039346656037;
+	/**
+	 * When possible, this function is evaluated at compile time.
+	 */
+	inline constexpr uint32_t FNV1aHash(const char* input, const uint32_t value = FNV1aSeed) noexcept {
+		const uint32_t prime = 0x1000193;
 		
-		auto hash = hashSeed;
-		
-		for (auto &letter : input) {
-
-			hash = hash ^ static_cast<unsigned>(letter);
-			hash = hash * FNV_prime;
+		if (input[0] == '\0') {
+			return value;
 		}
-
-		return static_cast<unsigned long long>(hash);
+		else {
+			return FNV1aHash(&input[1], (value ^ input[0]) * prime);
+		}
 
 	}
 }

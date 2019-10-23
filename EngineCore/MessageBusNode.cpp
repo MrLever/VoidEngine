@@ -13,10 +13,10 @@
 
 namespace core {
 
-	MessageBusNode::MessageBusNode(std::shared_ptr<MessageBus> messageBus) 
-		: GameMessageBus(std::move(messageBus)) {
+	MessageBusNode::MessageBusNode(MessageBus* messageBus) 
+		: Bus(std::move(messageBus)) {
 
-		if (!this->GameMessageBus) {
+		if (!Bus) {
 			utils::Logger::LogWarning("Invalid MessageBus supplied to MessageBusNode");
 		}
 	}
@@ -25,23 +25,21 @@ namespace core {
 		UnregisterReciever();
 	}
 
-	// Protected Member Functions
-
 	void MessageBusNode::RegisterReciever() {
-		GameMessageBus->AddReceiver(this, MessageType::NACK);
+		Bus->AddReceiver(this, MessageType::NACK);
 	}
 
 	void MessageBusNode::UnregisterReciever() {
-		GameMessageBus->RemoveReceiver(this);
+		Bus->RemoveReceiver(this);
 	}
 
 	void MessageBusNode::PublishMessage(const std::string &message, const MessageType &type) {
 		Message outgoing(message, type);
-		GameMessageBus->PublishMessage(outgoing);
+		Bus->PublishMessage(outgoing);
 	}
 
 	void MessageBusNode::PublishMessage(const Message &message) {
-		GameMessageBus->PublishMessage(message);
+		Bus->PublishMessage(message);
 	}
 
 	void MessageBusNode::ReceiveMessage(const Message& message) {

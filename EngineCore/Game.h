@@ -8,25 +8,18 @@
 //Library Headers
 
 //Coati Headers
-#include "Configurable.h"
 #include "Configuration.h"
-#include "EntityFactory.h"
-#include "ThreadPool.h"
+#include "Engine.h"
+#include "EventBusNode.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
-#include "MessageBus.h"
+#include "WindowClosedEvent.h"
+#include "PauseGameEvent.h"
 
 namespace core {
-
-	//Forward Class declarations
-	class WindowManager;
-	class Renderer;
-	class InputManager;
-	class AudioManager;
-	class Console;
-
 	/**
-	 * @class Game Framework that defines what a game is in the Void Engine
+	 * @class Game 
+	 * @brief Framework that defines what a game is in the Void Engine
 	 */
 	class Game {
 		using Timer = std::chrono::high_resolution_clock;
@@ -45,9 +38,14 @@ namespace core {
 
 	private:
 		/**
-		 * Initializes all of the game's major utilities and core systems
+		 * Allows the game to react to WindowClosedEvents
 		 */
-		void InitGame();
+		void HandleWindowClosed(WindowClosedEvent* event);
+		
+		/**
+		 * Allows the game to react to PauseGameEvents
+		 */
+		void PauseGame(PauseGameEvent* event);
 
 		/**
 		 * Instructs the game to update the entities in it's simulation
@@ -77,42 +75,57 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-	private:
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
 
-		/** A Handle to the Engine's thread pool */
-		std::shared_ptr<utils::ThreadPool> GameThreadPool;
-
-		/** Resource Manager for the engine's config files */
-		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
+		/** The game's engine */
+		Engine GameEngine;
 
 		/** Resource Manager for the engine's level files */
 		ResourceAllocatorPtr<Level> LevelCache;
 
-		/** A handle to the game's display */
-		std::shared_ptr<WindowManager> Window;
-
-		/** The game's message bus */
-		std::shared_ptr<MessageBus> GameMessageBus;
-
-		/** The game's console */
-		std::shared_ptr<Console> GameConsole;
-		
-		/** Pointer to the game's Input Manager*/
-		std::shared_ptr<InputManager> GameInputManager;
-
-		/** Pointer to the game's Rendering Engine */
-		std::unique_ptr<Renderer> GameRenderer;
-
-		/** Pointer to the game's Audio Manger */
-		std::unique_ptr<AudioManager> GameAudioManager;
-		
-		/** Config settings for the game */
-		utils::Configuration EngineConfig;
-
 		/** The game's current framerate */
 		int FrameRate;
+
+		bool Terminated;
+
+		bool Paused;
+
+		/**
+		 * Helper class to connect Game to the event bus
+		 */
+		class GameEventBusNode : EventBusNode {
+		public:
+			/**
+			 * Constructor
+			 */
+			GameEventBusNode(EventBus* bus, Game* owner) 
+				: EventBusNode(bus), Owner(owner) {
+
+			}
+
+			virtual void ReceiveEvent(Event* event) {
+				EventDispatcher dispatcher(event);
+				
+				dispatcher.Dispatch<WindowClosedEvent>(
+					[this](WindowClosedEvent* windowEvent) {
+						Owner->HandleWindowClosed(windowEvent);
+					}
+				);
+
+				dispatcher.Dispatch<PauseGameEvent>(
+					[this](PauseGameEvent* pauseEvent) {
+						Owner->PauseGame(pauseEvent);
+					}
+				);
+
+			}
+
+			Game* Owner;
+		};
+
+		std::unique_ptr<GameEventBusNode> BusNode;
+
 	};
 
 }

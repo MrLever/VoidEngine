@@ -5,7 +5,9 @@
 //Library Headers
 
 
-//Coati Headers
+//Void Engine Headers
+#include "Engine.h"
+
 #include "AudioManager.h"
 #include "Console.h"
 #include "Configuration.h"
@@ -15,23 +17,24 @@
 #include "Renderer.h"
 #include "ResourceAllocator.h"
 #include "ThreadPool.h"
-#include "WindowManager.h"
+#include "Window.h"
 #include "Logger.h"
 
 namespace core {
 
-	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
+	Game::Game(const std::string& configFile) : GameEngine(configFile) {
 		FrameRate = 0;
-		
-		//Load configuration data
-		EngineConfig.Load();
+		Terminated = false;
+		Paused = false;
+		BusNode = std::make_unique<GameEventBusNode>(GameEngine.GetEventBus().get(), this);
 
-		//Init Higher Level Game Objects
-		InitGame();
+		//Create the level cache
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(
+			GameEngine.GetThreadPool()
+		);
 
 		//Set the current level to the default level
-		SetLevel(EngineConfig.GetAttribute<std::string>("DefaultLevel"));
-		Window->ToggleCursor();
+		SetLevel(GameEngine.GetDefaultLevel());
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -41,39 +44,12 @@ namespace core {
 
 	}
 
-	void Game::InitGame() {
-		//Initialize Engine Utilities
-		GameThreadPool = std::make_shared<utils::ThreadPool>();
+	void Game::HandleWindowClosed(WindowClosedEvent* event) {
+		Terminated = true;
+	}
 
-		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
-		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(GameThreadPool);
-
-		//Initialize game window and input interface
-		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
-
-		//Initialize Input Manager
-		GameInputManager = std::make_shared<InputManager>(
-			ConfigManager->LoadResource("Settings/InputConfig.json")
-		);
-
-		//Attach input manager to window to address hardware callbacks
-		Window->SetInputManager(GameInputManager);
-
-		//Initialize Renderer
-		GameRenderer = std::make_unique<Renderer>(
-			Window, 
-			GameThreadPool,
-			ConfigManager->LoadResource("Settings/RenderingConfig.json")
-		);
-		
-		//Initialize Audio Manager
-		GameAudioManager = std::make_unique<AudioManager>(
-			GameThreadPool,
-			ConfigManager->LoadResource("Settings/AudioConfig.json")
-		);
-
-		GameMessageBus = std::make_shared<MessageBus>();
-		GameConsole = std::make_shared<Console>(GameMessageBus);
+	void Game::PauseGame(PauseGameEvent* event) {
+		Paused = !Paused;
 	}
 
 	void Game::Update(float deltaTime) {
@@ -82,31 +58,40 @@ namespace core {
 		}
 
 		UpdateFramerate(deltaTime);
+
 		CurrentLevel->Update(deltaTime);
 	}
 
 	void Game::ProcessInput(float deltaTime) {
-		Window->PollEvents();
-		GameInputManager->ProcessInput(CurrentLevel->GetScene(), deltaTime);
+		GameEngine.PollInput();
+		GameEngine.ProcessInput(CurrentLevel.get(), deltaTime);
 	}
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
-		while (!Window->WindowTerminated()) {
+		while (!Terminated) {
 			//Get current time
 			currentTime = Timer::now();
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
-			
+			if (Paused) {
+				deltaTime = 0;
+			}
+
 			//Handle input
 			ProcessInput(deltaTime);
 			
+			//Dispatch any events that occurred since the last frame
+			GameEngine.DispatchEvents();
+
 			//Update the scene
-			Update(deltaTime);
+			if (!Paused) {
+				Update(deltaTime);
+			}
 			
 			//Draw the scene
-			GameRenderer->Render(CurrentLevel.get());
+			GameEngine.Render(CurrentLevel.get());
 
 			//Update previous time
 			previousTime = currentTime;
@@ -122,9 +107,8 @@ namespace core {
 		numFrames++;
 
 		if (currentTime - lastTime >= ONE_SECOND) {
-			GameThreadPool->SubmitJob(
+			GameEngine.GetThreadPool()->SubmitJob(
 				[] (double frameTime){
-					//std::cout << "FrameTime: " << frameTime << "ms\n";
 					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
 				(ONE_SECOND + 0.0) / numFrames

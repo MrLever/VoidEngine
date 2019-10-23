@@ -25,7 +25,8 @@ namespace core {
 			MessageBusNode* Receiver;
 			MessageType SubscriptionFlag;
 
-			Subscriber(MessageBusNode* receiver, MessageType flag) : Receiver(std::move(receiver)), SubscriptionFlag(flag) {
+			Subscriber(MessageBusNode* receiver, MessageType flag) 
+				: Receiver(std::move(receiver)), SubscriptionFlag(flag) {
 
 			}
 

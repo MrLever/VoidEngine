@@ -11,7 +11,7 @@
 //Void Engine Headers
 #include "Component.h"
 #include "Vector.h"
-#include "WindowManager.h"
+#include "Window.h"
 
 namespace core {
 	class CameraComponent : public Component {

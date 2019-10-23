@@ -36,15 +36,36 @@ namespace utils {
 		 */
 		~ResourceAllocator();
 
+		/**
+		 * Instructs the allocator to load a resource from main memory
+		 * @param filePath The location of the file
+		 */
 		ResourceHandle<T> LoadResource(const std::string& filePath);
 
+		/**
+		 * Instructs the allocator to load a resource from main memory
+		 * even if it is currently cached
+		 * @param filePath The location of the file
+		 */
 		ResourceHandle<T> ReloadResource(const std::string& filePath);
 
+		/**
+		 * Instructs the allocator to remove a cached resource
+		 * @param filePath The location of the file
+		 */
 		void RemoveResource(const std::string& filePath);
 
+		/**
+		 * Instructs the allocator to aquire a cached resource
+		 * @param filePath The location of the file
+		 */
 		std::shared_ptr<T> GetResource(const std::string& filePath);
 
-		std::shared_ptr<T> GetResource(const Name& filePath);
+		/**
+		 * Instructs the allocator to aquire a cached resource
+		 * @param fileID The ID of the file
+		 */
+		std::shared_ptr<T> GetResource(const Name& fileID);
 
 
 	private:
@@ -134,14 +155,14 @@ namespace utils {
 	}
 
 	template<class T>
-	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const Name& filePath) {
-		auto cacheIter = ResourceCache.find(filePath);
+	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const Name& fileID) {
+		auto cacheIter = ResourceCache.find(fileID);
 
 		if (cacheIter != ResourceCache.end()) {
 			return cacheIter->second.GetResource();
 		}
 		else {
-			return LoadResource(filePath.StringID).GetResource();
+			return LoadResource(fileID.StringID).GetResource();
 		}
 	}
 }

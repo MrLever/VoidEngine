@@ -11,24 +11,26 @@
 //Void Engine Headers
 #include "CameraComponent.h"
 #include "Configurable.h"
+#include "EventBusNode.h"
 #include "Level.h"
 #include "ThreadPool.h"
+#include "WindowResizedEvent.h"
 #include "ResourceAllocator.h"
 
 namespace core {
 
 	//Forward Class declarations
-	class WindowManager;
+	class Window;
 
-	class Renderer : public utils::Configurable{
+	class Renderer : public utils::Configurable, public EventBusNode {
 	public:
 		/**
 		 * Constructor
 		 * @param window The Window the renderer draws to
 		 */
 		Renderer(
-			std::shared_ptr<WindowManager> window,
-			ThreadPoolPtr threadPool,
+			EventBus* bus,
+			std::shared_ptr<Window> window,
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
@@ -36,6 +38,17 @@ namespace core {
 		 * Destructor
 		 */
 		~Renderer();
+
+		/**
+		 * Allows node to receive and process events from EventBus
+		 * @param event The event to process
+		 */
+		void ReceiveEvent(Event* event) override;
+
+		/**
+		 * Allows EventBus to query the node's subscription, and filter events accordingly
+		 */
+		unsigned GetSubscription() override;
 
 		/** 
 		 * Draws to the sceen
@@ -49,11 +62,11 @@ namespace core {
 		void Configure() override;
 
 	private:
-		/** The game's active thread pool */
-		ThreadPoolPtr GameThreadPool;
+
+		void HandleWindowResize(WindowResizedEvent* event);
 
 		/** Shared with the Input System, the render can draw to this window. */
-		std::shared_ptr<WindowManager> Window;
+		std::shared_ptr<Window> GameWindow;
 
 		/** The defualt view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;

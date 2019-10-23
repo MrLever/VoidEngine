@@ -8,13 +8,13 @@
 
 //Void Engine Headers
 #include "Configurable.h"
-#include "Configuration.h"
+#include "EventBusNode.h"
 #include "Entity.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
-#include "KeyboardInput.h"
+#include "KeyboardInputEvent.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
 #include "InputAxis.h"
@@ -23,24 +23,36 @@ namespace core {
 
 	//Forward Class declarations
 	class MessageBus;
+	class Level;
 
 	/**
 	 * @class InputManager
 	 * @brief The InputManager is responsible for processing input events to handle debouncing
 	 *        and detect higher order patterns like double-taps and chords 
 	 */
-	class InputManager : public utils::Configurable {
+	class InputManager : public EventBusNode, public utils::Configurable {
 	public:
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(const utils::ResourceHandle<utils::Configuration>& configuration);
+		InputManager(EventBus* bus, const utils::ResourceHandle<utils::Configuration>& configuration);
 
 		/**
 		 * Destructor
 		 */
 		~InputManager() = default;
+
+		/**
+		 * Allows node to receive and process events from EventBus
+		 * @param event The event to process
+		 */
+		void ReceiveEvent(Event* event) override;
+
+		/**
+		 * Allows EventBus to query the node's subscription, and filter events accordingly
+		 */
+		virtual unsigned GetSubscription() /** override */;
 
 		/**
 		 * Proccesses keyboard input events
@@ -71,7 +83,7 @@ namespace core {
 		 * @param scene The scene of entities to propogate commands to
 		 * @param deltaTime the time step for input operations
 		 */
-		void ProcessInput(const std::vector<Entity*> scene, float deltaTime);
+		void ProcessInput(Level* scene, float deltaTime);
 
 	private:
 		/**
@@ -118,3 +130,5 @@ namespace core {
 	};
 
 }
+
+using InputManagerPtr = std::shared_ptr<core::InputManager>;

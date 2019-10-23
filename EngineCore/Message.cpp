@@ -13,12 +13,12 @@ namespace core {
 	//CTORS
 
 	Message::Message(const std::string &message, const MessageType &type) 
-		: Event(message), Type(type), ID(message) {
+		: Event(message), Type(type) {
 
 	}
 
 	Message::Message(const std::string &message, unsigned type) 
-		: Event(message), Type(static_cast<MessageType>(type)), ID(message) {
+		: Event(message), Type(static_cast<MessageType>(type)) {
 
 	}
 
@@ -27,25 +27,16 @@ namespace core {
 	}
 
 	bool Message::operator==(const Message& other) const {
-		return this->ID == other.ID;
+		return this->Event == other.Event;
 	}
 
-	std::string Message::GetEvent() const {
+	utils::Name Message::GetEvent() const {
 		return Event;
-	}
-
-	utils::Name Message::GetEventID() const {
-		return ID;
 	}
 
 	MessageType Message::GetType() const {
 		return Type;
 	}
-
-	//Private Functions
-
-
-	//Public Functions
 
 	std::ostream& operator<<(std::ostream& out, const Message& message){
 		return out << message.Event;
