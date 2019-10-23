@@ -24,8 +24,8 @@ namespace core {
 
 	Game::Game(const std::string& configFile) : GameEngine(configFile) {
 		FrameRate = 0;
-		Running = true;
-
+		Terminated = false;
+		Paused = false;
 		BusNode = std::make_unique<GameEventBusNode>(GameEngine.GetEventBus().get(), this);
 
 		//Create the level cache
@@ -45,7 +45,11 @@ namespace core {
 	}
 
 	void Game::HandleWindowClosed(WindowClosedEvent* event) {
-		Running = false;
+		Terminated = true;
+	}
+
+	void Game::PauseGame(PauseGameEvent* event) {
+		Paused = !Paused;
 	}
 
 	void Game::Update(float deltaTime) {
@@ -54,8 +58,6 @@ namespace core {
 		}
 
 		UpdateFramerate(deltaTime);
-
-		GameEngine.DispatchEvents();
 
 		CurrentLevel->Update(deltaTime);
 	}
@@ -68,17 +70,25 @@ namespace core {
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
-		while (Running) {
+		while (!Terminated) {
 			//Get current time
 			currentTime = Timer::now();
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
-			
+			if (Paused) {
+				deltaTime = 0;
+			}
+
 			//Handle input
 			ProcessInput(deltaTime);
 			
+			//Dispatch any events that occurred since the last frame
+			GameEngine.DispatchEvents();
+
 			//Update the scene
-			Update(deltaTime);
+			if (!Paused) {
+				Update(deltaTime);
+			}
 			
 			//Draw the scene
 			GameEngine.Render(CurrentLevel.get());

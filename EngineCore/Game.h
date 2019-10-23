@@ -14,6 +14,7 @@
 #include "ResourceAllocator.h"
 #include "Level.h"
 #include "WindowClosedEvent.h"
+#include "PauseGameEvent.h"
 
 namespace core {
 	/**
@@ -40,6 +41,11 @@ namespace core {
 		 * Allows the game to react to WindowClosedEvents
 		 */
 		void HandleWindowClosed(WindowClosedEvent* event);
+		
+		/**
+		 * Allows the game to react to PauseGameEvents
+		 */
+		void PauseGame(PauseGameEvent* event);
 
 		/**
 		 * Instructs the game to update the entities in it's simulation
@@ -81,7 +87,9 @@ namespace core {
 		/** The game's current framerate */
 		int FrameRate;
 
-		bool Running;
+		bool Terminated;
+
+		bool Paused;
 
 		/**
 		 * Helper class to connect Game to the event bus
@@ -98,11 +106,19 @@ namespace core {
 
 			virtual void ReceiveEvent(Event* event) {
 				EventDispatcher dispatcher(event);
+				
 				dispatcher.Dispatch<WindowClosedEvent>(
 					[this](WindowClosedEvent* windowEvent) {
 						Owner->HandleWindowClosed(windowEvent);
 					}
 				);
+
+				dispatcher.Dispatch<PauseGameEvent>(
+					[this](PauseGameEvent* pauseEvent) {
+						Owner->PauseGame(pauseEvent);
+					}
+				);
+
 			}
 
 			Game* Owner;

@@ -43,6 +43,9 @@ namespace core {
 			callback(static_cast<T*>(PendingEvent));
 			return true;
 		}
+		else {
+			return false;
+		}
 	}
 
 }

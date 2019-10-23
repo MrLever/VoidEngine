@@ -10,10 +10,11 @@
 #include "CameraComponent.h"
 #include "InputManager.h"
 #include "InputAxisReport.h"
-#include "InputEvent.h"
 #include "Logger.h"
 #include "WindowClosedEvent.h"
 #include "WindowResizedEvent.h"
+#include "MouseButtonEvent.h"
+#include "PauseGameEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -30,8 +31,6 @@ namespace core {
 		WindowHeight = data.windowHeight;
 		GameName = data.gameName;
 
-		CursorEnabled = false;
-		
 		InitGLFW();
 		InitGLAD();
 
@@ -45,10 +44,17 @@ namespace core {
 
 	void Window::ReceiveEvent(Event* event) {
 		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<PauseGameEvent>(
+			[this](PauseGameEvent* event) {
+				ToggleCursorCapture();
+			}
+		);
 	}
 
 	unsigned Window::GetSubscription() {
-		return static_cast<unsigned>(EventCategory::WINDOW);
+		return 
+			static_cast<unsigned>(EventCategory::WINDOW) |
+			static_cast<unsigned>(EventCategory::GAMEPLAY);
 	}
 
 	void Window::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
@@ -145,11 +151,54 @@ namespace core {
 			}
 		);
 
-		glfwSetKeyCallback(GLFWContext.get(), KeyboardInputCallback);
-		glfwSetMouseButtonCallback(GLFWContext.get(), MouseButtonCallback);
+		glfwSetKeyCallback(
+			GLFWContext.get(),
+			[](GLFWwindow* context, int key, int scancode, int action, int mods) {
+				Window* window = (Window*)glfwGetWindowUserPointer(context);
+
+				//IGNORE KEY HELD EVENTS
+				if (static_cast<ButtonState>(action) == ButtonState::HELD) {
+					return;
+				}
+
+				//Get time stamp for KeyBoardInput
+				auto timeStamp = utils::GetGameTime();
+
+				//Create Input wrapper object
+				KeyboardInput input(
+					static_cast<KeyboardButton>(key),
+					static_cast<ButtonState>(action),
+					mods,
+					timeStamp
+				);
+
+				window->PublishEvent(new KeyboardInputEvent(input));
+			}
+		);
+
+		glfwSetMouseButtonCallback(GLFWContext.get(), 
+			[](GLFWwindow* context, int button, int action, int mods) {
+				Window* window = (Window*)glfwGetWindowUserPointer(context);
+
+				//Get time stamp for MouseButton event
+				auto timeStamp = utils::GetGameTime();
+
+				//Create Coati MouseInput
+				MouseInput input(
+					static_cast<MouseButton>(button),
+					static_cast<ButtonState>(action),
+					mods,
+					timeStamp
+				);
+
+				window->PublishEvent(new MouseButtonEvent(input));
+			}
+		);
+
 		glfwSetCursorPosCallback(GLFWContext.get(), MousePositionCallback);
 		glfwSetScrollCallback(GLFWContext.get(), MouseScrollCallback);
 
+		SetCursorCapture(true);
 	}
 
 	void Window::InitGLAD() {
@@ -195,15 +244,25 @@ namespace core {
 		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
-	void Window::ToggleCursor() {
-		if (CursorEnabled) {
+	void Window::SetCursorCapture(bool state) {
+		if (state) {
 			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			CursorEnabled = false;
 		}
 		else {
 			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			CursorEnabled = true;
 		}
+	}
 
+	void Window::ToggleCursorCapture() {
 		CursorEnabled = !CursorEnabled;
+		if (CursorEnabled) {
+			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else {
+			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
 	}
 
 	std::shared_ptr<GLFWwindow> Window::GetWindow() {
@@ -262,15 +321,6 @@ namespace core {
 
 	}
 
-	void Window::SetCursor(bool state) {
-		if (state) {
-			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
-		else {
-			glfwSetInputMode(GLFWContext.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		}
-	}
-
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
 		if (!glfwGetGamepadState(GLFW_JOYSTICK_1, &state)) {
 			return;
@@ -308,37 +358,6 @@ namespace core {
 		errorMsg << "Error: #" << error << ", " << description;
 
 		utils::Logger::LogError(errorMsg.str());
-	}
-
-	void Window::ResizeFrameBuffer(GLFWwindow* window, int width, int height) {
-		glViewport(0, 0, width, height);
-
-		CurrWindowManager->WindowWidth = width;
-		CurrWindowManager->WindowHeight = height;
-	}
-
-	void Window::KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-		//IGNORE KEY HELD EVENTS
-		if (static_cast<ButtonState>(action) == ButtonState::HELD) {
-			return;
-		}
-
-		//Get time stamp for KeyBoardInput
-		auto timeStamp = utils::GetGameTime();
-
-		//Create Input wrapper object
-		KeyboardInput input(
-			static_cast<KeyboardButton>(key),
-			static_cast<ButtonState>(action),
-			mods,
-			timeStamp
-		);
-
-		if (input == ToggleFullscreenInput) {
-			CurrWindowManager->ToggleFullscreen();
-		}
-
-		CurrWindowManager->GameInputManager->ReportInput(input);
 	}
 
 	void Window::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {

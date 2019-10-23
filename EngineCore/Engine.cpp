@@ -30,6 +30,7 @@ namespace core {
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
+			GameEventBus.get(),
 			ConfigManager->LoadResource("Settings/InputConfig.json")
 		);
 

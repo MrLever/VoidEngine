@@ -6,18 +6,47 @@
 
 //Void Engine Headers
 #include "InputManager.h"
-#include "MessageBus.h"
+#include "EventBus.h"
+#include "MouseButtonEvent.h"
+#include "PauseGameEvent.h"
 #include "Level.h"
 
 namespace core {
 
-	InputManager::InputManager( const utils::ResourceHandle<utils::Configuration>& configuration) 
-		: Configurable(configuration){
+	InputManager::InputManager(
+		EventBus* bus, 
+		const utils::ResourceHandle<utils::Configuration>& configuration
+		) : EventBusNode(bus), Configurable(configuration) {
 		
 		Configure();
 	}
 
+	void InputManager::ReceiveEvent(Event* event) {
+		EventDispatcher dispatcher(event);
+		
+		dispatcher.Dispatch<KeyboardInputEvent>(
+			[this](KeyboardInputEvent* event) {
+				ReportInput(event->Input);
+			}
+		);
+
+		dispatcher.Dispatch<MouseButtonEvent>(
+			[this](MouseButtonEvent* event) {
+				ReportInput(event->Input);
+			}
+		);
+	}
+
+	unsigned InputManager::GetSubscription() {
+		return static_cast<unsigned>(EventCategory::RAW_INPUT);
+	}
+
 	void InputManager::ReportInput(const KeyboardInput& input) {
+		static const KeyboardInput PAUSE_INPUT(KeyboardButton::ESC, ButtonState::PRESSED);
+		if (input == PAUSE_INPUT) {
+			Bus->PostEvent(new PauseGameEvent());
+		}
+
 		auto button = input.GetButton();
 		if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
 			KeyboardAxisBindings[button]->UpdateAxis(input);

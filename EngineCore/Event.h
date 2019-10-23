@@ -12,7 +12,8 @@ namespace core {
 		NONE = 0x00,
 		RAW_INPUT = 0x01,
 		INPUT = 0x02,
-		WINDOW = 0x04
+		WINDOW = 0x04,
+		GAMEPLAY = 0x08
 	};
 
 	class Event {

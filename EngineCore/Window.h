@@ -81,11 +81,6 @@ namespace core {
 		 */
 		void HandleGamepadInput();
 
-		/**
-		 * Allows user to change cursor state
-		 */
-		void SetCursor(bool state);
-
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks
@@ -99,25 +94,6 @@ namespace core {
 		 * @param description The Error's description
 		 */
 		static void ReportWindowError(int error, const char* description);
-
-		/** 
-		 * Callback to resize the window/draw frame buffer
-		 * @param window The window to be resized
-		 * @param width The new width to apply to the window
-		 * @param height The new height to apply to the window
-		 */
-		static void ResizeFrameBuffer(GLFWwindow* window, int width, int height);
-
-		/**
-		 * Callback to capture keyboard input
-		 * @param window The window reporting this input
-		 * @param key The keyboard key being reported
-		 * @param scancode The platform-specific key code for the key being pressed
-		 * @param action The type of key action being reported
-		 * @param mods A bitfield to specify if any modifying keys (shift, caps lock, etc) are being 
-		 *             held in conjunction with this button
-		 */
-		static void KeyboardInputCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 		/**
 		 * Callback to capture mouse button events
@@ -158,7 +134,12 @@ namespace core {
 		/**
 		 * Instructs GLFW to toggle cursor visibility
 		 */
-		void ToggleCursor();
+		void SetCursorCapture(bool state);
+
+		/**
+		 * Instructs GLFW to toggle cursor visibility
+		 */
+		void ToggleCursorCapture();
 
 		/**
 		 * Global function to allow an entity to set the window's view of the world
