@@ -17,7 +17,7 @@ namespace core {
 		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
 
 		//Initialize game window and input interface
-		Window = std::make_shared<WindowManager>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
+		GameWindow = std::make_shared<Window>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
@@ -25,11 +25,11 @@ namespace core {
 			);
 
 		//Attach input manager to window to address hardware callbacks
-		Window->SetInputManager(GameInputManager);
+		GameWindow->SetInputManager(GameInputManager);
 
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
-			Window,
+			GameWindow,
 			GameThreadPool,
 			ConfigManager->LoadResource("Settings/RenderingConfig.json")
 			);
@@ -48,8 +48,12 @@ namespace core {
 		return GameThreadPool;
 	}
 
+	EventBusPtr Engine::GetEventBus() {
+		return GameEventBus;
+	}
+
 	WindowManagerPtr Engine::GetWindowManager() {
-		return Window;
+		return GameWindow;
 	}
 
 	InputManagerPtr Engine::GetInputManager() {
@@ -61,7 +65,7 @@ namespace core {
 	}
 
 	void Engine::PollInput() {
-		Window->PollEvents();
+		GameWindow->PollEvents();
 	}
 
 	void Engine::ProcessInput(Level* level, const float deltaTime) {
@@ -69,7 +73,7 @@ namespace core {
 	}
 
 	bool Engine::GetIsRunning() {
-		return !Window->WindowTerminated();
+		return !GameWindow->WindowTerminated();
 	}
 
 	void Engine::Render(Level* level) {

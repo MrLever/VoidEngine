@@ -8,15 +8,14 @@
 #include "Configurable.h"
 #include "Configuration.h"
 #include "Console.h"
-#include "EntityFactory.h"
+#include "EventBus.h"
 #include "InputManager.h"
-#include "GameStateMachine.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "Renderer.h"
 #include "Level.h"
 #include "MessageBus.h"
-#include "WindowManager.h"
+#include "Window.h"
 
 namespace core {
 
@@ -31,6 +30,11 @@ namespace core {
 		 * Allows access the the game's thread pool
 		 */
 		ThreadPoolPtr GetThreadPool();
+
+		/**
+		 * Allows acces to the engine's event bus
+		 */
+		EventBusPtr GetEventBus();
 
 		/**
 		 * Allows access the the game's window manager
@@ -62,6 +66,9 @@ namespace core {
 		 */
 		bool GetIsRunning();
 
+		/**
+		 * Instructs the engine to render the supplied level
+		 */
 		void Render(Level* level);
 
 	private:
@@ -71,8 +78,11 @@ namespace core {
 		/** Resource Manager for the engine's config files */
 		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
 
+		/** Engine's central event bus */
+		std::shared_ptr<EventBus> GameEventBus;
+
 		/** A handle to the game's display */
-		std::shared_ptr<WindowManager> Window;
+		std::shared_ptr<Window> GameWindow;
 
 		/** The game's message bus */
 		std::shared_ptr<MessageBus> GameMessageBus;

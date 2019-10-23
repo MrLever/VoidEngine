@@ -7,14 +7,14 @@
 #include "Entity.h"
 #include "GraphicsComponent.h"
 #include "Renderer.h"
-#include "WindowManager.h"
+#include "Window.h"
 
 namespace core {
 
 	Renderer::Renderer(
-			std::shared_ptr<WindowManager> window, ThreadPoolPtr threadPool,
+			std::shared_ptr<Window> window, ThreadPoolPtr threadPool,
 			const utils::ResourceHandle<utils::Configuration>& configuration
-		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), Window(std::move(window)) {
+		) : Configurable(configuration), GameThreadPool(std::move(threadPool)), GameWindow(std::move(window)) {
 		
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -24,8 +24,8 @@ namespace core {
 		//Enable Depth Buffer
 		glEnable(GL_DEPTH_TEST);
 
-		ContextWidth = Window->GetWindowWidth();
-		ContexHeight = Window->GetWindowHeight();
+		ContextWidth = GameWindow->GetWindowWidth();
+		ContexHeight = GameWindow->GetWindowHeight();
 
 		//Set default view matrix
 		DefualtViewMatrix = glm::mat4(1.0f);
@@ -45,7 +45,7 @@ namespace core {
 
 	void Renderer::Render(Level* scene) {
 		//Set the view and projection matrices for all graphics components for this draw call 
-		auto activeCamera = WindowManager::GetActiveWindow()->GetView();
+		auto activeCamera = Window::GetActiveWindow()->GetView();
 		if (activeCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
 			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
@@ -55,8 +55,8 @@ namespace core {
 			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
 		}
 
-		auto windowWidth = Window->GetWindowWidth();
-		auto windowHeight = Window->GetWindowHeight();
+		auto windowWidth = GameWindow->GetWindowWidth();
+		auto windowHeight = GameWindow->GetWindowHeight();
 
 		//If the window was resized from the last call
 		if (ContextWidth != windowWidth || ContexHeight != windowHeight) [[unlikely]] {
@@ -88,7 +88,7 @@ namespace core {
 			entity->Draw();
 		}
 
-		Window->SwapBuffers();
+		GameWindow->SwapBuffers();
 	}
 
 	void Renderer::Configure() {

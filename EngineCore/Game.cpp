@@ -16,15 +16,13 @@
 #include "MessageBus.h"
 #include "Renderer.h"
 #include "ResourceAllocator.h"
-#include "RunningState.h"
 #include "ThreadPool.h"
-#include "WindowManager.h"
+#include "Window.h"
 #include "Logger.h"
 
 namespace core {
 
-	Game::Game(const std::string& configFile) 
-		: GameEngine(configFile), StateMachine(this) {
+	Game::Game(const std::string& configFile) : GameEngine(configFile) {
 		FrameRate = 0;
 
 		//Create the level cache
@@ -34,11 +32,6 @@ namespace core {
 
 		//Set the current level to the default level
 		SetLevel(GameEngine.GetDefaultLevel());
-
-		//Set the game state to Running
-		StateMachine.PushState(
-			std::make_unique<RunningState>(this)
-		);
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -54,8 +47,8 @@ namespace core {
 		}
 
 		UpdateFramerate(deltaTime);
-		StateMachine.Update(CurrentLevel.get(), deltaTime);
-		//CurrentLevel->Update(deltaTime);
+
+		CurrentLevel->Update(deltaTime);
 	}
 
 	void Game::ProcessInput(float deltaTime) {

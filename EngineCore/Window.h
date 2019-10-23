@@ -18,10 +18,10 @@ namespace core {
 	class Entity;
 
 	/**
-	 * @class WindowManager
+	 * @class Window
 	 * @brief Object to manage the OS-specific window/input context.
 	 */
-	class WindowManager {
+	class Window {
 
 	public:
 		/**
@@ -30,12 +30,12 @@ namespace core {
 		 * @param windowWidth The width of the game window
 		 * @param windowHeight The height of the game window
 		 */
-		WindowManager(const std::string& gameName, int windowWidth, int windowHeight);
+		Window(const std::string& gameName, int windowWidth, int windowHeight);
 		
 		/**
 		 * Destructor
 		 */
-		~WindowManager();
+		~Window();
 
 		/**
 		 * Function to access a pointer to the GLFW window
@@ -163,7 +163,7 @@ namespace core {
 		/**
 		 * Global function to allow any user to query data about the active window
 		 */
-		static WindowManager* GetActiveWindow();
+		static Window* GetActiveWindow();
 
 	private:
 		/** 
@@ -189,7 +189,7 @@ namespace core {
 		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
 
 		/** The game's window */
-		std::shared_ptr<GLFWwindow> Window;
+		std::shared_ptr<GLFWwindow> GLFWContext;
 
 		/** The game's input manager */
 		std::shared_ptr<InputManager> GameInputManager;
@@ -213,7 +213,7 @@ namespace core {
 		bool CursorEnabled;
 
 		/** Pointer to the active window manager to allow static callback functions to work properly */
-		static WindowManager* CurrWindowManager;
+		static Window* CurrWindowManager;
 
 		/** OpenGL Major version */
 		static const int OPENGL_MAJOR = 4;
@@ -226,4 +226,4 @@ namespace core {
 	};
 }
 
-using WindowManagerPtr = std::shared_ptr<core::WindowManager>;
+using WindowManagerPtr = std::shared_ptr<core::Window>;

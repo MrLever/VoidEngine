@@ -115,17 +115,23 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Model Loading">
       <UniqueIdentifier>{f555a287-f13d-4852-8a3a-33d88b17eb46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine Core\Game State System">
-      <UniqueIdentifier>{4eb35ea1-dee8-4aaa-93e4-893f2f7e24eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Core\Game State System">
-      <UniqueIdentifier>{1c5aa482-7fab-4273-b8b1-6b6edf2c2ada}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine Core\Messaging Systems">
       <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Engine Core\Messaging Systems">
       <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Event System">
+      <UniqueIdentifier>{6fe51614-19a8-409c-be01-7d1961022ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Event System">
+      <UniqueIdentifier>{e15ae4d6-ca38-400e-a1b8-d551164184b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Event System\Events">
+      <UniqueIdentifier>{885797a3-ea47-451b-8198-44ad1f46aa6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Event System\Events">
+      <UniqueIdentifier>{9e31a6b1-7592-4cbe-b668-dd55c80f1031}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +188,6 @@
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Gameplay Framework\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files\Engine Core</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
@@ -252,20 +255,29 @@
     <ClCompile Include="InputAxis.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\Engine Core\Game State System</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseState.cpp">
-      <Filter>Source Files\Engine Core\Game State System</Filter>
-    </ClCompile>
-    <ClCompile Include="RunningState.cpp">
-      <Filter>Source Files\Engine Core\Game State System</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStateMachine.cpp">
-      <Filter>Source Files\Engine Core\Game State System</Filter>
+    <ClCompile Include="EventBus.cpp">
+      <Filter>Source Files\Engine Core\Event System</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="EventDispatcher.cpp">
+      <Filter>Source Files\Engine Core\Event System</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowResizedEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventBusNode.cpp">
+      <Filter>Source Files\Engine Core\Event System</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Engine Core</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowClosedEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -344,9 +356,6 @@
     <ClInclude Include="Input.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Header Files\Engine Core</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
@@ -419,20 +428,29 @@
     <ClInclude Include="InputAxis.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files\Engine Core\Game State System</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseState.h">
-      <Filter>Header Files\Engine Core\Game State System</Filter>
-    </ClInclude>
-    <ClInclude Include="RunningState.h">
-      <Filter>Header Files\Engine Core\Game State System</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateMachine.h">
-      <Filter>Header Files\Engine Core\Game State System</Filter>
+    <ClInclude Include="EventBus.h">
+      <Filter>Header Files\Engine Core\Event System</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine Core</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowResizedEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventDispatcher.h">
+      <Filter>Header Files\Engine Core\Event System</Filter>
+    </ClInclude>
+    <ClInclude Include="EventBusNode.h">
+      <Filter>Header Files\Engine Core\Event System</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Engine Core</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowClosedEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

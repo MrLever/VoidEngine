@@ -18,7 +18,7 @@
 namespace core {
 
 	//Forward Class declarations
-	class WindowManager;
+	class Window;
 
 	class Renderer : public utils::Configurable{
 	public:
@@ -27,7 +27,7 @@ namespace core {
 		 * @param window The Window the renderer draws to
 		 */
 		Renderer(
-			std::shared_ptr<WindowManager> window,
+			std::shared_ptr<Window> window,
 			ThreadPoolPtr threadPool,
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
@@ -53,7 +53,7 @@ namespace core {
 		ThreadPoolPtr GameThreadPool;
 
 		/** Shared with the Input System, the render can draw to this window. */
-		std::shared_ptr<WindowManager> Window;
+		std::shared_ptr<Window> GameWindow;
 
 		/** The defualt view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;

@@ -256,9 +256,11 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="EventBus.cpp" />
+    <ClCompile Include="EventBusNode.cpp" />
+    <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="FlyingMovementComponent.cpp" />
-    <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="InputAxisReport.cpp" />
@@ -269,7 +271,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PanMovementComponent.cpp" />
-    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -278,7 +279,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
-    <ClCompile Include="RunningState.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StaticObserver.cpp" />
@@ -286,13 +286,15 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="ThreadPoolWorker.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
-    <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="WindowClosedEvent.cpp" />
+    <ClCompile Include="Window.cpp" />
     <ClCompile Include="MessageBusNode.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="WindowResizedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
@@ -304,9 +306,11 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
     <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventBus.h" />
+    <ClInclude Include="EventBusNode.h" />
+    <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="FlyingMovementComponent.h" />
-    <ClInclude Include="GameState.h" />
-    <ClInclude Include="GameStateMachine.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="InputAxisReport.h" />
@@ -317,7 +321,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Model.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PanMovementComponent.h" />
-    <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />
@@ -332,7 +335,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="ResourceHandle.h" />
     <ClInclude Include="ResourceAllocator.h" />
     <ClInclude Include="EngineUtilities.h" />
-    <ClInclude Include="RunningState.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StaticObserver.h" />
@@ -343,13 +345,15 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Name.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="WindowClosedEvent.h" />
+    <ClInclude Include="Window.h" />
     <ClInclude Include="MessageBusNode.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="WindowResizedEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

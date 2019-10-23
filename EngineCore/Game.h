@@ -4,14 +4,12 @@
 #include <chrono>
 #include <memory>
 #include <queue>
-#include <stack>
 
 //Library Headers
 
 //Coati Headers
 #include "Configuration.h"
 #include "Engine.h"
-#include "GameStateMachine.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
 
@@ -72,9 +70,6 @@ namespace core {
 
 		/** Resource Manager for the engine's level files */
 		ResourceAllocatorPtr<Level> LevelCache;
-
-		/** The game's state machine */
-		GameStateMachine StateMachine;
 
 		/** The game's current framerate */
 		int FrameRate;

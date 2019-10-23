@@ -4,7 +4,7 @@
 #include "CppUnitTest.h"
 
 //Void Engine Headers
-#include "WindowManager.h"
+#include "Window.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -16,7 +16,7 @@ namespace EngineCoreTests {
 	public:
 		
 		TEST_METHOD(WindowCreationTest) {
-			WindowManager test("Test", 600, 800);
+			Window test("Test", 600, 800);
 
 			Assert::IsNotNull(test.GetWindow().get());
 		}
