@@ -26,6 +26,8 @@ namespace core {
 		 */
 		Engine(const std::string& engineConfig);
 
+		void DispatchEvents();
+
 		/**
 		 * Allows access the the game's thread pool
 		 */
@@ -60,11 +62,6 @@ namespace core {
 		 * Instructs the engine to process input captured in the last polling
 		 */
 		void ProcessInput(Level* level, const float deltaTime);
-
-		/**
-		 * Allows game to poll if the session is still valid
-		 */
-		bool GetIsRunning();
 
 		/**
 		 * Instructs the engine to render the supplied level

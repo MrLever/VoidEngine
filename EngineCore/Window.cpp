@@ -12,6 +12,7 @@
 #include "InputAxisReport.h"
 #include "InputEvent.h"
 #include "Logger.h"
+#include "WindowClosedEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -22,12 +23,14 @@ namespace core {
 		InputModifier::ALT
 	);
 
-	Window::Window(const std::string& gameName, int windowWidth, int windowHeight) 
-		: GameName(std::move(gameName)), IsFullscreen(false), CursorEnabled(true) {
+	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus) {
 		
-		WindowWidth = windowWidth;
-		WindowHeight = windowHeight;
+		WindowWidth = data.windowWidth;
+		WindowHeight = data.windowHeight;
+		GameName = data.gameName;
 
+		CursorEnabled = false;
+		
 		InitGLFW();
 		InitGLAD();
 
@@ -37,6 +40,14 @@ namespace core {
 
 	Window::~Window() {
 		glfwTerminate();
+	}
+
+	void Window::ReceiveEvent(Event* event) {
+		EventDispatcher dispatcher(event);
+	}
+
+	unsigned Window::GetSubscription() {
+		return static_cast<unsigned>(EventCategory::WINDOW);
 	}
 
 	void Window::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
@@ -109,15 +120,22 @@ namespace core {
 		}
 
 		glfwMakeContextCurrent(GLFWContext.get());
+		glfwSetWindowUserPointer(GLFWContext.get(), this);
 		
 		//Setup callbacks
+		glfwSetWindowCloseCallback(
+			GLFWContext.get(), 
+			[](GLFWwindow* context) {
+				Window* window = (Window*)glfwGetWindowUserPointer(context);
+				window->PublishEvent(new WindowClosedEvent());
+			}
+		);
 		glfwSetFramebufferSizeCallback(GLFWContext.get(), ResizeFrameBuffer);
 		glfwSetKeyCallback(GLFWContext.get(), KeyboardInputCallback);
 		glfwSetMouseButtonCallback(GLFWContext.get(), MouseButtonCallback);
 		glfwSetCursorPosCallback(GLFWContext.get(), MousePositionCallback);
 		glfwSetScrollCallback(GLFWContext.get(), MouseScrollCallback);
 
-		glfwSetWindowUserPointer(GLFWContext.get(), this);
 	}
 
 	void Window::InitGLAD() {
@@ -193,10 +211,6 @@ namespace core {
 
 	void Window::SetInputManager(std::shared_ptr<InputManager> inputManager) {
 		GameInputManager = std::move(inputManager);
-	}
-
-	bool Window::WindowTerminated() {
-		return (glfwWindowShouldClose(GLFWContext.get()) == GLFW_TRUE);
 	}
 
 	void Window::HandleGamepadInput() {

@@ -65,5 +65,8 @@
     <ClCompile Include="..\SuperVoid\PlayerShip.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestEventBus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

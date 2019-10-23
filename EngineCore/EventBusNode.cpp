@@ -12,7 +12,9 @@
 namespace core {
 
 	EventBusNode::EventBusNode(EventBus* bus) : Bus(bus) {
-	
+		if (Bus) {
+			Bus->AddListener(this);
+		}
 	}
 
 	void EventBusNode::PublishEvent(Event* event) {
@@ -22,6 +24,11 @@ namespace core {
 		else {
 			utils::Logger::LogWarning("EventBusNode Failed to publish event");
 		}
+	}
+
+	unsigned EventBusNode::GetSubscription() {
+		//Default behavior is to not filter messages
+		return -1; // = 0xFFFFF...
 	}
 
 }

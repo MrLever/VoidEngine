@@ -1,11 +1,13 @@
 #pragma once
 //STD Headers
 #include <queue>
+#include <unordered_set>
 
 //Library Headers
 
 //Void Engine Headers
 #include "Event.h"
+#include "EventBusNode.h"
 
 namespace core {
 
@@ -34,9 +36,18 @@ namespace core {
 		 */
 		void DispatchEvents();
 
+		/**
+		 * Adds EventBusNode to the subscriber pool
+		 * @param node The node to add
+		 */
+		void AddListener(EventBusNode* node);
+
 	private:
 		/** Queue of unprocessed events */
 		std::queue<Event*> EventQueue;
+
+		/** Set of listeners for this bus */
+		std::unordered_set<EventBusNode*> Listeners;
 	};
 
 }

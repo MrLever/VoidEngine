@@ -24,6 +24,9 @@ namespace core {
 
 	Game::Game(const std::string& configFile) : GameEngine(configFile) {
 		FrameRate = 0;
+		Running = true;
+
+		BusNode = std::make_unique<GameEventBusNode>(GameEngine.GetEventBus().get(), this);
 
 		//Create the level cache
 		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(
@@ -41,12 +44,18 @@ namespace core {
 
 	}
 
+	void Game::HandleWindowClosed(WindowClosedEvent* event) {
+		Running = false;
+	}
+
 	void Game::Update(float deltaTime) {
 		if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
 			deltaTime = 0.5f;
 		}
 
 		UpdateFramerate(deltaTime);
+
+		GameEngine.DispatchEvents();
 
 		CurrentLevel->Update(deltaTime);
 	}
@@ -59,7 +68,7 @@ namespace core {
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
-		while (GameEngine.GetIsRunning()) {
+		while (Running) {
 			//Get current time
 			currentTime = Timer::now();
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;

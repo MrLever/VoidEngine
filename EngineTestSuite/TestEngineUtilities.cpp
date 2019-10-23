@@ -24,9 +24,11 @@ namespace EngineUtilitiesTests{
 
 		TEST_METHOD(FNV1aInequalityTest) {
 			auto first = FNV1aHash("ThisIsATest");
-			auto second = FNV1aHash("SoSoThisIsATest");
-
+			auto second = FNV1aHash("ThisTooIsATest");
+			auto third = FNV1aHash("YesYesThisTooIsATest");
 			Assert::AreNotEqual(first, second);
+			Assert::AreNotEqual(first, third);
+			Assert::AreNotEqual(second, third);
 		}
 	};
 }

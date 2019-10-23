@@ -22,7 +22,7 @@ namespace utils {
 			return value;
 		}
 		else {
-			return FNV1aHash(&input[1], value ^ input[0] * prime);
+			return FNV1aHash(&input[1], (value ^ input[0]) * prime);
 		}
 
 	}

@@ -16,13 +16,22 @@ namespace core {
 
 		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
 
+		//Intialize EventBus
+		GameEventBus = std::make_shared<EventBus>();
+
 		//Initialize game window and input interface
-		GameWindow = std::make_shared<Window>(EngineConfig.GetAttribute<std::string>("GameName"), 800, 600);
+		WindowData data{
+			EngineConfig.GetAttribute<std::string>("GameName"),
+			800,
+			600
+		};
+
+		GameWindow = std::make_shared<Window>(GameEventBus.get(), data);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
 			ConfigManager->LoadResource("Settings/InputConfig.json")
-			);
+		);
 
 		//Attach input manager to window to address hardware callbacks
 		GameWindow->SetInputManager(GameInputManager);
@@ -42,6 +51,10 @@ namespace core {
 
 		GameMessageBus = std::make_shared<MessageBus>();
 		GameConsole = std::make_shared<Console>(GameMessageBus.get());
+	}
+
+	void Engine::DispatchEvents() {
+		GameEventBus->DispatchEvents();
 	}
 
 	ThreadPoolPtr Engine::GetThreadPool() {
@@ -70,10 +83,6 @@ namespace core {
 
 	void Engine::ProcessInput(Level* level, const float deltaTime) {
 		GameInputManager->ProcessInput(level, deltaTime);
-	}
-
-	bool Engine::GetIsRunning() {
-		return !GameWindow->WindowTerminated();
 	}
 
 	void Engine::Render(Level* level) {

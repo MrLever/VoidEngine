@@ -188,6 +188,7 @@
     <ClCompile Include="TestConfigurationResource.cpp" />
     <ClCompile Include="TestConsole.cpp" />
     <ClCompile Include="TestEngineUtilities.cpp" />
+    <ClCompile Include="TestEventBus.cpp" />
     <ClCompile Include="TestEventTable.cpp" />
     <ClCompile Include="TestInputDefinitions.cpp" />
     <ClCompile Include="TestInputManager.cpp" />

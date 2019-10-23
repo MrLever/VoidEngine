@@ -16,7 +16,8 @@ namespace EngineCoreTests {
 	public:
 		
 		TEST_METHOD(WindowCreationTest) {
-			Window test("Test", 600, 800);
+			WindowData d = { "Test", 600, 800 };
+			Window test(nullptr, d);
 
 			Assert::IsNotNull(test.GetWindow().get());
 		}

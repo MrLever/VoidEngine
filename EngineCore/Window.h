@@ -10,6 +10,7 @@
 //Void Engine Headers
 #include "EngineUtilities.h"
 #include "KeyboardInput.h"
+#include "EventBusNode.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -17,11 +18,17 @@ namespace core {
 	class CameraComponent;
 	class Entity;
 
+	struct WindowData {
+		std::string gameName;
+		int windowWidth;
+		int windowHeight;
+	};
+
 	/**
 	 * @class Window
 	 * @brief Object to manage the OS-specific window/input context.
 	 */
-	class Window {
+	class Window : public EventBusNode {
 
 	public:
 		/**
@@ -30,12 +37,23 @@ namespace core {
 		 * @param windowWidth The width of the game window
 		 * @param windowHeight The height of the game window
 		 */
-		Window(const std::string& gameName, int windowWidth, int windowHeight);
+		Window(EventBus* bus, WindowData& data);
 		
 		/**
 		 * Destructor
 		 */
 		~Window();
+
+		/**
+		 * Allows node to receive and process events from EventBus
+		 * @param event The event to process
+		 */
+		void ReceiveEvent(Event* event) override;
+
+		/**
+		 * Allows EventBus to query the node's subscription, and filter events accordingly
+		 */
+		virtual unsigned GetSubscription() override;
 
 		/**
 		 * Function to access a pointer to the GLFW window
@@ -57,12 +75,6 @@ namespace core {
 		 * Attaches an input manager to this window to handle input callbacks
 		 */
 		void SetInputManager(std::shared_ptr<InputManager> inputManager);
-
-		/**
-		 * Function to query status of the managed window
-		 * @return whether the window was terminated or not
-		 */
-		bool WindowTerminated();
 
 		/**
 		 * Instructs window to poll and report gamepad input

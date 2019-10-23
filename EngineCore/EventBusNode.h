@@ -4,6 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "EventDispatcher.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -33,6 +34,11 @@ namespace core {
 		 * @param event The event to publish
 		 */
 		virtual void PublishEvent(Event* event) final;
+
+		/**
+		 * Allows EventBus to query the node's subscription, and filter events accordingly
+		 */
+		virtual unsigned GetSubscription();
 
 	protected:
 		/** The event bus this node communicates with */

@@ -24,7 +24,7 @@ namespace core {
 		EventDispatcher(Event* event);
 
 		/**
-		 * Function to help EventBusNodes dispatch the events the recieve to the appropriate callback function
+		 * Function to help EventBusNodes dispatch the events recieve to the appropriate callback function
 		 * @param callback The function to call should the event be dispatched
 		 * @tparam T The type of event for which callback should be executed
 		 * @tparam F The type of the callback (should be deduced by compiler)
@@ -39,8 +39,9 @@ namespace core {
 
 	template<class T, class F> /* requires IsEvent<T> */
 	bool EventDispatcher::Dispatch(const F&& callback) {
-		if (PendingEvent.GetEventType() == T::GetStaticEventType()) {
-			PendingEvent.IsHandled = callback(static_cast<T&>(PendingEvent));
+		if (PendingEvent->GetEventType() == T::GetStaticEventType()) {
+			callback(static_cast<T*>(PendingEvent));
+			return true;
 		}
 	}
 

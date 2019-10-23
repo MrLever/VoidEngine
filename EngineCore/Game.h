@@ -10,8 +10,10 @@
 //Coati Headers
 #include "Configuration.h"
 #include "Engine.h"
+#include "EventBusNode.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
+#include "WindowClosedEvent.h"
 
 namespace core {
 	/**
@@ -34,6 +36,11 @@ namespace core {
 		~Game();
 
 	private:
+		/**
+		 * Allows the game to react to WindowClosedEvents
+		 */
+		void HandleWindowClosed(WindowClosedEvent* event);
+
 		/**
 		 * Instructs the game to update the entities in it's simulation
 		 */
@@ -73,6 +80,36 @@ namespace core {
 
 		/** The game's current framerate */
 		int FrameRate;
+
+		bool Running;
+
+		/**
+		 * Helper class to connect Game to the event bus
+		 */
+		class GameEventBusNode : EventBusNode {
+		public:
+			/**
+			 * Constructor
+			 */
+			GameEventBusNode(EventBus* bus, Game* owner) 
+				: EventBusNode(bus), Owner(owner) {
+
+			}
+
+			virtual void ReceiveEvent(Event* event) {
+				EventDispatcher dispatcher(event);
+				dispatcher.Dispatch<WindowClosedEvent>(
+					[this](WindowClosedEvent* windowEvent) {
+						Owner->HandleWindowClosed(windowEvent);
+					}
+				);
+			}
+
+			Game* Owner;
+		};
+
+		std::unique_ptr<GameEventBusNode> BusNode;
+
 	};
 
 }
