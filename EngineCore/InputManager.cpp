@@ -16,8 +16,9 @@ namespace core {
 
 	InputManager::InputManager(
 		EventBus* bus, 
-		const utils::ResourceHandle<utils::Configuration>& configuration
-		) : EventBusNode(bus), Configurable(configuration) {
+		const utils::ResourceHandle<utils::Configuration>& configuration,
+		std::shared_ptr<utils::ThreadPool> threadPool
+		) : EventBusNode(bus), Configurable(configuration), ControlLayoutCache(threadPool) {
 		
 		Configure();
 	}
@@ -66,12 +67,9 @@ namespace core {
 	}
 
 	void InputManager::ReportInput(const KeyboardInput& input) {
-		static const KeyboardInput PAUSE_INPUT(KeyboardButton::ESC, ButtonState::PRESSED);
-		if (input == PAUSE_INPUT) {
-			Bus->PostEvent(new PauseGameEvent());
-		}
-
 		auto button = input.GetButton();
+
+		//Some keyboard buttons are bound to input axes, and are processed differently
 		if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
 			KeyboardAxisBindings[button]->UpdateAxis(input);
 			return;
@@ -93,10 +91,91 @@ namespace core {
 	}
 
 	void InputManager::ProcessInput(Level* scene, float deltaTime) {
-		//Process Mouse Input
-
 		auto entities = scene->GetScene();
 
+		ProcessKeyboardInput(entities, deltaTime);
+		
+		ProcessMouseInput(entities, deltaTime);
+		
+		ProcessGamepadInput(entities, deltaTime);
+
+		ProcessAxisInput(entities, deltaTime);
+	}
+
+	void InputManager::Configure() {
+		auto configuration = Config.GetResource();
+		DefaultControls = ControlLayoutCache.GetResource(
+			configuration->GetAttribute<std::string>("defaultControls")
+		);
+		ActiveControls = DefaultControls;
+
+		//Set up the axes and their bindings
+		auto LeftRightAxis = std::make_shared<InputAxis>("RightAxis");
+		LeftRightAxis->AddBinding(
+			KeyboardInput(KeyboardButton::A, ButtonState::PRESSED), -1.0f
+		);
+
+		LeftRightAxis->AddBinding(
+			KeyboardInput(KeyboardButton::D, ButtonState::PRESSED), 1.0f
+		);
+
+		auto UpDownAxis = std::make_shared<InputAxis>("UpAxis");
+		UpDownAxis->AddBinding(
+			KeyboardInput(KeyboardButton::W, ButtonState::PRESSED), 1.0f
+		);
+		UpDownAxis->AddBinding(
+			KeyboardInput(KeyboardButton::S, ButtonState::PRESSED), -1.0f
+		);
+
+
+		//Set up bindings to route keys to the axes
+		KeyboardAxisBindings.insert({
+			KeyboardButton::A,
+			LeftRightAxis
+			});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::D,
+			LeftRightAxis
+			});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::W,
+			UpDownAxis
+			});
+
+		KeyboardAxisBindings.insert({
+			KeyboardButton::S,
+			UpDownAxis
+			});
+
+	}
+
+	void InputManager::ProcessKeyboardInput(std::vector<core::Entity*>& entities, float deltaTime) {
+		static const KeyboardInput PAUSE_INPUT(KeyboardButton::ESC, ButtonState::PRESSED);
+
+		while (!KeyboardInputBuffer.empty()) {
+
+			auto input = KeyboardInputBuffer.front();
+			
+			if (input == PAUSE_INPUT) {
+				Bus->PostEvent(new PauseGameEvent());
+			}
+			
+			auto button = input.GetButton();
+			KeyboardInputBuffer.pop_front();
+
+			std::string eventType;
+
+			if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
+				continue;
+			}
+
+			DispatchEvent(entities, InputEvent(eventType), deltaTime);
+		}
+	}
+
+	void InputManager::ProcessMouseInput(std::vector<core::Entity*>& entities, float deltaTime) {
 		while (!MouseInputBuffer.empty()) {
 			auto button = MouseInputBuffer.front();
 
@@ -110,32 +189,9 @@ namespace core {
 
 			MouseInputBuffer.pop_front();
 		}
+	}
 
-		//Process KB like mouse
-		while (!KeyboardInputBuffer.empty()) {
-			auto input = KeyboardInputBuffer.front();
-			auto button = input.GetButton();
-			KeyboardInputBuffer.pop_front();
-
-			std::string eventType;
-
-			if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
-				continue;
-			}
-
-			DispatchEvent(entities, InputEvent(eventType), deltaTime);
-		}
-
-		//Dispatch Axes updates
-		for (auto& entry : KeyboardAxisBindings) {
-			DispatchEvent(
-				entities,
-				entry.second->Poll(),
-				deltaTime
-			);
-		}
-
-		//Process Gamepad input
+	void InputManager::ProcessGamepadInput(std::vector<core::Entity*>& entities, float deltaTime) {
 		while (!GamepadInputBuffer.empty()) {
 			auto input = GamepadInputBuffer.front();
 			auto button = input.GetButton();
@@ -166,6 +222,16 @@ namespace core {
 
 			GamepadInputBuffer.pop_front();
 		}
+	}
+
+	void InputManager::ProcessAxisInput(std::vector<core::Entity*>& entities, float deltaTime) {
+		for (auto& entry : KeyboardAxisBindings) {
+			DispatchEvent(
+				entities,
+				entry.second->Poll(),
+				deltaTime
+			);
+		}
 
 		while (!InputAxisDataBuffer.empty()) {
 			auto axisReading = InputAxisDataBuffer.front();
@@ -174,49 +240,6 @@ namespace core {
 
 			InputAxisDataBuffer.pop_front();
 		}
-	}
-
-	void InputManager::Configure() {
-		//Set up the axes and their bindings
-		auto LeftRightAxis = std::make_shared<InputAxis>("RightAxis");
-		LeftRightAxis->AddBinding(
-			KeyboardInput(KeyboardButton::A, ButtonState::PRESSED), -1.0f
-		);
-
-		LeftRightAxis->AddBinding(
-			KeyboardInput(KeyboardButton::D, ButtonState::PRESSED), 1.0f
-		);
-
-		auto UpDownAxis = std::make_shared<InputAxis>("UpAxis");
-		UpDownAxis->AddBinding(
-			KeyboardInput(KeyboardButton::W, ButtonState::PRESSED), 1.0f
-		);
-		UpDownAxis->AddBinding(
-			KeyboardInput(KeyboardButton::S, ButtonState::PRESSED), -1.0f
-		);
-
-
-		//Set up bindings to route keys to the axes
-		KeyboardAxisBindings.insert({
-			KeyboardButton::A,
-			LeftRightAxis
-		});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::D,
-			LeftRightAxis
-		});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::W,
-			UpDownAxis
-		});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::S,
-			UpDownAxis
-		});
-
 	}
 
 	void InputManager::DispatchEvent(

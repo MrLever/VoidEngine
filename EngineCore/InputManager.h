@@ -8,6 +8,7 @@
 
 //Void Engine Headers
 #include "Configurable.h"
+#include "ControlLayout.h"
 #include "EventBusNode.h"
 #include "Entity.h"
 #include "ThreadPool.h"
@@ -36,7 +37,11 @@ namespace core {
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(EventBus* bus, const utils::ResourceHandle<utils::Configuration>& configuration);
+		InputManager(
+			EventBus* bus, 
+			const utils::ResourceHandle<utils::Configuration>& configuration,
+			std::shared_ptr<utils::ThreadPool> threadPool
+		);
 
 		/**
 		 * Destructor
@@ -92,6 +97,34 @@ namespace core {
 		void Configure() override;
 
 		/**
+		 * Instructs the input manager to process and dispatch Keyboard Input events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
+		 */
+		void ProcessKeyboardInput(std::vector<core::Entity*>& entities, float deltaTime);
+		
+		/**
+		 * Instructs the input manager to process and dispatch Mouse Input events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
+		 */
+		void ProcessMouseInput(std::vector<core::Entity*>& entities, float deltaTime);
+
+		/**
+		 * Instructs the input manager to process and dispatch Gamepad Input events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
+		 */
+		void ProcessGamepadInput(std::vector<core::Entity*>& entities, float deltaTime);
+		
+		/**
+		 * Instructs the input manager to process and Axis Update Events to the game entities
+		 * @param scene The scene of entities to propogate commands to
+		 * @param deltaTime the time step for input operations
+		 */
+		void ProcessAxisInput(std::vector<core::Entity*>& entities, float deltaTime);
+
+		/**
 		 * Dispatches InputEvents to Entity-Component System
 		 * @param scene The scene to dispatch events to
 		 * @param event The event to dispatch
@@ -112,6 +145,13 @@ namespace core {
 			const InputAxisReport& axisData, 
 			float deltaTime
 		);
+
+		/** Resource Cache for Input configurations */
+		utils::ResourceAllocator<ControlLayout> ControlLayoutCache;
+
+		std::shared_ptr<ControlLayout> DefaultControls;
+
+		std::shared_ptr<ControlLayout> ActiveControls;
 
 		/** Buffer for unprocessed keyboard inputs */
 		std::deque<KeyboardInput> KeyboardInputBuffer;

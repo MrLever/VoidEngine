@@ -9,7 +9,8 @@
 namespace core {
 
 	/**
-	 * Structure to capture button and axis 
+	 * @struct InputEvent
+	 * @brief Struct to deliver input action data to entities
 	 */
 	struct InputEvent {
 		utils::Name EventName;

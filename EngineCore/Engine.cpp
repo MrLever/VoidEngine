@@ -8,9 +8,8 @@
 namespace core {
 
 	Engine::Engine(const std::string& engineConfig) : EngineConfig(std::move(engineConfig)) {
-		
 		EngineConfig.Load();
-
+		
 		//Initialize Engine Utilities
 		GameThreadPool = std::make_shared<utils::ThreadPool>();
 
@@ -21,7 +20,7 @@ namespace core {
 
 		//Initialize game window and input interface
 		WindowData data{
-			EngineConfig.GetAttribute<std::string>("GameName"),
+			EngineConfig.GetAttribute<std::string>("gameName"),
 			800,
 			600
 		};
@@ -31,7 +30,8 @@ namespace core {
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
 			GameEventBus.get(),
-			ConfigManager->LoadResource("Settings/InputConfig.json")
+			ConfigManager->LoadResource("Settings/InputConfig.json"),
+			GameThreadPool
 		);
 
 		//Attach input manager to window to address hardware callbacks
@@ -75,7 +75,7 @@ namespace core {
 	}
 
 	std::string Engine::GetDefaultLevel() {
-		return EngineConfig.GetAttribute<std::string>("DefaultLevel");
+		return EngineConfig.GetAttribute<std::string>("defaultLevel");
 	}
 
 	void Engine::PollInput() {
