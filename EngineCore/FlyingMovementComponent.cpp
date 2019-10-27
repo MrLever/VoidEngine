@@ -12,7 +12,7 @@ namespace core {
 	
 	}
 
-	void FlyingMovementComponent::Input(const InputEvent& input, float deltaTime) {
+	void FlyingMovementComponent::Input(const InputAction& input, float deltaTime) {
 		
 
 	}

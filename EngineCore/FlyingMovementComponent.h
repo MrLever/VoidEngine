@@ -25,7 +25,7 @@ namespace core {
 		 * the player's input
 		 * @param input The player's input
 		 */
-		void Input(const InputEvent& input, float deltaTime) override;
+		void Input(const InputAction& input, float deltaTime) override;
 
 		/**
 		 * Function to allow the component to update it's parent's position in accordance with

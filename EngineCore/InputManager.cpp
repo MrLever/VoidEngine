@@ -171,7 +171,7 @@ namespace core {
 				continue;
 			}
 
-			DispatchEvent(entities, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputAction(eventType), deltaTime);
 		}
 	}
 
@@ -185,7 +185,7 @@ namespace core {
 				eventType = "Fire";
 			}
 
-			DispatchEvent(entities, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputAction(eventType), deltaTime);
 
 			MouseInputBuffer.pop_front();
 		}
@@ -218,7 +218,7 @@ namespace core {
 				);
 			}
 
-			DispatchEvent(entities, InputEvent(eventType), deltaTime);
+			DispatchEvent(entities, InputAction(eventType), deltaTime);
 
 			GamepadInputBuffer.pop_front();
 		}
@@ -244,7 +244,7 @@ namespace core {
 
 	void InputManager::DispatchEvent(
 			const std::vector<core::Entity*>& scene, 
-			const InputEvent& event,
+			const InputAction& event,
 			float deltaTime
 		) {
 		static const utils::Name ERROR_EVENT_ID("Error");

@@ -11,7 +11,7 @@ namespace core {
 
 	}
 
-	void Component::Input(const InputEvent& input, float deltaTime) {
+	void Component::Input(const InputAction& input, float deltaTime) {
 		;
 	}
 

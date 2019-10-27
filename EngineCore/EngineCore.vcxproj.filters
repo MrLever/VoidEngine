@@ -204,9 +204,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="InputEvent.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="FlyingMovementComponent.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
     </ClCompile>
@@ -283,6 +280,9 @@
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
     <ClCompile Include="ControlLayout.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAction.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -383,9 +383,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="InputEvent.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="FlyingMovementComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
@@ -468,6 +465,9 @@
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
     <ClInclude Include="ControlLayout.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAction.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
   </ItemGroup>

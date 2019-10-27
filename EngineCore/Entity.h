@@ -8,7 +8,7 @@
 #include "Name.h"
 #include "Vector.h"
 #include "Rotator.h"
-#include "InputEvent.h"
+#include "InputAction.h"
 #include "InputAxisReport.h"
 
 namespace core {
@@ -42,7 +42,7 @@ namespace core {
 		 * Function to allow this component to process input events
 		 * @param input Input fromt the keyboard to process
 		 */
-		virtual void Input(const InputEvent& input, float deltaTime);
+		virtual void Input(const InputAction& input, float deltaTime);
 
 		/**
 		 * Function to allow this component to process input axis data

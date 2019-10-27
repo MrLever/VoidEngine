@@ -13,7 +13,7 @@ namespace core {
 
 	}
 
-	void PanMovementComponent::Input(const InputEvent& input, float deltaTime) {
+	void PanMovementComponent::Input(const InputAction& input, float deltaTime) {
 
 	}
 

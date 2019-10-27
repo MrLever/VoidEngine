@@ -131,7 +131,7 @@ namespace core {
 		 */
 		void DispatchEvent(
 			const std::vector<core::Entity*>& scene, 
-			const InputEvent& event, 
+			const InputAction& event, 
 			float deltaTime
 		);
 
