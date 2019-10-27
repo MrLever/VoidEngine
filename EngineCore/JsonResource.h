@@ -30,12 +30,12 @@ namespace utils {
 		/**
 		 * Loads the resource's default value if the path provided is invalid
 		 */
-		virtual bool LoadErrorResource();
+		virtual bool LoadErrorResource() override;
 
 		/**
 		 * Allows the resource to be intialized after loading.
 		 */
-		virtual void Initialize();
+		virtual void Initialize() override;
 
 		/**
 		 * Function for retrieving values from a Lua Config file

@@ -29,7 +29,7 @@ namespace utils {
 	}
 
 	void JsonResource::Initialize() {
-
+		;
 	}
 
 }
