@@ -13,9 +13,13 @@ namespace core {
 	 * @brief Struct to deliver input action data to entities
 	 */
 	struct InputAction {
-		utils::Name EventName;
-		
-		InputAction(const std::string& name);
+		utils::Name Action;
+
+		/**
+		 * Constructor
+		 * @param name The string name of the action
+		 */
+		InputAction(const std::string& action);
 	};
 
 }

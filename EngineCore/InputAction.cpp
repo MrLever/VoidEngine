@@ -6,7 +6,7 @@
 #include "InputAction.h"
 
 namespace core {
-	InputAction::InputAction(const std::string& name) : EventName(std::move(name)) {
+	InputAction::InputAction(const std::string& action) : Action(std::move(action)), Data(0) {
 
 	}
 }
