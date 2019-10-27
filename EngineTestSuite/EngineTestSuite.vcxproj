@@ -184,6 +184,7 @@
     <ClCompile Include="..\SuperVoid\BouncingCube.cpp" />
     <ClCompile Include="..\SuperVoid\CubeEntity.cpp" />
     <ClCompile Include="..\SuperVoid\PlayerShip.cpp" />
+    <ClCompile Include="TestActionBindings.cpp" />
     <ClCompile Include="TestConfigurable.cpp" />
     <ClCompile Include="TestConfigurationResource.cpp" />
     <ClCompile Include="TestConsole.cpp" />

@@ -253,6 +253,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="ControlLayout.cpp" />
+    <ClCompile Include="DefaultPlayerEntity.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
@@ -264,8 +265,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
-    <ClCompile Include="InputAxisReport.cpp" />
+    <ClCompile Include="InputAxisAction.cpp" />
     <ClCompile Include="InputAction.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="KeyboardInputEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -307,6 +309,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ControlLayout.h" />
+    <ClInclude Include="DefaultPlayerEntity.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
@@ -318,8 +321,9 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
-    <ClInclude Include="InputAxisReport.h" />
+    <ClInclude Include="InputAxisAction.h" />
     <ClInclude Include="InputAction.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="KeyboardInputEvent.h" />
     <ClInclude Include="Logger.h" />

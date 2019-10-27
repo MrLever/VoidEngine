@@ -43,8 +43,8 @@ namespace core {
 				static double MouseXPrev = -1.0f;
 				static double MouseYPrev = -1.0f;
 				static float SENSITIVITY = 0.05f;
-				static InputAxisReport MouseX("LookRight", 0);
-				static InputAxisReport MouseY("LookUp", 0);
+				static InputAxisAction MouseX("LookRight", 0);
+				static InputAxisAction MouseY("LookUp", 0);
 
 				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
 					MouseXPrev = float(event->Position.X);
@@ -86,7 +86,7 @@ namespace core {
 		GamepadInputBuffer.push_back(input);
 	}
 
-	void InputManager::ReportInput(const InputAxisReport& input){
+	void InputManager::ReportInput(const InputAxisAction& input){
 		InputAxisDataBuffer.push_back(input);
 	}
 
@@ -199,22 +199,22 @@ namespace core {
 
 			if (button == GamepadButton::DPAD_UP) {
 				InputAxisDataBuffer.push_back(
-					InputAxisReport("UpAxis", 1.0f)
+					InputAxisAction("UpAxis", 1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_DOWN) {
 				InputAxisDataBuffer.push_back(
-					InputAxisReport("UpAxis", -1.0f)
+					InputAxisAction("UpAxis", -1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_LEFT) {
 				InputAxisDataBuffer.push_back(
-					InputAxisReport("RightAxis", -1.0f)
+					InputAxisAction("RightAxis", -1.0f)
 				);
 			}
 			else if (button == GamepadButton::DPAD_RIGHT) {
 				InputAxisDataBuffer.push_back(
-					InputAxisReport("RightAxis", 1.0f)
+					InputAxisAction("RightAxis", 1.0f)
 				);
 			}
 
@@ -249,7 +249,7 @@ namespace core {
 		) {
 		static const utils::Name ERROR_EVENT_ID("Error");
 
-		if (event.EventName == ERROR_EVENT_ID) {
+		if (event.Action == ERROR_EVENT_ID) {
 			return;
 		}
 
@@ -260,7 +260,7 @@ namespace core {
 
 	void InputManager::DispatchEvent(
 		const std::vector<core::Entity*>& scene,
-		const InputAxisReport& axisData,
+		const InputAxisAction& axisData,
 		float deltaTime
 	) {
 		static const utils::Name ERROR_EVENT_ID("Error");

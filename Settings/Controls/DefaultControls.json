@@ -1,24 +1,20 @@
 {
-    "keyBindings":
+    "actionMappings":
     [
         {
-            "Key":"ESC",
-            "Modifiers":[],
-            "Action":"PauseGame"
+            "key":"ESC",
+            "modifiers":[],
+            "action":"PauseGame"
         },
         {
-            "Key":"ENTER",
-            "Modifiers":["ALT"],
-            "Action":"ToggleFullscreen"
+            "key":"ENTER",
+            "modifiers":["ALT"],
+            "action":"ToggleFullscreen"
         },
         {
-            "Key":"F5",
-            "Modifiers":["CTRL"],
-            "Action":"HotReloadAssets"
+            "key":"F5",
+            "modifiers":["CTRL"],
+            "action":"HotReloadAssets"
         }
-    ],
-    "axisBindings":
-    [
-
     ]
 }

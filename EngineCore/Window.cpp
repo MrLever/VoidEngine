@@ -9,7 +9,7 @@
 #include "Window.h"
 #include "CameraComponent.h"
 #include "InputManager.h"
-#include "InputAxisReport.h"
+#include "InputAxisAction.h"
 #include "Logger.h"
 #include "WindowClosedEvent.h"
 #include "WindowResizedEvent.h"
@@ -267,10 +267,10 @@ namespace core {
 		PollGamepadButtons(state, timestamp);
 		
 		//Process axes
-		static InputAxisReport LeftJoyX("RightAxis", 0);
-		static InputAxisReport LeftJoyY("UpAxis", 0);
-		static InputAxisReport RightJoyX("LookRight", 0);
-		static InputAxisReport RightJoyY("LookUp", 0);
+		static InputAxisAction LeftJoyX("RightAxis", 0);
+		static InputAxisAction LeftJoyY("UpAxis", 0);
+		static InputAxisAction RightJoyX("LookRight", 0);
+		static InputAxisAction RightJoyY("LookUp", 0);
 
 		//The following axes lookups are inverted intentionally.
 		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];

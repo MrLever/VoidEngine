@@ -81,7 +81,7 @@ namespace core {
 		 * Proccesses gamepad input events
 		 * @param input The gamepad input to process
 		 */
-		void ReportInput(const InputAxisReport& input);
+		void ReportInput(const InputAxisAction& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -142,7 +142,7 @@ namespace core {
 		 */
 		void DispatchEvent(
 			const std::vector<core::Entity*>& scene, 
-			const InputAxisReport& axisData, 
+			const InputAxisAction& axisData, 
 			float deltaTime
 		);
 
@@ -163,7 +163,7 @@ namespace core {
 		std::deque<GamepadInput> GamepadInputBuffer;
 
 		/** Buffer for unprocessed Input Axis data */
-		std::deque<InputAxisReport> InputAxisDataBuffer;
+		std::deque<InputAxisAction> InputAxisDataBuffer;
 
 		/** Maps certain keyboard inputs to InputAxes */
 		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;

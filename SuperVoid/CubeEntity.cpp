@@ -23,6 +23,10 @@ namespace SuperVoid {
 
 	}
 
+	void CubeEntity::Initialize() {
+		;
+	}
+
 	void CubeEntity::BeginPlay() {
 		utils::Logger::LogInfo(ID.StringID + " began play");
 	}

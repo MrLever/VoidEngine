@@ -4,29 +4,24 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Entity.h"
-#include "Name.h"
-#include "InputComponent.h"
+#include "PlayerEntity.h"
 
 namespace core {
-	
-	/**
-	 * @class PlayerEntity
-	 * @brief Specialized Entity designed to be controlled directly by the player
-	 */
-	class PlayerEntity : public Entity {
+
+
+	class DefaultPlayerEntity : public PlayerEntity {
 	public:
 		/**
 		 * Constructor
-		 * @param The entity's name
+		 * @param Name The entity's name
 		 */
-		PlayerEntity(const std::string& name);
-		
+		DefaultPlayerEntity(const std::string& name);
+
 		/**
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		PlayerEntity(const utils::Name& name);
+		DefaultPlayerEntity(const utils::Name& name);
 
 		/**
 		 * Injects and initializes an InputComponent to the entity's component list
@@ -53,12 +48,30 @@ namespace core {
 		 * Allows player entities to set up input components with keybindings
 		 * @param component The component to configure
 		 */
-		virtual void SetupInputComponent(InputComponent* component) = 0;
+		virtual void SetupInputComponent(InputComponent* component) override;
 
-	protected:
-		/** Represents this entity's base movement speed */
-		float MovementSpeed;
+
+	private:
+		/** 
+		 * Allows the pawn to float forward 
+		 */
+		void MoveForward(float axisValue, float deltaTime);
+
+		/**
+		 * Allows the pawn to float right
+		 */
+		void MoveRight(float axisValue, float deltaTime);
+
+		/**
+		 * Allows the pawn to change it's look direction
+		 */
+		void LookUp(float axisValue, float deltaTime);
+
+		/**
+		 * Allows the pawn to change it's look direction
+		 */
+		void LookRight(float axisValue, float deltaTime);
+
 	};
 
 }
-

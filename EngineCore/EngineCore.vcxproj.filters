@@ -127,6 +127,15 @@
     <Filter Include="Source Files\Engine Core\Event System\Events">
       <UniqueIdentifier>{9e31a6b1-7592-4cbe-b668-dd55c80f1031}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Input System\Actions">
+      <UniqueIdentifier>{44494167-d9b2-4249-ab6b-768080a5de0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System\Actions">
+      <UniqueIdentifier>{720d259e-daab-4b21-bdd6-3398cf5e0b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
+      <UniqueIdentifier>{216a6d31-2522-409a-9d57-3333902104f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -237,12 +246,6 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="InputAxisReport.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAxis.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
     <ClCompile Include="EventBus.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
     </ClCompile>
@@ -282,8 +285,20 @@
     <ClCompile Include="ControlLayout.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
     <ClCompile Include="InputAction.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
+      <Filter>Source Files\Engine Core\Input System\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxis.cpp">
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxisAction.cpp">
+      <Filter>Source Files\Engine Core\Input System\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayerEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,12 +437,6 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="InputAxisReport.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="EventBus.h">
       <Filter>Header Files\Engine Core\Event System</Filter>
     </ClInclude>
@@ -467,8 +476,20 @@
     <ClInclude Include="ControlLayout.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxis.h">
+      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClInclude>
     <ClInclude Include="InputAction.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
+      <Filter>Header Files\Engine Core\Input System\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxisAction.h">
+      <Filter>Header Files\Engine Core\Input System\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayerEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

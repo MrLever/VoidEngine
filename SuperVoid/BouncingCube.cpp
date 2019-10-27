@@ -15,6 +15,10 @@ namespace SuperVoid {
 		Velocity = 0.05f;
 	}
 	
+	void BouncingCube::Initialize() {
+		;
+	}
+
 	void BouncingCube::BeginPlay() {
 		utils::Logger::LogInfo(ID.StringID + " began play");
 	}

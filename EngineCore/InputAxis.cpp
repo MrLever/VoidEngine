@@ -19,8 +19,8 @@ namespace core {
 		Value += Keybindings[input];
 	}
 
-	InputAxisReport InputAxis::Poll() const {
-		return InputAxisReport(AxisName, Value);
+	InputAxisAction InputAxis::Poll() const {
+		return InputAxisAction(AxisName, Value);
 	}
 
 	void InputAxis::AddBinding(const KeyboardInput& input, float value) {

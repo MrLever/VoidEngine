@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "Name.h"
-#include "InputAxisReport.h"
+#include "InputAxisAction.h"
 #include "KeyboardInput.h"
 
 namespace core {
@@ -36,7 +36,7 @@ namespace core {
 		 * Query the state of the Axis
 		 * @return A report of the axis' name and value
 		 */
-		InputAxisReport Poll() const;
+		InputAxisAction Poll() const;
 
 		/**
 		 * Add a keybinding to the behavior of this axis

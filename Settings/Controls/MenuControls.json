@@ -1,9 +1,11 @@
 {
-    "keyBindings":[
+    "actionMappings":
+    [
         {
-            "Key":"MOUSE_LEFT",
-            "Modifiers":[],
-            "Action":"Select"
+            "key":"MOUSE_LEFT",
+            "modifiers":[],
+            "action":"Select"
         }
-    ]
+    ],
+    "axisMappings":[]
 }

@@ -1,49 +1,62 @@
 {
-    "keyBindings":
-    [
-   
-    ],
-    "axisBindings":
+    "actionMappings":[],
+    "axisMappings":
     [
         {
-            "key":"A",
-            "axis":"RightAxis",
-            "value":-1
+            "axisName":"MoveRight",
+            "bindings":
+            [
+                {
+                    "key":"A",
+                    "value":-1
+                },
+                {
+                    "key":"D",
+                    "value":1
+                },
+                {
+                    "key":"JOYSTICK_LEFT_X",
+                    "value":1
+                }
+            ]
         },
         {
-            "key":"D",
-            "axis":"RightAxis",
-            "value":1
+            "axisName":"MoveForward",
+            "bindings":
+            [
+                {
+                    "key":"W",
+                    "value":1
+                },
+                {
+                    "key":"S",
+                    "value":-1
+                },
+                {
+                    "key":"JOYSTICK_LEFT_Y",
+                    "value":1
+                }
+            ]
         },
         {
-            "key":"W",
-            "axis":"ForwardAxis",
-            "value":1
+            "axisName":"LookUp",
+            "bindings":
+            [
+                {
+                    "key":"JOYSTICK_RIGHT_Y",
+                    "value":1
+                }
+            ]
         },
         {
-            "key":"S",
-            "axis":"ForwardAxis",
-            "value":-1
-        },
-        {
-            "key":"JOYSTICK_LEFT_X",
-            "axis":"RightAxis",
-            "value":1
-        },
-        {
-            "key":"JOYSTICK_LEFT_Y",
-            "axis":"ForwardAxis",
-            "value":1
-        },
-        {
-            "key":"JOYSTICK_RIGHT_X",
-            "axis":"RightAxis",
-            "value":1
-        },
-        {
-            "key":"JOYSTICK_RIGHT_Y",
-            "axis":"ForwardAxis",
-            "value":1
-        }
+            "axisName":"LookRight",
+            "bindings":
+            [
+                {
+                    "key":"JOYSTICK_RIGHT_X",
+                    "value":1
+                }
+            ]
+        }          
     ]
 }

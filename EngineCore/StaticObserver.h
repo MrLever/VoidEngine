@@ -25,6 +25,11 @@ namespace core {
 		StaticObserver(const std::string& name);
 
 		/**
+		 * Allows an entity to configure itself after it is constructed
+		 */
+		virtual void Initialize();
+
+		/**
          * Pure virtual function that defines what the entity does once a level begins.
 		 * @note This function largely acts like an initialization function
 		 */

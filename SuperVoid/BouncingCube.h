@@ -27,6 +27,11 @@ namespace SuperVoid {
 		~BouncingCube() = default;
 
 		/**
+		 * Allows an entity to configure itself after it is constructed
+		 */
+		virtual void Initialize() override;
+
+		/**
 		 * Function that defines what the entity does once a level begins.
 		 * @note This function largely acts like an initialization function
 		 */
