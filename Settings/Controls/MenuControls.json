@@ -1,0 +1,9 @@
+{
+    "keyBindings":[
+        {
+            "Key":"MOUSE_LEFT",
+            "Modifiers":[],
+            "Action":"Select"
+        }
+    ]
+}

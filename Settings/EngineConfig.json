@@ -1,4 +1,4 @@
 {
-    "GameName":"SuperVoid",
-    "DefaultLevel":"Resources/Levels/ModelLoadingTestLevel.json"
+    "gameName":"SuperVoid",
+    "defaultLevel":"Resources/Levels/MainMenu.json"
 }

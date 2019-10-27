@@ -1,6 +1,6 @@
 {
-    "name":"TestLevel",
-    "controlFile":"FPSControls.json",
+    "name":"MainMenu",
+    "controlFile":"MenuControls.json",
     "entities":
     [
         {

@@ -1,12 +1,3 @@
 {
-    "bindings":
-    [
-        {
-            "input":
-            {
-                
-            },
-            "action":"pause"
-        }
-    ]
+    "defaultControls":"Settings/Controls/DefaultControls.json"
 }

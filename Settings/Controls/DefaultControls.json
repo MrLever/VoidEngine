@@ -1,0 +1,24 @@
+{
+    "keyBindings":
+    [
+        {
+            "Key":"ESC",
+            "Modifiers":[],
+            "Action":"PauseGame"
+        },
+        {
+            "Key":"ENTER",
+            "Modifiers":["ALT"],
+            "Action":"ToggleFullscreen"
+        },
+        {
+            "Key":"F5",
+            "Modifiers":["CTRL"],
+            "Action":"HotReloadAssets"
+        }
+    ],
+    "axisBindings":
+    [
+
+    ]
+}
