@@ -119,14 +119,29 @@ namespace math {
 		bool operator== (const Vector3& other);
 
 		/**
+		 * Addition assignment overload
+		 */
+		Vector3& operator+= (const Vector3& rhs);
+
+		/**
 		 * Non-member addition operator overload
 		 */
 		friend Vector3 operator+ (const Vector3& lhs, const Vector3& rhs);
 
 		/**
+		 * Subtraction assignment overload
+		 */
+		Vector3& operator-= (const Vector3& rhs);
+
+		/**
 		 * Non-member subtraction operator overload
 		 */
 		friend Vector3 operator- (const Vector3& lhs, const Vector3& rhs);
+
+		/**
+		 * Scalar multiplication assignment overload
+		 */
+		Vector3& operator*= (float rhs);
 
 		/**
 		 * Scalar multiplication operator overload
@@ -137,6 +152,21 @@ namespace math {
 		 * Scalar multiplication operator overload
 		 */
 		friend Vector3 operator* (float lhs, const Vector3& rhs);
+
+		/**
+		 * Scalar division assignment overload
+		 */
+		Vector3& operator/= (float rhs);
+
+		/**
+		 * Scalar division operator overload
+		 */
+		friend Vector3 operator/ (const Vector3& lhs, float rhs);
+
+		/**
+		 * Scalar division operator overload
+		 */
+		friend Vector3 operator/ (float lhs, const Vector3& rhs);
 	};
 
 	struct Vector4 {
