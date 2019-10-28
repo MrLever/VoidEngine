@@ -21,7 +21,7 @@ namespace core {
 
 	void EntityFactory::CreateEntities(const nlohmann::json& entityList) {
 		//Preload entity data for entity factory to take advantage of parallel loading
-		auto list = CurrLevel->LevelData["entities"];
+		auto list = CurrLevel->Data["entities"];
 		for (const auto& entityEntry : entityList) {
 
 			//Extract data necessary to construct an entity

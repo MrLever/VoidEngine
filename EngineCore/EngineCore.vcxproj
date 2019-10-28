@@ -268,8 +268,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="AxisInputAction.cpp" />
     <ClCompile Include="InputAction.cpp" />
     <ClCompile Include="InputComponent.cpp" />
+    <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
-    <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="KeyboardInputEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -323,6 +323,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="AxisInputAction.h" />
     <ClInclude Include="InputAction.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputEvent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="KeyboardInputEvent.h" />
     <ClInclude Include="Logger.h" />

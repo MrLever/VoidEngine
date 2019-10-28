@@ -294,8 +294,8 @@
     <ClCompile Include="AxisInputAction.cpp">
       <Filter>Source Files\Engine Core\Input System\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInput.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="InputEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="AxisInput.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

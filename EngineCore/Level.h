@@ -12,7 +12,7 @@
 #include "EntityData.h"
 #include "Name.h"
 #include "ResourceAllocator.h"
-#include "Resource.h"
+#include "JsonResource.h"
 #include "Model.h"
 
 namespace core {
@@ -21,7 +21,7 @@ namespace core {
 	 * @class Level
 	 * @brief Class to represent a level in the game
 	 */
-	class Level : public utils::Resource {
+	class Level : public utils::JsonResource {
 		friend class EntityFactory;
 		friend class ComponentFactory;
 
@@ -59,6 +59,8 @@ namespace core {
 		 */
 		utils::Name GetName();
 
+		std::string GetControlFilePath();
+
 		/**
 		 * Instructs all entities in level to begin play
 		 */
@@ -89,11 +91,11 @@ namespace core {
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;
 
-		/** JSON representation of the level, loaded from main memory */
-		nlohmann::json LevelData;
-
 		/** The level's name */
 		utils::Name LevelName;
+
+		/** Defines the input layout file should be used when running this level */
+		std::string InputDefinitionPath;
 	};
 
 }
