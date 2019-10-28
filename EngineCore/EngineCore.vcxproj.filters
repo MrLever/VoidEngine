@@ -213,9 +213,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="FlyingMovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
@@ -233,12 +230,6 @@
     </ClCompile>
     <ClCompile Include="StaticObserver.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PanMovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Model Loading</Filter>
@@ -404,9 +395,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="FlyingMovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClInclude>
@@ -427,12 +415,6 @@
     </ClInclude>
     <ClInclude Include="StaticObserver.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PanMovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
@@ -491,14 +473,14 @@
     <ClInclude Include="DefaultPlayerEntity.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
     <ClInclude Include="AxisInputAction.h">
       <Filter>Header Files\Engine Core\Input System\Actions</Filter>
     </ClInclude>
+    <ClInclude Include="InputAxis.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
     <ClInclude Include="AxisInput.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
+      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
