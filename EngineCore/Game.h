@@ -38,15 +38,10 @@ namespace core {
 
 	private:
 		/**
-		 * Allows the game to react to WindowClosedEvents
+		 * Runs the game simulation
 		 */
-		void HandleWindowClosed(WindowClosedEvent* event);
+		void ExecuteGameLoop();
 		
-		/**
-		 * Allows the game to react to PauseGameEvents
-		 */
-		void PauseGame(PauseGameEvent* event);
-
 		/**
 		 * Instructs the game to update the entities in it's simulation
 		 */
@@ -57,17 +52,23 @@ namespace core {
 		 * @param deltaTime the time step to use when applying user input
 		 */
 		void ProcessInput(float deltaTime);
-
-		/**
-		 * Runs the game simulation
-		 */
-		void ExecuteGameLoop();
 	
 		/**
 		 * Tracks the game's frame rate.
 		 * @param timeSinceLastFrame Time since the last frame, in seconds
 		 */
 		void UpdateFramerate(double timeSinceLastFrame);
+
+		/**
+		 * Allows the game to react to WindowClosedEvents
+		 */
+		void HandleWindowClosed(WindowClosedEvent* event);
+		
+		/**
+		 * Allows the game to react to PauseGameEvents
+		 */
+		void PauseGame(PauseGameEvent* event);
+
 
 		/**
 		 * Set the game's current level
@@ -87,8 +88,10 @@ namespace core {
 		/** The game's current framerate */
 		int FrameRate;
 
+		/** Flag to determine when the game loop should terminate */
 		bool Terminated;
 
+		/** Flag to query whether the game is paused */
 		bool Paused;
 
 		/**
@@ -104,6 +107,9 @@ namespace core {
 
 			}
 
+			/**
+			 * Function to dispatch events to Game
+			 */
 			virtual void ReceiveEvent(Event* event) {
 				EventDispatcher dispatcher(event);
 				

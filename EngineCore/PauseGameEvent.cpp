@@ -6,6 +6,7 @@
 #include "PauseGameEvent.h"
 
 namespace core {
+
 	utils::Name PauseGameEvent::GetEventType() const {
 		return utils::Name("PauseGameEvent");
 	}

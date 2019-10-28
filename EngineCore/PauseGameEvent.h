@@ -7,6 +7,7 @@
 #include "Event.h"
 
 namespace core {
+
 	class PauseGameEvent : public Event {
 	public:
 		/**
@@ -26,6 +27,8 @@ namespace core {
 		 * @return "WindowClosedEvent"
 		 */
 		static utils::Name GetStaticEventType();
+
 	};
+
 }
 
