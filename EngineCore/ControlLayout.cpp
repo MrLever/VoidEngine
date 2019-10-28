@@ -18,11 +18,27 @@ namespace core {
 	}
 
 	void ControlLayout::UpdateAxis(AxisInputAction update) {
-		
+		auto axisIter = InputAxes.find(update.AxisName);
+		if (axisIter != InputAxes.end()) {
+			auto axis = axisIter->second;
+			if (axis) {
+				axis->UpdateAxis(update.Value);
+			}
+		}
 	}
 
 	AxisInputAction ControlLayout::PollAxis(const utils::Name& axisName) {
-		return AxisInputAction(axisName, 0);
+		auto axisIter = InputAxes.find(axisName);
+		if (axisIter != InputAxes.end()) {
+			auto axis = axisIter->second;
+			if (axis) {
+				return AxisInputAction(axisName, axis->Poll());
+			}
+		}
+		else {
+			utils::Logger::LogError("Control Layout does not have axis " + axisName.StringID + ". Polling failed");
+			return AxisInputAction("ERROR", 0);
+		}
 	}
 
 	void ControlLayout::LoadActionMappings() {
