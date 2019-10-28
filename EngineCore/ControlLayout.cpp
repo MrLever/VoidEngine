@@ -14,36 +14,15 @@ namespace core {
 	void ControlLayout::Initialize() {
 		LoadActionMappings();
 		
-		auto axisMappings = Data["axisMappings"];
-		for (auto& mapping : axisMappings) {
-			utils::Name currentAxis(mapping["axisName"]);
+		LoadAxisMappings();
+	}
 
-			InputAxes.insert(InputAxis(currentAxis));
+	void ControlLayout::UpdateAxis(AxisInputAction update) {
+		
+	}
 
-			auto bindings = mapping["bindings"];
-			for (auto& binding : bindings) {
-				if (binding.find("key") != binding.end()) {
-					auto key = DeserializeKB(binding["key"], std::vector<std::string>());
-					std::pair axisEffect(currentAxis, binding["value"]);
-					KeyboardAxisBindings.insert({ key, axisEffect });
-				}
-				else if (binding.find("gamepadButton") != binding.end()) {
-					auto key = DeserializeGamepadButton(binding["key"], std::vector<std::string>());
-					std::pair axisEffect(currentAxis, binding["value"]);
-					GamepadAxisBindings.insert({ key, axisEffect });
-				}
-				else if(binding.find("mouseButton") != binding.end()) {
-					auto key = DeserializeMouseButton(binding["key"], std::vector<std::string>());
-					std::pair axisEffect(currentAxis, binding["value"]);
-					MouseAxisBindings.insert({ key, axisEffect });
-				}
-				else if (binding.find("axis") != binding.end()) {
-					auto rawAxis = DeserializeRawAxis(binding["axis"]);
-					std::pair axisEffect(currentAxis, binding["value"]);
-					AnalogAxisBindings.insert({rawAxis, axisEffect });
-				}
-			}
-		}
+	AxisInputAction ControlLayout::PollAxis(const utils::Name& axisName) {
+		return AxisInputAction(axisName, 0);
 	}
 
 	void ControlLayout::LoadActionMappings() {
@@ -72,6 +51,39 @@ namespace core {
 						utils::Name(mapping["action"])
 					}
 				);
+			}
+		}
+	}
+
+	void ControlLayout::LoadAxisMappings() {
+		auto axisMappings = Data["axisMappings"];
+		for (auto& mapping : axisMappings) {
+			utils::Name currentAxis(mapping["axisName"]);
+
+			InputAxes[currentAxis] = std::make_shared<InputAxis>(currentAxis);
+
+			auto bindings = mapping["bindings"];
+			for (auto& binding : bindings) {
+				if (binding.find("key") != binding.end()) {
+					auto key = DeserializeKB(binding["key"], std::vector<std::string>());
+					std::pair axisEffect(currentAxis, binding["value"]);
+					KeyboardAxisBindings.insert({ key, axisEffect });
+				}
+				else if (binding.find("gamepadButton") != binding.end()) {
+					auto key = DeserializeGamepadButton(binding["key"], std::vector<std::string>());
+					std::pair axisEffect(currentAxis, binding["value"]);
+					GamepadAxisBindings.insert({ key, axisEffect });
+				}
+				else if (binding.find("mouseButton") != binding.end()) {
+					auto key = DeserializeMouseButton(binding["key"], std::vector<std::string>());
+					std::pair axisEffect(currentAxis, binding["value"]);
+					MouseAxisBindings.insert({ key, axisEffect });
+				}
+				else if (binding.find("axis") != binding.end()) {
+					auto rawAxis = DeserializeRawAxis(binding["axis"]);
+					std::pair axisEffect(currentAxis, binding["value"]);
+					AnalogAxisBindings.insert({ rawAxis, axisEffect });
+				}
 			}
 		}
 	}

@@ -80,9 +80,9 @@ namespace core {
 		}
 
 		//Dispatch Axis Updates
-		while (!AxisInputActionBuffer.empty()) {
-			auto axisInput = AxisInputActionBuffer.front();
-			AxisInputActionBuffer.pop_front();
+		while (!AxisUpdateBuffer.empty()) {
+			auto axisInput = AxisUpdateBuffer.front();
+			AxisUpdateBuffer.pop_front();
 
 			if (std::abs(axisInput.Value) < JoystickDeadzone) {
 				continue;
@@ -104,47 +104,6 @@ namespace core {
 		DefaultControls->Initialize();
 
 		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
-
-		//Set up the axes and their bindings
-		auto LeftRightAxis = std::make_shared<InputAxis>("RightAxis");
-		LeftRightAxis->AddBinding(
-			KeyboardInput(KeyboardButton::A, ButtonState::PRESSED), -1.0f
-		);
-
-		LeftRightAxis->AddBinding(
-			KeyboardInput(KeyboardButton::D, ButtonState::PRESSED), 1.0f
-		);
-
-		auto UpDownAxis = std::make_shared<InputAxis>("UpAxis");
-		UpDownAxis->AddBinding(
-			KeyboardInput(KeyboardButton::W, ButtonState::PRESSED), 1.0f
-		);
-		UpDownAxis->AddBinding(
-			KeyboardInput(KeyboardButton::S, ButtonState::PRESSED), -1.0f
-		);
-
-
-		//Set up bindings to route keys to the axes
-		KeyboardAxisBindings.insert({
-			KeyboardButton::A,
-			LeftRightAxis
-			});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::D,
-			LeftRightAxis
-			});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::W,
-			UpDownAxis
-			});
-
-		KeyboardAxisBindings.insert({
-			KeyboardButton::S,
-			UpDownAxis
-			});
-
 	}
 
 }

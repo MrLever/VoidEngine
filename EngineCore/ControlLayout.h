@@ -29,6 +29,9 @@ namespace core {
 		 */
 		virtual void Initialize() override;
 
+		void UpdateAxis(AxisInputAction upate);
+
+		AxisInputAction PollAxis(const utils::Name& axisName);
 
 		InputAction GetActionMapping(const KeyboardInput& input) const;
 		InputAction GetActionMapping(const MouseInput& input) const;
@@ -62,8 +65,9 @@ namespace core {
 	private:
 		
 		void LoadActionMappings();
-		
-		std::unordered_set<InputAxis> InputAxes;
+		void LoadAxisMappings();
+
+		std::unordered_map<utils::Name, std::shared_ptr<InputAxis>> InputAxes;
 
 		/** Bindings for buttons to Actions */
 		std::unordered_map<KeyboardButton, utils::Name> KeyboardActionBindings;

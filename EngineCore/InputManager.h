@@ -96,7 +96,7 @@ namespace core {
 
 		std::deque<InputAction> InputActionBuffer;
 
-		std::deque<AxisInputAction> AxisInputActionBuffer;
+		std::deque<AxisInputAction> AxisUpdateBuffer;
 		
 		/** Buffer for unprocessed keyboard inputs */
 		std::deque<KeyboardInput> KeyboardInputBuffer;
@@ -119,7 +119,11 @@ namespace core {
 	inline void InputManager::ReportInput(const T& input) {
 		if (ActiveControls->IsBound(input)) {
 			if (ActiveControls->IsBoundToAxis(input)) {
-				AxisInputActionBuffer.push_back(ActiveControls->GetAxisMapping(input));
+				auto mapping = ActiveControls->GetAxisMapping(input);
+				ActiveControls->UpdateAxis(mapping);
+				auto update = ActiveControls->PollAxis(mapping.AxisName);
+
+				AxisUpdateBuffer.push_back(update);
 			}
 			else if(ActiveControls->IsBoundToAction(input)) {
 				InputActionBuffer.push_back(ActiveControls->GetActionMapping(input));
@@ -127,10 +131,28 @@ namespace core {
 		}
 		else if (DefaultControls->IsBound(input)) {
 			if (ActiveControls->IsBoundToAxis(input)) {
-				AxisInputActionBuffer.push_back(DefaultControls->GetAxisMapping(input));
+				auto mapping = DefaultControls->GetAxisMapping(input);
+				ActiveControls->UpdateAxis(mapping);
+				auto update = DefaultControls->PollAxis(mapping.AxisName);
+
+				AxisUpdateBuffer.push_back(update);
 			}
 			else if (ActiveControls->IsBoundToAction(input)) {
 				InputActionBuffer.push_back(DefaultControls->GetActionMapping(input));
+			}
+		}
+	}
+
+	template <>
+	inline void InputManager::ReportInput<AxisInput>(const AxisInput& input) {
+		if (ActiveControls->IsBound(input)) {
+			if (ActiveControls->IsBoundToAxis(input)) {
+				AxisUpdateBuffer.push_back(ActiveControls->GetAxisMapping(input));
+			}
+		}
+		else if (DefaultControls->IsBound(input)) {
+			if (DefaultControls->IsBoundToAxis(input)) {
+				AxisUpdateBuffer.push_back(DefaultControls->GetAxisMapping(input));
 			}
 		}
 	}
