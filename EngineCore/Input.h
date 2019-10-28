@@ -2,6 +2,7 @@
 //STD Headers
 #include <cstddef>
 #include <memory>
+#include <unordered_map>
 
 //Library Headers
 
@@ -27,6 +28,16 @@ namespace core {
 		SUPER = 0x0008,
 		CAPS_LOCK = 0x0010,
 		NUM_LOCK = 0x0020
+	};
+
+	static std::unordered_map<std::string, InputModifier> StringToModifierMap = {
+		{"NONE", InputModifier::NONE},
+		{"SHIFT", InputModifier::SHIFT},
+		{"CTRL", InputModifier::CTRL},
+		{"ALT", InputModifier::ALT},
+		{"SUPER", InputModifier::SUPER},
+		{"CAPS_LOCK", InputModifier::CAPS_LOCK},
+		{"NUM_LOCK", InputModifier::NUM_LOCK}
 	};
 
 	/**

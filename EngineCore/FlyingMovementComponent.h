@@ -32,6 +32,6 @@ namespace core {
 		 * the player's input
 		 * @param input The player's input
 		 */
-		void Input(const InputAxisAction& axis, float deltaTime) override;
+		void Input(const AxisInputAction& axis, float deltaTime) override;
 	};
 }

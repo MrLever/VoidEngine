@@ -7,6 +7,8 @@
 //Library Headers
 
 //Void Engine Headers
+#include "AxisInput.h"
+#include "AxisInputAction.h"
 #include "Configurable.h"
 #include "ControlLayout.h"
 #include "EventBusNode.h"
@@ -17,6 +19,7 @@
 #include "KeyboardInput.h"
 #include "KeyboardInputEvent.h"
 #include "MouseInput.h"
+#include "MouseMovedEvent.h"
 #include "GamepadInput.h"
 #include "InputAxis.h"
 
@@ -60,28 +63,13 @@ namespace core {
 		virtual unsigned GetSubscription() /** override */;
 
 		/**
-		 * Proccesses keyboard input events
-		 * @param input The keyboard input to process
+		 * Function to report incomming raw input. 
+		 * @param input The input to capture
+		 * @tparam T The type of input being supplied
+		 * @note T can be deduced by the compiler.
 		 */
-		void ReportInput(const KeyboardInput& input);
-
-		/**
-		 * Proccesses mouse input events
-		 * @param input The mouse input to process
-		 */
-		void ReportInput(const MouseInput& input);
-
-		/**
-		 * Proccesses gamepad input events
-		 * @param input The gamepad input to process
-		 */
-		void ReportInput(const GamepadInput& input);
-
-		/**
-		 * Proccesses gamepad input events
-		 * @param input The gamepad input to process
-		 */
-		void ReportInput(const InputAxisAction& input);
+		template <class T>
+		void ReportInput(const T& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -96,55 +84,8 @@ namespace core {
 		 */
 		void Configure() override;
 
-		/**
-		 * Instructs the input manager to process and dispatch Keyboard Input events to the game entities
-		 * @param scene The scene of entities to propogate commands to
-		 * @param deltaTime the time step for input operations
-		 */
-		void ProcessKeyboardInput(std::vector<core::Entity*>& entities, float deltaTime);
-		
-		/**
-		 * Instructs the input manager to process and dispatch Mouse Input events to the game entities
-		 * @param scene The scene of entities to propogate commands to
-		 * @param deltaTime the time step for input operations
-		 */
-		void ProcessMouseInput(std::vector<core::Entity*>& entities, float deltaTime);
-
-		/**
-		 * Instructs the input manager to process and dispatch Gamepad Input events to the game entities
-		 * @param scene The scene of entities to propogate commands to
-		 * @param deltaTime the time step for input operations
-		 */
-		void ProcessGamepadInput(std::vector<core::Entity*>& entities, float deltaTime);
-		
-		/**
-		 * Instructs the input manager to process and Axis Update Events to the game entities
-		 * @param scene The scene of entities to propogate commands to
-		 * @param deltaTime the time step for input operations
-		 */
-		void ProcessAxisInput(std::vector<core::Entity*>& entities, float deltaTime);
-
-		/**
-		 * Dispatches InputEvents to Entity-Component System
-		 * @param scene The scene to dispatch events to
-		 * @param event The event to dispatch
-		 */
-		void DispatchEvent(
-			const std::vector<core::Entity*>& scene, 
-			const InputAction& event, 
-			float deltaTime
-		);
-
-	    /**
-		 * Dispatchs InputAxisReports to Entity-Component System
-		 * @param scene The scene to dispatch events to
-		 * @param event The event to dispatch
-		 */
-		void DispatchEvent(
-			const std::vector<core::Entity*>& scene, 
-			const InputAxisAction& axisData, 
-			float deltaTime
-		);
+		/** Deadzone used to filter joystick input */
+		float JoystickDeadzone;
 
 		/** Resource Cache for Input configurations */
 		utils::ResourceAllocator<ControlLayout> ControlLayoutCache;
@@ -153,6 +94,10 @@ namespace core {
 
 		std::shared_ptr<ControlLayout> ActiveControls;
 
+		std::deque<InputAction> InputActionBuffer;
+
+		std::deque<AxisInputAction> AxisInputActionBuffer;
+		
 		/** Buffer for unprocessed keyboard inputs */
 		std::deque<KeyboardInput> KeyboardInputBuffer;
 
@@ -162,12 +107,33 @@ namespace core {
 		/** Buffer for unprocessed Gamepad inputs */
 		std::deque<GamepadInput> GamepadInputBuffer;
 
+
 		/** Buffer for unprocessed Input Axis data */
-		std::deque<InputAxisAction> InputAxisDataBuffer;
+		std::deque<AxisInput> AxisInputBuffer;
 
 		/** Maps certain keyboard inputs to InputAxes */
 		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;
 	};
+
+	template<class T>
+	inline void InputManager::ReportInput(const T& input) {
+		if (ActiveControls->IsBound(input)) {
+			if (ActiveControls->IsBoundToAxis(input)) {
+				AxisInputActionBuffer.push_back(ActiveControls->GetAxisMapping(input));
+			}
+			else if(ActiveControls->IsBoundToAction(input)) {
+				InputActionBuffer.push_back(ActiveControls->GetActionMapping(input));
+			}
+		}
+		else if (DefaultControls->IsBound(input)) {
+			if (ActiveControls->IsBoundToAxis(input)) {
+				AxisInputActionBuffer.push_back(DefaultControls->GetAxisMapping(input));
+			}
+			else if (ActiveControls->IsBoundToAction(input)) {
+				InputActionBuffer.push_back(DefaultControls->GetActionMapping(input));
+			}
+		}
+	}
 
 }
 

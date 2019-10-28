@@ -9,7 +9,7 @@
 #include "Vector.h"
 #include "Rotator.h"
 #include "InputAction.h"
-#include "InputAxisAction.h"
+#include "AxisInputAction.h"
 
 namespace core {
 	//Forward class declarations
@@ -48,7 +48,7 @@ namespace core {
 		 * Function to allow this component to process input axis data
 		 * @param input Input fromt the keyboard to process
 		 */
-		virtual void Input(const InputAxisAction& input, float deltaTime);
+		virtual void Input(const AxisInputAction& input, float deltaTime);
 
 		/**
 		 * Allows an entity to configure itself after it is constructed

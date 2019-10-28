@@ -54,7 +54,7 @@ namespace EngineCoreTests {
 			Assert::IsFalse(test.MovedForward);
 			Assert::IsFalse(test.Jumped);
 
-			test.Input(InputAxisAction("MoveForward", 1), 0);
+			test.Input(AxisInputAction("MoveForward", 1), 0);
 			Assert::IsTrue(test.MovedForward);
 
 			test.Input(InputAction("Jump"), 0);

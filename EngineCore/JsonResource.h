@@ -45,6 +45,10 @@ namespace utils {
 		 */
 		template<typename T>
 		T GetAttribute(const std::string& attribute) const;
+		
+	protected:
+		/** A queryable JSON object that can be accessed through GetAttribute() */
+		nlohmann::json Data;
 
 	private:
 		/**
@@ -54,8 +58,6 @@ namespace utils {
 		template<typename T>
 		T ReturnErrorValue() const;
 
-		/** A queryable JSON object that can be accessed through GetAttribute() */
-		nlohmann::json Data;
 
 	};
 

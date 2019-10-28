@@ -17,7 +17,7 @@ namespace core {
 	}
 
 	void InputComponent::BindAxis(const std::string& axisName, std::function<void(float, float)> callback) {
-		InputAxisAction action(axisName, 0);
+		AxisInputAction action(axisName, 0);
 		AxisMappings.insert({ action, callback });
 	}
 
@@ -29,7 +29,7 @@ namespace core {
 		}
 	}
 
-	void InputComponent::Input(const InputAxisAction& input, float deltaTime) {
+	void InputComponent::Input(const AxisInputAction& input, float deltaTime) {
 		auto binding = AxisMappings.find(input);
 		if (binding != AxisMappings.end()) {
 			auto callback = binding->second;

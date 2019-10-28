@@ -7,7 +7,6 @@
 
 //Void Engine Headers
 #include "Name.h"
-#include "InputAxisAction.h"
 #include "KeyboardInput.h"
 
 namespace core {
@@ -27,6 +26,12 @@ namespace core {
 		InputAxis(const std::string& name);
 
 		/**
+		 * Constructor
+		 * @param name The input axis' name
+		 */
+		InputAxis(const utils::Name& name);
+
+		/**
 		 * Update the input axis based on new input
 		 * @param input The input to use when updating 
 		 */
@@ -36,7 +41,7 @@ namespace core {
 		 * Query the state of the Axis
 		 * @return A report of the axis' name and value
 		 */
-		InputAxisAction Poll() const;
+		float Poll() const;
 
 		/**
 		 * Add a keybinding to the behavior of this axis
@@ -51,6 +56,10 @@ namespace core {
 		 */
 		void RemoveBinding(const KeyboardInput& input);
 
+		utils::Name GetAxisName() const;
+
+		bool operator== (const InputAxis& other) const;
+
 	private:
 		/** The name of the axis */
 		utils::Name AxisName;
@@ -62,4 +71,17 @@ namespace core {
 		std::unordered_map<KeyboardInput, float> Keybindings;
 	};
 
+}
+
+//It is acceptable to extend the std namespace to add template specifications for 
+//standard library templates to work with custom data types.
+namespace std {
+	template <> struct hash<core::InputAxis> { //Class to define hash function for Keyboard Input
+
+		//Hash functor
+		std::size_t operator()(const core::InputAxis& t) const {
+			return static_cast<std::size_t>(t.GetAxisName().ID);
+		}
+
+	};
 }

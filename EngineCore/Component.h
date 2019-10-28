@@ -37,7 +37,7 @@ namespace core {
 		 * Function to allow this component to process input
 		 * @param input Input axis data to process
 		 */
-		virtual void Input(const InputAxisAction& input, float deltaTime);
+		virtual void Input(const AxisInputAction& input, float deltaTime);
 
 		/**
 		 * Defines how a component processes updates

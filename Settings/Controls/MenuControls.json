@@ -2,7 +2,7 @@
     "actionMappings":
     [
         {
-            "key":"MOUSE_LEFT",
+            "mouseButton":"LEFT",
             "modifiers":[],
             "action":"Select"
         }

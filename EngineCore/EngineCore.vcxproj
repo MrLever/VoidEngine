@@ -247,6 +247,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AxisInput.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
@@ -265,10 +266,11 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="FlyingMovementComponent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
-    <ClCompile Include="InputAxisAction.cpp" />
+    <ClCompile Include="AxisInputAction.cpp" />
     <ClCompile Include="InputAction.cpp" />
     <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
+    <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="KeyboardInputEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -303,6 +305,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="WindowResizedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AxisInput.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -321,7 +324,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="FlyingMovementComponent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
-    <ClInclude Include="InputAxisAction.h" />
+    <ClInclude Include="AxisInputAction.h" />
     <ClInclude Include="InputAction.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />

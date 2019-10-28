@@ -7,6 +7,11 @@
             "action":"PauseGame"
         },
         {
+            "gamepadButton":"START",
+            "modifiers":[],
+            "action":"PauseGame"
+        },
+        {
             "key":"ENTER",
             "modifiers":["ALT"],
             "action":"ToggleFullscreen"

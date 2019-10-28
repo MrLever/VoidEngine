@@ -11,6 +11,9 @@ namespace core {
 	
 	}
 
+	InputAxis::InputAxis(const utils::Name& name) : AxisName(name), Value(0) {
+	}
+
 	void InputAxis::UpdateAxis(const KeyboardInput& input) {
 		if (Keybindings.find(input) == Keybindings.end()) {
 			return;
@@ -19,8 +22,8 @@ namespace core {
 		Value += Keybindings[input];
 	}
 
-	InputAxisAction InputAxis::Poll() const {
-		return InputAxisAction(AxisName, Value);
+	float InputAxis::Poll() const {
+		return Value;
 	}
 
 	void InputAxis::AddBinding(const KeyboardInput& input, float value) {
@@ -35,6 +38,14 @@ namespace core {
 
 	void InputAxis::RemoveBinding(const KeyboardInput& input) {
 		Keybindings.erase(input);
+	}
+
+	utils::Name InputAxis::GetAxisName() const {
+		return AxisName;
+	}
+
+	bool InputAxis::operator==(const InputAxis& other) const {
+		return AxisName == other.AxisName;
 	}
 
 }

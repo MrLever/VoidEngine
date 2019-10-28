@@ -15,7 +15,7 @@
                     "value":1
                 },
                 {
-                    "key":"JOYSTICK_LEFT_X",
+                    "axis":"GAMEPAD_JOYSTICK_LEFT_X",
                     "value":1
                 }
             ]
@@ -33,7 +33,7 @@
                     "value":-1
                 },
                 {
-                    "key":"JOYSTICK_LEFT_Y",
+                    "axis":"GAMEPAD_JOYSTICK_LEFT_Y",
                     "value":1
                 }
             ]
@@ -43,7 +43,11 @@
             "bindings":
             [
                 {
-                    "key":"JOYSTICK_RIGHT_Y",
+                    "axis":"GAMEPAD_JOYSTICK_RIGHT_Y",
+                    "value":1
+                },
+                {
+                    "axis":"MOUSE_Y",
                     "value":1
                 }
             ]
@@ -53,7 +57,11 @@
             "bindings":
             [
                 {
-                    "key":"JOYSTICK_RIGHT_X",
+                    "axis":"GAMEPAD_JOYSTICK_RIGHT_X",
+                    "value":1
+                },
+                {
+                    "axis":"MOUSE_X",
                     "value":1
                 }
             ]

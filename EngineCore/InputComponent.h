@@ -49,7 +49,7 @@ namespace core {
 		 * @param input The axis action to resolve
 		 * @param deltaTime The current time step
 		 */
-		virtual void Input(const InputAxisAction& input, float deltaTime);
+		virtual void Input(const AxisInputAction& input, float deltaTime);
 
 
 	private:
@@ -57,7 +57,7 @@ namespace core {
 		std::unordered_map<InputAction, std::function<void(float)>> ActionMappings;
 
 		/** Component bindings for InputAxisActions */
-		std::unordered_map<InputAxisAction, std::function<void(float, float)>> AxisMappings;
+		std::unordered_map<AxisInputAction, std::function<void(float, float)>> AxisMappings;
 	};
 
 }

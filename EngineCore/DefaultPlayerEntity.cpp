@@ -79,10 +79,6 @@ namespace core {
 	}
 
 	void DefaultPlayerEntity::LookUp(float axisValue, float deltaTime) {
-		Rotation.Yaw += axisValue;
-	}
-
-	void DefaultPlayerEntity::LookRight(float axisValue, float deltaTime) {
 		Rotation.Pitch += axisValue;
 		if (Rotation.Pitch > 89.0f) {
 			Rotation.Pitch = 89.0f;
@@ -90,5 +86,9 @@ namespace core {
 		if (Rotation.Pitch < -89.0f) {
 			Rotation.Pitch = -89.0F;
 		}
+	}
+
+	void DefaultPlayerEntity::LookRight(float axisValue, float deltaTime) {
+		Rotation.Yaw += axisValue;
 	}
 }

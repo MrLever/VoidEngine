@@ -19,6 +19,18 @@ namespace core {
 
 	using MouseInput = Input<MouseButton>;
 
+	static std::unordered_map<std::string, MouseButton> StringToMouseButtonMap = {
+		{"LEFT", MouseButton::LEFT},
+		{"RIGHT", MouseButton::RIGHT},
+		{"MIDDLE", MouseButton::MIDDLE},
+		{"THUMB_1", MouseButton::THUMB_1},
+		{"THUMB_2", MouseButton::THUMB_2}
+	};
+
+	inline MouseButton DeserializeMouseButton(const std::string& key, const std::vector<std::string> modifiers) {
+		return StringToMouseButtonMap.find(key)->second;
+	}
+
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

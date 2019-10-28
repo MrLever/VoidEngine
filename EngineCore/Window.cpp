@@ -9,7 +9,7 @@
 #include "Window.h"
 #include "CameraComponent.h"
 #include "InputManager.h"
-#include "InputAxisAction.h"
+#include "AxisInput.h"
 #include "Logger.h"
 #include "WindowClosedEvent.h"
 #include "WindowResizedEvent.h"
@@ -261,35 +261,20 @@ namespace core {
 
 	void Window::HandleGamepadInput() {
 		GLFWgamepadstate state;
-		static const float JOYSTICK_DEADZONE = 0.2;
 		auto timestamp = utils::GetGameTime();
 
 		PollGamepadButtons(state, timestamp);
 		
 		//Process axes
-		static InputAxisAction LeftJoyX("RightAxis", 0);
-		static InputAxisAction LeftJoyY("UpAxis", 0);
-		static InputAxisAction RightJoyX("LookRight", 0);
-		static InputAxisAction RightJoyY("LookUp", 0);
+		AxisInput LeftJoyX(RawAxisType::GAMEPAD_JOYSTICK_LEFT_X, state.axes[GLFW_GAMEPAD_AXIS_LEFT_X]);
+		AxisInput LeftJoyY(RawAxisType::GAMEPAD_JOYSTICK_LEFT_Y, -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]);
+		AxisInput RightJoyX(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_X, state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
+		AxisInput RightJoyY(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_Y, -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-		//The following axes lookups are inverted intentionally.
-		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
-		LeftJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
-		RightJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X];
-		RightJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y];
-
-		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(LeftJoyX);
-		}
-		if ((LeftJoyY.Value > JOYSTICK_DEADZONE) || (LeftJoyY.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(LeftJoyY);
-		}
-		if ((RightJoyX.Value > JOYSTICK_DEADZONE) || (RightJoyX.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(RightJoyX);
-		}
-		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(RightJoyY);
-		}
+		GameInputManager->ReportInput(LeftJoyX);
+		GameInputManager->ReportInput(LeftJoyY);
+		GameInputManager->ReportInput(RightJoyX);
+		GameInputManager->ReportInput(RightJoyY);
 	}
 
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){

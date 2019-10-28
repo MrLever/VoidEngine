@@ -30,9 +30,22 @@ namespace core {
 		/**
 		 * Constructor
 		 * @param name The string name of the action
+		 */
+		InputAction(const utils::Name& action);
+
+		/**
+		 * Constructor
+		 * @param name The string name of the action
 		 * @param type The input type of the action
 		 */
 		InputAction(const std::string& action, ActionType type);
+
+		/**
+		 * Constructor
+		 * @param name The string name of the action
+		 * @param type The input type of the action
+		 */
+		InputAction(const utils::Name& action, ActionType type);
 
 		/**
 		 * Equality comparison overload

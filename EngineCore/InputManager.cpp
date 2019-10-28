@@ -6,6 +6,7 @@
 
 //Void Engine Headers
 #include "InputManager.h"
+#include "AxisInput.h"
 #include "EventBus.h"
 #include "MouseButtonEvent.h"
 #include "MouseMovedEvent.h"
@@ -18,7 +19,7 @@ namespace core {
 		EventBus* bus, 
 		const utils::ResourceHandle<utils::Configuration>& configuration,
 		std::shared_ptr<utils::ThreadPool> threadPool
-		) : EventBusNode(bus), Configurable(configuration), ControlLayoutCache(threadPool) {
+		) : EventBusNode(bus), Configurable(configuration), ControlLayoutCache(threadPool), JoystickDeadzone(0) {
 		
 		Configure();
 	}
@@ -43,21 +44,22 @@ namespace core {
 				static double MouseXPrev = -1.0f;
 				static double MouseYPrev = -1.0f;
 				static float SENSITIVITY = 0.05f;
-				static InputAxisAction MouseX("LookRight", 0);
-				static InputAxisAction MouseY("LookUp", 0);
-
+				
 				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
 					MouseXPrev = float(event->Position.X);
 					MouseYPrev = float(event->Position.Y);
 				}
 
-				MouseX.Value = (float)(event->Position.X - MouseXPrev) * SENSITIVITY;
-				MouseY.Value = (float)(MouseYPrev - event->Position.Y) * SENSITIVITY;
+				//Convert raw data into AxisInputs
+				AxisInput MouseX(RawAxisType::MOUSE_X, (float)(event->Position.X - MouseXPrev) * SENSITIVITY);
+				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->Position.Y) * SENSITIVITY);
+				
+				//Report AxisInputs to input manager
+				ReportInput(MouseX);
+				ReportInput(MouseY);
 
 				MouseXPrev = event->Position.X;
 				MouseYPrev = event->Position.Y;
-				ReportInput(MouseX);
-				ReportInput(MouseY);
 			}
 		);
 	}
@@ -66,40 +68,24 @@ namespace core {
 		return static_cast<unsigned>(EventCategory::RAW_INPUT);
 	}
 
-	void InputManager::ReportInput(const KeyboardInput& input) {
-		auto button = input.GetButton();
-
-		//Some keyboard buttons are bound to input axes, and are processed differently
-		if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
-			KeyboardAxisBindings[button]->UpdateAxis(input);
-			return;
-		}
-
-		KeyboardInputBuffer.push_back(input);
-	}
-
-	void InputManager::ReportInput(const MouseInput& input) {
-		MouseInputBuffer.push_back(input);
-	}
-
-	void InputManager::ReportInput(const GamepadInput& input) {
-		GamepadInputBuffer.push_back(input);
-	}
-
-	void InputManager::ReportInput(const InputAxisAction& input){
-		InputAxisDataBuffer.push_back(input);
-	}
-
 	void InputManager::ProcessInput(Level* scene, float deltaTime) {
 		auto entities = scene->GetScene();
 
-		ProcessKeyboardInput(entities, deltaTime);
-		
-		ProcessMouseInput(entities, deltaTime);
-		
-		ProcessGamepadInput(entities, deltaTime);
+		//Dispatch Actions
+		while (!InputActionBuffer.empty()) {
+			for (auto& entity : entities) {
+				entity->Input(InputActionBuffer.front(), deltaTime);
+			}
+			InputActionBuffer.pop_front();
+		}
 
-		ProcessAxisInput(entities, deltaTime);
+		//Dispatch Axis Updates
+		while (!AxisInputActionBuffer.empty()) {
+			for (auto& entity : entities) {
+				entity->Input(AxisInputActionBuffer.front(), deltaTime);
+			}
+			AxisInputActionBuffer.pop_front();
+		}
 	}
 
 	void InputManager::Configure() {
@@ -108,6 +94,10 @@ namespace core {
 			configuration->GetAttribute<std::string>("defaultControls")
 		);
 		ActiveControls = DefaultControls;
+
+		DefaultControls->Initialize();
+
+		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
 
 		//Set up the axes and their bindings
 		auto LeftRightAxis = std::make_shared<InputAxis>("RightAxis");
@@ -149,125 +139,6 @@ namespace core {
 			UpDownAxis
 			});
 
-	}
-
-	void InputManager::ProcessKeyboardInput(std::vector<core::Entity*>& entities, float deltaTime) {
-		static const KeyboardInput PAUSE_INPUT(KeyboardButton::ESC, ButtonState::PRESSED);
-
-		while (!KeyboardInputBuffer.empty()) {
-
-			auto input = KeyboardInputBuffer.front();
-			
-			if (input == PAUSE_INPUT) {
-				Bus->PostEvent(new PauseGameEvent());
-			}
-			
-			auto button = input.GetButton();
-			KeyboardInputBuffer.pop_front();
-
-			std::string eventType;
-
-			if (KeyboardAxisBindings.find(button) != KeyboardAxisBindings.end()) {
-				continue;
-			}
-
-			DispatchEvent(entities, InputAction(eventType), deltaTime);
-		}
-	}
-
-	void InputManager::ProcessMouseInput(std::vector<core::Entity*>& entities, float deltaTime) {
-		while (!MouseInputBuffer.empty()) {
-			auto button = MouseInputBuffer.front();
-
-			std::string eventType;
-
-			if (button.GetButton() == MouseButton::LEFT) {
-				eventType = "Fire";
-			}
-
-			DispatchEvent(entities, InputAction(eventType), deltaTime);
-
-			MouseInputBuffer.pop_front();
-		}
-	}
-
-	void InputManager::ProcessGamepadInput(std::vector<core::Entity*>& entities, float deltaTime) {
-		while (!GamepadInputBuffer.empty()) {
-			auto input = GamepadInputBuffer.front();
-			auto button = input.GetButton();
-			std::string eventType;
-
-			if (button == GamepadButton::DPAD_UP) {
-				InputAxisDataBuffer.push_back(
-					InputAxisAction("UpAxis", 1.0f)
-				);
-			}
-			else if (button == GamepadButton::DPAD_DOWN) {
-				InputAxisDataBuffer.push_back(
-					InputAxisAction("UpAxis", -1.0f)
-				);
-			}
-			else if (button == GamepadButton::DPAD_LEFT) {
-				InputAxisDataBuffer.push_back(
-					InputAxisAction("RightAxis", -1.0f)
-				);
-			}
-			else if (button == GamepadButton::DPAD_RIGHT) {
-				InputAxisDataBuffer.push_back(
-					InputAxisAction("RightAxis", 1.0f)
-				);
-			}
-
-			DispatchEvent(entities, InputAction(eventType), deltaTime);
-
-			GamepadInputBuffer.pop_front();
-		}
-	}
-
-	void InputManager::ProcessAxisInput(std::vector<core::Entity*>& entities, float deltaTime) {
-		for (auto& entry : KeyboardAxisBindings) {
-			DispatchEvent(
-				entities,
-				entry.second->Poll(),
-				deltaTime
-			);
-		}
-
-		while (!InputAxisDataBuffer.empty()) {
-			auto axisReading = InputAxisDataBuffer.front();
-
-			DispatchEvent(entities, axisReading, deltaTime);
-
-			InputAxisDataBuffer.pop_front();
-		}
-	}
-
-	void InputManager::DispatchEvent(
-			const std::vector<core::Entity*>& scene, 
-			const InputAction& event,
-			float deltaTime
-		) {
-		static const utils::Name ERROR_EVENT_ID("Error");
-
-		if (event.Action == ERROR_EVENT_ID) {
-			return;
-		}
-
-		for (auto& entity : scene) {
-			entity->Input(event, deltaTime);
-		}
-	}
-
-	void InputManager::DispatchEvent(
-		const std::vector<core::Entity*>& scene,
-		const InputAxisAction& axisData,
-		float deltaTime
-	) {
-		static const utils::Name ERROR_EVENT_ID("Error");
-
-		for (auto& entity : scene) {
-			entity->Input(axisData, deltaTime);
-		}
 	}
 
 }
