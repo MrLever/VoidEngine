@@ -81,10 +81,16 @@ namespace core {
 
 		//Dispatch Axis Updates
 		while (!AxisInputActionBuffer.empty()) {
-			for (auto& entity : entities) {
-				entity->Input(AxisInputActionBuffer.front(), deltaTime);
-			}
+			auto axisInput = AxisInputActionBuffer.front();
 			AxisInputActionBuffer.pop_front();
+
+			if (std::abs(axisInput.Value) < JoystickDeadzone) {
+				continue;
+			}
+
+			for (auto& entity : entities) {
+				entity->Input(axisInput, deltaTime);
+			}
 		}
 	}
 

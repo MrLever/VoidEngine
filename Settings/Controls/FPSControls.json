@@ -44,7 +44,7 @@
             [
                 {
                     "axis":"GAMEPAD_JOYSTICK_RIGHT_Y",
-                    "value":1
+                    "value":0.75
                 },
                 {
                     "axis":"MOUSE_Y",
@@ -58,7 +58,7 @@
             [
                 {
                     "axis":"GAMEPAD_JOYSTICK_RIGHT_X",
-                    "value":1
+                    "value":0.75
                 },
                 {
                     "axis":"MOUSE_X",
