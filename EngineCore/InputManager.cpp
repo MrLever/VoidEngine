@@ -79,6 +79,13 @@ namespace core {
 			InputActionBuffer.pop_front();
 		}
 
+		auto activeControlAxisReadings = ActiveControls->PollAxes();
+		auto defaultControlAxisReadings = DefaultControls->PollAxes();
+
+		//Get any relevant axis updates
+		AxisUpdateBuffer.insert(AxisUpdateBuffer.end(), activeControlAxisReadings.begin(), activeControlAxisReadings.end());
+		AxisUpdateBuffer.insert(AxisUpdateBuffer.end(), defaultControlAxisReadings.begin(), defaultControlAxisReadings.end());
+
 		//Dispatch Axis Updates
 		while (!AxisUpdateBuffer.empty()) {
 			auto axisInput = AxisUpdateBuffer.front();

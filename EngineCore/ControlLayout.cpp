@@ -27,6 +27,16 @@ namespace core {
 		}
 	}
 
+	std::vector<AxisInputAction> ControlLayout::PollAxes() {
+		std::vector<AxisInputAction> readings;
+
+		for (auto axisIter : InputAxes) {
+			readings.emplace_back(PollAxis(axisIter.first));
+		}
+
+		return readings;
+	}
+
 	AxisInputAction ControlLayout::PollAxis(const utils::Name& axisName) {
 		auto axisIter = InputAxes.find(axisName);
 		if (axisIter != InputAxes.end()) {
@@ -35,10 +45,9 @@ namespace core {
 				return AxisInputAction(axisName, axis->Poll());
 			}
 		}
-		else {
-			utils::Logger::LogError("Control Layout does not have axis " + axisName.StringID + ". Polling failed");
-			return AxisInputAction("ERROR", 0);
-		}
+
+		utils::Logger::LogError("Control Layout does not have axis " + axisName.StringID + ". Polling failed");
+		return AxisInputAction("ERROR", 0);
 	}
 
 	void ControlLayout::LoadActionMappings() {

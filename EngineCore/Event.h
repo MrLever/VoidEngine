@@ -18,7 +18,11 @@ namespace core {
 
 	class Event {
 	public:
-	
+		/**
+		 * Constructor
+		 */
+		Event();
+
 		/**
 		 * Virtual function to query type of Event object
 		 */

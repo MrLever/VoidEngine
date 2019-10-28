@@ -31,7 +31,10 @@ namespace core {
 
 		void UpdateAxis(AxisInputAction upate);
 
+		std::vector<AxisInputAction> PollAxes();
+
 		AxisInputAction PollAxis(const utils::Name& axisName);
+
 
 		InputAction GetActionMapping(const KeyboardInput& input) const;
 		InputAction GetActionMapping(const MouseInput& input) const;
