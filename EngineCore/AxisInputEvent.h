@@ -5,20 +5,21 @@
 
 //Void Engine Headers
 #include "Event.h"
-#include "Vector.h"
+#include "AxisInput.h"
 
 namespace core {
-	class MouseMovedEvent : public Event {
+
+	class AxisInputEvent : public Event {
 	public:
 		/**
 		 * Constructor
 		 */
-		MouseMovedEvent(double xPos, double yPos);
+		AxisInputEvent(const AxisInput& input);
 
 		/**
-		 * Virtual function to query type of Event object
+		 * Function to query type of Event object
 		 */
-		utils::Name GetEventType() const override;
+		virtual utils::Name GetEventType() const override;
 
 		/**
 		 * Virtual function to query category of Event object
@@ -28,12 +29,10 @@ namespace core {
 		/**
 		 * Static function to get EventType info from C++ type info
 		 */
-		static utils::Name GetStaticEventType() /** override */;
-
-		/**
-		 * The delta for mouse position
-		 */
-		math::Vector2 Position;
+		static utils::Name GetStaticEventType();
+		
+		/** The Input being reported */
+		AxisInput Input;
 	};
-}
 
+}

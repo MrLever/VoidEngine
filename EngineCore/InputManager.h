@@ -98,16 +98,6 @@ namespace core {
 
 		std::deque<AxisInputAction> AxisUpdateBuffer;
 		
-		/** Buffer for unprocessed keyboard inputs */
-		std::deque<KeyboardInput> KeyboardInputBuffer;
-
-		/** Buffer for unprocessed mouse inputs */
-		std::deque<MouseInput> MouseInputBuffer;
-
-		/** Buffer for unprocessed Gamepad inputs */
-		std::deque<GamepadInput> GamepadInputBuffer;
-
-
 		/** Buffer for unprocessed Input Axis data */
 		std::deque<AxisInput> AxisInputBuffer;
 

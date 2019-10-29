@@ -58,7 +58,7 @@ namespace EngineCoreTests {
 
 		TEST_METHOD(GamepadInputGetGamepadInputTest) {
 			auto button = GamepadButton::A;
-			GamepadInput gamepadInput(button, ButtonState::PRESSED, 0);
+			GamepadInput gamepadInput(button, ButtonState::PRESSED, (utils::GameTime)0);
 
 			Assert::IsTrue(button == gamepadInput.GetButton());
 		}

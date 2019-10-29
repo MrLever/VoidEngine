@@ -294,8 +294,11 @@
     <ClCompile Include="AxisInputAction.cpp">
       <Filter>Source Files\Engine Core\Input System\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="InputEvent.cpp">
+    <ClCompile Include="GamepadInputEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisInputEvent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -482,8 +485,11 @@
     <ClInclude Include="AxisInput.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="InputEvent.h">
+    <ClInclude Include="GamepadInputEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInputEvent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

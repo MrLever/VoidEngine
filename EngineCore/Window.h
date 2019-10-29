@@ -14,7 +14,6 @@
 
 namespace core {
 	//Forward Class Declarations
-	class InputManager;
 	class CameraComponent;
 	class Entity;
 
@@ -56,12 +55,6 @@ namespace core {
 		virtual unsigned GetSubscription() override;
 
 		/**
-		 * Function to access a pointer to the GLFW window
-		 * @return Shared_Pointer the active GLFW window
-		 */
-		std::shared_ptr<GLFWwindow> GetWindow();
-
-		/**
 		 * Wrapper function to instruct GLFW to poll for window and input events
 		 */
 		void PollEvents();
@@ -70,11 +63,6 @@ namespace core {
 		 * Instructs the window to swap buffers, drawing the result of the last render frame
 		 */
 		void SwapBuffers();
-
-		/**
-		 * Attaches an input manager to this window to handle input callbacks
-		 */
-		void SetInputManager(std::shared_ptr<InputManager> inputManager);
 
 		/**
 		 * Instructs window to poll and report gamepad input
@@ -155,11 +143,14 @@ namespace core {
 		 */
 		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
 
+		/**
+		 * Helper function to poll gamepad axes
+		 * @param state The gamepad state to process
+		 */
+		void PollGamepadAxes(GLFWgamepadstate& state);
+
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> GLFWContext;
-
-		/** The game's input manager */
-		std::shared_ptr<InputManager> GameInputManager;
 
 		/** The active camera to be used for rendering */
 		CameraComponent* ActiveCamera;

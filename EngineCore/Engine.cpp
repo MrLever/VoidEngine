@@ -34,9 +34,6 @@ namespace core {
 			GameThreadPool
 		);
 
-		//Attach input manager to window to address hardware callbacks
-		GameWindow->SetInputManager(GameInputManager);
-
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			GameEventBus.get(),

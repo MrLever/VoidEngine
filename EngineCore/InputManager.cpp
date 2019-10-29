@@ -11,6 +11,8 @@
 #include "MouseButtonEvent.h"
 #include "MouseMovedEvent.h"
 #include "PauseGameEvent.h"
+#include "GamepadInputEvent.h"
+#include "AxisInputEvent.h"
 #include "Level.h"
 
 namespace core {
@@ -60,6 +62,18 @@ namespace core {
 
 				MouseXPrev = event->Position.X;
 				MouseYPrev = event->Position.Y;
+			}
+		);
+
+		dispatcher.Dispatch<GamepadInputEvent>(
+			[this](GamepadInputEvent* event) {
+				ReportInput(event->Input);
+			}
+		);
+
+		dispatcher.Dispatch<AxisInputEvent>(
+			[this](AxisInputEvent* event) {
+				ReportInput(event->Input);
 			}
 		);
 	}

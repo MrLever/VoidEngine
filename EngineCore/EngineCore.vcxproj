@@ -248,6 +248,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AxisInput.cpp" />
+    <ClCompile Include="AxisInputEvent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
@@ -263,12 +264,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="EventBus.cpp" />
     <ClCompile Include="EventBusNode.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="GamepadInputEvent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="AxisInputAction.cpp" />
     <ClCompile Include="InputAction.cpp" />
     <ClCompile Include="InputComponent.cpp" />
-    <ClCompile Include="InputEvent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="KeyboardInputEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -303,6 +304,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AxisInput.h" />
+    <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -318,12 +320,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EventBus.h" />
     <ClInclude Include="EventBusNode.h" />
     <ClInclude Include="EventDispatcher.h" />
+    <ClInclude Include="GamepadInputEvent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="AxisInputAction.h" />
     <ClInclude Include="InputAction.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="InputEvent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="KeyboardInputEvent.h" />
     <ClInclude Include="Logger.h" />

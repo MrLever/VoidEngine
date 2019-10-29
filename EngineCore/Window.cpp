@@ -7,16 +7,20 @@
 
 //Coati Headers
 #include "Window.h"
-#include "CameraComponent.h"
-#include "InputManager.h"
-#include "AxisInput.h"
 #include "Logger.h"
+#include "CameraComponent.h"
+#include "AxisInputEvent.h"
+#include "AxisInput.h"
+#include "GamepadInput.h"
+
+//Event Includes
 #include "WindowClosedEvent.h"
 #include "WindowResizedEvent.h"
 #include "MouseButtonEvent.h"
 #include "PauseGameEvent.h"
 #include "MouseMovedEvent.h"
 #include "KeyboardInputEvent.h"
+#include "GamepadInputEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -238,10 +242,6 @@ namespace core {
 		}
 	}
 
-	std::shared_ptr<GLFWwindow> Window::GetWindow() {
-		return GLFWContext;
-	}
-
 	void Window::PollEvents() {
 		glfwPollEvents();
 
@@ -255,26 +255,26 @@ namespace core {
 		glfwSwapBuffers(GLFWContext.get());
 	}
 
-	void Window::SetInputManager(std::shared_ptr<InputManager> inputManager) {
-		GameInputManager = std::move(inputManager);
-	}
-
 	void Window::HandleGamepadInput() {
 		GLFWgamepadstate state;
 		auto timestamp = utils::GetGameTime();
 
 		PollGamepadButtons(state, timestamp);
-		
-		//Process axes
+
+		PollGamepadAxes(state);
+	}
+
+	void Window::PollGamepadAxes(GLFWgamepadstate& state)
+	{
 		AxisInput LeftJoyX(RawAxisType::GAMEPAD_JOYSTICK_LEFT_X, state.axes[GLFW_GAMEPAD_AXIS_LEFT_X]);
 		AxisInput LeftJoyY(RawAxisType::GAMEPAD_JOYSTICK_LEFT_Y, -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]);
 		AxisInput RightJoyX(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_X, state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 		AxisInput RightJoyY(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_Y, -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-		GameInputManager->ReportInput(LeftJoyX);
-		GameInputManager->ReportInput(LeftJoyY);
-		GameInputManager->ReportInput(RightJoyX);
-		GameInputManager->ReportInput(RightJoyY);
+		PublishEvent(new AxisInputEvent(LeftJoyX));
+		PublishEvent(new AxisInputEvent(LeftJoyY));
+		PublishEvent(new AxisInputEvent(RightJoyX));
+		PublishEvent(new AxisInputEvent(RightJoyY));
 	}
 
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
@@ -282,25 +282,32 @@ namespace core {
 			return;
 		}
 
-		//Process Buttons
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadInputEvent(
+					GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadInputEvent(
+					GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadInputEvent(
+					GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadInputEvent(
+					GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 	}

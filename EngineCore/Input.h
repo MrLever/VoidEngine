@@ -75,6 +75,14 @@ namespace core {
 		 * Constructor
 		 * @param button The button this input is reporting for
 		 * @param state The state of the button being reported
+		 * @param time The time stamp of the input
+		 */
+		Input(T button, ButtonState state, utils::GameTime time);
+
+		/**
+		 * Constructor
+		 * @param button The button this input is reporting for
+		 * @param state The state of the button being reported
 		 * @param modifier Modifier flags applied to the input
 		 * @param time The time stamp of the input event
 		 */
@@ -147,6 +155,12 @@ namespace core {
 	template<class T>
 	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier)
 		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(0) {
+
+	}
+
+	template <class T>
+	inline Input<T>::Input(T button, ButtonState state,  utils::GameTime time)
+		: Button(button), State(state), Modifiers(0), TimeStamp(time) {
 
 	}
 
