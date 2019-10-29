@@ -83,6 +83,8 @@ namespace core {
 		 */
 		void ProcessInput(Level* scene, float deltaTime);
 
+		void SetActiveInputMapping(const std::string& profilePath);
+
 	private:
 		/**
 		 * Dispatches queued input actions to the scene
@@ -132,14 +134,14 @@ namespace core {
 			}
 		}
 		else if (DefaultControls->IsBound(input)) {
-			if (ActiveControls->IsBoundToAxis(input)) {
+			if (DefaultControls->IsBoundToAxis(input)) {
 				auto mapping = DefaultControls->GetAxisMapping(input);
-				ActiveControls->UpdateAxis(mapping);
+				DefaultControls->UpdateAxis(mapping);
 				auto update = DefaultControls->PollAxis(mapping.AxisName);
 
 				AxisUpdateBuffer.push_back(update);
 			}
-			else if (ActiveControls->IsBoundToAction(input)) {
+			else if (DefaultControls->IsBoundToAction(input)) {
 				InputActionBuffer.push_back(DefaultControls->GetActionMapping(input));
 			}
 		}

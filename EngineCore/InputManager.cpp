@@ -8,12 +8,15 @@
 #include "InputManager.h"
 #include "AxisInput.h"
 #include "EventBus.h"
+#include "Level.h"
+
+//Events
 #include "MouseButtonEvent.h"
 #include "MouseMovedEvent.h"
 #include "PauseGameEvent.h"
 #include "GamepadButtonEvent.h"
 #include "AxisInputEvent.h"
-#include "Level.h"
+#include "InputActionEvent.h";
 
 namespace core {
 
@@ -100,12 +103,20 @@ namespace core {
 		ProcessAxisUpdates(scene, deltaTime);
 	}
 
+	void InputManager::SetActiveInputMapping(const std::string& profilePath) {
+		ActiveControls = ControlLayoutCache.GetResource(profilePath);
+		ActiveControls->Initialize();
+	}
+
 	void InputManager::ProcessInputActions(Level* scene, float deltaTime) {
 		auto entities = scene->GetScene();
 		while (!InputActionBuffer.empty()) {
+			auto inputAction = InputActionBuffer.front();
 			for (auto& entity : entities) {
-				entity->Input(InputActionBuffer.front(), deltaTime);
+				entity->Input(inputAction, deltaTime);
 			}
+
+			PublishEvent(new InputActionEvent(inputAction));
 			InputActionBuffer.pop_front();
 		}
 	}

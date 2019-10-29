@@ -59,6 +59,10 @@ namespace core {
 		 */
 		utils::Name GetName();
 
+		/**
+		 * Allows the game to query the control file used for this level
+		 * @return path relative to root of the level's keybinding file
+		 */
 		std::string GetControlFilePath();
 
 		/**

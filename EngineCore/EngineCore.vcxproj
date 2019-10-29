@@ -266,6 +266,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="EventDispatcher.cpp" />
     <ClCompile Include="GamepadButtonEvent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
+    <ClCompile Include="InputActionEvent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
     <ClCompile Include="AxisInputAction.cpp" />
     <ClCompile Include="InputAction.cpp" />
@@ -322,6 +323,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="GamepadButtonEvent.h" />
     <ClInclude Include="GraphicsComponent.h" />
+    <ClInclude Include="InputActionEvent.h" />
     <ClInclude Include="InputAxis.h" />
     <ClInclude Include="AxisInputAction.h" />
     <ClInclude Include="InputAction.h" />

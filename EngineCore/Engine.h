@@ -66,6 +66,8 @@ namespace core {
 		 */
 		void ProcessInput(Level* level, const float deltaTime);
 
+		void SwapInputProfile(const std::string& profilePath);
+
 		/**
 		 * Instructs the engine to render the supplied level
 		 */

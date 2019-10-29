@@ -124,6 +124,7 @@ namespace core {
 
 		CurrentLevel = LevelCache->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
+		GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
 		CurrentLevel->BeginPlay();
 	}
 

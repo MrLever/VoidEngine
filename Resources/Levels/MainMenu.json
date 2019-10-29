@@ -1,6 +1,6 @@
 {
     "name":"MainMenu",
-    "controlFile":"MenuControls.json",
+    "controlFile":"Settings/Controls/FPSControls.json",
     "entities":
     [
         {
@@ -26,6 +26,12 @@
             "type":"CubeEntity",
             "location": [-5, 0, 0],
             "rotation": [45, 45, 45]
+        },
+        {
+            "name":"TestCube",
+            "type":"CubeEntity",
+            "location": [0, 5, 0],
+            "rotation": [45, 0, 45]
         }
     ]
 }

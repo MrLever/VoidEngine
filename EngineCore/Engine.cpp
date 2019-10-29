@@ -83,6 +83,10 @@ namespace core {
 		GameInputManager->ProcessInput(level, deltaTime);
 	}
 
+	void Engine::SwapInputProfile(const std::string& profilePath) {
+		GameInputManager->SetActiveInputMapping(profilePath);
+	}
+
 	void Engine::Render(Level* level) {
 		GameRenderer->Render(level);
 	}

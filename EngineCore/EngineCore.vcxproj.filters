@@ -300,6 +300,9 @@
     <ClCompile Include="KeyboardButtonEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
+    <ClCompile Include="InputActionEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -489,6 +492,9 @@
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardButtonEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="InputActionEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>
