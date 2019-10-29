@@ -31,13 +31,13 @@ namespace core {
 		
 		dispatcher.Dispatch<KeyboardButtonEvent>(
 			[this](KeyboardButtonEvent* event) {
-				ReportInput(event->Input);
+				CaptureInput(event->Input);
 			}
 		);
 
 		dispatcher.Dispatch<MouseButtonEvent>(
 			[this](MouseButtonEvent* event) {
-				ReportInput(event->Input);
+				CaptureInput(event->Input);
 			}
 		);
 
@@ -57,8 +57,8 @@ namespace core {
 				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->Position.Y) * SENSITIVITY);
 				
 				//Report AxisInputs to input manager
-				ReportInput(MouseX);
-				ReportInput(MouseY);
+				CaptureInput(MouseX);
+				CaptureInput(MouseY);
 
 				MouseXPrev = event->Position.X;
 				MouseYPrev = event->Position.Y;
@@ -67,13 +67,13 @@ namespace core {
 
 		dispatcher.Dispatch<GamepadButtonEvent>(
 			[this](GamepadButtonEvent* event) {
-				ReportInput(event->Input);
+				CaptureInput(event->Input);
 			}
 		);
 
 		dispatcher.Dispatch<AxisInputEvent>(
 			[this](AxisInputEvent* event) {
-				ReportInput(event->Input);
+				CaptureInput(event->Input);
 			}
 		);
 	}

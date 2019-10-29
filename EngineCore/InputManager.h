@@ -69,7 +69,7 @@ namespace core {
 		 * @note T can be deduced by the compiler.
 		 */
 		template <class T>
-		void ReportInput(const T& input);
+		void CaptureInput(const T& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -90,23 +90,21 @@ namespace core {
 		/** Resource Cache for Input configurations */
 		utils::ResourceAllocator<ControlLayout> ControlLayoutCache;
 
+		/** Pointer to the engine-default control layout */
 		std::shared_ptr<ControlLayout> DefaultControls;
 
+		/** Pointer to the active level control layout */
 		std::shared_ptr<ControlLayout> ActiveControls;
 
+		/** Buffer of input actions to dispatch to entities on next update */
 		std::deque<InputAction> InputActionBuffer;
 
+		/** Buffer of axis updates to dispatch to entities on next update */
 		std::deque<AxisInputAction> AxisUpdateBuffer;
-		
-		/** Buffer for unprocessed Input Axis data */
-		std::deque<AxisInput> AxisInputBuffer;
-
-		/** Maps certain keyboard inputs to InputAxes */
-		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;
 	};
 
 	template<class T>
-	inline void InputManager::ReportInput(const T& input) {
+	inline void InputManager::CaptureInput(const T& input) {
 		if (ActiveControls->IsBound(input)) {
 			if (ActiveControls->IsBoundToAxis(input)) {
 				auto mapping = ActiveControls->GetAxisMapping(input);
@@ -134,7 +132,7 @@ namespace core {
 	}
 
 	template <>
-	inline void InputManager::ReportInput<AxisInput>(const AxisInput& input) {
+	inline void InputManager::CaptureInput<AxisInput>(const AxisInput& input) {
 		if (ActiveControls->IsBound(input)) {
 			if (ActiveControls->IsBoundToAxis(input)) {
 				AxisUpdateBuffer.push_back(ActiveControls->GetAxisMapping(input));
