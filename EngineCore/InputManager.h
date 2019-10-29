@@ -63,6 +63,11 @@ namespace core {
 		virtual unsigned GetSubscription() /** override */;
 
 		/**
+		 * Applies input configuration settings 
+		 */
+		void Configure() override;
+
+		/**
 		 * Function to report incomming raw input. 
 		 * @param input The input to capture
 		 * @tparam T The type of input being supplied
@@ -80,9 +85,18 @@ namespace core {
 
 	private:
 		/**
-		 * Applies input configuration settings 
+		 * Dispatches queued input actions to the scene
+		 * @param scene The scene to dispatch input to
+		 * @param deltaTime The current time step
 		 */
-		void Configure() override;
+		void ProcessInputActions(Level* scene, float deltaTime);
+
+		/**
+		 * Dispatches queued input actions to the scene
+		 * @param scene The scene to dispatch input to
+		 * @param deltaTime The current time step
+		 */
+		void ProcessAxisUpdates(Level* scene, float deltaTime);
 
 		/** Deadzone used to filter joystick input */
 		float JoystickDeadzone;

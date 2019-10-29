@@ -82,23 +82,43 @@ namespace core {
 		return static_cast<unsigned>(EventCategory::RAW_INPUT);
 	}
 
-	void InputManager::ProcessInput(Level* scene, float deltaTime) {
-		auto entities = scene->GetScene();
 
-		//Dispatch Actions
+	void InputManager::Configure() {
+		auto configuration = Config.GetResource();
+		DefaultControls = ControlLayoutCache.GetResource(
+			configuration->GetAttribute<std::string>("defaultControls")
+		);
+		ActiveControls = DefaultControls;
+
+		DefaultControls->Initialize();
+
+		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
+	}
+
+	void InputManager::ProcessInput(Level* scene, float deltaTime) {
+		ProcessInputActions(scene, deltaTime);
+		ProcessAxisUpdates(scene, deltaTime);
+	}
+
+	void InputManager::ProcessInputActions(Level* scene, float deltaTime) {
+		auto entities = scene->GetScene();
 		while (!InputActionBuffer.empty()) {
 			for (auto& entity : entities) {
 				entity->Input(InputActionBuffer.front(), deltaTime);
 			}
 			InputActionBuffer.pop_front();
 		}
+	}
 
-		auto activeControlAxisReadings = ActiveControls->PollAxes();
+	void InputManager::ProcessAxisUpdates(Level* scene, float deltaTime) {
+		auto entities = scene->GetScene();
+
 		auto defaultControlAxisReadings = DefaultControls->PollAxes();
+		auto activeControlAxisReadings = ActiveControls->PollAxes();
 
 		//Get any relevant axis updates
-		AxisUpdateBuffer.insert(AxisUpdateBuffer.end(), activeControlAxisReadings.begin(), activeControlAxisReadings.end());
 		AxisUpdateBuffer.insert(AxisUpdateBuffer.end(), defaultControlAxisReadings.begin(), defaultControlAxisReadings.end());
+		AxisUpdateBuffer.insert(AxisUpdateBuffer.end(), activeControlAxisReadings.begin(), activeControlAxisReadings.end());
 
 		//Dispatch Axis Updates
 		while (!AxisUpdateBuffer.empty()) {
@@ -114,17 +134,4 @@ namespace core {
 			}
 		}
 	}
-
-	void InputManager::Configure() {
-		auto configuration = Config.GetResource();
-		DefaultControls = ControlLayoutCache.GetResource(
-			configuration->GetAttribute<std::string>("defaultControls")
-		);
-		ActiveControls = DefaultControls;
-
-		DefaultControls->Initialize();
-
-		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
-	}
-
 }
