@@ -8,12 +8,12 @@
 #include "KeyboardInput.h"
 
 namespace core {
-	class KeyboardInputEvent : public Event	{
+	class KeyboardButtonEvent : public Event	{
 	public:
 		/**
 		 * Constructor
 		 */
-		KeyboardInputEvent(KeyboardInput& input);
+		KeyboardButtonEvent(KeyboardInput& input);
 		
 		/**
 		 * Virtual function to query type of Event object

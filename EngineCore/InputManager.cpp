@@ -11,7 +11,7 @@
 #include "MouseButtonEvent.h"
 #include "MouseMovedEvent.h"
 #include "PauseGameEvent.h"
-#include "GamepadInputEvent.h"
+#include "GamepadButtonEvent.h"
 #include "AxisInputEvent.h"
 #include "Level.h"
 
@@ -29,8 +29,8 @@ namespace core {
 	void InputManager::ReceiveEvent(Event* event) {
 		EventDispatcher dispatcher(event);
 		
-		dispatcher.Dispatch<KeyboardInputEvent>(
-			[this](KeyboardInputEvent* event) {
+		dispatcher.Dispatch<KeyboardButtonEvent>(
+			[this](KeyboardButtonEvent* event) {
 				ReportInput(event->Input);
 			}
 		);
@@ -65,8 +65,8 @@ namespace core {
 			}
 		);
 
-		dispatcher.Dispatch<GamepadInputEvent>(
-			[this](GamepadInputEvent* event) {
+		dispatcher.Dispatch<GamepadButtonEvent>(
+			[this](GamepadButtonEvent* event) {
 				ReportInput(event->Input);
 			}
 		);

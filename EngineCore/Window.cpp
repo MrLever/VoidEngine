@@ -19,8 +19,8 @@
 #include "MouseButtonEvent.h"
 #include "PauseGameEvent.h"
 #include "MouseMovedEvent.h"
-#include "KeyboardInputEvent.h"
-#include "GamepadInputEvent.h"
+#include "KeyboardButtonEvent.h"
+#include "GamepadButtonEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -148,7 +148,7 @@ namespace core {
 					utils::GetGameTime()
 				);
 
-				window->PublishEvent(new KeyboardInputEvent(input));
+				window->PublishEvent(new KeyboardButtonEvent(input));
 			}
 		);
 
@@ -284,28 +284,28 @@ namespace core {
 
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
 			PublishEvent(
-				new GamepadInputEvent(
+				new GamepadButtonEvent(
 					GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
 				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
 			PublishEvent(
-				new GamepadInputEvent(
+				new GamepadButtonEvent(
 					GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
 				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
 			PublishEvent(
-				new GamepadInputEvent(
+				new GamepadButtonEvent(
 					GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
 				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
 			PublishEvent(
-				new GamepadInputEvent(
+				new GamepadButtonEvent(
 					GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
 				)
 			);

@@ -261,9 +261,6 @@
     <ClCompile Include="WindowClosedEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInputEvent.cpp">
-      <Filter>Source Files\Engine Core\Event System\Events</Filter>
-    </ClCompile>
     <ClCompile Include="MouseButtonEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
@@ -294,11 +291,14 @@
     <ClCompile Include="AxisInputAction.cpp">
       <Filter>Source Files\Engine Core\Input System\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="GamepadInputEvent.cpp">
-      <Filter>Source Files\Engine Core\Event System\Events</Filter>
-    </ClCompile>
     <ClCompile Include="AxisInputEvent.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamepadButtonEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardButtonEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -452,9 +452,6 @@
     <ClInclude Include="WindowClosedEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardInputEvent.h">
-      <Filter>Header Files\Engine Core\Event System\Events</Filter>
-    </ClInclude>
     <ClInclude Include="MouseButtonEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
@@ -485,11 +482,14 @@
     <ClInclude Include="AxisInput.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="GamepadInputEvent.h">
-      <Filter>Header Files\Engine Core\Event System\Events</Filter>
-    </ClInclude>
     <ClInclude Include="AxisInputEvent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamepadButtonEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardButtonEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

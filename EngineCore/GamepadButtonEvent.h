@@ -9,12 +9,12 @@
 
 namespace core {
 
-	class GamepadInputEvent : public Event {
+	class GamepadButtonEvent : public Event {
 	public:
 		/**
 		 * Constructor
 		 */
-		GamepadInputEvent(const GamepadInput& input);
+		GamepadButtonEvent(const GamepadInput& input);
 
 		/**
 		 * Virtual function to query type of Event object

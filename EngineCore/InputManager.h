@@ -17,7 +17,7 @@
 #include "ResourceAllocator.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
-#include "KeyboardInputEvent.h"
+#include "KeyboardButtonEvent.h"
 #include "MouseInput.h"
 #include "MouseMovedEvent.h"
 #include "GamepadInput.h"
