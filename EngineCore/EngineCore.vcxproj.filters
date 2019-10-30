@@ -73,12 +73,6 @@
     <Filter Include="Source Files\Engine Utilities\ThreadPool">
       <UniqueIdentifier>{79c2dd00-5d8e-41ac-90ad-bc6724ca6ff1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameplay Framework\Controllers">
-      <UniqueIdentifier>{084256e0-f99d-450b-8dfd-bc35940830dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Gameplay Framework\Controllers">
-      <UniqueIdentifier>{9ae49d10-50d6-4924-9aad-d3801e6a81db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Gameplay Framework\Entity System\Entities">
       <UniqueIdentifier>{b1f42b01-f380-4c6a-9191-883ce45427ba}</UniqueIdentifier>
     </Filter>
@@ -133,6 +127,15 @@
     <Filter Include="Source Files\Engine Core\Event System\Events">
       <UniqueIdentifier>{9e31a6b1-7592-4cbe-b668-dd55c80f1031}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Input System\Actions">
+      <UniqueIdentifier>{44494167-d9b2-4249-ab6b-768080a5de0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System\Actions">
+      <UniqueIdentifier>{720d259e-daab-4b21-bdd6-3398cf5e0b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
+      <UniqueIdentifier>{216a6d31-2522-409a-9d57-3333902104f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -186,9 +189,6 @@
     <ClCompile Include="Console.cpp">
       <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Source Files\Gameplay Framework\Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
@@ -213,12 +213,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="InputEvent.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyingMovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
@@ -237,23 +231,11 @@
     <ClCompile Include="StaticObserver.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PanMovementComponent.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Model Loading</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAxisReport.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAxis.cpp">
-      <Filter>Source Files\Engine Core\Input System</Filter>
     </ClCompile>
     <ClCompile Include="EventBus.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
@@ -279,9 +261,6 @@
     <ClCompile Include="WindowClosedEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInputEvent.cpp">
-      <Filter>Source Files\Engine Core\Event System\Events</Filter>
-    </ClCompile>
     <ClCompile Include="MouseButtonEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
@@ -289,6 +268,39 @@
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
     <ClCompile Include="MouseMovedEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlLayout.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAction.cpp">
+      <Filter>Source Files\Engine Core\Input System\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayerEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisInput.cpp">
+      <Filter>Source Files\Engine Core\Input System\Input Definitions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAxis.cpp">
+      <Filter>Source Files\Engine Core\Input System</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisInputAction.cpp">
+      <Filter>Source Files\Engine Core\Input System\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="GamepadButtonEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardButtonEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="InputActionEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisInputEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
   </ItemGroup>
@@ -362,9 +374,6 @@
     <ClInclude Include="Name.h">
       <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Header Files\Gameplay Framework\Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
     </ClInclude>
@@ -392,12 +401,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="InputEvent.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyingMovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentFactory.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClInclude>
@@ -419,12 +422,6 @@
     <ClInclude Include="StaticObserver.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PanMovementComponent.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files\Engine Core\Rendering System\Model Loading</Filter>
     </ClInclude>
@@ -433,12 +430,6 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="InputAxisReport.h">
-      <Filter>Header Files\Engine Core\Input System\Input Definitions</Filter>
-    </ClInclude>
-    <ClInclude Include="InputAxis.h">
-      <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
     <ClInclude Include="EventBus.h">
       <Filter>Header Files\Engine Core\Event System</Filter>
@@ -464,9 +455,6 @@
     <ClInclude Include="WindowClosedEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardInputEvent.h">
-      <Filter>Header Files\Engine Core\Event System\Events</Filter>
-    </ClInclude>
     <ClInclude Include="MouseButtonEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
@@ -474,7 +462,40 @@
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
     <ClInclude Include="MouseMovedEvent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlLayout.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAction.h">
+      <Filter>Header Files\Engine Core\Input System\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayerEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInputAction.h">
+      <Filter>Header Files\Engine Core\Input System\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputAxis.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInput.h">
+      <Filter>Header Files\Engine Core\Input System</Filter>
+    </ClInclude>
+    <ClInclude Include="GamepadButtonEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardButtonEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="InputActionEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInputEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

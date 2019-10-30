@@ -7,7 +7,6 @@
 
 //Void Engine Headers
 #include "Name.h"
-#include "InputAxisReport.h"
 #include "KeyboardInput.h"
 
 namespace core {
@@ -27,29 +26,26 @@ namespace core {
 		InputAxis(const std::string& name);
 
 		/**
+		 * Constructor
+		 * @param name The input axis' name
+		 */
+		InputAxis(const utils::Name& name);
+
+		/**
 		 * Update the input axis based on new input
 		 * @param input The input to use when updating 
 		 */
-		void UpdateAxis(const KeyboardInput& input);
+		void UpdateAxis(float value);
 
 		/**
 		 * Query the state of the Axis
 		 * @return A report of the axis' name and value
 		 */
-		InputAxisReport Poll() const;
+		float Poll() const;
 
-		/**
-		 * Add a keybinding to the behavior of this axis
-		 * @param input The input to bind
-		 * @param value The effect this input has on the axis
-		 */
-		void AddBinding(const KeyboardInput& input, float value);
+		utils::Name GetAxisName() const;
 
-		/**
-		 * Remove a keybinding from the behavior of the axis
-		 * @param input The key to unbind
-		 */
-		void RemoveBinding(const KeyboardInput& input);
+		bool operator== (const InputAxis& other) const;
 
 	private:
 		/** The name of the axis */
@@ -57,9 +53,19 @@ namespace core {
 
 		/** The axis' current reading */
 		float Value;
-
-		/** The keybindings for this axis */
-		std::unordered_map<KeyboardInput, float> Keybindings;
 	};
 
+}
+
+//It is acceptable to extend the std namespace to add template specifications for 
+//standard library templates to work with custom data types.
+namespace std {
+	template <> struct hash<core::InputAxis> { //Class to define hash function for Keyboard Input
+
+		//Hash functor
+		std::size_t operator()(const core::InputAxis& t) const {
+			return static_cast<std::size_t>(t.GetAxisName().ID);
+		}
+
+	};
 }

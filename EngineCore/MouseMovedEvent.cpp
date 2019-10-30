@@ -6,7 +6,8 @@
 #include "MouseMovedEvent.h"
 
 namespace core {
-	MouseMovedEvent::MouseMovedEvent(int xPos, int yPos) : Position(xPos, yPos) {
+	MouseMovedEvent::MouseMovedEvent(double xPos, double yPos) : Position((float)xPos, (float)yPos) {
+	
 	}
 
 	utils::Name MouseMovedEvent::GetEventType() const {

@@ -51,6 +51,38 @@ namespace math {
 		);
 	}
 
+	Vector3& Vector3::operator+=(const Vector3& rhs) {
+		X += rhs.X;
+		Y += rhs.Y;
+		Z += rhs.Z;
+
+		return *this;
+	}
+
+	Vector3& Vector3::operator-=(const Vector3& rhs) {
+		X -= rhs.X;
+		Y -= rhs.Y;
+		Z -= rhs.Z;
+
+		return *this;
+	}
+
+	Vector3& Vector3::operator*=(float rhs) {
+		X *= rhs;
+		Y *= rhs;
+		Z *= rhs;
+
+		return *this;
+	}
+
+	Vector3& Vector3::operator/=(float rhs) {
+		X /= rhs;
+		Y /= rhs;
+		Z /= rhs;
+		
+		return *this;
+	}
+
 	Vector3 operator-(const Vector3& lhs, const Vector3& rhs) {
 		return Vector3(
 			lhs.X - rhs.X,
@@ -69,6 +101,18 @@ namespace math {
 
 	Vector3 operator*(float lhs, const Vector3& rhs) {
 		return rhs * lhs;
+	}
+
+	Vector3 operator/(const Vector3& lhs, float rhs) {
+		return Vector3(
+			lhs.X / rhs,
+			lhs.Y / rhs,
+			lhs.Z / rhs
+		);
+	}
+
+	Vector3 operator/(float lhs, const Vector3& rhs) {
+		return rhs/lhs;
 	}
 
 	Vector3::Vector3() : X(0), Y(0), Z(0) {

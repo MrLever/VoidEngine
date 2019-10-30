@@ -41,15 +41,37 @@ namespace core {
 	}
 
 	Game::~Game() {
-
+		utils::Logger::LogInfo("Game terminated!");
 	}
 
-	void Game::HandleWindowClosed(WindowClosedEvent* event) {
-		Terminated = true;
-	}
+	void Game::ExecuteGameLoop() {
+		auto previousTime = Timer::now();
+		auto currentTime = Timer::now();
+		
+		while (!Terminated) {
+			//Get current time
+			currentTime = Timer::now();
+			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
+			auto deltaTime = deltaSeconds.count();
 
-	void Game::PauseGame(PauseGameEvent* event) {
-		Paused = !Paused;
+			//Handle input
+			ProcessInput(deltaTime);
+
+			//Dispatch any events that occurred since the last frame
+			GameEngine.DispatchEvents();
+
+			//Update the scene
+			if (!Paused) {
+				Update(deltaTime);
+			}
+
+			//Draw the scene
+			GameEngine.Render(CurrentLevel.get());
+
+			//Update previous time
+			previousTime = currentTime;
+		}
+
 	}
 
 	void Game::Update(float deltaTime) {
@@ -65,37 +87,6 @@ namespace core {
 	void Game::ProcessInput(float deltaTime) {
 		GameEngine.PollInput();
 		GameEngine.ProcessInput(CurrentLevel.get(), deltaTime);
-	}
-
-	void Game::ExecuteGameLoop() {
-		auto previousTime = Timer::now();
-		auto currentTime = Timer::now();
-		while (!Terminated) {
-			//Get current time
-			currentTime = Timer::now();
-			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
-			auto deltaTime = deltaSeconds.count();
-			if (Paused) {
-				deltaTime = 0;
-			}
-
-			//Handle input
-			ProcessInput(deltaTime);
-			
-			//Dispatch any events that occurred since the last frame
-			GameEngine.DispatchEvents();
-
-			//Update the scene
-			if (!Paused) {
-				Update(deltaTime);
-			}
-			
-			//Draw the scene
-			GameEngine.Render(CurrentLevel.get());
-
-			//Update previous time
-			previousTime = currentTime;
-		}
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
@@ -118,6 +109,21 @@ namespace core {
 		}
 	}
 
+	void Game::HandleWindowClosed(WindowClosedEvent* event) {
+		Terminated = true;
+	}
+
+	void Game::PauseGame(PauseGameEvent* event) {
+		if (Paused) {
+			GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
+		}
+		else {
+			GameEngine.SwapInputProfile("Settings/Controls/MenuControls.json");
+		}
+
+		Paused = !Paused;
+	}
+
 	void Game::SetLevel(const std::string& newLevelPath) {
 		if (CurrentLevel != nullptr) {
 			//Level unloading logic
@@ -125,6 +131,7 @@ namespace core {
 
 		CurrentLevel = LevelCache->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
+		GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
 		CurrentLevel->BeginPlay();
 	}
 

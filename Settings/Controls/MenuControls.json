@@ -1,0 +1,11 @@
+{
+    "actionMappings":
+    [
+        {
+            "mouseButton":"LEFT",
+            "modifiers":[],
+            "action":"Select"
+        }
+    ],
+    "axisMappings":[]
+}

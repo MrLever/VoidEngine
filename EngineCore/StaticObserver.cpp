@@ -15,6 +15,10 @@ namespace core {
 	
 	}
 
+	void StaticObserver::Initialize() {
+		;
+	}
+
 	void StaticObserver::BeginPlay() {
 		;
 	}

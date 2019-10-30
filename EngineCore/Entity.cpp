@@ -21,13 +21,13 @@ namespace core {
 		}
 	}
 
-	void Entity::Input(const InputEvent& input, float deltaTime) {
+	void Entity::Input(const InputAction& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
 		}
 	}
 
-	void Entity::Input(const InputAxisReport& input, float deltaTime) {
+	void Entity::Input(const AxisInputAction& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
 		}

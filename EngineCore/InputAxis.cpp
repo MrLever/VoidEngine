@@ -11,30 +11,23 @@ namespace core {
 	
 	}
 
-	void InputAxis::UpdateAxis(const KeyboardInput& input) {
-		if (Keybindings.find(input) == Keybindings.end()) {
-			return;
-		}
-
-		Value += Keybindings[input];
+	InputAxis::InputAxis(const utils::Name& name) : AxisName(name), Value(0) {
 	}
 
-	InputAxisReport InputAxis::Poll() const {
-		return InputAxisReport(AxisName, Value);
+	void InputAxis::UpdateAxis(float value) {
+		Value += value;
 	}
 
-	void InputAxis::AddBinding(const KeyboardInput& input, float value) {
-		Keybindings[input] = value;
-		if (input.GetButtonState() == ButtonState::PRESSED) {
-			Keybindings[KeyboardInput(input.GetButton(), ButtonState::RELEASED)] = -1 * value;
-		}
-		else if(input.GetButtonState() == ButtonState::RELEASED) {
-			Keybindings[KeyboardInput(input.GetButton(), ButtonState::PRESSED)] = -1 * value;
-		}
+	float InputAxis::Poll() const {
+		return Value;
 	}
 
-	void InputAxis::RemoveBinding(const KeyboardInput& input) {
-		Keybindings.erase(input);
+	utils::Name InputAxis::GetAxisName() const {
+		return AxisName;
+	}
+
+	bool InputAxis::operator==(const InputAxis& other) const {
+		return AxisName == other.AxisName;
 	}
 
 }

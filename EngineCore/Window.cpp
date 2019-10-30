@@ -7,16 +7,20 @@
 
 //Coati Headers
 #include "Window.h"
-#include "CameraComponent.h"
-#include "InputManager.h"
-#include "InputAxisReport.h"
 #include "Logger.h"
+#include "CameraComponent.h"
+#include "AxisInputEvent.h"
+#include "AxisInput.h"
+#include "GamepadInput.h"
+
+//Event Includes
 #include "WindowClosedEvent.h"
 #include "WindowResizedEvent.h"
 #include "MouseButtonEvent.h"
 #include "PauseGameEvent.h"
 #include "MouseMovedEvent.h"
-#include "KeyboardInputEvent.h"
+#include "KeyboardButtonEvent.h"
+#include "GamepadButtonEvent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;
@@ -144,7 +148,7 @@ namespace core {
 					utils::GetGameTime()
 				);
 
-				window->PublishEvent(new KeyboardInputEvent(input));
+				window->PublishEvent(new KeyboardButtonEvent(input));
 			}
 		);
 
@@ -238,10 +242,6 @@ namespace core {
 		}
 	}
 
-	std::shared_ptr<GLFWwindow> Window::GetWindow() {
-		return GLFWContext;
-	}
-
 	void Window::PollEvents() {
 		glfwPollEvents();
 
@@ -255,41 +255,26 @@ namespace core {
 		glfwSwapBuffers(GLFWContext.get());
 	}
 
-	void Window::SetInputManager(std::shared_ptr<InputManager> inputManager) {
-		GameInputManager = std::move(inputManager);
-	}
-
 	void Window::HandleGamepadInput() {
 		GLFWgamepadstate state;
-		static const float JOYSTICK_DEADZONE = 0.2;
 		auto timestamp = utils::GetGameTime();
 
 		PollGamepadButtons(state, timestamp);
-		
-		//Process axes
-		static InputAxisReport LeftJoyX("RightAxis", 0);
-		static InputAxisReport LeftJoyY("UpAxis", 0);
-		static InputAxisReport RightJoyX("LookRight", 0);
-		static InputAxisReport RightJoyY("LookUp", 0);
 
-		//The following axes lookups are inverted intentionally.
-		LeftJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
-		LeftJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y];
-		RightJoyX.Value = state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X];
-		RightJoyY.Value = -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y];
+		PollGamepadAxes(state);
+	}
 
-		if ((LeftJoyX.Value > JOYSTICK_DEADZONE) || (LeftJoyX.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(LeftJoyX);
-		}
-		if ((LeftJoyY.Value > JOYSTICK_DEADZONE) || (LeftJoyY.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(LeftJoyY);
-		}
-		if ((RightJoyX.Value > JOYSTICK_DEADZONE) || (RightJoyX.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(RightJoyX);
-		}
-		if ((RightJoyY.Value > JOYSTICK_DEADZONE) || (RightJoyY.Value < -JOYSTICK_DEADZONE)) {
-			GameInputManager->ReportInput(RightJoyY);
-		}
+	void Window::PollGamepadAxes(GLFWgamepadstate& state)
+	{
+		AxisInput LeftJoyX(RawAxisType::GAMEPAD_JOYSTICK_LEFT_X, state.axes[GLFW_GAMEPAD_AXIS_LEFT_X]);
+		AxisInput LeftJoyY(RawAxisType::GAMEPAD_JOYSTICK_LEFT_Y, -state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]);
+		AxisInput RightJoyX(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_X, state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
+		AxisInput RightJoyY(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_Y, -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
+
+		PublishEvent(new AxisInputEvent(LeftJoyX));
+		PublishEvent(new AxisInputEvent(LeftJoyY));
+		PublishEvent(new AxisInputEvent(RightJoyX));
+		PublishEvent(new AxisInputEvent(RightJoyY));
 	}
 
 	void Window::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp){
@@ -297,25 +282,32 @@ namespace core {
 			return;
 		}
 
-		//Process Buttons
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadButtonEvent(
+					GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadButtonEvent(
+					GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadButtonEvent(
+					GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
-			GameInputManager->ReportInput(
-				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+			PublishEvent(
+				new GamepadButtonEvent(
+					GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
+				)
 			);
 		}
 	}

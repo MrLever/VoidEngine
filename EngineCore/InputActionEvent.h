@@ -5,20 +5,20 @@
 
 //Void Engine Headers
 #include "Event.h"
-#include "KeyboardInput.h"
+#include "InputAction.h"
 
 namespace core {
-	class KeyboardInputEvent : public Event	{
+	class InputActionEvent : public Event {
 	public:
 		/**
 		 * Constructor
 		 */
-		KeyboardInputEvent(KeyboardInput& input);
-		
+		InputActionEvent(InputAction& action);
+
 		/**
-		 * Virtual function to query type of Event object
+		 * Query type of Event object
 		 */
-		utils::Name GetEventType() const override;
+		virtual utils::Name GetEventType() const override;
 
 		/**
 		 * Virtual function to query category of Event object
@@ -28,10 +28,10 @@ namespace core {
 		/**
 		 * Static function to get EventType info from C++ type info
 		 */
-		static utils::Name GetStaticEventType() /** override */;
-
-		/** The input this event is reporting */
-		KeyboardInput Input;
+		static utils::Name GetStaticEventType();
+		
+		/** The Action being reported */
+		InputAction Action;
 	};
 }
 

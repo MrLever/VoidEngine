@@ -26,6 +26,17 @@ namespace SuperVoid{
 		 */
 		PlayerShip(const std::string& name);
 
+		/**
+		 * Allows an entity to configure itself after it is constructed
+		 */
+		virtual void Initialize() override;
+
+		/**
+		 * Allows player entities to set up input components with keybindings
+		 * @param component The component to configure
+		 */
+		virtual void SetupInputComponent(core::InputComponent* component) override;
+
 	};
 }
 

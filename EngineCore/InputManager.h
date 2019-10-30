@@ -7,15 +7,19 @@
 //Library Headers
 
 //Void Engine Headers
+#include "AxisInput.h"
+#include "AxisInputAction.h"
 #include "Configurable.h"
+#include "ControlLayout.h"
 #include "EventBusNode.h"
 #include "Entity.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "MessageBusNode.h"
 #include "KeyboardInput.h"
-#include "KeyboardInputEvent.h"
+#include "KeyboardButtonEvent.h"
 #include "MouseInput.h"
+#include "MouseMovedEvent.h"
 #include "GamepadInput.h"
 #include "InputAxis.h"
 
@@ -36,7 +40,11 @@ namespace core {
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
-		InputManager(EventBus* bus, const utils::ResourceHandle<utils::Configuration>& configuration);
+		InputManager(
+			EventBus* bus, 
+			const utils::ResourceHandle<utils::Configuration>& configuration,
+			std::shared_ptr<utils::ThreadPool> threadPool
+		);
 
 		/**
 		 * Destructor
@@ -55,28 +63,18 @@ namespace core {
 		virtual unsigned GetSubscription() /** override */;
 
 		/**
-		 * Proccesses keyboard input events
-		 * @param input The keyboard input to process
+		 * Applies input configuration settings 
 		 */
-		void ReportInput(const KeyboardInput& input);
+		void Configure() override;
 
 		/**
-		 * Proccesses mouse input events
-		 * @param input The mouse input to process
+		 * Function to report incomming raw input. 
+		 * @param input The input to capture
+		 * @tparam T The type of input being supplied
+		 * @note T can be deduced by the compiler.
 		 */
-		void ReportInput(const MouseInput& input);
-
-		/**
-		 * Proccesses gamepad input events
-		 * @param input The gamepad input to process
-		 */
-		void ReportInput(const GamepadInput& input);
-
-		/**
-		 * Proccesses gamepad input events
-		 * @param input The gamepad input to process
-		 */
-		void ReportInput(const InputAxisReport& input);
+		template <class T>
+		void CaptureInput(const T& input);
 
 		/**
 		 * Instructs the input manager to process and dispatch events to the game entities
@@ -85,49 +83,83 @@ namespace core {
 		 */
 		void ProcessInput(Level* scene, float deltaTime);
 
+		void SetActiveInputMapping(const std::string& profilePath);
+
 	private:
 		/**
-		 * Applies input configuration settings 
+		 * Dispatches queued input actions to the scene
+		 * @param scene The scene to dispatch input to
+		 * @param deltaTime The current time step
 		 */
-		void Configure() override;
+		void ProcessInputActions(Level* scene, float deltaTime);
 
 		/**
-		 * Dispatches InputEvents to Entity-Component System
-		 * @param scene The scene to dispatch events to
-		 * @param event The event to dispatch
+		 * Dispatches queued input actions to the scene
+		 * @param scene The scene to dispatch input to
+		 * @param deltaTime The current time step
 		 */
-		void DispatchEvent(
-			const std::vector<core::Entity*>& scene, 
-			const InputEvent& event, 
-			float deltaTime
-		);
+		void ProcessAxisUpdates(Level* scene, float deltaTime);
 
-	    /**
-		 * Dispatchs InputAxisReports to Entity-Component System
-		 * @param scene The scene to dispatch events to
-		 * @param event The event to dispatch
-		 */
-		void DispatchEvent(
-			const std::vector<core::Entity*>& scene, 
-			const InputAxisReport& axisData, 
-			float deltaTime
-		);
+		/** Deadzone used to filter joystick input */
+		float JoystickDeadzone;
 
-		/** Buffer for unprocessed keyboard inputs */
-		std::deque<KeyboardInput> KeyboardInputBuffer;
+		/** Resource Cache for Input configurations */
+		utils::ResourceAllocator<ControlLayout> ControlLayoutCache;
 
-		/** Buffer for unprocessed mouse inputs */
-		std::deque<MouseInput> MouseInputBuffer;
+		/** Pointer to the engine-default control layout */
+		std::shared_ptr<ControlLayout> DefaultControls;
 
-		/** Buffer for unprocessed Gamepad inputs */
-		std::deque<GamepadInput> GamepadInputBuffer;
+		/** Pointer to the active level control layout */
+		std::shared_ptr<ControlLayout> ActiveControls;
 
-		/** Buffer for unprocessed Input Axis data */
-		std::deque<InputAxisReport> InputAxisDataBuffer;
+		/** Buffer of input actions to dispatch to entities on next update */
+		std::deque<InputAction> InputActionBuffer;
 
-		/** Maps certain keyboard inputs to InputAxes */
-		std::unordered_map<KeyboardButton, std::shared_ptr<InputAxis>> KeyboardAxisBindings;
+		/** Buffer of axis updates to dispatch to entities on next update */
+		std::deque<AxisInputAction> AxisUpdateBuffer;
 	};
+
+	template<class T>
+	inline void InputManager::CaptureInput(const T& input) {
+		if (ActiveControls->IsBound(input)) {
+			if (ActiveControls->IsBoundToAxis(input)) {
+				auto mapping = ActiveControls->GetAxisMapping(input);
+				ActiveControls->UpdateAxis(mapping);
+				auto update = ActiveControls->PollAxis(mapping.AxisName);
+
+				AxisUpdateBuffer.push_back(update);
+			}
+			else if(ActiveControls->IsBoundToAction(input)) {
+				InputActionBuffer.push_back(ActiveControls->GetActionMapping(input));
+			}
+		}
+		else if (DefaultControls->IsBound(input)) {
+			if (DefaultControls->IsBoundToAxis(input)) {
+				auto mapping = DefaultControls->GetAxisMapping(input);
+				DefaultControls->UpdateAxis(mapping);
+				auto update = DefaultControls->PollAxis(mapping.AxisName);
+
+				AxisUpdateBuffer.push_back(update);
+			}
+			else if (DefaultControls->IsBoundToAction(input)) {
+				InputActionBuffer.push_back(DefaultControls->GetActionMapping(input));
+			}
+		}
+	}
+
+	template <>
+	inline void InputManager::CaptureInput<AxisInput>(const AxisInput& input) {
+		if (ActiveControls->IsBound(input)) {
+			if (ActiveControls->IsBoundToAxis(input)) {
+				AxisUpdateBuffer.push_back(ActiveControls->GetAxisMapping(input));
+			}
+		}
+		else if (DefaultControls->IsBound(input)) {
+			if (DefaultControls->IsBoundToAxis(input)) {
+				AxisUpdateBuffer.push_back(DefaultControls->GetAxisMapping(input));
+			}
+		}
+	}
 
 }
 

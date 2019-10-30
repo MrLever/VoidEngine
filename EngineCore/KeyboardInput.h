@@ -6,6 +6,8 @@
 
 
 //STD Headers
+#include <vector>
+#include <unordered_map>
 
 //Library Headers
 
@@ -14,9 +16,6 @@
 #include "EngineUtilities.h"
 
 namespace core {
-	
-	//Forward Class declarations
-
 	//Keytype specificication matches GLFW, 
 	//which also matches ascii for *most* printed characters
 	//See: https://www.glfw.org/docs/latest/group__keys.html
@@ -90,7 +89,8 @@ namespace core {
 		PRINT_SCREEN = 283,
 		PAUSE = 284,
 		F1 = 290,
-		F2= 291,
+		F2 = 291,
+		F3 = 292,
 		F4 = 293,
 		F5 = 294,
 		F6 = 295,
@@ -140,8 +140,133 @@ namespace core {
 		RIGHT_SUPER = 347,
 		MENU = 348
 	};
-
 	using KeyboardInput = Input<KeyboardButton>;
+	
+	//Christ on a bike making this was fucking tedious
+	static std::unordered_map<std::string, KeyboardButton> StringToButtonMap = {
+		{"UNKOWN", KeyboardButton::UNKOWN},
+		{"SPACE", KeyboardButton::SPACE},
+		{"APOSTROPHE", KeyboardButton::APOSTROPHE},
+		{"COMMA", KeyboardButton::COMMA},
+		{"MINUS", KeyboardButton::MINUS},
+		{"PERIOD", KeyboardButton::PERIOD},
+		{"FORWARD_SLASH", KeyboardButton::FORWARD_SLASH},
+		{"NUM_0", KeyboardButton::NUM_0},
+		{"NUM_1", KeyboardButton::NUM_1},
+		{"NUM_2", KeyboardButton::NUM_2},
+		{"NUM_3", KeyboardButton::NUM_3},
+		{"NUM_4", KeyboardButton::NUM_4},
+		{"NUM_5", KeyboardButton::NUM_5},
+		{"NUM_6", KeyboardButton::NUM_6},
+		{"NUM_7", KeyboardButton::NUM_7},
+		{"NUM_8", KeyboardButton::NUM_8},
+		{"NUM_9", KeyboardButton::NUM_9},
+		{"SEMICOLON", KeyboardButton::SEMICOLON},
+		{"EQUALS", KeyboardButton::EQUALS},
+		{"A", KeyboardButton::A},
+		{"B", KeyboardButton::B},
+		{"C", KeyboardButton::C},
+		{"D", KeyboardButton::D},
+		{"E", KeyboardButton::E},
+		{"F", KeyboardButton::F},
+		{"G", KeyboardButton::G},
+		{"H", KeyboardButton::H},
+		{"I", KeyboardButton::I},
+		{"J", KeyboardButton::J},
+		{"K", KeyboardButton::K},
+		{"L", KeyboardButton::L},
+		{"M", KeyboardButton::M},
+		{"N", KeyboardButton::N},
+		{"O", KeyboardButton::O},
+		{"P", KeyboardButton::P},
+		{"Q", KeyboardButton::Q},
+		{"R", KeyboardButton::R},
+		{"S", KeyboardButton::S},
+		{"T", KeyboardButton::T},
+		{"U", KeyboardButton::U},
+		{"V", KeyboardButton::V},
+		{"W", KeyboardButton::W},
+		{"X", KeyboardButton::X},
+		{"Y", KeyboardButton::Y},
+		{"Z", KeyboardButton::Z},
+		{"LEFT_BRACKET", KeyboardButton::LEFT_BRACKET},
+		{"BACKWARD_SLASH", KeyboardButton::BACKWARD_SLASH},
+		{"RIGHT_BRACKET", KeyboardButton::RIGHT_BRACKET},
+		{"GRAVE_ACCENT", KeyboardButton::GRAVE_ACCENT},
+		{"ESC", KeyboardButton::ESC},
+		{"ENTER", KeyboardButton::ENTER},
+		{"TAB", KeyboardButton::TAB},
+		{"BACKSPACE", KeyboardButton::BACKSPACE},
+		{"INSERT", KeyboardButton::INSERT},
+		{"DELETE", KeyboardButton::DELETE},
+		{"RIGHT", KeyboardButton::RIGHT},
+		{"LEFT", KeyboardButton::LEFT},
+		{"DOWN", KeyboardButton::DOWN},
+		{"UP", KeyboardButton::UP},
+		{"PAGE_UP", KeyboardButton::PAGE_UP},
+		{"PAGE_DOWN", KeyboardButton::PAGE_DOWN},
+		{"HOME", KeyboardButton::HOME},
+		{"END", KeyboardButton::END},
+		{"CAPS_LOCK", KeyboardButton::CAPS_LOCK},
+		{"NUM_LOCK", KeyboardButton::NUM_LOCK},
+		{"PRINT_SCREEN", KeyboardButton::PRINT_SCREEN},
+		{"PAUSE", KeyboardButton::PAUSE},
+		{"F1", KeyboardButton::F1},
+		{"F2", KeyboardButton::F2},
+		{"F3", KeyboardButton::F3},
+		{"F4", KeyboardButton::F4},
+		{"F5", KeyboardButton::F5},
+		{"F6", KeyboardButton::F6},
+		{"F7", KeyboardButton::F7},
+		{"F8", KeyboardButton::F8},
+		{"F9", KeyboardButton::F9},
+		{"F10", KeyboardButton::F10},
+		{"F11", KeyboardButton::F11},
+		{"F12", KeyboardButton::F12},
+		{"F13", KeyboardButton::F13},
+		{"F14", KeyboardButton::F14},
+		{"F15", KeyboardButton::F15},
+		{"F16", KeyboardButton::F16},
+		{"F17", KeyboardButton::F17},
+		{"F18", KeyboardButton::F18},
+		{"F19", KeyboardButton::F19},
+		{"F20", KeyboardButton::F20},
+		{"F21", KeyboardButton::F21},
+		{"F22", KeyboardButton::F22},
+		{"F23", KeyboardButton::F23},
+		{"F24", KeyboardButton::F24},
+		{"F25", KeyboardButton::F25},
+		{"NUMPAD_0", KeyboardButton::NUMPAD_0},
+		{"NUMPAD_1", KeyboardButton::NUMPAD_1},
+		{"NUMPAD_2", KeyboardButton::NUMPAD_2},
+		{"NUMPAD_3", KeyboardButton::NUMPAD_3},
+		{"NUMPAD_4", KeyboardButton::NUMPAD_4},
+		{"NUMPAD_5", KeyboardButton::NUMPAD_5},
+		{"NUMPAD_6", KeyboardButton::NUMPAD_6},
+		{"NUMPAD_7", KeyboardButton::NUMPAD_7},
+		{"NUMPAD_8", KeyboardButton::NUMPAD_8},
+		{"NUMPAD_9", KeyboardButton::NUMPAD_9},
+		{"NUMPAD_DECIMAL", KeyboardButton::NUMPAD_DECIMAL},
+		{"NUMPAD_DIVIDE", KeyboardButton::NUMPAD_DIVIDE},
+		{"NUMPAD_MULTIPLY", KeyboardButton::NUMPAD_MULTIPLY},
+		{"NUMPAD_SUBTRACT", KeyboardButton::NUMPAD_SUBTRACT},
+		{"NUMPAD_ADD", KeyboardButton::NUMPAD_ADD},
+		{"NUMPAD_ENTER", KeyboardButton::NUMPAD_ENTER},
+		{"NUMPAD_EQUAL", KeyboardButton::NUMPAD_EQUAL},
+		{"LEFT_SHIFT", KeyboardButton::LEFT_SHIFT},
+		{"LEFT_CONTROL", KeyboardButton::LEFT_CONTROL},
+		{"LEFT_ALT", KeyboardButton::LEFT_ALT},
+		{"LEFT_SUPER", KeyboardButton::LEFT_SUPER},
+		{"RIGHT_SHIFT", KeyboardButton::RIGHT_SHIFT},
+		{"RIGHT_CONTROL", KeyboardButton::RIGHT_CONTROL},
+		{"RIGHT_ALT", KeyboardButton::RIGHT_ALT},
+		{"RIGHT_SUPER", KeyboardButton::RIGHT_SUPER},
+		{"MENU", KeyboardButton::MENU}
+	};
+
+	inline KeyboardButton DeserializeKB(const std::string& key, const std::vector<std::string> modifiers) {
+		return StringToButtonMap.find(key)->second;
+	}
 }
 
 //It is acceptable to extend the std namespace to add template specifications for 

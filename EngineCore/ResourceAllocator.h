@@ -27,9 +27,15 @@ namespace utils {
 	public:
 		/**
 		 * Constructor
+		 * @note This creates a synchronous ResourceAllocator
+		 */
+		ResourceAllocator();
+
+		/**
+		 * Constructor
 		 * @param gameThreadPool A thread pool to be used for asynchronous file IO
 		 */
-		ResourceAllocator(ThreadPoolPtr gameThreadPool);
+		ResourceAllocator(std::shared_ptr<utils::ThreadPool> gameThreadPool);
 		
 		/**
 		 * Destructor
@@ -67,8 +73,8 @@ namespace utils {
 		 */
 		std::shared_ptr<T> GetResource(const Name& fileID);
 
-
 	private:
+
 		/** The thread pool the Resource Manager depends on for async file IO */
 		std::shared_ptr<ThreadPool> GameThreadPool;
 
@@ -80,7 +86,11 @@ namespace utils {
 	};
 
 	template<class T>
-	inline ResourceAllocator<T>::ResourceAllocator(ThreadPoolPtr gameThreadPool) 
+	inline ResourceAllocator<T>::ResourceAllocator() : GameThreadPool(nullptr) {
+	}
+
+	template<class T>
+	inline ResourceAllocator<T>::ResourceAllocator(std::shared_ptr<utils::ThreadPool> gameThreadPool)
 		: GameThreadPool(std::move(gameThreadPool)){
 	
 	}
@@ -99,10 +109,12 @@ namespace utils {
 
 		Name resourceIdentifier(filePath);
 
-		ThreadPoolPtr pool = GameThreadPool;
+		if (!GameThreadPool) {
+			utils::Logger::LogError("ResourceAllocator cannot load resource " + filePath + ". No Thread Pool Available");
+		}
 
 		auto resourceFuture = GameThreadPool->SubmitJob(
-			[filePath, pool]() -> std::shared_ptr<T> {
+			[filePath, pool = GameThreadPool]() -> std::shared_ptr<T> {
 				std::shared_ptr<T> resource = std::make_shared<T>(filePath);
 				if (!resource) {
 					return nullptr;

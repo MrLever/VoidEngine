@@ -9,10 +9,8 @@
 #include "Texture.h"
 
 //SuperVoid Component Includes
-#include "FlyingMovementComponent.h"
 #include "GraphicsComponent.h"
 #include "CameraComponent.h"
-#include "PanMovementComponent.h"
 
 namespace core {
 	ComponentFactory::ComponentFactory(ResourceAllocatorPtr<Model> modelAllocator) 
@@ -37,22 +35,6 @@ namespace core {
 		if ( type == "CameraComponent") {
 			auto tempHandle = new CameraComponent(parent);
 			Window::GetActiveWindow()->SetView(parent, tempHandle);
-			component = tempHandle;
-		}
-		else if (type == "FlyingMovementComponent") {
-			auto tempHandle = new FlyingMovementComponent(parent);
-			
-			float movespeed = componentData["speed"].get<float>();
-			tempHandle->SetMoveSpeed(movespeed);
-
-			component = tempHandle;
-		}
-		else if (type == "PanMovementComponent") {
-			auto tempHandle = new PanMovementComponent(parent);
-
-			float movespeed = componentData["speed"].get<float>();
-			tempHandle->SetMoveSpeed(movespeed);
-
 			component = tempHandle;
 		}
 		else if (type == "GraphicsComponent") {

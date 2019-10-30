@@ -13,8 +13,11 @@
 #include "EventBusNode.h"
 #include "ResourceAllocator.h"
 #include "Level.h"
+
+//Events
 #include "WindowClosedEvent.h"
 #include "PauseGameEvent.h"
+#include "InputActionEvent.h"
 
 namespace core {
 	/**
@@ -38,15 +41,10 @@ namespace core {
 
 	private:
 		/**
-		 * Allows the game to react to WindowClosedEvents
+		 * Runs the game simulation
 		 */
-		void HandleWindowClosed(WindowClosedEvent* event);
+		void ExecuteGameLoop();
 		
-		/**
-		 * Allows the game to react to PauseGameEvents
-		 */
-		void PauseGame(PauseGameEvent* event);
-
 		/**
 		 * Instructs the game to update the entities in it's simulation
 		 */
@@ -57,17 +55,22 @@ namespace core {
 		 * @param deltaTime the time step to use when applying user input
 		 */
 		void ProcessInput(float deltaTime);
-
-		/**
-		 * Runs the game simulation
-		 */
-		void ExecuteGameLoop();
 	
 		/**
 		 * Tracks the game's frame rate.
 		 * @param timeSinceLastFrame Time since the last frame, in seconds
 		 */
 		void UpdateFramerate(double timeSinceLastFrame);
+
+		/**
+		 * Allows the game to react to WindowClosedEvents
+		 */
+		void HandleWindowClosed(WindowClosedEvent* event);
+		
+		/**
+		 * Allows the game to react to PauseGameEvents
+		 */
+		void PauseGame(PauseGameEvent* event);
 
 		/**
 		 * Set the game's current level
@@ -87,14 +90,16 @@ namespace core {
 		/** The game's current framerate */
 		int FrameRate;
 
+		/** Flag to determine when the game loop should terminate */
 		bool Terminated;
 
+		/** Flag to query whether the game is paused */
 		bool Paused;
 
 		/**
 		 * Helper class to connect Game to the event bus
 		 */
-		class GameEventBusNode : EventBusNode {
+		class GameEventBusNode : public EventBusNode {
 		public:
 			/**
 			 * Constructor
@@ -104,6 +109,9 @@ namespace core {
 
 			}
 
+			/**
+			 * Function to dispatch events to Game
+			 */
 			virtual void ReceiveEvent(Event* event) {
 				EventDispatcher dispatcher(event);
 				
@@ -113,12 +121,32 @@ namespace core {
 					}
 				);
 
+				dispatcher.Dispatch<InputActionEvent>(
+					[this](InputActionEvent* event) {
+						auto action = event->Action;
+						if (action.Action == "PauseGame" && action.Type == ActionType::PRESSED) {
+							PublishEvent(new PauseGameEvent());
+						}
+					}
+				);
+
 				dispatcher.Dispatch<PauseGameEvent>(
 					[this](PauseGameEvent* pauseEvent) {
 						Owner->PauseGame(pauseEvent);
 					}
 				);
 
+			}
+
+			/**
+			 * Allows EventBus to query the node's subscription, and filter events accordingly
+			 */
+			unsigned GetSubscription() override {
+				static const unsigned char ALL_FLAG = -1;
+				static const unsigned char RAW_INPUT_FLAG = static_cast<unsigned char>(EventCategory::RAW_INPUT);
+
+				//Accept all events except raw input flags
+				return ALL_FLAG ^ RAW_INPUT_FLAG;
 			}
 
 			Game* Owner;

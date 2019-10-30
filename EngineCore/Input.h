@@ -2,6 +2,7 @@
 //STD Headers
 #include <cstddef>
 #include <memory>
+#include <unordered_map>
 
 //Library Headers
 
@@ -27,6 +28,16 @@ namespace core {
 		SUPER = 0x0008,
 		CAPS_LOCK = 0x0010,
 		NUM_LOCK = 0x0020
+	};
+
+	static std::unordered_map<std::string, InputModifier> StringToModifierMap = {
+		{"NONE", InputModifier::NONE},
+		{"SHIFT", InputModifier::SHIFT},
+		{"CTRL", InputModifier::CTRL},
+		{"ALT", InputModifier::ALT},
+		{"SUPER", InputModifier::SUPER},
+		{"CAPS_LOCK", InputModifier::CAPS_LOCK},
+		{"NUM_LOCK", InputModifier::NUM_LOCK}
 	};
 
 	/**
@@ -59,6 +70,14 @@ namespace core {
 		 * @param modifier Modifier flag applied to the input
 		 */
 		Input(T button, ButtonState state, InputModifier modifier);
+
+		/**
+		 * Constructor
+		 * @param button The button this input is reporting for
+		 * @param state The state of the button being reported
+		 * @param time The time stamp of the input
+		 */
+		Input(T button, ButtonState state, utils::GameTime time);
 
 		/**
 		 * Constructor
@@ -136,6 +155,12 @@ namespace core {
 	template<class T>
 	inline Input<T>::Input(T button, ButtonState state, InputModifier modifier)
 		: Button(button), State(state), Modifiers(static_cast<unsigned>(modifier)), TimeStamp(0) {
+
+	}
+
+	template <class T>
+	inline Input<T>::Input(T button, ButtonState state,  utils::GameTime time)
+		: Button(button), State(state), Modifiers(0), TimeStamp(time) {
 
 	}
 

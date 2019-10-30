@@ -6,6 +6,7 @@
 //Void Engine Headers
 #include "Entity.h"
 #include "Name.h"
+#include "InputComponent.h"
 
 namespace core {
 	
@@ -28,6 +29,11 @@ namespace core {
 		PlayerEntity(const utils::Name& name);
 
 		/**
+		 * Injects and initializes an InputComponent to the entity's component list
+		 */
+		virtual void Initialize() override;
+
+		/**
 		 * Defines what the entity does once a level begins.
 		 */
 		virtual void BeginPlay() override;
@@ -42,6 +48,16 @@ namespace core {
 		 * Defines entity death behaviors
 		 */
 		virtual void Terminate() override;
+
+		/**
+		 * Allows player entities to set up input components with keybindings
+		 * @param component The component to configure
+		 */
+		virtual void SetupInputComponent(InputComponent* component) = 0;
+
+	protected:
+		/** Represents this entity's base movement speed */
+		float MovementSpeed;
 	};
 
 }

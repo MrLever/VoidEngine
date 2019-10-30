@@ -31,13 +31,13 @@ namespace core {
 		 * Function to allow this component to process input
 		 * @param input Input from the keyboard to process
 		 */
-		virtual void Input(const InputEvent& input, float deltaTime);
+		virtual void Input(const InputAction& input, float deltaTime);
 
 		/**
 		 * Function to allow this component to process input
 		 * @param input Input axis data to process
 		 */
-		virtual void Input(const InputAxisReport& input, float deltaTime);
+		virtual void Input(const AxisInputAction& input, float deltaTime);
 
 		/**
 		 * Defines how a component processes updates

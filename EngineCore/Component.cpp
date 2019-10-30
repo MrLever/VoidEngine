@@ -11,12 +11,12 @@ namespace core {
 
 	}
 
-	void Component::Input(const InputEvent& input, float deltaTime) {
+	void Component::Input(const InputAction& input, float deltaTime) {
 		;
 	}
 
-	void Component::Input(const InputAxisReport& input, float deltaTime) {
-
+	void Component::Input(const AxisInputAction& input, float deltaTime) {
+		;
 	}
 
 	void Component::Tick(float deltaTime) {

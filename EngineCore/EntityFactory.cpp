@@ -8,7 +8,7 @@
 #include "Level.h"
 
 //Entity Includes
-#include "PlayerEntity.h"
+#include "DefaultPlayerEntity.h"
 #include "PlayerShip.h"
 #include "CubeEntity.h"
 #include "BouncingCube.h"
@@ -21,7 +21,7 @@ namespace core {
 
 	void EntityFactory::CreateEntities(const nlohmann::json& entityList) {
 		//Preload entity data for entity factory to take advantage of parallel loading
-		auto list = CurrLevel->LevelData["entities"];
+		auto list = CurrLevel->Data["entities"];
 		for (const auto& entityEntry : entityList) {
 
 			//Extract data necessary to construct an entity
@@ -52,8 +52,8 @@ namespace core {
 		Entity* entity = nullptr;
 
 		//Construct the entity on the heap
-		if (type == "PlayerEntity") {
-			entity = new PlayerEntity(name);
+		if (type == "DefaultPlayerEntity") {
+			entity = new DefaultPlayerEntity(name);
 		}
 		else if (type == "CubeEntity") {
 			entity = new SuperVoid::CubeEntity(name);
@@ -78,6 +78,8 @@ namespace core {
 		if (!componentData.is_null()) {
 			CompFactory.ProcessComponentData(entity, componentData);
 		}
+
+		entity->Initialize();
 
 		return entity;
 	}

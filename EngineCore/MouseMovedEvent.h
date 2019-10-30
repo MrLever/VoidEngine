@@ -13,7 +13,7 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		MouseMovedEvent(int xPos, int yPos);
+		MouseMovedEvent(double xPos, double yPos);
 
 		/**
 		 * Virtual function to query type of Event object
@@ -30,6 +30,9 @@ namespace core {
 		 */
 		static utils::Name GetStaticEventType() /** override */;
 
+		/**
+		 * The delta for mouse position
+		 */
 		math::Vector2 Position;
 	};
 }

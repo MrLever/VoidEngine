@@ -9,7 +9,7 @@
 
 namespace core {
 
-	Level::Level(const std::string& levelPath) : Resource(levelPath), LevelName("Error"){
+	Level::Level(const std::string& levelPath) : JsonResource(levelPath), LevelName("Error"){
 		EntityDataCache = nullptr;
 		GameThreadPool = nullptr;
 		IsComposite = true;
@@ -25,17 +25,11 @@ namespace core {
 	}
 
 	bool Level::Load() {
-		std::ifstream level(ResourcePath);
+		JsonResource::Load();
 
-		if (!level.is_open()) {
-			return LoadErrorResource();
-		}
+		auto levelName = Data.find("name");
 
-		level >> LevelData;
-
-		auto levelName = LevelData.find("name");
-
-		if (levelName == LevelData.end()) {
+		if (levelName == Data.end()) {
 			return false;
 		}
 
@@ -64,17 +58,23 @@ namespace core {
 		LevelEntityFactory = new EntityFactory(this);
 
 		//Preload entity data source files for creation
-		for (auto& entity : LevelData["entities"]) {
+		for (auto& entity : Data["entities"]) {
 			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
 			EntityDataCache->LoadResource(source);
 		}
 		
 		//Parse entity data source files and spawn actors
-		LevelEntityFactory->CreateEntities(LevelData["entities"]);
+		LevelEntityFactory->CreateEntities(Data["entities"]);
+
+		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
 	}	
 
 	utils::Name Level::GetName() {
 		return LevelName;
+	}
+
+	std::string Level::GetControlFilePath() {
+		return InputDefinitionPath;
 	}
 
 	void Level::BeginPlay() {

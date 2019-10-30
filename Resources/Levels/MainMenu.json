@@ -1,0 +1,37 @@
+{
+    "name":"MainMenu",
+    "controlFile":"Settings/Controls/FPSControls.json",
+    "entities":
+    [
+        {
+            "name":"FloatingPawn",
+            "type":"DefaultPlayerEntity",
+            "location": [0, 0, 5],
+            "rotation": [0, -90, 0]
+        },
+        {
+            "name":"BouncingCube1",
+            "type":"BouncingCube",
+            "location": [0, 0, 0],
+            "rotation": [0, 45, 0]
+        },
+        {
+            "name":"TestCube",
+            "type":"CubeEntity",
+            "location": [5, 0, 0],
+            "rotation": [0, 0, 0]
+        },
+        {
+            "name":"TestCube",
+            "type":"CubeEntity",
+            "location": [-5, 0, 0],
+            "rotation": [45, 45, 45]
+        },
+        {
+            "name":"TestCube",
+            "type":"CubeEntity",
+            "location": [0, 5, 0],
+            "rotation": [45, 0, 45]
+        }
+    ]
+}

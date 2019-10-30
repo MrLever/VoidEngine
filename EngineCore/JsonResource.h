@@ -30,12 +30,12 @@ namespace utils {
 		/**
 		 * Loads the resource's default value if the path provided is invalid
 		 */
-		virtual bool LoadErrorResource();
+		virtual bool LoadErrorResource() override;
 
 		/**
 		 * Allows the resource to be intialized after loading.
 		 */
-		virtual void Initialize();
+		virtual void Initialize() override;
 
 		/**
 		 * Function for retrieving values from a Lua Config file
@@ -45,6 +45,10 @@ namespace utils {
 		 */
 		template<typename T>
 		T GetAttribute(const std::string& attribute) const;
+		
+	protected:
+		/** A queryable JSON object that can be accessed through GetAttribute() */
+		nlohmann::json Data;
 
 	private:
 		/**
@@ -54,8 +58,6 @@ namespace utils {
 		template<typename T>
 		T ReturnErrorValue() const;
 
-		/** A queryable JSON object that can be accessed through GetAttribute() */
-		nlohmann::json Data;
 
 	};
 

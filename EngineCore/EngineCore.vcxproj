@@ -247,11 +247,15 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AxisInput.cpp" />
+    <ClCompile Include="AxisInputEvent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="ControlLayout.cpp" />
+    <ClCompile Include="DefaultPlayerEntity.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
@@ -260,22 +264,21 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="EventBus.cpp" />
     <ClCompile Include="EventBusNode.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
-    <ClCompile Include="FlyingMovementComponent.cpp" />
+    <ClCompile Include="GamepadButtonEvent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
+    <ClCompile Include="InputActionEvent.cpp" />
     <ClCompile Include="InputAxis.cpp" />
-    <ClCompile Include="InputAxisReport.cpp" />
-    <ClCompile Include="InputEvent.cpp" />
+    <ClCompile Include="AxisInputAction.cpp" />
+    <ClCompile Include="InputAction.cpp" />
+    <ClCompile Include="InputComponent.cpp" />
     <ClCompile Include="JsonResource.cpp" />
-    <ClCompile Include="KeyboardInputEvent.cpp" />
+    <ClCompile Include="KeyboardButtonEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MouseButtonEvent.cpp" />
     <ClCompile Include="MouseMovedEvent.cpp" />
-    <ClCompile Include="MovementComponent.cpp" />
-    <ClCompile Include="PanMovementComponent.cpp" />
     <ClCompile Include="PauseGameEvent.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="Console.cpp" />
@@ -301,11 +304,15 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="WindowResizedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AxisInput.h" />
+    <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
+    <ClInclude Include="ControlLayout.h" />
+    <ClInclude Include="DefaultPlayerEntity.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
@@ -314,22 +321,21 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EventBus.h" />
     <ClInclude Include="EventBusNode.h" />
     <ClInclude Include="EventDispatcher.h" />
-    <ClInclude Include="FlyingMovementComponent.h" />
+    <ClInclude Include="GamepadButtonEvent.h" />
     <ClInclude Include="GraphicsComponent.h" />
+    <ClInclude Include="InputActionEvent.h" />
     <ClInclude Include="InputAxis.h" />
-    <ClInclude Include="InputAxisReport.h" />
-    <ClInclude Include="InputEvent.h" />
+    <ClInclude Include="AxisInputAction.h" />
+    <ClInclude Include="InputAction.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />
-    <ClInclude Include="KeyboardInputEvent.h" />
+    <ClInclude Include="KeyboardButtonEvent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MouseButtonEvent.h" />
     <ClInclude Include="MouseMovedEvent.h" />
-    <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="PanMovementComponent.h" />
     <ClInclude Include="PauseGameEvent.h" />
-    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
