@@ -2,12 +2,8 @@
     "components":
     [
         {
-            "type":"PanMovementComponent",
-            "speed":10
-        },
-        {
             "type": "GraphicsComponent",
-            "model":"Resources/Models/Cube/cube.obj",
+            "model":"Resources/Models/Ship/PlayerShip.obj",
             "shader":
             {
                 "name":"CubeMaterial",
