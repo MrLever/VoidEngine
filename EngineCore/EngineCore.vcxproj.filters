@@ -291,9 +291,6 @@
     <ClCompile Include="AxisInputAction.cpp">
       <Filter>Source Files\Engine Core\Input System\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="AxisInputEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GamepadButtonEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
@@ -301,6 +298,9 @@
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
     <ClCompile Include="InputActionEvent.cpp">
+      <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="AxisInputEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
     </ClCompile>
   </ItemGroup>
@@ -485,9 +485,6 @@
     <ClInclude Include="AxisInput.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="AxisInputEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GamepadButtonEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
@@ -495,6 +492,9 @@
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
     <ClInclude Include="InputActionEvent.h">
+      <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="AxisInputEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
   </ItemGroup>

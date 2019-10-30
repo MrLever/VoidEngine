@@ -114,6 +114,13 @@ namespace core {
 	}
 
 	void Game::PauseGame(PauseGameEvent* event) {
+		if (Paused) {
+			GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
+		}
+		else {
+			GameEngine.SwapInputProfile("Settings/Controls/MenuControls.json");
+		}
+
 		Paused = !Paused;
 	}
 

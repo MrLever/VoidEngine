@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "EventBus.h"
+#include "Logger.h"
 
 namespace core {
 	EventBus::~EventBus() {

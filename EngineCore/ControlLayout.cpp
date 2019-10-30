@@ -70,9 +70,9 @@ namespace core {
 				);
 			}
 			else if (mapping.find("mouseButton") != mapping.end()) {
-				GamepadActionBindings.insert(
+				MouseActionBindings.insert(
 					{
-						DeserializeGamepadButton(mapping["mouseButton"], mapping["modifiers"]),
+						DeserializeMouseButton(mapping["mouseButton"], mapping["modifiers"]),
 						utils::Name(mapping["action"])
 					}
 				);
