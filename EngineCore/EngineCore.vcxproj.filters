@@ -136,6 +136,9 @@
     <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{216a6d31-2522-409a-9d57-3333902104f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Utilities\Factory System">
+      <UniqueIdentifier>{5e0cc2ae-63ab-477c-b139-9c3bbdb4acd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -496,6 +499,9 @@
     </ClInclude>
     <ClInclude Include="AxisInputEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files\Engine Utilities\Factory System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
