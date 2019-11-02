@@ -18,15 +18,8 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param The entity's name
 		 */
-		PlayerEntity(const std::string& name);
-		
-		/**
-		 * Constructor
-		 * @param name The entity's name
-		 */
-		PlayerEntity(const utils::Name& name);
+		PlayerEntity();
 
 		/**
 		 * Injects and initializes an InputComponent to the entity's component list

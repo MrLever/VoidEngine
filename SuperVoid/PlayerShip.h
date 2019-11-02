@@ -16,15 +16,8 @@ namespace SuperVoid{
 	public:
 		/**
 		 * Constructor
-		 * @param name The player's name
 		 */
-		PlayerShip(const utils::Name& name);
-
-		/**
-		 * Constructor
-		 * @param name The player's name
-		 */
-		PlayerShip(const std::string& name);
+		PlayerShip();
 
 		/**
 		 * Allows an entity to configure itself after it is constructed

@@ -12,9 +12,8 @@ using namespace core;
 namespace EngineCoreTests {
 	class TestPlayer : public PlayerEntity {
 	public:
-		TestPlayer(const std::string& name) : PlayerEntity(name) {
+		TestPlayer() {
 			MovedForward = Jumped = false;
-			
 		}
 
 		virtual void SetupInputComponent(InputComponent* component) {
@@ -46,9 +45,8 @@ namespace EngineCoreTests {
 
 	TEST_CLASS(ActionBindingTests) {
 		TEST_METHOD(AddBindingTest) {
-			TestPlayer test("test");
+			TestPlayer test;
 			test.SetupInputComponent(new InputComponent(&test));
-
 
 			test.Input(InputAction("Unbound input"), 0);
 			Assert::IsFalse(test.MovedForward);

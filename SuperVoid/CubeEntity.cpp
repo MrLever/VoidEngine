@@ -11,11 +11,7 @@
 #include "Logger.h"
 
 namespace SuperVoid {
-	CubeEntity::CubeEntity(const std::string& name) : Entity(name) {
-		Velocity = 0.05f;
-	}
-
-	CubeEntity::CubeEntity(const utils::Name& name) : Entity(name) {
+	CubeEntity::CubeEntity() {
 		Velocity = 0.05f;
 	}
 

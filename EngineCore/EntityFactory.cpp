@@ -53,24 +53,26 @@ namespace core {
 
 		//Construct the entity on the heap
 		if (type == "DefaultPlayerEntity") {
-			entity = new DefaultPlayerEntity(name);
+			entity = new DefaultPlayerEntity();
 		}
 		else if (type == "CubeEntity") {
-			entity = new SuperVoid::CubeEntity(name);
+			entity = new SuperVoid::CubeEntity();
 		}
 		else if (type == "BouncingCube") {
-			entity = new SuperVoid::BouncingCube(name);
+			entity = new SuperVoid::BouncingCube();
 		}
 		else if (type == "StaticObserver") {
-			entity = new StaticObserver(name);
+			entity = new StaticObserver();
 		}
 		else if (type == "PlayerShip") {
-			entity = new SuperVoid::PlayerShip(name);
+			entity = new SuperVoid::PlayerShip();
 		}
 		else {
 			utils::Logger::LogError("EntityFactory received unkown entity type [" + type + "] Please add it to the know list of entities");
 			return entity;
 		}
+
+		entity->SetName(name);
 
 		//After the entity has been constructed, it needs it's components to be attatched
 		auto componentData = data.GetAttribute<nlohmann::json>("components");

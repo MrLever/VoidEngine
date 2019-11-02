@@ -15,7 +15,6 @@ namespace EngineUtilitiesTests {
 
 	TEST_CLASS(FactoryTests) {
 	public:
-
 		TEST_METHOD(FactoryConstructionTest) {
 			//Factory<core::DefaultPlayerEntity, core::Entity> PlayerFactory;
 		}

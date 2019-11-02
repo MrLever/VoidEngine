@@ -7,11 +7,7 @@
 
 namespace core {
 
-	StaticObserver::StaticObserver(const utils::Name& name) : Entity(name) {
-	
-	}
-
-	StaticObserver::StaticObserver(const std::string& name) : Entity(name) {
+	StaticObserver::StaticObserver() {
 	
 	}
 

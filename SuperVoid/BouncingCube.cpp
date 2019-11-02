@@ -7,11 +7,7 @@
 #include "Logger.h"
 
 namespace SuperVoid {
-	BouncingCube::BouncingCube(const std::string& name) : Entity(name) {
-		Velocity = 0.05f;
-	}
-
-	BouncingCube::BouncingCube(const utils::Name& name) : Entity(name) {
+	BouncingCube::BouncingCube() {
 		Velocity = 0.05f;
 	}
 	

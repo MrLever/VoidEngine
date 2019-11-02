@@ -7,11 +7,7 @@
 #include "Logger.h"
 
 namespace core {
-	DefaultPlayerEntity::DefaultPlayerEntity(const std::string& name) : PlayerEntity(name) {
-
-	}
-
-	DefaultPlayerEntity::DefaultPlayerEntity(const utils::Name& name) : PlayerEntity(name) {
+	DefaultPlayerEntity::DefaultPlayerEntity() {
 
 	}
 

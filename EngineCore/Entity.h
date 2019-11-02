@@ -25,13 +25,7 @@ namespace core {
 		 * Constructor
 		 * @param name The entity's name
 		 */
-		Entity(const utils::Name& name);
-
-		/**
-		 * Constructor
-		 * @param name The entity's name
-		 */
-		Entity(const std::string& name);
+		Entity();
 
 		/**
 		 * Destructor
@@ -104,6 +98,16 @@ namespace core {
 		 * Getter for this entity's name
 		 */
 		std::string GetName();
+
+		/**
+		 * Setter for this entity'y name
+		 */
+		void SetName(const std::string& name);
+
+		/**
+		 * Setter for this entity'y name
+		 */
+		void SetName(const utils::Name& name);
 
 		/**
 		 * Gives ownership of a component to this entity

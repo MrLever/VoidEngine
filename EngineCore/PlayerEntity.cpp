@@ -7,12 +7,8 @@
 #include "Logger.h"
 
 namespace core {
-	PlayerEntity::PlayerEntity(const std::string& name) : Entity(name), MovementSpeed(0) {
+	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
 
-	}
-
-	PlayerEntity::PlayerEntity(const utils::Name& name) : Entity(name), MovementSpeed(0) {
-	
 	}
 
 	void PlayerEntity::Initialize() {

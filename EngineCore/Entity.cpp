@@ -7,12 +7,8 @@
 #include "Component.h"
 
 namespace core {
-	Entity::Entity(const utils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	Entity::Entity() : ID("Entity"), Velocity(0.0f) {
 	
-	}
-
-	Entity::Entity(const std::string& name) : Entity(utils::Name(name)) {
-
 	}
 
 	Entity::~Entity() {
@@ -63,6 +59,14 @@ namespace core {
 
 	std::string Entity::GetName() {
 		return ID.StringID;
+	}
+
+	void Entity::SetName(const std::string& name) {
+		ID = utils::Name(name);
+	}
+
+	void Entity::SetName(const utils::Name& name) {
+		ID = name;
 	}
 
 	void Entity::AddComponent(Component* component) {

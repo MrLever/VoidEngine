@@ -14,13 +14,7 @@ namespace SuperVoid {
 		/**
 		 * Constructor
 		 */
-		CubeEntity(const std::string& name);
-		
-		/**
-		 * Constructor
-		 * @param name The entity's name
-		 */
-		CubeEntity(const utils::Name& name);
+		CubeEntity();
 		
 		/**
 		 * Destructor
