@@ -4,9 +4,13 @@
 
 //Void Engine Headers
 #include "DefaultPlayerEntity.h"
+#include "Factory.h"
 #include "Logger.h"
 
 namespace core {
+	/** Create and register a DefaultPlayerEntity factory */
+	utils::Factory<DefaultPlayerEntity, Entity> DefaultPlayerEntityFactory;
+
 	DefaultPlayerEntity::DefaultPlayerEntity() {
 
 	}

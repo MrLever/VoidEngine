@@ -73,40 +73,22 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
-		 * Function to request position of this entity
-		 * @return The entity's position
+		 * Accessors for entity position
 		 */
 		math::Vector3 GetPostion();
-
-		/**
-		 * Setter for object's position
-		 */
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Function to request position of this entity
-		 * @return The entity's position
+		 * Accessors for entity rotation
 		 */
 		math::Rotator GetRotation();
-
-		/**
-		 * Setter for object's position
-		 */
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
-		 * Getter for this entity's name
+		 * Acessors for entity name
 		 */
 		std::string GetName();
-
-		/**
-		 * Setter for this entity'y name
-		 */
 		void SetName(const std::string& name);
-
-		/**
-		 * Setter for this entity'y name
-		 */
 		void SetName(const utils::Name& name);
 
 		/**

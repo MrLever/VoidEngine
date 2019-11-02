@@ -10,6 +10,8 @@
 #include "Name.h"
 #include "Logger.h"
 
+#define TYPESTRING(TYPE) #TYPE
+
 namespace utils {
 
 	/**
@@ -38,20 +40,20 @@ namespace utils {
 		 * Instructs generic factory to find and use concrete factory to product product instance
 		 * @param product The name of the product class
 		 */
-		Base* Create(const std::string& product) const;
+		static Base* Create(const std::string& product);
 
 		/**
 		 * Instructs generic factory to find and use concrete factory to product product instance
 		 * @param product The name of the product class
 		 */
-		Base* Create(const utils::Name& product) const;
+		static Base* Create(const utils::Name& product);
 
 	protected:
 		/**
 		 * Finds a concrete factory that produces the specified product
 		 * @param product The type name of the product class
 		 */
-		const FactoryBase* const FindFactory(const utils::Name& product) const;
+		static const FactoryBase* const FindFactory(const utils::Name& product);
 
 		/**
 		 * Adds a concrete factory to the static list of factories
@@ -73,22 +75,23 @@ namespace utils {
 	std::unordered_map<utils::Name, const FactoryBase<Base>*> FactoryBase<Base>::ConcreteFactories;
 
 	template<class Base>
-	inline Base* FactoryBase<Base>::Create(const std::string& product) const {
+	inline Base* FactoryBase<Base>::Create(const std::string& product) {
 		return Create(utils::Name(product));
 	}
 
 	template<class Base>
-	inline Base* FactoryBase<Base>::Create(const utils::Name& product) const {
+	inline Base* FactoryBase<Base>::Create(const utils::Name& product) {
 		auto factory = FindFactory(product);
 		if (factory == nullptr) {
 			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
+			return nullptr;
 		}
 
 		return factory->Create();
 	}
 
 	template<class Base>
-	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) const {
+	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) {
 		auto factoryIter = ConcreteFactories.find(product);
 
 		return (factoryIter == ConcreteFactories.end()) ? nullptr : factoryIter->second;
@@ -97,7 +100,9 @@ namespace utils {
 
 	template<class Base>
 	inline void FactoryBase<Base>::RegisterConcreteFactory(const FactoryBase& factory) {
-		ConcreteFactories.emplace(factory.GetProductName(), &factory);
+		std::pair newEntry(factory.GetProductName(), &factory);
+
+		ConcreteFactories.insert(newEntry);
 	}
 
 	template<class Base>
@@ -148,17 +153,17 @@ namespace utils {
 
 	template<class Derived, class Base>
 	inline Factory<Derived, Base>::Factory() : ProductName(typeid(Derived).name()) {
-		RegisterConcreteFactory(*this);
+		FactoryBase<Base>::RegisterConcreteFactory(*this);
 	}
 
 	template<class Derived, class Base>
 	inline Factory<Derived, Base>::~Factory() {
-		UnregisterConcreteFactory(*this);
+		FactoryBase<Base>::UnregisterConcreteFactory(*this);
 	}
 
 	template<class Derived, class Base>
 	inline utils::Name Factory<Derived, Base>::GetProductName() const {
-		return utils::Name(typeid(Derived).name());
+		return utils::Name(TYPESTRING(Derived));
 	}
 
 	template<class Derived, class Base>
