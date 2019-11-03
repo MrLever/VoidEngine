@@ -8,8 +8,7 @@
 #include "Logger.h"
 
 namespace core {
-	/** Create and register a DefaultPlayerEntity factory */
-	utils::Factory<DefaultPlayerEntity, Entity> DefaultPlayerEntityFactory;
+	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
 
 	DefaultPlayerEntity::DefaultPlayerEntity() {
 

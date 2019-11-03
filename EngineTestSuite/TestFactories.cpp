@@ -12,12 +12,23 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace utils;
 
 namespace EngineUtilitiesTests {
+	class TestEntity : public core::DefaultPlayerEntity {
+		
+	};
+	/**
+	 * ENABLE_FACTORY macro is not used here because of macro nonsense that caused segfualts in the test suite. 
+	 * ENABLE_FACTORY is safe to use in production
+	 */
+	//ENABLE_FACTORY(TestEntity, core::Entity)
+
+	ENABLE_TYPENAME(TestEntity)
 
 	TEST_CLASS(FactoryTests) {
 	public:
 		TEST_METHOD(FactoryProductionTest) {
-			utils::Factory<core::DefaultPlayerEntity, core::Entity> DefaultPlayerEntityFactory;
-			core::Entity* testEntity = FactoryBase<core::Entity>::Create("DefaultPlayerEntity");
+			utils::Factory<TestEntity, core::Entity> TestEntityFactory;
+
+			core::Entity* testEntity = FactoryBase<core::Entity>::Create("TestEntity");
 			Assert::IsNotNull(testEntity);
 		}
 	};

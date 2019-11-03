@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
+#include "Factory.h"
 #include "EntityFactory.h"
 #include "EntityData.h"
 #include "Name.h"

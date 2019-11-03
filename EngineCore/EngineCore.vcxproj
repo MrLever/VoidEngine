@@ -359,6 +359,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="ThreadSafeQueue.h" />
     <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="Name.h" />
+    <ClInclude Include="TypeUtils.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowClosedEvent.h" />
     <ClInclude Include="Window.h" />

@@ -503,5 +503,8 @@
     <ClInclude Include="Factory.h">
       <Filter>Header Files\Engine Utilities\Factory System</Filter>
     </ClInclude>
+    <ClInclude Include="TypeUtils.h">
+      <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
