@@ -67,11 +67,8 @@ namespace utils {
 
 	private:
 		/** Map of product names to factories */
-		static std::unordered_map<utils::Name, const FactoryBase*> ConcreteFactories;
+		static std::unordered_map<utils::Name, const FactoryBase*>* ConcreteFactories;
 	};
-
-	template<class Base>
-	std::unordered_map<utils::Name, const FactoryBase<Base>*> FactoryBase<Base>::ConcreteFactories;
 
 	template<class Derived, class Base>
 	//requires std::derived_from<Derived, Base>
@@ -114,6 +111,9 @@ namespace utils {
 		utils::Name ProductName;
 	};
 
+	template<class Base>
+	std::unordered_map<utils::Name, const FactoryBase<Base>*>* FactoryBase<Base>::ConcreteFactories;
+
 	//FACTORY BASE IMPL
 	template<class Base>
 	inline Base* FactoryBase<Base>::Create(const std::string& product) {
@@ -133,19 +133,24 @@ namespace utils {
 
 	template<class Base>
 	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) {
-		auto factoryIter = ConcreteFactories.find(product);
+		auto factoryIter = ConcreteFactories->find(product);
 
-		return (factoryIter == ConcreteFactories.end()) ? nullptr : factoryIter->second;
+		return (factoryIter == ConcreteFactories->end()) ? nullptr : factoryIter->second;
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::RegisterConcreteFactory(const FactoryBase& factory) {
-		ConcreteFactories.emplace(factory.GetProductName(), &factory);
+		//Avoid static initialization errors by lazily allocating the factory map
+		if (!ConcreteFactories) {
+			ConcreteFactories = new std::unordered_map<utils::Name, const FactoryBase<Base>*>();
+		}
+
+		ConcreteFactories->emplace(factory.GetProductName(), &factory);
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::UnregisterConcreteFactory(const FactoryBase& factory) {
-		ConcreteFactories.erase(factory.GetProductName());
+		ConcreteFactories->erase(factory.GetProductName());
 	}
 
 	//CONCRETE FACTORY IMPL

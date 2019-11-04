@@ -9,8 +9,12 @@
 //SuperVoid Headers
 #include "CubeEntity.h"
 #include "Logger.h"
+#include "Factory.h"
 
 namespace SuperVoid {
+
+	ENABLE_FACTORY(CubeEntity, core::Entity)
+
 	CubeEntity::CubeEntity() {
 		Velocity = 0.05f;
 	}
@@ -20,7 +24,7 @@ namespace SuperVoid {
 	}
 
 	void CubeEntity::Initialize() {
-		;
+		Entity::Initialize();
 	}
 
 	void CubeEntity::BeginPlay() {
@@ -34,4 +38,5 @@ namespace SuperVoid {
 	void CubeEntity::Terminate() {
 
 	}
+
 }

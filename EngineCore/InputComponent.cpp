@@ -7,6 +7,8 @@
 
 namespace core {
 
+	ENABLE_FACTORY(InputComponent, Component)
+
 	InputComponent::InputComponent(Entity* parent) : Component(parent) {
 	
 	}

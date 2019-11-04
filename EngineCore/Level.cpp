@@ -44,18 +44,16 @@ namespace core {
 
 	void Level::Initialize() {
 		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
-
+		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
+		
 		if (!GameThreadPool) {
 			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
 			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");
 			return;
 		}
 		
-
 		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
 		ModelCache = std::make_shared<utils::ResourceAllocator<Model>>(GameThreadPool);
-
-		LevelEntityFactory = new EntityFactory(this);
 
 		//Preload entity data source files for creation
 		for (auto& entity : Data["entities"]) {
@@ -63,10 +61,33 @@ namespace core {
 			EntityDataCache->LoadResource(source);
 		}
 		
-		//Parse entity data source files and spawn actors
-		LevelEntityFactory->CreateEntities(Data["entities"]);
+		for (auto& entityWorldData : Data["entities"]) {
+			auto entityType = entityWorldData["type"].get<std::string>();
+			auto entity = utils::FactoryBase<Entity>::Create(entityType);
+			if (entity == nullptr) {
+				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register it's factory.");
+				continue;
+			}
 
-		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
+			entity->SetDefaultData(entityWorldData);
+			entity->Initialize();
+
+			auto entityData = EntityDataCache->GetResource("Resources/Entities/" + entityWorldData["type"].get<std::string>() + ".json");
+			auto componentData = entityData->GetAttribute<nlohmann::json>("components");
+			if (!componentData.is_null()) {
+				for (auto& componentEntry : componentData) {
+					//TODO: FIX COMPONENT FACTORIES
+					/*auto component = utils::FactoryBase<Component>::Create
+						CreateComponent(parent, componentData);
+
+					if (component) {
+						parent->AddComponent(component);
+					}*/
+				}
+			}
+
+			Entities.emplace_back(entity);
+		}
 	}	
 
 	utils::Name Level::GetName() {

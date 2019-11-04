@@ -12,6 +12,7 @@ namespace core {
 	}
 
 	void PlayerEntity::Initialize() {
+		Entity::Initialize();
 		auto inputComponent = new InputComponent(this);
 		Components.emplace_back(inputComponent);
 

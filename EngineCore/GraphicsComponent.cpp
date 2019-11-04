@@ -11,6 +11,9 @@
 #include "TimeUtils.h"
 
 namespace core {
+
+	ENABLE_FACTORY(GraphicsComponent, Component)
+
 	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
 	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 

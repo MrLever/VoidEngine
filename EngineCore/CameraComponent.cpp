@@ -4,8 +4,11 @@
 
 //Void Engine Headers
 #include "CameraComponent.h"
+#include "Factory.h"
 
 namespace core {
+
+	ENABLE_FACTORY(CameraComponent, Component)
 
 	CameraComponent::CameraComponent(Entity* parent) 
 		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {

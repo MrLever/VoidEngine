@@ -9,7 +9,7 @@
 
 namespace core {
 	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
-
+	
 	DefaultPlayerEntity::DefaultPlayerEntity() {
 
 	}

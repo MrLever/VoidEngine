@@ -15,13 +15,8 @@ namespace EngineUtilitiesTests {
 	class TestEntity : public core::DefaultPlayerEntity {
 		
 	};
-	/**
-	 * ENABLE_FACTORY macro is not used here because of macro nonsense that caused segfualts in the test suite. 
-	 * ENABLE_FACTORY is safe to use in production
-	 */
-	//ENABLE_FACTORY(TestEntity, core::Entity)
-
-	ENABLE_TYPENAME(TestEntity)
+	
+	ENABLE_FACTORY(TestEntity, core::Entity)
 
 	TEST_CLASS(FactoryTests) {
 	public:

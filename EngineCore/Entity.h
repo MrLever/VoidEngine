@@ -5,11 +5,13 @@
 //Library headers
 
 //Void Engine Headers
+#include "EntityData.h"
 #include "Name.h"
 #include "Vector.h"
 #include "Rotator.h"
 #include "InputAction.h"
 #include "AxisInputAction.h"
+#include "Factory.h"
 
 namespace core {
 	//Forward class declarations
@@ -47,7 +49,7 @@ namespace core {
 		/**
 		 * Allows an entity to configure itself after it is constructed
 		 */
-		virtual void Initialize() = 0;
+		virtual void Initialize();
 
 		/**
 		 * Pure virtual function that defines what the entity does once a level begins.
@@ -97,6 +99,11 @@ namespace core {
 		 */
 		void AddComponent(Component* component);
 	
+		/**
+		 * Gives entity the data it needs to initialize itself
+		 */
+		void SetDefaultData(nlohmann::json data);
+
 	protected:
 		/** The entity's position in 3D space */
 		math::Vector3 Position;
@@ -109,6 +116,8 @@ namespace core {
 
 		/** Entity's name */
 		utils::Name ID;
+
+		nlohmann::json LevelData;
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;

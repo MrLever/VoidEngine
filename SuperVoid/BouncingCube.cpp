@@ -5,14 +5,18 @@
 //SuperVoid Headers
 #include "BouncingCube.h"
 #include "Logger.h"
+#include "Factory.h"
 
 namespace SuperVoid {
+
+	ENABLE_FACTORY(BouncingCube, core::Entity)
+
 	BouncingCube::BouncingCube() {
 		Velocity = 0.05f;
 	}
 	
 	void BouncingCube::Initialize() {
-		;
+		Entity::Initialize();
 	}
 
 	void BouncingCube::BeginPlay() {

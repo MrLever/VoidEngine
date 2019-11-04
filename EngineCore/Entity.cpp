@@ -5,6 +5,7 @@
 //Void Engine Headers
 #include "Entity.h"
 #include "Component.h"
+#include "JsonResource.h"
 
 namespace core {
 	Entity::Entity() : ID("Entity"), Velocity(0.0f) {
@@ -26,6 +27,22 @@ namespace core {
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
+		}
+	}
+
+	void Entity::Initialize() {
+		if (!LevelData.is_null()) {
+			ID = utils::Name(LevelData["name"]);
+
+			auto locationData = LevelData["location"];
+			Position.X = locationData[0].get<float>();
+			Position.Y = locationData[1].get<float>();
+			Position.Z = locationData[2].get<float>();
+		
+			auto rotationData = LevelData["rotation"];
+			Rotation.Pitch = rotationData[0].get<float>();
+			Rotation.Yaw = rotationData[1].get<float>();
+			Rotation.Roll = rotationData[2].get<float>();
 		}
 	}
 
@@ -71,6 +88,10 @@ namespace core {
 
 	void Entity::AddComponent(Component* component) {
 		Components.push_back(component);
+	}
+
+	void Entity::SetDefaultData(nlohmann::json data) {
+		LevelData = data;
 	}
 	
 }
