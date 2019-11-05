@@ -20,10 +20,6 @@ namespace utils {
 
 	}
 
-	void Resource::AttatchThreadPool(ThreadPoolPtr pool) {
-		GameThreadPool = std::move(pool);
-	}
-
 	bool Resource::IsValid() {
 		return ResourceValid;
 	}

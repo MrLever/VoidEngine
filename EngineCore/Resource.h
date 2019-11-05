@@ -49,14 +49,6 @@ namespace utils {
 		virtual void Initialize() = 0;
 
 		/**
-		 * Allows resource manager to attatch a thread pool to this resource.
-		 * Thread pools are attached only when a resource is marked as Composite,
-		 * which means that it needs to load other resources.
-		 * @param pool The game's active thread pool
-		 */
-		void AttatchThreadPool(ThreadPoolPtr pool);
-
-		/**
 		 * Returns whether the resource is valid
 		 */
 		bool IsValid();
@@ -85,9 +77,6 @@ namespace utils {
 
 		/** Flag specifying if the resource was found in main memory */
 		std::atomic<bool> ResourceValid;
-
-		/** An optional thread pool object */
-		ThreadPoolPtr GameThreadPool;
 
 		/** Variable to allow users to query if a resource has been initialized */
 		bool IsInitialized;

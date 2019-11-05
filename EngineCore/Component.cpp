@@ -6,9 +6,16 @@
 #include "Component.h"
 
 namespace core {
-	Component::Component(Entity* parent) 
-		: Parent(parent), Position(parent->GetPostion()), Rotation(parent->GetRotation()) {
+	Component::Component() {
+		Parent = nullptr;
+	}
 
+	void Component::SetParent(Entity* parent) {
+		Parent = parent;
+	}
+
+	void Component::SetComponentData(const nlohmann::json& data) {
+		ComponentData = data;
 	}
 
 	void Component::Input(const InputAction& input, float deltaTime) {

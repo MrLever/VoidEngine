@@ -25,7 +25,7 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param name The entity's name
+		 * @param data The entity's initialization data
 		 */
 		Entity();
 
@@ -94,16 +94,16 @@ namespace core {
 		void SetName(const utils::Name& name);
 
 		/**
+		 * 
+		 */
+		void SetConfigData(const nlohmann::json& data);
+
+		/**
 		 * Gives ownership of a component to this entity
 		 * @param component The component to add
 		 */
 		void AddComponent(Component* component);
 	
-		/**
-		 * Gives entity the data it needs to initialize itself
-		 */
-		void SetDefaultData(nlohmann::json data);
-
 	protected:
 		/** The entity's position in 3D space */
 		math::Vector3 Position;
@@ -117,7 +117,7 @@ namespace core {
 		/** Entity's name */
 		utils::Name ID;
 
-		nlohmann::json LevelData;
+		nlohmann::json ConfigData;
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;

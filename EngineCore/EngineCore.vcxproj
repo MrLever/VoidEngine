@@ -251,7 +251,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="AxisInputEvent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="ControlLayout.cpp" />
@@ -259,7 +258,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
-    <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventBus.cpp" />
     <ClCompile Include="EventBusNode.cpp" />
@@ -286,6 +284,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceAllocator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StaticObserver.cpp" />
@@ -308,7 +307,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ControlLayout.h" />
@@ -316,7 +314,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
-    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventBus.h" />
     <ClInclude Include="EventBusNode.h" />

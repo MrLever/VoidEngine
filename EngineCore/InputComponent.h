@@ -18,7 +18,12 @@ namespace core {
 		 * Constructor
 		 * @param parent This component's owner
 		 */
-		InputComponent(Entity* parent);
+		InputComponent();
+
+		/**
+		 * Applies component data to this object
+		 */
+		void Initialize() override;
 
 		/**
 		 * Allows parent to set up input component with callback functions

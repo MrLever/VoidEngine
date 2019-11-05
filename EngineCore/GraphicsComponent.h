@@ -32,12 +32,14 @@ namespace core {
 		 * Constructor
 		 * @param parent This component's parent
 		 */
-		GraphicsComponent(Entity* parent);
+		GraphicsComponent();
 
 		/**
 		 * Destructor
 		 */
 		~GraphicsComponent();
+
+		void Initialize() override;
 
 		/**
 		 * Sets this component's 3D model

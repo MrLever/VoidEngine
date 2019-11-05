@@ -5,13 +5,13 @@
 //Coati Headers
 #include "Level.h"
 #include "ResourceAllocator.h"
+#include "Component.h"
 #include "EntityData.h"
 
 namespace core {
 
 	Level::Level(const std::string& levelPath) : JsonResource(levelPath), LevelName("Error"){
-		EntityDataCache = nullptr;
-		GameThreadPool = nullptr;
+		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>();
 		IsComposite = true;
 	}
 
@@ -20,8 +20,6 @@ namespace core {
 			delete entity;
 			entity = nullptr;
 		}
-
-		delete LevelEntityFactory;
 	}
 
 	bool Level::Load() {
@@ -46,15 +44,6 @@ namespace core {
 		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
 		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
 		
-		if (!GameThreadPool) {
-			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
-			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");
-			return;
-		}
-		
-		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
-		ModelCache = std::make_shared<utils::ResourceAllocator<Model>>(GameThreadPool);
-
 		//Preload entity data source files for creation
 		for (auto& entity : Data["entities"]) {
 			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
@@ -69,20 +58,20 @@ namespace core {
 				continue;
 			}
 
-			entity->SetDefaultData(entityWorldData);
+			entity->SetConfigData(entityWorldData);
 			entity->Initialize();
 
 			auto entityData = EntityDataCache->GetResource("Resources/Entities/" + entityWorldData["type"].get<std::string>() + ".json");
 			auto componentData = entityData->GetAttribute<nlohmann::json>("components");
 			if (!componentData.is_null()) {
 				for (auto& componentEntry : componentData) {
-					//TODO: FIX COMPONENT FACTORIES
-					/*auto component = utils::FactoryBase<Component>::Create
-						CreateComponent(parent, componentData);
-
+					auto componentType = componentEntry["type"].get<std::string>();
+					auto component = utils::FactoryBase<Component>::Create(componentType);
 					if (component) {
-						parent->AddComponent(component);
-					}*/
+						entity->AddComponent(component);
+						component->SetComponentData(componentEntry);
+						component->Initialize();
+					}
 				}
 			}
 

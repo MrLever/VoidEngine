@@ -9,7 +9,7 @@
 
 //Void Engine Headers
 #include "Factory.h"
-#include "EntityFactory.h"
+#include "Entity.h"
 #include "EntityData.h"
 #include "Name.h"
 #include "ResourceAllocator.h"
@@ -86,9 +86,6 @@ namespace core {
 	private:
 		/** Cache of entity data files */
 		ResourceAllocatorPtr<EntityData> EntityDataCache;
-
-		/** Cahce of actor models */
-		ResourceAllocatorPtr<Model> ModelCache;
 
 		/** Factory object used to add entities to this level's scene */
 		EntityFactory* LevelEntityFactory;

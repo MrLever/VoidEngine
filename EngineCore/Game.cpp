@@ -29,9 +29,7 @@ namespace core {
 		BusNode = std::make_unique<GameEventBusNode>(GameEngine.GetEventBus().get(), this);
 
 		//Create the level cache
-		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>(
-			GameEngine.GetThreadPool()
-		);
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>();
 
 		//Set the current level to the default level
 		SetLevel(GameEngine.GetDefaultLevel());

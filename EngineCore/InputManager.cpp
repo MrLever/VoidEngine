@@ -22,9 +22,8 @@ namespace core {
 
 	InputManager::InputManager(
 		EventBus* bus, 
-		const utils::ResourceHandle<utils::Configuration>& configuration,
-		std::shared_ptr<utils::ThreadPool> threadPool
-		) : EventBusNode(bus), Configurable(configuration), ControlLayoutCache(threadPool), JoystickDeadzone(0) {
+		const utils::ResourceHandle<utils::Configuration>& configuration
+	) : EventBusNode(bus), Configurable(configuration), JoystickDeadzone(0) {
 		
 		Configure();
 	}

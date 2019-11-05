@@ -15,7 +15,18 @@
 #include "Name.h"
 #include "Logger.h"
 
+namespace core {
+	//Forward class declaration
+	class Engine;
+}
+
 namespace utils {
+
+	class ResourceAllocatorBase {
+		friend class core::Engine;
+	protected:
+		static std::shared_ptr<ThreadPool> EngineThreadPool;
+	};
 
 	/**
 	 * @class ResourceAllocator
@@ -23,7 +34,7 @@ namespace utils {
 	 *        and distribution of resources of type T
 	 */
 	template <class T>
-	class ResourceAllocator {
+	class ResourceAllocator : private ResourceAllocatorBase {
 	public:
 		/**
 		 * Constructor
@@ -31,12 +42,6 @@ namespace utils {
 		 */
 		ResourceAllocator();
 
-		/**
-		 * Constructor
-		 * @param gameThreadPool A thread pool to be used for asynchronous file IO
-		 */
-		ResourceAllocator(std::shared_ptr<utils::ThreadPool> gameThreadPool);
-		
 		/**
 		 * Destructor
 		 */
@@ -74,29 +79,24 @@ namespace utils {
 		std::shared_ptr<T> GetResource(const Name& fileID);
 
 	private:
-
-		/** The thread pool the Resource Manager depends on for async file IO */
-		std::shared_ptr<ThreadPool> GameThreadPool;
-
 		/** Registry of all loaded resources */
-		std::unordered_map<Name, ResourceHandle<T>> ResourceCache;
+		static std::unordered_map<Name, ResourceHandle<T>> ResourceCache;
 
 		/** Mutex to synchronise access to the Resource Manager */
 		std::recursive_mutex ResourceManagerLock;
 	};
 
 	template<class T>
-	inline ResourceAllocator<T>::ResourceAllocator() : GameThreadPool(nullptr) {
-	}
+	std::unordered_map<Name, ResourceHandle<T>> ResourceAllocator<T>::ResourceCache;
 
 	template<class T>
-	inline ResourceAllocator<T>::ResourceAllocator(std::shared_ptr<utils::ThreadPool> gameThreadPool)
-		: GameThreadPool(std::move(gameThreadPool)){
-	
+	inline ResourceAllocator<T>::ResourceAllocator() {
+
 	}
 
 	template<class T>
 	inline ResourceAllocator<T>::~ResourceAllocator() {
+
 	}
 
 	template<class T>
@@ -109,21 +109,18 @@ namespace utils {
 
 		Name resourceIdentifier(filePath);
 
-		if (!GameThreadPool) {
+		if (!EngineThreadPool) {
 			utils::Logger::LogError("ResourceAllocator cannot load resource " + filePath + ". No Thread Pool Available");
 		}
 
-		auto resourceFuture = GameThreadPool->SubmitJob(
-			[filePath, pool = GameThreadPool]() -> std::shared_ptr<T> {
+		auto resourceFuture = EngineThreadPool->SubmitJob(
+			[filePath, pool = EngineThreadPool]() -> std::shared_ptr<T> {
 				std::shared_ptr<T> resource = std::make_shared<T>(filePath);
 				if (!resource) {
 					return nullptr;
 				}
 
 				if (resource->IsValid()) {
-					if (resource->GetIsComposite()) {
-						resource->AttatchThreadPool(pool);
-					}
 					resource->Load();
 				}
 				else {

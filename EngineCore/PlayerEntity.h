@@ -46,7 +46,7 @@ namespace core {
 		 * Allows player entities to set up input components with keybindings
 		 * @param component The component to configure
 		 */
-		virtual void SetupInputComponent(InputComponent* component) = 0;
+		virtual void SetupInputComponent(InputComponent* component);
 
 	protected:
 		/** Represents this entity's base movement speed */

@@ -2,6 +2,7 @@
 //STD Headers
 
 //Library Headers
+#include "nlohmann/json.hpp"
 
 //Void Engine Headers
 #include "Entity.h"
@@ -11,7 +12,6 @@
 #include "GamepadInput.h"
 #include "Vector.h"
 #include "Rotator.h"
-
 namespace core {
 	
 	/**
@@ -23,9 +23,20 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param parent This component's owner
 		 */
-		Component(Entity* parent);
+		Component();
+
+		/**
+		 * Set's the component's owner
+		 */
+		void SetParent(Entity* parent);
+
+		void SetComponentData(const nlohmann::json& data);
+
+		/**
+		 * Applies component data to this object
+		 */
+		virtual void Initialize() = 0;
 
 		/**
 		 * Function to allow this component to process input
@@ -68,6 +79,9 @@ namespace core {
 		
 		/** The component's rotation */
 		math::Rotator Rotation;
+
+		/** Data used to initialize component */
+		nlohmann::json ComponentData;
 
 		/** The component's parent */
 		Entity* Parent;

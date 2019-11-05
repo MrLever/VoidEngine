@@ -31,18 +31,22 @@ namespace core {
 	}
 
 	void Entity::Initialize() {
-		if (!LevelData.is_null()) {
-			ID = utils::Name(LevelData["name"]);
+		if (!ConfigData.is_null()) {
+			ID = utils::Name(ConfigData["name"]);
 
-			auto locationData = LevelData["location"];
+			auto locationData = ConfigData["location"];
 			Position.X = locationData[0].get<float>();
 			Position.Y = locationData[1].get<float>();
 			Position.Z = locationData[2].get<float>();
 		
-			auto rotationData = LevelData["rotation"];
+			auto rotationData = ConfigData["rotation"];
 			Rotation.Pitch = rotationData[0].get<float>();
 			Rotation.Yaw = rotationData[1].get<float>();
 			Rotation.Roll = rotationData[2].get<float>();
+		}
+		
+		for (auto& component : Components) {
+			component->Initialize();
 		}
 	}
 
@@ -86,12 +90,12 @@ namespace core {
 		ID = name;
 	}
 
-	void Entity::AddComponent(Component* component) {
-		Components.push_back(component);
+	void Entity::SetConfigData(const nlohmann::json& data) {
+		ConfigData = data;
 	}
 
-	void Entity::SetDefaultData(nlohmann::json data) {
-		LevelData = data;
+	void Entity::AddComponent(Component* component) {
+		component->SetParent(this);
+		Components.push_back(component);
 	}
-	
 }

@@ -20,12 +20,17 @@ namespace core {
 		 * Constructor
 		 * @param parent This component's parent entity
 		 */
-		CameraComponent(Entity* parent);
+		CameraComponent();
 
 		/**
 		 * Destructor
 		 */
 		~CameraComponent();
+
+		/**
+		 * Orients camera to match entity rotation
+		 */
+		void Initialize() override;
 
 		/**
 		 * Defines how a component processes updates

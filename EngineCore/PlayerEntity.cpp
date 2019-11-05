@@ -13,10 +13,7 @@ namespace core {
 
 	void PlayerEntity::Initialize() {
 		Entity::Initialize();
-		auto inputComponent = new InputComponent(this);
-		Components.emplace_back(inputComponent);
-
-		SetupInputComponent(inputComponent);
+		SetupInputComponent(new InputComponent());
 	}
 
 	void PlayerEntity::BeginPlay() {
@@ -29,5 +26,10 @@ namespace core {
 
 	void PlayerEntity::Terminate() {
 
+	}
+
+	void PlayerEntity::SetupInputComponent(InputComponent* component) {
+		Components.push_back(component);
+		component->SetParent(this);
 	}
 }
