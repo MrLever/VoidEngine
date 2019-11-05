@@ -16,7 +16,6 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param parent This component's owner
 		 */
 		InputComponent();
 

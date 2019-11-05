@@ -31,6 +31,9 @@ namespace core {
 		 */
 		void SetParent(Entity* parent);
 
+		/**
+		 * Set's the component's initialization data
+		 */
 		void SetComponentData(const nlohmann::json& data);
 
 		/**

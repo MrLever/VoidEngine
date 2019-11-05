@@ -11,7 +11,6 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param Name The entity's name
 		 */
 		DefaultPlayerEntity();
 

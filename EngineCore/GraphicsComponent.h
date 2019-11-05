@@ -30,7 +30,6 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param parent This component's parent
 		 */
 		GraphicsComponent();
 

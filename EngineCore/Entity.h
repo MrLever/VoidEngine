@@ -25,7 +25,6 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param data The entity's initialization data
 		 */
 		Entity();
 
@@ -94,7 +93,7 @@ namespace core {
 		void SetName(const utils::Name& name);
 
 		/**
-		 * 
+		 * Used to set Entitiy's initialization data
 		 */
 		void SetConfigData(const nlohmann::json& data);
 
@@ -117,6 +116,7 @@ namespace core {
 		/** Entity's name */
 		utils::Name ID;
 
+		/** Entitiy's initialization data */
 		nlohmann::json ConfigData;
 
 		/** All of the components for this entity */
