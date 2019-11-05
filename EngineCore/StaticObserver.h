@@ -12,17 +12,12 @@ namespace core {
 	 * @class StaticObserver
 	 * @brief A Static Observer is a camera weilding entity that stands absolutely still
 	 */
-	class StaticObserver : public Entity{
+	class StaticObserver : public Entity {
 	public:
 		/**
 		 * Constructor
 		 */
-		StaticObserver(const utils::Name& name);
-
-		/**
-		 * Constructor
-		 */
-		StaticObserver(const std::string& name);
+		StaticObserver();
 
 		/**
 		 * Allows an entity to configure itself after it is constructed

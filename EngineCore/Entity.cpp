@@ -5,14 +5,11 @@
 //Void Engine Headers
 #include "Entity.h"
 #include "Component.h"
+#include "JsonResource.h"
 
 namespace core {
-	Entity::Entity(const utils::Name& name) : ID(std::move(name)), Velocity(0.0f) {
+	Entity::Entity() : ID("Entity"), Velocity(0.0f) {
 	
-	}
-
-	Entity::Entity(const std::string& name) : Entity(utils::Name(name)) {
-
 	}
 
 	Entity::~Entity() {
@@ -30,6 +27,26 @@ namespace core {
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
 		for (auto& component : Components) {
 			component->Input(input, deltaTime);
+		}
+	}
+
+	void Entity::Initialize() {
+		if (!ConfigData.is_null()) {
+			ID = utils::Name(ConfigData["name"]);
+
+			auto locationData = ConfigData["location"];
+			Position.X = locationData[0].get<float>();
+			Position.Y = locationData[1].get<float>();
+			Position.Z = locationData[2].get<float>();
+		
+			auto rotationData = ConfigData["rotation"];
+			Rotation.Pitch = rotationData[0].get<float>();
+			Rotation.Yaw = rotationData[1].get<float>();
+			Rotation.Roll = rotationData[2].get<float>();
+		}
+		
+		for (auto& component : Components) {
+			component->Initialize();
 		}
 	}
 
@@ -65,8 +82,20 @@ namespace core {
 		return ID.StringID;
 	}
 
+	void Entity::SetName(const std::string& name) {
+		ID = utils::Name(name);
+	}
+
+	void Entity::SetName(const utils::Name& name) {
+		ID = name;
+	}
+
+	void Entity::SetConfigData(const nlohmann::json& data) {
+		ConfigData = data;
+	}
+
 	void Entity::AddComponent(Component* component) {
+		component->SetParent(this);
 		Components.push_back(component);
 	}
-	
 }

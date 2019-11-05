@@ -4,14 +4,13 @@
 
 //Void Engine Headers
 #include "DefaultPlayerEntity.h"
+#include "Factory.h"
 #include "Logger.h"
 
 namespace core {
-	DefaultPlayerEntity::DefaultPlayerEntity(const std::string& name) : PlayerEntity(name) {
-
-	}
-
-	DefaultPlayerEntity::DefaultPlayerEntity(const utils::Name& name) : PlayerEntity(name) {
+	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
+	
+	DefaultPlayerEntity::DefaultPlayerEntity() {
 
 	}
 
@@ -34,6 +33,8 @@ namespace core {
 	}
 
 	void DefaultPlayerEntity::SetupInputComponent(InputComponent* component) {
+		PlayerEntity::SetupInputComponent(component);
+
 		component->BindAxis(
 			"MoveForward", 
 			[this](float axisReading, float deltaTime) {

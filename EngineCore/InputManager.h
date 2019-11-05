@@ -42,8 +42,7 @@ namespace core {
 		 */
 		InputManager(
 			EventBus* bus, 
-			const utils::ResourceHandle<utils::Configuration>& configuration,
-			std::shared_ptr<utils::ThreadPool> threadPool
+			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
 		/**

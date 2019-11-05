@@ -13,7 +13,9 @@ namespace core {
 		//Initialize Engine Utilities
 		GameThreadPool = std::make_shared<utils::ThreadPool>();
 
-		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>(GameThreadPool);
+		utils::ResourceAllocatorBase::EngineThreadPool = GameThreadPool;
+
+		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>();
 
 		//Intialize EventBus
 		GameEventBus = std::make_shared<EventBus>();
@@ -30,8 +32,7 @@ namespace core {
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
 			GameEventBus.get(),
-			ConfigManager->LoadResource("Settings/InputConfig.json"),
-			GameThreadPool
+			ConfigManager->LoadResource("Settings/InputConfig.json")
 		);
 
 		//Initialize Renderer

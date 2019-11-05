@@ -7,8 +7,14 @@
 
 namespace core {
 
-	InputComponent::InputComponent(Entity* parent) : Component(parent) {
+	ENABLE_FACTORY(InputComponent, Component)
+
+	InputComponent::InputComponent() {
 	
+	}
+
+	void InputComponent::Initialize() {
+
 	}
 
 	void InputComponent::BindAction(const std::string& actionName, ActionType type, std::function<void(float)> callback) {

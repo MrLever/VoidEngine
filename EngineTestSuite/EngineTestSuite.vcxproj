@@ -191,6 +191,7 @@
     <ClCompile Include="TestEngineUtilities.cpp" />
     <ClCompile Include="TestEventBus.cpp" />
     <ClCompile Include="TestEventTable.cpp" />
+    <ClCompile Include="TestFactories.cpp" />
     <ClCompile Include="TestInputDefinitions.cpp" />
     <ClCompile Include="TestInputManager.cpp" />
     <ClCompile Include="TestMessageBus.cpp" />

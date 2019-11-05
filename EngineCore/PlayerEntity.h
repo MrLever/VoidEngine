@@ -18,15 +18,8 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param The entity's name
 		 */
-		PlayerEntity(const std::string& name);
-		
-		/**
-		 * Constructor
-		 * @param name The entity's name
-		 */
-		PlayerEntity(const utils::Name& name);
+		PlayerEntity();
 
 		/**
 		 * Injects and initializes an InputComponent to the entity's component list
@@ -53,7 +46,7 @@ namespace core {
 		 * Allows player entities to set up input components with keybindings
 		 * @param component The component to configure
 		 */
-		virtual void SetupInputComponent(InputComponent* component) = 0;
+		virtual void SetupInputComponent(InputComponent* component);
 
 	protected:
 		/** Represents this entity's base movement speed */

@@ -11,16 +11,39 @@
 #include "TimeUtils.h"
 
 namespace core {
+
+	ENABLE_FACTORY(GraphicsComponent, Component)
+
 	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
 	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 
-	GraphicsComponent::GraphicsComponent(Entity* parent)
-	 : Component(parent), ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), ComponentShader(nullptr), IsValid(true){
+	GraphicsComponent::GraphicsComponent()
+		: ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), ComponentShader(nullptr), IsValid(true) {
 
 	}
 
 	GraphicsComponent::~GraphicsComponent() {
 		delete ComponentShader;
+	}
+
+	void GraphicsComponent::Initialize() {
+		if (!Parent) {
+			return;
+		}
+		
+		Position = Parent->GetPostion();
+		Rotation = Parent->GetRotation();
+
+		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
+
+		ComponentModel = modelCache->GetResource(ComponentData["model"].get<std::string>());
+		ComponentModel->Initialize();
+
+		AddMaterial(
+			ComponentData["shader"]["name"].get<std::string>(),
+			ComponentData["shader"]["vertexShader"].get<std::string>(),
+			ComponentData["shader"]["fragmentShader"].get<std::string>()
+		);
 	}
 
 	void GraphicsComponent::SetModel(std::shared_ptr<Model> model) {
@@ -59,7 +82,9 @@ namespace core {
 			ComponentShader->SetUniform("projection", ProjectionMatrix);
 		}
 
-		ComponentModel->Draw(ComponentShader);
+		if (ComponentModel) {
+			ComponentModel->Draw(ComponentShader);
+		}
 	}
 
 }

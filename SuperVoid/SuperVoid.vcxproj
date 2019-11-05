@@ -102,6 +102,7 @@
       <AdditionalDependencies>glfw3.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
       <Outputs>nonexistentfile</Outputs>
@@ -121,6 +122,7 @@
       <AdditionalDependencies>glfw3.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
       <Outputs>nonexistentfile</Outputs>
@@ -143,6 +145,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>glfw3.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrtd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
       <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>
@@ -166,6 +169,7 @@
       <AdditionalDependencies>glfw3.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <IgnoreSpecificDefaultLibraries>msvcrtd.lib;</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
       <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>

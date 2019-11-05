@@ -91,12 +91,6 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Resources">
       <UniqueIdentifier>{483c1b9a-0a88-485c-a308-e944bc387a1a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Gameplay Framework\Entity System\Factories">
-      <UniqueIdentifier>{057b6212-a848-4f70-8c55-5d6ede35f935}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Gameplay Framework\Entity System\Factories">
-      <UniqueIdentifier>{7a10daa1-b5a0-4421-aece-b3c47b7cd224}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Utilities\Resource Management">
       <UniqueIdentifier>{35986ab3-e555-4f97-9041-4a3985bacc48}</UniqueIdentifier>
     </Filter>
@@ -135,6 +129,9 @@
     </Filter>
     <Filter Include="Source Files\Engine Core\Input System\Input Definitions">
       <UniqueIdentifier>{216a6d31-2522-409a-9d57-3333902104f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Utilities\Factory System">
+      <UniqueIdentifier>{5e0cc2ae-63ab-477c-b139-9c3bbdb4acd6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -212,12 +209,6 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Engine Core\Rendering System\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityFactory.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentFactory.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Factories</Filter>
     </ClCompile>
     <ClCompile Include="EntityData.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
@@ -302,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="AxisInputEvent.cpp">
       <Filter>Source Files\Engine Core\Event System\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceAllocator.cpp">
+      <Filter>Source Files\Engine Utilities\Resource Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -401,12 +395,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Engine Core\Rendering System\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentFactory.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityFactory.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Factories</Filter>
-    </ClInclude>
     <ClInclude Include="EntityData.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
@@ -496,6 +484,12 @@
     </ClInclude>
     <ClInclude Include="AxisInputEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files\Engine Utilities\Factory System</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeUtils.h">
+      <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

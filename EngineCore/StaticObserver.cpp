@@ -4,19 +4,17 @@
 
 //Void Engine Headers
 #include "StaticObserver.h"
+#include "Factory.h"
 
 namespace core {
+	ENABLE_FACTORY(StaticObserver, Entity)
 
-	StaticObserver::StaticObserver(const utils::Name& name) : Entity(name) {
-	
-	}
-
-	StaticObserver::StaticObserver(const std::string& name) : Entity(name) {
+	StaticObserver::StaticObserver() {
 	
 	}
 
 	void StaticObserver::Initialize() {
-		;
+		Entity::Initialize();
 	}
 
 	void StaticObserver::BeginPlay() {

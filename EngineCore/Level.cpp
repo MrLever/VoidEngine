@@ -5,13 +5,13 @@
 //Coati Headers
 #include "Level.h"
 #include "ResourceAllocator.h"
+#include "Component.h"
 #include "EntityData.h"
 
 namespace core {
 
 	Level::Level(const std::string& levelPath) : JsonResource(levelPath), LevelName("Error"){
-		EntityDataCache = nullptr;
-		GameThreadPool = nullptr;
+		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>();
 		IsComposite = true;
 	}
 
@@ -20,8 +20,6 @@ namespace core {
 			delete entity;
 			entity = nullptr;
 		}
-
-		delete LevelEntityFactory;
 	}
 
 	bool Level::Load() {
@@ -44,29 +42,41 @@ namespace core {
 
 	void Level::Initialize() {
 		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
-
-		if (!GameThreadPool) {
-			utils::Logger::LogError("Composite Resource Level does not have access to ThreadPool");
-			utils::Logger::LogError("Level cannot construct resource manager for child resources. Initialization cancelled");
-			return;
-		}
+		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
 		
-
-		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>(GameThreadPool);
-		ModelCache = std::make_shared<utils::ResourceAllocator<Model>>(GameThreadPool);
-
-		LevelEntityFactory = new EntityFactory(this);
-
 		//Preload entity data source files for creation
 		for (auto& entity : Data["entities"]) {
 			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
 			EntityDataCache->LoadResource(source);
 		}
 		
-		//Parse entity data source files and spawn actors
-		LevelEntityFactory->CreateEntities(Data["entities"]);
+		for (auto& entityWorldData : Data["entities"]) {
+			auto entityType = entityWorldData["type"].get<std::string>();
+			auto entity = utils::FactoryBase<Entity>::Create(entityType);
+			if (entity == nullptr) {
+				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register it's factory.");
+				continue;
+			}
 
-		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
+			entity->SetConfigData(entityWorldData);
+			entity->Initialize();
+
+			auto entityData = EntityDataCache->GetResource("Resources/Entities/" + entityWorldData["type"].get<std::string>() + ".json");
+			auto componentData = entityData->GetAttribute<nlohmann::json>("components");
+			if (!componentData.is_null()) {
+				for (auto& componentEntry : componentData) {
+					auto componentType = componentEntry["type"].get<std::string>();
+					auto component = utils::FactoryBase<Component>::Create(componentType);
+					if (component) {
+						entity->AddComponent(component);
+						component->SetComponentData(componentEntry);
+						component->Initialize();
+					}
+				}
+			}
+
+			Entities.emplace_back(entity);
+		}
 	}	
 
 	utils::Name Level::GetName() {

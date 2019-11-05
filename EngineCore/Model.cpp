@@ -17,7 +17,7 @@ namespace core {
 	}
 
 	bool Model::Load() {
-		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>(GameThreadPool);
+		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 

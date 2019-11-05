@@ -5,11 +5,13 @@
 //Library headers
 
 //Void Engine Headers
+#include "EntityData.h"
 #include "Name.h"
 #include "Vector.h"
 #include "Rotator.h"
 #include "InputAction.h"
 #include "AxisInputAction.h"
+#include "Factory.h"
 
 namespace core {
 	//Forward class declarations
@@ -23,15 +25,8 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param name The entity's name
 		 */
-		Entity(const utils::Name& name);
-
-		/**
-		 * Constructor
-		 * @param name The entity's name
-		 */
-		Entity(const std::string& name);
+		Entity();
 
 		/**
 		 * Destructor
@@ -53,7 +48,7 @@ namespace core {
 		/**
 		 * Allows an entity to configure itself after it is constructed
 		 */
-		virtual void Initialize() = 0;
+		virtual void Initialize();
 
 		/**
 		 * Pure virtual function that defines what the entity does once a level begins.
@@ -79,31 +74,28 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
-		 * Function to request position of this entity
-		 * @return The entity's position
+		 * Accessors for entity position
 		 */
 		math::Vector3 GetPostion();
-
-		/**
-		 * Setter for object's position
-		 */
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Function to request position of this entity
-		 * @return The entity's position
+		 * Accessors for entity rotation
 		 */
 		math::Rotator GetRotation();
-
-		/**
-		 * Setter for object's position
-		 */
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
-		 * Getter for this entity's name
+		 * Acessors for entity name
 		 */
 		std::string GetName();
+		void SetName(const std::string& name);
+		void SetName(const utils::Name& name);
+
+		/**
+		 * Used to set Entitiy's initialization data
+		 */
+		void SetConfigData(const nlohmann::json& data);
 
 		/**
 		 * Gives ownership of a component to this entity
@@ -123,6 +115,9 @@ namespace core {
 
 		/** Entity's name */
 		utils::Name ID;
+
+		/** Entitiy's initialization data */
+		nlohmann::json ConfigData;
 
 		/** All of the components for this entity */
 		std::vector<Component*> Components;

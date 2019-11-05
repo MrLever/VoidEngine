@@ -7,19 +7,13 @@
 #include "Logger.h"
 
 namespace core {
-	PlayerEntity::PlayerEntity(const std::string& name) : Entity(name), MovementSpeed(0) {
+	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
 
-	}
-
-	PlayerEntity::PlayerEntity(const utils::Name& name) : Entity(name), MovementSpeed(0) {
-	
 	}
 
 	void PlayerEntity::Initialize() {
-		auto inputComponent = new InputComponent(this);
-		Components.emplace_back(inputComponent);
-
-		SetupInputComponent(inputComponent);
+		Entity::Initialize();
+		SetupInputComponent(new InputComponent());
 	}
 
 	void PlayerEntity::BeginPlay() {
@@ -32,5 +26,10 @@ namespace core {
 
 	void PlayerEntity::Terminate() {
 
+	}
+
+	void PlayerEntity::SetupInputComponent(InputComponent* component) {
+		Components.push_back(component);
+		component->SetParent(this);
 	}
 }

@@ -4,18 +4,28 @@
 
 //Void Engine Headers
 #include "CameraComponent.h"
+#include "Factory.h"
 
 namespace core {
 
-	CameraComponent::CameraComponent(Entity* parent) 
-		: Component(parent), ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
-		
+	ENABLE_FACTORY(CameraComponent, Component)
+
+	CameraComponent::CameraComponent()
+		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
 		UpdateProjectionMatrix();
-		LookDirection = math::Vector3(0, 0, -1);
 	}
 
 	CameraComponent::~CameraComponent() {
 	
+	}
+
+	void CameraComponent::Initialize() {
+		if (Parent) {
+			Position = Parent->GetPostion();
+			Rotation = Parent->GetRotation();
+			LookDirection = Parent->GetRotation().ToVector();
+		}
+		Window::GetActiveWindow()->SetView(Parent, this);
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
@@ -24,7 +34,6 @@ namespace core {
 		Rotation = Parent->GetRotation();
 
 		LookDirection = Rotation.ToVector();
-		//LookDirection = math::Vector3(0, 0, -1);
 
 		auto target = Position + LookDirection;
 		
