@@ -15,7 +15,7 @@ namespace math {
 	 * @brief Struct to encapsulate rotation information as euler angels
 	 */
 	struct Rotator {
-		/** Rotation around the X axis*/
+		/** Rotation around the X axis */
 		float Roll;
 
 		/** Rotation around the Y axis */
@@ -31,9 +31,9 @@ namespace math {
 
 		/**
 		 * Constructor
-		 * @param pitch The rotator's pitch
-		 * @param yaw The rotator's yaw
-		 * @param roll The rotator's roll
+		 * @param roll The rotator's rotation around the X axis
+		 * @param pitch The rotator's rotation around the y axis
+		 * @param yaw The rotator's rotation around the z axis
 		 */
 		Rotator(float roll, float pitch, float yaw);
 

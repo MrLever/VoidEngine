@@ -29,7 +29,16 @@ namespace math {
 		Y = sy * cp * sr + cy * sp * cr;
 		Z = sy * cp * cr - cy * sp * sr;
 	}
+
+	Quaternion::Quaternion(float w, float x, float y, float z) 
+		: W(w), X(x), Y(y), Z(z) {
+	}
 	
+	Quaternion::Quaternion(const Vector3& vec) 
+		: W(0.0f), X(vec.X), Y(vec.Y), Z(vec.Z) {
+
+	}
+
 	Rotator Quaternion::ToEuler() const {
 		Rotator euler;
 
@@ -56,7 +65,33 @@ namespace math {
 		return euler;
 	}
 
+	Quaternion Quaternion::Normalize() const {
+		return *this / Magnitude();
+	}
+
+	float Quaternion::Magnitude() const {
+		return std::sqrtf(
+			(X*X) + (Y*Y) + (Z*Z) + (W*W)
+		);
+	}
+
+	Vector3 Quaternion::Rotate(const Vector3& vec) const {
+		// Extract the vector part of the quaternion
+		Vector3 u(X, Y, Z);
+
+		auto t = 2.0f * u.Cross(vec);
+		return vec + W * t + u.Cross(t);
+	}
+
+	Quaternion Quaternion::operator-() const {
+		return Quaternion(-W, -X, -Y, -Z).Normalize();
+	}
+
 	bool Quaternion::IsValid() {
 		return ((W*W) + (X*X) + (Y*Y) + (Z*Z) - 1) < std::numeric_limits<float>::epsilon();
+	}
+
+	Quaternion operator/(const Quaternion& quat, float val) {
+		return Quaternion(quat.W / val, quat.X / val, quat.Y / val, quat.Z / val);
 	}
 }

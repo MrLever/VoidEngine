@@ -30,7 +30,14 @@ namespace EngineMathTests {
 		}
 
 		TEST_METHOD(VectorRotationTests) {
-			
+			Vector3 test(1, 0, 0);
+			Rotator rotation(0, 0, 60);
+
+			Quaternion quat(rotation);
+
+			auto result = quat.Rotate(test);
+
+			Assert::IsTrue(result == Vector3(0,1,0));
 		}
 
 	};
