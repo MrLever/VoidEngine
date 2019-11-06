@@ -37,7 +37,7 @@ namespace EngineMathTests {
 
 			auto result = quat.Rotate(test);
 
-			Assert::IsTrue(result == Vector3(0,1,0));
+			Assert::IsTrue(result == Vector3(.5,0,0));
 		}
 
 	};
