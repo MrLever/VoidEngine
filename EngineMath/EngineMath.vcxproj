@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathConstants.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Rotator.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Rotator.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>

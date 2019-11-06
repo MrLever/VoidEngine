@@ -10,12 +10,20 @@ namespace math {
 
 	}
 
-	Rotator::Rotator(float pitch, float yaw, float roll) {
+	Rotator::Rotator(float roll, float pitch, float yaw) {
+		//Bound roll -360 -> 360 (exclusive)
+		if (roll > 359) {
+			roll = (float)std::fmod(roll, 360);
+		}
+		else if (roll < -359) {
+			roll = (float)std::fmod(roll, -360);
+		}
+
 		//Bound pitch -360 -> 360 (exclusive)
 		if (pitch > 359) {
 			pitch = (float)std::fmod(pitch, 360);
 		}
-		if (pitch < -359) {
+		else if (pitch < -359) {
 			pitch = (float)std::fmod(pitch, -360);
 		}
 
@@ -23,16 +31,8 @@ namespace math {
 		if (yaw > 359) {
 			yaw = (float)std::fmod(yaw, 360);
 		}
-		if (pitch < -359) {
+		else if (pitch < -359) {
 			yaw = (float)std::fmod(yaw, -360);
-		}
-
-		//Bound roll -360 -> 360 (exclusive)
-		if (roll > 359) {
-			roll = (float)std::fmod(roll, 360);
-		}
-		if (roll < -359) {
-			roll = (float)std::fmod(roll, -360);
 		}
 
 		Pitch = pitch;
@@ -50,6 +50,15 @@ namespace math {
 			std::sin(pitch),
 			std::cos(pitch) * std::sin(yaw)
 		).Normalize();
+	}
+
+	bool Rotator::operator==(const Rotator& other) const {
+		constexpr float EPSILON = std::numeric_limits<float>::epsilon() * 100;
+
+		return
+			((std::abs(Pitch - other.Pitch)) < EPSILON) &&
+			((std::abs(Yaw - other.Yaw)) < EPSILON) &&
+			((std::abs(Roll - other.Roll)) < EPSILON);
 	}
 
 	std::ostream& operator<<(std::ostream& out, const Rotator& r) {
