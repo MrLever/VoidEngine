@@ -16,13 +16,13 @@ namespace math {
 	 */
 	struct Rotator {
 		/** Rotation around the X axis */
-		float Pitch;
-		
+		float Roll;
+
 		/** Rotation around the Y axis */
 		float Yaw;
-
-		/** Rotation around the Z axis*/
-		float Roll;
+		
+		/** Rotation around the Z axis */
+		float Pitch;
 
 		/**
 		 * Constructor
@@ -31,11 +31,11 @@ namespace math {
 
 		/**
 		 * Constructor
-		 * @param pitch The rotator's pitch
-		 * @param yaw The rotator's yaw
-		 * @param roll The rotator's roll
+		 * @param roll The rotator's rotation around the X axis
+		 * @param pitch The rotator's rotation around the y axis
+		 * @param yaw The rotator's rotation around the z axis
 		 */
-		Rotator(float pitch, float yaw, float roll);
+		Rotator(float roll, float yaw, float pitch);
 
 		/**
 		 * Returns a direction vector that corresponds to this rotator
@@ -46,6 +46,8 @@ namespace math {
 		 * Output stream operator overload
 		 */
 		friend std::ostream& operator<< (std::ostream& out, const Rotator& r);
+
+		bool operator== (const Rotator& other) const;
 
 	};
 

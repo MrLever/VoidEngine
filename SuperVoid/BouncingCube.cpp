@@ -27,12 +27,10 @@ namespace SuperVoid {
 		Entity::Tick(deltaSeconds);
 
 		auto deltaHeight = deltaSeconds * Velocity;
-		auto deltaPitch = deltaSeconds * 1.0f;
+		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
 
 		Position.Y += deltaHeight;
-		Rotation.Pitch += deltaPitch;
-		Rotation.Roll += deltaPitch;
-		Rotation.Yaw += deltaPitch;
+		Rotation = Rotation * deltaRotation;
 
 		if (Position.Y > 2 || Position.Y < -2) {
 			Velocity *= -1;

@@ -76,20 +76,15 @@ namespace core {
 		auto moveSpeed = MovementSpeed * deltaTime;
 
 		Position += right * axisValue * moveSpeed;
-
 	}
 
 	void DefaultPlayerEntity::LookUp(float axisValue, float deltaTime) {
-		Rotation.Pitch += axisValue;
-		if (Rotation.Pitch > 89.0f) {
-			Rotation.Pitch = 89.0f;
-		}
-		if (Rotation.Pitch < -89.0f) {
-			Rotation.Pitch = -89.0F;
-		}
+		math::Rotator deltaRotation(0, 0, axisValue);
+		Rotation = Rotation * math::Quaternion(deltaRotation);
 	}
 
 	void DefaultPlayerEntity::LookRight(float axisValue, float deltaTime) {
-		Rotation.Yaw += axisValue;
+		math::Rotator deltaRotation(0, -axisValue, 0);
+		Rotation = Rotation * math::Quaternion(deltaRotation);
 	}
 }

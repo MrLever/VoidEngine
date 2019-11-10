@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <limits>
 
 //Library Headers
 
@@ -115,6 +116,10 @@ namespace math {
 		return rhs/lhs;
 	}
 
+	std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
+		return out << "[" << vec.X << ", " << vec.Y << ", " << vec.Z << "]";
+	}
+
 	Vector3::Vector3() : X(0), Y(0), Z(0) {
 
 	}
@@ -157,10 +162,11 @@ namespace math {
 	}
 
 	bool Vector3::operator== (const Vector3& other) {
+		constexpr float EPSILON = std::numeric_limits<float>::epsilon() * 100;
 		return
-			this->X == other.X
-			&& this->Y == other.Y
-			&& this->Z == other.Z;
+			std::abs(this->X - other.X) < EPSILON
+			&& std::abs(this->Y - other.Y) < EPSILON
+			&& std::abs(this->Z - other.Z) < EPSILON;
 	}
 
 	Vector4::Vector4() {

@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <cmath>
+#include <ostream>
 
 //Library Headers
 
@@ -167,6 +168,11 @@ namespace math {
 		 * Scalar division operator overload
 		 */
 		friend Vector3 operator/ (float lhs, const Vector3& rhs);
+
+		/**
+		 * Output stream operator
+		 */
+		friend std::ostream& operator<< (std::ostream& out, const Vector3& vec);
 	};
 
 	struct Vector4 {

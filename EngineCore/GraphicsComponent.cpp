@@ -66,13 +66,23 @@ namespace core {
 
 	void GraphicsComponent::Draw() {
 		Position = Parent->GetPostion();
-		Rotation = Parent->GetRotation();
+		Rotation = math::Quaternion(Parent->GetRotation());
 
 		ModelMatrix = glm::mat4(1.0f);
 		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
-		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Pitch), glm::vec3(1.0f, 0.0f, 0.0f));
-		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Yaw), glm::vec3(0.0f, 1.0f, 0.0f));
-		ModelMatrix = glm::rotate(ModelMatrix, glm::radians(Rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f));
+		
+		auto rotation = Rotation.ToEuler();
+		ModelMatrix = glm::rotate(
+			ModelMatrix, glm::radians(rotation.Yaw), glm::vec3(1.0f, 0.0f, 0.0f)
+		);
+
+		ModelMatrix = glm::rotate(
+			ModelMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
+		);
+		
+		ModelMatrix = glm::rotate(
+			ModelMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
+		);
 
 		//Specify shader program
 		if (ComponentShader) {

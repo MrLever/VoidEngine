@@ -81,7 +81,7 @@ namespace core {
 		math::Vector3 Position;
 		
 		/** The component's rotation */
-		math::Rotator Rotation;
+		math::Quaternion Rotation;
 
 		/** Data used to initialize component */
 		nlohmann::json ComponentData;

@@ -12,6 +12,7 @@
 #include "InputAction.h"
 #include "AxisInputAction.h"
 #include "Factory.h"
+#include "Quaternion.h"
 
 namespace core {
 	//Forward class declarations
@@ -108,7 +109,7 @@ namespace core {
 		math::Vector3 Position;
 
 		/** The entity's rotation in 3D space */
-		math::Rotator Rotation;
+		math::Quaternion Rotation;
 		
 		/** The entity's velocity */
 		float Velocity;

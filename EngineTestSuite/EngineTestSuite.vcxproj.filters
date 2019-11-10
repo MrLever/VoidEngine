@@ -74,5 +74,11 @@
     <ClCompile Include="TestFactories.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestQuaternions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRotators.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
