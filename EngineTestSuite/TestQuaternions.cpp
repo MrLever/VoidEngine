@@ -16,17 +16,11 @@ namespace EngineMathTests {
 	TEST_CLASS(QuaternionTests) {
 	public:
 		TEST_METHOD(EulerConversionTests) {
-			for (int i = 0; i < 180; i++) {
-				for (int j = 0; j < 180; j++) {
-					for (int k = 0; k < 180; k++) {
-						Rotator r1(50, 50, 50);
-						Quaternion q(r1);
-						Assert::IsTrue(q.IsValid());
-						Rotator r2 = q.ToEuler();
-						Assert::IsTrue(q.ToEuler() == r1);
-					}
-				}
-			}
+			Rotator expected(0, -90, 0);
+			Quaternion quat(expected);
+			auto result = quat.ToEuler();
+
+			Assert::IsTrue(result == expected);
 		}
 
 		TEST_METHOD(VectorRotationTests) {
@@ -49,14 +43,22 @@ namespace EngineMathTests {
 			);
 
 			//Test X-Z Plane Rotations
-			test = Vector3(0, 0, 1);
-			rotation = Rotator(0, 60, 0);
+			test = Vector3(1, 0, 0);
+			rotation = Rotator(0, 90, 0);
 			quat = Quaternion(rotation);
 			result = quat.Rotate(test);
 			Assert::IsTrue(
-				result == Vector3(std::sinf(ToRadians(60)), 0, std::cosf(ToRadians(60)))
+				result == Vector3(0,0,-1)
 			);
+		}
 
+		TEST_METHOD(ToVectorTests) {
+			Rotator rotation(0, 90, 0);
+			Quaternion quat(rotation);
+			Vector3 expected(0, 0, -1);
+			auto actual = quat.ToVector();
+
+			Assert::IsTrue(actual == expected);
 		}
 
 		TEST_METHOD(QuaternionCompositionTest) {

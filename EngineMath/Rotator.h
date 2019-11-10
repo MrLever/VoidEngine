@@ -19,10 +19,10 @@ namespace math {
 		float Roll;
 
 		/** Rotation around the Y axis */
-		float Pitch;
+		float Yaw;
 		
 		/** Rotation around the Z axis */
-		float Yaw;
+		float Pitch;
 
 		/**
 		 * Constructor
@@ -35,7 +35,7 @@ namespace math {
 		 * @param pitch The rotator's rotation around the y axis
 		 * @param yaw The rotator's rotation around the z axis
 		 */
-		Rotator(float roll, float pitch, float yaw);
+		Rotator(float roll, float yaw, float pitch);
 
 		/**
 		 * Returns a direction vector that corresponds to this rotator

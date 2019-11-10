@@ -116,6 +116,10 @@ namespace math {
 		return rhs/lhs;
 	}
 
+	std::ostream& operator<<(std::ostream& out, const Vector3& vec) {
+		return out << "[" << vec.X << ", " << vec.Y << ", " << vec.Z << "]";
+	}
+
 	Vector3::Vector3() : X(0), Y(0), Z(0) {
 
 	}

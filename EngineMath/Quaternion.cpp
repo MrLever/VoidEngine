@@ -19,8 +19,8 @@ namespace math {
 		 * Adapted from:
 		 * https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
 		 */
-		float yawHalf = ToRadians(euler.Yaw * 0.5f);
-		float pitchHalf = ToRadians(euler.Pitch * 0.5f);
+		float yawHalf = ToRadians(euler.Pitch * 0.5f);
+		float pitchHalf = ToRadians(euler.Yaw * 0.5f);
 		float rollHalf = ToRadians(euler.Roll * 0.5f);
 
 		float cy = std::cosf(yawHalf);
@@ -55,13 +55,13 @@ namespace math {
 			)
 		);
 
-		euler.Pitch = ToDegrees(
+		euler.Yaw = ToDegrees(
 			std::asinf(
 				2.0f * ((W * Y) - (X * Z))
 			)
 		);
 
-		euler.Yaw = ToDegrees(
+		euler.Pitch = ToDegrees(
 			std::atan2f(
 				2.0f * ((W * Z) + (X * Y)),
 				1.0f - (2.0f * ((Y * Y) + (Z * Z)))
@@ -69,6 +69,10 @@ namespace math {
 		);
 		
 		return euler;
+	}
+
+	Vector3 Quaternion::ToVector() const {
+		return Rotate(Vector3(1, 0, 0));
 	}
 
 	Quaternion Quaternion::Normalize() const {

@@ -40,9 +40,12 @@ namespace core {
 			Position.Z = locationData[2].get<float>();
 		
 			auto rotationData = ConfigData["rotation"];
-			Rotation.Pitch = rotationData[0].get<float>();
-			Rotation.Yaw = rotationData[1].get<float>();
-			Rotation.Roll = rotationData[2].get<float>();
+			math::Rotator rotation;
+			rotation.Roll = rotationData[0].get<float>();
+			rotation.Yaw = rotationData[1].get<float>();
+			rotation.Pitch = rotationData[2].get<float>();
+
+			Rotation = math::Quaternion(rotation);
 		}
 		
 		for (auto& component : Components) {
@@ -71,11 +74,11 @@ namespace core {
 	}
 
 	math::Rotator Entity::GetRotation() {
-		return Rotation;
+		return Rotation.ToEuler();
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		Rotation = newRotation;
+		Rotation = math::Quaternion(newRotation);
 	}
 
 	std::string Entity::GetName() {

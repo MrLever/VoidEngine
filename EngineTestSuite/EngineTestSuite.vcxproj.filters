@@ -77,7 +77,7 @@
     <ClCompile Include="TestQuaternions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RotatorTests.cpp">
+    <ClCompile Include="TestRotators.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

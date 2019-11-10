@@ -30,9 +30,9 @@ namespace SuperVoid {
 		auto deltaPitch = deltaSeconds * 1.0f;
 
 		Position.Y += deltaHeight;
-		Rotation.Pitch += deltaPitch;
+		/*Rotation.Yaw += deltaPitch;
 		Rotation.Roll += deltaPitch;
-		Rotation.Yaw += deltaPitch;
+		Rotation.Pitch += deltaPitch;*/
 
 		if (Position.Y > 2 || Position.Y < -2) {
 			Velocity *= -1;

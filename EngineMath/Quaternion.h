@@ -41,6 +41,11 @@ namespace math {
 		Rotator ToEuler() const;
 
 		/**
+		 * Converts Quaternion to direction vector
+		 */
+		Vector3 ToVector() const;
+
+		/**
 		 * Returns the corresponding unit Quaternion
 		 */
 		Quaternion Normalize() const;
