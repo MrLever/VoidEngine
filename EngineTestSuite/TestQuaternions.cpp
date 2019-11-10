@@ -59,5 +59,14 @@ namespace EngineMathTests {
 
 		}
 
+		TEST_METHOD(QuaternionCompositionTest) {
+			Quaternion q1(Rotator(0, -45, 0));
+			Quaternion q2(Rotator(0, 10, 0));
+
+			auto result = (q1 * q2).ToEuler();
+
+			Assert::IsTrue(Rotator(0, -35, 0) == result);
+		}
+
 	};
 };

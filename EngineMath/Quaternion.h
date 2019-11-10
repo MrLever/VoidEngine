@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <initializer_list>
 
 //Library Headers
 
@@ -11,6 +12,11 @@ namespace math {
 	struct Rotator;
 
 	struct Quaternion {
+		/**
+		 * Constructor
+		 */
+		Quaternion();
+
 		/**
 		 * Constructor
 		 * Euler to Quaternion
@@ -59,6 +65,11 @@ namespace math {
 		 * Float division overload
 		 */
 		friend Quaternion operator/ (const Quaternion& quat, float val);
+
+		/**
+		 * Quaternion multiplication overload
+		 */
+		friend Quaternion operator* (const Quaternion& lhs, const Quaternion& rhs);
 
 		/**
 		 * Allows user to query if a quaternion is valid

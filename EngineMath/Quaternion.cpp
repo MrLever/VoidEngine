@@ -8,6 +8,12 @@
 #include "MathConstants.h"
 
 namespace math {
+
+	Quaternion::Quaternion() {
+		W = 1;
+		X = Y = Z = 0;
+	}
+		
 	Quaternion::Quaternion(const Rotator& euler) {
 		/**
 		 * Adapted from:
@@ -33,7 +39,7 @@ namespace math {
 	Quaternion::Quaternion(float w, float x, float y, float z) 
 		: W(w), X(x), Y(y), Z(z) {
 	}
-	
+
 	Quaternion::Quaternion(const Vector3& vec) 
 		: W(0.0f), X(vec.X), Y(vec.Y), Z(vec.Z) {
 
@@ -93,5 +99,15 @@ namespace math {
 
 	Quaternion operator/(const Quaternion& quat, float val) {
 		return Quaternion(quat.W / val, quat.X / val, quat.Y / val, quat.Z / val);
+	}
+
+	Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs) {
+		return 
+			Quaternion(
+				lhs.W * rhs.W - lhs.X * rhs.X - lhs.Y * rhs.Y - lhs.Z * rhs.Z,
+				lhs.W * rhs.X + lhs.X * rhs.W + lhs.Y * rhs.Z - lhs.Z * rhs.Y,
+				lhs.W * rhs.Y - lhs.X * rhs.Z + lhs.Y * rhs.W + lhs.Z * rhs.X,
+				lhs.W * rhs.Z + lhs.X * rhs.Y - lhs.Y * rhs.X + lhs.Z * rhs.W
+			);
 	}
 }
