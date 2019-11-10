@@ -5,8 +5,13 @@
 //Void Engine Headers
 #include "SphereCollider.h"
 #include "AABBCollider.h"
+#include "Factory.h"
+#include "Logger.h"
 
 namespace core {
+
+	ENABLE_FACTORY(SphereCollider, Collider)
+
 	SphereCollider::SphereCollider() : Radius(1.0) {
 
 	}
@@ -15,12 +20,12 @@ namespace core {
 
 	}
 
-	bool SphereCollider::Collide(AABBCollider* other) {
+	bool SphereCollider::DetectCollision(AABBCollider* other) {
 		utils::Logger::LogInfo("Narrow-Phase Collision handling: Sphere - AABB");
 		return false;
 	}
 
-	bool SphereCollider::Collide(SphereCollider* other) {
+	bool SphereCollider::DetectCollision(SphereCollider* other) {
 		utils::Logger::LogInfo("Narrow-Phase Collision handling: Sphere - Sphere");
 		return false;
 	}

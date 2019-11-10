@@ -11,8 +11,8 @@ namespace core {
 	class AABBCollider : public Collider {
 	public:
 		/** Collision detection functions */
-		bool Collide(AABBCollider* other) override;
-		bool Collide(SphereCollider* other) override;
+		bool DetectCollision(AABBCollider* other) override;
+		bool DetectCollision(SphereCollider* other) override;
 
 	};
 

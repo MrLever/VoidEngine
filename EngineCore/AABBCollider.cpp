@@ -5,16 +5,19 @@
 //Void Engine Headers
 #include "AABBCollider.h"
 #include "SphereCollider.h"
+#include "Factory.h"
 #include "Logger.h"
 
 namespace core {
 
-	bool AABBCollider::Collide(AABBCollider* other) {
+	ENABLE_FACTORY(AABBCollider, Collider)
+
+	bool AABBCollider::DetectCollision(AABBCollider* other) {
 		utils::Logger::LogInfo("Narrow-Phase Collision handling: AABB - AABB");
 		return false;
 	}
 
-	bool AABBCollider::Collide(SphereCollider* other) {
+	bool AABBCollider::DetectCollision(SphereCollider* other) {
 		utils::Logger::LogInfo("Narrow-Phase Collision handling: AABB - Sphere");
 		return false;
 	}

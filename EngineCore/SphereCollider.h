@@ -23,8 +23,8 @@ namespace core {
 		SphereCollider(float r);
 
 		/** Collision detection functions */
-		bool Collide(AABBCollider* other) override;
-		bool Collide(SphereCollider* other) override;
+		bool DetectCollision(AABBCollider* other) override;
+		bool DetectCollision(SphereCollider* other) override;
 	
 		/** Radius Accessor */
 		float GetRadius();

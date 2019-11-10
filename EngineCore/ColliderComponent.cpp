@@ -7,4 +7,8 @@
 
 namespace core {
 
+	void CollisionComponent::Initialize() {
+
+	}
+
 }
