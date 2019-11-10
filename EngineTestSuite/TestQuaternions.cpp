@@ -30,14 +30,33 @@ namespace EngineMathTests {
 		}
 
 		TEST_METHOD(VectorRotationTests) {
+			//Test X-Y Plane Rotations
 			Vector3 test(1, 0, 0);
-			Rotator rotation(0, 0, 60);
-
+			Rotator rotation(0, 0, 45);
 			Quaternion quat(rotation);
-
 			auto result = quat.Rotate(test);
+			Assert::IsTrue(
+				result == Vector3(std::cosf(ToRadians(45)), std::sinf(ToRadians(45)), 0)
+			);
+		
+			//Test Y-Z Plane Rotations
+			test = Vector3(0, 1, 0);
+			rotation = Rotator(60, 0, 0);
+			quat = Quaternion(rotation);
+			result = quat.Rotate(test);
+			Assert::IsTrue(
+				result == Vector3(0, std::cosf(ToRadians(60)), std::sinf(ToRadians(60)))
+			);
 
-			Assert::IsTrue(result == Vector3(.5,0,0));
+			//Test X-Z Plane Rotations
+			test = Vector3(0, 0, 1);
+			rotation = Rotator(0, 60, 0);
+			quat = Quaternion(rotation);
+			result = quat.Rotate(test);
+			Assert::IsTrue(
+				result == Vector3(std::sinf(ToRadians(60)), 0, std::cosf(ToRadians(60)))
+			);
+
 		}
 
 	};
