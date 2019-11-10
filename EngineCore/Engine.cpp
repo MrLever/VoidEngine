@@ -47,9 +47,6 @@ namespace core {
 			GameThreadPool,
 			ConfigManager->LoadResource("Settings/AudioConfig.json")
 		);
-
-		GameMessageBus = std::make_shared<MessageBus>();
-		GameConsole = std::make_shared<Console>(GameMessageBus.get());
 	}
 
 	void Engine::DispatchEvents() {

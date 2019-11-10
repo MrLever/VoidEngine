@@ -8,9 +8,6 @@
 #include "Event.h"
 
 namespace core {
-	template<typename T>
-	concept IsEvent = requires { std::is_base_of<Event, T>::value; };
-
 	/**
 	 * @class EventDispatcher
 	 * @brief The EventDispatcher is helper class that accepts an event
@@ -29,7 +26,7 @@ namespace core {
 		 * @tparam T The type of event for which callback should be executed
 		 * @tparam F The type of the callback (should be deduced by compiler)
 		 */
-		template<class T, class F> /* requires IsEvent<T> */
+		template<class T, class F> /*requires std::derived_from<F, T>*/ 
 		bool Dispatch(const F&& callback);
 		 
 	private:
@@ -37,7 +34,7 @@ namespace core {
 
 	};
 
-	template<class T, class F> /* requires IsEvent<T> */
+	template<class T, class F> /*requires std::derived_from<F, T>*/
 	bool EventDispatcher::Dispatch(const F&& callback) {
 		if (PendingEvent->GetEventType() == T::GetStaticEventType()) {
 			callback(static_cast<T*>(PendingEvent));

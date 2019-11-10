@@ -103,12 +103,6 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Model Loading">
       <UniqueIdentifier>{f555a287-f13d-4852-8a3a-33d88b17eb46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine Core\Messaging Systems">
-      <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine Core\Messaging Systems">
-      <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Core\Event System">
       <UniqueIdentifier>{6fe51614-19a8-409c-be01-7d1961022ac8}</UniqueIdentifier>
     </Filter>
@@ -133,22 +127,16 @@
     <Filter Include="Header Files\Engine Utilities\Factory System">
       <UniqueIdentifier>{5e0cc2ae-63ab-477c-b139-9c3bbdb4acd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System">
+      <UniqueIdentifier>{e362f981-dd1c-48f1-a52c-a3a26e5f1913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System">
+      <UniqueIdentifier>{1926bc80-0b78-46ff-b7c0-2bcd9100a160}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="EventTable.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageBus.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageBusNode.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
       <Filter>Dependencies</Filter>
@@ -182,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Engine Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
@@ -311,18 +296,6 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
     </ClInclude>
-    <ClInclude Include="EventTable.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageBus.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageBusNode.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
     <ClInclude Include="EngineUtilities.h">
       <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
@@ -361,9 +334,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Engine Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>Header Files\Engine Utilities</Filter>

@@ -11,7 +11,6 @@
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "ResourceHandle.h"
-#include "MessageBusNode.h"
 
 namespace core {
 

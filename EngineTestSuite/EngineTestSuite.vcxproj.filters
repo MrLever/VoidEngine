@@ -38,22 +38,13 @@
     <ClCompile Include="TestThreadPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestMessageBus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestInputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestInputDefinitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestEventTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestEngineUtilities.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\SuperVoid\BouncingCube.cpp">

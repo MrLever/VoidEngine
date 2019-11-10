@@ -279,8 +279,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="PauseGameEvent.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="EventTable.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Resource.cpp" />
@@ -294,11 +292,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WindowClosedEvent.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="MessageBusNode.cpp" />
-    <ClCompile Include="Message.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="WindowResizedEvent.cpp" />
   </ItemGroup>
@@ -338,8 +333,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
     <ClInclude Include="MouseInput.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="EventTable.h" />
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
@@ -360,11 +353,8 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowClosedEvent.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="MessageBusNode.h" />
-    <ClInclude Include="Message.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="MessageBus.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="WindowResizedEvent.h" />
   </ItemGroup>

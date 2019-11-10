@@ -7,14 +7,12 @@
 #include "AudioManager.h"
 #include "Configurable.h"
 #include "Configuration.h"
-#include "Console.h"
 #include "EventBus.h"
 #include "InputManager.h"
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
 #include "Renderer.h"
 #include "Level.h"
-#include "MessageBus.h"
 #include "Window.h"
 
 namespace core {
@@ -88,9 +86,6 @@ namespace core {
 
 		/** The game's message bus */
 		std::shared_ptr<MessageBus> GameMessageBus;
-
-		/** The game's console */
-		std::shared_ptr<Console> GameConsole;
 
 		/** Pointer to the game's Input Manager*/
 		std::shared_ptr<InputManager> GameInputManager;
