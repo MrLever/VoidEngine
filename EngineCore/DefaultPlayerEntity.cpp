@@ -1,5 +1,4 @@
 //STD Headers
-#include <sstream>
 
 //Library Headers
 
@@ -69,12 +68,6 @@ namespace core {
 		auto forward = Rotation.ToVector();
 		auto moveSpeed = MovementSpeed * deltaTime;
 		Position += forward * axisValue * moveSpeed;
-
-
-		std::stringstream positionDebug;
-		positionDebug << "Player Position: " << Position;
-
-		utils::Logger::LogDebug(positionDebug.str());
 	}
 
 	void DefaultPlayerEntity::MoveRight(float axisValue, float deltaTime) {
@@ -88,7 +81,6 @@ namespace core {
 		positionDebug << "Player Position: " << Position;
 
 		utils::Logger::LogDebug(positionDebug.str());
-
 	}
 
 	void DefaultPlayerEntity::LookUp(float axisValue, float deltaTime) {
