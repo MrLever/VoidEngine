@@ -133,6 +133,18 @@
     <Filter Include="Source Files\Engine Core\Physics System">
       <UniqueIdentifier>{1926bc80-0b78-46ff-b7c0-2bcd9100a160}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System\Components">
+      <UniqueIdentifier>{7cfa718f-40bf-4c81-bfd2-83c26715923b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System\Components">
+      <UniqueIdentifier>{6d2d179e-bd05-4a49-becd-06636faa9c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System\Colliders">
+      <UniqueIdentifier>{0c1295dd-65fc-42d5-b3f5-901077c729b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System\Colliders">
+      <UniqueIdentifier>{fccfa09b-dacb-4c55-9ad9-0dddc18c2b9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -281,6 +293,21 @@
     </ClCompile>
     <ClCompile Include="ResourceAllocator.cpp">
       <Filter>Source Files\Engine Utilities\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBCollider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +487,21 @@
     </ClInclude>
     <ClInclude Include="TypeUtils.h">
       <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Engine Core\Physics System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Header Files\Engine Core\Physics System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBCollider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

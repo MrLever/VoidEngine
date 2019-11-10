@@ -247,9 +247,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="AxisInput.cpp" />
     <ClCompile Include="AxisInputEvent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
@@ -277,6 +280,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="MouseButtonEvent.cpp" />
     <ClCompile Include="MouseMovedEvent.cpp" />
     <ClCompile Include="PauseGameEvent.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="InputManager.cpp" />
@@ -285,6 +289,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="ResourceAllocator.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="StaticObserver.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
@@ -298,9 +303,12 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="WindowResizedEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABBCollider.h" />
     <ClInclude Include="AxisInput.h" />
     <ClInclude Include="AxisInputEvent.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
@@ -329,6 +337,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="MouseButtonEvent.h" />
     <ClInclude Include="MouseMovedEvent.h" />
     <ClInclude Include="PauseGameEvent.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerEntity.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="GamepadInput.h" />
@@ -342,6 +351,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EngineUtilities.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="StaticObserver.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ThreadPool.h" />
