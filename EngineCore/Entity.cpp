@@ -40,12 +40,13 @@ namespace core {
 			Position.Z = locationData[2].get<float>();
 		
 			auto rotationData = ConfigData["rotation"];
-			math::Rotator rotation;
-			rotation.Roll = rotationData[0].get<float>();
-			rotation.Yaw = rotationData[1].get<float>();
-			rotation.Pitch = rotationData[2].get<float>();
-
-			Rotation = math::Quaternion(rotation);
+			Rotation = math::Quaternion(
+				math::Rotator(
+					rotationData[0].get<float>(),
+					rotationData[1].get<float>(),
+					rotationData[2].get<float>()
+				)
+			);
 		}
 		
 		for (auto& component : Components) {
