@@ -76,11 +76,6 @@ namespace core {
 		auto moveSpeed = MovementSpeed * deltaTime;
 
 		Position += right * axisValue * moveSpeed;
-
-		std::stringstream positionDebug;
-		positionDebug << "Player Position: " << Position;
-
-		utils::Logger::LogDebug(positionDebug.str());
 	}
 
 	void DefaultPlayerEntity::LookUp(float axisValue, float deltaTime) {
