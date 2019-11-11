@@ -294,9 +294,6 @@
     <ClCompile Include="ResourceAllocator.cpp">
       <Filter>Source Files\Engine Utilities\Resource Management</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Source Files\Engine Core\Physics System\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ColliderComponent.cpp">
       <Filter>Source Files\Engine Core\Physics System\Components</Filter>
     </ClCompile>
@@ -308,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsBody.cpp">
+      <Filter>Source Files\Engine Core\Physics System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +488,6 @@
     <ClInclude Include="TypeUtils.h">
       <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files\Engine Core\Physics System\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ColliderComponent.h">
       <Filter>Header Files\Engine Core\Physics System\Components</Filter>
     </ClInclude>
@@ -502,6 +499,9 @@
     </ClInclude>
     <ClInclude Include="SphereCollider.h">
       <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsBody.h">
+      <Filter>Header Files\Engine Core\Physics System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
 #include "AxisInputAction.h"
 #include "Factory.h"
 #include "Quaternion.h"
+#include "PhysicsBody.h"
 
 namespace core {
 	//Forward class declarations
@@ -105,22 +106,25 @@ namespace core {
 		void AddComponent(Component* component);
 	
 	protected:
+		/** Entity's name */
+		utils::Name ID;
+
+		/** Data used to configure Entity's initial state */
+		nlohmann::json ConfigData;
+
+		/** All of the components for this entity */
+		std::vector<Component*> Components;
+
 		/** The entity's position in 3D space */
 		math::Vector3 Position;
 
 		/** The entity's rotation in 3D space */
 		math::Quaternion Rotation;
-		
-		/** The entity's velocity */
-		float Velocity;
 
-		/** Entity's name */
-		utils::Name ID;
+		/** Enables or disables physics simulations */
+		bool PhysicsEnabled;
 
-		/** Entitiy's initialization data */
-		nlohmann::json ConfigData;
-
-		/** All of the components for this entity */
-		std::vector<Component*> Components;
+		/** Rigid-body simulation data */
+		PhysicsBody Body;
 	};
 }

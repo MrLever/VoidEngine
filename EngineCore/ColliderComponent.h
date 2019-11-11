@@ -9,11 +9,12 @@
 
 namespace core {
 
-	class CollisionComponent : public Component {
+	class ColliderComponent : public Component {
+	public:
 		/**
 		 * Constructor
 		 */
-		CollisionComponent();
+		ColliderComponent();
 
 		/**
 		 * Sets up CollisionVolume

@@ -6,8 +6,11 @@
 #include "ColliderComponent.h"
 
 namespace core {
+	ColliderComponent::ColliderComponent() : CollisionVolume(nullptr) {
+		
+	}
 
-	void CollisionComponent::Initialize() {
+	void ColliderComponent::Initialize() {
 
 	}
 

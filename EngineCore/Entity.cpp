@@ -8,7 +8,7 @@
 #include "JsonResource.h"
 
 namespace core {
-	Entity::Entity() : ID("Entity"), Velocity(0.0f) {
+	Entity::Entity() : ID("Entity"), PhysicsEnabled(true) {
 	
 	}
 

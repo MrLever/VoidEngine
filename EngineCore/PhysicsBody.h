@@ -4,20 +4,17 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Component.h"
 #include "Vector.h"
 
 namespace core {
 
-	/**
-	 * @class Physics Component 
-	 * @brief Define's the physical properties of its parent entity
-	 *        for use in physics calculations
-	 */
-	class PhysicsComponent : public Component {
-	public:
-	private:
-		/** Represents the parent's current velocity vector */
+	struct PhysicsBody {
+		/**
+		 * Constructor
+		 */
+		PhysicsBody();
+
+		/** The Entity's current velocity */
 		math::Vector3 Velocity;
 
 		/** Represents the sum of all the forces acting on the parent */
@@ -35,5 +32,5 @@ namespace core {
 		/** Elasticity of parent */
 		float Restitution;
 	};
-
 }
+
