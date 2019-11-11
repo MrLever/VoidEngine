@@ -6,6 +6,9 @@
 #include "ColliderComponent.h"
 
 namespace core {
+
+	ENABLE_FACTORY(ColliderComponent, Component)
+
 	ColliderComponent::ColliderComponent() : CollisionVolume(nullptr) {
 		
 	}
@@ -14,4 +17,11 @@ namespace core {
 
 	}
 
+	utils::Name ColliderComponent::GetTypename() {
+		return utils::Name(TypeName<ColliderComponent>::GetName());
+	}
+
+	utils::Name ColliderComponent::GetStaticTypename() {
+		return utils::Name(TypeName<ColliderComponent>::GetName());
+	}
 }

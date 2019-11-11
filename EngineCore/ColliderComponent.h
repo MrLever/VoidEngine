@@ -21,6 +21,16 @@ namespace core {
 		 */
 		void Initialize() override;
 
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		utils::Name GetTypename() override;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
+
 	private:
 		Collider* CollisionVolume;
 	};

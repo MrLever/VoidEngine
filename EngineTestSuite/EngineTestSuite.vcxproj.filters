@@ -74,5 +74,8 @@
     <ClCompile Include="TestCollisions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestEntities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

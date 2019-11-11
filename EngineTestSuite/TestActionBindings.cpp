@@ -17,8 +17,6 @@ namespace EngineCoreTests {
 		}
 
 		virtual void SetupInputComponent(InputComponent* component) {
-			PlayerEntity::SetupInputComponent(component);
-
 			component->BindAction(
 				"Jump", 
 				ActionType::PRESSED,
@@ -47,9 +45,7 @@ namespace EngineCoreTests {
 	TEST_CLASS(ActionBindingTests) {
 		TEST_METHOD(AddBindingTest) {
 			TestPlayer test;
-			auto component = new InputComponent();
-			component->SetParent(&test);
-			test.SetupInputComponent(component);
+			test.Initialize();
 
 			test.Input(InputAction("Unbound input"), 0);
 			Assert::IsFalse(test.MovedForward);

@@ -14,6 +14,7 @@
 #include "Window.h"
 
 namespace core {
+
 	class CameraComponent : public Component {
 	public:
 		/**
@@ -64,6 +65,16 @@ namespace core {
 		 * to a change in window size
 		 */
 		void UpdateProjectionMatrix();
+
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		utils::Name GetTypename() override;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
 
 	private:
 
