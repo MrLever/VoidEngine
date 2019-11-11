@@ -41,4 +41,8 @@ namespace core {
 	void Component::SetRotation(const math::Rotator& rotation) {
 		Rotation = rotation;
 	}
+
+	utils::Name Component::GetStaticTypename() {
+		return utils::Name(TypeName<Component>::GetName());
+	}
 }

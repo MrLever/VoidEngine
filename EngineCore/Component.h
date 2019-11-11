@@ -12,6 +12,8 @@
 #include "GamepadInput.h"
 #include "Vector.h"
 #include "Rotator.h"
+#include "TypeUtils.h"
+
 namespace core {
 	
 	/**
@@ -75,6 +77,16 @@ namespace core {
 		 * @param position The position to use
 		 */
 		void SetRotation(const math::Rotator& rotation);
+
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		virtual utils::Name GetTypename() = 0;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
 
 	protected:
 		/** The component's position */

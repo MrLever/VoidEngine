@@ -13,7 +13,9 @@ namespace core {
 
 	void PlayerEntity::Initialize() {
 		Entity::Initialize();
-		SetupInputComponent(new InputComponent());
+		auto inputComponent = new InputComponent();
+		Components.insert({InputComponent::GetStaticTypename(), inputComponent });
+		SetupInputComponent(inputComponent);
 	}
 
 	void PlayerEntity::BeginPlay() {
@@ -26,10 +28,5 @@ namespace core {
 
 	void PlayerEntity::Terminate() {
 
-	}
-
-	void PlayerEntity::SetupInputComponent(InputComponent* component) {
-		Components.push_back(component);
-		component->SetParent(this);
 	}
 }

@@ -33,8 +33,6 @@ namespace core {
 	}
 
 	void DefaultPlayerEntity::SetupInputComponent(InputComponent* component) {
-		PlayerEntity::SetupInputComponent(component);
-
 		component->BindAxis(
 			"MoveForward", 
 			[this](float axisReading, float deltaTime) {
