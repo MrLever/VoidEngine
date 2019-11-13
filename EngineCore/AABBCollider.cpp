@@ -10,16 +10,10 @@
 
 namespace core {
 
-	ENABLE_FACTORY(AABBCollider, Collider)
+	ENABLE_FACTORY(AABBCollider, ColliderComponent)
 
-	bool AABBCollider::DetectCollision(AABBCollider* other) {
-		utils::Logger::LogInfo("Narrow-Phase Collision handling: AABB - AABB");
-		return false;
-	}
-
-	bool AABBCollider::DetectCollision(SphereCollider* other) {
-		utils::Logger::LogInfo("Narrow-Phase Collision handling: AABB - Sphere");
-		return false;
+	void AABBCollider::Initialize() {
+		;
 	}
 
 }

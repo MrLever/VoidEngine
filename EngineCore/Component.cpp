@@ -38,6 +38,10 @@ namespace core {
 		Position = position;
 	}
 
+	math::Vector3 Component::GetPosition() const {
+		return Position;
+	}
+
 	void Component::SetRotation(const math::Rotator& rotation) {
 		Rotation = rotation;
 	}

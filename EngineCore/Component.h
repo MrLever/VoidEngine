@@ -67,10 +67,10 @@ namespace core {
 		virtual void Draw();
 
 		/**
-		 * Set's this component's position
-		 * @param position The position to use
+		 * Accessors for Position
 		 */
 		void SetPosition(const math::Vector3& position);
+		math::Vector3 GetPosition() const;
 
 		/**
 		 * Set's this component's rotation

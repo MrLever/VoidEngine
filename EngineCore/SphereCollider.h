@@ -4,11 +4,11 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Collider.h"
+#include "ColliderComponent.h"
 
 namespace core {
 
-	class SphereCollider : public Collider {
+	class SphereCollider : public ColliderComponent {
 	public:
 		/**
 		 * Constructor
@@ -22,9 +22,10 @@ namespace core {
 		 */
 		SphereCollider(float r);
 
-		/** Collision detection functions */
-		bool DetectCollision(AABBCollider* other) override;
-		bool DetectCollision(SphereCollider* other) override;
+		/**
+		 * Sets up CollisionVolume
+		 */
+		void Initialize() override;
 	
 		/** Radius Accessor */
 		float GetRadius();

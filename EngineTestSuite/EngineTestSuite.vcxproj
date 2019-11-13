@@ -186,6 +186,7 @@
     <ClCompile Include="..\SuperVoid\PlayerShip.cpp" />
     <ClCompile Include="TestCollisions.cpp" />
     <ClCompile Include="TestEntities.cpp" />
+    <ClCompile Include="TestJumpTable2D.cpp" />
     <ClCompile Include="TestRotators.cpp" />
     <ClCompile Include="TestActionBindings.cpp" />
     <ClCompile Include="TestConfigurable.cpp" />

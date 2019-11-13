@@ -7,9 +7,8 @@
 #include "Quaternion.h"
 #include "Rotator.h"
 #include "Vector.h"
-#include "Collider.h"
 #include "Entity.h"
-#include "ColliderComponent.h"
+#include "SphereCollider.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace core;
@@ -30,12 +29,17 @@ namespace EngineCoreTests {
 			DummyRigidBody r1;
 			DummyRigidBody r2;
 
-			r1.collider = new ColliderComponent();
-			nlohmann::json data;
+			r1.collider = new SphereCollider();
+			r2.collider = new SphereCollider();
+
+			r1.SetPosition(math::Vector3(0, 0, 0));
+			r2.SetPosition(math::Vector3(0, 2, 0));
+
+			Assert::IsFalse(r1.collider->DetectCollision(r2.collider));
+
+			//nlohmann::json data;
 			/*r1.collider->SetComponentData();
 			r1.collider->SetComponentData();*/
-
-			Assert::Fail();
 		}
 	};
 };

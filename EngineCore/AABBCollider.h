@@ -4,16 +4,20 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Collider.h"
+#include "ColliderComponent.h"
 
 namespace core {
 
-	class AABBCollider : public Collider {
+	class AABBCollider : public ColliderComponent {
 	public:
+		/**
+		 * Sets up collision volume data
+		 */
+		void Initialize() override;
+		
+		math::Vector3 Min;
+		math::Vector3 Max;
 
-		/** Collision detection functions */
-		bool DetectCollision(AABBCollider* other) override;
-		bool DetectCollision(SphereCollider* other) override;
 
 	};
 

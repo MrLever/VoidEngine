@@ -10,7 +10,7 @@
 
 namespace core {
 
-	ENABLE_FACTORY(SphereCollider, Collider)
+	ENABLE_FACTORY(SphereCollider, ColliderComponent)
 
 	SphereCollider::SphereCollider() : Radius(1.0) {
 
@@ -20,14 +20,8 @@ namespace core {
 
 	}
 
-	bool SphereCollider::DetectCollision(AABBCollider* other) {
-		utils::Logger::LogInfo("Narrow-Phase Collision handling: Sphere - AABB");
-		return false;
-	}
-
-	bool SphereCollider::DetectCollision(SphereCollider* other) {
-		utils::Logger::LogInfo("Narrow-Phase Collision handling: Sphere - Sphere");
-		return false;
+	void SphereCollider::Initialize() {
+		;
 	}
 
 	float SphereCollider::GetRadius() {

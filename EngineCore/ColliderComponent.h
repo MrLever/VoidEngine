@@ -1,13 +1,22 @@
 #pragma once
 //STD Headers
+#include <functional>
 
 //Library Headers
 
 //Void Engine Headers
 #include "Component.h"
-#include "Collider.h"
+#include "JumpTable2D.h"
 
 namespace core {
+
+	enum class CollisionLayer : unsigned {
+		NONE = 0x00,
+		WORLD = 0x01,
+		ENTITY = 0x02,
+		PLAYER = 0x04,
+		ALL = std::numeric_limits<unsigned>::max()
+	};
 
 	class ColliderComponent : public Component {
 	public:
@@ -15,11 +24,6 @@ namespace core {
 		 * Constructor
 		 */
 		ColliderComponent();
-
-		/**
-		 * Sets up CollisionVolume
-		 */
-		void Initialize() override;
 
 		/**
 		 * Returns name of dynamic Component Type
@@ -31,8 +35,19 @@ namespace core {
 		 */
 		static utils::Name GetStaticTypename();
 
-	private:
-		Collider* CollisionVolume;
+		/**
+		 * Functions to allow derived colliders to interact properly
+		 * with other colliders
+		 */
+		bool DetectCollision(ColliderComponent* other);
+
+	protected:
+		static utils::JumpTable2D
+			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
+		CollisionJumpTable;
+
+		/** Layer(s) this collider interacts with */
+		unsigned Layer;
 	};
 
 }
