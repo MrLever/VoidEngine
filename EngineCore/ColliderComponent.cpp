@@ -7,7 +7,7 @@
 
 namespace core {
 
-	utils::JumpTable2D
+	utils::Table
 		<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionJumpTable;
 

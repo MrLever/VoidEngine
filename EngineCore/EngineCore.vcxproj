@@ -328,7 +328,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="InputAction.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />
-    <ClInclude Include="JumpTable2D.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="KeyboardButtonEvent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Mesh.h" />

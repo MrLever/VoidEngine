@@ -10,9 +10,9 @@ namespace utils {
 	
 	/** Proxy object to allow [][] syntax when using JumpTables */
 	template <typename jType, typename Value>
-	class JumpRow {
+	class TableRow {
 	public:
-		JumpRow(std::unordered_map<jType, Value>& row) : Row(&row) {
+		TableRow(std::unordered_map<jType, Value>& row) : Row(&row) {
 
 		}
 
@@ -22,13 +22,13 @@ namespace utils {
 	};
 
 	template <typename iType, typename jType, typename Value>
-	class JumpTable2D {
+	class Table {
 	public:
 
 		/**
 		 * Constructor
 		 */
-		JumpTable2D();
+		Table();
 
 		/**
 		 * Inserts an entry into the jump table
@@ -43,7 +43,7 @@ namespace utils {
 		/**
 		 * ArrayIndex operator overload
 		 */
-		JumpRow<jType, Value> operator[] (iType i);
+		TableRow<jType, Value> operator[] (iType i);
 
 		/**
 		 * Find operator returns read only pointer to value in table
@@ -51,12 +51,12 @@ namespace utils {
 		const Value* Find(iType i, jType j) const;
 		
 	private:
-		std::unordered_map<iType, std::unordered_map<jType, Value>> Table;
+		std::unordered_map<iType, std::unordered_map<jType, Value>> UnorderedTable;
 	};
 
-	//JumpRow impl
+	//TableRow impl
 	template<typename jType, typename Value>
-	inline Value& JumpRow<jType, Value>::operator[] (jType j) {
+	inline Value& TableRow<jType, Value>::operator[] (jType j) {
 		auto entryIter = Row->find(j);
 		if (entryIter == Row->end()) {
 			Value v;
@@ -68,18 +68,18 @@ namespace utils {
 
 	//JumpTable impl
 	template<typename iType, typename jType, typename Value>
-	inline JumpTable2D<iType, jType, Value>::JumpTable2D() {
+	inline Table<iType, jType, Value>::Table() {
 	}
 
 	template<typename iType, typename jType, typename Value>
-	inline void JumpTable2D<iType, jType, Value>::Insert(iType i, jType j, Value value) {
-		Table[i][j] = value;
+	inline void Table<iType, jType, Value>::Insert(iType i, jType j, Value value) {
+		UnorderedTable[i][j] = value;
 	}
 
 	template<typename iType, typename jType, typename Value>
-	inline void JumpTable2D<iType, jType, Value>::Erase(iType i, jType j) {
-		auto row = Table.find(i);
-		if (row == Table.end()) {
+	inline void Table<iType, jType, Value>::Erase(iType i, jType j) {
+		auto row = UnorderedTable.find(i);
+		if (row == UnorderedTable.end()) {
 			return;
 		}
 
@@ -87,22 +87,22 @@ namespace utils {
 	}
 
 	template<typename iType, typename jType, typename Value>
-	inline JumpRow<jType, Value> JumpTable2D<iType, jType, Value>::operator[] (iType i) {
-		auto rowIter = Table.find(i);
+	inline TableRow<jType, Value> Table<iType, jType, Value>::operator[] (iType i) {
+		auto rowIter = UnorderedTable.find(i);
 
-		if (rowIter == Table.end()) {
+		if (rowIter == UnorderedTable.end()) {
 			std::unordered_map<jType, Value> newRow;
-			rowIter = Table.insert({i, newRow}).first;
+			rowIter = UnorderedTable.insert({i, newRow}).first;
 		}
 
-		return JumpRow<jType, Value>(rowIter->second);
+		return TableRow<jType, Value>(rowIter->second);
 	}
 
 	template<typename iType, typename jType, typename Value>
-	inline const Value* JumpTable2D<iType, jType, Value>::Find(iType i, jType j) const {
-		auto rowIter = Table.find(i);
+	inline const Value* Table<iType, jType, Value>::Find(iType i, jType j) const {
+		auto rowIter = UnorderedTable.find(i);
 		
-		if (rowIter == Table.end()) {
+		if (rowIter == UnorderedTable.end()) {
 			return nullptr;
 		}
 

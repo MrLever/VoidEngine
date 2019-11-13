@@ -4,7 +4,7 @@
 #include "CppUnitTest.h"
 
 //Void Engine Headers
-#include "JumpTable2d.h"
+#include "Table.h"
 #include "Name.h"
 #include "ColliderComponent.h"
 
@@ -13,17 +13,17 @@ using namespace utils;
 
 namespace EngineUtilitiesTests {
 
-	TEST_CLASS(JumpTable2DTests) {
+	TEST_CLASS(TableTests) {
 	public:
-		TEST_METHOD(JumpTableArrayInexOperatorTest) {
-			JumpTable2D<int, int, int> table;
+		TEST_METHOD(TableArrayInexOperatorTest) {
+			Table<int, int, int> table;
 
 			table[1][1] = 2;
 			Assert::AreEqual(2, table[1][1]);
 		}
 
-		TEST_METHOD(JumpTableFindTest) {
-			JumpTable2D<int, int, int> table;
+		TEST_METHOD(TableFindTest) {
+			Table<int, int, int> table;
 			Assert::IsNull(table.Find(1, 1));
 
 			table.Insert(1, 1, 164);
@@ -33,8 +33,8 @@ namespace EngineUtilitiesTests {
 			Assert::AreEqual(164, *table.Find(1, 1));
 		}
 
-		TEST_METHOD(JumpTableEraseTest) {
-			JumpTable2D<int, int, int> table;
+		TEST_METHOD(TableEraseTest) {
+			Table<int, int, int> table;
 			table[1][1] = 100;
 			Assert::AreEqual(100, *table.Find(1, 1));
 
@@ -44,7 +44,7 @@ namespace EngineUtilitiesTests {
 		}
 
 		TEST_METHOD(AdvancedTemplateParameterTest) {
-			JumpTable2D<
+			Table<
 				utils::Name, 
 				utils::Name, 
 				std::function<bool(core::ColliderComponent*, core::ColliderComponent*)>

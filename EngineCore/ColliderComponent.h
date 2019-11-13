@@ -6,7 +6,7 @@
 
 //Void Engine Headers
 #include "Component.h"
-#include "JumpTable2D.h"
+#include "Table.h"
 
 namespace core {
 
@@ -42,7 +42,7 @@ namespace core {
 		bool DetectCollision(ColliderComponent* other);
 
 	protected:
-		static utils::JumpTable2D
+		static utils::Table
 			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 		CollisionJumpTable;
 

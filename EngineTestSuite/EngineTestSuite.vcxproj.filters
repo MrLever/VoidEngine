@@ -77,7 +77,7 @@
     <ClCompile Include="TestEntities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestJumpTable2D.cpp">
+    <ClCompile Include="TestTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

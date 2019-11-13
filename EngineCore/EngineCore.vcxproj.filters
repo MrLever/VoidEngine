@@ -497,7 +497,7 @@
     <ClInclude Include="PhysicsBody.h">
       <Filter>Header Files\Engine Core\Physics System</Filter>
     </ClInclude>
-    <ClInclude Include="JumpTable2D.h">
+    <ClInclude Include="Table.h">
       <Filter>Header Files\Engine Utilities</Filter>
     </ClInclude>
   </ItemGroup>
