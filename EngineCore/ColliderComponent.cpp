@@ -34,4 +34,21 @@ namespace core {
 			return false;
 		}
 	}
+
+	void ColliderComponent::RegisterCollisionCallback(
+		utils::Name a,
+		utils::Name b,
+		std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+		) {
+
+		if (CollisionJumpTable.Find(a, b) != nullptr) {
+			utils::Logger::LogWarning(
+				"CollisionCallback [" + 
+				a.StringID + "][" + 
+				b.StringID + "] has already been registered");
+			return;
+		}
+
+		CollisionJumpTable[a][b] = callback;
+	}
 }

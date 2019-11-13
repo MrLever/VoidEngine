@@ -46,6 +46,12 @@ namespace core {
 			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 		CollisionJumpTable;
 
+		static void RegisterCollisionCallback(
+			utils::Name a, 
+			utils::Name b, 
+			std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+		);
+
 		/** Layer(s) this collider interacts with */
 		unsigned Layer;
 	};
