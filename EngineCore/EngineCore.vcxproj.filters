@@ -306,6 +306,9 @@
     <ClCompile Include="PhysicsBody.cpp">
       <Filter>Source Files\Engine Core\Physics System</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="Table.h">
       <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

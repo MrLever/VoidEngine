@@ -4,34 +4,12 @@
 //Library Headers
 
 //Void Engine Headers
-#include "ColliderComponent.h"
+#include "Collider.h"
 
 namespace core {
 
-	class SphereCollider : public ColliderComponent {
-	public:
-		/**
-		 * Constructor
-		 * Contructs a unit sphere collider
-		 */
-		SphereCollider();
-		
-		/**
-		 * Constructor
-		 * Contructs a sphere collider with radius r
-		 */
-		SphereCollider(float r);
-
-		/**
-		 * Sets up CollisionVolume
-		 */
-		void Initialize() override;
+	class SphereCollider : Collider {
 	
-		/** Radius Accessor */
-		float GetRadius();
-
-	private:
-		float Radius;
 	};
 
 }

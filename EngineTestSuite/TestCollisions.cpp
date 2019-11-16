@@ -8,6 +8,7 @@
 #include "Rotator.h"
 #include "Vector.h"
 #include "Entity.h"
+#include "ColliderComponent.h"
 #include "SphereCollider.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -19,27 +20,27 @@ namespace EngineCoreTests {
 	public: 
 		void BeginPlay() {}
 		void Terminate() {}
-
-		ColliderComponent* collider;
 	};
 
 	TEST_CLASS(CollisionTests) {
 	public:
-		TEST_METHOD(SphereToSphereColliderTest) {
+		TEST_METHOD(SphereSphereCollisionTest) {
 			DummyRigidBody r1;
 			DummyRigidBody r2;
 
-			r1.collider = new SphereCollider();
-			r2.collider = new SphereCollider();
+			ColliderComponent* c1 = new ColliderComponent();
+			ColliderComponent* c2 = new ColliderComponent();
+
+			r1.AddComponent(c1);
+			r2.AddComponent(c2);
 
 			r1.SetPosition(math::Vector3(0, 0, 0));
-			r2.SetPosition(math::Vector3(0, 2, 0));
+			r2.SetPosition(math::Vector3(0, 1, 0));
 
-			Assert::IsFalse(r1.collider->DetectCollision(r2.collider));
+			r1.Initialize();
+			r2.Initialize();
 
-			//nlohmann::json data;
-			/*r1.collider->SetComponentData();
-			r1.collider->SetComponentData();*/
+			Assert::IsTrue(false);
 		}
 	};
 };

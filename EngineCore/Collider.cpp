@@ -3,10 +3,12 @@
 //Library Headers
 
 //Void Engine Headers
-#include "AABBCollider.h"
+#include "Collider.h"
 
 namespace core {
 
+	Collider::Collider() {
 
+	}
 
 }

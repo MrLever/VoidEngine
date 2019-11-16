@@ -8,10 +8,10 @@
 namespace core {
 
 	utils::Table
-		<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
+		<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
 	ColliderComponent::CollisionJumpTable;
 
-	ColliderComponent::ColliderComponent() : Layer(0) {
+	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
 		
 	}
 
@@ -22,23 +22,23 @@ namespace core {
 	utils::Name ColliderComponent::GetStaticTypename() {
 		return utils::Name(TypeName<ColliderComponent>::GetName());
 	}
+
+	void ColliderComponent::Initialize() {
+		Position = Parent->GetPostion();
+	}
+
+	void ColliderComponent::Tick(float deltaTime) {
+		Position = Parent->GetPostion();
+	}
 	
 	bool ColliderComponent::DetectCollision(ColliderComponent* other) {
-		auto i = GetTypename();
-		auto j = other->GetTypename();
-		auto collisionCallback = CollisionJumpTable.Find(i, j);
-		if (collisionCallback) {
-			return collisionCallback->operator()(this, other);
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 	void ColliderComponent::RegisterCollisionCallback(
 		utils::Name a,
 		utils::Name b,
-		std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+		std::function<bool(Collider*, Collider*)> callback
 		) {
 
 		if (CollisionJumpTable.Find(a, b) != nullptr) {

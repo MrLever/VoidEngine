@@ -8,6 +8,7 @@
 #include "JsonResource.h"
 
 namespace core {
+
 	Entity::Entity() : ID("Entity"), PhysicsEnabled(true) {
 	
 	}
@@ -105,4 +106,5 @@ namespace core {
 
 		Components.insert({ name, component });
 	}
+
 }

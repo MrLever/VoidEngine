@@ -6,6 +6,7 @@
 
 //Void Engine Headers
 #include "Component.h"
+#include "Collider.h"
 #include "Table.h"
 
 namespace core {
@@ -36,6 +37,17 @@ namespace core {
 		static utils::Name GetStaticTypename();
 
 		/**
+		 * Sets up collider data from ComponentData
+		 */
+		void Initialize() override;
+
+		/**
+		 * Allows the ColliderComponent to track the parent's position
+		 * @param deltaSeconds the time elapsed since the previous tick
+		 */
+		virtual void Tick(float deltaTime) override;
+
+		/**
 		 * Functions to allow derived colliders to interact properly
 		 * with other colliders
 		 */
@@ -43,17 +55,20 @@ namespace core {
 
 	protected:
 		static utils::Table
-			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
+			<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
 		CollisionJumpTable;
 
 		static void RegisterCollisionCallback(
 			utils::Name a, 
 			utils::Name b, 
-			std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+			std::function<bool(Collider*, Collider*)> callback
 		);
 
 		/** Layer(s) this collider interacts with */
 		unsigned Layer;
+
+		/** The type of shape used when resolving collisions with this component */
+		Collider* Shape;
 	};
 
 }
