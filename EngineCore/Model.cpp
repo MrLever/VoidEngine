@@ -13,7 +13,6 @@ namespace core {
 		ModelDirectory = ResourcePath.parent_path();
 		TextureCache = nullptr;
 		IsThreadSafe = false;
-		IsComposite = true;
 	}
 
 	bool Model::Load() {

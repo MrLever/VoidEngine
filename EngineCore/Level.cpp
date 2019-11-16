@@ -12,7 +12,6 @@ namespace core {
 
 	Level::Level(const std::string& levelPath) : JsonResource(levelPath), LevelName("Error"){
 		EntityDataCache = std::make_shared<utils::ResourceAllocator<EntityData>>();
-		IsComposite = true;
 	}
 
 	Level::~Level() {
