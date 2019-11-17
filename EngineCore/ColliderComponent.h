@@ -70,7 +70,7 @@ namespace core {
 
 	template<class ColliderA, class ColliderB>
 	inline void ColliderComponent::RegisterCollisionCallback(std::function<bool(Collider*, Collider*)> callback) {
-		utils::Name i(TypeName <ColliderA>::GetName());
+		utils::Name i(TypeName<ColliderA>::GetName());
 		utils::Name j(TypeName<ColliderB>::GetName());
 		if (CollisionJumpTable.Find(i, j) != nullptr) {
 			utils::Logger::LogWarning(

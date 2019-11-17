@@ -8,8 +8,12 @@
 namespace core {
 	ENABLE_FACTORY(SphereCollider, Collider)
 
-	SphereCollider::SphereCollider() : Radius(0.0f) {
+	bool SphereCollider::CallbacksRegistered = false;
 
+	SphereCollider::SphereCollider() : Radius(0.0f) {
+		if (!CallbacksRegistered) {
+			ColliderComponent::RegisterCollisionCallback<SphereCollider, SphereCollider>(DetectSphereCollision);
+		}
 	}
 
 	void SphereCollider::Initialize() {
@@ -18,6 +22,10 @@ namespace core {
 
 	float SphereCollider::GetRadius() {
 		return Radius;
+	}
+
+	bool SphereCollider::DetectSphereCollision(Collider* left, Collider* right) {
+		return false;
 	}
 
 }

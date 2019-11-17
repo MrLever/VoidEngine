@@ -5,6 +5,7 @@
 
 //Void Engine Headers
 #include "Collider.h"
+#include "ColliderComponent.h"
 
 namespace core {
 
@@ -23,9 +24,17 @@ namespace core {
 		/** Radius Accessor */
 		float GetRadius();
 
+		static bool DetectSphereCollision(Collider* left, Collider* right);
+
 	private:
 		/** Radius of the collision sphere */
 		float Radius;
+
+		/** 
+		 * Flag to determine if the callbacks for sphere collisions have 
+		 * been registered with the physics engine
+		 */
+		static bool CallbacksRegistered;
 	};
 
 }
