@@ -39,5 +39,6 @@ namespace core {
 	
 	bool ColliderComponent::DetectCollision(ColliderComponent* other) {
 		//auto collisionTableIter = CollisionJumpTable.Find(Shape->GetTypeName(), other->Shape->GetTypeName());
+		return false;
 	}
 }
