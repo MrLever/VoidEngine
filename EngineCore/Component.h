@@ -36,7 +36,7 @@ namespace core {
 		/**
 		 * Set's the component's initialization data
 		 */
-		void SetComponentData(const nlohmann::json& data);
+		void SetConfigData(const nlohmann::json& data);
 
 		/**
 		 * Applies component data to this object

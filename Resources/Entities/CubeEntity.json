@@ -10,6 +10,14 @@
                 "vertexShader":"Resources/Shaders/default.vert",
                 "fragmentShader":"Resources/Shaders/default.frag"
             }
+        },
+        {
+            "type":"ColliderComponent",
+            "shape":
+            {
+                "type":"SphereCollider",
+                "radius":2
+            }
         }
     ]
 }

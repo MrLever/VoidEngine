@@ -68,7 +68,7 @@ namespace core {
 					auto component = utils::FactoryBase<Component>::Create(componentType);
 					if (component) {
 						entity->AddComponent(component);
-						component->SetComponentData(componentEntry);
+						component->SetConfigData(componentEntry);
 						component->Initialize();
 					}
 				}

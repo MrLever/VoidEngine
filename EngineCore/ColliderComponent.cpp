@@ -4,8 +4,11 @@
 
 //Void Engine Headers
 #include "ColliderComponent.h"
+#include "Factory.h"
 
 namespace core {
+
+	ENABLE_FACTORY(ColliderComponent, Component);
 
 	utils::Table
 		<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
@@ -25,6 +28,9 @@ namespace core {
 
 	void ColliderComponent::Initialize() {
 		Position = Parent->GetPostion();
+		Shape = utils::FactoryBase<Collider>::Create(ComponentData["shape"]["type"].get<std::string>());
+		Shape->SetConfigData(ComponentData["shape"]);
+		Shape->Initialize();
 	}
 
 	void ColliderComponent::Tick(float deltaTime) {

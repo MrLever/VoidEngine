@@ -14,7 +14,7 @@ namespace core {
 		Parent = parent;
 	}
 
-	void Component::SetComponentData(const nlohmann::json& data) {
+	void Component::SetConfigData(const nlohmann::json& data) {
 		ComponentData = data;
 	}
 
