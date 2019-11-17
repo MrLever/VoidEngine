@@ -33,7 +33,7 @@ namespace EngineCoreTests {
 			DummyRigidBody r1;
 			DummyRigidBody r2;
 			
-			EntityData data("Resources/Entities/CubeEntity.json");
+			EntityData data("Resources/Testing/Entities/CollisionTestEntity.json");
 			data.Load();
 			auto componentData = data.GetAttribute<nlohmann::json>("components");
 			auto colliderComponentData = componentData[1];
