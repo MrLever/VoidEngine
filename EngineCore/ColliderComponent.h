@@ -53,16 +53,13 @@ namespace core {
 		 */
 		bool DetectCollision(ColliderComponent* other);
 
+		template <class ColliderA, class ColliderB>
+		static void RegisterCollisionCallback(std::function<bool(Collider*, Collider*)> callback);
+
 	protected:
 		static utils::Table
 			<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
 		CollisionJumpTable;
-
-		static void RegisterCollisionCallback(
-			utils::Name a, 
-			utils::Name b, 
-			std::function<bool(Collider*, Collider*)> callback
-		);
 
 		/** Layer(s) this collider interacts with */
 		unsigned Layer;
@@ -70,6 +67,21 @@ namespace core {
 		/** The type of shape used when resolving collisions with this component */
 		Collider* Shape;
 	};
+
+	template<class ColliderA, class ColliderB>
+	inline void ColliderComponent::RegisterCollisionCallback(std::function<bool(Collider*, Collider*)> callback) {
+		utils::Name i(TypeName <ColliderA>::GetName());
+		utils::Name j(TypeName<ColliderB>::GetName());
+		if (CollisionJumpTable.Find(i, j) != nullptr) {
+			utils::Logger::LogWarning(
+				"CollisionCallback [" +
+				i.StringID + "][" +
+				j.StringID + "] has already been registered");
+			return;
+		}
+
+		CollisionJumpTable[i][j] = callback;
+	}
 
 }
 
