@@ -15,4 +15,8 @@ namespace core {
 		ShapeData = data;
 	}
 
+	utils::Name Collider::GetStaticTypename() {
+		return utils::Name("Collider");
+	}
+
 }

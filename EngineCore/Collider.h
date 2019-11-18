@@ -27,6 +27,16 @@ namespace core {
 		 */
 		virtual void Initialize() = 0;
 
+		/**
+		 * Returns dynamic type
+		 */
+		virtual utils::Name GetTypename() = 0;
+
+		/**
+		 * Returns name of static Collider Type
+		 */
+		static utils::Name GetStaticTypename();
+
 	protected:
 		/** Data used to initialize component */
 		nlohmann::json ShapeData;

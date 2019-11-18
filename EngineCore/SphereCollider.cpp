@@ -6,6 +6,7 @@
 #include "SphereCollider.h"
 
 namespace core {
+
 	ENABLE_FACTORY(SphereCollider, Collider)
 
 	bool SphereCollider::CallbacksRegistered = false;
@@ -24,8 +25,16 @@ namespace core {
 		return Radius;
 	}
 
-	bool SphereCollider::DetectSphereCollision(Collider* left, Collider* right) {
+	bool SphereCollider::DetectSphereCollision(ColliderComponent* left, ColliderComponent* right) {
 		return false;
+	}
+
+	utils::Name SphereCollider::GetTypename() {
+		return utils::Name("SphereCollider");
+	}
+
+	utils::Name SphereCollider::GetStaticTypename() {
+		return utils::Name("SphereCollider");
 	}
 
 }

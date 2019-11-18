@@ -24,7 +24,17 @@ namespace core {
 		/** Radius Accessor */
 		float GetRadius();
 
-		static bool DetectSphereCollision(Collider* left, Collider* right);
+		static bool DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
+
+		/**
+		 * Returns dynamic type
+		 */
+		utils::Name GetTypename() override;
+
+		/**
+		 * Returns name of static Collider Type
+		 */
+		static utils::Name GetStaticTypename();
 
 	private:
 		/** Radius of the collision sphere */

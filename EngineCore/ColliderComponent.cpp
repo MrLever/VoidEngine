@@ -11,7 +11,7 @@ namespace core {
 	ENABLE_FACTORY(ColliderComponent, Component);
 
 	utils::Table
-		<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
+		<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionJumpTable;
 
 	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
@@ -38,7 +38,16 @@ namespace core {
 	}
 	
 	bool ColliderComponent::DetectCollision(ColliderComponent* other) {
-		//auto collisionTableIter = CollisionJumpTable.Find(Shape->GetTypeName(), other->Shape->GetTypeName());
-		return false;
+		auto colliderType1 = Shape->GetTypename();
+		auto colliderType2 = other->Shape->GetTypename();
+
+		auto callback = CollisionJumpTable.Find(colliderType1, colliderType2);
+
+		if (callback) {
+			return callback->operator()(this, other);
+		}
+		else {
+			return false;
+		}
 	}
 }

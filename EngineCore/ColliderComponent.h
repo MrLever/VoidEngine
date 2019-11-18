@@ -54,11 +54,11 @@ namespace core {
 		bool DetectCollision(ColliderComponent* other);
 
 		template <class ColliderA, class ColliderB>
-		static void RegisterCollisionCallback(std::function<bool(Collider*, Collider*)> callback);
+		static void RegisterCollisionCallback(std::function<bool(ColliderComponent*, ColliderComponent*)> callback);
 
 	protected:
 		static utils::Table
-			<utils::Name, utils::Name, std::function<bool(Collider*, Collider*)>>
+			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 		CollisionJumpTable;
 
 		/** Layer(s) this collider interacts with */
@@ -69,7 +69,9 @@ namespace core {
 	};
 
 	template<class ColliderA, class ColliderB>
-	inline void ColliderComponent::RegisterCollisionCallback(std::function<bool(Collider*, Collider*)> callback) {
+	inline void ColliderComponent::RegisterCollisionCallback(
+		std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+	) {
 		utils::Name i(TypeName<ColliderA>::GetName());
 		utils::Name j(TypeName<ColliderB>::GetName());
 		if (CollisionJumpTable.Find(i, j) != nullptr) {

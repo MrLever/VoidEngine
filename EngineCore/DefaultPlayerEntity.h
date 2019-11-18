@@ -7,6 +7,7 @@
 #include "PlayerEntity.h"
 
 namespace core {
+
 	class DefaultPlayerEntity : public PlayerEntity {
 	public:
 		/**
