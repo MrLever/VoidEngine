@@ -52,6 +52,7 @@ namespace EngineCoreTests {
 			r2.SetPosition(math::Vector3(0, 1, 0));
 			r1.Tick(.5f);
 			r2.Tick(.5f);
+			
 			Assert::IsTrue(c1->DetectCollision(c2));
 
 			r2.SetPosition(math::Vector3(0, 2, 0));

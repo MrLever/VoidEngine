@@ -156,6 +156,10 @@ namespace math {
 			);
 	}
 
+	float Vector3::Magnitude2() const {
+		return (X * X) + (Y * Y) + (Z * Z);
+	}
+
 	Vector3 Vector3::Normalize() const {
 		auto mag = Magnitude();
 		return Vector3(X / mag, Y / mag, Z / mag);

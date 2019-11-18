@@ -10,6 +10,7 @@ namespace core {
 
 	ENABLE_FACTORY(ColliderComponent, Component);
 
+	// Static variable initialization
 	utils::Table
 		<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionJumpTable;
@@ -18,7 +19,7 @@ namespace core {
 		
 	}
 
-	utils::Name ColliderComponent::GetTypename() {
+	utils::Name ColliderComponent::GetTypename() const {
 		return utils::Name(TypeName<ColliderComponent>::GetName());
 	}
 
@@ -49,5 +50,8 @@ namespace core {
 		else {
 			return false;
 		}
+	}
+	const Collider* ColliderComponent::GetShape() const {
+		return Shape;
 	}
 }

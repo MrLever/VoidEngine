@@ -26,10 +26,17 @@ namespace core {
 	}
 
 	bool SphereCollider::DetectSphereCollision(ColliderComponent* left, ColliderComponent* right) {
-		return false;
+		const SphereCollider* sphere1 = reinterpret_cast<const SphereCollider*>(left->GetShape());
+		const SphereCollider* sphere2 = reinterpret_cast<const SphereCollider*>(left->GetShape());
+
+		auto collisionDistance = sphere1->Radius + sphere2->Radius;
+		auto collisionDistanceSquared = collisionDistance * collisionDistance;
+		
+		auto distanceSquared = left->GetDistanceSquared(right);
+		return distanceSquared <= collisionDistanceSquared;
 	}
 
-	utils::Name SphereCollider::GetTypename() {
+	utils::Name SphereCollider::GetTypename() const {
 		return utils::Name("SphereCollider");
 	}
 

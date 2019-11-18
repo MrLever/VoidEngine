@@ -29,7 +29,7 @@ namespace core {
 		/**
 		 * Returns dynamic type
 		 */
-		utils::Name GetTypename() override;
+		utils::Name GetTypename() const override;
 
 		/**
 		 * Returns name of static Collider Type

@@ -75,7 +75,7 @@ namespace core {
 		);
 	}
 
-	utils::Name CameraComponent::GetTypename() {
+	utils::Name CameraComponent::GetTypename() const {
 		return utils::Name(TypeName<CameraComponent>::GetName());
 	}
 

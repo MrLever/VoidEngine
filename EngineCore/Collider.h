@@ -30,7 +30,7 @@ namespace core {
 		/**
 		 * Returns dynamic type
 		 */
-		virtual utils::Name GetTypename() = 0;
+		virtual utils::Name GetTypename() const = 0;
 
 		/**
 		 * Returns name of static Collider Type
@@ -40,9 +40,8 @@ namespace core {
 	protected:
 		/** Data used to initialize component */
 		nlohmann::json ShapeData;
-
-		/** Reference to the parent component's position */
-		//math::Vector3& Position;
+		
+		static const float COLLISION_EPSILON;
 	};
 
 }

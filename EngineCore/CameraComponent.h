@@ -69,7 +69,7 @@ namespace core {
 		/**
 		 * Returns name of dynamic Component Type
 		 */
-		utils::Name GetTypename() override;
+		utils::Name GetTypename() const override;
 
 		/**
 		 * Returns name of static Component Type

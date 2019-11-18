@@ -109,6 +109,12 @@ namespace math {
 		float Magnitude() const;
 
 		/**
+		 * Calculates the magnitude of this vector
+		 * @return The magnitude
+		 */
+		float Magnitude2() const;
+
+		/**
 		 * Non-destructive method to get this vector's unit vector
 		 * @return the Unit Vector that corresponds to this vector
 		 */

@@ -43,7 +43,7 @@ namespace core {
 		}
 	}
 
-	utils::Name InputComponent::GetTypename() {
+	utils::Name InputComponent::GetTypename() const {
 		return utils::Name(TypeName<InputComponent>::GetName());
 	}
 

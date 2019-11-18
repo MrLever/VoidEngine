@@ -42,6 +42,14 @@ namespace core {
 		return Position;
 	}
 
+	float Component::GetDistance(Component* other) const {
+		return (Position - other->Position).Magnitude();
+	}
+
+	float Component::GetDistanceSquared(Component* other) const {
+		return (Position - other->Position).Magnitude2();
+	}
+
 	void Component::SetRotation(const math::Rotator& rotation) {
 		Rotation = rotation;
 	}

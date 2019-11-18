@@ -29,7 +29,7 @@ namespace core {
 		/**
 		 * Returns name of dynamic Component Type
 		 */
-		utils::Name GetTypename() override;
+		utils::Name GetTypename() const override;
 
 		/**
 		 * Returns name of static Component Type
@@ -53,6 +53,9 @@ namespace core {
 		 */
 		bool DetectCollision(ColliderComponent* other);
 
+		/** Accessor for shape */
+		const Collider* GetShape() const;
+
 		template <class ColliderA, class ColliderB>
 		static void RegisterCollisionCallback(std::function<bool(ColliderComponent*, ColliderComponent*)> callback);
 
@@ -66,6 +69,7 @@ namespace core {
 
 		/** The type of shape used when resolving collisions with this component */
 		Collider* Shape;
+	
 	};
 
 	template<class ColliderA, class ColliderB>

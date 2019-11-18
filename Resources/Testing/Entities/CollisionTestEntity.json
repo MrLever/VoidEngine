@@ -16,7 +16,7 @@
             "shape":
             {
                 "type":"SphereCollider",
-                "radius":2
+                "radius":1
             }
         }
     ]

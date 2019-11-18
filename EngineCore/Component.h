@@ -73,6 +73,16 @@ namespace core {
 		math::Vector3 GetPosition() const;
 
 		/**
+		 * Returns the distance between this component and the provided entity/component
+		 */
+		float GetDistance(Component* other) const;
+
+		/**
+		 * Returns the distance between this component and the provided component
+		 */
+		float GetDistanceSquared(Component* other) const;
+
+		/**
 		 * Set's this component's rotation
 		 * @param position The position to use
 		 */
@@ -81,7 +91,7 @@ namespace core {
 		/**
 		 * Returns name of dynamic Component Type
 		 */
-		virtual utils::Name GetTypename() = 0;
+		virtual utils::Name GetTypename() const = 0;
 
 		/**
 		 * Returns name of static Component Type

@@ -7,6 +7,9 @@
 
 namespace core {
 
+	// Static variable initialization
+	const float Collider::COLLISION_EPSILON = 0.0001f;
+
 	Collider::Collider() {
 
 	}

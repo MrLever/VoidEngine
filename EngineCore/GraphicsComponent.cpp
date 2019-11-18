@@ -97,7 +97,7 @@ namespace core {
 		}
 	}
 
-	utils::Name GraphicsComponent::GetTypename() {
+	utils::Name GraphicsComponent::GetTypename() const {
 		return utils::Name(TypeName<GraphicsComponent>::GetName());
 	}
 
