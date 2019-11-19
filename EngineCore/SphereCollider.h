@@ -24,7 +24,7 @@ namespace core {
 		/** Radius Accessor */
 		float GetRadius();
 
-		static bool DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
+		static Manifold* DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
 
 		/**
 		 * Returns dynamic type

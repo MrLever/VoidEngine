@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "Collider.h"
 #include "Table.h"
+#include "Manifold.h"
 
 namespace core {
 
@@ -51,17 +52,17 @@ namespace core {
 		 * Functions to allow derived colliders to interact properly
 		 * with other colliders
 		 */
-		bool DetectCollision(ColliderComponent* other);
+		Manifold* DetectCollision(ColliderComponent* other);
 
 		/** Accessor for shape */
 		const Collider* GetShape() const;
 
 		template <class ColliderA, class ColliderB>
-		static void RegisterCollisionCallback(std::function<bool(ColliderComponent*, ColliderComponent*)> callback);
+		static void RegisterCollisionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
 
 	protected:
 		static utils::Table
-			<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
+			<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
 		CollisionJumpTable;
 
 		/** Layer(s) this collider interacts with */
@@ -74,7 +75,7 @@ namespace core {
 
 	template<class ColliderA, class ColliderB>
 	inline void ColliderComponent::RegisterCollisionCallback(
-		std::function<bool(ColliderComponent*, ColliderComponent*)> callback
+		std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback
 	) {
 		utils::Name i(TypeName<ColliderA>::GetName());
 		utils::Name j(TypeName<ColliderB>::GetName());

@@ -12,7 +12,7 @@ namespace core {
 
 	// Static variable initialization
 	utils::Table
-		<utils::Name, utils::Name, std::function<bool(ColliderComponent*, ColliderComponent*)>>
+		<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionJumpTable;
 
 	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
@@ -38,7 +38,7 @@ namespace core {
 		Position = Parent->GetPostion();
 	}
 	
-	bool ColliderComponent::DetectCollision(ColliderComponent* other) {
+	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {
 		auto colliderType1 = Shape->GetTypename();
 		auto colliderType2 = other->Shape->GetTypename();
 
@@ -48,7 +48,7 @@ namespace core {
 			return callback->operator()(this, other);
 		}
 		else {
-			return false;
+			return nullptr;
 		}
 	}
 	const Collider* ColliderComponent::GetShape() const {
