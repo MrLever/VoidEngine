@@ -309,6 +309,9 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
     </ClCompile>
+    <ClCompile Include="Manifold.cpp">
+      <Filter>Source Files\Engine Core\Physics System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Manifold.h">
+      <Filter>Header Files\Engine Core\Physics System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
