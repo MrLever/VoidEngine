@@ -8,7 +8,9 @@
 namespace core {
 	
 	PhysicsBody::PhysicsBody() 
-		: Velocity(), Force(), Mass(0), GravityScale(0), Density(0), Restitution(0) {
+		: Velocity(), Force(), Mass(1), 
+		  GravityScale(1), Density(1), Restitution(.5), 
+		  PhysicsEnabled(true) {
 		
 	}
 

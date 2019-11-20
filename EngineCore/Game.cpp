@@ -110,12 +110,13 @@ namespace core {
 	}
 
 	void Game::Update(float deltaTime) {
-		if (deltaTime - 0.5f < std::numeric_limits<float>::epsilon()) {
+		if (deltaTime > 0.5f) {
 			deltaTime = 0.5f;
 		}
 
 		UpdateFramerate(deltaTime);
 
+		CorePhysicsEngine->Simulate(CurrentLevel.get(), deltaTime);
 		CurrentLevel->Update(deltaTime);
 	}
 

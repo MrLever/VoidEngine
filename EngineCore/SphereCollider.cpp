@@ -39,6 +39,8 @@ namespace core {
 			return nullptr;
 		}
 
+		utils::Logger::LogDebug("Sphere vs Sphere Collision Detected");
+
 		auto distance = left->GetDistance(right);
 
 		// This pointer must be freed by the physics engine after the collision is resolved.

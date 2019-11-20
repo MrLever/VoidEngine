@@ -24,6 +24,9 @@ namespace core {
 		/** Radius Accessor */
 		float GetRadius();
 
+		/**
+		 * Static callback to generate a manifold for a sphere-sphere collision
+		 */
 		static Manifold* DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
 
 		/**

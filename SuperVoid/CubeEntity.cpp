@@ -17,6 +17,7 @@ namespace SuperVoid {
 
 	CubeEntity::CubeEntity() {
 		Velocity = 0.05f;
+		Body.PhysicsEnabled = false;
 	}
 
 	CubeEntity::~CubeEntity() {

@@ -1,37 +1,26 @@
 {
     "name":"MainMenu",
     "controlFile":"Settings/Controls/FPSControls.json",
+    "gravity": 9.81,
     "entities":
     [
         {
             "name":"FloatingPawn",
             "type":"DefaultPlayerEntity",
-            "location": [0, 0, 5],
+            "location": [0, 0, 30],
             "rotation": [0, 90, 0]
         },
         {
-            "name":"BouncingCube1",
-            "type":"BouncingCube",
-            "location": [0, 0, 0],
-            "rotation": [0, 45, 0]
-        },
-        {
-            "name":"TestShip",
-            "type":"PlayerShip",
-            "location": [5, 0, 0],
+            "name":"TestSphere",
+            "type":"SphereEntity",
+            "location": [0, 10, 0],
             "rotation": [0, 0, 0]
         },
         {
             "name":"TestCube",
             "type":"CubeEntity",
-            "location": [-5, 0, 0],
-            "rotation": [45, 45, 45]
-        },
-        {
-            "name":"TestCube",
-            "type":"CubeEntity",
-            "location": [0, 5, 0],
-            "rotation": [45, 0, 45]
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0]
         }
     ]
 }

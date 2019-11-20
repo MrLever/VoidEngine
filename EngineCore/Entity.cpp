@@ -9,7 +9,7 @@
 
 namespace core {
 
-	Entity::Entity() : ID("Entity"), PhysicsEnabled(true) {
+	Entity::Entity() : ID("Entity") {
 	
 	}
 
@@ -74,6 +74,9 @@ namespace core {
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
 		Position = newPosition;
+		for (auto& componentEntry : Components) {
+			componentEntry.second->SetPosition(Position);
+		}
 	}
 
 	math::Rotator Entity::GetRotation() {
@@ -94,6 +97,10 @@ namespace core {
 
 	void Entity::SetName(const utils::Name& name) {
 		ID = name;
+	}
+
+	PhysicsBody* Entity::GetBody() {
+		return &Body;
 	}
 
 	void Entity::SetConfigData(const nlohmann::json& data) {

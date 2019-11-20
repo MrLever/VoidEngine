@@ -31,6 +31,9 @@ namespace core {
 
 		/** Elasticity of parent */
 		float Restitution;
+
+		/** Enables or disables physics simulations */
+		bool PhysicsEnabled;
 	};
 }
 

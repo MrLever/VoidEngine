@@ -3,10 +3,10 @@
     [
         {
             "type": "GraphicsComponent",
-            "model":"Resources/Models/Cube/Cube.obj",
+            "model":"Resources/Models/Sphere/Sphere.obj",
             "shader":
             {
-                "name":"CubeMaterial",
+                "name":"SphereMaterial",
                 "vertexShader":"Resources/Shaders/default.vert",
                 "fragmentShader":"Resources/Shaders/default.frag"
             }
@@ -16,7 +16,7 @@
             "shape":
             {
                 "type":"SphereCollider",
-                "radius":2
+                "radius":1
             }
         }
     ]

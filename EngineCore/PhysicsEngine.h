@@ -25,7 +25,7 @@ namespace core {
 		/**
 		 * Allows the engine to perform physics updates on the scene
 		 */
-		void Simulate(Level* scene);
+		void Simulate(Level* scene, float deltaTime);
 
 		/**
 		 * Applies physics engine settings
@@ -38,6 +38,22 @@ namespace core {
 		void ReceiveEvent(Event* event) override;
 
 	private:
+		/**
+		 * Applies any special forces to entities in scene
+		 */
+		void ApplyForces(Level* scene, float deltaTime);
+
+		/**
+		 * Applies laws of physics to update positions of entities in scene
+		 */
+		void Integrate(Level* scene, float deltaTime);
+
+		/**
+		 * Detects and resolves collisions in scene
+		 */
+		void HandleCollisions(Level* scene, float deltaTime);
+
+
 		/**
 		 * Generates a set of valid collisions that must be resolved
 		 */

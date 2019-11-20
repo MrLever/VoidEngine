@@ -95,6 +95,11 @@ namespace core {
 		void SetName(const utils::Name& name);
 
 		/**
+		 * Accessor for this entitie's physics body
+		 */
+		PhysicsBody* GetBody();
+
+		/**
 		 * Used to set Entitiy's initialization data
 		 */
 		void SetConfigData(const nlohmann::json& data);
@@ -129,9 +134,6 @@ namespace core {
 		/** The entity's rotation in 3D space */
 		math::Quaternion Rotation;
 
-		/** Enables or disables physics simulations */
-		bool PhysicsEnabled;
-
 		/** Rigid-body simulation data */
 		PhysicsBody Body;
 	};
@@ -140,7 +142,6 @@ namespace core {
 	inline T* Entity::GetComponent() {
 		auto componentEntry = Components.find(T::GetStaticTypename());
 		if (componentEntry == Components.end()) {
-			utils::Logger::LogWarning("Requested component " + T::GetStaticTypename().StringID + " not found.");
 			return nullptr;
 		}
 		else {
