@@ -17,9 +17,21 @@
             "rotation": [0, 0, 0]
         },
         {
+            "name":"TestSphere",
+            "type":"SphereEntity",
+            "location": [-1, 30, 0],
+            "rotation": [0, 0, 0]
+        },
+        {
             "name":"TestCube",
             "type":"CubeEntity",
             "location": [0, 0, 0],
+            "rotation": [0, 0, 0]
+        },
+        {
+            "name":"TestCube",
+            "type":"CubeEntity",
+            "location": [7, -5, 0],
             "rotation": [0, 0, 0]
         }
     ]

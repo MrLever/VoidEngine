@@ -95,7 +95,10 @@ namespace core {
 		//O(n^2) Collision detection
 		for (int i = 0; i < colliders.size(); i++) {
 			for (int j = i+1; j < colliders.size(); j++) {
-				manifolds.insert(colliders[i]->DetectCollision(colliders[j]));
+				auto manifold = colliders[i]->DetectCollision(colliders[j]);
+				if (manifold) {
+					manifolds.insert(manifold);
+				}
 			}
 		}
 
@@ -103,7 +106,9 @@ namespace core {
 	}
 
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*> collisions) {
-
+		for (auto& manifold : collisions) {
+			ColliderComponent::ResolveCollision(manifold);
+		}
 	}
 
 }

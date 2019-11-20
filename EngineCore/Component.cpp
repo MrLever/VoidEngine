@@ -14,6 +14,10 @@ namespace core {
 		Parent = parent;
 	}
 
+	Entity* Component::GetParent() {
+		return Parent;
+	}
+
 	void Component::SetConfigData(const nlohmann::json& data) {
 		ComponentData = data;
 	}

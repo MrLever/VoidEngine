@@ -29,9 +29,10 @@ namespace core {
 		Component();
 
 		/**
-		 * Set's the component's owner
+		 * Accessors for the component's owner
 		 */
 		void SetParent(Entity* parent);
+		Entity* GetParent();
 
 		/**
 		 * Set's the component's initialization data

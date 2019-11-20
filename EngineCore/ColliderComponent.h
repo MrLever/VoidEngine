@@ -54,16 +54,28 @@ namespace core {
 		 */
 		Manifold* DetectCollision(ColliderComponent* other);
 
+		/**
+		 *
+		 */
+		static void ResolveCollision(Manifold* collision);
+
 		/** Accessor for shape */
 		const Collider* GetShape() const;
 
 		template <class ColliderA, class ColliderB>
-		static void RegisterCollisionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
+		static void RegisterCollisionDetectionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
+		
+		template <class ColliderA, class ColliderB>
+		static void RegisterCollisionResolutionCallback(std::function<void (Manifold*)> callback);
 
 	protected:
 		static utils::Table
 			<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
-		CollisionJumpTable;
+		CollisionDetectionJumpTable;
+
+		static utils::Table
+			<utils::Name, utils::Name, std::function<void(Manifold*)>>
+		CollisionResolutionJumpTable;
 
 		/** Layer(s) this collider interacts with */
 		unsigned Layer;
@@ -74,20 +86,35 @@ namespace core {
 	};
 
 	template<class ColliderA, class ColliderB>
-	inline void ColliderComponent::RegisterCollisionCallback(
+	inline void ColliderComponent::RegisterCollisionDetectionCallback(
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback
 	) {
 		utils::Name i(TypeName<ColliderA>::GetName());
 		utils::Name j(TypeName<ColliderB>::GetName());
-		if (CollisionJumpTable.Find(i, j) != nullptr) {
+		if (CollisionDetectionJumpTable.Find(i, j) != nullptr) {
 			utils::Logger::LogWarning(
-				"CollisionCallback [" +
+				"Collision Detection Callback [" +
 				i.StringID + "][" +
 				j.StringID + "] has already been registered");
 			return;
 		}
 
-		CollisionJumpTable[i][j] = callback;
+		CollisionDetectionJumpTable[i][j] = callback;
+	}
+
+	template<class ColliderA, class ColliderB>
+	inline void ColliderComponent::RegisterCollisionResolutionCallback(std::function<void(Manifold*)> callback) {
+		utils::Name i(TypeName<ColliderA>::GetName());
+		utils::Name j(TypeName<ColliderB>::GetName());
+		if (CollisionResolutionJumpTable.Find(i, j) != nullptr) {
+			utils::Logger::LogWarning(
+				"Collision Resolution Callback [" +
+				i.StringID + "][" +
+				j.StringID + "] has already been registered");
+			return;
+		}
+
+		CollisionResolutionJumpTable[i][j] = callback;
 	}
 
 }

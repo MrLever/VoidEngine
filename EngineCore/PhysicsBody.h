@@ -14,6 +14,8 @@ namespace core {
 		 */
 		PhysicsBody();
 
+		void SetMass(float mass);
+
 		/** The Entity's current velocity */
 		math::Vector3 Velocity;
 
@@ -22,6 +24,9 @@ namespace core {
 
 		/** The parent's mass */
 		float Mass;
+
+		/** The parent's inverse mass */
+		float InverseMass;
 
 		/** Scales how much gravity effects the parent */
 		float GravityScale;
