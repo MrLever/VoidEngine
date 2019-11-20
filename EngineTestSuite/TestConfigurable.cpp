@@ -37,7 +37,7 @@ namespace EngineUtilitiesTests {
 
 	TEST_CLASS(ConfigurableTests) {
 		TEST_METHOD(ConfigurableConfigureTest) {
-			core::Game g();
+			core::Game g("");
 			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>();
 
 			DummyConfigurable d(
@@ -52,7 +52,7 @@ namespace EngineUtilitiesTests {
 		}
 
 		TEST_METHOD(ConfigurableReconfigureTest) {
-			core::Game g();
+			core::Game g("");
 			auto resourceMngr = std::make_shared<ResourceAllocator<Configuration>>();
 			auto resource1 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest1.json");
 			auto resource2 = resourceMngr->LoadResource("Settings/Testing/ConfigurableTest2.json");
