@@ -56,7 +56,7 @@ namespace core {
 		}
 		else {
 			//Normal manifold generation
-			collision->PenetrationDistance = sphere1->Radius - distance;
+			collision->PenetrationDistance = collisionDistance - distance;
 			collision->CollisionNormal = translationVector.Normalize();
 		}
 

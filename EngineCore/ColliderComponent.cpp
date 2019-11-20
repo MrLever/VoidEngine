@@ -51,6 +51,7 @@ namespace core {
 			return nullptr;
 		}
 	}
+
 	const Collider* ColliderComponent::GetShape() const {
 		return Shape;
 	}

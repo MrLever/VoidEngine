@@ -228,9 +228,6 @@
     <ClCompile Include="EventBus.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files\Engine Core</Filter>
-    </ClCompile>
     <ClCompile Include="EventDispatcher.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
     </ClCompile>
@@ -310,6 +307,9 @@
       <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Manifold.cpp">
+      <Filter>Source Files\Engine Core\Physics System</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Source Files\Engine Core\Physics System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -422,9 +422,6 @@
     <ClInclude Include="EventBus.h">
       <Filter>Header Files\Engine Core\Event System</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files\Engine Core</Filter>
-    </ClInclude>
     <ClInclude Include="WindowResizedEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
     </ClInclude>
@@ -510,6 +507,9 @@
       <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="Manifold.h">
+      <Filter>Header Files\Engine Core\Physics System</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
       <Filter>Header Files\Engine Core\Physics System</Filter>
     </ClInclude>
   </ItemGroup>

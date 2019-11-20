@@ -7,12 +7,26 @@
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
 #include "Configuration.h"
-#include "Engine.h"
 #include "EventBusNode.h"
+#include "AudioManager.h"
+#include "Configurable.h"
+#include "Configuration.h"
+#include "EventBus.h"
+#include "InputManager.h"
+#include "ThreadPool.h"
 #include "ResourceAllocator.h"
+#include "Renderer.h"
 #include "Level.h"
+#include "Window.h"
+#include "PhysicsEngine.h"
+#include "InputManager.h"
+#include "Renderer.h"
+#include "ResourceAllocator.h"
+#include "ThreadPool.h"
+#include "Window.h"
+#include "Logger.h"
 
 //Events
 #include "WindowClosedEvent.h"
@@ -40,6 +54,11 @@ namespace core {
 		~Game();
 
 	private:
+		/**
+		 * Set's up game engine enviornment
+		 */
+		void Initialize();
+
 		/**
 		 * Runs the game simulation
 		 */
@@ -81,11 +100,38 @@ namespace core {
 		/** The game's current level */
 		std::shared_ptr<Level> CurrentLevel;
 
-		/** The game's engine */
-		Engine GameEngine;
-
 		/** Resource Manager for the engine's level files */
 		ResourceAllocatorPtr<Level> LevelCache;
+		
+		/** A Handle to the Engine's thread pool */
+		std::shared_ptr<utils::ThreadPool> GameThreadPool;
+
+		/** Resource Manager for the engine's config files */
+		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
+
+		/** Engine's central event bus */
+		std::shared_ptr<EventBus> GameEventBus;
+
+		/** A handle to the game's display */
+		std::shared_ptr<Window> GameWindow;
+
+		/** The game's message bus */
+		std::shared_ptr<MessageBus> GameMessageBus;
+
+		/** Pointer to the game's Input Manager*/
+		std::shared_ptr<InputManager> GameInputManager;
+
+		/** Pointer to the game's Rendering Engine */
+		std::unique_ptr<Renderer> GameRenderer;
+
+		/** Pointer to the game's Audio Manger */
+		std::unique_ptr<AudioManager> GameAudioManager;
+
+		/** Pointer to physics subsystem */
+		std::unique_ptr<PhysicsEngine> CorePhysicsEngine;
+
+		/** Config settings for the game */
+		utils::Configuration EngineConfig;
 
 		/** The game's current framerate */
 		int FrameRate;

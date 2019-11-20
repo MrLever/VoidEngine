@@ -28,8 +28,6 @@ namespace EngineCoreTests {
 	TEST_CLASS(CollisionTests) {
 	public:
 		TEST_METHOD(SphereSphereCollisionTest) {
-			
-
 			DummyRigidBody r1;
 			DummyRigidBody r2;
 			
@@ -54,19 +52,21 @@ namespace EngineCoreTests {
 			r2.Tick(.5f);
 			
 			Manifold* manifold = c1->DetectCollision(c2);
-			Assert::IsNotNull(manifold);
+			
 			Assert::AreEqual(1.0f, manifold->PenetrationDistance);
+			delete manifold;
 
-			//Assert::IsTrue(c1->DetectCollision(c2));
+			r2.SetPosition(math::Vector3(0, 2, 0));
+			r2.Tick(.5f);
+			manifold = c1->DetectCollision(c2);
+			Assert::IsNotNull(manifold);
+			Assert::AreEqual(0.0f, manifold->PenetrationDistance);
+			delete manifold;
 
-			//r2.SetPosition(math::Vector3(0, 2, 0));
-			//r2.Tick(.5f);
-			//Assert::IsTrue(c1->DetectCollision(c2));
-
-			//r2.SetPosition(math::Vector3(0, 2.1f, 0));
-			//r2.Tick(.5f);
-			//Assert::IsFalse(c1->DetectCollision(c2));
-
+			r2.SetPosition(math::Vector3(0, 2.01f, 0));
+			r2.Tick(.5f);
+			manifold = c1->DetectCollision(c2);
+			Assert::IsNull(manifold);
 		}
 	};
 };

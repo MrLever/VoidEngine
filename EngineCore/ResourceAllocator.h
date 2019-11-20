@@ -17,13 +17,13 @@
 
 namespace core {
 	//Forward class declaration
-	class Engine;
+	class Game;
 }
 
 namespace utils {
 
 	class ResourceAllocatorBase {
-		friend class core::Engine;
+		friend class core::Game;
 	protected:
 		static std::shared_ptr<ThreadPool> EngineThreadPool;
 	};

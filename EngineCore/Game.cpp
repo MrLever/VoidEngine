@@ -6,31 +6,21 @@
 
 
 //Void Engine Headers
-#include "Engine.h"
-
-#include "AudioManager.h"
-#include "Configuration.h"
 #include "Game.h"
-#include "InputManager.h"
-#include "Renderer.h"
-#include "ResourceAllocator.h"
-#include "ThreadPool.h"
-#include "Window.h"
-#include "Logger.h"
 
 namespace core {
 
-	Game::Game(const std::string& configFile) : GameEngine(configFile) {
+	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
 		FrameRate = 0;
 		Terminated = false;
 		Paused = false;
-		BusNode = std::make_unique<GameEventBusNode>(GameEngine.GetEventBus().get(), this);
+		
+		EngineConfig.Load();
 
-		//Create the level cache
-		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>();
-
+		Initialize();
+		
 		//Set the current level to the default level
-		SetLevel(GameEngine.GetDefaultLevel());
+		SetLevel(EngineConfig.GetAttribute<std::string>("defaultLevel"));
 
 		//Start game loop
 		ExecuteGameLoop();
@@ -38,6 +28,55 @@ namespace core {
 
 	Game::~Game() {
 		utils::Logger::LogInfo("Game terminated!");
+	}
+
+	void Game::Initialize() {
+		//Initialize Engine Utilities
+		GameThreadPool = std::make_shared<utils::ThreadPool>();
+
+		utils::ResourceAllocatorBase::EngineThreadPool = GameThreadPool;
+
+		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>();
+
+		//Intialize EventBus
+		GameEventBus = std::make_shared<EventBus>();
+
+		//Initialize game window and input interface
+		WindowData data{
+			EngineConfig.GetAttribute<std::string>("gameName"),
+			800,
+			600
+		};
+
+		GameWindow = std::make_shared<Window>(GameEventBus.get(), data);
+
+		//Initialize Input Manager
+		GameInputManager = std::make_shared<InputManager>(
+			GameEventBus.get(),
+			ConfigManager->LoadResource("Settings/InputConfig.json")
+			);
+
+		//Initialize Renderer
+		GameRenderer = std::make_unique<Renderer>(
+			GameEventBus.get(),
+			GameWindow,
+			ConfigManager->LoadResource("Settings/RenderingConfig.json")
+			);
+
+		//Initialize Audio Manager
+		GameAudioManager = std::make_unique<AudioManager>(
+			GameThreadPool,
+			ConfigManager->LoadResource("Settings/AudioConfig.json")
+			);
+
+		CorePhysicsEngine = std::make_unique<PhysicsEngine>(
+			GameEventBus.get(),
+			ConfigManager->LoadResource("Settings/PhysicsConfig.json")
+			);
+		BusNode = std::make_unique<GameEventBusNode>(GameEventBus.get(), this);
+		
+		//Create the level cache
+		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>();
 	}
 
 	void Game::ExecuteGameLoop() {
@@ -54,7 +93,7 @@ namespace core {
 			ProcessInput(deltaTime);
 
 			//Dispatch any events that occurred since the last frame
-			GameEngine.DispatchEvents();
+			GameEventBus->DispatchEvents();
 
 			//Update the scene
 			if (!Paused) {
@@ -62,7 +101,7 @@ namespace core {
 			}
 
 			//Draw the scene
-			GameEngine.Render(CurrentLevel.get());
+			GameRenderer->Render(CurrentLevel.get());
 
 			//Update previous time
 			previousTime = currentTime;
@@ -81,8 +120,8 @@ namespace core {
 	}
 
 	void Game::ProcessInput(float deltaTime) {
-		GameEngine.PollInput();
-		GameEngine.ProcessInput(CurrentLevel.get(), deltaTime);
+		GameWindow->PollEvents();
+		GameInputManager->ProcessInput(CurrentLevel.get(), deltaTime);
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
@@ -94,7 +133,7 @@ namespace core {
 		numFrames++;
 
 		if (currentTime - lastTime >= ONE_SECOND) {
-			GameEngine.GetThreadPool()->SubmitJob(
+			GameThreadPool->SubmitJob(
 				[] (double frameTime){
 					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
 				},
@@ -111,10 +150,10 @@ namespace core {
 
 	void Game::PauseGame(PauseGameEvent* event) {
 		if (Paused) {
-			GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
+			GameInputManager->SetActiveInputMapping(CurrentLevel->GetControlFilePath());
 		}
 		else {
-			GameEngine.SwapInputProfile("Settings/Controls/MenuControls.json");
+			GameInputManager->SetActiveInputMapping("Settings/Controls/MenuControls.json");
 		}
 
 		Paused = !Paused;
@@ -127,7 +166,7 @@ namespace core {
 
 		CurrentLevel = LevelCache->GetResource(newLevelPath);
 		CurrentLevel->Initialize();
-		GameEngine.SwapInputProfile(CurrentLevel->GetControlFilePath());
+		GameInputManager->SetActiveInputMapping(CurrentLevel->GetControlFilePath());
 		CurrentLevel->BeginPlay();
 	}
 
