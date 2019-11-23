@@ -56,7 +56,7 @@ namespace core {
 			}
 
 			auto x_i = entity->GetPostion();
-			auto a = (body->Force / body->Mass);
+			auto a = (body->Force * body->InverseMass);
 			a *= deltaTime;
 
 			body->Velocity += a;
