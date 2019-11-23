@@ -53,7 +53,6 @@ namespace core {
 		 */
 		void HandleCollisions(Level* scene, float deltaTime);
 
-
 		/**
 		 * Generates a set of valid collisions that must be resolved
 		 */
@@ -63,6 +62,11 @@ namespace core {
 		 * Resolves collisions and applies impulses
 		 */
 		void ResolveCollisions(std::unordered_set<Manifold*> collisions);
+
+		/**
+		 * Resolve a single collision manifold
+		 */
+		void ResolveCollision(Manifold* collision);
 	};
 
 }

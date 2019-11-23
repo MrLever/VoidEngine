@@ -15,7 +15,6 @@ namespace core {
 	SphereCollider::SphereCollider() : Radius(0.0f) {
 		if (!CallbacksRegistered) {
 			ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereCollision);
-			ColliderComponent::RegisterCollisionResolutionCallback<SphereCollider, SphereCollider>(ResolveSphereCollision);
 		}
 	}
 

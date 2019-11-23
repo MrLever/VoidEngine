@@ -15,10 +15,6 @@ namespace core {
 		<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionDetectionJumpTable;
 
-	utils::Table
-		<utils::Name, utils::Name, std::function<void(Manifold*)>>
-	ColliderComponent::CollisionResolutionJumpTable;
-
 	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
 		
 	}
@@ -53,17 +49,6 @@ namespace core {
 		}
 		else {
 			return nullptr;
-		}
-	}
-
-	void ColliderComponent::ResolveCollision(Manifold* collision) {
-		auto colliderType1 = collision->ColliderA->Shape->GetTypename();
-		auto colliderType2 = collision->ColliderB->Shape->GetTypename();
-
-		auto callback = CollisionResolutionJumpTable.Find(colliderType1, colliderType2);
-
-		if (callback) {
-			callback->operator()(collision);
 		}
 	}
 

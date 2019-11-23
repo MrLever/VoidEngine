@@ -54,28 +54,18 @@ namespace core {
 		 */
 		Manifold* DetectCollision(ColliderComponent* other);
 
-		/**
-		 *
+		/** 
+		 * Accessor for shape 
 		 */
-		static void ResolveCollision(Manifold* collision);
-
-		/** Accessor for shape */
 		const Collider* GetShape() const;
 
 		template <class ColliderA, class ColliderB>
 		static void RegisterCollisionDetectionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
 		
-		template <class ColliderA, class ColliderB>
-		static void RegisterCollisionResolutionCallback(std::function<void (Manifold*)> callback);
-
 	protected:
 		static utils::Table
 			<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
 		CollisionDetectionJumpTable;
-
-		static utils::Table
-			<utils::Name, utils::Name, std::function<void(Manifold*)>>
-		CollisionResolutionJumpTable;
 
 		/** Layer(s) this collider interacts with */
 		unsigned Layer;
@@ -100,21 +90,6 @@ namespace core {
 		}
 
 		CollisionDetectionJumpTable[i][j] = callback;
-	}
-
-	template<class ColliderA, class ColliderB>
-	inline void ColliderComponent::RegisterCollisionResolutionCallback(std::function<void(Manifold*)> callback) {
-		utils::Name i(TypeName<ColliderA>::GetName());
-		utils::Name j(TypeName<ColliderB>::GetName());
-		if (CollisionResolutionJumpTable.Find(i, j) != nullptr) {
-			utils::Logger::LogWarning(
-				"Collision Resolution Callback [" +
-				i.StringID + "][" +
-				j.StringID + "] has already been registered");
-			return;
-		}
-
-		CollisionResolutionJumpTable[i][j] = callback;
 	}
 
 }

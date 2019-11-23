@@ -107,7 +107,39 @@ namespace core {
 
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*> collisions) {
 		for (auto& manifold : collisions) {
-			ColliderComponent::ResolveCollision(manifold);
+			ResolveCollision(manifold);
+		}
+	}
+
+	void PhysicsEngine::ResolveCollision(Manifold* collision) {
+		auto colliderA = collision->ColliderA;
+		auto objectA = colliderA->GetParent();
+		auto bodyA = objectA->GetBody();
+
+		auto colliderB = collision->ColliderB;
+		auto objectB = colliderB->GetParent();
+		auto bodyB = objectB->GetBody();
+
+		float restitution = std::min(bodyA->Restitution, bodyB->Restitution);
+		auto relativeVelocity = bodyB->Velocity - bodyA->Velocity;
+		auto relVelocityAlongNormal = relativeVelocity.Dot(collision->CollisionNormal);
+
+		if (relVelocityAlongNormal > 0) {
+			//If the relative velocity is positive, the objects are separating
+			return;
+		}
+
+		//Calculate impulse
+		float impulse = -(1 + restitution) * relVelocityAlongNormal;
+		impulse /= (bodyA->InverseMass) + (1 / bodyB->InverseMass);
+
+		//Apply impulses, but not to static objects
+		auto impulseVector = impulse * collision->CollisionNormal;
+		if (bodyA->PhysicsEnabled) {
+			bodyA->Velocity -= (bodyA->InverseMass) * impulseVector;
+		}
+		if (bodyB->PhysicsEnabled) {
+			bodyB->Velocity += (1 / bodyB->InverseMass) * impulseVector;
 		}
 	}
 
