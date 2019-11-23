@@ -67,6 +67,11 @@ namespace core {
 		 * Resolve a single collision manifold
 		 */
 		void ResolveCollision(Manifold* collision);
+
+		/**
+		 * Apply positional correction to prevent sinking object problem
+		 */
+		void CorrectPositions(Manifold* collision);
 	};
 
 }

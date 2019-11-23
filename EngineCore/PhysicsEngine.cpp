@@ -108,6 +108,7 @@ namespace core {
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*> collisions) {
 		for (auto& manifold : collisions) {
 			ResolveCollision(manifold);
+			CorrectPositions(manifold);
 		}
 	}
 
@@ -140,6 +141,37 @@ namespace core {
 		}
 		if (bodyB->PhysicsEnabled) {
 			bodyB->Velocity += (1 / bodyB->InverseMass) * impulseVector;
+		}
+	}
+
+	void PhysicsEngine::CorrectPositions(Manifold* collision) {
+		const float MAX_PEN = 0.01f;
+		const float CORRECTION_FACTOR = 0.4f;
+
+		auto colliderA = collision->ColliderA;
+		auto objectA = colliderA->GetParent();
+		auto bodyA = objectA->GetBody();
+
+		auto colliderB = collision->ColliderB;
+		auto objectB = colliderB->GetParent();
+		auto bodyB = objectB->GetBody();
+
+
+		float correctionConstant = std::max(collision->PenetrationDistance - MAX_PEN, 0.0f);
+		if (correctionConstant == 0) {
+			//If the objects penetration distance is under the maximum tolerance, short circuit
+			return;
+		}
+
+		correctionConstant /= (bodyA->InverseMass + bodyB->InverseMass);
+		correctionConstant *= CORRECTION_FACTOR;
+		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
+
+		if (bodyA->PhysicsEnabled) {
+			objectA->SetPosition(objectA->GetPostion() - correctionVector);
+		}
+		if (bodyB->PhysicsEnabled) {
+			objectB->SetPosition(objectB->GetPostion() + correctionVector);
 		}
 	}
 
