@@ -59,6 +59,16 @@ namespace core {
 		 */
 		void Draw() override;
 
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		utils::Name GetTypename() const override;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
+
 	private:
 		/** The this object's model matrix used for transformations in the vertex shader */
 		glm::mat4 ModelMatrix;

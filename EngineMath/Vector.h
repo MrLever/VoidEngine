@@ -109,6 +109,12 @@ namespace math {
 		float Magnitude() const;
 
 		/**
+		 * Calculates the magnitude of this vector
+		 * @return The magnitude
+		 */
+		float Magnitude2() const;
+
+		/**
 		 * Non-destructive method to get this vector's unit vector
 		 * @return the Unit Vector that corresponds to this vector
 		 */
@@ -138,6 +144,11 @@ namespace math {
 		 * Non-member subtraction operator overload
 		 */
 		friend Vector3 operator- (const Vector3& lhs, const Vector3& rhs);
+
+		/**
+		 * Subtraction assignment overload
+		 */
+		Vector3 operator- ();
 
 		/**
 		 * Scalar multiplication assignment overload

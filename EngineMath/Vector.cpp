@@ -68,6 +68,10 @@ namespace math {
 		return *this;
 	}
 
+	Vector3 Vector3::operator- () {
+		return Vector3(-X, -Y, -Z);
+	}
+
 	Vector3& Vector3::operator*=(float rhs) {
 		X *= rhs;
 		Y *= rhs;
@@ -154,6 +158,10 @@ namespace math {
 			std::sqrt(
 				(X * X) + (Y * Y) + (Z * Z)
 			);
+	}
+
+	float Vector3::Magnitude2() const {
+		return (X * X) + (Y * Y) + (Z * Z);
 	}
 
 	Vector3 Vector3::Normalize() const {

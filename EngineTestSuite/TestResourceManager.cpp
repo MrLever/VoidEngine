@@ -7,7 +7,7 @@
 //Void Engine Headers
 #include "ThreadPool.h"
 #include "ResourceAllocator.h"
-#include "Engine.h"
+#include "Game.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace utils;
@@ -50,7 +50,7 @@ namespace EngineUtilitiesTests {
 
 		TEST_METHOD(LoadNewResourceTest) {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
-			core::Engine("");
+			core::Game g("");
 			ResourceAllocator<RawFile> resourceMan;
 
 			auto rawHandle = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
@@ -62,7 +62,7 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(GetResourceTest) {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
-			core::Engine("");
+			core::Game g("");
 			ResourceAllocator<RawFile> resourceMan;
 
 			auto res = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
@@ -74,7 +74,7 @@ namespace EngineUtilitiesTests {
 		TEST_METHOD(ReloadResourceTest) {
 			std::string SuccessString = "Wowza engine programming is fuckin' hard dude";
 
-			core::Engine("");
+			core::Game g("");
 			ResourceAllocator<RawFile> resourceMan;
 
 			//Request resource to be loaded.
@@ -91,7 +91,7 @@ namespace EngineUtilitiesTests {
 
 		TEST_METHOD(RequestInvalidResourceTest) {
 			std::string SuccessString = "Error";
-			core::Engine("");
+			core::Game g("");
 			ResourceAllocator<RawFile> resourceMan;
 
 			auto res = resourceMan.LoadResource("FooBar");

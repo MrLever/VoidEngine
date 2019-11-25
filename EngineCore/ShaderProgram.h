@@ -8,10 +8,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Vector.h"
-
 //Void Engine Headers
 #include "Shader.h"
+#include "Vector.h"
 
 namespace core {
 

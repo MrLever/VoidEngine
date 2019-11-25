@@ -53,8 +53,17 @@ namespace core {
 		 * @param input The axis action to resolve
 		 * @param deltaTime The current time step
 		 */
-		virtual void Input(const AxisInputAction& input, float deltaTime);
+		void Input(const AxisInputAction& input, float deltaTime) override;
 
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		virtual utils::Name GetTypename() const override;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
 
 	private:
 		/** Component bindings for InputActions */

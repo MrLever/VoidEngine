@@ -23,9 +23,6 @@ namespace core {
 	 * @brief Class to represent a level in the game
 	 */
 	class Level : public utils::JsonResource {
-		friend class EntityFactory;
-		friend class ComponentFactory;
-
 	public:
 		/**
 		 * Constructor
@@ -83,12 +80,12 @@ namespace core {
 		 */
 		std::vector<Entity*> GetScene();
 
+		template <class T>
+		T QueryVariable(const std::string& variable);
+
 	private:
 		/** Cache of entity data files */
 		ResourceAllocatorPtr<EntityData> EntityDataCache;
-
-		/** Factory object used to add entities to this level's scene */
-		EntityFactory* LevelEntityFactory;
 
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;
@@ -99,5 +96,10 @@ namespace core {
 		/** Defines the input layout file should be used when running this level */
 		std::string InputDefinitionPath;
 	};
+
+	template<class T>
+	inline T Level::QueryVariable(const std::string& variable) {
+		return GetAttribute<T>(variable);
+	}
 
 }

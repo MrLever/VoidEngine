@@ -14,7 +14,11 @@ namespace core {
 		Parent = parent;
 	}
 
-	void Component::SetComponentData(const nlohmann::json& data) {
+	Entity* Component::GetParent() {
+		return Parent;
+	}
+
+	void Component::SetConfigData(const nlohmann::json& data) {
 		ComponentData = data;
 	}
 
@@ -38,7 +42,23 @@ namespace core {
 		Position = position;
 	}
 
+	math::Vector3 Component::GetPosition() const {
+		return Position;
+	}
+
+	float Component::GetDistance(Component* other) const {
+		return (Position - other->Position).Magnitude();
+	}
+
+	float Component::GetDistanceSquared(Component* other) const {
+		return (Position - other->Position).Magnitude2();
+	}
+
 	void Component::SetRotation(const math::Rotator& rotation) {
 		Rotation = rotation;
+	}
+
+	utils::Name Component::GetStaticTypename() {
+		return utils::Name(TypeName<Component>::GetName());
 	}
 }

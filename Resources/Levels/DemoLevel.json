@@ -1,30 +1,217 @@
 {
-    "name":"DemoLevel1",
+    "name":"CollisionDemo",
+    "controlFile":"Settings/Controls/FPSControls.json",
+    "gravity": 9.81,
     "entities":
     [
         {
-            "name":"Camera1",
-            "type":"StaticObserver",
-            "location": [0, 0, 15],
-            "rotation": [0, -90, 0]
+            "name":"FloatingPawn",
+            "type":"DefaultPlayerEntity",
+            "location": [0, 0, 30],
+            "rotation": [0, 90, 0]
         },
         {
-            "name":"Player1",
-            "type":"PlayerShip",
+            "name":"CenterCube",
+            "type":"DefaultEntity",
             "location": [0, 0, 0],
-            "rotation": [0, 0, 0]
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                }
+            ]
         },
         {
-            "name":"TestCube1",
-            "type":"BouncingCube",
-            "location": [5, 0, 0],
-            "rotation": [0, 0, 0]
+            "name":"CenterProjectile",
+            "type":"DefaultEntity",
+            "location": [0, 20, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1.4
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":0.1
+                }
+            ]
         },
         {
-            "name":"TestCube2",
-            "type":"BouncingCube",
-            "location": [-5, 0, 0],
-            "rotation": [0, 0, 0]
+            "name":"CenterProjectile2",
+            "type":"DefaultEntity",
+            "location": [-1, 40, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":0.5
+                }
+            ]
+        },
+        {
+            "name":"FloatingProjectile",
+            "type":"DefaultEntity",
+            "location": [0, -20, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":3
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "gravityScale":-1
+                }
+            ]
+        },
+        {
+            "name":"LeftCube",
+            "type":"DefaultEntity",
+            "location": [-8, -7, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "isStatic":true,
+                    "restitution":1                   
+                }
+            ]
+        },
+        {
+            "name":"LeftProjectile",
+            "type":"DefaultEntity",
+            "location": [-8, 20, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1.4
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":0.1
+                }
+            ]
+        },
+        {
+            "name":"RightCube",
+            "type":"DefaultEntity",
+            "location": [10, -7, -10],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "isStatic":true,
+                    "restitution":1                   
+                }
+            ]
+        },
+        {
+            "name":"RightProjectile",
+            "type":"DefaultEntity",
+            "location": [10, 20, -10],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":0
+                }
+            ]
         }
     ]
 }

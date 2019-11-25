@@ -133,6 +133,15 @@ namespace utils {
 
 	template<class Base>
 	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) {
+		if (!ConcreteFactories) {
+			utils::Logger::LogError(
+				"No concrete factories registered please enable factory for Product [" + 
+				product.StringID + "]"
+			);
+
+			return nullptr;
+		}
+
 		auto factoryIter = ConcreteFactories->find(product);
 
 		return (factoryIter == ConcreteFactories->end()) ? nullptr : factoryIter->second;

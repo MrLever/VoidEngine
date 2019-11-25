@@ -103,12 +103,6 @@
     <Filter Include="Source Files\Engine Core\Rendering System\Model Loading">
       <UniqueIdentifier>{f555a287-f13d-4852-8a3a-33d88b17eb46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine Core\Messaging Systems">
-      <UniqueIdentifier>{dd3c0ba9-4d27-4dc2-a3b8-fcbddc56b554}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine Core\Messaging Systems">
-      <UniqueIdentifier>{f738b3d8-ffd5-4077-8d24-cd722252e9e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine Core\Event System">
       <UniqueIdentifier>{6fe51614-19a8-409c-be01-7d1961022ac8}</UniqueIdentifier>
     </Filter>
@@ -133,22 +127,28 @@
     <Filter Include="Header Files\Engine Utilities\Factory System">
       <UniqueIdentifier>{5e0cc2ae-63ab-477c-b139-9c3bbdb4acd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System">
+      <UniqueIdentifier>{e362f981-dd1c-48f1-a52c-a3a26e5f1913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System">
+      <UniqueIdentifier>{1926bc80-0b78-46ff-b7c0-2bcd9100a160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System\Components">
+      <UniqueIdentifier>{7cfa718f-40bf-4c81-bfd2-83c26715923b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System\Components">
+      <UniqueIdentifier>{6d2d179e-bd05-4a49-becd-06636faa9c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Core\Physics System\Colliders">
+      <UniqueIdentifier>{0c1295dd-65fc-42d5-b3f5-901077c729b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Core\Physics System\Colliders">
+      <UniqueIdentifier>{fccfa09b-dacb-4c55-9ad9-0dddc18c2b9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Engine Core\Input System</Filter>
-    </ClCompile>
-    <ClCompile Include="EventTable.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageBus.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageBusNode.cpp">
-      <Filter>Source Files\Engine Core\Messaging Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c">
       <Filter>Dependencies</Filter>
@@ -182,9 +182,6 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\Engine Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Source Files\Gameplay Framework</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
@@ -230,9 +227,6 @@
     </ClCompile>
     <ClCompile Include="EventBus.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files\Engine Core</Filter>
     </ClCompile>
     <ClCompile Include="EventDispatcher.cpp">
       <Filter>Source Files\Engine Core\Event System</Filter>
@@ -297,6 +291,30 @@
     <ClCompile Include="ResourceAllocator.cpp">
       <Filter>Source Files\Engine Utilities\Resource Management</Filter>
     </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AABBCollider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Engine Core\Physics System\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Manifold.cpp">
+      <Filter>Source Files\Engine Core\Physics System</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>Source Files\Engine Core\Physics System</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -310,18 +328,6 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Engine Core\Input System</Filter>
-    </ClInclude>
-    <ClInclude Include="EventTable.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageBus.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageBusNode.h">
-      <Filter>Header Files\Engine Core\Messaging Systems</Filter>
     </ClInclude>
     <ClInclude Include="EngineUtilities.h">
       <Filter>Header Files\Engine Utilities</Filter>
@@ -361,9 +367,6 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files\Engine Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Header Files\Gameplay Framework</Filter>
     </ClInclude>
     <ClInclude Include="Name.h">
       <Filter>Header Files\Engine Utilities</Filter>
@@ -421,9 +424,6 @@
     </ClInclude>
     <ClInclude Include="EventBus.h">
       <Filter>Header Files\Engine Core\Event System</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files\Engine Core</Filter>
     </ClInclude>
     <ClInclude Include="WindowResizedEvent.h">
       <Filter>Header Files\Engine Core\Event System\Events</Filter>
@@ -490,6 +490,33 @@
     </ClInclude>
     <ClInclude Include="TypeUtils.h">
       <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Header Files\Engine Core\Physics System\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AABBCollider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Header Files\Engine Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Engine Core\Physics System\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Manifold.h">
+      <Filter>Header Files\Engine Core\Physics System</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>Header Files\Engine Core\Physics System</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

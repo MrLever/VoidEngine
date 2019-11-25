@@ -12,6 +12,8 @@
 #include "GamepadInput.h"
 #include "Vector.h"
 #include "Rotator.h"
+#include "TypeUtils.h"
+
 namespace core {
 	
 	/**
@@ -27,14 +29,15 @@ namespace core {
 		Component();
 
 		/**
-		 * Set's the component's owner
+		 * Accessors for the component's owner
 		 */
 		void SetParent(Entity* parent);
+		Entity* GetParent();
 
 		/**
 		 * Set's the component's initialization data
 		 */
-		void SetComponentData(const nlohmann::json& data);
+		void SetConfigData(const nlohmann::json& data);
 
 		/**
 		 * Applies component data to this object
@@ -65,16 +68,36 @@ namespace core {
 		virtual void Draw();
 
 		/**
-		 * Set's this component's position
-		 * @param position The position to use
+		 * Accessors for Position
 		 */
 		void SetPosition(const math::Vector3& position);
+		math::Vector3 GetPosition() const;
+
+		/**
+		 * Returns the distance between this component and the provided entity/component
+		 */
+		float GetDistance(Component* other) const;
+
+		/**
+		 * Returns the distance between this component and the provided component
+		 */
+		float GetDistanceSquared(Component* other) const;
 
 		/**
 		 * Set's this component's rotation
 		 * @param position The position to use
 		 */
 		void SetRotation(const math::Rotator& rotation);
+
+		/**
+		 * Returns name of dynamic Component Type
+		 */
+		virtual utils::Name GetTypename() const = 0;
+
+		/**
+		 * Returns name of static Component Type
+		 */
+		static utils::Name GetStaticTypename();
 
 	protected:
 		/** The component's position */

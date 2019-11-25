@@ -179,7 +179,6 @@
   <ItemGroup>
     <ClCompile Include="BouncingCube.cpp" />
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="CubeEntity.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BouncingCube.h" />
-    <ClInclude Include="CubeEntity.h" />
     <ClInclude Include="PlayerShip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

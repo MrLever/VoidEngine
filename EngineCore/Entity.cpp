@@ -8,25 +8,27 @@
 #include "JsonResource.h"
 
 namespace core {
-	Entity::Entity() : ID("Entity"), Velocity(0.0f) {
+
+	Entity::Entity() : ID("Entity") {
 	
 	}
 
 	Entity::~Entity() {
-		for (auto& component : Components) {
-			delete component;
+		for (auto& componentEntry : Components) {
+			delete componentEntry.second;
 		}
+		Components.clear();
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
-		for (auto& component : Components) {
-			component->Input(input, deltaTime);
+		for (auto& componentEntry : Components) {
+			componentEntry.second->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
-		for (auto& component : Components) {
-			component->Input(input, deltaTime);
+		for (auto& componentEntry : Components) {
+			componentEntry.second->Input(input, deltaTime);
 		}
 	}
 
@@ -49,20 +51,20 @@ namespace core {
 			);
 		}
 		
-		for (auto& component : Components) {
-			component->Initialize();
+		for (auto& componentEntry : Components) {
+			componentEntry.second->Initialize();
 		}
 	}
 
 	void Entity::Tick(float deltaTime) {
-		for (auto& component : Components) {
-			component->Tick(deltaTime);
+		for (auto& componentEntry : Components) {
+			componentEntry.second->Tick(deltaTime);
 		}
 	}
 
 	void Entity::Draw() const {
-		for (auto& component : Components) {
-			component->Draw();
+		for (auto& componentEntry : Components) {
+			componentEntry.second->Draw();
 		}
 	}
 
@@ -72,6 +74,9 @@ namespace core {
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
 		Position = newPosition;
+		for (auto& componentEntry : Components) {
+			componentEntry.second->SetPosition(Position);
+		}
 	}
 
 	math::Rotator Entity::GetRotation() {
@@ -100,6 +105,9 @@ namespace core {
 
 	void Entity::AddComponent(Component* component) {
 		component->SetParent(this);
-		Components.push_back(component);
+		auto name = component->GetTypename();
+
+		Components.insert({ name, component });
 	}
+
 }

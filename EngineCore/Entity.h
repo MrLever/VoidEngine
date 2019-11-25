@@ -103,24 +103,41 @@ namespace core {
 		 * @param component The component to add
 		 */
 		void AddComponent(Component* component);
+
+		/**
+		 * Returns componet of type T
+		 * @tparam T The type of component being requested
+		 * @return Component of type T if entity has requested component, else nullptr
+		 */
+		template<class T>
+		T* GetComponent();
 	
 	protected:
+		/** Entity's name */
+		utils::Name ID;
+
+		/** Data used to configure Entity's initial state */
+		nlohmann::json ConfigData;
+
+		/** All of the components for this entity */
+		std::unordered_map<utils::Name, Component*> Components;
+
 		/** The entity's position in 3D space */
 		math::Vector3 Position;
 
 		/** The entity's rotation in 3D space */
 		math::Quaternion Rotation;
-		
-		/** The entity's velocity */
-		float Velocity;
-
-		/** Entity's name */
-		utils::Name ID;
-
-		/** Entitiy's initialization data */
-		nlohmann::json ConfigData;
-
-		/** All of the components for this entity */
-		std::vector<Component*> Components;
 	};
+
+	template<class T>
+	inline T* Entity::GetComponent() {
+		auto componentEntry = Components.find(T::GetStaticTypename());
+		if (componentEntry == Components.end()) {
+			return nullptr;
+		}
+		else {
+			T* component = reinterpret_cast<T*>(componentEntry->second);
+			return component;
+		}
+	}
 }

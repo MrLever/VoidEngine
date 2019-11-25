@@ -39,11 +39,16 @@ namespace core {
 		ComponentModel = modelCache->GetResource(ComponentData["model"].get<std::string>());
 		ComponentModel->Initialize();
 
-		AddMaterial(
-			ComponentData["shader"]["name"].get<std::string>(),
-			ComponentData["shader"]["vertexShader"].get<std::string>(),
-			ComponentData["shader"]["fragmentShader"].get<std::string>()
-		);
+		if (ComponentData.find("shader") != ComponentData.end()) {
+			AddMaterial(
+				ComponentData["shader"]["name"].get<std::string>(),
+				ComponentData["shader"]["vertexShader"].get<std::string>(),
+				ComponentData["shader"]["fragmentShader"].get<std::string>()
+			);
+		}
+		else {
+			AddMaterial("DefaultMaterial", "Resources/Shaders/default.vert", "Resources/Shaders/default.frag");
+		}
 	}
 
 	void GraphicsComponent::SetModel(std::shared_ptr<Model> model) {
@@ -95,6 +100,14 @@ namespace core {
 		if (ComponentModel) {
 			ComponentModel->Draw(ComponentShader);
 		}
+	}
+
+	utils::Name GraphicsComponent::GetTypename() const {
+		return utils::Name(TypeName<GraphicsComponent>::GetName());
+	}
+
+	utils::Name GraphicsComponent::GetStaticTypename() {
+		return utils::Name(TypeName<GraphicsComponent>::GetName());
 	}
 
 }

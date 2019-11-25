@@ -59,11 +59,6 @@ namespace utils {
 		bool GetIsInitialized();
 
 		/**
-		 * Allows owners to query if this resource is a composite resource
-		 */
-		bool GetIsComposite();
-
-		/**
 		 * Gets the resources' ID
 		 */
 		Name GetResourceID();
@@ -82,12 +77,6 @@ namespace utils {
 		bool IsInitialized;
 
 		/** Let's Managing objects know whether this resource is can be initialized on other threads */
-		bool IsThreadSafe;
-	
-		/** 
-		 * Flag that informs the resource manager to attatch a thread pool to this resource 
-		 * for further resource loading
-		 */
-		bool IsComposite;
+		bool IsThreadSafe;	
 	};
 }

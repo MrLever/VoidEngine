@@ -8,7 +8,7 @@
 namespace utils {
 	///Public Functions
 	Resource::Resource(const std::string& filePath) 
-		: ResourceID(filePath), ResourcePath(filePath), IsInitialized(false), IsThreadSafe(false), IsComposite(false) {
+		: ResourceID(filePath), ResourcePath(filePath), IsInitialized(false), IsThreadSafe(false) {
 		
 		ResourceValid = std::filesystem::exists(ResourcePath);
 		if (!ResourceValid) {
@@ -26,10 +26,6 @@ namespace utils {
 
 	bool Resource::GetIsInitialized() {
 		return IsInitialized;
-	}
-
-	bool Resource::GetIsComposite() {
-		return IsComposite;
 	}
 
 	Name Resource::GetResourceID() {

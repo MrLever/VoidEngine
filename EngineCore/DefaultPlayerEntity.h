@@ -7,6 +7,7 @@
 #include "PlayerEntity.h"
 
 namespace core {
+
 	class DefaultPlayerEntity : public PlayerEntity {
 	public:
 		/**
@@ -39,7 +40,7 @@ namespace core {
 		 * Allows player entities to set up input components with keybindings
 		 * @param component The component to configure
 		 */
-		virtual void SetupInputComponent(InputComponent* component) override;
+		void SetupInputComponent(InputComponent* component) override;
 
 
 	private:

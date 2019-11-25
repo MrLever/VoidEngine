@@ -1,0 +1,23 @@
+{
+    "components":
+    [
+        {
+            "type": "GraphicsComponent",
+            "model":"Resources/Models/Sphere/Sphere.obj",
+            "shader":
+            {
+                "name":"SphereMaterial",
+                "vertexShader":"Resources/Shaders/default.vert",
+                "fragmentShader":"Resources/Shaders/default.frag"
+            }
+        },
+        {
+            "type":"ColliderComponent",
+            "shape":
+            {
+                "type":"SphereCollider",
+                "radius":1
+            }
+        }
+    ]
+}

@@ -1,25 +1,25 @@
 #pragma once
 //STD Headers
 
-//Engine Headers
+//Library Headers
+
+//Void Engine Headers
 #include "Entity.h"
-#include "GraphicsComponent.h"
 
-//SuperVoid Headers
+namespace core {
 
-namespace SuperVoid {
 
-	class CubeEntity : public core::Entity {
-	public: 
+	class DefaultEntity : public Entity {
+	public:
 		/**
 		 * Constructor
 		 */
-		CubeEntity();
-		
+		DefaultEntity();
+
 		/**
 		 * Destructor
 		 */
-		~CubeEntity();
+		~DefaultEntity();
 
 		/**
 		 * Allows an entity to configure itself after it is constructed
@@ -43,9 +43,7 @@ namespace SuperVoid {
 		 */
 		void Terminate() override;
 
-	private:
-		float Velocity;
-
 	};
 
 }
+
