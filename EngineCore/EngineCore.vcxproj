@@ -257,6 +257,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="ControlLayout.cpp" />
+    <ClCompile Include="DefaultEntity.cpp" />
     <ClCompile Include="DefaultPlayerEntity.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
@@ -314,6 +315,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ControlLayout.h" />
+    <ClInclude Include="DefaultEntity.h" />
     <ClInclude Include="DefaultPlayerEntity.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />

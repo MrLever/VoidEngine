@@ -53,7 +53,7 @@ namespace core {
 			auto entityType = entityWorldData["type"].get<std::string>();
 			auto entity = utils::FactoryBase<Entity>::Create(entityType);
 			if (entity == nullptr) {
-				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register it's factory.");
+				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register its factory.");
 				continue;
 			}
 

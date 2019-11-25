@@ -1,5 +1,5 @@
 {
-    "name":"MainMenu",
+    "name":"CollisionDemo",
     "controlFile":"Settings/Controls/FPSControls.json",
     "gravity": 9.81,
     "entities":
@@ -9,6 +9,27 @@
             "type":"DefaultPlayerEntity",
             "location": [0, 0, 30],
             "rotation": [0, 90, 0]
+        },
+        {
+            "name":"CenterCube",
+            "type":"DefaultEntity",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":2
+                    }
+                }
+            ]
         },
         {
             "name":"TestSphere",
@@ -26,12 +47,6 @@
             "name":"TestSphere",
             "type":"SphereEntity",
             "location": [-8, 30, 0],
-            "rotation": [0, 0, 0]
-        },
-        {
-            "name":"TestCube",
-            "type":"CubeEntity",
-            "location": [0, 0, 0],
             "rotation": [0, 0, 0]
         },
         {

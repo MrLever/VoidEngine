@@ -312,6 +312,9 @@
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Source Files\Engine Core\Physics System</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultEntity.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GamepadInput.h">
@@ -511,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsEngine.h">
       <Filter>Header Files\Engine Core\Physics System</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEntity.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
