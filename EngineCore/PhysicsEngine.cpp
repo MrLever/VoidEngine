@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "PhysicsEngine.h"
+#include "PhysicsComponent.h"
 #include "ColliderComponent.h"
 
 namespace core {
@@ -35,13 +36,15 @@ namespace core {
 		
 		//apply gravity
 		for (auto& entity : entities) {
-			auto body = entity->GetBody();
-			if (!body->PhysicsEnabled) {
+			auto body = entity->GetComponent<PhysicsComponent>();
+			if (!body) {
 				continue;
 			}
+			
+			auto force = body->GetMass() * g * math::Vector3(0, -1, 0);
+			force *= body->GetGravityScale();
 
-			auto force = body->Mass * g * math::Vector3(0, -1, 0);
-			body->Force = force;
+			body->ApplyForce(force);
 		}
 	}
 
@@ -50,23 +53,22 @@ namespace core {
 
 		//Resolve forces
 		for (auto& entity : entities) {
-			auto body = entity->GetBody();
-			if (!body->PhysicsEnabled) {
+			auto body = entity->GetComponent<PhysicsComponent>();
+			if (!body) {
 				continue;
 			}
 
 			auto x_i = entity->GetPostion();
-			auto a = (body->Force * body->InverseMass);
-			a *= deltaTime;
+			auto a = (body->GetForce() * body->GetInverseMass());
 
-			body->Velocity += a;
+			body->AddVelocity(a * deltaTime);
 
-			auto x_f = x_i + (body->Velocity * deltaTime);
+			auto x_f = x_i + (body->GetVelocity() * deltaTime);
 
 			entity->SetPosition(x_f);
 
 			//Clear active forces after resolved
-			body->Force = math::Vector3();
+			body->ClearForce();
 		}
 	}
 
@@ -115,14 +117,25 @@ namespace core {
 	void PhysicsEngine::ResolveCollision(Manifold* collision) {
 		auto colliderA = collision->ColliderA;
 		auto objectA = colliderA->GetParent();
-		auto bodyA = objectA->GetBody();
+		auto bodyA = objectA->GetComponent<PhysicsComponent>();
 
 		auto colliderB = collision->ColliderB;
 		auto objectB = colliderB->GetParent();
-		auto bodyB = objectB->GetBody();
+		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
-		float restitution = std::min(bodyA->Restitution, bodyB->Restitution);
-		auto relativeVelocity = bodyB->Velocity - bodyA->Velocity;
+		if (bodyA == nullptr && bodyB == nullptr) {
+			return;
+		}
+
+		//Calculate bounciness of collision
+		float resA = (bodyA == nullptr) ? 1 : bodyA->GetRestitution();
+		float resB = (bodyB == nullptr) ? 1 : bodyB->GetRestitution();
+		float restitution = std::min(resA, resB);
+
+		//Calculate relative velocity of collision
+		math::Vector3 velocityA = (bodyA == nullptr) ? math::Vector3() : bodyA->GetVelocity();
+		math::Vector3 velocityB = (bodyB == nullptr) ? math::Vector3() : bodyB->GetVelocity();
+		auto relativeVelocity = velocityB - velocityA;
 		auto relVelocityAlongNormal = relativeVelocity.Dot(collision->CollisionNormal);
 
 		if (relVelocityAlongNormal > 0) {
@@ -130,17 +143,22 @@ namespace core {
 			return;
 		}
 
+		//Gather object masses
+		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
+		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
+
 		//Calculate impulse
 		float impulse = -(1 + restitution) * relVelocityAlongNormal;
-		impulse /= (bodyA->InverseMass) + (1 / bodyB->InverseMass);
+
+		impulse /= (invMassA + invMassB);
 
 		//Apply impulses, but not to static objects
 		auto impulseVector = impulse * collision->CollisionNormal;
-		if (bodyA->PhysicsEnabled) {
-			bodyA->Velocity -= (bodyA->InverseMass) * impulseVector;
+		if (bodyA != nullptr && !bodyA->GetIsStatic()) {
+			bodyA->AddVelocity(-(invMassA * impulseVector));
 		}
-		if (bodyB->PhysicsEnabled) {
-			bodyB->Velocity += (1 / bodyB->InverseMass) * impulseVector;
+		if (bodyB != nullptr && !bodyB->GetIsStatic()) {
+			bodyB->AddVelocity(invMassB * impulseVector);
 		}
 	}
 
@@ -150,11 +168,11 @@ namespace core {
 
 		auto colliderA = collision->ColliderA;
 		auto objectA = colliderA->GetParent();
-		auto bodyA = objectA->GetBody();
+		auto bodyA = objectA->GetComponent<PhysicsComponent>();
 
 		auto colliderB = collision->ColliderB;
 		auto objectB = colliderB->GetParent();
-		auto bodyB = objectB->GetBody();
+		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
 
 		float correctionConstant = std::max(collision->PenetrationDistance - MAX_PEN, 0.0f);
@@ -163,14 +181,18 @@ namespace core {
 			return;
 		}
 
-		correctionConstant /= (bodyA->InverseMass + bodyB->InverseMass);
+		//Gather object masses
+		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
+		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
+
+		correctionConstant /= (invMassA + invMassB);
 		correctionConstant *= CORRECTION_FACTOR;
 		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
 
-		if (bodyA->PhysicsEnabled) {
+		if (bodyA && !bodyA->GetIsStatic()) {
 			objectA->SetPosition(objectA->GetPostion() - correctionVector);
 		}
-		if (bodyB->PhysicsEnabled) {
+		if (bodyB && !bodyB->GetIsStatic()) {
 			objectB->SetPosition(objectB->GetPostion() + correctionVector);
 		}
 	}

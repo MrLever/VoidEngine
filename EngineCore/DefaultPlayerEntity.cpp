@@ -4,6 +4,7 @@
 
 //Void Engine Headers
 #include "DefaultPlayerEntity.h"
+#include "CameraComponent.h"
 #include "Factory.h"
 #include "Logger.h"
 

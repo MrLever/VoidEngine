@@ -257,6 +257,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="ControlLayout.cpp" />
+    <ClCompile Include="DefaultEntity.cpp" />
     <ClCompile Include="DefaultPlayerEntity.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
@@ -281,6 +282,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="MouseMovedEvent.cpp" />
     <ClCompile Include="PauseGameEvent.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -314,6 +316,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ControlLayout.h" />
+    <ClInclude Include="DefaultEntity.h" />
     <ClInclude Include="DefaultPlayerEntity.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
@@ -331,6 +334,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="Manifold.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="KeyboardButtonEvent.h" />

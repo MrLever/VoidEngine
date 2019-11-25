@@ -146,6 +146,11 @@ namespace math {
 		friend Vector3 operator- (const Vector3& lhs, const Vector3& rhs);
 
 		/**
+		 * Subtraction assignment overload
+		 */
+		Vector3 operator- ();
+
+		/**
 		 * Scalar multiplication assignment overload
 		 */
 		Vector3& operator*= (float rhs);

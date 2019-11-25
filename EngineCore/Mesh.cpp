@@ -19,6 +19,9 @@ namespace core {
 	void Mesh::Draw(ShaderProgram* shader) const {
 		unsigned diffuseNr = 1;
 		unsigned specularNr = 1;
+		if (shader == nullptr) {
+			return;
+		}
 
 		if (Textures.size() > 0) {
 			for (unsigned int i = 0; i < Textures.size(); i++)

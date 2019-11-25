@@ -42,38 +42,40 @@ namespace core {
 	void Level::Initialize() {
 		utils::Logger::LogInfo("Initializing Level " + LevelName.StringID);
 		InputDefinitionPath = JsonResource::GetAttribute<std::string>("controlFile");
+		auto entityList = Data["entities"];
 		
-		//Preload entity data source files for creation
-		for (auto& entity : Data["entities"]) {
-			std::string source = "Resources/Entities/" + entity["type"].get<std::string>() + ".json";
-			EntityDataCache->LoadResource(source);
-		}
-		
-		for (auto& entityWorldData : Data["entities"]) {
-			auto entityType = entityWorldData["type"].get<std::string>();
+		for (auto& entityData : entityList) {
+			auto entityType = entityData["type"].get<std::string>();
 			auto entity = utils::FactoryBase<Entity>::Create(entityType);
 			if (entity == nullptr) {
-				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register it's factory.");
+				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register its factory.");
 				continue;
 			}
 
-			entity->SetConfigData(entityWorldData);
-			entity->Initialize();
+			entity->SetConfigData(entityData);
+			
+			nlohmann::json componentList;
 
-			auto entityData = EntityDataCache->GetResource("Resources/Entities/" + entityWorldData["type"].get<std::string>() + ".json");
-			auto componentData = entityData->GetAttribute<nlohmann::json>("components");
-			if (!componentData.is_null()) {
-				for (auto& componentEntry : componentData) {
-					auto componentType = componentEntry["type"].get<std::string>();
-					auto component = utils::FactoryBase<Component>::Create(componentType);
-					if (component) {
-						entity->AddComponent(component);
-						component->SetConfigData(componentEntry);
-						component->Initialize();
-					}
+			if (entityData.find("components") != entityData.end()) {
+				componentList = entityData["components"];
+			}
+			else {
+				auto componentDataFile = 
+					EntityDataCache->GetResource("Resources/Entities/" + entityData["type"].get<std::string>() + ".json");
+				
+				componentList = componentDataFile->GetAttribute<nlohmann::json>("components");
+			}
+
+			for (auto componentEntry : componentList) {
+				auto componentType = componentEntry["type"].get<std::string>();
+				auto component = utils::FactoryBase<Component>::Create(componentType);
+				if (component) {
+					entity->AddComponent(component);
+					component->SetConfigData(componentEntry);
 				}
 			}
 
+			entity->Initialize();
 			Entities.emplace_back(entity);
 		}
 	}	
