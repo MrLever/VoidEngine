@@ -110,7 +110,7 @@ namespace core {
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*> collisions) {
 		for (auto& manifold : collisions) {
 			ResolveCollision(manifold);
-			//CorrectPositions(manifold);
+			CorrectPositions(manifold);
 		}
 	}
 
@@ -168,11 +168,11 @@ namespace core {
 
 		auto colliderA = collision->ColliderA;
 		auto objectA = colliderA->GetParent();
-		auto bodyA = objectA->GetBody();
+		auto bodyA = objectA->GetComponent<PhysicsComponent>();
 
 		auto colliderB = collision->ColliderB;
 		auto objectB = colliderB->GetParent();
-		auto bodyB = objectB->GetBody();
+		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
 
 		float correctionConstant = std::max(collision->PenetrationDistance - MAX_PEN, 0.0f);
@@ -181,14 +181,18 @@ namespace core {
 			return;
 		}
 
-		correctionConstant /= (bodyA->InverseMass + bodyB->InverseMass);
+		//Gather object masses
+		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
+		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
+
+		correctionConstant /= (invMassA + invMassB);
 		correctionConstant *= CORRECTION_FACTOR;
 		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
 
-		if (bodyA->PhysicsEnabled) {
+		if (bodyA && !bodyA->GetIsStatic()) {
 			objectA->SetPosition(objectA->GetPostion() - correctionVector);
 		}
-		if (bodyB->PhysicsEnabled) {
+		if (bodyB && !bodyB->GetIsStatic()) {
 			objectB->SetPosition(objectB->GetPostion() + correctionVector);
 		}
 	}
