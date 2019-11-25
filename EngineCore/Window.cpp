@@ -88,6 +88,7 @@ namespace core {
 	void Window::InitGLFW() {
 		if (glfwInit() == GLFW_FALSE) {
 			// Initialization failed
+			utils::Logger::LogError("GLFW window failed to initialize");
 			return;
 		}
 
