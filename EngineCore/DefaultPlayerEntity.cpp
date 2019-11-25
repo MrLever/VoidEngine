@@ -12,7 +12,7 @@ namespace core {
 	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
 	
 	DefaultPlayerEntity::DefaultPlayerEntity() {
-		Body.PhysicsEnabled = false;
+
 	}
 
 	void DefaultPlayerEntity::Initialize() {

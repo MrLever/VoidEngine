@@ -179,9 +179,7 @@
   <ItemGroup>
     <ClCompile Include="BouncingCube.cpp" />
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="CubeEntity.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
-    <ClCompile Include="SphereEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
@@ -193,9 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BouncingCube.h" />
-    <ClInclude Include="CubeEntity.h" />
     <ClInclude Include="PlayerShip.h" />
-    <ClInclude Include="SphereEntity.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

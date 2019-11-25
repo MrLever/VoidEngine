@@ -99,10 +99,6 @@ namespace core {
 		ID = name;
 	}
 
-	PhysicsBody* Entity::GetBody() {
-		return &Body;
-	}
-
 	void Entity::SetConfigData(const nlohmann::json& data) {
 		ConfigData = data;
 	}

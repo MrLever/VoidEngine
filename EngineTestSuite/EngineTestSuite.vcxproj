@@ -182,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SuperVoid\BouncingCube.cpp" />
-    <ClCompile Include="..\SuperVoid\CubeEntity.cpp" />
     <ClCompile Include="..\SuperVoid\PlayerShip.cpp" />
     <ClCompile Include="TestCollisions.cpp" />
     <ClCompile Include="TestEntities.cpp" />

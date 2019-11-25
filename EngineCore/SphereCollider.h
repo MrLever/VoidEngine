@@ -30,11 +30,6 @@ namespace core {
 		static Manifold* DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
 
 		/**
-		 * Static callback to resolve a manifold
-		 */
-		static void ResolveSphereCollision(Manifold* collision);
-
-		/**
 		 * Returns dynamic type
 		 */
 		utils::Name GetTypename() const override;

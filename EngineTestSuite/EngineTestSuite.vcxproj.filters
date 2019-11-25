@@ -50,9 +50,6 @@
     <ClCompile Include="..\SuperVoid\BouncingCube.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SuperVoid\CubeEntity.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\SuperVoid\PlayerShip.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>

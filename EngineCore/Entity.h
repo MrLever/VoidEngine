@@ -13,7 +13,6 @@
 #include "AxisInputAction.h"
 #include "Factory.h"
 #include "Quaternion.h"
-#include "PhysicsBody.h"
 
 namespace core {
 	//Forward class declarations
@@ -95,11 +94,6 @@ namespace core {
 		void SetName(const utils::Name& name);
 
 		/**
-		 * Accessor for this entitie's physics body
-		 */
-		PhysicsBody* GetBody();
-
-		/**
 		 * Used to set Entitiy's initialization data
 		 */
 		void SetConfigData(const nlohmann::json& data);
@@ -133,9 +127,6 @@ namespace core {
 
 		/** The entity's rotation in 3D space */
 		math::Quaternion Rotation;
-
-		/** Rigid-body simulation data */
-		PhysicsBody Body;
 	};
 
 	template<class T>
