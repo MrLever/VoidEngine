@@ -10,7 +10,7 @@ namespace core {
 	ENABLE_FACTORY(DefaultEntity, Entity)
 
 	DefaultEntity::DefaultEntity() {
-
+		
 	}
 
 	DefaultEntity::~DefaultEntity() {
@@ -18,7 +18,7 @@ namespace core {
 	}
 
 	void DefaultEntity::Initialize() {
-		;
+		Entity::Initialize();
 	}
 	
 	void DefaultEntity::BeginPlay() {

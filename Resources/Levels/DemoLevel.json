@@ -26,16 +26,62 @@
                     "shape":
                     {
                         "type":"SphereCollider",
-                        "radius":2
+                        "radius":1
                     }
                 }
             ]
         },
         {
-            "name":"TestSphere",
-            "type":"SphereEntity",
-            "location": [0, 10, 0],
-            "rotation": [0, 0, 0]
+            "name":"CenterProjectile",
+            "type":"DefaultEntity",
+            "location": [0, 20, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1.4
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":0.1
+                }
+            ]
+        },
+        {
+            "name":"CenterProjectile2",
+            "type":"DefaultEntity",
+            "location": [0, -20, 0],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":3
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "gravityScale":-1
+                }
+            ]
         },
         {
             "name":"TestSphere",

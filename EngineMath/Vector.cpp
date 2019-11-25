@@ -68,6 +68,10 @@ namespace math {
 		return *this;
 	}
 
+	Vector3 Vector3::operator- () {
+		return Vector3(-X, -Y, -Z);
+	}
+
 	Vector3& Vector3::operator*=(float rhs) {
 		X *= rhs;
 		Y *= rhs;

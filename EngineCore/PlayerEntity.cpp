@@ -8,14 +8,13 @@
 
 namespace core {
 	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
-
+		auto inputComponent = new InputComponent();
+		Components.insert({ InputComponent::GetStaticTypename(), inputComponent });
 	}
 
 	void PlayerEntity::Initialize() {
 		Entity::Initialize();
-		auto inputComponent = new InputComponent();
-		Components.insert({InputComponent::GetStaticTypename(), inputComponent });
-		SetupInputComponent(inputComponent);
+		SetupInputComponent(GetComponent<InputComponent>());
 	}
 
 	void PlayerEntity::BeginPlay() {

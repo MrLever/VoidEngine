@@ -282,6 +282,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="MouseMovedEvent.cpp" />
     <ClCompile Include="PauseGameEvent.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PlayerEntity.cpp" />
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
@@ -333,6 +334,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="Manifold.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="KeyboardButtonEvent.h" />
