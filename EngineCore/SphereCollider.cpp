@@ -15,6 +15,7 @@ namespace core {
 	SphereCollider::SphereCollider() : Radius(0.0f) {
 		if (!CallbacksRegistered) {
 			ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereCollision);
+			CallbacksRegistered = true;
 		}
 	}
 
@@ -28,7 +29,7 @@ namespace core {
 
 	Manifold* SphereCollider::DetectSphereCollision(ColliderComponent* left, ColliderComponent* right) {
 		const SphereCollider* sphere1 = reinterpret_cast<const SphereCollider*>(left->GetShape());
-		const SphereCollider* sphere2 = reinterpret_cast<const SphereCollider*>(left->GetShape());
+		const SphereCollider* sphere2 = reinterpret_cast<const SphereCollider*>(right->GetShape());
 
 		auto collisionDistance = sphere1->Radius + sphere2->Radius;
 		auto collisionDistanceSquared = collisionDistance * collisionDistance;

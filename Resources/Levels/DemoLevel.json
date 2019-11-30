@@ -101,7 +101,7 @@
                     "shape":
                     {
                         "type":"SphereCollider",
-                        "radius":3
+                        "radius":1
                     }
                 },
                 {
