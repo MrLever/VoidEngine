@@ -26,7 +26,8 @@
                     "shape":
                     {
                         "type":"SphereCollider",
-                        "radius":1
+                        "radius":1,
+                        "restitution":1
                     }
                 }
             ]
@@ -53,7 +54,8 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1000.0,
-                    "restitution":0.5
+                    "restitution":0.8,
+                    "gravityScale":2
                 }
             ]
         },
@@ -105,7 +107,7 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "gravityScale":-0.01
+                    "gravityScale":-0.5
                 }
             ]
         },
@@ -131,8 +133,7 @@
                 {
                     "type": "PhysicsComponent",
                     "isStatic":true,
-                    "restitution":1,
-                    "gravityScale":-0.01                
+                    "restitution":1           
                 }
             ]
         },
@@ -158,8 +159,7 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "restitution":0.1,
-                    "gravityScale":-0.01
+                    "restitution":0.1
                 }
             ]
         },
@@ -185,8 +185,7 @@
                 {
                     "type": "PhysicsComponent",
                     "isStatic":true,
-                    "restitution":1,
-                    "gravityScale":-0.01                
+                    "restitution":1
                 }
             ]
         },
@@ -212,8 +211,7 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "restitution":0,
-                    "gravityScale":-0.01
+                    "restitution":1
                 }
             ]
         }

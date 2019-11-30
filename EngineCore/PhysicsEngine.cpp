@@ -24,9 +24,27 @@ namespace core {
 	}
 	
 	void PhysicsEngine::Simulate(Level* scene, float deltaTime) {
-		ApplyForces(scene, deltaTime);
-		Integrate(scene, deltaTime);
-		HandleCollisions(scene, deltaTime);
+		//Physics simulations update 60 times per second
+		static float accumulator = 0.0f;
+		static const float PHYSICS_DT = 0.016; 
+
+		accumulator += deltaTime;
+
+		while (accumulator >= PHYSICS_DT) {
+			ApplyForces(scene, PHYSICS_DT);
+			Integrate(scene, PHYSICS_DT);
+			HandleCollisions(scene, PHYSICS_DT);
+
+			accumulator -= PHYSICS_DT;
+		}
+
+		//Apply the remainder 
+		if (accumulator != 0) {
+			ApplyForces(scene, accumulator);
+			Integrate(scene, accumulator);
+			HandleCollisions(scene, accumulator);
+			accumulator = 0;
+		}
 	}
 
 
