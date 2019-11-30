@@ -147,9 +147,8 @@ namespace core {
 		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
 		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
 
-		//Calculate impulse
+		//Calculate impulse magnitude
 		float impulse = -(1 + restitution) * relVelocityAlongNormal;
-
 		impulse /= (invMassA + invMassB);
 
 		//Apply impulses, but not to static objects
