@@ -164,7 +164,12 @@ namespace core {
 
 	void PhysicsEngine::CorrectPositions(Manifold* collision) {
 		const float MAX_PEN = 0.01f;
-		const float CORRECTION_FACTOR = 0.4f;
+		const float CORRECTION_FACTOR = 0.2f;
+
+		//Ignore small errors
+		if (collision->PenetrationDistance < MAX_PEN) {
+			return;
+		}
 
 		auto colliderA = collision->ColliderA;
 		auto objectA = colliderA->GetParent();
@@ -174,26 +179,21 @@ namespace core {
 		auto objectB = colliderB->GetParent();
 		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
-
-		float correctionConstant = std::max(collision->PenetrationDistance - MAX_PEN, 0.0f);
-		if (correctionConstant == 0) {
-			//If the objects penetration distance is under the maximum tolerance, short circuit
-			return;
-		}
-
 		//Gather object masses
 		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
 		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
 
-		correctionConstant /= (invMassA + invMassB);
+		float correctionConstant = collision->PenetrationDistance / (invMassA + invMassB);
 		correctionConstant *= CORRECTION_FACTOR;
 		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
 
 		if (bodyA && !bodyA->GetIsStatic()) {
-			objectA->SetPosition(objectA->GetPostion() - correctionVector);
+			//Scale positional correction by mass of object
+			objectA->SetPosition(objectA->GetPostion() - correctionVector * invMassA);
 		}
 		if (bodyB && !bodyB->GetIsStatic()) {
-			objectB->SetPosition(objectB->GetPostion() + correctionVector);
+			//Scale positional correction by mass of object
+			objectB->SetPosition(objectB->GetPostion() + correctionVector * invMassB);
 		}
 	}
 

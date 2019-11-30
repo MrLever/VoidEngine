@@ -52,8 +52,8 @@
                 },
                 {
                     "type": "PhysicsComponent",
-                    "mass":1,
-                    "restitution":0.1
+                    "mass":1000.0,
+                    "restitution":0.5
                 }
             ]
         },
@@ -78,7 +78,7 @@
                 },
                 {
                     "type": "PhysicsComponent",
-                    "mass":1,
+                    "mass":1.0,
                     "restitution":0.5
                 }
             ]
@@ -105,7 +105,7 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "gravityScale":-1
+                    "gravityScale":-0.01
                 }
             ]
         },
@@ -131,7 +131,8 @@
                 {
                     "type": "PhysicsComponent",
                     "isStatic":true,
-                    "restitution":1                   
+                    "restitution":1,
+                    "gravityScale":-0.01                
                 }
             ]
         },
@@ -157,7 +158,8 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "restitution":0.1
+                    "restitution":0.1,
+                    "gravityScale":-0.01
                 }
             ]
         },
@@ -183,7 +185,8 @@
                 {
                     "type": "PhysicsComponent",
                     "isStatic":true,
-                    "restitution":1                   
+                    "restitution":1,
+                    "gravityScale":-0.01                
                 }
             ]
         },
@@ -209,7 +212,8 @@
                 {
                     "type": "PhysicsComponent",
                     "mass":1,
-                    "restitution":0
+                    "restitution":0,
+                    "gravityScale":-0.01
                 }
             ]
         }
