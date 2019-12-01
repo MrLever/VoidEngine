@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "ColliderComponent.h"
 #include "SphereCollider.h"
+#include "AABBCollider.h"
 #include "ResourceAllocator.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -18,6 +19,7 @@ using namespace core;
 namespace EngineCoreTests {
 	/** macro is required here because of .dll boundary in test suite */
 	ENABLE_FACTORY(SphereCollider, Collider)
+	ENABLE_FACTORY(AABBCollider, Collider)
 
 	class DummyRigidBody : public Entity {
 	public: 
@@ -67,6 +69,104 @@ namespace EngineCoreTests {
 			r2.Tick(.5f);
 			manifold = c1->DetectCollision(c2);
 			Assert::IsNull(manifold);
+
+			r2.SetPosition(math::Vector3(0, -1.0f, 0));
+			r2.Tick(.5f);
+			manifold = c1->DetectCollision(c2);
+			Assert::AreEqual(1.0f, manifold->PenetrationDistance);
+			delete manifold;
+		}
+
+		TEST_METHOD(AABB_AABB_CollisionTest) {
+			DummyRigidBody r1;
+			DummyRigidBody r2;
+			Manifold* manifold = nullptr;
+
+			EntityData data("Resources/Testing/Entities/AABBCollisionTestEntity.json");
+			data.Load();
+			auto componentData = data.GetAttribute<nlohmann::json>("components");
+			auto colliderComponentData = componentData[1];
+
+			ColliderComponent* c1 = new ColliderComponent();
+			c1->SetConfigData(colliderComponentData);
+			r1.AddComponent(c1);
+
+			ColliderComponent* c2 = new ColliderComponent();
+			c2->SetConfigData(colliderComponentData);
+			r2.AddComponent(c2);
+
+			//Test Y axis
+			r1.Initialize();
+			r1.SetPosition(math::Vector3(0, 0, 0));
+			r1.Tick(.5f);
+
+			r2.Initialize();
+			r2.SetPosition(math::Vector3(0, .9f, 0));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.1f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
+
+			r2.SetPosition(math::Vector3(0, 1.1f, 0));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+			Assert::IsNull(manifold);
+
+			r2.SetPosition(math::Vector3(0, -.6f, 0));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.4f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
+
+			
+			// Test x axis
+			r2.SetPosition(math::Vector3(.9f, 0, 0));
+			r2.Tick(.5f);
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.1f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
+
+			r2.SetPosition(math::Vector3(1.1f, 0, 0));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+			Assert::IsNull(manifold);
+
+			r2.SetPosition(math::Vector3(-0.6f, 0, 0));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.4f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
+
+			// Test z axis
+			r2.SetPosition(math::Vector3(0, 0, 0.9f));
+			r2.Tick(.5f);
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.1f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
+
+			r2.SetPosition(math::Vector3(0, 0, 1.1f));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+			Assert::IsNull(manifold);
+
+			r2.SetPosition(math::Vector3(0, 0, -0.6f));
+			r2.Tick(.5f);
+
+			manifold = c1->DetectCollision(c2);
+
+			Assert::IsTrue(std::abs(0.4f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
+			delete manifold;
 		}
 	};
 };
