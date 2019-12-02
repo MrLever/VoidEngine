@@ -24,9 +24,27 @@ namespace core {
 	}
 	
 	void PhysicsEngine::Simulate(Level* scene, float deltaTime) {
-		ApplyForces(scene, deltaTime);
-		Integrate(scene, deltaTime);
-		HandleCollisions(scene, deltaTime);
+		//Physics simulations update 60 times per second
+		static float accumulator = 0.0f;
+		static const float PHYSICS_DT = 0.016; 
+
+		accumulator += deltaTime;
+
+		while (accumulator >= PHYSICS_DT) {
+			ApplyForces(scene, PHYSICS_DT);
+			Integrate(scene, PHYSICS_DT);
+			HandleCollisions(scene, PHYSICS_DT);
+
+			accumulator -= PHYSICS_DT;
+		}
+
+		//Apply the remainder 
+		if (accumulator != 0) {
+			ApplyForces(scene, accumulator);
+			Integrate(scene, accumulator);
+			HandleCollisions(scene, accumulator);
+			accumulator = 0;
+		}
 	}
 
 
@@ -147,9 +165,8 @@ namespace core {
 		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
 		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
 
-		//Calculate impulse
+		//Calculate impulse magnitude
 		float impulse = -(1 + restitution) * relVelocityAlongNormal;
-
 		impulse /= (invMassA + invMassB);
 
 		//Apply impulses, but not to static objects
@@ -164,7 +181,12 @@ namespace core {
 
 	void PhysicsEngine::CorrectPositions(Manifold* collision) {
 		const float MAX_PEN = 0.01f;
-		const float CORRECTION_FACTOR = 0.4f;
+		const float CORRECTION_FACTOR = 0.2f;
+
+		//Ignore small errors
+		if (collision->PenetrationDistance < MAX_PEN) {
+			return;
+		}
 
 		auto colliderA = collision->ColliderA;
 		auto objectA = colliderA->GetParent();
@@ -174,26 +196,21 @@ namespace core {
 		auto objectB = colliderB->GetParent();
 		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
-
-		float correctionConstant = std::max(collision->PenetrationDistance - MAX_PEN, 0.0f);
-		if (correctionConstant == 0) {
-			//If the objects penetration distance is under the maximum tolerance, short circuit
-			return;
-		}
-
 		//Gather object masses
 		float invMassA = (bodyA == nullptr) ? 0 : bodyA->GetInverseMass();
 		float invMassB = (bodyB == nullptr) ? 0 : bodyB->GetInverseMass();
 
-		correctionConstant /= (invMassA + invMassB);
+		float correctionConstant = collision->PenetrationDistance / (invMassA + invMassB);
 		correctionConstant *= CORRECTION_FACTOR;
 		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
 
 		if (bodyA && !bodyA->GetIsStatic()) {
-			objectA->SetPosition(objectA->GetPostion() - correctionVector);
+			//Scale positional correction by mass of object
+			objectA->SetPosition(objectA->GetPostion() - correctionVector * invMassA);
 		}
 		if (bodyB && !bodyB->GetIsStatic()) {
-			objectB->SetPosition(objectB->GetPostion() + correctionVector);
+			//Scale positional correction by mass of object
+			objectB->SetPosition(objectB->GetPostion() + correctionVector * invMassB);
 		}
 	}
 
