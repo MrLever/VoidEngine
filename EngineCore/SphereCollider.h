@@ -21,13 +21,10 @@ namespace core {
 		 */
 		void Initialize() override;
 		
-		/** Radius Accessor */
-		float GetRadius();
-
-		/**
-		 * Static callback to generate a manifold for a sphere-sphere collision
+		/** 
+		 * Radius Accessor 
 		 */
-		static Manifold* DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
+		float GetRadius() const;
 
 		/**
 		 * Returns dynamic type
@@ -43,11 +40,6 @@ namespace core {
 		/** Radius of the collision sphere */
 		float Radius;
 
-		/** 
-		 * Flag to determine if the callbacks for sphere collisions have 
-		 * been registered with the physics engine
-		 */
-		static bool CallbacksRegistered;
 	};
 
 }

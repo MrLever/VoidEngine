@@ -22,11 +22,6 @@ namespace core {
 		void Initialize() override;
 
 		/**
-		 * Static callback to generate a manifold for a sphere-sphere collision
-		 */
-		static Manifold* DetectAABBCollision(ColliderComponent* left, ColliderComponent* right);
-
-		/**
 		 * Min extent accessor
 		 */
 		math::Vector3 GetMin() const;
@@ -47,14 +42,11 @@ namespace core {
 		static utils::Name GetStaticTypename();
 	
 	private:
+		/** The Min value of the AABB */
 		math::Vector3 MinExtent;
-		math::Vector3 MaxExtent;
 
-		/**
-		 * Flag to determine if the callbacks for sphere collisions have
-		 * been registered with the physics engine
-		 */
-		static bool CallbacksRegistered;
+		/** The Max Value of the AABB */
+		math::Vector3 MaxExtent;
 	};
 
 }

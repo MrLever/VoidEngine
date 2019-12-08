@@ -6,13 +6,21 @@
 #include "PhysicsEngine.h"
 #include "PhysicsComponent.h"
 #include "ColliderComponent.h"
+#include "SphereCollider.h"
+#include "AABBCollider.h"
 
 namespace core {
+
+	// Static variable initialization
+	const float PhysicsEngine::COLLISION_EPSILON = 0.0001f;
+
 	PhysicsEngine::PhysicsEngine(
 		EventBus* bus, 
 		const utils::ResourceHandle<utils::Configuration>& configuration
 	) : EventBusNode(bus), Configurable(configuration) {
-
+		utils::Logger::LogInfo("Initializing Physics Engine Collision System");
+		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereSphereCollision);
+		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, AABBCollider>(DetectAABBAABBCollision);
 	}
 	
 	void PhysicsEngine::Configure() {
@@ -46,7 +54,6 @@ namespace core {
 			accumulator = 0;
 		}
 	}
-
 
 	void PhysicsEngine::ApplyForces(Level* scene, float deltaTime) {
 		auto g = scene->GetAttribute<float>("gravity");
@@ -212,6 +219,121 @@ namespace core {
 			//Scale positional correction by mass of object
 			objectB->SetPosition(objectB->GetPostion() + correctionVector * invMassB);
 		}
+	}
+
+	Manifold* PhysicsEngine::DetectSphereSphereCollision(ColliderComponent* left, ColliderComponent* right) {
+		const SphereCollider* sphere1 = reinterpret_cast<const SphereCollider*>(left->GetShape());
+		const SphereCollider* sphere2 = reinterpret_cast<const SphereCollider*>(right->GetShape());
+
+		auto collisionDistance = sphere1->GetRadius() + sphere2->GetRadius();
+		auto collisionDistanceSquared = collisionDistance * collisionDistance;
+
+		auto distanceSquared = left->GetDistanceSquared(right);
+
+		//Early termination
+		if (distanceSquared > collisionDistanceSquared) {
+			return nullptr;
+		}
+
+		utils::Logger::LogDebug("Sphere vs Sphere Collision Detected");
+
+		auto distance = left->GetDistance(right);
+
+		// This pointer must be freed by the physics engine after the collision is resolved.
+		Manifold* collision = new Manifold();
+		collision->ColliderA = left;
+		collision->ColliderB = right;
+
+		//Get direction vector between colliders
+		math::Vector3 translationVector = right->GetPosition() - left->GetPosition();
+
+		if (translationVector.Magnitude2() < COLLISION_EPSILON) {
+			//Special case for overlapping spheres
+			collision->PenetrationDistance = sphere1->GetRadius();
+			collision->CollisionNormal = math::Vector3(0, 1, 0);
+		}
+		else {
+			//Normal manifold generation
+			collision->PenetrationDistance = collisionDistance - distance;
+			collision->CollisionNormal = translationVector.Normalize();
+		}
+
+		return collision;
+	}
+
+	Manifold* PhysicsEngine::DetectAABBAABBCollision(ColliderComponent* left, ColliderComponent* right) {
+		const AABBCollider* aabb1 = reinterpret_cast<const AABBCollider*>(left->GetShape());
+		const AABBCollider* aabb2 = reinterpret_cast<const AABBCollider*>(right->GetShape());
+
+		auto aabb1Pos = left->GetPosition();
+		auto aabb2Pos = right->GetPosition();
+
+		auto translationVector = aabb2Pos - aabb1Pos;
+
+		//SAT- Project onto x axis
+		float xWidth1 = (aabb1->GetMax().X - aabb1->GetMin().X) / 2;
+		float xWidth2 = (aabb1->GetMax().X - aabb1->GetMin().X) / 2;
+
+		float xOverlap = xWidth1 + xWidth2 - std::abs(translationVector.X);
+		if (xOverlap < 0) {
+			//X axis is separating axis
+			return nullptr;
+		}
+
+		//SAT- Project onto y axis
+		float yWidth1 = (aabb1->GetMax().Y - aabb1->GetMin().Y) / 2;
+		float yWidth2 = (aabb1->GetMax().Y - aabb1->GetMin().Y) / 2;
+
+		float yOverlap = yWidth1 + yWidth2 - std::abs(translationVector.Y);
+		if (yOverlap < 0) {
+			//Y axis is separating axis
+			return nullptr;
+		}
+
+		//SAT- Project onto z axis
+		float zWidth1 = (aabb1->GetMax().Z - aabb1->GetMin().Z) / 2;
+		float zWidth2 = (aabb1->GetMax().Z - aabb1->GetMin().Z) / 2;
+
+		float zOverlap = zWidth1 + zWidth2 - std::abs(translationVector.Z);
+		if (zOverlap < 0) {
+			//Z axis is separating axis
+			return nullptr;
+		}
+
+		//No separating axis found
+		auto manifold = new Manifold();
+		manifold->ColliderA = left;
+		manifold->ColliderB = right;
+
+		//At this point it is certain there is no separating axis, the objects are colliding
+		//Find smallest axis of seperation
+		if (xOverlap < yOverlap && yOverlap <= zOverlap) {
+			manifold->PenetrationDistance = xOverlap;
+			auto xAxis = math::Vector3(1, 0, 0);
+			if (translationVector.X < 0) {
+				xAxis *= -1;
+			}
+			manifold->CollisionNormal = xAxis;
+		}
+		else if (yOverlap <= zOverlap && zOverlap <= xOverlap) {
+			//Allow for equal in this case to default to resolving collisions upward
+			manifold->PenetrationDistance = yOverlap;
+			auto yAxis = math::Vector3(0, 1, 0);
+			if (translationVector.Y < 0) {
+				yAxis *= -1;
+			}
+			manifold->CollisionNormal = yAxis;
+		}
+		else if (zOverlap < xOverlap && xOverlap <= yOverlap) {
+			manifold->PenetrationDistance = zOverlap;
+			auto zAxis = math::Vector3(0, 0, 1);
+			if (translationVector.Z < 0) {
+				zAxis *= -1;
+			}
+			manifold->CollisionNormal = zAxis;
+		}
+
+		return manifold;
 	}
 
 }

@@ -41,7 +41,6 @@ namespace core {
 		/** Data used to initialize component */
 		nlohmann::json ShapeData;
 		
-		static const float COLLISION_EPSILON;
 	};
 
 }
