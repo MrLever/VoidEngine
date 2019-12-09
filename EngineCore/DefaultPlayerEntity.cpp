@@ -9,9 +9,16 @@
 #include "Logger.h"
 
 namespace core {
+	TYPE_INFO_IMPL(DefaultPlayerEntity)
+
 	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
 	
+	
 	DefaultPlayerEntity::DefaultPlayerEntity() {
+
+	}
+
+	DefaultPlayerEntity::~DefaultPlayerEntity() {
 
 	}
 

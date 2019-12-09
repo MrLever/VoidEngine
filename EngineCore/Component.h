@@ -21,7 +21,11 @@ namespace core {
 	 * @brief Base class for all components in the engine. Compnents allow
 	 *        Entities to respond to engine commands or player actions
 	 */
-	class Component {
+	class Component : utils::FactoryConstructible {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(Component)
 	public:
 		/**
 		 * Constructor
@@ -88,16 +92,6 @@ namespace core {
 		 * @param position The position to use
 		 */
 		void SetRotation(const math::Rotator& rotation);
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		virtual utils::Name GetTypename() const = 0;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	protected:
 		/** The component's position */

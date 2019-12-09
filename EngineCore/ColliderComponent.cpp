@@ -8,6 +8,8 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(ColliderComponent)
+
 	ENABLE_FACTORY(ColliderComponent, Component);
 
 	// Static variable initialization
@@ -17,14 +19,6 @@ namespace core {
 
 	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
 		
-	}
-
-	utils::Name ColliderComponent::GetTypename() const {
-		return utils::Name(TypeName<ColliderComponent>::GetName());
-	}
-
-	utils::Name ColliderComponent::GetStaticTypename() {
-		return utils::Name(TypeName<ColliderComponent>::GetName());
 	}
 
 	void ColliderComponent::Initialize() {

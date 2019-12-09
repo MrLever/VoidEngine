@@ -39,7 +39,7 @@ namespace core {
 
 	protected:
 		/** Data used to initialize component */
-		nlohmann::json ShapeData;
+		nlohmann::json ConfigData;
 		
 	};
 

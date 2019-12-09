@@ -324,6 +324,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EventBusNode.h" />
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="FactoryConstructible.h" />
     <ClInclude Include="GamepadButtonEvent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputActionEvent.h" />

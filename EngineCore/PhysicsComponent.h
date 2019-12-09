@@ -9,6 +9,11 @@
 namespace core {
 
 	class PhysicsComponent : public Component {
+		/**
+		* Declare custom RTTI support
+		*/
+		TYPE_INFO_DECL(PhysicsComponent)
+
 	public:
 		/**
 		 * Constructor
@@ -74,16 +79,6 @@ namespace core {
 		 * IsStatic Accessor
 		 */
 		bool GetIsStatic() const;
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		virtual utils::Name GetTypename() const;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	private:
 		/** The Entity's current velocity */

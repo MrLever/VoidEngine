@@ -13,6 +13,11 @@ namespace core {
 	 * @brief A Static Observer is a camera weilding entity that stands absolutely still
 	 */
 	class StaticObserver : public Entity {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(StaticObserver)
+	
 	public:
 		/**
 		 * Constructor

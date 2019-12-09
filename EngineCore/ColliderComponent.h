@@ -79,8 +79,8 @@ namespace core {
 	inline void ColliderComponent::RegisterCollisionDetectionCallback(
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback
 	) {
-		utils::Name i(TypeName<ColliderA>::GetName());
-		utils::Name j(TypeName<ColliderB>::GetName());
+		utils::Name i(ColliderA::GetStaticTypename());
+		utils::Name j(ColliderB::GetStaticTypename());
 		if (CollisionDetectionJumpTable.Find(i, j) != nullptr) {
 			utils::Logger::LogWarning(
 				"Collision Detection Callback [" +

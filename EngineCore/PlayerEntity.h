@@ -15,6 +15,11 @@ namespace core {
 	 * @brief Specialized Entity designed to be controlled directly by the player
 	 */
 	class PlayerEntity : public Entity {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(PlayerEntity)
+
 	public:
 		/**
 		 * Constructor

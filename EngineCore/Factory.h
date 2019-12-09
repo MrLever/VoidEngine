@@ -164,7 +164,7 @@ namespace utils {
 
 	//CONCRETE FACTORY IMPL
 	template<class Derived, class Base>
-	inline Factory<Derived, Base>::Factory() : ProductName(TypeName<Derived>::GetName()) {
+	inline Factory<Derived, Base>::Factory() : ProductName(Derived::GetStaticTypename()) {
 		FactoryBase<Base>::RegisterConcreteFactory(*this);
 	}
 

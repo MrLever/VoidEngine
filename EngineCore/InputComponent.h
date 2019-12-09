@@ -13,6 +13,11 @@
 namespace core {
 
 	class InputComponent : public Component {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(InputComponent)
+
 	public:
 		/**
 		 * Constructor
@@ -54,16 +59,6 @@ namespace core {
 		 * @param deltaTime The current time step
 		 */
 		void Input(const AxisInputAction& input, float deltaTime) override;
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		virtual utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	private:
 		/** Component bindings for InputActions */

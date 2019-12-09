@@ -26,6 +26,11 @@ namespace core {
 	 */
 	class GraphicsComponent : public Component {
 		friend class Renderer;
+		
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(GraphicsComponent)
 
 	public:
 		/**
@@ -58,16 +63,6 @@ namespace core {
 		 * Function to allow the renderer to draw this component
 		 */
 		void Draw() override;
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	private:
 		/** The this object's model matrix used for transformations in the vertex shader */

@@ -10,6 +10,11 @@
 namespace core {
 
 	class AABBCollider : public Collider {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(AABBCollider)
+
 	public:
 		/**
 		 * Constructor
@@ -31,16 +36,6 @@ namespace core {
 		 */
 		math::Vector3 GetMax() const;
 
-		/**
-		 * Returns dynamic type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Collider Type
-		 */
-		static utils::Name GetStaticTypename();
-	
 	private:
 		/** The Min value of the AABB */
 		math::Vector3 MinExtent;

@@ -6,6 +6,8 @@
 #include "PhysicsComponent.h"
 
 namespace core {
+	TYPE_INFO_IMPL(PhysicsComponent)
+
 	ENABLE_FACTORY(PhysicsComponent, Component)
 
 	PhysicsComponent::PhysicsComponent() : Velocity(), Force(), Mass(1), InverseMass(1),
@@ -73,14 +75,6 @@ namespace core {
 
 	bool PhysicsComponent::GetIsStatic() const {
 		return IsStatic;
-	}
-
-	utils::Name PhysicsComponent::GetTypename() const {
-		return utils::Name("PhysicsComponent");
-	}
-
-	utils::Name PhysicsComponent::GetStaticTypename() {
-		return utils::Name("PhysicsComponent");
 	}
 
 }

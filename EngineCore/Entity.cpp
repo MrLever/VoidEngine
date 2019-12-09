@@ -9,6 +9,8 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(Entity)
+
 	Entity::Entity() : ID("Entity") {
 	
 	}
@@ -97,10 +99,6 @@ namespace core {
 
 	void Entity::SetName(const utils::Name& name) {
 		ID = name;
-	}
-
-	void Entity::SetConfigData(const nlohmann::json& data) {
-		ConfigData = data;
 	}
 
 	void Entity::AddComponent(Component* component) {

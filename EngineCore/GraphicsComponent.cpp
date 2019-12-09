@@ -12,6 +12,8 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(GraphicsComponent)
+
 	ENABLE_FACTORY(GraphicsComponent, Component)
 
 	glm::mat4 GraphicsComponent::ProjectionMatrix = glm::mat4(1);
@@ -100,14 +102,6 @@ namespace core {
 		if (ComponentModel) {
 			ComponentModel->Draw(ComponentShader);
 		}
-	}
-
-	utils::Name GraphicsComponent::GetTypename() const {
-		return utils::Name(TypeName<GraphicsComponent>::GetName());
-	}
-
-	utils::Name GraphicsComponent::GetStaticTypename() {
-		return utils::Name(TypeName<GraphicsComponent>::GetName());
 	}
 
 }

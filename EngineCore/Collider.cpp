@@ -12,7 +12,7 @@ namespace core {
 	}
 
 	void Collider::SetConfigData(const nlohmann::json& data) {
-		ShapeData = data;
+		ConfigData = data;
 	}
 
 	utils::Name Collider::GetStaticTypename() {
