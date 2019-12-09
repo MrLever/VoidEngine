@@ -21,21 +21,16 @@ namespace core {
 	};
 
 	class ColliderComponent : public Component {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(ColliderComponent)
+
 	public:
 		/**
 		 * Constructor
 		 */
 		ColliderComponent();
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 		/**
 		 * Sets up collider data from ComponentData

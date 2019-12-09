@@ -10,6 +10,11 @@
 namespace core {
 
 	class SphereCollider : public Collider {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(SphereCollider)
+
 	public:
 		/**
 		 * Constructor
@@ -25,16 +30,6 @@ namespace core {
 		 * Radius Accessor 
 		 */
 		float GetRadius() const;
-
-		/**
-		 * Returns dynamic type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Collider Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	private:
 		/** Radius of the collision sphere */

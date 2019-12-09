@@ -7,16 +7,9 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(Collider)
+
 	Collider::Collider() {
 
 	}
-
-	void Collider::SetConfigData(const nlohmann::json& data) {
-		ConfigData = data;
-	}
-
-	utils::Name Collider::GetStaticTypename() {
-		return utils::Name("Collider");
-	}
-
 }

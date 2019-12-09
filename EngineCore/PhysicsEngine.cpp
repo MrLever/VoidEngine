@@ -21,8 +21,8 @@ namespace core {
 		utils::Logger::LogInfo("Initializing Physics Engine Collision System");
 		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereSphereCollision);
 		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, AABBCollider>(DetectAABBAABBCollision);
-		//ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, AABBCollider>(DetectSphereAABBCollision);
-		//ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, SphereCollider>(DetectAABBSphereCollision);
+		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, AABBCollider>(DetectSphereAABBCollision);
+		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, SphereCollider>(DetectAABBSphereCollision);
 	}
 	
 	void PhysicsEngine::Configure() {
