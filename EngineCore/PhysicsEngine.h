@@ -77,6 +77,10 @@ namespace core {
 
 		static Manifold* DetectAABBAABBCollision(ColliderComponent* left, ColliderComponent* right);
 
+		static Manifold* DetectSphereAABBCollision(ColliderComponent* left, ColliderComponent* right);
+
+		static Manifold* DetectAABBSphereCollision(ColliderComponent* left, ColliderComponent* right);
+
 		static const float COLLISION_EPSILON;
 	};
 

@@ -21,6 +21,8 @@ namespace core {
 		utils::Logger::LogInfo("Initializing Physics Engine Collision System");
 		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereSphereCollision);
 		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, AABBCollider>(DetectAABBAABBCollision);
+		//ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, AABBCollider>(DetectSphereAABBCollision);
+		//ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, SphereCollider>(DetectAABBSphereCollision);
 	}
 	
 	void PhysicsEngine::Configure() {
@@ -336,4 +338,40 @@ namespace core {
 		return manifold;
 	}
 
+	Manifold* PhysicsEngine::DetectSphereAABBCollision(ColliderComponent* left, ColliderComponent* right) {
+		const SphereCollider* sphere = reinterpret_cast<const SphereCollider*>(left->GetShape());
+		const AABBCollider* aabb = reinterpret_cast<const AABBCollider*>(right->GetShape());
+
+		//Calculate the closest point on the AABB to the sphere
+		auto translationVector = right->GetPosition() - left->GetPosition();
+
+		auto aabbMin = aabb->GetMin();
+		auto aabbMax = aabb->GetMax();
+
+		//Clamping used instead of projections because box is axis-aligned
+		auto poiX = std::max(aabbMin.X, std::min(aabbMax.X, translationVector.X));
+		auto poiY = std::max(aabbMin.Y, std::min(aabbMax.Y, translationVector.Y));
+		auto poiZ = std::max(aabbMin.Z, std::min(aabbMax.Z, translationVector.Z));
+
+		//Closest point on any face of the AABB to the sphere
+		math::Vector3 POI(poiX, poiY, poiZ);
+
+		auto translationVectorPrime = POI - left->GetPosition();
+		if (translationVectorPrime.Magnitude2() > sphere->GetRadius() * sphere->GetRadius()) {
+			return nullptr;
+		}
+
+		Manifold* collision = new Manifold();
+		collision->ColliderA = left;
+		collision->ColliderB = right;
+		collision->CollisionNormal = translationVectorPrime.Normalize();
+		collision->PenetrationDistance = sphere->GetRadius() - (translationVectorPrime.Magnitude());
+
+		return collision;
+	}
+	
+	Manifold* PhysicsEngine::DetectAABBSphereCollision(ColliderComponent* left, ColliderComponent* right) {
+		//Defer to previous definition of this collision
+		return DetectSphereAABBCollision(right, left);
+	}
 }
