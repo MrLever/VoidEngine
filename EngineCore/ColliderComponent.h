@@ -12,14 +12,6 @@
 
 namespace core {
 
-	enum class CollisionLayer : unsigned {
-		NONE = 0x00,
-		WORLD = 0x01,
-		ENTITY = 0x02,
-		PLAYER = 0x04,
-		ALL = std::numeric_limits<unsigned>::max()
-	};
-
 	class ColliderComponent : public Component {
 		/**
 		 * Declare custom RTTI support
@@ -33,7 +25,7 @@ namespace core {
 		ColliderComponent();
 
 		/**
-		 * Sets up collider data from ComponentData
+		 * Sets up collider data from ConfigData
 		 */
 		void Initialize() override;
 
@@ -54,6 +46,11 @@ namespace core {
 		 */
 		const Collider* GetShape() const;
 
+		/**
+		 * Accessor for CollisionLayer
+		 */
+		unsigned GetCollisionLayer() const;
+
 		template <class ColliderA, class ColliderB>
 		static void RegisterCollisionDetectionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
 		
@@ -63,7 +60,7 @@ namespace core {
 		CollisionDetectionJumpTable;
 
 		/** Layer(s) this collider interacts with */
-		unsigned Layer;
+		unsigned CollisionLayer;
 
 		/** The type of shape used when resolving collisions with this component */
 		Collider* Shape;

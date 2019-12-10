@@ -27,6 +27,11 @@ namespace core {
 		 */
 		virtual void Initialize() = 0;
 
+		/**
+		 * Collision Layer Accessor
+		 */
+		unsigned GetCollisionLayer();
+
 	};
 
 }

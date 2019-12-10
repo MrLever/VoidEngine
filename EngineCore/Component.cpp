@@ -21,10 +21,6 @@ namespace core {
 		return Parent;
 	}
 
-	void Component::SetConfigData(const nlohmann::json& data) {
-		ComponentData = data;
-	}
-
 	void Component::Input(const InputAction& input, float deltaTime) {
 		;
 	}

@@ -21,7 +21,7 @@ namespace core {
 	 * @brief Base class for all components in the engine. Compnents allow
 	 *        Entities to respond to engine commands or player actions
 	 */
-	class Component : utils::FactoryConstructible {
+	class Component : public utils::FactoryConstructible {
 		/**
 		 * Declare custom RTTI support
 		 */
@@ -37,11 +37,6 @@ namespace core {
 		 */
 		void SetParent(Entity* parent);
 		Entity* GetParent();
-
-		/**
-		 * Set's the component's initialization data
-		 */
-		void SetConfigData(const nlohmann::json& data);
 
 		/**
 		 * Applies component data to this object
@@ -99,9 +94,6 @@ namespace core {
 		
 		/** The component's rotation */
 		math::Quaternion Rotation;
-
-		/** Data used to initialize component */
-		nlohmann::json ComponentData;
 
 		/** The component's parent */
 		Entity* Parent;

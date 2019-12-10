@@ -45,6 +45,7 @@
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer":1,
                     "shape":
                     {
                         "type":"SphereCollider",

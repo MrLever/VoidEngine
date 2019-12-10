@@ -12,4 +12,5 @@ namespace core {
 	Collider::Collider() {
 
 	}
+
 }

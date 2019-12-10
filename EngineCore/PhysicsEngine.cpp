@@ -124,6 +124,11 @@ namespace core {
 		//O(n^2) Collision detection
 		for (int i = 0; i < colliders.size(); i++) {
 			for (int j = i+1; j < colliders.size(); j++) {
+				
+				if (colliders[i]->GetCollisionLayer() != colliders[j]->GetCollisionLayer()) {
+					continue;
+				}
+
 				auto manifold = colliders[i]->DetectCollision(colliders[j]);
 				if (manifold) {
 					manifolds.insert(manifold);
