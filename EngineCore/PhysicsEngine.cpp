@@ -347,16 +347,18 @@ namespace core {
 		const SphereCollider* sphere = reinterpret_cast<const SphereCollider*>(left->GetShape());
 		const AABBCollider* aabb = reinterpret_cast<const AABBCollider*>(right->GetShape());
 
-		//Calculate the closest point on the AABB to the sphere
+		//Calculate relevant AABB info
+		auto aabbPos = right->GetPosition();
+		auto aabbMin = aabb->GetMin() + aabbPos;
+		auto aabbMax = aabb->GetMax() + aabbPos;
+
+		//Get translation vector to calculate point of interest
 		auto translationVector = right->GetPosition() - left->GetPosition();
 
-		auto aabbMin = aabb->GetMin();
-		auto aabbMax = aabb->GetMax();
-
 		//Clamping used instead of projections because box is axis-aligned
-		auto poiX = std::max(aabbMin.X, std::min(aabbMax.X, translationVector.X));
-		auto poiY = std::max(aabbMin.Y, std::min(aabbMax.Y, translationVector.Y));
-		auto poiZ = std::max(aabbMin.Z, std::min(aabbMax.Z, translationVector.Z));
+		auto poiX = std::max(aabbMin.X, std::min(aabbMax.X, aabbPos.X - translationVector.X));
+		auto poiY = std::max(aabbMin.Y, std::min(aabbMax.Y, aabbPos.Y - translationVector.Y));
+		auto poiZ = std::max(aabbMin.Z, std::min(aabbMax.Z, aabbPos.Z - translationVector.Z));
 
 		//Closest point on any face of the AABB to the sphere
 		math::Vector3 POI(poiX, poiY, poiZ);
