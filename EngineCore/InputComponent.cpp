@@ -6,6 +6,7 @@
 #include "InputComponent.h"
 
 namespace core {
+	TYPE_INFO_IMPL(InputComponent)
 
 	ENABLE_FACTORY(InputComponent, Component)
 
@@ -41,14 +42,6 @@ namespace core {
 			auto callback = binding->second;
 			callback(input.Value, deltaTime);
 		}
-	}
-
-	utils::Name InputComponent::GetTypename() const {
-		return utils::Name(TypeName<InputComponent>::GetName());
-	}
-
-	utils::Name InputComponent::GetStaticTypename() {
-		return utils::Name(TypeName<InputComponent>::GetName());
 	}
 
 }

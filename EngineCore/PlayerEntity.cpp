@@ -7,6 +7,9 @@
 #include "Logger.h"
 
 namespace core {
+
+	TYPE_INFO_IMPL(PlayerEntity)
+
 	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
 		auto inputComponent = new InputComponent();
 		Components.insert({ InputComponent::GetStaticTypename(), inputComponent });

@@ -6,6 +6,8 @@
 #include "PhysicsComponent.h"
 
 namespace core {
+	TYPE_INFO_IMPL(PhysicsComponent)
+
 	ENABLE_FACTORY(PhysicsComponent, Component)
 
 	PhysicsComponent::PhysicsComponent() : Velocity(), Force(), Mass(1), InverseMass(1),
@@ -20,18 +22,18 @@ namespace core {
 	}
 
 	void PhysicsComponent::Initialize() {
-		if (ComponentData.find("isStatic") != ComponentData.end()) {
-			IsStatic = ComponentData["isStatic"].get<bool>();
+		if (ConfigData.find("isStatic") != ConfigData.end()) {
+			IsStatic = ConfigData["isStatic"].get<bool>();
 		}
-		if (ComponentData.find("mass") != ComponentData.end()) {
-			Mass = ComponentData["mass"].get<float>();
+		if (ConfigData.find("mass") != ConfigData.end()) {
+			Mass = ConfigData["mass"].get<float>();
 			InverseMass = (Mass == 0.0f) ? 0 : 1 / Mass;
 		}
-		if (ComponentData.find("gravityScale") != ComponentData.end()) {
-			GravityScale = ComponentData["gravityScale"].get<float>();
+		if (ConfigData.find("gravityScale") != ConfigData.end()) {
+			GravityScale = ConfigData["gravityScale"].get<float>();
 		}
-		if (ComponentData.find("restitution") != ComponentData.end()) {
-			Restitution = ComponentData["restitution"].get<float>();
+		if (ConfigData.find("restitution") != ConfigData.end()) {
+			Restitution = ConfigData["restitution"].get<float>();
 		}
 	}
 
@@ -73,14 +75,6 @@ namespace core {
 
 	bool PhysicsComponent::GetIsStatic() const {
 		return IsStatic;
-	}
-
-	utils::Name PhysicsComponent::GetTypename() const {
-		return utils::Name("PhysicsComponent");
-	}
-
-	utils::Name PhysicsComponent::GetStaticTypename() {
-		return utils::Name("PhysicsComponent");
 	}
 
 }

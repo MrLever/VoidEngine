@@ -10,6 +10,11 @@
 namespace core {
 
 	class SphereCollider : public Collider {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(SphereCollider)
+
 	public:
 		/**
 		 * Constructor
@@ -21,33 +26,15 @@ namespace core {
 		 */
 		void Initialize() override;
 		
-		/** Radius Accessor */
-		float GetRadius();
-
-		/**
-		 * Static callback to generate a manifold for a sphere-sphere collision
+		/** 
+		 * Radius Accessor 
 		 */
-		static Manifold* DetectSphereCollision(ColliderComponent* left, ColliderComponent* right);
-
-		/**
-		 * Returns dynamic type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Collider Type
-		 */
-		static utils::Name GetStaticTypename();
+		float GetRadius() const;
 
 	private:
 		/** Radius of the collision sphere */
 		float Radius;
 
-		/** 
-		 * Flag to determine if the callbacks for sphere collisions have 
-		 * been registered with the physics engine
-		 */
-		static bool CallbacksRegistered;
 	};
 
 }

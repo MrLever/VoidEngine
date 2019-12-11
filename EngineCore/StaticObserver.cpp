@@ -7,6 +7,8 @@
 #include "Factory.h"
 
 namespace core {
+	TYPE_INFO_IMPL(StaticObserver)
+
 	ENABLE_FACTORY(StaticObserver, Entity)
 
 	StaticObserver::StaticObserver() {

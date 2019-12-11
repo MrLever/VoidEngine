@@ -7,19 +7,10 @@
 
 namespace core {
 
-	// Static variable initialization
-	const float Collider::COLLISION_EPSILON = 0.0001f;
+	TYPE_INFO_IMPL(Collider)
 
 	Collider::Collider() {
 
-	}
-
-	void Collider::SetConfigData(const nlohmann::json& data) {
-		ShapeData = data;
-	}
-
-	utils::Name Collider::GetStaticTypename() {
-		return utils::Name("Collider");
 	}
 
 }

@@ -5,6 +5,7 @@
 //Library headers
 
 //Void Engine Headers
+#include "FactoryConstructible.h"
 #include "EntityData.h"
 #include "Name.h"
 #include "Vector.h"
@@ -22,7 +23,12 @@ namespace core {
 	 * @class Entity 
 	 * @brief The Entity class provides the basic definition of what it takes to partake in the simulation
 	 */
-	class Entity {
+	class Entity : public utils::FactoryConstructible {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(Entity)
+
 	public:
 		/**
 		 * Constructor
@@ -94,11 +100,6 @@ namespace core {
 		void SetName(const utils::Name& name);
 
 		/**
-		 * Used to set Entitiy's initialization data
-		 */
-		void SetConfigData(const nlohmann::json& data);
-
-		/**
 		 * Gives ownership of a component to this entity
 		 * @param component The component to add
 		 */
@@ -115,9 +116,6 @@ namespace core {
 	protected:
 		/** Entity's name */
 		utils::Name ID;
-
-		/** Data used to configure Entity's initial state */
-		nlohmann::json ConfigData;
 
 		/** All of the components for this entity */
 		std::unordered_map<utils::Name, Component*> Components;

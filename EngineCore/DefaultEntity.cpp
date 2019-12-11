@@ -7,8 +7,11 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(DefaultEntity)
+
 	ENABLE_FACTORY(DefaultEntity, Entity)
 
+	
 	DefaultEntity::DefaultEntity() {
 		
 	}

@@ -16,6 +16,11 @@
 namespace core {
 
 	class CameraComponent : public Component {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(CameraComponent)
+	
 	public:
 		/**
 		 * Constructor
@@ -65,16 +70,6 @@ namespace core {
 		 * to a change in window size
 		 */
 		void UpdateProjectionMatrix();
-
-		/**
-		 * Returns name of dynamic Component Type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
 
 	private:
 

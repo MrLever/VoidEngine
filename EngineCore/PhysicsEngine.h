@@ -72,6 +72,16 @@ namespace core {
 		 * Apply positional correction to prevent sinking object problem
 		 */
 		void CorrectPositions(Manifold* collision);
+
+		static Manifold* DetectSphereSphereCollision(ColliderComponent* left, ColliderComponent* right);
+
+		static Manifold* DetectAABBAABBCollision(ColliderComponent* left, ColliderComponent* right);
+
+		static Manifold* DetectSphereAABBCollision(ColliderComponent* left, ColliderComponent* right);
+
+		static Manifold* DetectAABBSphereCollision(ColliderComponent* left, ColliderComponent* right);
+
+		static const float COLLISION_EPSILON;
 	};
 
 }

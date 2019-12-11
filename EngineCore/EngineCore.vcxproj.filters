@@ -518,5 +518,8 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
+    <ClInclude Include="FactoryConstructible.h">
+      <Filter>Header Files\Engine Utilities\Factory System</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

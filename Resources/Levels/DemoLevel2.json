@@ -1,0 +1,67 @@
+{
+    "name":"CollisionDemo2",
+    "controlFile":"Settings/Controls/FPSControls.json",
+    "gravity": 9.81,
+    "entities":
+    [
+        {
+            "name":"FloatingPawn",
+            "type":"DefaultPlayerEntity",
+            "location": [0, 0, 40],
+            "rotation": [0, 90, 0]
+        },
+        {
+            "name":"RightCube",
+            "type":"DefaultEntity",
+            "location": [10, -7, -10],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Cube/Cube.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"AABBCollider",
+                        "min":[-1,-1,-1],
+                        "max":[1,1,1]
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "isStatic":true,
+                    "restitution":1
+                }
+            ]
+        },
+        {
+            "name":"RightProjectile",
+            "type":"DefaultEntity",
+            "location": [10, 20, -10],
+            "rotation": [0, 0, 0],
+            "components":
+            [
+                {
+                    "type": "GraphicsComponent",
+                    "model":"Resources/Models/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                },
+                {
+                    "type": "PhysicsComponent",
+                    "mass":1,
+                    "restitution":1
+                }
+            ]
+        }
+    ]
+}

@@ -10,6 +10,11 @@ namespace core {
 
 
 	class DefaultEntity : public Entity {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(DefaultEntity)
+
 	public:
 		/**
 		 * Constructor

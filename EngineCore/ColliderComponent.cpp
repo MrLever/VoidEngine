@@ -8,6 +8,8 @@
 
 namespace core {
 
+	TYPE_INFO_IMPL(ColliderComponent)
+
 	ENABLE_FACTORY(ColliderComponent, Component);
 
 	// Static variable initialization
@@ -15,22 +17,19 @@ namespace core {
 		<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
 	ColliderComponent::CollisionDetectionJumpTable;
 
-	ColliderComponent::ColliderComponent() : Layer(0), Shape(nullptr) {
+	ColliderComponent::ColliderComponent() : CollisionLayer(0), Shape(nullptr) {
 		
-	}
-
-	utils::Name ColliderComponent::GetTypename() const {
-		return utils::Name(TypeName<ColliderComponent>::GetName());
-	}
-
-	utils::Name ColliderComponent::GetStaticTypename() {
-		return utils::Name(TypeName<ColliderComponent>::GetName());
 	}
 
 	void ColliderComponent::Initialize() {
 		Position = Parent->GetPostion();
-		Shape = utils::FactoryBase<Collider>::Create(ComponentData["shape"]["type"].get<std::string>());
-		Shape->SetConfigData(ComponentData["shape"]);
+
+		if (ConfigData.find("collisionLayer") != ConfigData.end()) {
+			CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
+		}
+
+		Shape = utils::FactoryBase<Collider>::Create(ConfigData["shape"]["type"].get<std::string>());
+		Shape->SetConfigData(ConfigData["shape"]);
 		Shape->Initialize();
 	}
 
@@ -54,5 +53,9 @@ namespace core {
 
 	const Collider* ColliderComponent::GetShape() const {
 		return Shape;
+	}
+
+	unsigned ColliderComponent::GetCollisionLayer() const {
+		return CollisionLayer;
 	}
 }

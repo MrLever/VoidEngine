@@ -12,15 +12,12 @@
 
 namespace core {
 
-	enum class CollisionLayer : unsigned {
-		NONE = 0x00,
-		WORLD = 0x01,
-		ENTITY = 0x02,
-		PLAYER = 0x04,
-		ALL = std::numeric_limits<unsigned>::max()
-	};
-
 	class ColliderComponent : public Component {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(ColliderComponent)
+
 	public:
 		/**
 		 * Constructor
@@ -28,17 +25,7 @@ namespace core {
 		ColliderComponent();
 
 		/**
-		 * Returns name of dynamic Component Type
-		 */
-		utils::Name GetTypename() const override;
-
-		/**
-		 * Returns name of static Component Type
-		 */
-		static utils::Name GetStaticTypename();
-
-		/**
-		 * Sets up collider data from ComponentData
+		 * Sets up collider data from ConfigData
 		 */
 		void Initialize() override;
 
@@ -59,6 +46,11 @@ namespace core {
 		 */
 		const Collider* GetShape() const;
 
+		/**
+		 * Accessor for CollisionLayer
+		 */
+		unsigned GetCollisionLayer() const;
+
 		template <class ColliderA, class ColliderB>
 		static void RegisterCollisionDetectionCallback(std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback);
 		
@@ -68,7 +60,7 @@ namespace core {
 		CollisionDetectionJumpTable;
 
 		/** Layer(s) this collider interacts with */
-		unsigned Layer;
+		unsigned CollisionLayer;
 
 		/** The type of shape used when resolving collisions with this component */
 		Collider* Shape;
@@ -79,8 +71,8 @@ namespace core {
 	inline void ColliderComponent::RegisterCollisionDetectionCallback(
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)> callback
 	) {
-		utils::Name i(TypeName<ColliderA>::GetName());
-		utils::Name j(TypeName<ColliderB>::GetName());
+		utils::Name i(ColliderA::GetStaticTypename());
+		utils::Name j(ColliderB::GetStaticTypename());
 		if (CollisionDetectionJumpTable.Find(i, j) != nullptr) {
 			utils::Logger::LogWarning(
 				"Collision Detection Callback [" +

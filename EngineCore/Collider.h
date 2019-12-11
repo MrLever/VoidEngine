@@ -2,15 +2,20 @@
 //STD Headers
 
 //Library Headers
-#include "nlohmann/json.hpp"
 
 //Void Engine Headers
 #include "Vector.h"
 #include "Factory.h"
+#include "FactoryConstructible.h"
 
 namespace core {
 	
-	class Collider {
+	class Collider : public utils::FactoryConstructible {
+		/**
+		 * Declare custom RTTI support
+		 */
+		TYPE_INFO_DECL(Collider)
+
 	public:
 		/**
 		 * Constructor
@@ -18,30 +23,15 @@ namespace core {
 		Collider();
 
 		/**
-		 * Allows parent component to pass in configuration data
-		 */
-		void SetConfigData(const nlohmann::json& data);
-
-		/**
 		 * Applies configuration settings
 		 */
 		virtual void Initialize() = 0;
 
 		/**
-		 * Returns dynamic type
+		 * Collision Layer Accessor
 		 */
-		virtual utils::Name GetTypename() const = 0;
+		unsigned GetCollisionLayer();
 
-		/**
-		 * Returns name of static Collider Type
-		 */
-		static utils::Name GetStaticTypename();
-
-	protected:
-		/** Data used to initialize component */
-		nlohmann::json ShapeData;
-		
-		static const float COLLISION_EPSILON;
 	};
 
 }

@@ -7,6 +7,7 @@
 #include "Factory.h"
 
 namespace core {
+	TYPE_INFO_IMPL(CameraComponent)
 
 	ENABLE_FACTORY(CameraComponent, Component)
 
@@ -73,14 +74,6 @@ namespace core {
 			0.1f,
 			100.0f
 		);
-	}
-
-	utils::Name CameraComponent::GetTypename() const {
-		return utils::Name(TypeName<CameraComponent>::GetName());
-	}
-
-	utils::Name CameraComponent::GetStaticTypename() {
-		return utils::Name(TypeName<CameraComponent>::GetName());
 	}
 
 }
