@@ -1,5 +1,12 @@
 {
-    "actionMappings":[],
+    "actionMappings":
+    [
+        {
+            "key":"SPACE",
+            "modifiers":[],
+            "action":"Fire"
+        }
+    ],
     "axisMappings":
     [
         {

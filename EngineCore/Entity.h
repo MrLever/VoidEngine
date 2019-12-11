@@ -18,6 +18,7 @@
 namespace core {
 	//Forward class declarations
 	class Component;
+	class Level;
 
 	/**
 	 * @class Entity 
@@ -61,7 +62,7 @@ namespace core {
 		 * Pure virtual function that defines what the entity does once a level begins.
 		 * @note This function largely acts like an initialization function
 		 */
-		virtual void BeginPlay() = 0;
+		virtual void BeginPlay();
 
 		/**
 		 * Pure virtual function that defines how an entity processes updates
@@ -73,7 +74,7 @@ namespace core {
 		/**
 		 * Defines entity death behaviors
 		 */
-		virtual void Terminate() = 0;
+		virtual void Terminate();
 
 		/**
 		 * Command for the renderer to draw the entity
@@ -113,6 +114,17 @@ namespace core {
 		template<class T>
 		T* GetComponent();
 	
+		/**
+		 * Accessors for the pointer to the level this entity is active in
+		 */
+		Level* GetWorld() const;
+		void SetWorld(Level* world);
+	
+		/**
+		 * Accessor for Parent
+		 */
+		void SetParent(Entity* parent);
+
 	protected:
 		/** Entity's name */
 		utils::Name ID;
@@ -125,6 +137,12 @@ namespace core {
 
 		/** The entity's rotation in 3D space */
 		math::Quaternion Rotation;
+
+		/** The level the entity inhabits */
+		Level* World;
+
+		/** Optional pointer to the entity's owner */
+		Entity* Parent;
 	};
 
 	template<class T>

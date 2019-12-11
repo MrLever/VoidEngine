@@ -51,18 +51,6 @@ namespace core {
 		 */
 		virtual void Initialize() override;
 
-	    /**
-		 * Getter for level's name
-		 * @return The level's name
-		 */
-		utils::Name GetName();
-
-		/**
-		 * Allows the game to query the control file used for this level
-		 * @return path relative to root of the level's keybinding file
-		 */
-		std::string GetControlFilePath();
-
 		/**
 		 * Instructs all entities in level to begin play
 		 */
@@ -75,10 +63,32 @@ namespace core {
 		void Update(double deltaTime);
 
 		/**
+		 * Allows Entities to spawn other entities at runtime
+		 */
+		Entity* SpawnEntity(const utils::Name& type, Entity* parent = nullptr);
+
+		/**
+		 * Allows Entities to spawn other entities at runtime
+		 */
+		void RemoveEntity(Entity* entity);
+
+		/**
 		 * Function to get the current scene of drawables
 		 * @return All the drawable objects in the scene
 		 */
 		std::vector<Entity*> GetScene();
+
+		/**
+		 * Getter for level's name
+		 * @return The level's name
+		 */
+		utils::Name GetName();
+
+		/**
+		 * Allows the game to query the control file used for this level
+		 * @return path relative to root of the level's keybinding file
+		 */
+		std::string GetControlFilePath();
 
 		template <class T>
 		T QueryVariable(const std::string& variable);

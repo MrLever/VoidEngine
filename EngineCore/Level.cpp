@@ -53,9 +53,9 @@ namespace core {
 			}
 
 			entity->SetConfigData(entityData);
-			
-			nlohmann::json componentList;
+			entity->SetWorld(this);
 
+			nlohmann::json componentList;
 			if (entityData.find("components") != entityData.end()) {
 				componentList = entityData["components"];
 			}
@@ -80,14 +80,6 @@ namespace core {
 		}
 	}	
 
-	utils::Name Level::GetName() {
-		return LevelName;
-	}
-
-	std::string Level::GetControlFilePath() {
-		return InputDefinitionPath;
-	}
-
 	void Level::BeginPlay() {
 		for (auto& entity : Entities) {
 			entity->BeginPlay();
@@ -100,8 +92,33 @@ namespace core {
 		}
 	}
 
+	Entity* Level::SpawnEntity(const utils::Name& type, Entity* parent) {
+		auto entity = utils::FactoryBase<Entity>::Create(type);
+		if (!entity) {
+			return nullptr;
+		}
+
+		Entities.push_back(entity);
+		entity->SetWorld(this);
+		entity->SetParent(parent);
+		entity->Initialize();
+		entity->BeginPlay();
+		return entity;
+	}
+
+	void Level::RemoveEntity(Entity* entity) {
+		;
+	}
+
 	std::vector<Entity*> Level::GetScene() {
 		return Entities;
 	}
 
+	utils::Name Level::GetName() {
+		return LevelName;
+	}
+
+	std::string Level::GetControlFilePath() {
+		return InputDefinitionPath;
+	}
 }

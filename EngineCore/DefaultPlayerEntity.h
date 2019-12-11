@@ -50,7 +50,7 @@ namespace core {
 		 * Allows player entities to set up input components with keybindings
 		 * @param component The component to configure
 		 */
-		void SetupInputComponent(InputComponent* component) override;
+		virtual void SetupInputComponent(InputComponent* component) override;
 
 
 	private:

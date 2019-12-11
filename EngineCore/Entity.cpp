@@ -6,12 +6,15 @@
 #include "Entity.h"
 #include "Component.h"
 #include "JsonResource.h"
+#include "Level.h"
 
 namespace core {
 
 	TYPE_INFO_IMPL(Entity)
 
-	Entity::Entity() : ID("Entity") {
+	ENABLE_FACTORY(Entity, Entity)
+	
+	Entity::Entity() : ID("Entity"), World(nullptr) {
 	
 	}
 
@@ -58,10 +61,18 @@ namespace core {
 		}
 	}
 
+	void Entity::BeginPlay() {
+		;
+	}
+
 	void Entity::Tick(float deltaTime) {
 		for (auto& componentEntry : Components) {
 			componentEntry.second->Tick(deltaTime);
 		}
+	}
+
+	void Entity::Terminate() {
+		;
 	}
 
 	void Entity::Draw() const {
@@ -106,6 +117,18 @@ namespace core {
 		auto name = component->GetTypename();
 
 		Components.insert({ name, component });
+	}
+
+	Level* Entity::GetWorld() const {
+		return World;
+	}
+
+	void Entity::SetWorld(Level* world) {
+		World = world;
+	}
+
+	void Entity::SetParent(Entity* parent) {
+		Parent = parent;
 	}
 
 }

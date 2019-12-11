@@ -12,7 +12,7 @@
         },
         {
             "name":"RightCube",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [10, -7, -10],
             "rotation": [0, 0, 0],
             "components":
@@ -39,8 +39,8 @@
         },
         {
             "name":"RightProjectile",
-            "type":"DefaultEntity",
-            "location": [10, 50, -10],
+            "type":"Entity",
+            "location": [10, 20, -10],
             "rotation": [0, 0, 0],
             "components":
             [

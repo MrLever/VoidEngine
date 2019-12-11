@@ -9,6 +9,8 @@
 namespace SuperVoid {
 
 	class BouncingCube : public core::Entity {
+		TYPE_INFO_DECL(BouncingCube)
+
 	public:
 		/**
 		 * Constructor

@@ -6,7 +6,7 @@
     [
         {
             "name":"FloatingPawn",
-            "type":"DefaultPlayerEntity",
+            "type":"FloatingFPSPlayer",
             "location": [0, 0, 40],
             "rotation": [0, 90, 0],
             "components":
@@ -26,7 +26,7 @@
         },
         {
             "name":"CenterCube",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [0, 0, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -48,7 +48,7 @@
         },
         {
             "name":"CenterProjectile",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [0, 20, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -76,7 +76,7 @@
         },
         {
             "name":"CenterProjectile2",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [-1, 40, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -102,7 +102,7 @@
         },
         {
             "name":"FloatingProjectile",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [0, -20, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -128,7 +128,7 @@
         },
         {
             "name":"LeftCube",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [-8, -7, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -155,7 +155,7 @@
         },
         {
             "name":"LeftProjectile",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [-8, 20, 0],
             "rotation": [0, 0, 0],
             "components":
@@ -182,7 +182,7 @@
         },
         {
             "name":"RightCube",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [10, -7, -10],
             "rotation": [0, 0, 0],
             "components":
@@ -209,7 +209,7 @@
         },
         {
             "name":"RightProjectile",
-            "type":"DefaultEntity",
+            "type":"Entity",
             "location": [10, 20, -10],
             "rotation": [0, 0, 0],
             "components":

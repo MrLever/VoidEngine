@@ -257,7 +257,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="Configurable.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="ControlLayout.cpp" />
-    <ClCompile Include="DefaultEntity.cpp" />
     <ClCompile Include="DefaultPlayerEntity.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityData.cpp" />
@@ -265,6 +264,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="EventBus.cpp" />
     <ClCompile Include="EventBusNode.cpp" />
     <ClCompile Include="EventDispatcher.cpp" />
+    <ClCompile Include="FloatingFPSPlayer.cpp" />
     <ClCompile Include="GamepadButtonEvent.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="InputActionEvent.cpp" />
@@ -287,6 +287,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClCompile Include="..\Dependencies\GLAD\src\glad.c" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceAllocator.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -315,7 +316,6 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Configurable.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="ControlLayout.h" />
-    <ClInclude Include="DefaultEntity.h" />
     <ClInclude Include="DefaultPlayerEntity.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityData.h" />
@@ -325,6 +325,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="EventDispatcher.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="FactoryConstructible.h" />
+    <ClInclude Include="FloatingFPSPlayer.h" />
     <ClInclude Include="GamepadButtonEvent.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputActionEvent.h" />
@@ -336,6 +337,7 @@ echo F|xcopy /s /y "$(SolutionDir)Resources\*" "$(TargetDir)Resources\"</Command
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="KeyboardButtonEvent.h" />
     <ClInclude Include="Logger.h" />

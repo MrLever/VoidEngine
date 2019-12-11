@@ -309,11 +309,14 @@
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Source Files\Engine Core\Physics System</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultEntity.cpp">
-      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\Gameplay Framework\Entity System\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingFPSPlayer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,14 +515,17 @@
     <ClInclude Include="PhysicsEngine.h">
       <Filter>Header Files\Engine Core\Physics System</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultEntity.h">
-      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Gameplay Framework\Entity System\Components</Filter>
     </ClInclude>
     <ClInclude Include="FactoryConstructible.h">
       <Filter>Header Files\Engine Utilities\Factory System</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingFPSPlayer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
