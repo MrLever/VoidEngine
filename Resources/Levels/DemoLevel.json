@@ -8,7 +8,21 @@
             "name":"FloatingPawn",
             "type":"DefaultPlayerEntity",
             "location": [0, 0, 40],
-            "rotation": [0, 90, 0]
+            "rotation": [0, 90, 0],
+            "components":
+            [
+                {
+                    "type":"CameraComponent"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                }
+            ]
         },
         {
             "name":"CenterCube",

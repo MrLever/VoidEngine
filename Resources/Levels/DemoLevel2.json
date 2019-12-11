@@ -1,7 +1,7 @@
 {
     "name":"CollisionDemo2",
     "controlFile":"Settings/Controls/FPSControls.json",
-    "gravity": 9.81,
+    "gravity": 50,
     "entities":
     [
         {
@@ -40,7 +40,7 @@
         {
             "name":"RightProjectile",
             "type":"DefaultEntity",
-            "location": [10, 20, -10],
+            "location": [10, 50, -10],
             "rotation": [0, 0, 0],
             "components":
             [

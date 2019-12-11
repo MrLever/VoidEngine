@@ -3,14 +3,6 @@
     [
         {
             "type":"CameraComponent"
-        },
-        {
-            "type":"ColliderComponent",
-            "shape":
-            {
-                "type":"SphereCollider",
-                "radius":1
-            }
         }
     ]
 }
