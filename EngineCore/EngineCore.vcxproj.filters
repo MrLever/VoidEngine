@@ -316,7 +316,7 @@
       <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
     <ClCompile Include="FloatingFPSPlayer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -525,7 +525,7 @@
       <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
     <ClInclude Include="FloatingFPSPlayer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Gameplay Framework\Entity System\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
