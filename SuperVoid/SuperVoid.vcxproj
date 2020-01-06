@@ -71,22 +71,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW\src\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW\src\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Debug;$(SolutionDir)Dependencies\GLFW\src\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)Dependencies\assimp\include;$(SolutionDir)Dependencies;$(SolutionDir)EngineCore;$(SolutionDir)Dependencies\GLAD\include;$(SolutionDir)EngineMath;$(SolutionDir)Dependencies\GLFW\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\assimp\lib\Release;$(SolutionDir)Dependencies\GLFW\src\Release;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,7 +106,8 @@
     </Link>
     <CustomBuildStep>
       <Outputs>nonexistentfile</Outputs>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"
+echo F|xcopy /s /y "$(SolutionDir)Dependencies\GLFW\src\Debug\glfw3.lib" "$(TargetDir)"</Command>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -126,7 +127,8 @@
     </Link>
     <CustomBuildStep>
       <Outputs>nonexistentfile</Outputs>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Debug\assimp-vc142-mtd.dll" "$(TargetDir)"
+echo F|xcopy /s /y "$(SolutionDir)Dependencies\GLFW\src\Debug\glfw3.lib" "$(TargetDir)"</Command>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +150,8 @@
       <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"
+echo F|xcopy /s /y "$(SolutionDir)Dependencies\GLFW\src\Release\glfw3.lib" "$(TargetDir)"</Command>
       <Outputs>nonexistentfile</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
@@ -172,7 +175,8 @@
       <AdditionalOptions>/WHOLEARCHIVE:EngineCore.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <CustomBuildStep>
-      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"</Command>
+      <Command>echo F|xcopy /s /y "$(SolutionDir)Dependencies\assimp\bin\Release\assimp-vc142-mt.dll" "$(TargetDir)"
+echo F|xcopy /s /y "$(SolutionDir)Dependencies\GLFW\src\Release\glfw3.lib" "$(TargetDir)"</Command>
       <Outputs>nonexistentfile</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>

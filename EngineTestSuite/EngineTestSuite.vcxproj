@@ -78,7 +78,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLFW\src\Debug;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\Dependencies\assimp\include;$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -92,7 +92,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\Dependencies\assimp\include;$(SolutionDir)\Dependencies;$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLAD\include;$(SolutionDir)\EngineMath;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\Dependencies\GLFW;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\GLFW\src\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
