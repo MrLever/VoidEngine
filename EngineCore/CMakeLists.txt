@@ -365,3 +365,7 @@ set(ROOT_NAMESPACE core)
 ################################################################################
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineMath)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
+
+#target_link_libraries(${PROJECT_NAME} PUBLIC debug assimp-vc142-mtd)
+#target_link_libraries(${PROJECT_NAME} PUBLIC optimized assimp-vc142-mtd)
+target_link_libraries(${PROJECT_NAME} PUBLIC  assimp)
