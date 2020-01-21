@@ -36,7 +36,7 @@ namespace core {
 	void PhysicsEngine::Simulate(Level* scene, float deltaTime) {
 		//Physics simulations update 60 times per second
 		static float accumulator = 0.0f;
-		static const float PHYSICS_DT = 0.016; 
+		static const float PHYSICS_DT = 0.016f; 
 
 		accumulator += deltaTime;
 

@@ -6,12 +6,12 @@
 
 //Void Engine Headers
 #include "Entity.h"
+#include "EngineMath/Vector.h"
+#include "EngineMath/Rotator.h"
 #include "Input.h"
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "Vector.h"
-#include "Rotator.h"
 #include "TypeUtils.h"
 
 namespace core {
