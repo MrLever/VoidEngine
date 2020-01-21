@@ -1,6 +1,8 @@
 project(SuperVoid CXX)
 
-### Collect and organize files
+################################################################################
+# Set Files
+################################################################################
 set(Header_Files__Entities
     "BouncingCube.h"
     "PlayerShip.h"
@@ -24,11 +26,15 @@ set(ALL_FILES
     ${Source_Files__Entities}
 )
 
-### Specify target type
+################################################################################
+# Create Executable
+################################################################################
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 set(ROOT_NAMESPACE SuperVoid)
 
-### Set include directories
+################################################################################
+# Add Include Directories
+################################################################################
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies/GLAD/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies/GLFW/include)
@@ -37,5 +43,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Dependenc
 ################################################################################
 # Dependencies
 ################################################################################
-target_link_libraries(${PROJECT_NAME} PUBLIC EngineMath)
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineCore)

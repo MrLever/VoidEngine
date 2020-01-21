@@ -26,7 +26,7 @@ add_compile_options("$<$<CONFIG:RELEASE>:/Ot>")
 add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 
 ### Configure library flags
-set(BUILD_ASSIMP_TOOLS OFF)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
 set(ASSIMP_BUILD_ZLIB OFF)
 set(ASSIMP_BUILD_TESTS OFF)
 

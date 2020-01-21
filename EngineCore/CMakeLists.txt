@@ -364,3 +364,4 @@ set(ROOT_NAMESPACE core)
 # Dependencies
 ################################################################################
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineMath)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
