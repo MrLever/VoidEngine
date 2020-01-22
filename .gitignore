@@ -12,6 +12,7 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+build
 
 #Zip files
 *.zip
@@ -20,6 +21,8 @@ CTestTestfile.cmake
 Dependencies/Source/
 
 # Visual Studio Stuff
+*.sln
+*.vcxproj*
 *.suo
 *.user
 *.userosscache

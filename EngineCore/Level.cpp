@@ -86,7 +86,7 @@ namespace core {
 		}
 	}
 
-	void Level::Update(double deltaTime) {
+	void Level::Update(float deltaTime) {
 		for (auto& entity : Entities) {
 			entity->Tick(deltaTime);
 		}

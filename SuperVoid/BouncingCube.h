@@ -4,7 +4,7 @@
 //Library Headers
 
 //SuperVoid Headers
-#include "Entity.h"
+#include "EngineCore/Entity.h"
 
 namespace SuperVoid {
 

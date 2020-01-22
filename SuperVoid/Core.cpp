@@ -5,7 +5,7 @@
 //Library Headers
 
 //Coati Headers
-#include "Game.h"
+#include "EngineCore/Game.h"
 
 using namespace core;
 

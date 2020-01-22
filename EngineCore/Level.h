@@ -60,7 +60,7 @@ namespace core {
 		 * Updates all the entities in the level
 		 * @param deltaTime time elapsed since last update
 		 */
-		void Update(double deltaTime);
+		void Update(float deltaTime);
 
 		/**
 		 * Allows Entities to spawn other entities at runtime

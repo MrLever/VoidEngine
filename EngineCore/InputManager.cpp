@@ -16,7 +16,7 @@
 #include "PauseGameEvent.h"
 #include "GamepadButtonEvent.h"
 #include "AxisInputEvent.h"
-#include "InputActionEvent.h";
+#include "InputActionEvent.h"
 
 namespace core {
 

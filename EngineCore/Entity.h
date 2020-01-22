@@ -8,12 +8,12 @@
 #include "FactoryConstructible.h"
 #include "EntityData.h"
 #include "Name.h"
-#include "Vector.h"
-#include "Rotator.h"
+#include "EngineMath/Vector.h"
+#include "EngineMath/Rotator.h"
+#include "EngineMath/Quaternion.h"
 #include "InputAction.h"
 #include "AxisInputAction.h"
 #include "Factory.h"
-#include "Quaternion.h"
 
 namespace core {
 	//Forward class declarations
