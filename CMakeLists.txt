@@ -25,16 +25,15 @@ add_compile_options("$<$<CONFIG:RELEASE>:/GL>")
 add_compile_options("$<$<CONFIG:RELEASE>:/Ot>")
 add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 
-### Configure library flags
-set(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
-set(ASSIMP_BUILD_ZLIB OFF)
-set(ASSIMP_BUILD_TESTS OFF)
-
 ### Set include directories
 include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
 
 ### Add Dependencies to project
 add_subdirectory(Dependencies/GLFW)
+
+option(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+option(ASSIMP_BUILD_ZLIB OFF)
+option(ASSIMP_BUILD_TESTS OFF)
 add_subdirectory(Dependencies/assimp)
 
 add_subdirectory(EngineCore)
