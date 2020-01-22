@@ -30,16 +30,18 @@ include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
 
 ### Add Dependencies to project
 add_subdirectory(Dependencies/GLFW)
+set_target_properties(glfw PROPERTIES FOLDER Dependencies/GLFW)
+set_target_properties(uninstall PROPERTIES FOLDER Dependencies/GLFW)
 
 option(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
 option(ASSIMP_BUILD_ZLIB OFF)
 option(ASSIMP_BUILD_TESTS OFF)
 add_subdirectory(Dependencies/assimp)
-set_target_properties(assimp PROPERTIES FOLDER Assimp)
-set_target_properties(IrrXML PROPERTIES FOLDER Assimp)
-set_target_properties(zlib PROPERTIES FOLDER Assimp)
-set_target_properties(zlibstatic PROPERTIES FOLDER Assimp)
-set_target_properties(UpdateAssimpLibsDebugSymbolsAndDLLs PROPERTIES FOLDER Assimp)
+set_target_properties(assimp PROPERTIES FOLDER Dependencies/Assimp)
+set_target_properties(IrrXML PROPERTIES FOLDER Dependencies/Assimp)
+set_target_properties(zlib PROPERTIES FOLDER Dependencies/Assimp)
+set_target_properties(zlibstatic PROPERTIES FOLDER Dependencies/Assimp)
+set_target_properties(UpdateAssimpLibsDebugSymbolsAndDLLs PROPERTIES FOLDER Dependencies/Assimp)
 
 add_subdirectory(EngineCore)
 add_subdirectory(EngineMath)
