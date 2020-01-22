@@ -6,7 +6,7 @@ if(EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-project(SuperVoid C CXX)
+project(VoidEngine C CXX)
 
 ### Set build-configuration types
 set(CMAKE_CONFIGURATION_TYPES
@@ -46,4 +46,3 @@ set_target_properties(UpdateAssimpLibsDebugSymbolsAndDLLs PROPERTIES FOLDER Depe
 add_subdirectory(EngineCore)
 add_subdirectory(EngineMath)
 add_subdirectory(SuperVoid)
-
