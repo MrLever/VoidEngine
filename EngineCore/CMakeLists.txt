@@ -1,7 +1,10 @@
+################################################################################
+# Define module project: EngineCore
+################################################################################
 project(EngineCore C CXX)
 
 ################################################################################
-# Source groups
+# Set Source groups
 ################################################################################
 set(Dependencies
     "../Dependencies/GLAD/src/glad.c"
@@ -343,21 +346,23 @@ set(ALL_FILES
 )
 
 ################################################################################
-# Target
+# Specify library properties
 ################################################################################
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+set(ROOT_NAMESPACE core)
 
+################################################################################
+# Set module include directories
+################################################################################
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies/GLAD/include)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/GLFW/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Dependencies/assimp/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
 
-set(ROOT_NAMESPACE core)
-
 ################################################################################
-# Dependencies
+# Link Dependencies
 ################################################################################
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineMath)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
-target_link_libraries(${PROJECT_NAME} PUBLIC  assimp)
+target_link_libraries(${PROJECT_NAME} PUBLIC assimp)
