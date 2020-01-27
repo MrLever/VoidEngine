@@ -123,7 +123,7 @@ namespace math {
 		/**
 		 * Equality comparison overload
 		 */
-		bool operator== (const Vector3& other);
+		bool operator== (const Vector3& other) const;
 
 		/**
 		 * Addition assignment overload

@@ -66,6 +66,7 @@ set_target_properties(zlibstatic PROPERTIES FOLDER Dependencies/Assimp)
 set_target_properties(UpdateAssimpLibsDebugSymbolsAndDLLs PROPERTIES FOLDER Dependencies/Assimp)
 
 ## GoogleTest
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 add_subdirectory(Dependencies/googletest)
 set_target_properties(gtest PROPERTIES FOLDER Dependencies/googletest)
 set_target_properties(gtest_main PROPERTIES FOLDER Dependencies/googletest)
@@ -76,3 +77,6 @@ set_target_properties(gmock_main PROPERTIES FOLDER Dependencies/googletest)
 add_subdirectory(EngineCore)
 add_subdirectory(EngineMath)
 add_subdirectory(SuperVoid)
+
+## Test Suites
+add_subdirectory(Tests)
