@@ -5,3 +5,6 @@
 	path = Dependencies/GLFW
 	url = https://github.com/glfw/glfw.git
 	branch = master
+[submodule "Dependencies/googletest"]
+	path = Dependencies/googletest
+	url = https://github.com/google/googletest.git
