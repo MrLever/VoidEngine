@@ -7,7 +7,6 @@
 //Void Engine Headers
 #include "EngineCore/ThreadPool.h"
 
-
 using namespace utils;
 
 namespace utils_tests {
