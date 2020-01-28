@@ -13,9 +13,11 @@ namespace core {
 	ENABLE_FACTORY(ColliderComponent, Component);
 
 	// Static variable initialization
-	utils::Table
-		<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
-	ColliderComponent::CollisionDetectionJumpTable;
+	utils::Table<
+		utils::Name, 
+		utils::Name, 
+		std::function<Manifold*(ColliderComponent*, ColliderComponent*)>
+	> ColliderComponent::CollisionDetectionJumpTable;
 
 	ColliderComponent::ColliderComponent() : CollisionLayer(0), Shape(nullptr) {
 		

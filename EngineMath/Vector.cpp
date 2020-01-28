@@ -169,7 +169,7 @@ namespace math {
 		return Vector3(X / mag, Y / mag, Z / mag);
 	}
 
-	bool Vector3::operator== (const Vector3& other) {
+	bool Vector3::operator== (const Vector3& other) const {
 		constexpr float EPSILON = std::numeric_limits<float>::epsilon() * 100;
 		return
 			std::abs(this->X - other.X) < EPSILON
