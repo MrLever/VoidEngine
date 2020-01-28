@@ -2,6 +2,8 @@
 # Set Files
 ################################################################################
 set(Engine_Utils_Test_Suite
+    "Utils/Configurable_test.cpp"
+    "Utils/Configuration_test.cpp"
     "Utils/Name_test.cpp"
     "Utils/Table_test.cpp"
     "Utils/Factory_test.cpp"
