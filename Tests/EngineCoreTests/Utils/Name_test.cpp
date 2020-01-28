@@ -11,14 +11,14 @@ using namespace utils;
 
 namespace utils_tests {
 
-	TEST(NameTests, Construction) {
+	TEST(NameTests, ConstructionTest) {
 		Name id("Test");
 
 		ASSERT_EQ(utils::FNV1aHash("Test"), id.ID);
 		ASSERT_EQ(std::string("Test"), id.StringID);
 	}
 
-	TEST(NameTests, AssignmentOperator) {
+	TEST(NameTests, AssignmentOperatorTest) {
 		Name id("Test");
 		auto hash = id.ID;
 
@@ -34,7 +34,7 @@ namespace utils_tests {
 		ASSERT_EQ(id2.StringID, id.StringID);
 	}
 
-	TEST(NameTests, Comparison) {
+	TEST(NameTests, ComparisonTest) {
 		Name idA("Foo");
 		Name idB("Bar");
 		Name idC("Foo");
