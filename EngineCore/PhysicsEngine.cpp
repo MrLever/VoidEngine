@@ -147,12 +147,10 @@ namespace core {
 	}
 
 	void PhysicsEngine::ResolveCollision(Manifold* collision) {
-		auto colliderA = collision->ColliderA;
-		auto objectA = colliderA->GetParent();
+		auto objectA = collision->EntityA;
 		auto bodyA = objectA->GetComponent<PhysicsComponent>();
 
-		auto colliderB = collision->ColliderB;
-		auto objectB = colliderB->GetParent();
+		auto objectB = collision->EntityB;
 		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
 		if (bodyA == nullptr && bodyB == nullptr) {
@@ -202,12 +200,10 @@ namespace core {
 			return;
 		}
 
-		auto colliderA = collision->ColliderA;
-		auto objectA = colliderA->GetParent();
+		auto objectA = collision->EntityA;
 		auto bodyA = objectA->GetComponent<PhysicsComponent>();
 
-		auto colliderB = collision->ColliderB;
-		auto objectB = colliderB->GetParent();
+		auto objectB = collision->EntityB;
 		auto bodyB = objectB->GetComponent<PhysicsComponent>();
 
 		//Gather object masses
@@ -248,8 +244,8 @@ namespace core {
 
 		// This pointer must be freed by the physics engine after the collision is resolved.
 		Manifold* collision = new Manifold();
-		collision->ColliderA = left;
-		collision->ColliderB = right;
+		collision->EntityA = left->GetParent();
+		collision->EntityB = right->GetParent();
 
 		//Get direction vector between colliders
 		math::Vector3 translationVector = right->GetPosition() - left->GetPosition();
@@ -309,8 +305,8 @@ namespace core {
 
 		//No separating axis found
 		auto manifold = new Manifold();
-		manifold->ColliderA = left;
-		manifold->ColliderB = right;
+		manifold->EntityA = left->GetParent();
+		manifold->EntityB = right->GetParent();
 
 		//At this point it is certain there is no separating axis, the objects are colliding
 		//Find smallest axis of seperation
@@ -369,8 +365,8 @@ namespace core {
 		}
 
 		Manifold* collision = new Manifold();
-		collision->ColliderA = left;
-		collision->ColliderB = right;
+		collision->EntityA = left->GetParent();
+		collision->EntityB = right->GetParent();
 		collision->CollisionNormal = translationVectorPrime.Normalize();
 		collision->PenetrationDistance = sphere->GetRadius() - (translationVectorPrime.Magnitude());
 
