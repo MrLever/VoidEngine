@@ -12,6 +12,9 @@
 
 namespace core {
 
+	//Forward class declarations
+	class ColliderComponent;
+
 	class PhysicsEngine : public EventBusNode, public utils::Configurable {
 	public:
 		/**
