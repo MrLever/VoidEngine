@@ -16,6 +16,7 @@ set(Engine_Modules_Test_Suite
     "Physics/ColliderComponent_test.cpp"
     "Input/InputDefinition_test.cpp"
     "Input/InputManager_test.cpp"
+    "Input/ActionBinding_test.cpp"
 )
 
 ################################################################################

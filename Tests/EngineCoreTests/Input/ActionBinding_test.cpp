@@ -1,12 +1,11 @@
 //STD Headers
 
 //Library Headers
-#include "CppUnitTest.h"
+#include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "PlayerEntity.h"
+#include "EngineCore/PlayerEntity.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace core;
 
 namespace EngineCoreTests {
@@ -42,21 +41,19 @@ namespace EngineCoreTests {
 	};
 
 
-	TEST_CLASS(ActionBindingTests) {
-		TEST_METHOD(AddBindingTest) {
-			TestPlayer test;
-			test.Initialize();
+	TEST(ActionBindingTests, AddBindingTest) {
+		TestPlayer test;
+		test.Initialize();
 
-			test.Input(InputAction("Unbound input"), 0);
-			Assert::IsFalse(test.MovedForward);
-			Assert::IsFalse(test.Jumped);
+		test.Input(InputAction("Unbound input"), 0);
+		ASSERT_FALSE(test.MovedForward);
+		ASSERT_FALSE(test.Jumped);
 
-			test.Input(AxisInputAction("MoveForward", 1), 0);
-			Assert::IsTrue(test.MovedForward);
+		test.Input(AxisInputAction("MoveForward", 1), 0);
+		ASSERT_TRUE(test.MovedForward);
 
-			test.Input(InputAction("Jump"), 0);
-			Assert::IsTrue(test.Jumped);
-		}
-	};
+		test.Input(InputAction("Jump"), 0);
+		ASSERT_TRUE(test.Jumped);
+	}
 
 }
