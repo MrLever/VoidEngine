@@ -4,7 +4,7 @@
 
 //Void Engine Headers
 #include "ColliderComponent.h"
-#include "Factory.h"
+#include "utils/factory/Factory.h"
 
 namespace core {
 

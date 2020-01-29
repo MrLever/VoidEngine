@@ -5,7 +5,7 @@
 
 //Void Engine Headers
 #include "Shader.h"
-#include "Logger.h"
+#include "utils/Logger.h"
 
 namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 

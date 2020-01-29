@@ -7,8 +7,8 @@
 
 //Void Engine Headers
 #include "Configuration.h"
-#include "Name.h"
-#include "ResourceHandle.h"
+#include "utils/Name.h"
+#include "utils/resource/ResourceHandle.h"
 
 namespace utils {
 	

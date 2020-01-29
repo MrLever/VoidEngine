@@ -3,8 +3,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "ThreadPool.h"
-#include "ThreadPoolWorker.h"
+#include "utils/threading/ThreadPoolWorker.h"
+#include "utils/threading/ThreadPool.h"
 
 namespace utils {
 	ThreadPoolWorker::ThreadPoolWorker(ThreadPool* masterPool, int id) : Pool(masterPool), ID(id) {

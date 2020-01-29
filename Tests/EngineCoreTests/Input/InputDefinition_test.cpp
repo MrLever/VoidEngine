@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/EngineUtilities.h"
+#include "utils/EngineUtilities.h"
 #include "EngineCore/Input.h"
 #include "EngineCore/KeyboardInput.h"
 #include "EngineCore/MouseInput.h"

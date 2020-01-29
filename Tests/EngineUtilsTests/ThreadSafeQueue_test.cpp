@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/ThreadSafeQueue.h"
+#include "utils/threading/ThreadSafeQueue.h"
 
 
 using namespace utils;

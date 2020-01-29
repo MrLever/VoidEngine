@@ -3,8 +3,9 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/factory/Factory.h"
+
 #include "CameraComponent.h"
-#include "Factory.h"
 
 namespace core {
 	TYPE_INFO_IMPL(CameraComponent)

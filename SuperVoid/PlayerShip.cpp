@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "EngineCore/Factory.h"
+#include "utils/factory/Factory.h"
 #include "PlayerShip.h"
 
 namespace SuperVoid {

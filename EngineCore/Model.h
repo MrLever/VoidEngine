@@ -9,8 +9,9 @@
 #include <assimp/postprocess.h>
 
 //Void Engine Headers
-#include "Resource.h"
-#include "ResourceAllocator.h"
+#include "utils/resource/Resource.h"
+#include "utils/resource/ResourceAllocator.h"
+
 #include "Texture.h"
 #include "Mesh.h"
 #include "ShaderProgram.h"

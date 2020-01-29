@@ -4,9 +4,9 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineMath/Quaternion.h"
-#include "EngineMath/Rotator.h"
-#include "EngineMath/Vector.h"
+#include "math/Quaternion.h"
+#include "math/Rotator.h"
+#include "math/Vector.h"
 
 
 using namespace math;

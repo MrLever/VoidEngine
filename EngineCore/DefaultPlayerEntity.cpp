@@ -5,8 +5,8 @@
 //Void Engine Headers
 #include "DefaultPlayerEntity.h"
 #include "CameraComponent.h"
-#include "Factory.h"
-#include "Logger.h"
+#include "utils/factory/Factory.h"
+#include "utils/Logger.h"
 
 namespace core {
 	TYPE_INFO_IMPL(DefaultPlayerEntity)

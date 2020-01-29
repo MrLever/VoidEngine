@@ -8,9 +8,9 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Name.h"
-#include "ThreadPool.h"
-#include "Logger.h"
+#include "utils/Name.h"
+#include "utils/Logger.h"
+#include "utils/threading/ThreadPool.h"
 
 namespace utils {
 	/**

@@ -5,9 +5,10 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/Table.h"
+
 #include "Component.h"
 #include "Collider.h"
-#include "Table.h"
 #include "Manifold.h"
 
 namespace core {

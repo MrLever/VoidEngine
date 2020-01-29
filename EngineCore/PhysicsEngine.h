@@ -5,8 +5,9 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/configuration/Configurable.h"
+
 #include "EventBusNode.h"
-#include "Configurable.h"
 #include "Level.h"
 #include "Manifold.h"
 

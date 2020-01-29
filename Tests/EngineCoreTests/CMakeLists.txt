@@ -22,7 +22,7 @@ add_executable(
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################
-target_link_libraries(EngineCoreTestSuite gtest_main EngineCore)
+target_link_libraries(EngineCoreTestSuite gtest_main EngineCore EngineUtils)
 
 ################################################################################
 # Link EngineCore Wholearchive to allow access to factory symbols

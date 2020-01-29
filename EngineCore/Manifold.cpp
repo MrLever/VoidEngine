@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "Manifold.h"
 #include "Entity.h"
-#include "EngineMath/Vector.h"
+#include "math/Vector.h"
 
 namespace core {
 	Manifold::Manifold() 

@@ -8,25 +8,23 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Configuration.h"
-#include "EventBusNode.h"
+#include "utils/configuration/Configurable.h"
+#include "utils/configuration/Configuration.h"
+#include "utils/threading/ThreadPool.h"
+#include "utils/resource/ResourceAllocator.h"
+#include "utils/Logger.h"
+
 #include "AudioManager.h"
-#include "Configurable.h"
-#include "Configuration.h"
+#include "EventBusNode.h"
 #include "EventBus.h"
 #include "InputManager.h"
-#include "ThreadPool.h"
-#include "ResourceAllocator.h"
 #include "Renderer.h"
 #include "Level.h"
 #include "Window.h"
 #include "PhysicsEngine.h"
 #include "InputManager.h"
 #include "Renderer.h"
-#include "ResourceAllocator.h"
-#include "ThreadPool.h"
 #include "Window.h"
-#include "Logger.h"
 
 //Events
 #include "WindowClosedEvent.h"

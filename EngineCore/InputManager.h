@@ -7,14 +7,15 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/configuration/Configurable.h"
+#include "utils/threading/ThreadPool.h"
+#include "utils/resource/ResourceAllocator.h"
+
 #include "AxisInput.h"
 #include "AxisInputAction.h"
-#include "Configurable.h"
 #include "ControlLayout.h"
 #include "EventBusNode.h"
 #include "Entity.h"
-#include "ThreadPool.h"
-#include "ResourceAllocator.h"
 #include "KeyboardInput.h"
 #include "KeyboardButtonEvent.h"
 #include "MouseInput.h"

@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/ThreadPool.h"
+#include "utils/threading/ThreadPool.h"
 
 using namespace utils;
 

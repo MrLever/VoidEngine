@@ -4,16 +4,16 @@
 	#undef DELETE
 #endif //DELETE 
 
-
 //STD Headers
 #include <vector>
 #include <unordered_map>
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
+#include "utils/EngineUtilities.h"
+
 #include "Input.h"
-#include "EngineUtilities.h"
 
 namespace core {
 	//Keytype specificication matches GLFW, 

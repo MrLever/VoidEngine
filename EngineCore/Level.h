@@ -8,12 +8,13 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
-#include "Factory.h"
+#include "utils/Name.h"
+#include "utils/factory/Factory.h"
+#include "utils/resource/ResourceAllocator.h"
+#include "utils/resource/JsonResource.h"
+
 #include "Entity.h"
 #include "EntityData.h"
-#include "Name.h"
-#include "ResourceAllocator.h"
-#include "JsonResource.h"
 #include "Model.h"
 
 namespace core {

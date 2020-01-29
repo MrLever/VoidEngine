@@ -10,7 +10,7 @@
 
 //Void Engine Headers
 #include "Component.h"
-#include "EngineMath/Vector.h"
+#include "math/Vector.h"
 #include "Window.h"
 
 namespace core {

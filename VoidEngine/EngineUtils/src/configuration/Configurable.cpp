@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Configurable.h"
+#include "utils/configuration/Configurable.h"
 
 namespace utils {
 	Configurable::Configurable(const  ResourceHandle<Configuration>& configuration)

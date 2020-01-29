@@ -5,7 +5,7 @@
 //Library Headers
 
 //Math Headers
-#include "Vector.h"
+#include "math/Vector.h"
 
 namespace math {
 	Vector2::Vector2() : X(0), Y(0) {

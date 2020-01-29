@@ -1,7 +1,7 @@
 #pragma once
 
 //STD Headers
-#include "Resource.h"
+#include "utils/resource/Resource.h"
 
 //Library Headers
 #include <glad/glad.h>
