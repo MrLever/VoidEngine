@@ -3,9 +3,9 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Quaternion.h"
-#include "Rotator.h"
-#include "MathConstants.h"
+#include "math/Quaternion.h"
+#include "math/Rotator.h"
+#include "math/MathConstants.h"
 
 namespace math {
 

@@ -5,8 +5,8 @@
 #include "nlohmann/json.hpp"
 
 //Void Engine Headers
-#include "EngineMath/Vector.h"
-#include "EngineMath/Rotator.h"
+#include "math/Vector.h"
+#include "math/Rotator.h"
 
 #include "utils/TypeUtils.h"
 

@@ -53,7 +53,6 @@ add_subdirectory(Dependencies)
 ## Main Engine
 add_subdirectory(VoidEngine)
 add_subdirectory(EngineCore)
-add_subdirectory(EngineMath)
 
 ## Game
 add_subdirectory(SuperVoid)

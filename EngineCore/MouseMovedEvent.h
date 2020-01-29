@@ -4,8 +4,9 @@
 //Library Headers
 
 //Void Engine Headers
+#include "math/Vector.h"
+
 #include "Event.h"
-#include "EngineMath/Vector.h"
 
 namespace core {
 	class MouseMovedEvent : public Event {

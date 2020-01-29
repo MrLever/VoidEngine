@@ -9,10 +9,11 @@
 #include "utils/factory/Factory.h"
 #include "utils/factory/FactoryConstructible.h"
 
+#include "math/Vector.h"
+#include "math/Rotator.h"
+#include "math/Quaternion.h"
+
 #include "EntityData.h"
-#include "EngineMath/Vector.h"
-#include "EngineMath/Rotator.h"
-#include "EngineMath/Quaternion.h"
 #include "InputAction.h"
 #include "AxisInputAction.h"
 

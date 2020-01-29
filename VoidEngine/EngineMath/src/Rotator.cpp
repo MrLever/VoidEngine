@@ -3,8 +3,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Rotator.h"
-#include "Quaternion.h"
+#include "math/Rotator.h"
+#include "math/Quaternion.h"
 
 namespace math {
 	Rotator::Rotator() : Yaw(0.0f), Pitch(0.0f), Roll(0.0f) {

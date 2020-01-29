@@ -1,7 +1,7 @@
 //STD Headers
 
 //Library Headers
-#include "EngineMath/Vector.h"
+#include "math/Vector.h"
 
 //Void Engine Headers
 #include "Model.h"

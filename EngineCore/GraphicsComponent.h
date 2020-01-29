@@ -10,8 +10,8 @@
 
 //Void Engine Headers
 #include "Component.h"
-#include "EngineMath/Vector.h"
-#include "EngineMath/Rotator.h"
+#include "math/Vector.h"
+#include "math/Rotator.h"
 #include "Model.h"
 
 namespace core {
