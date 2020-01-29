@@ -1,31 +1,33 @@
 ################################################################################
 # Set Files
 ################################################################################
-set(Engine_Modules_Test_Suite
-    "Physics/ColliderComponent_test.cpp"
-    "Input/InputDefinition_test.cpp"
-    "Input/InputManager_test.cpp"
-    "Input/ActionBinding_test.cpp"
-    "Gameplay/Entity_test.cpp"
-    "EventSystem/EventBus_test.cpp"
-    "Window/Window_test.cpp"
+set(Engine_Utils_Test_Suite
+    "Configurable_test.cpp"
+    "Configuration_test.cpp"
+    "Name_test.cpp"
+    "Table_test.cpp"
+    "Factory_test.cpp"
+    "ResourceManager_test.cpp"
+    "ThreadPool_test"
+    "ThreadSafeQueue_test.cpp"
+    "GenericUtilities_test.cpp"
 )
 
 ################################################################################
 # Create executable
 ################################################################################
 add_executable(
-    EngineCoreTestSuite
-    ${Engine_Modules_Test_Suite}
+    EngineUtilsTestSuite
+    ${Engine_Utils_Test_Suite}
 ) 
 
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################
-target_link_libraries(EngineCoreTestSuite gtest_main EngineCore)
+target_link_libraries(EngineUtilsTestSuite gtest_main EngineCore)
 
 ################################################################################
 # Link EngineCore Wholearchive to allow access to factory symbols
 ################################################################################
-target_link_options(EngineCoreTestSuite PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineCored>")
-target_link_options(EngineCoreTestSuite PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
+target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineCored>")
+target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
