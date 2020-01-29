@@ -4,7 +4,6 @@
 //Library Headers
 #include "gtest/gtest.h"
 
-
 //Void Engine Headers
 #include "EngineCore/ResourceAllocator.h"
 #include "EngineCore/ThreadPool.h"

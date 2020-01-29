@@ -10,6 +10,7 @@ set(Engine_Utils_Test_Suite
     "ResourceManager_test.cpp"
     "ThreadPool_test"
     "ThreadSafeQueue_test.cpp"
+    "GenericUtilities_test.cpp"
 )
 
 ################################################################################

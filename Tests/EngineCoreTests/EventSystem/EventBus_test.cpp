@@ -3,26 +3,23 @@
 #include <iostream>
 
 //Library Headers
-#include "CppUnitTest.h"
+#include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EventBus.h"
-#include "EventBusNode.h"
-#include "Event.h"
-#include "TestingUtilities.h"
-#include "WindowClosedEvent.h"
+#include "EngineCore/EventBus.h"
+#include "EngineCore/EventBusNode.h"
+#include "EngineCore/Event.h"
+#include "EngineCore/WindowClosedEvent.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
+using namespace core;
 
 namespace EngineCoreTests {
 	using namespace core;
 	using namespace utils;
-	using namespace EngineTestSuiteUtils;
 
 	/**
-		 * Helper class to connect Game to the event bus
-		 */
+	 * Helper class to connect Game to the event bus
+	 */
 	class TestEventBusNode : EventBusNode {
 	public:
 		/**
@@ -76,28 +73,23 @@ namespace EngineCoreTests {
 		}
 	};
 
-	TEST_CLASS(EventBusTests) {
-	public:
+	TEST(EventBusTests, RecieveMessageTest) {
+		std::shared_ptr<EventBus> testBus = std::make_shared<EventBus>();
+		TestEventBusNode testReceiver(testBus.get());
+		testBus->PostEvent(new WindowClosedEvent());
+		testBus->DispatchEvents();
 
-		TEST_METHOD(RecieveMessageTest) {
-			std::shared_ptr<EventBus> testBus = std::make_shared<EventBus>();
-			TestEventBusNode testReceiver(testBus.get());
-			testBus->PostEvent(new WindowClosedEvent());
-			testBus->DispatchEvents();
+		ASSERT_TRUE(testReceiver.Success);
+	}
 
-			Assert::IsTrue(testReceiver.Success);
-		}
-
-		TEST_METHOD(IgnoreMessageTest) {
-			std::shared_ptr<EventBus> testBus = std::make_shared<EventBus>();
-			TestEventBusNode testReceiver(testBus.get());
+	TEST(EventBusTests, IgnoreMessageTest) {
+		std::shared_ptr<EventBus> testBus = std::make_shared<EventBus>();
+		TestEventBusNode testReceiver(testBus.get());
 		
-			testBus->PostEvent(new DummyInputEvent());
-			testBus->DispatchEvents();
+		testBus->PostEvent(new DummyInputEvent());
+		testBus->DispatchEvents();
 
-			Assert::IsFalse(testReceiver.Success);
-		}
-
-	};
+		ASSERT_FALSE(testReceiver.Success);
+	}
 
 }
