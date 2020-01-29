@@ -5,14 +5,16 @@
 #include "nlohmann/json.hpp"
 
 //Void Engine Headers
-#include "Entity.h"
 #include "EngineMath/Vector.h"
 #include "EngineMath/Rotator.h"
+
+#include "utils/TypeUtils.h"
+
+#include "Entity.h"
 #include "Input.h"
 #include "KeyboardInput.h"
 #include "MouseInput.h"
 #include "GamepadInput.h"
-#include "TypeUtils.h"
 
 namespace core {
 	

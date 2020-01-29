@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 //Void Engine Headers
-#include "JsonResource.h"
+#include "utils/resource/JsonResource.h"
 
 namespace core {
 

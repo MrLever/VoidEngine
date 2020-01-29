@@ -4,9 +4,9 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/Configurable.h"
-#include "EngineCore/ThreadPool.h"
-#include "EngineCore/ResourceAllocator.h"
+#include "utils/configuration/Configurable.h"
+#include "utils/threading/ThreadPool.h"
+#include "utils/resource/ResourceAllocator.h"
 #include "EngineCore/Game.h"
 
 using namespace utils;

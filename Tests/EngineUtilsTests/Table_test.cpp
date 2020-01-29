@@ -4,8 +4,8 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/Table.h"
-#include "EngineCore/Name.h"
+#include "utils/Table.h"
+#include "utils/Name.h"
 #include "EngineCore/ColliderComponent.h"
 
 using namespace utils;

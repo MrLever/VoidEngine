@@ -7,10 +7,10 @@
 //Library Headers
 
 //Coati Headers
-#include "Configurable.h"
-#include "ThreadPool.h"
-#include "ResourceAllocator.h"
-#include "ResourceHandle.h"
+#include "utils/configuration/Configurable.h"
+#include "utils/threading/ThreadPool.h"
+#include "utils/resource/ResourceAllocator.h"
+#include "utils/resource/ResourceHandle.h"
 
 namespace core {
 

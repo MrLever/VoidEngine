@@ -5,8 +5,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Logger.h"
-#include "TimeUtils.h"
+#include "utils/Logger.h"
+#include "utils/TimeUtils.h"
 
 namespace utils {
 	void Logger::LogInfo(const std::string& message) {

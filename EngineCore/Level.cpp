@@ -4,7 +4,7 @@
 
 //Coati Headers
 #include "Level.h"
-#include "ResourceAllocator.h"
+#include "utils/resource/ResourceAllocator.h"
 #include "Component.h"
 #include "EntityData.h"
 

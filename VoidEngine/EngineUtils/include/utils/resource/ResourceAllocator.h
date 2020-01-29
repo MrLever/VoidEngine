@@ -9,11 +9,11 @@
 //Library Headers
 
 //Void Engine Headers
-#include "ResourceHandle.h"
-#include "ThreadPool.h"
-#include "Resource.h"
-#include "Name.h"
-#include "Logger.h"
+#include "utils/Name.h"
+#include "utils/Logger.h"
+#include "utils/resource/Resource.h"
+#include "utils/resource/ResourceHandle.h"
+#include "utils/threading/ThreadPool.h"
 
 namespace core {
 	//Forward class declaration

@@ -40,6 +40,7 @@ add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 # Set project-wide include directories
 ################################################################################
 include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
+include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies)
 
 ################################################################################
 # Direct CMake to build solutions for dependencies
@@ -50,6 +51,7 @@ add_subdirectory(Dependencies)
 # Add Engine Components
 ################################################################################
 ## Main Engine
+add_subdirectory(VoidEngine)
 add_subdirectory(EngineCore)
 add_subdirectory(EngineMath)
 

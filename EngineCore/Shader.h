@@ -6,8 +6,8 @@
 #include "glad/glad.h"
 
 //Void Engine Headers
-#include "Resource.h"
-#include "Name.h"
+#include "utils/Name.h"
+#include "utils/resource/Resource.h"
 
 namespace core {
 

@@ -8,7 +8,7 @@
 
 
 //Void Engine Headers
-#include "JsonResource.h"
+#include "utils/resource/JsonResource.h"
 
 namespace utils {
 	class Configuration : public JsonResource {

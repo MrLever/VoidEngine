@@ -8,7 +8,7 @@
 #include "GLFW/glfw3.h"
 
 //Void Engine Headers
-#include "EngineUtilities.h"
+#include "utils/EngineUtilities.h"
 #include "KeyboardInput.h"
 #include "EventBusNode.h"
 

@@ -5,7 +5,7 @@
 
 //Void Engine Headers
 #include "Model.h"
-#include "Logger.h"
+#include "utils/Logger.h"
 #include "ShaderProgram.h"
 
 namespace core {

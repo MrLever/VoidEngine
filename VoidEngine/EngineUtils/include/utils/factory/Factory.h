@@ -7,9 +7,9 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Name.h"
-#include "Logger.h"
-#include "TypeUtils.h"
+#include "utils/Name.h"
+#include "utils/Logger.h"
+#include "utils/TypeUtils.h"
 
 namespace utils {
 

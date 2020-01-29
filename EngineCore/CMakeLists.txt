@@ -102,43 +102,6 @@ set(Header_Files__Engine_Core__Rendering_System__Resources
 )
 source_group("Header Files\\Engine Core\\Rendering System\\Resources" FILES ${Header_Files__Engine_Core__Rendering_System__Resources})
 
-set(Header_Files__Engine_Utilities
-    "EngineUtilities.h"
-    "Logger.h"
-    "Name.h"
-    "Table.h"
-    "TimeUtils.h"
-    "TypeUtils.h"
-)
-source_group("Header Files\\Engine Utilities" FILES ${Header_Files__Engine_Utilities})
-
-set(Header_Files__Engine_Utilities__Configuration_Manager
-    "Configurable.h"
-    "Configuration.h"
-)
-source_group("Header Files\\Engine Utilities\\Configuration Manager" FILES ${Header_Files__Engine_Utilities__Configuration_Manager})
-
-set(Header_Files__Engine_Utilities__Factory_System
-    "Factory.h"
-    "FactoryConstructible.h"
-)
-source_group("Header Files\\Engine Utilities\\Factory System" FILES ${Header_Files__Engine_Utilities__Factory_System})
-
-set(Header_Files__Engine_Utilities__Resource_Management
-    "JsonResource.h"
-    "Resource.h"
-    "ResourceAllocator.h"
-    "ResourceHandle.h"
-)
-source_group("Header Files\\Engine Utilities\\Resource Management" FILES ${Header_Files__Engine_Utilities__Resource_Management})
-
-set(Header_Files__Engine_Utilities__ThreadPool
-    "ThreadPool.h"
-    "ThreadPoolWorker.h"
-    "ThreadSafeQueue.h"
-)
-source_group("Header Files\\Engine Utilities\\ThreadPool" FILES ${Header_Files__Engine_Utilities__ThreadPool})
-
 set(Header_Files__Gameplay_Framework
     "Level.h"
 )
@@ -250,31 +213,6 @@ set(Source_Files__Engine_Core__Rendering_System__Resources
 )
 source_group("Source Files\\Engine Core\\Rendering System\\Resources" FILES ${Source_Files__Engine_Core__Rendering_System__Resources})
 
-set(Source_Files__Engine_Utilities
-    "Logger.cpp"
-    "TimeUtils.cpp"
-)
-source_group("Source Files\\Engine Utilities" FILES ${Source_Files__Engine_Utilities})
-
-set(Source_Files__Engine_Utilities__Configuration_Manager
-    "Configurable.cpp"
-    "Configuration.cpp"
-)
-source_group("Source Files\\Engine Utilities\\Configuration Manager" FILES ${Source_Files__Engine_Utilities__Configuration_Manager})
-
-set(Source_Files__Engine_Utilities__Resource_Management
-    "JsonResource.cpp"
-    "Resource.cpp"
-    "ResourceAllocator.cpp"
-)
-source_group("Source Files\\Engine Utilities\\Resource Management" FILES ${Source_Files__Engine_Utilities__Resource_Management})
-
-set(Source_Files__Engine_Utilities__ThreadPool
-    "ThreadPool.cpp"
-    "ThreadPoolWorker.cpp"
-)
-source_group("Source Files\\Engine Utilities\\ThreadPool" FILES ${Source_Files__Engine_Utilities__ThreadPool})
-
 set(Source_Files__Gameplay_Framework
     "Level.cpp"
 )
@@ -315,11 +253,6 @@ set(ALL_FILES
     ${Header_Files__Engine_Core__Rendering_System}
     ${Header_Files__Engine_Core__Rendering_System__Model_Loading}
     ${Header_Files__Engine_Core__Rendering_System__Resources}
-    ${Header_Files__Engine_Utilities}
-    ${Header_Files__Engine_Utilities__Configuration_Manager}
-    ${Header_Files__Engine_Utilities__Factory_System}
-    ${Header_Files__Engine_Utilities__Resource_Management}
-    ${Header_Files__Engine_Utilities__ThreadPool}
     ${Header_Files__Gameplay_Framework}
     ${Header_Files__Gameplay_Framework__Entity_System__Components}
     ${Header_Files__Gameplay_Framework__Entity_System__Entities}
@@ -336,10 +269,6 @@ set(ALL_FILES
     ${Source_Files__Engine_Core__Rendering_System}
     ${Source_Files__Engine_Core__Rendering_System__Model_Loading}
     ${Source_Files__Engine_Core__Rendering_System__Resources}
-    ${Source_Files__Engine_Utilities}
-    ${Source_Files__Engine_Utilities__Configuration_Manager}
-    ${Source_Files__Engine_Utilities__Resource_Management}
-    ${Source_Files__Engine_Utilities__ThreadPool}
     ${Source_Files__Gameplay_Framework}
     ${Source_Files__Gameplay_Framework__Entity_System__Components}
     ${Source_Files__Gameplay_Framework__Entity_System__Entities}
@@ -363,6 +292,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
 ################################################################################
 # Link Dependencies
 ################################################################################
+target_link_libraries(${PROJECT_NAME} PUBLIC EngineUtils)
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineMath)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
 target_link_libraries(${PROJECT_NAME} PUBLIC assimp)
+
+################################################################################
+# Link Utils Wholearchive to allow access to factory symbols
+################################################################################
+target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineUtilsd>")
+target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineUtils>")

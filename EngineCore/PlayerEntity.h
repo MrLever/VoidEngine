@@ -4,8 +4,9 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/Name.h"
+
 #include "Entity.h"
-#include "Name.h"
 #include "InputComponent.h"
 
 namespace core {

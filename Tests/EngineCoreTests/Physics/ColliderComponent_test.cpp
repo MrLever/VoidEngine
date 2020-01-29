@@ -11,7 +11,7 @@
 #include "EngineCore/ColliderComponent.h"
 #include "EngineCore/SphereCollider.h"
 #include "EngineCore/AABBCollider.h"
-#include "EngineCore/ResourceAllocator.h"
+#include "utils/resource/ResourceAllocator.h"
 
 using namespace core;
 

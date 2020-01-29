@@ -7,9 +7,8 @@
 //Library Headers
 
 //Coati Headers
-#include "EngineUtilities.h"
-#include "TimeUtils.h"
-#include "EngineUtilities.h"
+#include "utils/EngineUtilities.h"
+#include "utils/TimeUtils.h"
 
 namespace core {
 

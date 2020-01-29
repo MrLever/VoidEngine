@@ -8,7 +8,7 @@
 
 //Void Engine Headers
 #include "Texture.h"
-#include "Logger.h"
+#include "utils/Logger.h"
 
 namespace core {
 	Texture::Texture(const std::string& texturePath)

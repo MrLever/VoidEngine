@@ -5,9 +5,10 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-//Coati Headers
+//Void Engine Headers
+#include "utils/Logger.h"
+
 #include "Window.h"
-#include "Logger.h"
 #include "CameraComponent.h"
 #include "AxisInputEvent.h"
 #include "AxisInput.h"

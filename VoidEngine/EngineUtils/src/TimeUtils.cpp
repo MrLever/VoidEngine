@@ -6,7 +6,7 @@
 
 
 //Engine Core Headers
-#include "TimeUtils.h"
+#include "utils/TimeUtils.h"
 
 namespace utils {
 	GameTime GetGameTime() {

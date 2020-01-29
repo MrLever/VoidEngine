@@ -4,7 +4,7 @@
 
 //Void Engine Headers
 #include "PlayerEntity.h"
-#include "Logger.h"
+#include "utils/Logger.h"
 
 namespace core {
 

@@ -3,9 +3,9 @@
 //Library Headers
 
 //SuperVoid Headers
+#include "utils/Logger.h"
+
 #include "BouncingCube.h"
-#include "EngineCore/Logger.h"
-#include "EngineCore/Factory.h"
 
 namespace SuperVoid {
 

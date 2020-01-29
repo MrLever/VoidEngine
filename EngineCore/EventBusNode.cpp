@@ -7,7 +7,7 @@
 #include "Event.h"
 #include "EventBus.h"
 #include "EventDispatcher.h"
-#include "Logger.h"
+#include "utils/Logger.h"
 
 namespace core {
 

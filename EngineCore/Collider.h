@@ -5,8 +5,8 @@
 
 //Void Engine Headers
 #include "EngineMath/Vector.h"
-#include "Factory.h"
-#include "FactoryConstructible.h"
+#include "utils/factory/Factory.h"
+#include "utils/factory/FactoryConstructible.h"
 
 namespace core {
 	

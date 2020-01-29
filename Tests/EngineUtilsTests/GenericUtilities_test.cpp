@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/EngineUtilities.h"
+#include "utils/EngineUtilities.h"
 
 using namespace utils;
 

@@ -15,7 +15,6 @@ using namespace core;
 
 namespace EngineCoreTests {
 	using namespace core;
-	using namespace utils;
 
 	/**
 	 * Helper class to connect Game to the event bus

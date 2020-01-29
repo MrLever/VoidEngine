@@ -5,15 +5,16 @@
 //Library headers
 
 //Void Engine Headers
-#include "FactoryConstructible.h"
+#include "utils/Name.h"
+#include "utils/factory/Factory.h"
+#include "utils/factory/FactoryConstructible.h"
+
 #include "EntityData.h"
-#include "Name.h"
 #include "EngineMath/Vector.h"
 #include "EngineMath/Rotator.h"
 #include "EngineMath/Quaternion.h"
 #include "InputAction.h"
 #include "AxisInputAction.h"
-#include "Factory.h"
 
 namespace core {
 	//Forward class declarations

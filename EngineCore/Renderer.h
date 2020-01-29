@@ -9,13 +9,14 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
+#include "utils/configuration/Configurable.h"
+#include "utils/threading/ThreadPool.h"
+#include "utils/resource/ResourceAllocator.h"
+
 #include "CameraComponent.h"
-#include "Configurable.h"
 #include "EventBusNode.h"
 #include "Level.h"
-#include "ThreadPool.h"
 #include "WindowResizedEvent.h"
-#include "ResourceAllocator.h"
 
 namespace core {
 

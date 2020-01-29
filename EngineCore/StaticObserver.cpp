@@ -4,7 +4,7 @@
 
 //Void Engine Headers
 #include "StaticObserver.h"
-#include "Factory.h"
+#include "utils/factory/Factory.h"
 
 namespace core {
 	TYPE_INFO_IMPL(StaticObserver)

@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Resource.h"
+#include "utils/resource/Resource.h"
 
 namespace utils {
 	///Public Functions

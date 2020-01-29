@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/Factory.h"
+#include "utils/factory/Factory.h"
 #include "EngineCore/Entity.h"
 #include "EngineCore/DefaultPlayerEntity.h"
 
