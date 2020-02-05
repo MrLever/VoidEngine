@@ -9,7 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
-#include "Shader.h"
+#include "core/rendering/Shader.h"
 #include "math/Vector.h"
 
 namespace core {

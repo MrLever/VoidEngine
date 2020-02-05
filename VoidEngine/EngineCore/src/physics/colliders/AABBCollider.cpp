@@ -3,8 +3,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "AABBCollider.h"
-#include "SphereCollider.h"
+#include "physics/colliders/AABBCollider.h"
+#include "physics/colliders/SphereCollider.h"
 
 namespace core {
 	TYPE_INFO_IMPL(AABBCollider)

@@ -6,9 +6,9 @@
 #include "math/Vector.h"
 
 //Void Engine Headers
-#include "Vertex.h"
-#include "Texture.h"
-#include "ShaderProgram.h"
+#include "core/rendering/Vertex.h"
+#include "core/rendering/Texture.h"
+#include "core/rendering/ShaderProgram.h"
 
 namespace core {
 

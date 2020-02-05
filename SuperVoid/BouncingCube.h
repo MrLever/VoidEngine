@@ -4,7 +4,7 @@
 //Library Headers
 
 //SuperVoid Headers
-#include "EngineCore/Entity.h"
+#include "core/gameplay_framework/Entity.h"
 
 namespace SuperVoid {
 

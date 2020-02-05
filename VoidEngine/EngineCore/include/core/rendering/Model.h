@@ -12,9 +12,9 @@
 #include "utils/resource/Resource.h"
 #include "utils/resource/ResourceAllocator.h"
 
-#include "Texture.h"
-#include "Mesh.h"
-#include "ShaderProgram.h"
+#include "core/rendering/Texture.h"
+#include "core/rendering/Mesh.h"
+#include "core/rendering/ShaderProgram.h"
 
 namespace core {
 

@@ -13,10 +13,10 @@
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
 
-#include "CameraComponent.h"
-#include "EventBusNode.h"
-#include "Level.h"
-#include "WindowResizedEvent.h"
+#include "core/Level.h"
+#include "core/event_system/EventBusNode.h"
+#include "core/event_system/events/WindowResizedEvent.h"
+#include "core/rendering/components/CameraComponent.h"
 
 namespace core {
 

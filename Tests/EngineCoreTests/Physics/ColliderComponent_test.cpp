@@ -4,13 +4,14 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
+#include "core/gameplay_framework/Entity.h"
+#include "core/physics/colliders/AABBCollider.h"
+#include "core/physics/colliders/SphereCollider.h"
+#include "core/physics/components/ColliderComponent.h"
+
 #include "math/Quaternion.h"
 #include "math/Rotator.h"
 #include "math/Vector.h"
-#include "EngineCore/Entity.h"
-#include "EngineCore/ColliderComponent.h"
-#include "EngineCore/SphereCollider.h"
-#include "EngineCore/AABBCollider.h"
 #include "utils/resource/ResourceAllocator.h"
 
 using namespace core;

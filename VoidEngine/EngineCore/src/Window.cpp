@@ -9,19 +9,17 @@
 #include "utils/Logger.h"
 
 #include "Window.h"
-#include "CameraComponent.h"
-#include "AxisInputEvent.h"
-#include "AxisInput.h"
-#include "GamepadInput.h"
-
-//Event Includes
-#include "WindowClosedEvent.h"
-#include "WindowResizedEvent.h"
-#include "MouseButtonEvent.h"
-#include "PauseGameEvent.h"
-#include "MouseMovedEvent.h"
-#include "KeyboardButtonEvent.h"
-#include "GamepadButtonEvent.h"
+#include "event_system/events/AxisInputEvent.h"
+#include "event_system/events/WindowClosedEvent.h"
+#include "event_system/events/WindowResizedEvent.h"
+#include "event_system/events/MouseButtonEvent.h"
+#include "event_system/events/PauseGameEvent.h"
+#include "event_system/events/MouseMovedEvent.h"
+#include "event_system/events/KeyboardButtonEvent.h"
+#include "event_system/events/GamepadButtonEvent.h"
+#include "input/definitions/AxisInput.h"
+#include "input/definitions/GamepadInput.h"
+#include "rendering/Components/CameraComponent.h"
 
 namespace core {
 	Window* Window::CurrWindowManager = nullptr;

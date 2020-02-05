@@ -5,7 +5,7 @@
 //Library headers
 
 //Coati headers
-#include "Input.h"
+#include "core/input/definitions/Input.h"
 
 namespace core {
 	enum class GamepadButton : unsigned {

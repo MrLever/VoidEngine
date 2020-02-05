@@ -4,9 +4,11 @@
 
 //Coati Headers
 #include "Level.h"
+
 #include "utils/resource/ResourceAllocator.h"
-#include "Component.h"
-#include "EntityData.h"
+
+#include "gameplay_framework/EntityData.h"
+#include "gameplay_framework/Component.h"
 
 namespace core {
 

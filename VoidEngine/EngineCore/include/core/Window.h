@@ -9,8 +9,9 @@
 
 //Void Engine Headers
 #include "utils/EngineUtilities.h"
-#include "KeyboardInput.h"
-#include "EventBusNode.h"
+
+#include "core/event_system/EventBusNode.h"
+#include "core/input/definitions/KeyboardInput.h"
 
 namespace core {
 	//Forward Class Declarations

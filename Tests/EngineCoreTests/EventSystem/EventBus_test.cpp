@@ -6,10 +6,10 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/EventBus.h"
-#include "EngineCore/EventBusNode.h"
-#include "EngineCore/Event.h"
-#include "EngineCore/WindowClosedEvent.h"
+#include "core/event_system/EventBus.h"
+#include "core/event_system/EventBusNode.h"
+#include "core/event_system/events/Event.h"
+#include "core/event_system/events/WindowClosedEvent.h"
 
 using namespace core;
 

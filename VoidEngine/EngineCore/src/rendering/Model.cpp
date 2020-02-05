@@ -1,12 +1,14 @@
 //STD Headers
 
 //Library Headers
-#include "math/Vector.h"
 
 //Void Engine Headers
-#include "Model.h"
+#include "math/Vector.h"
+
 #include "utils/Logger.h"
-#include "ShaderProgram.h"
+
+#include "rendering/Model.h"
+#include "rendering/ShaderProgram.h"
 
 namespace core {
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {

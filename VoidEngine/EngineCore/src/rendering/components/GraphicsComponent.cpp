@@ -5,10 +5,10 @@
 //Void Engine Headers
 #include "utils/TimeUtils.h"
 
-#include "GraphicsComponent.h"
-#include "Entity.h"
-#include "ShaderProgram.h"
-#include "Texture.h"
+#include "gameplay_framework/Entity.h"
+#include "rendering/components/GraphicsComponent.h"
+#include "rendering/ShaderProgram.h"
+#include "rendering/Texture.h"
 
 namespace core {
 

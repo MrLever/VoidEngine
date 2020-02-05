@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Collider.h"
+#include "physics/colliders/Collider.h"
 
 namespace core {
 

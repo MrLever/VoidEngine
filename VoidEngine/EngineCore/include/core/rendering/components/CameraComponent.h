@@ -9,9 +9,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
-#include "Component.h"
+#include "core/gameplay_framework/Component.h"
 #include "math/Vector.h"
-#include "Window.h"
+#include "core/Window.h"
 
 namespace core {
 

@@ -7,9 +7,9 @@
 //Void Engine Headers
 #include "utils/Table.h"
 
-#include "Component.h"
-#include "Collider.h"
-#include "Manifold.h"
+#include "core/gameplay_framework/Component.h"
+#include "core/physics/Manifold.h"
+#include "core/physics/colliders/Collider.h"
 
 namespace core {
 

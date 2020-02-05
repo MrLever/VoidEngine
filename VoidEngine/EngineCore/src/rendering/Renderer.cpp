@@ -4,9 +4,9 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Entity.h"
-#include "GraphicsComponent.h"
-#include "Renderer.h"
+#include "gameplay_framework/Entity.h"
+#include "rendering/components/GraphicsComponent.h"
+#include "rendering/Renderer.h"
 #include "Window.h"
 
 namespace core {

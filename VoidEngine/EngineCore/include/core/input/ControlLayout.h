@@ -7,13 +7,14 @@
 
 //Void Engine Headers
 #include "utils/resource/JsonResource.h"
-#include "AxisInputAction.h"
-#include "InputAction.h"
-#include "AxisInput.h"
-#include "InputAxis.h"
-#include "KeyboardInput.h"
-#include "MouseInput.h"
-#include "GamepadInput.h"
+
+#include "core/input/AxisInputAction.h"
+#include "core/input/InputAction.h"
+#include "core/input/InputAxis.h"
+#include "core/input/definitions/AxisInput.h"
+#include "core/input/definitions/KeyboardInput.h"
+#include "core/input/definitions/MouseInput.h"
+#include "core/input/definitions/GamepadInput.h"
 
 namespace core {
 

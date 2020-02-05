@@ -7,10 +7,11 @@
 
 //Void Engine Headers
 #include "utils/EngineUtilities.h"
-#include "EngineCore/Input.h"
-#include "EngineCore/KeyboardInput.h"
-#include "EngineCore/MouseInput.h"
-#include "EngineCore/GamepadInput.h"
+
+#include "core/input/definitions/Input.h"
+#include "core/input/definitions/GamepadInput.h"
+#include "core/input/definitions/KeyboardInput.h"
+#include "core/input/definitions/MouseInput.h"
 
 namespace core_tests {
 

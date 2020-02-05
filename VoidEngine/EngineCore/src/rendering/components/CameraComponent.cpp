@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "utils/factory/Factory.h"
 
-#include "CameraComponent.h"
+#include "rendering/Components/CameraComponent.h"
 
 namespace core {
 	TYPE_INFO_IMPL(CameraComponent)

@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/PlayerEntity.h"
+#include "core/gameplay_framework/entities/PlayerEntity.h"
 
 using namespace core;
 

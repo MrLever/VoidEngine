@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Component.h"
+#include "core/gameplay_framework/Component.h"
 
 namespace core {
 

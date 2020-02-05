@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "ShaderProgram.h"
+#include "rendering/ShaderProgram.h"
 #include "utils/Logger.h"
 
 namespace core {

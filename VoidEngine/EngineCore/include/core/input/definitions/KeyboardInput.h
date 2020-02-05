@@ -13,7 +13,7 @@
 //Void Engine Headers
 #include "utils/EngineUtilities.h"
 
-#include "Input.h"
+#include "core/input/definitions/Input.h"
 
 namespace core {
 	//Keytype specificication matches GLFW, 

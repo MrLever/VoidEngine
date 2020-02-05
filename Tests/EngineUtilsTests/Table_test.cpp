@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "utils/Table.h"
 #include "utils/Name.h"
-#include "EngineCore/ColliderComponent.h"
+#include "core/physics/components/ColliderComponent.h"
 
 using namespace utils;
 

@@ -39,8 +39,12 @@ add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 ################################################################################
 # Set project-wide include directories
 ################################################################################
-include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR})
-include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependencies)
+include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLAD/include)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLFW/include)
+include_directories(${CMAKE_SOURCE_DIR}/Dependencies/assimp/include)
 
 ################################################################################
 # Direct CMake to build solutions for dependencies
@@ -52,7 +56,6 @@ add_subdirectory(Dependencies)
 ################################################################################
 ## Main Engine
 add_subdirectory(VoidEngine)
-add_subdirectory(EngineCore)
 
 ## Game
 add_subdirectory(SuperVoid)

@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "PhysicsComponent.h"
+#include "physics/components/PhysicsComponent.h"
 
 namespace core {
 	TYPE_INFO_IMPL(PhysicsComponent)

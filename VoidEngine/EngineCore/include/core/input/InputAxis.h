@@ -7,7 +7,8 @@
 
 //Void Engine Headers
 #include "utils/Name.h"
-#include "KeyboardInput.h"
+
+#include "core/input/definitions/KeyboardInput.h"
 
 namespace core {
 

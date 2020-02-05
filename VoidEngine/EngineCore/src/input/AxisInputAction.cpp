@@ -3,8 +3,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "AxisInputAction.h"
-#include "InputAxis.h"
+#include "input/AxisInputAction.h"
+#include "input/InputAxis.h"
 
 namespace core {
 	AxisInputAction::AxisInputAction(const utils::Name& name, float value) 

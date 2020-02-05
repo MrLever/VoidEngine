@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Shader.h"
+#include "rendering/Shader.h"
 #include "utils/Logger.h"
 
 namespace core {

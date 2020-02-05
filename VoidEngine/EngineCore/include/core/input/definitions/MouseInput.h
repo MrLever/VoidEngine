@@ -5,7 +5,7 @@
 //Library Headers
 
 //Coati Headers
-#include "Input.h"
+#include "core/input/definitions/Input.h"
 
 namespace core {
 

@@ -5,18 +5,17 @@
 //Library Headers
 
 //Void Engine Headers
-#include "InputManager.h"
-#include "AxisInput.h"
-#include "EventBus.h"
 #include "Level.h"
 
-//Events
-#include "MouseButtonEvent.h"
-#include "MouseMovedEvent.h"
-#include "PauseGameEvent.h"
-#include "GamepadButtonEvent.h"
-#include "AxisInputEvent.h"
-#include "InputActionEvent.h"
+#include "event_system/EventBus.h"
+#include "event_system/events/MouseButtonEvent.h"
+#include "event_system/events/MouseMovedEvent.h"
+#include "event_system/events/PauseGameEvent.h"
+#include "event_system/events/GamepadButtonEvent.h"
+#include "event_system/events/AxisInputEvent.h"
+#include "event_system/events/InputActionEvent.h"
+#include "input/InputManager.h"
+#include "input/definitions/AxisInput.h"
 
 namespace core {
 

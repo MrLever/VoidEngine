@@ -3,9 +3,10 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Manifold.h"
-#include "Entity.h"
 #include "math/Vector.h"
+
+#include "gameplay_framework/Entity.h"
+#include "physics/Manifold.h"
 
 namespace core {
 	Manifold::Manifold() 

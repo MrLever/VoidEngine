@@ -4,8 +4,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "SphereCollider.h"
-#include "AABBCollider.h"
+#include "physics/colliders/SphereCollider.h"
+#include "physics/colliders/AABBCollider.h"
 
 namespace core {
 

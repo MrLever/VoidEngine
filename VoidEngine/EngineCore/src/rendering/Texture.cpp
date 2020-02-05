@@ -7,7 +7,7 @@
 #include "stb/stb_image.h"
 
 //Void Engine Headers
-#include "Texture.h"
+#include "rendering/Texture.h"
 #include "utils/Logger.h"
 
 namespace core {

@@ -11,17 +11,18 @@
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
 
-#include "AxisInput.h"
-#include "AxisInputAction.h"
-#include "ControlLayout.h"
-#include "EventBusNode.h"
-#include "Entity.h"
-#include "KeyboardInput.h"
-#include "KeyboardButtonEvent.h"
-#include "MouseInput.h"
-#include "MouseMovedEvent.h"
-#include "GamepadInput.h"
-#include "InputAxis.h"
+#include "core/event_system/EventBusNode.h"
+#include "core/event_system/events/KeyboardButtonEvent.h"
+#include "core/event_system/events/MouseMovedEvent.h"
+#include "core/gameplay_framework/Entity.h"
+#include "core/input/InputAxis.h"
+#include "core/input/definitions/AxisInput.h"
+#include "core/input/AxisInputAction.h"
+#include "core/input/ControlLayout.h"
+#include "core/input/definitions/GamepadInput.h"
+#include "core/input/definitions/KeyboardInput.h"
+#include "core/input/definitions/MouseInput.h"
+
 
 namespace core {
 

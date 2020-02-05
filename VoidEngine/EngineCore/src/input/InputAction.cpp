@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "InputAction.h"
+#include "input/InputAction.h"
 
 namespace core {
 	InputAction::InputAction(const std::string& action) : Action(std::move(action)), Type(ActionType::PRESSED) {

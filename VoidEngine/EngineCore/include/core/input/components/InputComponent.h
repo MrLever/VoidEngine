@@ -6,9 +6,9 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Component.h"
-#include "InputAction.h"
-#include "InputAxis.h"
+#include "core/gameplay_framework/Component.h"
+#include "core/input/InputAction.h"
+#include "core/input/InputAxis.h"
 
 namespace core {
 

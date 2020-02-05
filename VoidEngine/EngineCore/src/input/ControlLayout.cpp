@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "ControlLayout.h"
+#include "input/ControlLayout.h"
 
 namespace core {
 

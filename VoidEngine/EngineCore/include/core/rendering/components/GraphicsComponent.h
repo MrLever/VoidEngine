@@ -9,10 +9,11 @@
 #include <glm/gtc/type_ptr.hpp>
 
 //Void Engine Headers
-#include "Component.h"
 #include "math/Vector.h"
 #include "math/Rotator.h"
-#include "Model.h"
+
+#include "core/gameplay_framework/Component.h"
+#include "core/rendering/Model.h"
 
 namespace core {
 	//Forward class declarations

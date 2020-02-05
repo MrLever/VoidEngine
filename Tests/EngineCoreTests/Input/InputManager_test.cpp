@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/InputManager.h"
+#include "core/input/InputManager.h"
 
 namespace core_tests {
 

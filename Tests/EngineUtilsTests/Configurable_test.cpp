@@ -7,7 +7,7 @@
 #include "utils/configuration/Configurable.h"
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
-#include "EngineCore/Game.h"
+#include "core/Game.h"
 
 using namespace utils;
 

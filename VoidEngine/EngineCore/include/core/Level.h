@@ -13,9 +13,9 @@
 #include "utils/resource/ResourceAllocator.h"
 #include "utils/resource/JsonResource.h"
 
-#include "Entity.h"
-#include "EntityData.h"
-#include "Model.h"
+#include "core/gameplay_framework/EntityData.h"
+#include "core/gameplay_framework/Entity.h"
+#include "core/rendering/Model.h"
 
 namespace core {
 

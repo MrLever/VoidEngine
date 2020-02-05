@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "InputAxis.h"
+#include "input/InputAxis.h"
 
 namespace core {
 

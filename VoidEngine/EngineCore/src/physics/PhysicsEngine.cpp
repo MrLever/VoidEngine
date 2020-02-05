@@ -3,11 +3,11 @@
 //Library Headers
 
 //Void Engine Headers
-#include "PhysicsEngine.h"
-#include "PhysicsComponent.h"
-#include "ColliderComponent.h"
-#include "SphereCollider.h"
-#include "AABBCollider.h"
+#include "physics/PhysicsEngine.h"
+#include "physics/components/PhysicsComponent.h"
+#include "physics/components/ColliderComponent.h"
+#include "physics/colliders/SphereCollider.h"
+#include "physics/colliders/AABBCollider.h"
 
 namespace core {
 

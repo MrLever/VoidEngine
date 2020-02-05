@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "InputComponent.h"
+#include "input/components/InputComponent.h"
 
 namespace core {
 	TYPE_INFO_IMPL(InputComponent)

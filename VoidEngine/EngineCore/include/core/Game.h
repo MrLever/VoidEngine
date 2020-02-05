@@ -14,22 +14,17 @@
 #include "utils/resource/ResourceAllocator.h"
 #include "utils/Logger.h"
 
-#include "AudioManager.h"
-#include "EventBusNode.h"
-#include "EventBus.h"
-#include "InputManager.h"
-#include "Renderer.h"
-#include "Level.h"
-#include "Window.h"
-#include "PhysicsEngine.h"
-#include "InputManager.h"
-#include "Renderer.h"
-#include "Window.h"
-
-//Events
-#include "WindowClosedEvent.h"
-#include "PauseGameEvent.h"
-#include "InputActionEvent.h"
+#include "core/Level.h"
+#include "core/Window.h"
+#include "core/audio/AudioManager.h"
+#include "core/event_system/EventBus.h"
+#include "core/event_system/EventBusNode.h"
+#include "core/event_system/events/WindowClosedEvent.h"
+#include "core/input/InputManager.h"
+#include "core/physics/PhysicsEngine.h"
+#include "core/rendering/Renderer.h"
+#include "core/event_system/events/PauseGameEvent.h"
+#include "core/event_system/events/InputActionEvent.h"
 
 namespace core {
 	/**

@@ -4,7 +4,7 @@
 //Library Headers
 
 //Coati Headers
-#include "AudioManager.h"
+#include "audio/AudioManager.h"
 
 namespace core {
 

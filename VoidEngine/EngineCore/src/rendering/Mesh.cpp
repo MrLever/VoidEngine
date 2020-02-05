@@ -4,7 +4,7 @@
 #include "glad/glad.h"
 
 //Void Engine Headers
-#include "Mesh.h"
+#include "rendering/Mesh.h"
 
 namespace core {
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
