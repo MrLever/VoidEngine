@@ -115,9 +115,9 @@ namespace core {
 
 	void Entity::AddComponent(Component* component) {
 		component->SetParent(this);
+		
 		auto name = component->GetTypename();
-
-		Components.insert({ name, component });
+		Components[name] = component;
 	}
 
 	Level* Entity::GetWorld() const {

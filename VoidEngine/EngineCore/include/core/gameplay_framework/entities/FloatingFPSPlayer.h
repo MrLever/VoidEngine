@@ -4,11 +4,11 @@
 //Library Headers
 
 //Void Engine Headers
-#include "gameplay_framework/entities/DefaultPlayerEntity.h"
+#include "gameplay_framework/entities/Observer.h"
 
 namespace core {
 
-	class FloatingFPSPlayer : public DefaultPlayerEntity {
+	class FloatingFPSPlayer : public Observer {
 		TYPE_INFO_DECL(FloatingFPSPlayer)
 	public:
 		/**

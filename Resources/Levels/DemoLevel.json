@@ -12,9 +12,6 @@
             "components":
             [
                 {
-                    "type":"CameraComponent"
-                },
-                {
                     "type":"ColliderComponent",
                     "shape":
                     {

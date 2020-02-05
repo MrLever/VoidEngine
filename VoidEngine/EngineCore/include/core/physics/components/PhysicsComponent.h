@@ -46,8 +46,9 @@ namespace core {
 		void ClearForce();
 
 		/**
-		 * Mass Accessor
+		 * Mass Accessors
 		 */
+		void SetMass(float mass);
 		float GetMass() const;
 
 		/**

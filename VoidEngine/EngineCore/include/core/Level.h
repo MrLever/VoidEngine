@@ -71,7 +71,7 @@ namespace core {
 		/**
 		 * Allows Entities to spawn other entities at runtime
 		 */
-		void RemoveEntity(Entity* entity);
+		void DestroyEntity(Entity* entity);
 
 		/**
 		 * Function to get the current scene of drawables

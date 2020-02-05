@@ -21,7 +21,7 @@ namespace core {
 	}
 
 	void FloatingFPSPlayer::SetupInputComponent(InputComponent* component) {
-		DefaultPlayerEntity::SetupInputComponent(component);
+		Observer::SetupInputComponent(component);
 
 		component->BindAction(
 			"Fire", 

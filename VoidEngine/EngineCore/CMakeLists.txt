@@ -73,7 +73,7 @@ source_group(
 
 
 set(engine_core_gameplay_framework_entity_headers
-    "${engine_core_header_dir}/gameplay_framework/entities/DefaultPlayerEntity.h"
+    "${engine_core_header_dir}/gameplay_framework/entities/Observer.h"
     "${engine_core_header_dir}/gameplay_framework/entities/FloatingFPSPlayer.h"
     "${engine_core_header_dir}/gameplay_framework/entities/PlayerEntity.h"
     "${engine_core_header_dir}/gameplay_framework/entities/Projectile.h"
@@ -258,7 +258,7 @@ source_group(
 
 
 set(engine_core_gameplay_framework_entity_source
-    "${engine_core_source_dir}/gameplay_framework/entities/DefaultPlayerEntity.cpp"
+    "${engine_core_source_dir}/gameplay_framework/entities/Observer.cpp"
     "${engine_core_source_dir}/gameplay_framework/entities/FloatingFPSPlayer.cpp"
     "${engine_core_source_dir}/gameplay_framework/entities/PlayerEntity.cpp"
     "${engine_core_source_dir}/gameplay_framework/entities/Projectile.cpp"
@@ -421,3 +421,18 @@ target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:E
 target_include_directories(EngineCore PRIVATE ${engine_core_include_dir}/core/)
 target_include_directories(EngineCore PUBLIC ${engine_utils_include_dir}/)
 target_include_directories(EngineCore PUBLIC ${engine_core_include_dir}/)
+
+################################################################################
+# Copy resource files
+################################################################################
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/Resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources/
+)
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/Settings/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Settings/
+)

@@ -6,43 +6,43 @@
 #include "utils/factory/Factory.h"
 #include "utils/Logger.h"
 
-#include "gameplay_framework/entities/DefaultPlayerEntity.h"
+#include "gameplay_framework/entities/Observer.h"
 #include "rendering/Components/CameraComponent.h"
 
 namespace core {
 
-	TYPE_INFO_IMPL(DefaultPlayerEntity)
+	TYPE_INFO_IMPL(Observer)
 
-	ENABLE_FACTORY(DefaultPlayerEntity, Entity)
+	ENABLE_FACTORY(Observer, Entity)
 	
 	
-	DefaultPlayerEntity::DefaultPlayerEntity() {
+	Observer::Observer() {
 
 	}
 
-	DefaultPlayerEntity::~DefaultPlayerEntity() {
+	Observer::~Observer() {
 
 	}
 
-	void DefaultPlayerEntity::Initialize() {
+	void Observer::Initialize() {
 		PlayerEntity::Initialize();
 
 		MovementSpeed = 10;
 	}
 
-	void DefaultPlayerEntity::BeginPlay() {
+	void Observer::BeginPlay() {
 		utils::Logger::LogInfo(ID.StringID + " began play");
 	}
 
-	void DefaultPlayerEntity::Tick(float deltaSeconds) {
+	void Observer::Tick(float deltaSeconds) {
 		Entity::Tick(deltaSeconds);
 	}
 
-	void DefaultPlayerEntity::Terminate() {
+	void Observer::Terminate() {
 
 	}
 
-	void DefaultPlayerEntity::SetupInputComponent(InputComponent* component) {
+	void Observer::SetupInputComponent(InputComponent* component) {
 		component->BindAxis(
 			"MoveForward", 
 			[this](float axisReading, float deltaTime) {
@@ -72,13 +72,13 @@ namespace core {
 		);
 	}
 	
-	void DefaultPlayerEntity::MoveForward(float axisValue, float deltaTime) {
+	void Observer::MoveForward(float axisValue, float deltaTime) {
 		auto forward = Rotation.ToVector();
 		auto moveSpeed = MovementSpeed * deltaTime;
 		Position += forward * axisValue * moveSpeed;
 	}
 
-	void DefaultPlayerEntity::MoveRight(float axisValue, float deltaTime) {
+	void Observer::MoveRight(float axisValue, float deltaTime) {
 		auto forward = Rotation.ToVector();
 		auto right = forward.Cross(math::Vector3(0, 1, 0)).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
@@ -86,12 +86,12 @@ namespace core {
 		Position += right * axisValue * moveSpeed;
 	}
 
-	void DefaultPlayerEntity::LookUp(float axisValue, float deltaTime) {
+	void Observer::LookUp(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, 0, axisValue);
 		Rotation = Rotation * math::Quaternion(deltaRotation);
 	}
 
-	void DefaultPlayerEntity::LookRight(float axisValue, float deltaTime) {
+	void Observer::LookRight(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, -axisValue, 0);
 		Rotation = Rotation * math::Quaternion(deltaRotation);
 	}
