@@ -61,12 +61,6 @@ namespace core {
 			if (entityData.find("components") != entityData.end()) {
 				componentList = entityData["components"];
 			}
-			else {
-				auto componentDataFile = 
-					EntityDataCache->GetResource("Resources/Entities/" + entityData["type"].get<std::string>() + ".json");
-				
-				componentList = componentDataFile->GetAttribute<nlohmann::json>("components");
-			}
 
 			for (auto componentEntry : componentList) {
 				auto componentType = componentEntry["type"].get<std::string>();
@@ -108,7 +102,7 @@ namespace core {
 		return entity;
 	}
 
-	void Level::RemoveEntity(Entity* entity) {
+	void Level::DestroyEntity(Entity* entity) {
 		;
 	}
 

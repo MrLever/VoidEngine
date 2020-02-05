@@ -45,27 +45,28 @@ target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:Eng
 target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
 
 ################################################################################
-# Post build events
+# Copy resource files
 ################################################################################
-add_custom_target(
-    CopyResources ALL
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Resources
-        ${CMAKE_CURRENT_BINARY_DIR}/Resources
+    ${CMAKE_SOURCE_DIR}/Resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources/
+)
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Settings
-        ${CMAKE_CURRENT_BINARY_DIR}/Settings
+    ${CMAKE_SOURCE_DIR}/Settings/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Settings/
+)
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Resources
-        ${CMAKE_CURRENT_BINARY_DIR}/Debug/Resources
+    ${CMAKE_SOURCE_DIR}/Resources/ ${PROJECT_BINARY_DIR}/Resources/
+)
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Settings
-        ${CMAKE_CURRENT_BINARY_DIR}/Debug/Settings
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Resources
-        ${CMAKE_CURRENT_BINARY_DIR}/Release/Resources
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Settings
-        ${CMAKE_CURRENT_BINARY_DIR}/Release/Settings
-    DEPENDS ${SuperVoid}
-)    
+    ${CMAKE_SOURCE_DIR}/Settings/ ${PROJECT_BINARY_DIR}/Settings/
+)

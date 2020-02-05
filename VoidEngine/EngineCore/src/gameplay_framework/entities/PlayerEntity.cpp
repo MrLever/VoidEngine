@@ -6,14 +6,15 @@
 #include "utils/Logger.h"
 
 #include "gameplay_framework/entities/PlayerEntity.h"
+#include "rendering/components/CameraComponent.h"
 
 namespace core {
 
 	TYPE_INFO_IMPL(PlayerEntity)
 
 	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
-		auto inputComponent = new InputComponent();
-		Components.insert({ InputComponent::GetStaticTypename(), inputComponent });
+		AddComponent(new InputComponent());
+		AddComponent(new CameraComponent());
 	}
 
 	void PlayerEntity::Initialize() {

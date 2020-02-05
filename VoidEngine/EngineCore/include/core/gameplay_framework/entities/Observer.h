@@ -8,22 +8,22 @@
 
 namespace core {
 
-	class DefaultPlayerEntity : public PlayerEntity {
+	class Observer : public PlayerEntity {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(DefaultPlayerEntity)
+		TYPE_INFO_DECL(Observer)
 	
 	public:
 		/**
 		 * Constructor
 		 */
-		DefaultPlayerEntity();
+		Observer();
 
 		/**
 		 * Destructor
 		 */
-		~DefaultPlayerEntity() override;
+		~Observer() override;
 
 		/**
 		 * Injects and initializes an InputComponent to the entity's component list

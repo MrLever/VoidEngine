@@ -6,13 +6,13 @@
 //Void Engine Headers
 #include "utils/factory/Factory.h"
 #include "core/gameplay_framework/Entity.h"
-#include "core/gameplay_framework/entities/DefaultPlayerEntity.h"
+#include "core/gameplay_framework/entities/Observer.h"
 
 using namespace utils;
 
 namespace utils_tests {
 
-	class TestEntity : public core::DefaultPlayerEntity {
+	class TestEntity : public core::Observer {
 		TYPE_INFO_DECL(TestEntity)
 	};
 

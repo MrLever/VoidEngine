@@ -12,9 +12,7 @@ namespace core {
 
 	PhysicsComponent::PhysicsComponent() : Velocity(), Force(), Mass(1), InverseMass(1),
 		GravityScale(1), Density(1), Restitution(.5), IsStatic(false) {
-		if (!IsStatic) {
-			Mass = InverseMass = 0;
-		}
+
 	}
 
 	PhysicsComponent::~PhysicsComponent() {
@@ -35,10 +33,19 @@ namespace core {
 		if (ConfigData.find("restitution") != ConfigData.end()) {
 			Restitution = ConfigData["restitution"].get<float>();
 		}
+
+		if (IsStatic) {
+			Mass = InverseMass = 0;
+		}
 	}
 
 	void PhysicsComponent::ApplyForce(const math::Vector3& force) {
 		Force += force;
+	}
+
+	void PhysicsComponent::SetMass(float mass) {
+		Mass = mass;
+		InverseMass = (mass == 0) ? 0 : 1 / mass;
 	}
 
 	float PhysicsComponent::GetMass() const {
