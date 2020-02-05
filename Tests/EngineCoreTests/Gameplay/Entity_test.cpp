@@ -4,9 +4,9 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/Entity.h"
-#include "EngineCore/GraphicsComponent.h"
-#include "EngineCore/InputComponent.h"
+#include "core/gameplay_framework/Entity.h"
+#include "core/input/components/InputComponent.h"
+#include "core/rendering/components/GraphicsComponent.h"
 
 using namespace core;
 

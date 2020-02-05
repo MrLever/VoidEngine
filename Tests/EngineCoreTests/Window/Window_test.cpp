@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "EngineCore/Window.h"
+#include "core/Window.h"
 
 namespace EngineCoreTests {		
 

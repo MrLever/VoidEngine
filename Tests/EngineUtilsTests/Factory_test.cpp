@@ -5,8 +5,8 @@
 
 //Void Engine Headers
 #include "utils/factory/Factory.h"
-#include "EngineCore/Entity.h"
-#include "EngineCore/DefaultPlayerEntity.h"
+#include "core/gameplay_framework/Entity.h"
+#include "core/gameplay_framework/entities/DefaultPlayerEntity.h"
 
 using namespace utils;
 
