@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: 'build/VoidEngine.sln'
   buildPlatform_x64: 'x64'
   buildConfigurationRelease: 'Release'
   buildConfigurationDebug: 'Debug'
@@ -19,33 +19,12 @@ steps:
 - checkout: self
   submodules: true
 
-#Checkout and build dependencies
+#Generate visual studio solution
 - task: CMake@1
   inputs:
-   workingDirectory: 'Dependencies/assimp/'
-   cmakeArgs: '.'
+   workingDirectory: '.'
+   cmakeArgs: '. -B build'
 
-- task: VSBuild@1
-  inputs:
-    solution: 'Dependencies/assimp/Assimp.sln'
-    platform: '$(buildPlatform_x64)'
-    configuration: '$(buildConfigurationDebug)'
-    maximumCpuCount: true
-
-- task: VSBuild@1
-  inputs:
-    solution: 'Dependencies/assimp/Assimp.sln'
-    platform: '$(buildPlatform_x64)'
-    configuration: '$(buildConfigurationRelease)'
-    maximumCpuCount: true
-
-#Build SuperVoid
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform_x64)'
-    configuration: '$(buildConfigurationRelease)'
-    maximumCpuCount: true
 
 - task: VSBuild@1
   inputs:
