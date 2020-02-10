@@ -4,7 +4,7 @@
 project(EngineUtils C CXX)
 
 ################################################################################
-# Set Source groups
+# Set directory shortcuts
 ################################################################################
 set(engine_utils_include_dir
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
@@ -14,20 +14,26 @@ set(engine_utils_header_dir
   "${engine_utils_include_dir}/utils/"
 )
 
-### Get Headers
+set(engine_utils_OSAL_header_dir
+  "${engine_utils_include_dir}/OSAL/"
+)
+
+################################################################################
+# Set Utils Headers
+################################################################################
 # Configuration Headers
 set(engine_utils_configuration_headers
     "${engine_utils_header_dir}/configuration/Configurable.h"
     "${engine_utils_header_dir}/configuration/Configuration.h"
 )
-source_group("Header Files\\Configuration" FILES ${engine_utils_configuration_headers})
+source_group("Header Files\\utils\\Configuration" FILES ${engine_utils_configuration_headers})
 
 # Factory Headers
 set(engine_utils_factory_headers
     "${engine_utils_header_dir}/factory/Factory.h"
     "${engine_utils_header_dir}/factory/FactoryConstructible.h"
 )
-source_group("Header Files\\Factory" FILES ${engine_utils_factory_headers})
+source_group("Header Files\\utils\\Factory" FILES ${engine_utils_factory_headers})
 
 # Resource
 set(engine_utils_resource_headers
@@ -36,7 +42,7 @@ set(engine_utils_resource_headers
     "${engine_utils_header_dir}/resource/ResourceAllocator.h"
     "${engine_utils_header_dir}/resource/ResourceHandle.h"
 )
-source_group("Header Files\\Resource" FILES ${engine_utils_resource_headers})
+source_group("Header Files\\utils\\Resource" FILES ${engine_utils_resource_headers})
 
 # Threading
 set(engine_utils_threading_headers
@@ -44,7 +50,7 @@ set(engine_utils_threading_headers
     "${engine_utils_header_dir}/threading/ThreadPoolWorker.h"
     "${engine_utils_header_dir}/threading/ThreadSafeQueue.h"
 )
-source_group("Header Files\\Threading" FILES ${engine_utils_threading_headers})
+source_group("Header Files\\utils\\Threading" FILES ${engine_utils_threading_headers})
 
 set(engine_utils_headers
     "${engine_utils_header_dir}/EngineUtilities.h"
@@ -59,39 +65,91 @@ set(engine_utils_headers
     "${engine_utils_header_dir}/TypeUtils.h"
 )
 
-### Get Source
+################################################################################
+# Set OSAL Headers
+################################################################################
+# Core
+set(engine_OSAL_core_headers
+    "${engine_utils_OSAL_header_dir}/GLFW_WindowingContext.h"
+    "${engine_utils_OSAL_header_dir}/WindowingContext.h"
+)
+source_group("Header Files\\OSAL" FILES ${engine_OSAL_core_headers})
+
+set(engine_OSAL_IO_headers
+    "${engine_utils_OSAL_header_dir}/IO/GLFWInputContext.h"
+    "${engine_utils_OSAL_header_dir}/IO/InputContext.h"
+    "${engine_utils_OSAL_header_dir}/IO/OpenGLRenderingContext.h"
+    "${engine_utils_OSAL_header_dir}/IO/RenderingContext.h"
+)
+source_group("Header Files\\OSAL\\IO" FILES ${engine_OSAL_IO_headers})
+
+set(engine_OSAL_headers
+    "${engine_OSAL_core_headers}"
+    "${engine_OSAL_IO_headers}"
+)
+
+################################################################################
+# Set Utils Source
+################################################################################
 # Configuration source
 set(engine_utils_configuration_source
-    "src/configuration/Configurable.cpp"
-    "src/configuration/Configuration.cpp"
+    "src/utils/configuration/Configurable.cpp"
+    "src/utils/configuration/Configuration.cpp"
 )
-source_group("Source Files\\Configuration" FILES ${engine_utils_configuration_source})
+source_group("Source Files\\utils\\Configuration" FILES ${engine_utils_configuration_source})
 
 # Resource source
 set(engine_utils_resource_source
-    "src/resource/JsonResource.cpp"
-    "src/resource/Resource.cpp"
-    "src/resource/ResourceAllocator.cpp"
+    "src/utils/resource/JsonResource.cpp"
+    "src/utils/resource/Resource.cpp"
+    "src/utils/resource/ResourceAllocator.cpp"
 )
-source_group("Source Files\\Resource" FILES ${engine_utils_resource_source})
+source_group("Source Files\\utils\\Resource" FILES ${engine_utils_resource_source})
 
 # Threading source
 set(engine_utils_threading_source
-    "src/threading/ThreadPool.cpp"
-    "src/threading/ThreadPoolWorker.cpp"
+    "src/utils/threading/ThreadPool.cpp"
+    "src/utils/threading/ThreadPoolWorker.cpp"
 )
-source_group("Source Files\\Threading" FILES ${engine_utils_threading_source})
+source_group("Source Files\\utils\\Threading" FILES ${engine_utils_threading_source})
 
 set(engine_utils_source
     "${engine_utils_configuration_source}"
     "${engine_utils_resource_source}"
     "${engine_utils_threading_source}"
-    "src/Logger.cpp"
-    "src/TimeUtils.cpp"
+    "src/utils/Logger.cpp"
+    "src/utils/TimeUtils.cpp"
+)
+
+################################################################################
+# Set OSAL Source
+################################################################################
+# Core
+set(engine_OSAL_core_source
+    "src/OSAL/GLFW_WindowingContext.cpp"
+    "src/OSAL/WindowingContext.cpp"
+)
+source_group("Files\\OSAL" FILES ${engine_OSAL_core_headers})
+
+set(engine_OSAL_IO_source
+    "src/OSAL/IO/GLFWInputContext.cpp"
+    "src/OSAL/IO/InputContext.cpp"
+    "src/OSAL/IO/OpenGLRenderingContext.cpp"
+    "src/OSAL/IO/RenderingContext.cpp"
+)
+source_group("Files\\OSAL\\IO" FILES ${engine_OSAL_IO_headers})
+
+set(engine_OSAL_source
+    "${engine_OSAL_core_source}"
+    "${engine_OSAL_IO_source}"
 )
 
 ### Combine files into single target
-set(ALL_FILES ${engine_utils_headers} ${engine_utils_source})
+set(ALL_FILES 
+    ${engine_utils_headers}  
+    ${engine_utils_source} 
+    ${engine_OSAL_headers}
+    ${engine_OSAL_source})
 
 ################################################################################
 # Specify build as Static Library

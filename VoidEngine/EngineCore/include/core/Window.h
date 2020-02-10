@@ -33,9 +33,7 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param gameName The name to display in the game's window title bar
-		 * @param windowWidth The width of the game window
-		 * @param windowHeight The height of the game window
+		 * @param data The parameters to use in creating the window's context
 		 */
 		Window(EventBus* bus, WindowData& data);
 		
@@ -185,4 +183,4 @@ namespace core {
 	};
 }
 
-using WindowManagerPtr = std::shared_ptr<core::Window>;
+using WindowPtr = std::shared_ptr<core::Window>;
