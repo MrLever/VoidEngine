@@ -172,3 +172,4 @@ add_library(EngineUtils STATIC ${ALL_FILES})
 ################################################################################
 target_include_directories(EngineUtils PUBLIC ${engine_utils_include_dir}/)
 target_include_directories(EngineUtils PRIVATE ${engine_utils_header_dir}/)
+target_include_directories(EngineUtils PRIVATE ${engine_utils_OSAL_header_dir}/)

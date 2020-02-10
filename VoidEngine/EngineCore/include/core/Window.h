@@ -8,6 +8,7 @@
 #include "GLFW/glfw3.h"
 
 //Void Engine Headers
+#include "OSAL/WindowingContext.h"
 #include "utils/EngineUtilities.h"
 
 #include "core/event_system/EventBusNode.h"
@@ -147,6 +148,8 @@ namespace core {
 		 * @param state The gamepad state to process
 		 */
 		void PollGamepadAxes(GLFWgamepadstate& state);
+
+		std::shared_ptr<OSAL::WindowingContext> WindowContext;
 
 		/** The game's window */
 		std::shared_ptr<GLFWwindow> GLFWContext;
