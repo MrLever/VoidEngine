@@ -20,7 +20,7 @@ namespace core {
 	glm::mat4 GraphicsComponent::ViewMatrix = glm::mat4(1);
 
 	GraphicsComponent::GraphicsComponent()
-		: ModelMatrix(1.0f), VAO(-1), VBO(-1), EBO(-1), ComponentShader(nullptr), IsValid(true) {
+		: ModelMatrix(1.0f), ComponentShader(nullptr), IsValid(true) {
 
 	}
 

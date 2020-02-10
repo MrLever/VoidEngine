@@ -81,15 +81,6 @@ namespace core {
 		/** Whether this graphics component should be drawn */
 		bool IsValid;
 
-		/** The Vertex Array Object used to draw this component */
-		GLuint VAO;
-
-		/** The Vertex Buffer Object used to draw this component */
-		GLuint VBO;
-
-		/** The Element Buffer Object used to draw this component */
-		GLuint EBO;
-
 		static glm::mat4 ViewMatrix;
 		static glm::mat4 ProjectionMatrix;
 	};
