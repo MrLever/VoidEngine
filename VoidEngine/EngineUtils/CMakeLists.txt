@@ -52,17 +52,22 @@ set(engine_utils_threading_headers
 )
 source_group("Header Files\\utils\\Threading" FILES ${engine_utils_threading_headers})
 
-set(engine_utils_headers
+set(engine_utils_loose_headers
     "${engine_utils_header_dir}/EngineUtilities.h"
-    "${engine_utils_configuration_headers}"
-    "${engine_utils_factory_headers}"
-    "${engine_utils_resource_headers}"
-    "${engine_utils_threading_headers}"
     "${engine_utils_header_dir}/Logger.h"
     "${engine_utils_header_dir}/Name.h"
     "${engine_utils_header_dir}/Table.h"
     "${engine_utils_header_dir}/TimeUtils.h"
     "${engine_utils_header_dir}/TypeUtils.h"
+)
+source_group("Header Files\\utils" FILES ${engine_utils_loose_headers})
+
+set(engine_utils_headers
+    "${engine_utils_configuration_headers}"
+    "${engine_utils_factory_headers}"
+    "${engine_utils_resource_headers}"
+    "${engine_utils_threading_headers}"
+    "${engine_utils_loose_headers}"
 )
 
 ################################################################################
@@ -113,12 +118,18 @@ set(engine_utils_threading_source
 )
 source_group("Source Files\\utils\\Threading" FILES ${engine_utils_threading_source})
 
+set(engine_utils_loose_source
+    "src/utils/Logger.cpp"
+    "src/utils/TimeUtils.cpp"
+)
+source_group("Source Files\\utils" FILES ${engine_utils_loose_source})
+
 set(engine_utils_source
     "${engine_utils_configuration_source}"
     "${engine_utils_resource_source}"
     "${engine_utils_threading_source}"
-    "src/utils/Logger.cpp"
-    "src/utils/TimeUtils.cpp"
+    "${engine_utils_loose_source}"
+
 )
 
 ################################################################################
@@ -129,7 +140,7 @@ set(engine_OSAL_core_source
     "src/OSAL/GLFW_WindowingContext.cpp"
     "src/OSAL/WindowingContext.cpp"
 )
-source_group("Files\\OSAL" FILES ${engine_OSAL_core_headers})
+source_group("Source Files\\OSAL" FILES ${engine_OSAL_core_source})
 
 set(engine_OSAL_IO_source
     "src/OSAL/IO/GLFWInputContext.cpp"
@@ -137,7 +148,7 @@ set(engine_OSAL_IO_source
     "src/OSAL/IO/OpenGLRenderingContext.cpp"
     "src/OSAL/IO/RenderingContext.cpp"
 )
-source_group("Files\\OSAL\\IO" FILES ${engine_OSAL_IO_headers})
+source_group("Source Files\\OSAL\\IO" FILES ${engine_OSAL_IO_source})
 
 set(engine_OSAL_source
     "${engine_OSAL_core_source}"
