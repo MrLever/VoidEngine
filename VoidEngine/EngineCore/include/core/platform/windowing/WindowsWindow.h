@@ -4,13 +4,15 @@
 #include <string>
 
 //Library Headers
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 //Void Engine Headers
 #include "core/Window.h"
 #include "core/platform/rendering/OpenGLRenderingContext.h"
 
 //Forward class declaration
-class GLFWwindow;
+struct GLFWwindow;
 
 namespace platform {
 	class WindowsWindow : public core::Window {
@@ -50,6 +52,13 @@ namespace platform {
 		 * Instructs GLFW to toggle cursor visibility
 		 */
 		void ToggleCursorCapture() override;
+
+		/**
+		 * Callback to display GLFW errors
+		 * @param error The error's numerical code
+		 * @param description The Error's description
+		 */
+		static void ReportWindowError(int error, const char* description);
 
 	protected:
 		/**

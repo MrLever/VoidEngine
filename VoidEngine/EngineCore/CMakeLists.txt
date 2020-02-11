@@ -25,7 +25,7 @@ set(engine_core_source_dir
 ################################################################################
 ### Platform Headers
 set(engine_core_platform_core_headers
-    "${engine_core_header_dir}/platform/rendering/Platform.h"
+    "${engine_core_header_dir}/platform/Platform.h"
 )
 source_group("Header Files\\Platform" FILES ${engine_core_platform_core_headers})
 
@@ -40,6 +40,7 @@ set(engine_core_platform_windowing_headers
 source_group("Header Files\\Platform\\Windowing" FILES ${engine_core_platform_windowing_headers})
 
 set(engine_core_platform_headers
+    ${engine_core_platform_core_headers}
     ${engine_core_platform_rendering_headers}
     ${engine_core_platform_windowing_headers}
 )

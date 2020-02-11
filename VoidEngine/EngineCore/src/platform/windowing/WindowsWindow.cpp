@@ -26,11 +26,13 @@ using namespace core;
 namespace platform {
 	WindowsWindow::WindowsWindow(core::EventBus* bus, core::WindowData& data) 
 		: Window(bus, data), GLFWContext(nullptr) {
-	
+		
+		InitGLFW();
+		InitGLAD();
 	}
 
 	WindowsWindow::~WindowsWindow() {
-		delete GLFWContext;
+		glfwDestroyWindow(GLFWContext);
 	}
 
 	void WindowsWindow::ProcessEvents() {
@@ -52,15 +54,29 @@ namespace platform {
 	}
 
 	void WindowsWindow::SwapBuffers() {
-
+		glfwSwapBuffers(GLFWContext);
 	}
 
 	void WindowsWindow::SetCursorCapture(bool state) {
-
+		if (state) {
+			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			CursorEnabled = false;
+		}
+		else {
+			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			CursorEnabled = true;
+		}
 	}
 
 	void WindowsWindow::ToggleCursorCapture() {
+		SetCursorCapture(!CursorEnabled);
+	}
 
+	void WindowsWindow::ReportWindowError(int error, const char* description) {
+		std::stringstream errorMsg;
+		errorMsg << "Error: #" << error << ", " << description;
+
+		utils::Logger::LogError(errorMsg.str());
 	}
 
 	void WindowsWindow::ToggleFullscreen() {

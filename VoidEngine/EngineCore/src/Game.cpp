@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "Game.h"
+#include "platform/Platform.h"
 
 namespace core {
 
@@ -48,7 +49,7 @@ namespace core {
 			600
 		};
 
-		GameWindow = std::make_shared<Window>(GameEventBus.get(), data);
+		GameWindow = platform::MakeWindow(GameEventBus.get(), data);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
