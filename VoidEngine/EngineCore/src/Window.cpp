@@ -44,6 +44,7 @@ namespace core {
 
 
 	Window::~Window() {
+		delete RenderingAPI;
 		glfwTerminate();
 	}
 
@@ -242,11 +243,11 @@ namespace core {
 		}
 	}
 
-	void Window::PollEvents() {
+	void Window::ProcessEvents() {
 		glfwPollEvents();
 
 		if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1)) {
-			HandleGamepadInput();
+			PollGamepadInput();
 		}
 
 	}
@@ -255,7 +256,7 @@ namespace core {
 		glfwSwapBuffers(GLFWContext.get());
 	}
 
-	void Window::HandleGamepadInput() {
+	void Window::PollGamepadInput() {
 		GLFWgamepadstate state;
 		auto timestamp = utils::GetGameTime();
 

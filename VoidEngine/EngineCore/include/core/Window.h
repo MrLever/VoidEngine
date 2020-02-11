@@ -8,11 +8,11 @@
 #include "GLFW/glfw3.h"
 
 //Void Engine Headers
-#include "OSAL/WindowingContext.h"
 #include "utils/EngineUtilities.h"
 
 #include "core/event_system/EventBusNode.h"
 #include "core/input/definitions/KeyboardInput.h"
+#include "core/rendering/RenderingContext.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -41,7 +41,7 @@ namespace core {
 		/**
 		 * Destructor
 		 */
-		~Window();
+		virtual ~Window();
 
 		/**
 		 * Allows node to receive and process events from EventBus
@@ -55,20 +55,20 @@ namespace core {
 		virtual unsigned GetSubscription() override;
 
 		/**
-		 * Wrapper function to instruct GLFW to poll for window and input events
+		 * Instructs engine to process the window's message queue
 		 */
-		void PollEvents();
-
-		/**
-		 * Instructs the window to swap buffers, drawing the result of the last render frame
-		 */
-		void SwapBuffers();
+		virtual void ProcessEvents();
 
 		/**
 		 * Instructs window to poll and report gamepad input
 		 */
-		void HandleGamepadInput();
+		virtual void PollGamepadInput();
 
+		/**
+		 * Instructs the window to swap buffers, drawing the result of the last render frame
+		 */
+		virtual void SwapBuffers();
+		
 		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
 		/**
 		 * Properly deletes the window supplied to avoid memory leaks
@@ -96,12 +96,14 @@ namespace core {
 		/**
 		 * Instructs GLFW to toggle cursor visibility
 		 */
-		void SetCursorCapture(bool state);
+		virtual void SetCursorCapture(bool state);
 
 		/**
 		 * Instructs GLFW to toggle cursor visibility
 		 */
-		void ToggleCursorCapture();
+		virtual void ToggleCursorCapture();
+
+		RenderingContext* GetRenderingContext();
 
 		/**
 		 * Global function to allow an entity to set the window's view of the world
@@ -120,43 +122,15 @@ namespace core {
 		 */
 		static Window* GetActiveWindow();
 
-	private:
-		/** 
-		 * Performs initialization of the GLFW library
-		 */
-		void InitGLFW();
-
-		/** 
-		 * Performs initialization of the GLAD library 
-		 */
-		void InitGLAD();
-
+	protected:
 		/**
 		 * Toggle fullscreen
 		 */
-		void ToggleFullscreen();
+		virtual void ToggleFullscreen();
 
-		/** 
-		 * Helper function to poll gamepad buttons 
-		 * @param state The gamepad state to process
-		 * @param timestamp The timestamp to affix to any reported input
-		 */
-		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
+		/** Interface to the type of rendering context bound to the window during creation */
+		RenderingContext* RenderingAPI;
 
-		/**
-		 * Helper function to poll gamepad axes
-		 * @param state The gamepad state to process
-		 */
-		void PollGamepadAxes(GLFWgamepadstate& state);
-
-		std::shared_ptr<OSAL::WindowingContext> WindowContext;
-
-		/** The game's window */
-		std::shared_ptr<GLFWwindow> GLFWContext;
-
-		/** The active camera to be used for rendering */
-		CameraComponent* ActiveCamera;
-		
 		/** The game's name */
 		std::string GameName;
 
@@ -172,6 +146,36 @@ namespace core {
 		/** Flag to determine if the cursor is enabled in the window */
 		bool CursorEnabled;
 
+	private:
+		/** 
+		 * Performs initialization of the GLFW library
+		 */
+		void InitGLFW();
+
+		/** 
+		 * Performs initialization of the GLAD library 
+		 */
+		void InitGLAD();
+
+		/** 
+		 * Helper function to poll gamepad buttons 
+		 * @param state The gamepad state to process
+		 * @param timestamp The timestamp to affix to any reported input
+		 */
+		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
+
+		/**
+		 * Helper function to poll gamepad axes
+		 * @param state The gamepad state to process
+		 */
+		void PollGamepadAxes(GLFWgamepadstate& state);
+
+		/** The game's window */
+		std::shared_ptr<GLFWwindow> GLFWContext;
+
+		/** The active camera to be used for rendering */
+		CameraComponent* ActiveCamera;
+		
 		/** Pointer to the active window manager to allow static callback functions to work properly */
 		static Window* CurrWindowManager;
 

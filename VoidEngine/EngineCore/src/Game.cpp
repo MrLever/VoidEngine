@@ -121,7 +121,7 @@ namespace core {
 	}
 
 	void Game::ProcessInput(float deltaTime) {
-		GameWindow->PollEvents();
+		GameWindow->ProcessEvents();
 		GameInputManager->ProcessInput(CurrentLevel.get(), deltaTime);
 	}
 
