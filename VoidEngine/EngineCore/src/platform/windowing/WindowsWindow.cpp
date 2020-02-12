@@ -69,7 +69,13 @@ namespace platform {
 	}
 
 	void WindowsWindow::ToggleCursorCapture() {
-		SetCursorCapture(!CursorEnabled);
+		CursorEnabled = !CursorEnabled;
+		if (CursorEnabled) {
+			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else {
+			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
 	}
 
 	void WindowsWindow::ReportWindowError(int error, const char* description) {
@@ -202,6 +208,8 @@ namespace platform {
 		);
 
 		SetCursorCapture(true);
+
+		RenderingAPI = std::make_shared<OpenGLRenderingContext>();
 	}
 
 	void WindowsWindow::InitGLAD() {

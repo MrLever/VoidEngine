@@ -16,6 +16,7 @@
 #include "core/Level.h"
 #include "core/event_system/EventBusNode.h"
 #include "core/event_system/events/WindowResizedEvent.h"
+#include "core/rendering/RenderingContext.h"
 #include "core/rendering/components/CameraComponent.h"
 
 namespace core {
@@ -31,7 +32,7 @@ namespace core {
 		 */
 		Renderer(
 			EventBus* bus,
-			std::shared_ptr<Window> window,
+			std::shared_ptr<RenderingContext> renderingAPI,
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
@@ -65,6 +66,8 @@ namespace core {
 	private:
 
 		void HandleWindowResize(WindowResizedEvent* event);
+
+		std::shared_ptr<RenderingContext> RenderingAPI;
 
 		/** Shared with the Input System, the render can draw to this window. */
 		std::shared_ptr<Window> GameWindow;

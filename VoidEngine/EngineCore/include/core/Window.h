@@ -110,13 +110,14 @@ namespace core {
 		static Window* GetActiveWindow();
 
 	protected:
+		virtual void CreateRenderingAPI() = 0;
 		/**
 		 * Toggle fullscreen
 		 */
 		virtual void ToggleFullscreen() = 0;
 
 		/** Interface to the type of rendering context bound to the window during creation */
-		RenderingContext* RenderingAPI;
+		std::shared_ptr<RenderingContext> RenderingAPI;
 
 		/** The game's name */
 		std::string GameName;

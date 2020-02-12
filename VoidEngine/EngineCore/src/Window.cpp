@@ -39,9 +39,7 @@ namespace core {
 
 
 	Window::~Window() {
-		if (RenderingAPI) {
-			delete RenderingAPI;
-		}
+
 	}
 
 	void Window::ReceiveEvent(Event* event) {
@@ -81,7 +79,7 @@ namespace core {
 		return CurrWindowManager;
 	}
 
-	RenderingContext* Window::GetRenderingContext() {
+	std::shared_ptr<RenderingContext> Window::GetRenderingContext() {
 		return RenderingAPI;
 	}
 
