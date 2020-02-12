@@ -32,7 +32,6 @@ namespace core {
 			CameraName = ConfigData["name"];
 		}
 
-		Window::GetActiveWindow()->SetView(Parent, this);
 	}
 
 	void CameraComponent::Tick(float deltaTime) {

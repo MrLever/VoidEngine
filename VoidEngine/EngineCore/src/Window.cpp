@@ -20,21 +20,11 @@
 #include "rendering/Components/CameraComponent.h"
 
 namespace core {
-	Window* Window::CurrWindowManager = nullptr;
-	
-	const KeyboardInput Window::ToggleFullscreenInput(
-		KeyboardButton::ENTER, 
-		ButtonState::PRESSED, 
-		InputModifier::ALT
-	);
 
 	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus), RenderingAPI(nullptr) {
-		
 		WindowWidth = data.windowWidth;
 		WindowHeight = data.windowHeight;
 		GameName = data.gameName;
-
-		CurrWindowManager = this;
 	}
 
 
@@ -70,20 +60,6 @@ namespace core {
 
 	int Window::GetWindowHeight() const {
 		return WindowHeight;
-	}
-
-	void Window::SetView(Entity* parent, CameraComponent* comp) {
-		utils::Logger::LogDebug("Entity " + parent->GetName() + " has set the window's viewport to its camera");
-
-		ActiveCamera = comp;
-	}
-
-	CameraComponent* Window::GetView() {
-		return ActiveCamera;
-	}
-
-	Window* Window::GetActiveWindow(){
-		return CurrWindowManager;
 	}
 
 	std::shared_ptr<RenderingContext> Window::GetRenderingContext() {

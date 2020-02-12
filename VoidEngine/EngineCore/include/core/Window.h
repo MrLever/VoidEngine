@@ -89,23 +89,6 @@ namespace core {
 		 */
 		std::shared_ptr<RenderingContext> GetRenderingContext();
 
-		/**
-		 * Global function to allow an entity to set the window's view of the world
-		 * @param parent The entity requesting this set. Used for victim blaming
-		 * @param comp The camera that is being set as active
-		 */
-		void SetView(Entity* parent, CameraComponent* comp);
-
-		/**
-		 * Global function to allow an the renderer get the window's view of the world
-		 */
-		CameraComponent* GetView();
-
-		/**
-		 * Global function to allow any user to query data about the active window
-		 */
-		static Window* GetActiveWindow();
-
 	protected:
 		/**
 		 * Helper function that forces OS specific window systems to expose a rendering API
@@ -139,16 +122,6 @@ namespace core {
 
 		/** Flag to determine if the cursor is enabled in the window */
 		bool CursorEnabled;
-
-	private:
-		/** The active camera to be used for rendering */
-		CameraComponent* ActiveCamera;
-		
-		/** Pointer to the active window manager to allow static callback functions to work properly */
-		static Window* CurrWindowManager;
-	
-		/** Static constant to earmark special Input for toggling fullscreen */
-		static const KeyboardInput ToggleFullscreenInput;
 	};
 }
 

@@ -17,6 +17,7 @@ namespace core {
 
 		//Enable Depth Buffer
 		glEnable(GL_DEPTH_TEST);
+		SetClearColor(ClearColor);
 	}
 
 	void OpenGLRenderingContext::SetViewport(RenderingContext::Viewport viewport) {

@@ -52,15 +52,13 @@ namespace core {
 	}
 
 	void Renderer::Render(std::vector<Entity*> entities) {
-		//Set the view and projection matrices for all graphics components for this draw call 
-		auto activeCamera = Window::GetActiveWindow()->GetView();
-		if (activeCamera == nullptr) {
+		if (ActiveCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
 			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
 		}
 		else {
-			GraphicsComponent::ViewMatrix = activeCamera->GetViewMatrix();
-			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
+			GraphicsComponent::ViewMatrix = ActiveCamera->GetViewMatrix();
+			GraphicsComponent::ProjectionMatrix = ActiveCamera->GetProjectionMatrix();
 		}
 
 		//Clear the color and depth buffer
@@ -85,11 +83,9 @@ namespace core {
 	}
 
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
-		auto activeCamera = Window::GetActiveWindow()->GetView();
-		
 		auto viewport = RenderingAPI->GetViewport();
 
-		activeCamera->UpdateProjectionMatrix(viewport);
+		ActiveCamera->UpdateProjectionMatrix(viewport);
 
 		DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
