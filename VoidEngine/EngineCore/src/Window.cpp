@@ -57,6 +57,13 @@ namespace core {
 			static_cast<unsigned>(EventCategory::GAMEPLAY);
 	}
 
+	void Window::SetWindowSize(int width, int height) {
+		WindowWidth = width;
+		WindowHeight = height;
+		RenderingAPI->SetViewport(0, 0, width, height);
+		PublishEvent(new WindowResizedEvent(width, height));
+	}
+
 	int Window::GetWindowWidth() const {
 		return WindowWidth;
 	}

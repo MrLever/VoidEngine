@@ -69,20 +69,11 @@ namespace core {
 
 		std::shared_ptr<RenderingContext> RenderingAPI;
 
-		/** Shared with the Input System, the render can draw to this window. */
-		std::shared_ptr<Window> GameWindow;
-
 		/** The defualt view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
 		glm::mat4 DefaultProjectionMatrix;
-
-		/** The Rendering context's width */
-		int ContextWidth;
-
-		/** The Rendering context's height */
-		int ContexHeight;
 	};
 
 	static void OpenGLDebugCallback(

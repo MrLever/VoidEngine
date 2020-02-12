@@ -95,9 +95,6 @@ namespace core {
 		T QueryVariable(const std::string& variable);
 
 	private:
-		/** Cache of entity data files */
-		ResourceAllocatorPtr<EntityData> EntityDataCache;
-
 		/** All the entities spawned in the level */
 		std::vector<Entity*> Entities;
 

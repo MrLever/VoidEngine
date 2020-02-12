@@ -6,8 +6,10 @@
 #include "GLFW/glfw3.h"
 
 //Void Engine Headers
-#include "platform/windowing/WindowsWindow.h"
 #include "utils/Logger.h"
+
+#include "platform/windowing/WindowsWindow.h"
+#include "platform/rendering/OpenGLRenderingContext.h"
 
 #include "event_system/events/AxisInputEvent.h"
 #include "event_system/events/WindowClosedEvent.h"
@@ -29,6 +31,7 @@ namespace platform {
 		
 		InitGLFW();
 		InitGLAD();
+		CreateRenderingContext();
 	}
 
 	WindowsWindow::~WindowsWindow() {
@@ -85,6 +88,11 @@ namespace platform {
 		utils::Logger::LogError(errorMsg.str());
 	}
 
+	void WindowsWindow::CreateRenderingContext() {
+		RenderingAPI = std::make_shared<OpenGLRenderingContext>();
+		RenderingAPI->SetViewport(0, 0, WindowWidth, WindowHeight);
+	}
+
 	void WindowsWindow::ToggleFullscreen() {
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		const int RESTORE_WIDTH = 640;
@@ -114,7 +122,7 @@ namespace platform {
 			IsFullscreen = false;
 		}
 
-		glViewport(0, 0, WindowWidth, WindowHeight);
+		RenderingAPI->SetViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	void WindowsWindow::InitGLFW() {
@@ -150,13 +158,8 @@ namespace platform {
 		glfwSetFramebufferSizeCallback(
 			GLFWContext,
 			[](GLFWwindow* context, int width, int height) {
-				glViewport(0, 0, width, height);
-
 				WindowsWindow* window = (WindowsWindow*)glfwGetWindowUserPointer(context);
-				window->WindowWidth = width;
-				window->WindowHeight = height;
-
-				window->PublishEvent(new WindowResizedEvent(width, height));
+				window->SetWindowSize(width, height);
 			}
 		);
 
@@ -209,7 +212,6 @@ namespace platform {
 
 		SetCursorCapture(true);
 
-		RenderingAPI = std::make_shared<OpenGLRenderingContext>();
 	}
 
 	void WindowsWindow::InitGLAD() {
@@ -219,8 +221,6 @@ namespace platform {
 			utils::Logger::LogError("Failed to initialize GLAD");
 			std::terminate();
 		}
-
-		glViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	void WindowsWindow::PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp) {

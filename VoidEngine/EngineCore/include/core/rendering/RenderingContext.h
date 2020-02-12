@@ -4,6 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "math/Vector.h"
 
 namespace core {
 
@@ -38,10 +39,22 @@ namespace core {
 		/**
 		 * Used to get viewport's current dimensions
 		 */
-		virtual Viewport GetViewport(int x, int y, int width, int height);
-	
-	private:
+		Viewport GetViewport() const;
+			   
+		/**
+		 * Used to clear drawing buffer
+		 */
+		virtual void Clear() = 0;
+
+		/**
+		 * Set's buffer clear color
+		 */
+		virtual void SetClearColor(math::Vector4 color) = 0;
+
+	protected:
 		Viewport CurrentViewport;
+
+		math::Vector4 ClearColor;
 	};
 
 }

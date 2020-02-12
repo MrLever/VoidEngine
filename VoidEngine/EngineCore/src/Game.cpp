@@ -42,38 +42,40 @@ namespace core {
 		//Intialize EventBus
 		GameEventBus = std::make_shared<EventBus>();
 
-		//Initialize game window and input interface
-		WindowData data{
-			EngineConfig.GetAttribute<std::string>("gameName"),
-			800,
-			600
-		};
-
-		GameWindow = platform::MakeWindow(GameEventBus.get(), data);
+		//Initialize game window
+		GameWindow = platform::MakeWindow(
+			GameEventBus.get(), 
+			WindowData {
+				EngineConfig.GetAttribute<std::string>("gameName"),
+				800,
+				600
+			}
+		);
 
 		//Initialize Input Manager
 		GameInputManager = std::make_shared<InputManager>(
 			GameEventBus.get(),
 			ConfigManager->LoadResource("Settings/InputConfig.json")
-			);
+		);
 
 		//Initialize Renderer
 		GameRenderer = std::make_unique<Renderer>(
 			GameEventBus.get(),
-			GameWindow,
+			GameWindow->GetRenderingContext(),
 			ConfigManager->LoadResource("Settings/RenderingConfig.json")
-			);
+		);
 
 		//Initialize Audio Manager
 		GameAudioManager = std::make_unique<AudioManager>(
 			GameThreadPool,
 			ConfigManager->LoadResource("Settings/AudioConfig.json")
-			);
+		);
 
 		CorePhysicsEngine = std::make_unique<PhysicsEngine>(
 			GameEventBus.get(),
 			ConfigManager->LoadResource("Settings/PhysicsConfig.json")
-			);
+		);
+
 		BusNode = std::make_unique<GameEventBusNode>(GameEventBus.get(), this);
 		
 		//Create the level cache
@@ -103,6 +105,7 @@ namespace core {
 
 			//Draw the scene
 			GameRenderer->Render(CurrentLevel.get());
+			GameWindow->SwapBuffers();
 
 			//Update previous time
 			previousTime = currentTime;

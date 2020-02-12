@@ -9,7 +9,6 @@
 
 //Void Engine Headers
 #include "core/Window.h"
-#include "core/platform/rendering/OpenGLRenderingContext.h"
 
 //Forward class declaration
 struct GLFWwindow;
@@ -61,6 +60,11 @@ namespace platform {
 		static void ReportWindowError(int error, const char* description);
 
 	protected:
+		/**
+		 * Helper function that forces OS specific window systems to expose a rendering API
+		 */
+		void CreateRenderingContext() override;
+
 		/**
 		 * Toggle fullscreen
 		 */

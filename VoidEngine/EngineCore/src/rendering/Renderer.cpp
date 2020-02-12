@@ -18,18 +18,17 @@ namespace core {
 		) : Configurable(configuration), 
 			EventBusNode(bus), 
 			RenderingAPI(std::move(renderingAPI)) {
-		
-		ContextWidth = GameWindow->GetWindowWidth();
-		ContexHeight = GameWindow->GetWindowHeight();
-
+	
 		//Set default view matrix
 		DefualtViewMatrix = glm::mat4(1.0f);
 		DefualtViewMatrix = glm::translate(DefualtViewMatrix, glm::vec3(0, 0, -5));
 		
+		auto viewport = RenderingAPI->GetViewport();
+
 		//Set default projection matrix
 		DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
-			(float)ContextWidth / ContexHeight,
+			(float)viewport.Width / viewport.Height,
 			0.1f, 100.0f
 		);
 	}
@@ -64,21 +63,15 @@ namespace core {
 			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
 		}
 
-		auto windowWidth = GameWindow->GetWindowWidth();
-		auto windowHeight = GameWindow->GetWindowHeight();
-
 		auto entities = scene->GetScene();
 
 		//Clear the color and depth buffer
-		glClearColor(0.24f, 0.28f, 0.28f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderingAPI->Clear();
 
 		//Draw entities
 		for (const auto& entity : entities) {
 			entity->Draw();
 		}
-
-		GameWindow->SwapBuffers();
 	}
 
 	void Renderer::Configure() {
@@ -86,15 +79,15 @@ namespace core {
 	}
 
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
-		ContextWidth = event->GetWidth();
-		ContexHeight = event->GetHeight();
-
 		auto activeCamera = Window::GetActiveWindow()->GetView();
-		activeCamera->UpdateProjectionMatrix();
+		
+		auto viewport = RenderingAPI->GetViewport();
+
+		activeCamera->UpdateProjectionMatrix(viewport);
 
 		DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
-			(float)ContextWidth / ContexHeight,
+			(float) viewport.Width / viewport.Height,
 			0.1f, 100.0f
 		);
 	}

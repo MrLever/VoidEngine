@@ -7,7 +7,8 @@
 
 namespace core {
 
-	RenderingContext::RenderingContext() : CurrentViewport(0,0,0,0) {
+	RenderingContext::RenderingContext() 
+		: CurrentViewport(0,0,0,0), ClearColor(0.24f, 0.28f, 0.28f, 1.0f) {
 	
 	}
 
@@ -15,7 +16,7 @@ namespace core {
 		this->SetViewport(Viewport(x, y, width, height));
 	}
 
-	RenderingContext::Viewport RenderingContext::GetViewport(int x, int y, int width, int height) {
+	RenderingContext::Viewport RenderingContext::GetViewport() const {
 		return CurrentViewport;
 	}
 

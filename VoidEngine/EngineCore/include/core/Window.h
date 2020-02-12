@@ -58,15 +58,12 @@ namespace core {
 		virtual void ProcessEvents() = 0;
 
 		/**
-		 * Instructs window to poll and report gamepad input
-		 */
-		virtual void PollGamepadInput() = 0;
-
-		/**
 		 * Instructs the window to swap buffers, drawing the result of the last render frame
 		 */
 		virtual void SwapBuffers() = 0;
 		
+		virtual void SetWindowSize(int width, int height);
+
 		/**
 		 * Get's the current rendering context's width
 		 */
@@ -90,7 +87,7 @@ namespace core {
 		/**
 		 * Allows other systems to request the current Rendering API
 		 */
-		RenderingContext* GetRenderingContext();
+		std::shared_ptr<RenderingContext> GetRenderingContext();
 
 		/**
 		 * Global function to allow an entity to set the window's view of the world
@@ -110,11 +107,20 @@ namespace core {
 		static Window* GetActiveWindow();
 
 	protected:
-		virtual void CreateRenderingAPI() = 0;
+		/**
+		 * Helper function that forces OS specific window systems to expose a rendering API
+		 */
+		virtual void CreateRenderingContext() = 0;
+		
 		/**
 		 * Toggle fullscreen
 		 */
 		virtual void ToggleFullscreen() = 0;
+
+		/**
+		 * Instructs window to poll and report gamepad input
+		 */
+		virtual void PollGamepadInput() = 0;
 
 		/** Interface to the type of rendering context bound to the window during creation */
 		std::shared_ptr<RenderingContext> RenderingAPI;

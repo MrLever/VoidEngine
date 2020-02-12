@@ -19,12 +19,18 @@ namespace core {
 		glEnable(GL_DEPTH_TEST);
 	}
 
-	void RenderingContext::SetViewport(int x, int y, int width, int height) {
-		this->SetViewport(Viewport(x, y, width, height));
+	void OpenGLRenderingContext::SetViewport(RenderingContext::Viewport viewport) {
+		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+		CurrentViewport = viewport;
 	}
 
-	RenderingContext::Viewport RenderingContext::GetViewport(int x, int y, int width, int height) {
-		return CurrentViewport;
+	void OpenGLRenderingContext::Clear() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRenderingContext::SetClearColor(math::Vector4 color) {
+		ClearColor = color;
+		glClearColor(color.X, color.Y, color.Z, color.W);
 	}
 
 	void OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {

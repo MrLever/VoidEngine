@@ -19,6 +19,16 @@ namespace core {
 		 * Used to set the rendering engine's viewport
 		 */
 		void SetViewport(RenderingContext::Viewport viewport) override;
+		
+		/**
+		 * Used to clear drawing buffer
+		 */
+		void Clear() override;
+
+		/**
+		 * Set's buffer clear color
+		 */
+		virtual void SetClearColor(math::Vector4 color) override;
 
 	};
 
