@@ -14,7 +14,7 @@
 #include "utils/resource/ResourceAllocator.h"
 #include "utils/Logger.h"
 
-#include "core/Level.h"
+#include "core/SceneLoader.h"
 #include "core/Window.h"
 #include "core/audio/AudioManager.h"
 #include "core/event_system/EventBus.h"
@@ -63,12 +63,6 @@ namespace core {
 		void Update(float deltaTime);
 		
 		/**
-		 * Instructs the game to process player input
-		 * @param deltaTime the time step to use when applying user input
-		 */
-		void ProcessInput(float deltaTime);
-	
-		/**
 		 * Tracks the game's frame rate.
 		 * @param timeSinceLastFrame Time since the last frame, in seconds
 		 */
@@ -90,11 +84,10 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-		/** The game's current level */
-		std::shared_ptr<Level> CurrentLevel;
+		SceneLoader GameSceneLoader;
 
-		/** Resource Manager for the engine's level files */
-		ResourceAllocatorPtr<Level> LevelCache;
+		/** The game's current level */
+		std::shared_ptr<Scene> ActiveScene;
 		
 		/** A Handle to the Engine's thread pool */
 		std::shared_ptr<utils::ThreadPool> GameThreadPool;
@@ -115,13 +108,14 @@ namespace core {
 		std::shared_ptr<InputManager> GameInputManager;
 
 		/** Pointer to the game's Rendering Engine */
-		std::unique_ptr<Renderer> GameRenderer;
+		std::shared_ptr<Renderer> GameRenderer;
 
+		/** Pointer to physics subsystem */
+		std::shared_ptr<PhysicsEngine> CorePhysicsEngine;
+		
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> GameAudioManager;
 
-		/** Pointer to physics subsystem */
-		std::unique_ptr<PhysicsEngine> CorePhysicsEngine;
 
 		/** Config settings for the game */
 		utils::Configuration EngineConfig;

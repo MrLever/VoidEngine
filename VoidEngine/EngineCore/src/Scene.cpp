@@ -6,8 +6,11 @@
 //Void Engine Headers
 
 namespace core {
-	Scene::Scene(std::shared_ptr<Renderer> renderer, std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: SceneRenderer(renderer), ScenePhysicsEngine(physicsEngine) {
+	Scene::Scene(
+		std::shared_ptr<InputManager> inputManager,
+		std::shared_ptr<Renderer> renderer, 
+		std::shared_ptr<PhysicsEngine> physicsEngine) 
+		: SceneInputManager(inputManager), SceneRenderer(renderer), ScenePhysicsEngine(physicsEngine) {
 
 	}
 
@@ -21,6 +24,7 @@ namespace core {
 	void Scene::AddCamera(CameraComponent* camera) {
 		SceneRenderer->InitializeCamera(camera);
 		Cameras.insert({camera->GetName(), camera});
+		ActivateCamera(camera->GetName());
 	}
 
 	void Scene::RemoveCamera(CameraComponent* camera) {
@@ -35,15 +39,19 @@ namespace core {
 
 		SceneRenderer->UseCamera(Cameras[cameraName]);
 	}
-	
-	void Scene::Load() {
-		;
-	}
 
 	void Scene::BeginPlay() {
 		for (auto& entity : Entities) {
+			auto camera = entity->GetComponent<CameraComponent>();
+			if (camera) {
+				AddCamera(camera);
+			}
 			entity->BeginPlay();
 		}
+	}
+
+	void Scene::ProcessInput(float deltaTime) {
+		SceneInputManager->ProcessInput(Entities, deltaTime);
 	}
 
 	void Scene::Update(float deltaTime) {
@@ -52,6 +60,13 @@ namespace core {
 		for (auto entity : Entities) {
 			entity->Tick(deltaTime);
 		}
+
+		for (auto entity : EntitiesToSpawn) {
+			Entities.push_back(entity);
+			entity->Initialize();
+			entity->BeginPlay();
+		}
+		EntitiesToSpawn.clear();
 	}
 
 	void Scene::Draw() const {
@@ -64,15 +79,17 @@ namespace core {
 			return nullptr;
 		}
 
-		Entities.push_back(entity);
-		//entity->SetScene(this);
+		EntitiesToSpawn.push_back(entity);
+		entity->SetScene(this);
 		entity->SetParent(parent);
-		entity->Initialize();
-		entity->BeginPlay();
 		return entity;
 	}
 
 	void Scene::DestroyEntity(Entity* entity) {
 
+	}
+	
+	std::string Scene::GetControlFilePath() const {
+		return ControlFilePath;
 	}
 }

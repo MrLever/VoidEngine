@@ -81,7 +81,7 @@ namespace core {
 		 * @param scene The scene of entities to propogate commands to
 		 * @param deltaTime the time step for input operations
 		 */
-		void ProcessInput(Level* scene, float deltaTime);
+		void ProcessInput(std::vector<Entity*>& entities, float deltaTime);
 
 		void SetActiveInputMapping(const std::string& profilePath);
 
@@ -91,14 +91,14 @@ namespace core {
 		 * @param scene The scene to dispatch input to
 		 * @param deltaTime The current time step
 		 */
-		void ProcessInputActions(Level* scene, float deltaTime);
+		void ProcessInputActions(std::vector<Entity*>& entities, float deltaTime);
 
 		/**
 		 * Dispatches queued input actions to the scene
 		 * @param scene The scene to dispatch input to
 		 * @param deltaTime The current time step
 		 */
-		void ProcessAxisUpdates(Level* scene, float deltaTime);
+		void ProcessAxisUpdates(std::vector<Entity*>& entities, float deltaTime);
 
 		/** Deadzone used to filter joystick input */
 		float JoystickDeadzone;

@@ -5,7 +5,7 @@
 
 //Void Engine Headers
 #include "gameplay_framework/entities/FloatingFPSPlayer.h"
-#include "Level.h"
+#include "Scene.h"
 
 namespace core {
 	TYPE_INFO_IMPL(FloatingFPSPlayer)

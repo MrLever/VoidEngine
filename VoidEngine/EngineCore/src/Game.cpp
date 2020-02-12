@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "Game.h"
+#include "SceneLoader.h"
 #include "platform/Platform.h"
 
 namespace core {
@@ -19,10 +20,7 @@ namespace core {
 		EngineConfig.Load();
 
 		Initialize();
-		
-		//Set the current level to the default level
-		SetLevel(EngineConfig.GetAttribute<std::string>("defaultLevel"));
-
+	
 		//Start game loop
 		ExecuteGameLoop();
 	}
@@ -59,7 +57,7 @@ namespace core {
 		);
 
 		//Initialize Renderer
-		GameRenderer = std::make_unique<Renderer>(
+		GameRenderer = std::make_shared<Renderer>(
 			GameEventBus.get(),
 			GameWindow->GetRenderingContext(),
 			ConfigManager->LoadResource("Settings/RenderingConfig.json")
@@ -77,9 +75,9 @@ namespace core {
 		);
 
 		BusNode = std::make_unique<GameEventBusNode>(GameEventBus.get(), this);
-		
-		//Create the level cache
-		LevelCache = std::make_shared<utils::ResourceAllocator<Level>>();
+
+		//Set the current level to the default level
+		SetLevel(EngineConfig.GetAttribute<std::string>("defaultLevel"));
 	}
 
 	void Game::ExecuteGameLoop() {
@@ -92,11 +90,12 @@ namespace core {
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
 
-			//Handle input
-			ProcessInput(deltaTime);
+			GameWindow->ProcessEvents();
 
 			//Dispatch any events that occurred since the last frame
 			GameEventBus->DispatchEvents();
+
+			ActiveScene->ProcessInput(deltaTime);
 
 			//Update the scene
 			if (!Paused) {
@@ -104,7 +103,7 @@ namespace core {
 			}
 
 			//Draw the scene
-			GameRenderer->Render(CurrentLevel->GetScene());
+			ActiveScene->Draw();
 			GameWindow->SwapBuffers();
 
 			//Update previous time
@@ -120,13 +119,7 @@ namespace core {
 
 		UpdateFramerate(deltaTime);
 
-		CorePhysicsEngine->Simulate(CurrentLevel->GetScene(), deltaTime);
-		CurrentLevel->Update(deltaTime);
-	}
-
-	void Game::ProcessInput(float deltaTime) {
-		GameWindow->ProcessEvents();
-		GameInputManager->ProcessInput(CurrentLevel.get(), deltaTime);
+		ActiveScene->Update(deltaTime);
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
@@ -138,12 +131,13 @@ namespace core {
 		numFrames++;
 
 		if (currentTime - lastTime >= ONE_SECOND) {
-			GameThreadPool->SubmitJob(
-				[] (double frameTime){
-					utils::Logger::LogInfo("FrameTime: " + std::to_string(frameTime) + "ms");
-				},
-				(ONE_SECOND + 0.0) / numFrames
+
+			utils::Logger::LogInfo(
+				"FrameTime: " + 
+				std::to_string((ONE_SECOND + 0.0) / numFrames) + 
+				"ms"
 			);
+
 			numFrames = 0;
 			lastTime = utils::GetGameTime();
 		}
@@ -155,7 +149,7 @@ namespace core {
 
 	void Game::PauseGame(PauseGameEvent* event) {
 		if (Paused) {
-			GameInputManager->SetActiveInputMapping(CurrentLevel->GetControlFilePath());
+			GameInputManager->SetActiveInputMapping(ActiveScene->GetControlFilePath());
 		}
 		else {
 			GameInputManager->SetActiveInputMapping("Settings/Controls/MenuControls.json");
@@ -165,14 +159,14 @@ namespace core {
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
-		if (CurrentLevel != nullptr) {
+		if (ActiveScene != nullptr) {
 			//Level unloading logic
 		}
 
-		CurrentLevel = LevelCache->GetResource(newLevelPath);
-		CurrentLevel->Initialize();
-		GameInputManager->SetActiveInputMapping(CurrentLevel->GetControlFilePath());
-		CurrentLevel->BeginPlay();
+		ActiveScene = std::make_shared<Scene>(GameInputManager, GameRenderer, CorePhysicsEngine);
+		GameSceneLoader.LoadLevel(ActiveScene.get(), newLevelPath);
+		GameInputManager->SetActiveInputMapping(ActiveScene->GetControlFilePath());
+		ActiveScene->BeginPlay();
 	}
 
 }

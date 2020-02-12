@@ -15,13 +15,12 @@
 
 #include "core/input/InputAction.h"
 #include "core/input/AxisInputAction.h"
-
 #include "core/gameplay_framework/EntityData.h"
 
 namespace core {
 	//Forward class declarations
 	class Component;
-	class Level;
+	class Scene;
 
 	/**
 	 * @class Entity 
@@ -120,8 +119,8 @@ namespace core {
 		/**
 		 * Accessors for the pointer to the level this entity is active in
 		 */
-		Level* GetWorld() const;
-		void SetScene(Level* world);
+		Scene* GetWorld() const;
+		void SetScene(Scene* world);
 	
 		/**
 		 * Accessor for Parent
@@ -142,7 +141,7 @@ namespace core {
 		math::Quaternion Rotation;
 
 		/** The level the entity inhabits */
-		Level* World;
+		Scene* World;
 
 		/** Optional pointer to the entity's owner */
 		Entity* Parent;
