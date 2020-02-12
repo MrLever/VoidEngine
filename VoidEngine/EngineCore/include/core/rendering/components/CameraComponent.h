@@ -71,7 +71,14 @@ namespace core {
 		 */
 		void UpdateProjectionMatrix(RenderingContext::Viewport viewport);
 
+		/**
+		 * Camera name accessor
+		 */
+		utils::Name GetName() const;
+
 	private:
+		/** Name used to reference this camera */
+		utils::Name CameraName;
 
 		/** This camera's projection matrix */
 		glm::mat4 ProjectionMatrix;

@@ -124,7 +124,7 @@ namespace core {
 		return World;
 	}
 
-	void Entity::SetWorld(Level* world) {
+	void Entity::SetScene(Level* world) {
 		World = world;
 	}
 

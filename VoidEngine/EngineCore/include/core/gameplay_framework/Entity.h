@@ -121,7 +121,7 @@ namespace core {
 		 * Accessors for the pointer to the level this entity is active in
 		 */
 		Level* GetWorld() const;
-		void SetWorld(Level* world);
+		void SetScene(Level* world);
 	
 		/**
 		 * Accessor for Parent

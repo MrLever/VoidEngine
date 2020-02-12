@@ -13,7 +13,7 @@ namespace core {
 	ENABLE_FACTORY(CameraComponent, Component)
 
 	CameraComponent::CameraComponent()
-		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
+		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0), CameraName("Camera") {
 		//UpdateProjectionMatrix();
 	}
 
@@ -27,6 +27,11 @@ namespace core {
 			Rotation = Parent->GetRotation();
 			LookDirection = Parent->GetRotation().ToVector();
 		}
+
+		if (ConfigData.find("name") != ConfigData.end()) {
+			CameraName = ConfigData["name"];
+		}
+
 		Window::GetActiveWindow()->SetView(Parent, this);
 	}
 
@@ -72,6 +77,10 @@ namespace core {
 			0.1f,
 			100.0f
 		);
+	}
+
+	utils::Name CameraComponent::GetName() const {
+		return CameraName;
 	}
 
 }

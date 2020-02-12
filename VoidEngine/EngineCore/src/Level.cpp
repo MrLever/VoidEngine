@@ -55,7 +55,7 @@ namespace core {
 			}
 
 			entity->SetConfigData(entityData);
-			entity->SetWorld(this);
+			entity->SetScene(this);
 
 			nlohmann::json componentList;
 			if (entityData.find("components") != entityData.end()) {
@@ -95,7 +95,7 @@ namespace core {
 		}
 
 		Entities.push_back(entity);
-		entity->SetWorld(this);
+		entity->SetScene(this);
 		entity->SetParent(parent);
 		entity->Initialize();
 		entity->BeginPlay();

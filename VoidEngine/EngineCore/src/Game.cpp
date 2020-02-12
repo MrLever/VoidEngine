@@ -104,7 +104,7 @@ namespace core {
 			}
 
 			//Draw the scene
-			GameRenderer->Render(CurrentLevel.get());
+			GameRenderer->Render(CurrentLevel->GetScene());
 			GameWindow->SwapBuffers();
 
 			//Update previous time
@@ -120,7 +120,7 @@ namespace core {
 
 		UpdateFramerate(deltaTime);
 
-		CorePhysicsEngine->Simulate(CurrentLevel.get(), deltaTime);
+		CorePhysicsEngine->Simulate(CurrentLevel->GetScene(), deltaTime);
 		CurrentLevel->Update(deltaTime);
 	}
 

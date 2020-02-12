@@ -51,7 +51,7 @@ namespace core {
 		return static_cast<unsigned>(EventCategory::WINDOW);
 	}
 
-	void Renderer::Render(Level* scene) {
+	void Renderer::Render(std::vector<Entity*> entities) {
 		//Set the view and projection matrices for all graphics components for this draw call 
 		auto activeCamera = Window::GetActiveWindow()->GetView();
 		if (activeCamera == nullptr) {
@@ -62,8 +62,6 @@ namespace core {
 			GraphicsComponent::ViewMatrix = activeCamera->GetViewMatrix();
 			GraphicsComponent::ProjectionMatrix = activeCamera->GetProjectionMatrix();
 		}
-
-		auto entities = scene->GetScene();
 
 		//Clear the color and depth buffer
 		RenderingAPI->Clear();
@@ -76,6 +74,14 @@ namespace core {
 
 	void Renderer::Configure() {
 		//TODO (MrLever): Leverage configuration settings
+	}
+
+	void Renderer::InitializeCamera(CameraComponent* camera) const {
+		camera->UpdateProjectionMatrix(RenderingAPI->GetViewport());
+	}
+
+	void Renderer::UseCamera(CameraComponent* camera) {
+		ActiveCamera = camera;
 	}
 
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
