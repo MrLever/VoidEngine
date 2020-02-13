@@ -18,6 +18,10 @@
                         "type":"SphereCollider",
                         "radius":1
                     }
+                },
+                {
+                    "type":"CameraComponent",
+                    "name":"PlayerCamera"
                 }
             ]
         },

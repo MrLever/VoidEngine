@@ -7,9 +7,11 @@
 //Void Engine Headers
 #include "utils/configuration/Configurable.h"
 
-#include "core/event_system/EventBusNode.h"
 #include "core/Level.h"
+#include "core/event_system/EventBusNode.h"
 #include "core/physics/Manifold.h"
+#include "core/physics/components/PhysicsComponent.h"
+#include "core/physics/components/ColliderComponent.h"
 
 namespace core {
 
@@ -29,7 +31,7 @@ namespace core {
 		/**
 		 * Allows the engine to perform physics updates on the scene
 		 */
-		void Simulate(Level* scene, float deltaTime);
+		void Simulate(std::vector<Entity*>& entities, float deltaTime);
 
 		/**
 		 * Applies physics engine settings
@@ -41,31 +43,36 @@ namespace core {
 		 */
 		void ReceiveEvent(Event* event) override;
 
+		/**
+		 * Set's the gravity strength used for the simulation
+		 */
+		void SetGravity(float gravity);
+
 	private:
 		/**
 		 * Applies any special forces to entities in scene
 		 */
-		void ApplyForces(Level* scene, float deltaTime);
+		void ApplyForces(std::vector<PhysicsComponent*>& physicsComponents, float deltaTime);
 
 		/**
 		 * Applies laws of physics to update positions of entities in scene
 		 */
-		void Integrate(Level* scene, float deltaTime);
+		void Integrate(std::vector<PhysicsComponent*>& physicsComponents, float deltaTime);
 
 		/**
 		 * Detects and resolves collisions in scene
 		 */
-		void HandleCollisions(Level* scene, float deltaTime);
+		void HandleCollisions(std::vector<ColliderComponent*>& colliders, float deltaTime);
 
 		/**
 		 * Generates a set of valid collisions that must be resolved
 		 */
-		std::unordered_set<Manifold*> DetectCollisions(Level* scene);
+		std::unordered_set<Manifold*> DetectCollisions(std::vector<ColliderComponent*>& colliders);
 
 		/**
 		 * Resolves collisions and applies impulses
 		 */
-		void ResolveCollisions(std::unordered_set<Manifold*> collisions);
+		void ResolveCollisions(std::unordered_set<Manifold*>& collisions);
 
 		/**
 		 * Resolve a single collision manifold
@@ -76,6 +83,8 @@ namespace core {
 		 * Apply positional correction to prevent sinking object problem
 		 */
 		void CorrectPositions(Manifold* collision);
+
+		float Gravity;
 
 		static Manifold* DetectSphereSphereCollision(ColliderComponent* left, ColliderComponent* right);
 

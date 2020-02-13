@@ -7,7 +7,7 @@
 
 #include "gameplay_framework/Entity.h"
 #include "gameplay_framework/Component.h"
-#include "Level.h"
+#include "Scene.h"
 
 namespace core {
 
@@ -120,11 +120,11 @@ namespace core {
 		Components[name] = component;
 	}
 
-	Level* Entity::GetWorld() const {
+	Scene* Entity::GetWorld() const {
 		return World;
 	}
 
-	void Entity::SetWorld(Level* world) {
+	void Entity::SetScene(Scene* world) {
 		World = world;
 	}
 

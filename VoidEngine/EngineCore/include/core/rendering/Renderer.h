@@ -16,6 +16,7 @@
 #include "core/Level.h"
 #include "core/event_system/EventBusNode.h"
 #include "core/event_system/events/WindowResizedEvent.h"
+#include "core/rendering/RenderingContext.h"
 #include "core/rendering/components/CameraComponent.h"
 
 namespace core {
@@ -31,7 +32,7 @@ namespace core {
 		 */
 		Renderer(
 			EventBus* bus,
-			std::shared_ptr<Window> window,
+			std::shared_ptr<RenderingContext> renderingAPI,
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
@@ -55,31 +56,38 @@ namespace core {
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render(Level* scene);
+		void Render(std::vector<Entity*> entiti);
 
 		/**
 		 * Applies Renderer Configuration Settings
 		 */
 		void Configure() override;
 
+		/**
+		 * Sets up camera render data properly
+		 * @param camera The camera to configure
+		 */
+		void InitializeCamera(CameraComponent* camera) const;
+
+		/**
+		 * Notifies the renderer to use a different camera for drawing
+		 * @param camera The camera to render from
+		 */
+		void UseCamera(CameraComponent* camera);
+
 	private:
 
 		void HandleWindowResize(WindowResizedEvent* event);
 
-		/** Shared with the Input System, the render can draw to this window. */
-		std::shared_ptr<Window> GameWindow;
+		std::shared_ptr<RenderingContext> RenderingAPI;
 
-		/** The defualt view matrix to use if a scene does not provide one */
+		CameraComponent* ActiveCamera;
+
+		/** The default view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
 		glm::mat4 DefaultProjectionMatrix;
-
-		/** The Rendering context's width */
-		int ContextWidth;
-
-		/** The Rendering context's height */
-		int ContexHeight;
 	};
 
 	static void OpenGLDebugCallback(

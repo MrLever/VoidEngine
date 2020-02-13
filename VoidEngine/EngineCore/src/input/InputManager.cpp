@@ -96,9 +96,9 @@ namespace core {
 		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
 	}
 
-	void InputManager::ProcessInput(Level* scene, float deltaTime) {
-		ProcessInputActions(scene, deltaTime);
-		ProcessAxisUpdates(scene, deltaTime);
+	void InputManager::ProcessInput(std::vector<Entity*>& entities, float deltaTime) {
+		ProcessInputActions(entities, deltaTime);
+		ProcessAxisUpdates(entities, deltaTime);
 	}
 
 	void InputManager::SetActiveInputMapping(const std::string& profilePath) {
@@ -106,8 +106,7 @@ namespace core {
 		ActiveControls->Initialize();
 	}
 
-	void InputManager::ProcessInputActions(Level* scene, float deltaTime) {
-		auto entities = scene->GetScene();
+	void InputManager::ProcessInputActions(std::vector<Entity*>& entities, float deltaTime) {
 		while (!InputActionBuffer.empty()) {
 			auto inputAction = InputActionBuffer.front();
 			for (auto& entity : entities) {
@@ -119,9 +118,7 @@ namespace core {
 		}
 	}
 
-	void InputManager::ProcessAxisUpdates(Level* scene, float deltaTime) {
-		auto entities = scene->GetScene();
-
+	void InputManager::ProcessAxisUpdates(std::vector<Entity*>& entities, float deltaTime) {
 		auto defaultControlAxisReadings = DefaultControls->PollAxes();
 		auto activeControlAxisReadings = ActiveControls->PollAxes();
 

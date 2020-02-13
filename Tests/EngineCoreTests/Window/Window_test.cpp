@@ -11,10 +11,7 @@ namespace EngineCoreTests {
 	using namespace core;
 
 	TEST(WindowManagerTests, WindowCreationTest) {
-		WindowData d = { "Test", 600, 800 };
-		Window test(nullptr, d);
-
-		ASSERT_TRUE(true);
+		ASSERT_TRUE(false);
 	}
 
 }

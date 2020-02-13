@@ -23,6 +23,28 @@ set(engine_core_source_dir
 ################################################################################
 # Collect header files 
 ################################################################################
+### Platform Headers
+set(engine_core_platform_core_headers
+    "${engine_core_header_dir}/platform/Platform.h"
+)
+source_group("Header Files\\Platform" FILES ${engine_core_platform_core_headers})
+
+set(engine_core_platform_rendering_headers
+    "${engine_core_header_dir}/platform/rendering/OpenGLRenderingContext.h"
+)
+source_group("Header Files\\Platform\\Rendering" FILES ${engine_core_platform_rendering_headers})
+
+set(engine_core_platform_windowing_headers
+    "${engine_core_header_dir}/platform/windowing/WindowsWindow.h"
+)
+source_group("Header Files\\Platform\\Windowing" FILES ${engine_core_platform_windowing_headers})
+
+set(engine_core_platform_headers
+    ${engine_core_platform_core_headers}
+    ${engine_core_platform_rendering_headers}
+    ${engine_core_platform_windowing_headers}
+)
+
 ### Audio Headers
 set(engine_core_audio_headers
     "${engine_core_header_dir}/audio/AudioManager.h"
@@ -172,6 +194,7 @@ set(engine_core_rendering_core_headers
     "${engine_core_header_dir}/rendering/ShaderProgram.h"
     "${engine_core_header_dir}/rendering/Texture.h"
     "${engine_core_header_dir}/rendering/Vertex.h"
+    "${engine_core_header_dir}/rendering/RenderingContext.h"
 )
 source_group(
     "Header Files\\Rendering" 
@@ -194,6 +217,7 @@ set(engine_core_rendering_headers
 
 ### Collect all headers
 set(engine_core_headers
+    "${engine_core_platform_headers}"
     "${engine_core_audio_headers}"
     "${engine_core_event_system_headers}"
     "${engine_core_gameplay_framework_headers}"
@@ -203,11 +227,35 @@ set(engine_core_headers
     "${engine_core_header_dir}/Game.h"
     "${engine_core_header_dir}/Level.h"
     "${engine_core_header_dir}/Window.h"
+    "${engine_core_header_dir}/Scene.h"
+    "${engine_core_header_dir}/SceneLoader.h"
 )
 
 ################################################################################
 # Collect source files 
 ################################################################################
+### Platform Headers
+set(engine_core_platform_core_source
+    "src/platform/Platform.cpp"
+)
+source_group("Source Files\\Platform" FILES ${engine_core_platform_core_source})
+
+set(engine_core_platform_rendering_source
+    "src/platform/rendering/OpenGLRenderingContext.cpp"
+)
+source_group("Source Files\\Platform\\Rendering" FILES ${engine_core_platform_rendering_source})
+
+set(engine_core_platform_windowing_source
+    "src/platform/windowing/WindowsWindow.cpp"
+)
+source_group("Source Files\\Platform\\Windowing" FILES ${engine_core_platform_windowing_source})
+
+set(engine_core_platform_source
+    ${engine_core_platform_core_source}
+    ${engine_core_platform_rendering_source}
+    ${engine_core_platform_windowing_source}
+)
+
 ### Audio Sources
 set(engine_core_audio_source
     "${engine_core_source_dir}/audio/AudioManager.cpp"
@@ -352,6 +400,7 @@ set(engine_core_rendering_core_source
     "${engine_core_source_dir}/rendering/Shader.cpp"
     "${engine_core_source_dir}/rendering/ShaderProgram.cpp"
     "${engine_core_source_dir}/rendering/Texture.cpp"
+    "${engine_core_source_dir}/rendering/RenderingContext.cpp"
 )
 source_group(
     "Source Files\\Rendering" 
@@ -374,6 +423,7 @@ set(engine_core_rendering_source
 
 ### Collect all source
 set(engine_core_source
+    "${engine_core_platform_source}"
     "${engine_core_audio_source}"
     "${engine_core_event_system_source}"
     "${engine_core_gameplay_framework_source}"
@@ -383,6 +433,8 @@ set(engine_core_source
     "${engine_core_source_dir}/Game.cpp"
     "${engine_core_source_dir}/Level.cpp"
     "${engine_core_source_dir}/Window.cpp"
+    "${engine_core_source_dir}/Scene.cpp"
+    "${engine_core_source_dir}/SceneLoader.cpp"
 )
 
 set(Dependencies

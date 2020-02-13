@@ -13,8 +13,8 @@ namespace core {
 	ENABLE_FACTORY(CameraComponent, Component)
 
 	CameraComponent::CameraComponent()
-		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0) {
-		UpdateProjectionMatrix();
+		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0), CameraName("Camera") {
+		//UpdateProjectionMatrix();
 	}
 
 	CameraComponent::~CameraComponent() {
@@ -27,7 +27,11 @@ namespace core {
 			Rotation = Parent->GetRotation();
 			LookDirection = Parent->GetRotation().ToVector();
 		}
-		Window::GetActiveWindow()->SetView(Parent, this);
+
+		if (ConfigData.find("name") != ConfigData.end()) {
+			CameraName = ConfigData["name"];
+		}
+
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
@@ -58,23 +62,24 @@ namespace core {
 	void CameraComponent::SetFOV(float fov) {
 		FOV = fov;
 		
-		UpdateProjectionMatrix();
+		//UpdateProjectionMatrix();
 	}
 
 	float CameraComponent::GetFOV() {
 		return FOV;
 	}
 
-	void CameraComponent::UpdateProjectionMatrix() {
-		float windowWidth = (float)Window::GetActiveWindow()->GetWindowWidth();
-		float windowHeight = (float)Window::GetActiveWindow()->GetWindowHeight();
-
+	void CameraComponent::UpdateProjectionMatrix(RenderingContext::Viewport viewport) {
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(FOV),
-			windowWidth / windowHeight,
+			(float)viewport.Width / viewport.Height,
 			0.1f,
 			100.0f
 		);
+	}
+
+	utils::Name CameraComponent::GetName() const {
+		return CameraName;
 	}
 
 }

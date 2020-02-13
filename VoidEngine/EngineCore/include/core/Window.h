@@ -4,14 +4,13 @@
 #include <string>
 
 //Library Headers
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 
 //Void Engine Headers
 #include "utils/EngineUtilities.h"
 
 #include "core/event_system/EventBusNode.h"
 #include "core/input/definitions/KeyboardInput.h"
+#include "core/rendering/RenderingContext.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -33,16 +32,14 @@ namespace core {
 	public:
 		/**
 		 * Constructor
-		 * @param gameName The name to display in the game's window title bar
-		 * @param windowWidth The width of the game window
-		 * @param windowHeight The height of the game window
+		 * @param data The parameters to use in creating the window's context
 		 */
 		Window(EventBus* bus, WindowData& data);
 		
 		/**
 		 * Destructor
 		 */
-		~Window();
+		virtual ~Window();
 
 		/**
 		 * Allows node to receive and process events from EventBus
@@ -53,36 +50,19 @@ namespace core {
 		/**
 		 * Allows EventBus to query the node's subscription, and filter events accordingly
 		 */
-		virtual unsigned GetSubscription() override;
+		unsigned GetSubscription() override;
 
 		/**
-		 * Wrapper function to instruct GLFW to poll for window and input events
+		 * Instructs engine to process the window's message queue
 		 */
-		void PollEvents();
+		virtual void ProcessEvents() = 0;
 
 		/**
 		 * Instructs the window to swap buffers, drawing the result of the last render frame
 		 */
-		void SwapBuffers();
-
-		/**
-		 * Instructs window to poll and report gamepad input
-		 */
-		void HandleGamepadInput();
-
-		/// NOTE: The following functions are static so that they can be used as callbacks from GLFW
-		/**
-		 * Properly deletes the window supplied to avoid memory leaks
-		 * @param window The GLFWwindow to destroy
-		 */
-		static void DeleteWindow(GLFWwindow* window);
-
-		/**
-		 * Callback to display GLFW errors
-		 * @param error The error's numerical code
-		 * @param description The Error's description
-		 */
-		static void ReportWindowError(int error, const char* description);
+		virtual void SwapBuffers() = 0;
+		
+		virtual void SetWindowSize(int width, int height);
 
 		/**
 		 * Get's the current rendering context's width
@@ -97,65 +77,37 @@ namespace core {
 		/**
 		 * Instructs GLFW to toggle cursor visibility
 		 */
-		void SetCursorCapture(bool state);
+		virtual void SetCursorCapture(bool state) = 0;
 
 		/**
 		 * Instructs GLFW to toggle cursor visibility
 		 */
-		void ToggleCursorCapture();
+		virtual void ToggleCursorCapture() = 0;
 
 		/**
-		 * Global function to allow an entity to set the window's view of the world
-		 * @param parent The entity requesting this set. Used for victim blaming
-		 * @param comp The camera that is being set as active
+		 * Allows other systems to request the current Rendering API
 		 */
-		void SetView(Entity* parent, CameraComponent* comp);
+		std::shared_ptr<RenderingContext> GetRenderingContext();
 
+	protected:
 		/**
-		 * Global function to allow an the renderer get the window's view of the world
+		 * Helper function that forces OS specific window systems to expose a rendering API
 		 */
-		CameraComponent* GetView();
-
-		/**
-		 * Global function to allow any user to query data about the active window
-		 */
-		static Window* GetActiveWindow();
-
-	private:
-		/** 
-		 * Performs initialization of the GLFW library
-		 */
-		void InitGLFW();
-
-		/** 
-		 * Performs initialization of the GLAD library 
-		 */
-		void InitGLAD();
-
+		virtual void CreateRenderingContext() = 0;
+		
 		/**
 		 * Toggle fullscreen
 		 */
-		void ToggleFullscreen();
-
-		/** 
-		 * Helper function to poll gamepad buttons 
-		 * @param state The gamepad state to process
-		 * @param timestamp The timestamp to affix to any reported input
-		 */
-		void PollGamepadButtons(GLFWgamepadstate& state, const utils::GameTime& timestamp);
+		virtual void ToggleFullscreen() = 0;
 
 		/**
-		 * Helper function to poll gamepad axes
-		 * @param state The gamepad state to process
+		 * Instructs window to poll and report gamepad input
 		 */
-		void PollGamepadAxes(GLFWgamepadstate& state);
+		virtual void PollGamepadInput() = 0;
 
-		/** The game's window */
-		std::shared_ptr<GLFWwindow> GLFWContext;
+		/** Interface to the type of rendering context bound to the window during creation */
+		std::shared_ptr<RenderingContext> RenderingAPI;
 
-		/** The active camera to be used for rendering */
-		CameraComponent* ActiveCamera;
-		
 		/** The game's name */
 		std::string GameName;
 
@@ -170,19 +122,7 @@ namespace core {
 
 		/** Flag to determine if the cursor is enabled in the window */
 		bool CursorEnabled;
-
-		/** Pointer to the active window manager to allow static callback functions to work properly */
-		static Window* CurrWindowManager;
-
-		/** OpenGL Major version */
-		static const int OPENGL_MAJOR = 4;
-
-		/** OpenGL Minor version */
-		static const int OPENGL_MINOR = 5;
-	
-		/** Static constant to earmark special Input for toggling fullscreen */
-		static const KeyboardInput ToggleFullscreenInput;
 	};
 }
 
-using WindowManagerPtr = std::shared_ptr<core::Window>;
+using WindowPtr = std::shared_ptr<core::Window>;

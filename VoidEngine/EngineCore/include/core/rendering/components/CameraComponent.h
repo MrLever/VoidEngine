@@ -69,9 +69,16 @@ namespace core {
 		 * Function to update the camera's Projection Matrix in response
 		 * to a change in window size
 		 */
-		void UpdateProjectionMatrix();
+		void UpdateProjectionMatrix(RenderingContext::Viewport viewport);
+
+		/**
+		 * Camera name accessor
+		 */
+		utils::Name GetName() const;
 
 	private:
+		/** Name used to reference this camera */
+		utils::Name CameraName;
 
 		/** This camera's projection matrix */
 		glm::mat4 ProjectionMatrix;

@@ -17,7 +17,7 @@ namespace core {
 	PhysicsEngine::PhysicsEngine(
 		EventBus* bus, 
 		const utils::ResourceHandle<utils::Configuration>& configuration
-	) : EventBusNode(bus), Configurable(configuration) {
+	) : EventBusNode(bus), Configurable(configuration), Gravity(9.8f) {
 		utils::Logger::LogInfo("Initializing Physics Engine Collision System");
 		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereSphereCollision);
 		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, AABBCollider>(DetectAABBAABBCollision);
@@ -32,75 +32,82 @@ namespace core {
 	void PhysicsEngine::ReceiveEvent(Event* event) {
 		;
 	}
+
+	void PhysicsEngine::SetGravity(float gravity) {
+		Gravity = gravity;
+	}
 	
-	void PhysicsEngine::Simulate(Level* scene, float deltaTime) {
+	void PhysicsEngine::Simulate(std::vector<Entity*>& entities, float deltaTime) {
 		//Physics simulations update 60 times per second
 		static float accumulator = 0.0f;
 		static const float PHYSICS_DT = 0.016f; 
 
+		std::vector<PhysicsComponent*> physicsComponents;
+		for (auto entity : entities) {
+			auto body = entity->GetComponent<PhysicsComponent>();
+			if (body) {
+				physicsComponents.push_back(body);
+			}
+		}
+
+		std::vector<ColliderComponent*> colliders;
+		for (auto entity : entities) {
+			auto collider = entity->GetComponent<ColliderComponent>();
+			if (collider) {
+				colliders.push_back(collider);
+			}
+		}
+
 		accumulator += deltaTime;
 
 		while (accumulator >= PHYSICS_DT) {
-			ApplyForces(scene, PHYSICS_DT);
-			Integrate(scene, PHYSICS_DT);
-			HandleCollisions(scene, PHYSICS_DT);
+			ApplyForces(physicsComponents, PHYSICS_DT);
+			Integrate(physicsComponents, PHYSICS_DT);
+			HandleCollisions(colliders, PHYSICS_DT);
 
 			accumulator -= PHYSICS_DT;
 		}
 
 		//Apply the remainder 
 		if (accumulator != 0) {
-			ApplyForces(scene, accumulator);
-			Integrate(scene, accumulator);
-			HandleCollisions(scene, accumulator);
+			ApplyForces(physicsComponents, accumulator);
+			Integrate(physicsComponents, accumulator);
+			HandleCollisions(colliders, accumulator);
 			accumulator = 0;
 		}
 	}
 
-	void PhysicsEngine::ApplyForces(Level* scene, float deltaTime) {
-		auto g = scene->GetAttribute<float>("gravity");
-		auto entities = scene->GetScene();
-		
+	void PhysicsEngine::ApplyForces(std::vector<PhysicsComponent*>& physicsComponents, float deltaTime) {
 		//apply gravity
-		for (auto& entity : entities) {
-			auto body = entity->GetComponent<PhysicsComponent>();
-			if (!body) {
-				continue;
-			}
-			
-			auto force = body->GetMass() * g * math::Vector3(0, -1, 0);
+		for (auto& body : physicsComponents) {		
+			auto force = body->GetMass() * Gravity * math::Vector3(0, -1, 0);
 			force *= body->GetGravityScale();
 
 			body->ApplyForce(force);
 		}
 	}
 
-	void PhysicsEngine::Integrate(Level* scene, float deltaTime) {
-		auto entities = scene->GetScene();
-
+	void PhysicsEngine::Integrate(std::vector<PhysicsComponent*>& physicsComponents, float deltaTime) {
 		//Resolve forces
-		for (auto& entity : entities) {
-			auto body = entity->GetComponent<PhysicsComponent>();
-			if (!body) {
-				continue;
-			}
+		for (auto& body : physicsComponents) {
+			auto parent = body->GetParent();
 
-			auto x_i = entity->GetPostion();
+			auto x_i = parent->GetPostion();
 			auto a = (body->GetForce() * body->GetInverseMass());
 
 			body->AddVelocity(a * deltaTime);
 
 			auto x_f = x_i + (body->GetVelocity() * deltaTime);
 
-			entity->SetPosition(x_f);
+			parent->SetPosition(x_f);
 
 			//Clear active forces after resolved
 			body->ClearForce();
 		}
 	}
 
-	void PhysicsEngine::HandleCollisions(Level* scene, float deltaTime) {
-		auto manifolds = DetectCollisions(scene);
+	void PhysicsEngine::HandleCollisions(std::vector<ColliderComponent*>& colliders, float deltaTime) {
+		auto manifolds = DetectCollisions(colliders);
 		ResolveCollisions(manifolds);
 
 		// Destroy manifolds to prevent memory leak
@@ -109,17 +116,7 @@ namespace core {
 		}
 	}
 
-	std::unordered_set<Manifold*> PhysicsEngine::DetectCollisions(Level* scene) {
-		auto Entities = scene->GetScene();
-
-		std::vector<ColliderComponent*> colliders;
-		for (auto& entity : Entities) {
-			auto collider = entity->GetComponent<ColliderComponent>();
-			if (collider) {
-				colliders.push_back(collider);
-			}
-		}
-
+	std::unordered_set<Manifold*> PhysicsEngine::DetectCollisions(std::vector<ColliderComponent*>& colliders) {
 		std::unordered_set<Manifold*> manifolds;
 		//O(n^2) Collision detection
 		for (int i = 0; i < colliders.size(); i++) {
@@ -139,7 +136,7 @@ namespace core {
 		return manifolds;
 	}
 
-	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*> collisions) {
+	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*>& collisions) {
 		for (auto& manifold : collisions) {
 			ResolveCollision(manifold);
 			CorrectPositions(manifold);
