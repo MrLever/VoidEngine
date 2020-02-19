@@ -24,17 +24,13 @@ namespace core {
 	//Forward Class declarations
 	class Window;
 
-	class Renderer : public utils::Configurable, public EventBusNode {
+	class Renderer : public EventBusNode {
 	public:
 		/**
 		 * Constructor
 		 * @param window The Window the renderer draws to
 		 */
-		Renderer(
-			EventBus* bus,
-			std::shared_ptr<RenderingContext> renderingAPI,
-			const utils::ResourceHandle<utils::Configuration>& configuration
-		);
+		Renderer(EventBus* bus,	std::shared_ptr<RenderingContext> renderingAPI);
 
 		/**
 		 * Destructor
@@ -57,11 +53,6 @@ namespace core {
 		 * @param scene The scene to draw
 		 */
 		void Render(std::vector<Entity*> entiti);
-
-		/**
-		 * Applies Renderer Configuration Settings
-		 */
-		void Configure() override;
 
 		/**
 		 * Sets up camera render data properly
@@ -90,10 +81,4 @@ namespace core {
 		glm::mat4 DefaultProjectionMatrix;
 	};
 
-	static void OpenGLDebugCallback(
-		GLenum source, GLenum type,
-		GLuint id, GLenum severity,
-		GLsizei length, const GLchar* message,
-		const void* userParam
-	);
 }

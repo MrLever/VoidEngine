@@ -11,13 +11,8 @@
 
 namespace core {
 
-	Renderer::Renderer(
-			EventBus* bus,
-			std::shared_ptr<RenderingContext> renderingAPI,
-			const utils::ResourceHandle<utils::Configuration>& configuration
-		) : Configurable(configuration), 
-			EventBusNode(bus), 
-			RenderingAPI(std::move(renderingAPI)) {
+	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderingContext> renderingAPI) 
+		: EventBusNode(bus), RenderingAPI(std::move(renderingAPI)) {
 	
 		//Set default view matrix
 		DefualtViewMatrix = glm::mat4(1.0f);
@@ -68,10 +63,6 @@ namespace core {
 		for (const auto& entity : entities) {
 			entity->Draw();
 		}
-	}
-
-	void Renderer::Configure() {
-		//TODO (MrLever): Leverage configuration settings
 	}
 
 	void Renderer::InitializeCamera(CameraComponent* camera) const {

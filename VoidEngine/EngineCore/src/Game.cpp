@@ -59,8 +59,7 @@ namespace core {
 		//Initialize Renderer
 		GameRenderer = std::make_shared<Renderer>(
 			GameEventBus.get(),
-			GameWindow->GetRenderingContext(),
-			ConfigManager->LoadResource("Settings/RenderingConfig.json")
+			GameWindow->GetRenderingContext()
 		);
 
 		//Initialize Audio Manager
