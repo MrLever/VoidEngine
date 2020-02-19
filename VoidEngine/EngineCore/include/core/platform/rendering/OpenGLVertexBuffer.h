@@ -8,7 +8,7 @@
 
 namespace core {
 
-	class OpenGLVertexBuffer {
+	class OpenGLVertexBuffer : public VertexBuffer {
 		friend class VertexBuffer;
 	public:
 		/**

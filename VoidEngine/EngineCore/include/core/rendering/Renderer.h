@@ -24,6 +24,12 @@ namespace core {
 	//Forward Class declarations
 	class Window;
 
+	enum class RendererAPI {
+		NONE = 0,
+		OPENGL,
+		DIRECT3D12
+	};
+
 	class Renderer : public EventBusNode {
 	public:
 		/**
@@ -66,19 +72,28 @@ namespace core {
 		 */
 		void UseCamera(CameraComponent* camera);
 
+		/**
+		 * Allows rendering to query the active rendering API
+		 * to construct the correct abstractions
+		 * @return The active rendering API
+		 */
+		static RendererAPI GetRendererAPI();
+
 	private:
 
 		void HandleWindowResize(WindowResizedEvent* event);
 
-		std::shared_ptr<RenderingContext> RenderingAPI;
-
 		CameraComponent* ActiveCamera;
+
+		std::shared_ptr<RenderingContext> DeviceContext;
 
 		/** The default view matrix to use if a scene does not provide one */
 		glm::mat4 DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
 		glm::mat4 DefaultProjectionMatrix;
+
+		static RendererAPI API;
 	};
 
 }

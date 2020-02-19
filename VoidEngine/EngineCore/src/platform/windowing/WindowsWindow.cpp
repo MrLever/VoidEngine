@@ -89,8 +89,8 @@ namespace platform {
 	}
 
 	void WindowsWindow::CreateRenderingContext() {
-		RenderingAPI = std::make_shared<OpenGLRenderingContext>();
-		RenderingAPI->SetViewport(0, 0, WindowWidth, WindowHeight);
+		DeviceContext = std::make_shared<OpenGLRenderingContext>();
+		DeviceContext->SetViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	void WindowsWindow::ToggleFullscreen() {
@@ -122,7 +122,7 @@ namespace platform {
 			IsFullscreen = false;
 		}
 
-		RenderingAPI->SetViewport(0, 0, WindowWidth, WindowHeight);
+		DeviceContext->SetViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	void WindowsWindow::InitGLFW() {

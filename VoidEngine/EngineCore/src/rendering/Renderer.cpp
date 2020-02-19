@@ -11,14 +11,16 @@
 
 namespace core {
 
+	RendererAPI Renderer::API = RendererAPI::OPENGL;
+
 	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderingContext> renderingAPI) 
-		: EventBusNode(bus), RenderingAPI(std::move(renderingAPI)) {
+		: EventBusNode(bus), ActiveCamera(nullptr), DeviceContext(std::move(renderingAPI)) {
 	
 		//Set default view matrix
 		DefualtViewMatrix = glm::mat4(1.0f);
 		DefualtViewMatrix = glm::translate(DefualtViewMatrix, glm::vec3(0, 0, -5));
 		
-		auto viewport = RenderingAPI->GetViewport();
+		auto viewport = DeviceContext->GetViewport();
 
 		//Set default projection matrix
 		DefaultProjectionMatrix = glm::perspective<float>(
@@ -57,7 +59,7 @@ namespace core {
 		}
 
 		//Clear the color and depth buffer
-		RenderingAPI->Clear();
+		DeviceContext->Clear();
 
 		//Draw entities
 		for (const auto& entity : entities) {
@@ -66,15 +68,19 @@ namespace core {
 	}
 
 	void Renderer::InitializeCamera(CameraComponent* camera) const {
-		camera->UpdateProjectionMatrix(RenderingAPI->GetViewport());
+		camera->UpdateProjectionMatrix(DeviceContext->GetViewport());
 	}
 
 	void Renderer::UseCamera(CameraComponent* camera) {
 		ActiveCamera = camera;
 	}
 
+	RendererAPI Renderer::GetRendererAPI() {
+		return API;
+	}
+
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
-		auto viewport = RenderingAPI->GetViewport();
+		auto viewport = DeviceContext->GetViewport();
 
 		ActiveCamera->UpdateProjectionMatrix(viewport);
 

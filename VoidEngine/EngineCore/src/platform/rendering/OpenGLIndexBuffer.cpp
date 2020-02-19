@@ -9,16 +9,17 @@
 namespace core {
 
 	void OpenGLIndexBuffer::Bind() const {
-	
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, RendererID);
 	}
 
 	void OpenGLIndexBuffer::Unbind() const {
-
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(float* indices, uint32_t size) {
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t size) {
 		glCreateBuffers(1, &RendererID);
-		glBufferData();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, RendererID);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 }

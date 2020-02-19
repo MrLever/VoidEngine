@@ -8,7 +8,7 @@
 
 namespace core {
 
-	class OpenGLIndexBuffer {
+	class OpenGLIndexBuffer : public IndexBuffer{
 		friend class IndexBuffer;
 
 	public:
@@ -20,18 +20,18 @@ namespace core {
 		/**
 		 * Binds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Bind() const;
+		virtual void Bind() const override;
 
 		/**
 		 * Unbinds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Unbind() const;
+		virtual void Unbind() const override;
 
 	private:
 		/**
 		 * Constructor
 		 */
-		OpenGLIndexBuffer(float* indices, uint32_t size);
+		OpenGLIndexBuffer(uint32_t* indices, uint32_t size);
 
 		uint32_t RendererID;
 	};

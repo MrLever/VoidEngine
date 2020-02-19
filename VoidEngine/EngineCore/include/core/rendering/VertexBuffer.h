@@ -23,7 +23,7 @@ namespace core {
 		 * Destructor
 		 */
 		virtual ~VertexBuffer() {};
-
+		
 		/**
 		 * Binds VertexBuffer in rendering pipeline
 		 */
