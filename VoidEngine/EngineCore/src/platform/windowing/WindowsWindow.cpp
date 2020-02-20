@@ -9,7 +9,7 @@
 #include "utils/Logger.h"
 
 #include "platform/windowing/WindowsWindow.h"
-#include "platform/rendering/OpenGLRenderingContext.h"
+#include "platform/OpenGL/OpenGLRenderingContext.h"
 
 #include "event_system/events/AxisInputEvent.h"
 #include "event_system/events/WindowClosedEvent.h"

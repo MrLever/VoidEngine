@@ -5,6 +5,7 @@
 
 //Void Engine Headers
 #include "rendering/Mesh.h"
+#include "rendering/BufferLayout.h"
 
 namespace core {
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
@@ -86,13 +87,21 @@ namespace core {
 
 		//Fill Vertex Buffer
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), &Vertices[0], GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), &Vertices[0], GL_STATIC_DRAW);
 
 		//Fill Element Buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned), &Indices[0], GL_DYNAMIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned), &Indices[0], GL_STATIC_DRAW);
 
 		//Set up VAO attributes
+
+		//Define expected layout of mesh vertex buffers
+		BufferLayout meshLayout = {
+			{ShaderDataType::FLOAT_3, "a_Position"},
+			{ShaderDataType::FLOAT_3, "a_Normal"},
+			{ShaderDataType::FLOAT_2, "a_TexPos"}
+		};
+
 		//Positions
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);

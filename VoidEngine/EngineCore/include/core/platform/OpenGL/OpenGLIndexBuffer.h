@@ -20,20 +20,26 @@ namespace core {
 		/**
 		 * Binds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Bind() const override;
+		void Bind() const override;
 
 		/**
 		 * Unbinds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Unbind() const override;
+		void Unbind() const override;
+
+		/**
+		 * Returns number of indices in index buffer
+		 */
+		uint32_t GetCount() const override;
 
 	private:
 		/**
 		 * Constructor
 		 */
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t size);
+		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 
-		uint32_t RendererID;
+		uint32_t m_RendererID;
+		uint32_t m_IndexCount;
 	};
 
 }

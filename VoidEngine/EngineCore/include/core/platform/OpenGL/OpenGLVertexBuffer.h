@@ -19,20 +19,32 @@ namespace core {
 		/**
 		 * Binds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Bind() const;
+		void Bind() const;
 
 		/**
 		 * Unbinds OpenGL IndexBuffer to active VAO
 		 */
-		virtual void Unbind() const;
+		void Unbind() const;
+
+		/**
+		 * Allows calling code to specify vertex layout data in buffer
+		 */
+		void SetLayout(const BufferLayout& layout) override;
+
+		/**
+		 * Accessor for buffer layout
+		 */
+		const BufferLayout& GetLayout(const BufferLayout& layout) const override;
 
 	private:
 		/**
 		 * Constructor
 		 */
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
-		
+
 		uint32_t RendererID;
+
+		BufferLayout m_Layout;
 	};
 
 }

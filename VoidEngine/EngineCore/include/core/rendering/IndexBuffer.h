@@ -31,6 +31,11 @@ namespace core {
 		 */
 		virtual void Unbind() const = 0;
 
+		/**
+		 * Returns number of indices in index buffer
+		 */
+		virtual uint32_t GetCount() const = 0;
+
 	};
 
 }

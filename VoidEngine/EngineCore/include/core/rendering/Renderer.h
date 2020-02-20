@@ -85,13 +85,13 @@ namespace core {
 
 		CameraComponent* ActiveCamera;
 
-		std::shared_ptr<RenderingContext> DeviceContext;
+		std::shared_ptr<RenderingContext> m_RenderingAPI;
 
 		/** The default view matrix to use if a scene does not provide one */
-		glm::mat4 DefualtViewMatrix;
+		glm::mat4 m_DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
-		glm::mat4 DefaultProjectionMatrix;
+		glm::mat4 m_DefaultProjectionMatrix;
 
 		static RendererAPI API;
 	};

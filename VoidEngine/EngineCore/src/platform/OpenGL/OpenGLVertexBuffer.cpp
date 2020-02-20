@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 
 //Void Engine Headers
-#include "platform/rendering/OpenGLVertexBuffer.h"
+#include "platform/OpenGL/OpenGLVertexBuffer.h"
 
 namespace core {
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
@@ -19,7 +19,15 @@ namespace core {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) {
+	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout) {
+		m_Layout = layout;
+	}
+
+	const BufferLayout& OpenGLVertexBuffer::GetLayout(const BufferLayout& layout) const {
+		return m_Layout;
+	}
+
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) : m_Layout({}) {
 		glCreateBuffers(1, &RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);

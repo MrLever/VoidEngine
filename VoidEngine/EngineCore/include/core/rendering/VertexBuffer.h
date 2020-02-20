@@ -5,6 +5,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "core/rendering/BufferLayout.h"
 
 namespace core {
 
@@ -25,6 +26,16 @@ namespace core {
 		virtual ~VertexBuffer() {};
 		
 		/**
+		 * Allows calling code to specify vertex layout data in buffer
+		 */
+		virtual void SetLayout(const BufferLayout& layout) = 0;
+		
+		/**
+		 * BufferLayout accessor
+		 */
+		virtual const BufferLayout& GetLayout(const BufferLayout& layout) const = 0;
+		
+		/**
 		 * Binds VertexBuffer in rendering pipeline
 		 */
 		virtual void Bind() const = 0;
@@ -33,7 +44,6 @@ namespace core {
 		 * Unbinds VertexBuffer in rendering pipeline
 		 */
 		virtual void Unbind() const = 0;
-
 	};
 
 }
