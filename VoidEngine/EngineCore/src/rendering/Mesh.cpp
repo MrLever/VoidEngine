@@ -71,6 +71,9 @@ namespace core {
 			//Therefore we should set the shader's default diffuse color
 			shader->SetUniform("material.base_diffuse", m_MaterialColor);
 		}
+		else {
+			shader->SetUniform("material.base_diffuse", math::Vector4(0,0,0,1));
+		}
 
 		// draw mesh
 		m_VertexArray->Bind();
