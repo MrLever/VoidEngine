@@ -50,16 +50,11 @@ namespace core {
 		void SetMaterialDiffuse(math::Color color);
 
 	private:
-		/**
-		 * Helper function for Initialize to set up OpenGL buffer data
-		 */
-		void InitializeGeometryData();
-		
 		/** The material's untextured color */
-		math::Color MaterialColor;
+		math::Color m_MaterialColor;
 
 		/** Textures used to draw mesh */
-		std::vector<std::shared_ptr<Texture>> Textures;
+		std::vector<std::shared_ptr<Texture>> m_Textures;
 
 		/** Vertex Array Object used to render this mesh */
 		std::shared_ptr<VertexArray> m_VertexArray;

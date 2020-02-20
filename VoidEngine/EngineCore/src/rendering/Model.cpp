@@ -15,8 +15,8 @@ namespace core {
 	 Assimp::Importer Model::s_Importer;
 
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
-		ModelDirectory = ResourcePath.parent_path();
-		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
+		m_ModelDirectory = ResourcePath.parent_path();
+		m_TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
 		IsThreadSafe = false;
 	}
 
@@ -38,13 +38,13 @@ namespace core {
 	void Model::Initialize() {
 		ProcessAssimpNode(s_Importer.GetScene()->mRootNode, s_Importer.GetScene());
 
-		for (auto& mesh : Meshes) {
+		for (auto& mesh : m_Meshes) {
 			mesh.Initialize();
 		}
 	}
 
 	void Model::Draw(ShaderProgram* shader) const {
-		for (auto& mesh : Meshes) {
+		for (auto& mesh : m_Meshes) {
 			mesh.Draw(shader);
 		}
 	}
@@ -55,7 +55,7 @@ namespace core {
 		//Extract and process Mesh Data from Assimp
 		for (auto i = 0u; i < numMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			Meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
+			m_Meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
 		}
 
 		//Recursively perform this operation for all of this node's children
@@ -147,9 +147,9 @@ namespace core {
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
-			auto texturePath = ModelDirectory.string() + "/" + str.C_Str();
+			auto texturePath = m_ModelDirectory.string() + "/" + str.C_Str();
 
-			textureHandles.push_back(TextureCache->LoadResource(texturePath));
+			textureHandles.push_back(m_TextureCache->LoadResource(texturePath));
 		}
 
 		//Extract all texture data (GATHER)

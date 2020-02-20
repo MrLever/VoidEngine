@@ -76,13 +76,13 @@ namespace core {
 		);
 
 		/** The directory this model was loaded from */
-		std::filesystem::path ModelDirectory;
+		std::filesystem::path m_ModelDirectory;
 
 		/** The set of meshes that make up this model */
-		std::vector<Mesh> Meshes;
+		std::vector<Mesh> m_Meshes;
 
 		/** Cache of textures used to draw this model */
-		ResourceAllocatorPtr<Texture> TextureCache;
+		ResourceAllocatorPtr<Texture> m_TextureCache;
 
 		/** A static scene importer that holds a reference to the last scene loaded */
 		static Assimp::Importer s_Importer;

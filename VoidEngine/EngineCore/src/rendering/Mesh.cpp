@@ -12,8 +12,8 @@ namespace core {
 		const std::vector<float>& vertices, 
 		const std::vector<uint32_t>& indices, 
 		const std::vector<TexturePtr>& textures
-		) : MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
-		    Textures(textures) {
+		) : m_MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
+		    m_Textures(textures) {
 		
 		m_VertexArray.reset(VertexArray::Create());
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size()));
@@ -38,13 +38,13 @@ namespace core {
 			return;
 		}
 
-		if (Textures.size() > 0) {
-			for (unsigned int i = 0; i < Textures.size(); i++)
+		if (m_Textures.size() > 0) {
+			for (unsigned int i = 0; i < m_Textures.size(); i++)
 			{
 				glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
 				// retrieve texture number (the N in diffuse_textureN)
 				std::string number;
-				auto type = Textures[i]->GetType();
+				auto type = m_Textures[i]->GetType();
 				std::string typeString;
 
 				if (type == TextureType::DIFFUSE) {
@@ -57,7 +57,7 @@ namespace core {
 				}
 
 				shader->SetUniform(("material." + typeString + number).c_str(), (int)i);
-				glBindTexture(GL_TEXTURE_2D, Textures[i]->GetTextureID());
+				glBindTexture(GL_TEXTURE_2D, m_Textures[i]->GetTextureID());
 			}
 			glActiveTexture(GL_TEXTURE0);
 		}
@@ -69,7 +69,7 @@ namespace core {
 		//A diffuseNr of one after the loop above implies there were no diffuse textures
 		if (diffuseNr == 1) {
 			//Therefore we should set the shader's default diffuse color
-			shader->SetUniform("material.base_diffuse", MaterialColor);
+			shader->SetUniform("material.base_diffuse", m_MaterialColor);
 		}
 
 		// draw mesh
@@ -79,13 +79,13 @@ namespace core {
 	}
 
 	void Mesh::Initialize() {
-		for (auto& texture : Textures) {
+		for (auto& texture : m_Textures) {
 			texture->Initialize();
 		}
 	}
 
 	void Mesh::SetMaterialDiffuse(math::Color color) {
-		MaterialColor = color;
+		m_MaterialColor = color;
 	}
 
 }

@@ -30,6 +30,6 @@ namespace core {
 	OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, uint32_t size) : m_Layout({}) {
 		glCreateBuffers(1, &RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size * sizeof(uint32_t), vertices, GL_STATIC_DRAW);
 	}
 }
