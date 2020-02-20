@@ -37,6 +37,8 @@ namespace core {
 	}
 
 	void OpenGLVertexArray::LinkVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer) {
+		VE_ASSERT(buffer->GetLayout().GetNumElements(), "Vertex buffer has no layout :(((");
+
 		glBindVertexArray(m_RendererID);
 		buffer->Bind();
 
@@ -55,7 +57,7 @@ namespace core {
 			i++;
 		}
 
-
+		glBindVertexArray(0);
 		m_VertexBuffers.push_back(buffer);
 	}
 
@@ -63,6 +65,7 @@ namespace core {
 		glBindVertexArray(m_RendererID);
 		buffer->Bind();
 
+		glBindVertexArray(0);
 		m_IndexBuffer = buffer;
 	}
 

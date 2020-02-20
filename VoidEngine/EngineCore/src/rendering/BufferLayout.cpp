@@ -15,6 +15,10 @@ namespace core {
 		return m_Stride;
 	}
 
+	uint32_t BufferLayout::GetNumElements() const {
+		return m_Elements.size();
+	}
+
 	void BufferLayout::CalculateOffsetsAndStride() {
 		uint32_t offset = 0;
 		m_Stride = 0;

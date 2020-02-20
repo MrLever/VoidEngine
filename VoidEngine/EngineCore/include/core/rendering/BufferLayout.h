@@ -100,6 +100,9 @@ namespace core {
 		/** Accessor for BufferLayout's stride */
 		uint32_t GetStride() const;
 
+		/** Accessor for BufferLayout's element count */
+		uint32_t GetNumElements() const;
+
 		/** Functions to allow range based iteration of BufferLayouts */
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
