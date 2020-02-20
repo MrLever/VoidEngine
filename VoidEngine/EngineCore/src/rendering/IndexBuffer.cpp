@@ -12,7 +12,7 @@
 
 namespace core {
 	
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size) {
+	IndexBuffer* IndexBuffer::Create(const uint32_t* indices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
 			case RendererAPI::NONE:
 				utils::Logger::LogError("IndexBuffer does not support selected rendering API: NONE");

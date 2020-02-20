@@ -12,7 +12,7 @@
 
 namespace core {
 	
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
+	VertexBuffer* VertexBuffer::Create(const float* vertices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
 			case RendererAPI::NONE:
 				utils::Logger::LogError("VertexBuffer does not support selected rendering API: NONE");

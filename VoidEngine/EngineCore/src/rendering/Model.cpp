@@ -11,23 +11,22 @@
 #include "rendering/ShaderProgram.h"
 
 namespace core {
+
+	 Assimp::Importer Model::s_Importer;
+
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
 		ModelDirectory = ResourcePath.parent_path();
-		TextureCache = nullptr;
+		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
 		IsThreadSafe = false;
 	}
 
 	bool Model::Load() {
-		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
-		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+		auto modelData = s_Importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
-		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
 			utils::Logger::LogError("ASSIMP File Load error [" + ResourcePath.string() + "] was invalid");
 			return false;
 		}
-
-		ProcessAssimpNode(scene->mRootNode, scene);
 
 		return true;
 	}
@@ -37,6 +36,8 @@ namespace core {
 	}
 
 	void Model::Initialize() {
+		ProcessAssimpNode(s_Importer.GetScene()->mRootNode, s_Importer.GetScene());
+
 		for (auto& mesh : Meshes) {
 			mesh.Initialize();
 		}
@@ -65,35 +66,30 @@ namespace core {
 	}
 	
 	Mesh Model::ProcessAssimpMesh(aiMesh* mesh, const aiScene* scene) {
-		std::vector<Vertex> vertices;
-		std::vector<unsigned> indices;
+		std::vector<float> vertices;
+		std::vector<uint32_t> indices;
 		std::vector<TexturePtr> textures;
 
 		auto numVerts = mesh->mNumVertices;
 
 		//Load vertex data
 		for (auto i = 0u; i < numVerts; i++) {
-			Vertex vert;
-			vert.Position = glm::vec3(
-				mesh->mVertices[i].x, 
-				mesh->mVertices[i].y, 
-				mesh->mVertices[i].z
-			);
+			vertices.push_back(mesh->mVertices[i].x);
+			vertices.push_back(mesh->mVertices[i].y);
+			vertices.push_back(mesh->mVertices[i].z);
 
-			vert.Normal = glm::vec3(
-				mesh->mNormals[i].x,
-				mesh->mNormals[i].y,
-				mesh->mNormals[i].z
-			);
+			vertices.push_back(mesh->mNormals[i].x);
+			vertices.push_back(mesh->mNormals[i].y);
+			vertices.push_back(mesh->mNormals[i].z);
 
 			if (mesh->mTextureCoords[0] != nullptr) {
-				vert.UV = glm::vec2(
-					mesh->mTextureCoords[0][i].x,
-					mesh->mTextureCoords[0][i].y
-				);
+				vertices.push_back(mesh->mTextureCoords[0][i].x);
+				vertices.push_back(mesh->mTextureCoords[0][i].y);
 			}
-
-			vertices.push_back(vert);
+			else {
+				vertices.push_back(0);
+				vertices.push_back(0);
+			}
 		}
 
 		//Load Index data

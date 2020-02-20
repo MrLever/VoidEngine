@@ -32,9 +32,10 @@ source_group("Header Files\\Platform" FILES ${engine_core_platform_core_headers}
 set(engine_core_platform_rendering_headers
     "${engine_core_header_dir}/platform/OpenGL/OpenGLIndexBuffer.h"
     "${engine_core_header_dir}/platform/OpenGL/OpenGLRenderingContext.h"
+    "${engine_core_header_dir}/platform/OpenGL/OpenGLVertexArray.h"
     "${engine_core_header_dir}/platform/OpenGL/OpenGLVertexBuffer.h"
 )
-source_group("Header Files\\Platform\\Rendering" FILES ${engine_core_platform_rendering_headers})
+source_group("Header Files\\Platform\\OpenGL" FILES ${engine_core_platform_rendering_headers})
 
 set(engine_core_platform_windowing_headers
     "${engine_core_header_dir}/platform/windowing/WindowsWindow.h"
@@ -199,6 +200,7 @@ set(engine_core_rendering_core_headers
     "${engine_core_header_dir}/rendering/Texture.h"
     "${engine_core_header_dir}/rendering/Vertex.h"
     "${engine_core_header_dir}/rendering/RenderingContext.h"
+    "${engine_core_header_dir}/rendering/VertexArray.h"
     "${engine_core_header_dir}/rendering/VertexBuffer.h"
 )
 source_group(
@@ -248,9 +250,10 @@ source_group("Source Files\\Platform" FILES ${engine_core_platform_core_source})
 set(engine_core_platform_rendering_source
     "src/platform/OpenGL/OpenGLIndexBuffer.cpp"
     "src/platform/OpenGL/OpenGLRenderingContext.cpp"
+    "src/platform/OpenGL/OpenGLVertexArray.cpp"
     "src/platform/OpenGL/OpenGLVertexBuffer.cpp"
 )
-source_group("Source Files\\Platform\\Rendering" FILES ${engine_core_platform_rendering_source})
+source_group("Source Files\\Platform\\OpenGL" FILES ${engine_core_platform_rendering_source})
 
 set(engine_core_platform_windowing_source
     "src/platform/windowing/WindowsWindow.cpp"
@@ -410,6 +413,7 @@ set(engine_core_rendering_core_source
     "${engine_core_source_dir}/rendering/ShaderProgram.cpp"
     "${engine_core_source_dir}/rendering/Texture.cpp"
     "${engine_core_source_dir}/rendering/RenderingContext.cpp"
+    "${engine_core_source_dir}/rendering/VertexArray.cpp"
     "${engine_core_source_dir}/rendering/VertexBuffer.cpp"
 )
 source_group(

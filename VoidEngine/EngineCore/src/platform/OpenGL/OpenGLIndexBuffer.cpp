@@ -20,7 +20,7 @@ namespace core {
 		return m_IndexCount;
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count) : m_IndexCount(count) {
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t* indices, uint32_t count) : m_IndexCount(count) {
 		glCreateBuffers(1, &m_RendererID);
 		
 		// Set to ARRAY_BUFFER to avoid VAO binding issues.

@@ -8,13 +8,27 @@
 #include "rendering/BufferLayout.h"
 
 namespace core {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
-		: MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
-		  Vertices(std::move(vertices)), 
-		  Indices(std::move(indices)), 
-		  Textures(std::move(textures)) {
+	Mesh::Mesh(
+		const std::vector<float>& vertices, 
+		const std::vector<uint32_t>& indices, 
+		const std::vector<TexturePtr>& textures
+		) : MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
+		    Textures(textures) {
 		
-		VAO = VBO = EBO = 0;
+		m_VertexArray.reset(VertexArray::Create());
+		m_VertexBuffer.reset(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size()));
+		m_IndexBuffer.reset(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()));
+
+		BufferLayout meshLayout = {
+			{ShaderDataType::FLOAT_3, "a_Position"},
+			{ShaderDataType::FLOAT_3, "a_Normal"},
+			{ShaderDataType::FLOAT_2, "a_TexPos"}
+		};
+
+		m_VertexBuffer->SetLayout(meshLayout);
+
+		m_VertexArray->LinkVertexBuffer(m_VertexBuffer);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 
 	void Mesh::Draw(ShaderProgram* shader) const {
@@ -59,14 +73,12 @@ namespace core {
 		}
 
 		// draw mesh
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, (GLuint)Indices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		m_VertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, (GLuint)m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
+		m_VertexArray->Unbind();
 	}
 
 	void Mesh::Initialize() {
-		InitializeGeometryData();
-
 		for (auto& texture : Textures) {
 			texture->Initialize();
 		}
@@ -74,47 +86,6 @@ namespace core {
 
 	void Mesh::SetMaterialDiffuse(math::Color color) {
 		MaterialColor = color;
-	}
-
-	void Mesh::InitializeGeometryData() {
-		//Generate buffers
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		//Bind VAO
-		glBindVertexArray(VAO);
-
-		//Fill Vertex Buffer
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), &Vertices[0], GL_STATIC_DRAW);
-
-		//Fill Element Buffer
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned), &Indices[0], GL_STATIC_DRAW);
-
-		//Set up VAO attributes
-
-		//Define expected layout of mesh vertex buffers
-		BufferLayout meshLayout = {
-			{ShaderDataType::FLOAT_3, "a_Position"},
-			{ShaderDataType::FLOAT_3, "a_Normal"},
-			{ShaderDataType::FLOAT_2, "a_TexPos"}
-		};
-
-		//Positions
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
-		//Normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-
-		//UV Coords
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, UV));
-
-		glBindVertexArray(0);
 	}
 
 }

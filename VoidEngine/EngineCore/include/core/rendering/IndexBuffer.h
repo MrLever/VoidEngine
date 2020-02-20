@@ -14,7 +14,7 @@ namespace core {
 		 * Factory method to create a index buffer appropriate for the current
 		 * rendering pipeline.
 		 */
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static IndexBuffer* Create(const uint32_t* indices, uint32_t size);
 
 		/**
 		 * Destructor

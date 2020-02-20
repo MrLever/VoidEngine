@@ -34,13 +34,13 @@ namespace core {
 		/**
 		 * Accessor for buffer layout
 		 */
-		const BufferLayout& GetLayout(const BufferLayout& layout) const override;
+		const BufferLayout& GetLayout() const override;
 
 	private:
 		/**
 		 * Constructor
 		 */
-		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(const float* vertices, uint32_t size);
 
 		uint32_t RendererID;
 

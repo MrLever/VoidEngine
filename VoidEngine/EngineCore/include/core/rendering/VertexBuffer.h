@@ -18,7 +18,7 @@ namespace core {
 		 * Factory method to create a vertex buffer appropriate for the current 
 		 * rendering pipeline.
 		 */
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static VertexBuffer* Create(const float* vertices, uint32_t size);
 
 		/**
 		 * Destructor
@@ -33,7 +33,7 @@ namespace core {
 		/**
 		 * BufferLayout accessor
 		 */
-		virtual const BufferLayout& GetLayout(const BufferLayout& layout) const = 0;
+		virtual const BufferLayout& GetLayout() const = 0;
 		
 		/**
 		 * Binds VertexBuffer in rendering pipeline

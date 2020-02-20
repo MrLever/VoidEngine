@@ -36,7 +36,7 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		OpenGLIndexBuffer(const uint32_t* indices, uint32_t count);
 
 		uint32_t m_RendererID;
 		uint32_t m_IndexCount;

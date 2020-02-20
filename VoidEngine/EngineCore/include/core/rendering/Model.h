@@ -83,6 +83,9 @@ namespace core {
 
 		/** Cache of textures used to draw this model */
 		ResourceAllocatorPtr<Texture> TextureCache;
+
+		/** A static scene importer that holds a reference to the last scene loaded */
+		static Assimp::Importer s_Importer;
 	};
 
 }

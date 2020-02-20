@@ -46,6 +46,7 @@ namespace core {
 		}
 
 		VE_ASSERT(false, "Shader Data type not recognized by SizeOfShaderType");
+		return 0;
 	}
 
 	/**
