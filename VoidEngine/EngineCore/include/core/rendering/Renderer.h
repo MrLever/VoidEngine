@@ -24,17 +24,19 @@ namespace core {
 	//Forward Class declarations
 	class Window;
 
-	class Renderer : public utils::Configurable, public EventBusNode {
+	enum class RendererAPI {
+		NONE = 0,
+		OPENGL,
+		DIRECT3D12
+	};
+
+	class Renderer : public EventBusNode {
 	public:
 		/**
 		 * Constructor
 		 * @param window The Window the renderer draws to
 		 */
-		Renderer(
-			EventBus* bus,
-			std::shared_ptr<RenderingContext> renderingAPI,
-			const utils::ResourceHandle<utils::Configuration>& configuration
-		);
+		Renderer(EventBus* bus,	std::shared_ptr<RenderingContext> renderingAPI);
 
 		/**
 		 * Destructor
@@ -59,11 +61,6 @@ namespace core {
 		void Render(std::vector<Entity*> entiti);
 
 		/**
-		 * Applies Renderer Configuration Settings
-		 */
-		void Configure() override;
-
-		/**
 		 * Sets up camera render data properly
 		 * @param camera The camera to configure
 		 */
@@ -75,25 +72,28 @@ namespace core {
 		 */
 		void UseCamera(CameraComponent* camera);
 
+		/**
+		 * Allows rendering to query the active rendering API
+		 * to construct the correct abstractions
+		 * @return The active rendering API
+		 */
+		static RendererAPI GetRendererAPI();
+
 	private:
 
 		void HandleWindowResize(WindowResizedEvent* event);
 
-		std::shared_ptr<RenderingContext> RenderingAPI;
-
 		CameraComponent* ActiveCamera;
 
+		std::shared_ptr<RenderingContext> m_RenderingAPI;
+
 		/** The default view matrix to use if a scene does not provide one */
-		glm::mat4 DefualtViewMatrix;
+		glm::mat4 m_DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
-		glm::mat4 DefaultProjectionMatrix;
+		glm::mat4 m_DefaultProjectionMatrix;
+
+		static RendererAPI API;
 	};
 
-	static void OpenGLDebugCallback(
-		GLenum source, GLenum type,
-		GLuint id, GLenum severity,
-		GLsizei length, const GLchar* message,
-		const void* userParam
-	);
 }

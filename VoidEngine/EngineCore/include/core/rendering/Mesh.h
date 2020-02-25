@@ -1,12 +1,16 @@
 #pragma once
 //STD Headers
 #include <vector>
+#include <memory>
 
 //Library Headers
 #include "math/Vector.h"
 
 //Void Engine Headers
 #include "core/rendering/Vertex.h"
+#include "core/rendering/IndexBuffer.h"
+#include "core/rendering/VertexArray.h"
+#include "core/rendering/VertexBuffer.h"
 #include "core/rendering/Texture.h"
 #include "core/rendering/ShaderProgram.h"
 
@@ -17,7 +21,11 @@ namespace core {
 		/**
 		 * Constructor 
 		 */
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures);
+		Mesh(
+			const std::vector<float>& vertices, 
+			const std::vector<uint32_t>& indices, 
+			const std::vector<TexturePtr>& textures
+		);
 
 		/**
 		 * Destructor 
@@ -42,31 +50,20 @@ namespace core {
 		void SetMaterialDiffuse(math::Color color);
 
 	private:
-		/**
-		 * Helper function for Initialize to set up OpenGL buffer data
-		 */
-		void InitializeGeometryData();
-		
 		/** The material's untextured color */
-		math::Color MaterialColor;
-
-		/** The mesh's vertex data */
-		std::vector<Vertex> Vertices;
-
-		/** The mesh's indices used to draw faces from vertex data */
-		std::vector<unsigned> Indices;
+		math::Color m_MaterialColor;
 
 		/** Textures used to draw mesh */
-		std::vector<std::shared_ptr<Texture>> Textures;
+		std::vector<std::shared_ptr<Texture>> m_Textures;
 
 		/** Vertex Array Object used to render this mesh */
-		unsigned VAO;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
 		/** Vertex Buffer Obect used to store this mesh's vertices */
-		unsigned VBO;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		
 		/** Element Buffer Object used to draw faces from VBO */
-		unsigned EBO;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 	};
 
 }

@@ -11,23 +11,22 @@
 #include "rendering/ShaderProgram.h"
 
 namespace core {
+
+	 Assimp::Importer Model::s_Importer;
+
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
-		ModelDirectory = ResourcePath.parent_path();
-		TextureCache = nullptr;
+		m_ModelDirectory = ResourcePath.parent_path();
+		m_TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
 		IsThreadSafe = false;
 	}
 
 	bool Model::Load() {
-		TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
-		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+		auto modelData = s_Importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
-		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
 			utils::Logger::LogError("ASSIMP File Load error [" + ResourcePath.string() + "] was invalid");
 			return false;
 		}
-
-		ProcessAssimpNode(scene->mRootNode, scene);
 
 		return true;
 	}
@@ -37,13 +36,15 @@ namespace core {
 	}
 
 	void Model::Initialize() {
-		for (auto& mesh : Meshes) {
+		ProcessAssimpNode(s_Importer.GetScene()->mRootNode, s_Importer.GetScene());
+
+		for (auto& mesh : m_Meshes) {
 			mesh.Initialize();
 		}
 	}
 
 	void Model::Draw(ShaderProgram* shader) const {
-		for (auto& mesh : Meshes) {
+		for (auto& mesh : m_Meshes) {
 			mesh.Draw(shader);
 		}
 	}
@@ -54,7 +55,7 @@ namespace core {
 		//Extract and process Mesh Data from Assimp
 		for (auto i = 0u; i < numMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			Meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
+			m_Meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
 		}
 
 		//Recursively perform this operation for all of this node's children
@@ -65,35 +66,30 @@ namespace core {
 	}
 	
 	Mesh Model::ProcessAssimpMesh(aiMesh* mesh, const aiScene* scene) {
-		std::vector<Vertex> vertices;
-		std::vector<unsigned> indices;
+		std::vector<float> vertices;
+		std::vector<uint32_t> indices;
 		std::vector<TexturePtr> textures;
 
 		auto numVerts = mesh->mNumVertices;
 
 		//Load vertex data
 		for (auto i = 0u; i < numVerts; i++) {
-			Vertex vert;
-			vert.Position = glm::vec3(
-				mesh->mVertices[i].x, 
-				mesh->mVertices[i].y, 
-				mesh->mVertices[i].z
-			);
+			vertices.push_back(mesh->mVertices[i].x);
+			vertices.push_back(mesh->mVertices[i].y);
+			vertices.push_back(mesh->mVertices[i].z);
 
-			vert.Normal = glm::vec3(
-				mesh->mNormals[i].x,
-				mesh->mNormals[i].y,
-				mesh->mNormals[i].z
-			);
+			vertices.push_back(mesh->mNormals[i].x);
+			vertices.push_back(mesh->mNormals[i].y);
+			vertices.push_back(mesh->mNormals[i].z);
 
 			if (mesh->mTextureCoords[0] != nullptr) {
-				vert.UV = glm::vec2(
-					mesh->mTextureCoords[0][i].x,
-					mesh->mTextureCoords[0][i].y
-				);
+				vertices.push_back(mesh->mTextureCoords[0][i].x);
+				vertices.push_back(mesh->mTextureCoords[0][i].y);
 			}
-
-			vertices.push_back(vert);
+			else {
+				vertices.push_back(0);
+				vertices.push_back(0);
+			}
 		}
 
 		//Load Index data
@@ -151,9 +147,9 @@ namespace core {
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
-			auto texturePath = ModelDirectory.string() + "/" + str.C_Str();
+			auto texturePath = m_ModelDirectory.string() + "/" + str.C_Str();
 
-			textureHandles.push_back(TextureCache->LoadResource(texturePath));
+			textureHandles.push_back(m_TextureCache->LoadResource(texturePath));
 		}
 
 		//Extract all texture data (GATHER)

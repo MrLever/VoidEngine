@@ -62,6 +62,9 @@ namespace core {
 		 */
 		virtual void SwapBuffers() = 0;
 		
+		/**
+		 * Sets window size and generates a new WindowResizedEvent
+		 */
 		virtual void SetWindowSize(int width, int height);
 
 		/**
@@ -106,7 +109,7 @@ namespace core {
 		virtual void PollGamepadInput() = 0;
 
 		/** Interface to the type of rendering context bound to the window during creation */
-		std::shared_ptr<RenderingContext> RenderingAPI;
+		std::shared_ptr<RenderingContext> DeviceContext;
 
 		/** The game's name */
 		std::string GameName;

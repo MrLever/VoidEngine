@@ -21,7 +21,7 @@
 
 namespace core {
 
-	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus), RenderingAPI(nullptr) {
+	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus), DeviceContext(nullptr) {
 		WindowWidth = data.windowWidth;
 		WindowHeight = data.windowHeight;
 		GameName = data.gameName;
@@ -50,7 +50,7 @@ namespace core {
 	void Window::SetWindowSize(int width, int height) {
 		WindowWidth = width;
 		WindowHeight = height;
-		RenderingAPI->SetViewport(0, 0, width, height);
+		DeviceContext->SetViewport(0, 0, width, height);
 		PublishEvent(new WindowResizedEvent(width, height));
 	}
 
@@ -63,7 +63,7 @@ namespace core {
 	}
 
 	std::shared_ptr<RenderingContext> Window::GetRenderingContext() {
-		return RenderingAPI;
+		return DeviceContext;
 	}
 
 }

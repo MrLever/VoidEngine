@@ -5,15 +5,30 @@
 
 //Void Engine Headers
 #include "rendering/Mesh.h"
+#include "rendering/BufferLayout.h"
 
 namespace core {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<TexturePtr> textures)
-		: MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
-		  Vertices(std::move(vertices)), 
-		  Indices(std::move(indices)), 
-		  Textures(std::move(textures)) {
+	Mesh::Mesh(
+		const std::vector<float>& vertices, 
+		const std::vector<uint32_t>& indices, 
+		const std::vector<TexturePtr>& textures
+		) : m_MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
+		    m_Textures(textures) {
 		
-		VAO = VBO = EBO = 0;
+		m_VertexArray.reset(VertexArray::Create());
+		m_VertexBuffer.reset(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size()));
+		m_IndexBuffer.reset(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()));
+
+		BufferLayout meshLayout = {
+			{ShaderDataType::FLOAT_3, "a_Position"},
+			{ShaderDataType::FLOAT_3, "a_Normal"},
+			{ShaderDataType::FLOAT_2, "a_TexPos"}
+		};
+
+		m_VertexBuffer->SetLayout(meshLayout);
+
+		m_VertexArray->LinkVertexBuffer(m_VertexBuffer);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 
 	void Mesh::Draw(ShaderProgram* shader) const {
@@ -23,13 +38,13 @@ namespace core {
 			return;
 		}
 
-		if (Textures.size() > 0) {
-			for (unsigned int i = 0; i < Textures.size(); i++)
+		if (m_Textures.size() > 0) {
+			for (unsigned int i = 0; i < m_Textures.size(); i++)
 			{
 				glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
 				// retrieve texture number (the N in diffuse_textureN)
 				std::string number;
-				auto type = Textures[i]->GetType();
+				auto type = m_Textures[i]->GetType();
 				std::string typeString;
 
 				if (type == TextureType::DIFFUSE) {
@@ -42,7 +57,7 @@ namespace core {
 				}
 
 				shader->SetUniform(("material." + typeString + number).c_str(), (int)i);
-				glBindTexture(GL_TEXTURE_2D, Textures[i]->GetTextureID());
+				glBindTexture(GL_TEXTURE_2D, m_Textures[i]->GetTextureID());
 			}
 			glActiveTexture(GL_TEXTURE0);
 		}
@@ -54,58 +69,26 @@ namespace core {
 		//A diffuseNr of one after the loop above implies there were no diffuse textures
 		if (diffuseNr == 1) {
 			//Therefore we should set the shader's default diffuse color
-			shader->SetUniform("material.base_diffuse", MaterialColor);
+			shader->SetUniform("material.base_diffuse", m_MaterialColor);
+		}
+		else {
+			shader->SetUniform("material.base_diffuse", math::Vector4(0,0,0,1));
 		}
 
 		// draw mesh
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, (GLuint)Indices.size(), GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		m_VertexArray->Bind();
+		glDrawElements(GL_TRIANGLES, (GLuint)m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
+		m_VertexArray->Unbind();
 	}
 
 	void Mesh::Initialize() {
-		InitializeGeometryData();
-
-		for (auto& texture : Textures) {
+		for (auto& texture : m_Textures) {
 			texture->Initialize();
 		}
 	}
 
 	void Mesh::SetMaterialDiffuse(math::Color color) {
-		MaterialColor = color;
-	}
-
-	void Mesh::InitializeGeometryData() {
-		//Generate buffers
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		//Bind VAO
-		glBindVertexArray(VAO);
-
-		//Fill Vertex Buffer
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), &Vertices[0], GL_DYNAMIC_DRAW);
-
-		//Fill Element Buffer
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned), &Indices[0], GL_DYNAMIC_DRAW);
-
-		//Set up VAO attributes
-		//Positions
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
-		//Normals
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-
-		//UV Coords
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, UV));
-
-		glBindVertexArray(0);
+		m_MaterialColor = color;
 	}
 
 }

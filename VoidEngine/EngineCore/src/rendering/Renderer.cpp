@@ -11,22 +11,20 @@
 
 namespace core {
 
-	Renderer::Renderer(
-			EventBus* bus,
-			std::shared_ptr<RenderingContext> renderingAPI,
-			const utils::ResourceHandle<utils::Configuration>& configuration
-		) : Configurable(configuration), 
-			EventBusNode(bus), 
-			RenderingAPI(std::move(renderingAPI)) {
+	RendererAPI Renderer::API = RendererAPI::OPENGL;
+
+	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderingContext> renderingAPI) 
+		: EventBusNode(bus), ActiveCamera(nullptr), m_RenderingAPI(std::move(renderingAPI)) {
 	
 		//Set default view matrix
-		DefualtViewMatrix = glm::mat4(1.0f);
-		DefualtViewMatrix = glm::translate(DefualtViewMatrix, glm::vec3(0, 0, -5));
+		m_DefualtViewMatrix = glm::mat4(1.0f);
+		m_DefualtViewMatrix = glm::translate(m_DefualtViewMatrix, glm::vec3(0, 0, -5));
 		
-		auto viewport = RenderingAPI->GetViewport();
+		auto viewport = m_RenderingAPI->GetViewport();
+		m_RenderingAPI->SetClearColor(math::Vector4(0.2f, 0.2f, 0.2f, 0.2f));
 
 		//Set default projection matrix
-		DefaultProjectionMatrix = glm::perspective<float>(
+		m_DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
 			(float)viewport.Width / viewport.Height,
 			0.1f, 100.0f
@@ -53,8 +51,8 @@ namespace core {
 
 	void Renderer::Render(std::vector<Entity*> entities) {
 		if (ActiveCamera == nullptr) {
-			GraphicsComponent::ViewMatrix = DefualtViewMatrix;
-			GraphicsComponent::ProjectionMatrix = DefaultProjectionMatrix;
+			GraphicsComponent::ViewMatrix = m_DefualtViewMatrix;
+			GraphicsComponent::ProjectionMatrix = m_DefaultProjectionMatrix;
 		}
 		else {
 			GraphicsComponent::ViewMatrix = ActiveCamera->GetViewMatrix();
@@ -62,7 +60,7 @@ namespace core {
 		}
 
 		//Clear the color and depth buffer
-		RenderingAPI->Clear();
+		m_RenderingAPI->Clear();
 
 		//Draw entities
 		for (const auto& entity : entities) {
@@ -70,24 +68,24 @@ namespace core {
 		}
 	}
 
-	void Renderer::Configure() {
-		//TODO (MrLever): Leverage configuration settings
-	}
-
 	void Renderer::InitializeCamera(CameraComponent* camera) const {
-		camera->UpdateProjectionMatrix(RenderingAPI->GetViewport());
+		camera->UpdateProjectionMatrix(m_RenderingAPI->GetViewport());
 	}
 
 	void Renderer::UseCamera(CameraComponent* camera) {
 		ActiveCamera = camera;
 	}
 
+	RendererAPI Renderer::GetRendererAPI() {
+		return API;
+	}
+
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
-		auto viewport = RenderingAPI->GetViewport();
+		auto viewport = m_RenderingAPI->GetViewport();
 
 		ActiveCamera->UpdateProjectionMatrix(viewport);
 
-		DefaultProjectionMatrix = glm::perspective<float>(
+		m_DefaultProjectionMatrix = glm::perspective<float>(
 			glm::radians(45.0f),
 			(float) viewport.Width / viewport.Height,
 			0.1f, 100.0f

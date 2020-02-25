@@ -5,7 +5,7 @@
 #include "glad/glad.h"
 
 //Void Engine Headers
-#include "platform/rendering/OpenGLRenderingContext.h"
+#include "platform/OpenGL/OpenGLRenderingContext.h"
 
 namespace core {
 
