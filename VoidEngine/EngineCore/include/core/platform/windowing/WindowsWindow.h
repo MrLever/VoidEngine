@@ -63,7 +63,7 @@ namespace platform {
 		/**
 		 * Helper function that forces OS specific window systems to expose a rendering API
 		 */
-		void CreateRenderingContext() override;
+		void CreateRenderDevice() override;
 
 		/**
 		 * Toggle fullscreen

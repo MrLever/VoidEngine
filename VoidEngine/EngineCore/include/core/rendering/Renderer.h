@@ -16,19 +16,14 @@
 #include "core/Level.h"
 #include "core/event_system/EventBusNode.h"
 #include "core/event_system/events/WindowResizedEvent.h"
-#include "core/rendering/RenderingContext.h"
+#include "core/rendering/RenderDevice.h"
 #include "core/rendering/components/CameraComponent.h"
+#include "core/rendering/components/GraphicsComponent.h"
 
 namespace core {
 
 	//Forward Class declarations
 	class Window;
-
-	enum class RendererAPI {
-		NONE = 0,
-		OPENGL,
-		DIRECT3D12
-	};
 
 	class Renderer : public EventBusNode {
 	public:
@@ -36,7 +31,7 @@ namespace core {
 		 * Constructor
 		 * @param window The Window the renderer draws to
 		 */
-		Renderer(EventBus* bus,	std::shared_ptr<RenderingContext> renderingAPI);
+		Renderer(EventBus* bus,	std::shared_ptr<RenderDevice> renderingAPI);
 
 		/**
 		 * Destructor
@@ -53,6 +48,21 @@ namespace core {
 		 * Allows EventBus to query the node's subscription, and filter events accordingly
 		 */
 		unsigned GetSubscription() override;
+
+		/**
+		 * Collects enviornment data (lights, camera, etc) from scene used to affect all draw calls
+		 */
+		void InitializeEnvironment(Scene* scene);
+
+		/**
+		 * Discards enviornment data for rendering
+		 */
+		void ClearEnvironment();
+
+		/**
+		 * Submits an object for rendering
+		 */
+		void Submit(GraphicsComponent* drawData);
 
 		/** 
 		 * Draws to the sceen
@@ -77,7 +87,7 @@ namespace core {
 		 * to construct the correct abstractions
 		 * @return The active rendering API
 		 */
-		static RendererAPI GetRendererAPI();
+		static RenderDevice::API GetRendererAPI();
 
 	private:
 
@@ -85,15 +95,13 @@ namespace core {
 
 		CameraComponent* ActiveCamera;
 
-		std::shared_ptr<RenderingContext> m_RenderingAPI;
+		std::shared_ptr<RenderDevice> m_RenderingAPI;
 
 		/** The default view matrix to use if a scene does not provide one */
 		glm::mat4 m_DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
 		glm::mat4 m_DefaultProjectionMatrix;
-
-		static RendererAPI API;
 	};
 
 }

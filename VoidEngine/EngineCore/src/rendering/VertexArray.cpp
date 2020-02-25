@@ -13,7 +13,7 @@ namespace core {
 
 	VertexArray* VertexArray::Create() {
 		switch (Renderer::GetRendererAPI()) {
-			case RendererAPI::OPENGL: return new OpenGLVertexArray();
+			case RenderDevice::API::OPENGL: return new OpenGLVertexArray();
 		}
 
 		VE_ASSERT(false, "VertexArray does not support selected RendererAPI");

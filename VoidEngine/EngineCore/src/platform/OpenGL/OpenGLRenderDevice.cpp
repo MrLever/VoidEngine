@@ -5,11 +5,11 @@
 #include "glad/glad.h"
 
 //Void Engine Headers
-#include "platform/OpenGL/OpenGLRenderingContext.h"
+#include "platform/OpenGL/OpenGLRenderDevice.h"
 
 namespace core {
 
-	OpenGLRenderingContext::OpenGLRenderingContext() {
+	OpenGLRenderDevice::OpenGLRenderDevice() {
 		glEnable(GL_DEBUG_OUTPUT);
 		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
@@ -20,16 +20,16 @@ namespace core {
 		SetClearColor(ClearColor);
 	}
 
-	void OpenGLRenderingContext::SetViewport(RenderingContext::Viewport viewport) {
+	void OpenGLRenderDevice::SetViewport(RenderDevice::Viewport viewport) {
 		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
 		CurrentViewport = viewport;
 	}
 
-	void OpenGLRenderingContext::Clear() {
+	void OpenGLRenderDevice::Clear() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRenderingContext::SetClearColor(math::Vector4 color) {
+	void OpenGLRenderDevice::SetClearColor(math::Vector4 color) {
 		ClearColor = color;
 		glClearColor(color.X, color.Y, color.Z, color.W);
 	}

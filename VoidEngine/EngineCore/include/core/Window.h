@@ -10,7 +10,7 @@
 
 #include "core/event_system/EventBusNode.h"
 #include "core/input/definitions/KeyboardInput.h"
-#include "core/rendering/RenderingContext.h"
+#include "core/rendering/RenderDevice.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -90,13 +90,13 @@ namespace core {
 		/**
 		 * Allows other systems to request the current Rendering API
 		 */
-		std::shared_ptr<RenderingContext> GetRenderingContext();
+		std::shared_ptr<RenderDevice> GetRenderDevice();
 
 	protected:
 		/**
 		 * Helper function that forces OS specific window systems to expose a rendering API
 		 */
-		virtual void CreateRenderingContext() = 0;
+		virtual void CreateRenderDevice() = 0;
 		
 		/**
 		 * Toggle fullscreen
@@ -109,7 +109,7 @@ namespace core {
 		virtual void PollGamepadInput() = 0;
 
 		/** Interface to the type of rendering context bound to the window during creation */
-		std::shared_ptr<RenderingContext> DeviceContext;
+		std::shared_ptr<RenderDevice> DeviceContext;
 
 		/** The game's name */
 		std::string GameName;

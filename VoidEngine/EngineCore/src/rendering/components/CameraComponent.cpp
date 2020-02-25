@@ -69,7 +69,7 @@ namespace core {
 		return FOV;
 	}
 
-	void CameraComponent::UpdateProjectionMatrix(RenderingContext::Viewport viewport) {
+	void CameraComponent::UpdateProjectionMatrix(RenderDevice::Viewport viewport) {
 		ProjectionMatrix = glm::perspective<float>(
 			glm::radians(FOV),
 			(float)viewport.Width / viewport.Height,

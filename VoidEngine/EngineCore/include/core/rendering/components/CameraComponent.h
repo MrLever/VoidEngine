@@ -69,7 +69,7 @@ namespace core {
 		 * Function to update the camera's Projection Matrix in response
 		 * to a change in window size
 		 */
-		void UpdateProjectionMatrix(RenderingContext::Viewport viewport);
+		void UpdateProjectionMatrix(RenderDevice::Viewport viewport);
 
 		/**
 		 * Camera name accessor

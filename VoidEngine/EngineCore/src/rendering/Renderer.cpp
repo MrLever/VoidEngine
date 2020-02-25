@@ -11,9 +11,7 @@
 
 namespace core {
 
-	RendererAPI Renderer::API = RendererAPI::OPENGL;
-
-	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderingContext> renderingAPI) 
+	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderDevice> renderingAPI) 
 		: EventBusNode(bus), ActiveCamera(nullptr), m_RenderingAPI(std::move(renderingAPI)) {
 	
 		//Set default view matrix
@@ -49,6 +47,18 @@ namespace core {
 		return static_cast<unsigned>(EventCategory::WINDOW);
 	}
 
+	void Renderer::InitializeEnvironment(Scene* scene) {
+
+	}
+
+	void Renderer::ClearEnvironment() {
+
+	}
+
+	void Renderer::Submit(GraphicsComponent* drawData) {
+
+	}
+
 	void Renderer::Render(std::vector<Entity*> entities) {
 		if (ActiveCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = m_DefualtViewMatrix;
@@ -76,8 +86,8 @@ namespace core {
 		ActiveCamera = camera;
 	}
 
-	RendererAPI Renderer::GetRendererAPI() {
-		return API;
+	RenderDevice::API Renderer::GetRendererAPI() {
+		return RenderDevice::GetRendererAPI();
 	}
 
 	void Renderer::HandleWindowResize(WindowResizedEvent* event) {

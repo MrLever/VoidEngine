@@ -59,7 +59,7 @@ namespace core {
 		//Initialize Renderer
 		GameRenderer = std::make_shared<Renderer>(
 			GameEventBus.get(),
-			GameWindow->GetRenderingContext()
+			GameWindow->GetRenderDevice()
 		);
 
 		//Initialize Audio Manager

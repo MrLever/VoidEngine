@@ -14,17 +14,11 @@ namespace core {
 	
 	VertexBuffer* VertexBuffer::Create(const float* vertices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
-			case RendererAPI::NONE:
-				utils::Logger::LogError("VertexBuffer does not support selected rendering API: NONE");
-				return nullptr;
-			case RendererAPI::OPENGL:
+			case RenderDevice::API::OPENGL:
 				return new OpenGLVertexBuffer(vertices, size);
-			case RendererAPI::DIRECT3D12:
-				utils::Logger::LogError("VertexBuffer does not support selected rendering API: NONE");
-				return nullptr;
 		}
 
-		utils::Logger::LogError("VertexBuffer does not support selected rendering API: ERROR");
+		utils::Logger::LogError("VertexBuffer does not support selected rendering API.");
 		return nullptr;
 	}
 

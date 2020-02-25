@@ -4,21 +4,21 @@
 //Library Headers
 
 //Void Engine Headers
-#include "core/rendering/RenderingContext.h"
+#include "core/rendering/RenderDevice.h"
 
 namespace core {
 
-	class OpenGLRenderingContext : public RenderingContext  {
+	class OpenGLRenderDevice : public RenderDevice  {
 	public:
 		/**
 		 * Constructor
 		 */
-		OpenGLRenderingContext();
+		OpenGLRenderDevice();
 
 		/**
 		 * Used to set the rendering engine's viewport
 		 */
-		void SetViewport(RenderingContext::Viewport viewport) override;
+		void SetViewport(RenderDevice::Viewport viewport) override;
 		
 		/**
 		 * Used to clear drawing buffer

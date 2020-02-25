@@ -9,8 +9,15 @@
 namespace core {
 
 
-	class RenderingContext {
+	class RenderDevice {
 	public:
+
+		enum class API {
+			NONE = 0,
+			OPENGL,
+			DIRECT3D12
+		};
+
 		struct Viewport {
 			int X, Y;
 			int Width, Height;
@@ -24,7 +31,7 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		RenderingContext();
+		RenderDevice();
 
 		/**
 		 * Used to set the rendering engine's viewport
@@ -51,10 +58,19 @@ namespace core {
 		 */
 		virtual void SetClearColor(math::Vector4 color) = 0;
 
+		/**
+		 * Allows rendering to query the active rendering API
+		 * to construct the correct abstractions
+		 * @return The active rendering API
+		 */
+		static RenderDevice::API GetRendererAPI();
+
 	protected:
 		Viewport CurrentViewport;
 
 		math::Vector4 ClearColor;
+	
+		static API s_API;
 	};
 
 }

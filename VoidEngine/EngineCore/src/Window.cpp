@@ -62,7 +62,7 @@ namespace core {
 		return WindowHeight;
 	}
 
-	std::shared_ptr<RenderingContext> Window::GetRenderingContext() {
+	std::shared_ptr<RenderDevice> Window::GetRenderDevice() {
 		return DeviceContext;
 	}
 

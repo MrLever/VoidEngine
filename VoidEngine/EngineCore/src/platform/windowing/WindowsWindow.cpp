@@ -9,7 +9,7 @@
 #include "utils/Logger.h"
 
 #include "platform/windowing/WindowsWindow.h"
-#include "platform/OpenGL/OpenGLRenderingContext.h"
+#include "platform/OpenGL/OpenGLRenderDevice.h"
 
 #include "event_system/events/AxisInputEvent.h"
 #include "event_system/events/WindowClosedEvent.h"
@@ -31,7 +31,7 @@ namespace platform {
 		
 		InitGLFW();
 		InitGLAD();
-		CreateRenderingContext();
+		CreateRenderDevice();
 	}
 
 	WindowsWindow::~WindowsWindow() {
@@ -88,8 +88,8 @@ namespace platform {
 		utils::Logger::LogError(errorMsg.str());
 	}
 
-	void WindowsWindow::CreateRenderingContext() {
-		DeviceContext = std::make_shared<OpenGLRenderingContext>();
+	void WindowsWindow::CreateRenderDevice() {
+		DeviceContext = std::make_shared<OpenGLRenderDevice>();
 		DeviceContext->SetViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
