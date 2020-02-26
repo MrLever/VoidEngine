@@ -20,10 +20,10 @@
 #include "rendering/Renderer.h"
 
 namespace core {
-	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus), m_Viewport(0, 0, 640, 480) {
+	Window::Window(EventBus* bus, WindowData& data) 
+		: EventBusNode(bus), m_Viewport(0, 0, data.windowWidth, data.windowHeight) {
 		m_WindowText = data.gameName;
 	}
-
 
 	Window::~Window() {
 

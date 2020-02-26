@@ -69,7 +69,7 @@ namespace core {
 		 * Function to update the camera's Projection Matrix in response
 		 * to a change in window size
 		 */
-		void UpdateProjectionMatrix(Viewport viewport);
+		void SetProjectionMatrix(Viewport viewport);
 
 		/**
 		 * Camera name accessor

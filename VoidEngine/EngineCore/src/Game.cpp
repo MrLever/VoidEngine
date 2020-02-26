@@ -43,12 +43,12 @@ namespace core {
 			m_EventBus.get(), 
 			WindowData {
 				"SuperVoid",
-				800,
-				600
+				1280,
+				720
 			}
 		);
 
-		Renderer::Initialize();
+		Renderer::Initialize(m_Window->GetViewport());
 
 		//Initialize Input Manager
 		m_InputManager = std::make_shared<InputManager>(

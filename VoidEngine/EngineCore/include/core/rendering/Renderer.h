@@ -33,7 +33,7 @@ namespace core {
 		/**
 		 * Initializes renderer systems
 		 */
-		static void Initialize();
+		static void Initialize(Viewport viewport);
 
 		/**
 		 * Reports window resize to renderer
@@ -76,12 +76,16 @@ namespace core {
 	private:
 		/** Camera being used to modify incomming draw calls */
 		static CameraComponent* s_ActiveCamera;
+		
+		/** Viewport used to define renderable area */
+		static Viewport s_ActiveViewport;
 
 		/** The default view matrix to use if a scene does not provide one */
 		static glm::mat4 s_DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
 		static glm::mat4 s_DefaultProjectionMatrix;
+
 	};
 
 }

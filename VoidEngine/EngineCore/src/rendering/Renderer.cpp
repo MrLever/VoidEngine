@@ -23,17 +23,22 @@ namespace core {
 		0.1f, 100.0f
 	);
 
-	void Renderer::Initialize() {
+	Viewport Renderer::s_ActiveViewport;
+
+	void Renderer::Initialize(Viewport viewport) {
+		s_ActiveViewport = viewport;
 		RenderCommand::Initialize();
 		RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1});
 	}
 
 	void Renderer::HandleWindowResize(Viewport newViewport) {
-		s_ActiveCamera->UpdateProjectionMatrix(newViewport);
+		s_ActiveCamera->SetProjectionMatrix(newViewport);
+		RenderCommand::SetViewport(newViewport);
 	}
 
 	void Renderer::BeginFrame(CameraComponent* activeCamera) {
 		s_ActiveCamera = activeCamera;
+		activeCamera->SetProjectionMatrix(s_ActiveViewport);
 
 		if (s_ActiveCamera == nullptr) {
 			GraphicsComponent::ViewMatrix = s_DefualtViewMatrix;
