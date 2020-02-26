@@ -25,6 +25,8 @@ namespace core {
 
 		static void DrawIndexed(const std::shared_ptr<VertexArray>& vao);
 
+		static void DrawWireframe(std::shared_ptr<VertexArray> vao);
+
 	private:
 		static std::unique_ptr<RenderDevice> s_RenderDevice;
 

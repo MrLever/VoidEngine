@@ -27,4 +27,8 @@ namespace core {
 	void RenderCommand::DrawIndexed(const std::shared_ptr<VertexArray>& vao) {
 		s_RenderDevice->DrawIndexed(vao);
 	}
+
+	void RenderCommand::DrawWireframe(std::shared_ptr<VertexArray> vao) {
+		s_RenderDevice->DrawWireframe(vao);
+	}
 }

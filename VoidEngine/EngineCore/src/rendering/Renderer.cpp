@@ -60,7 +60,12 @@ namespace core {
 		shader->SetUniform("model", model);
 
 		vao->Bind();
-		RenderCommand::DrawIndexed(vao);
+		if (drawMode == DrawMode::TRIANGLE) {
+			RenderCommand::DrawIndexed(vao);
+		}
+		else {
+			RenderCommand::DrawWireframe(vao);
+		}
 	}
 
 	RenderDevice::API Renderer::GetRendererAPI() {

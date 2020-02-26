@@ -65,6 +65,11 @@ namespace core {
 		virtual void DrawIndexed(std::shared_ptr<VertexArray> vao) = 0;
 
 		/**
+		 * Allows a draw call to be sent to the system's rendering device
+		 */
+		virtual void DrawWireframe(std::shared_ptr<VertexArray> vao) = 0;
+
+		/**
 		 * Allows rendering to query the active rendering API
 		 * to construct the correct abstractions
 		 * @return The active rendering API

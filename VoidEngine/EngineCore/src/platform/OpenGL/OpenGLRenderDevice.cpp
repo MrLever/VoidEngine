@@ -80,4 +80,14 @@ namespace core {
 			0
 		);
 	}
+	
+	void OpenGLRenderDevice::DrawWireframe(std::shared_ptr<VertexArray> vao) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawElements(
+			GL_TRIANGLES,
+			(GLuint)vao->GetIndexBuffer()->GetCount(),
+			GL_UNSIGNED_INT,
+			0
+		);
+	}
 }

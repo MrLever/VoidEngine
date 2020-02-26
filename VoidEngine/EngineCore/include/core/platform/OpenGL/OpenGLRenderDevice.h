@@ -33,5 +33,7 @@ namespace core {
 
 		void DrawIndexed(std::shared_ptr<VertexArray> vao) override;
 
+		void DrawWireframe(std::shared_ptr<VertexArray> vao) override;
+
 	};
 }
