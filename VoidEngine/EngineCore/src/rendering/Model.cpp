@@ -43,9 +43,9 @@ namespace core {
 		}
 	}
 
-	void Model::Draw(ShaderProgram* shader) const {
+	void Model::Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const {
 		for (auto& mesh : m_Meshes) {
-			mesh.Draw(shader);
+			mesh.Draw(shader, transform);
 		}
 	}
 	

@@ -6,6 +6,7 @@
 //Void Engine Headers
 #include "rendering/Mesh.h"
 #include "rendering/BufferLayout.h"
+#include "rendering/Renderer.h"
 
 namespace core {
 	Mesh::Mesh(
@@ -31,7 +32,7 @@ namespace core {
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 
-	void Mesh::Draw(ShaderProgram* shader) const {
+	void Mesh::Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const {
 		unsigned diffuseNr = 1;
 		unsigned specularNr = 1;
 		if (shader == nullptr) {
@@ -76,9 +77,7 @@ namespace core {
 		}
 
 		// draw mesh
-		m_VertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, (GLuint)m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
-		m_VertexArray->Unbind();
+		Renderer::Submit(shader, m_VertexArray, transform);
 	}
 
 	void Mesh::Initialize() {

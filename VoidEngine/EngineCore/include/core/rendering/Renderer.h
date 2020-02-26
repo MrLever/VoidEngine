@@ -13,6 +13,7 @@
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
 
+#include "core/rendering/Viewport.h"
 #include "core/rendering/RenderDevice.h"
 #include "core/rendering/components/CameraComponent.h"
 #include "core/rendering/components/GraphicsComponent.h"
@@ -59,12 +60,6 @@ namespace core {
 			const glm::mat4& model,
 			DrawMode drawMode = DrawMode::TRIANGLE
 		);
-
-		/** 
-		 * Draws to the sceen
-		 * @param scene The scene to draw
-		 */
-		static void Render(std::vector<Entity*> entiti);
 
 		/**
 		 * Allows rendering to query the active rendering API

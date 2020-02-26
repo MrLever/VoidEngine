@@ -40,15 +40,6 @@ namespace core {
 		s_ActiveCamera = activeCamera;
 		activeCamera->SetProjectionMatrix(s_ActiveViewport);
 
-		if (s_ActiveCamera == nullptr) {
-			GraphicsComponent::ViewMatrix = s_DefualtViewMatrix;
-			GraphicsComponent::ProjectionMatrix = s_DefaultProjectionMatrix;
-		}
-		else {
-			GraphicsComponent::ViewMatrix = s_ActiveCamera->GetViewMatrix();
-			GraphicsComponent::ProjectionMatrix = s_ActiveCamera->GetProjectionMatrix();
-		}
-
 		RenderCommand::Clear();
 	}
 
@@ -70,13 +61,6 @@ namespace core {
 
 		vao->Bind();
 		RenderCommand::DrawIndexed(vao);
-	}
-
-	void Renderer::Render(std::vector<Entity*> entities) {
-		//Draw entities
-		for (const auto& entity : entities) {
-			entity->Draw();
-		}
 	}
 
 	RenderDevice::API Renderer::GetRendererAPI() {

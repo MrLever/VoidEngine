@@ -44,7 +44,7 @@ namespace core {
 		 * Draws model in scene
 		 * @param shader The shader to use when drawing this model
 		 */
-		void Draw(ShaderProgram* shader) const;
+		void Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const;
 
 	private:
 		/**
