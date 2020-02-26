@@ -13,9 +13,6 @@
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
 
-#include "core/Level.h"
-#include "core/event_system/EventBusNode.h"
-#include "core/event_system/events/WindowResizedEvent.h"
 #include "core/rendering/RenderDevice.h"
 #include "core/rendering/components/CameraComponent.h"
 #include "core/rendering/components/GraphicsComponent.h"
@@ -25,62 +22,49 @@ namespace core {
 	//Forward Class declarations
 	class Window;
 
-	class Renderer : public EventBusNode {
+	enum class DrawMode {
+		LINE,
+		TRIANGLE,
+	};
+
+	class Renderer {
 	public:
-		/**
-		 * Constructor
-		 * @param window The Window the renderer draws to
-		 */
-		Renderer(EventBus* bus,	std::shared_ptr<RenderDevice> renderingAPI);
 
 		/**
-		 * Destructor
+		 * Initializes renderer systems
 		 */
-		~Renderer();
+		static void Initialize();
 
 		/**
-		 * Allows node to receive and process events from EventBus
-		 * @param event The event to process
+		 * Reports window resize to renderer
 		 */
-		void ReceiveEvent(Event* event) override;
+		static void HandleWindowResize(Viewport newViewport);
 
 		/**
-		 * Allows EventBus to query the node's subscription, and filter events accordingly
+		 * Collects enviornment data (lights, camera, etc) from scene used to affect all draw calls until EndFrame()
 		 */
-		unsigned GetSubscription() override;
+		static void BeginFrame(CameraComponent* activeCamera);
 
 		/**
-		 * Collects enviornment data (lights, camera, etc) from scene used to affect all draw calls
+		 * Resets enviornment data for rendering
 		 */
-		void InitializeEnvironment(Scene* scene);
-
-		/**
-		 * Discards enviornment data for rendering
-		 */
-		void ClearEnvironment();
+		static void EndFrame();
 
 		/**
 		 * Submits an object for rendering
 		 */
-		void Submit(GraphicsComponent* drawData);
+		static void Submit(
+			std::shared_ptr<ShaderProgram> shader,
+			std::shared_ptr<VertexArray> vao,
+			const glm::mat4& model,
+			DrawMode drawMode = DrawMode::TRIANGLE
+		);
 
 		/** 
 		 * Draws to the sceen
 		 * @param scene The scene to draw
 		 */
-		void Render(std::vector<Entity*> entiti);
-
-		/**
-		 * Sets up camera render data properly
-		 * @param camera The camera to configure
-		 */
-		void InitializeCamera(CameraComponent* camera) const;
-
-		/**
-		 * Notifies the renderer to use a different camera for drawing
-		 * @param camera The camera to render from
-		 */
-		void UseCamera(CameraComponent* camera);
+		static void Render(std::vector<Entity*> entiti);
 
 		/**
 		 * Allows rendering to query the active rendering API
@@ -90,18 +74,14 @@ namespace core {
 		static RenderDevice::API GetRendererAPI();
 
 	private:
-
-		void HandleWindowResize(WindowResizedEvent* event);
-
-		CameraComponent* ActiveCamera;
-
-		std::shared_ptr<RenderDevice> m_RenderingAPI;
+		/** Camera being used to modify incomming draw calls */
+		static CameraComponent* s_ActiveCamera;
 
 		/** The default view matrix to use if a scene does not provide one */
-		glm::mat4 m_DefualtViewMatrix;
+		static glm::mat4 s_DefualtViewMatrix;
 
 		/** The default projection matrix to use if a scene does not provide one */
-		glm::mat4 m_DefaultProjectionMatrix;
+		static glm::mat4 s_DefaultProjectionMatrix;
 	};
 
 }

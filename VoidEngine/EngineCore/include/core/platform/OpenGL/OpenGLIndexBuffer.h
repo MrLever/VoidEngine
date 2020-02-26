@@ -9,9 +9,12 @@
 namespace core {
 
 	class OpenGLIndexBuffer : public IndexBuffer{
-		friend class IndexBuffer;
-
 	public:
+		/**
+		 * Constructor
+		 */
+		OpenGLIndexBuffer(const uint32_t* indices, uint32_t count);
+
 		/**
 		 * Destructor
 		 */
@@ -31,12 +34,6 @@ namespace core {
 		 * Returns number of indices in index buffer
 		 */
 		uint32_t GetCount() const override;
-
-	private:
-		/**
-		 * Constructor
-		 */
-		OpenGLIndexBuffer(const uint32_t* indices, uint32_t count);
 
 		uint32_t m_RendererID;
 		uint32_t m_IndexCount;

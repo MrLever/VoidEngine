@@ -9,31 +9,6 @@
 
 namespace core {
 
-	OpenGLRenderDevice::OpenGLRenderDevice() {
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
-
-		//Enable Depth Buffer
-		glEnable(GL_DEPTH_TEST);
-		SetClearColor(ClearColor);
-	}
-
-	void OpenGLRenderDevice::SetViewport(RenderDevice::Viewport viewport) {
-		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
-		CurrentViewport = viewport;
-	}
-
-	void OpenGLRenderDevice::Clear() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void OpenGLRenderDevice::SetClearColor(math::Vector4 color) {
-		ClearColor = color;
-		glClearColor(color.X, color.Y, color.Z, color.W);
-	}
-
 	void OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 		// ignore non-significant error/warning codes
 		if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
@@ -74,4 +49,35 @@ namespace core {
 		std::cout << std::endl;
 	}
 
+	void OpenGLRenderDevice::Initialize() {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+
+		//Enable Depth Buffer
+		glEnable(GL_DEPTH_TEST);
+	}
+
+	void OpenGLRenderDevice::SetViewport(Viewport viewport) {
+		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+		CurrentViewport = viewport;
+	}
+
+	void OpenGLRenderDevice::Clear() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRenderDevice::SetClearColor(math::Vector4 color) {
+		glClearColor(color.X, color.Y, color.Z, color.W);
+	}
+
+	void OpenGLRenderDevice::DrawIndexed(std::shared_ptr<VertexArray> vao) {
+		glDrawElements(
+			GL_TRIANGLES, 
+			(GLuint)vao->GetIndexBuffer()->GetCount(), 
+			GL_UNSIGNED_INT, 
+			0
+		);
+	}
 }

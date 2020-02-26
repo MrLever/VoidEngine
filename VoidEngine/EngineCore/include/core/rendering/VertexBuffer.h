@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <cstdint>
+#include <memory>
 
 //Library Headers
 
@@ -18,7 +19,7 @@ namespace core {
 		 * Factory method to create a vertex buffer appropriate for the current 
 		 * rendering pipeline.
 		 */
-		static VertexBuffer* Create(const float* vertices, uint32_t size);
+		static std::shared_ptr<VertexBuffer> Create(const float* vertices, uint32_t size);
 
 		/**
 		 * Destructor

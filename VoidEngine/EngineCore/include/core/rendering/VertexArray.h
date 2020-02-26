@@ -16,7 +16,7 @@ namespace core {
 		 * Factory method to create a index buffer appropriate for the current
 		 * rendering pipeline.
 		 */
-		static VertexArray* Create();
+		static std::shared_ptr<VertexArray> Create();
 
 		/**
 		 * Destructor
@@ -42,6 +42,16 @@ namespace core {
 		 * Links a IndexBuffer to the VertexArray
 		 */
 		virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) = 0;
+
+		/**
+		 * Accessor for linked index buffer
+		 */
+		virtual std::shared_ptr<const IndexBuffer> GetIndexBuffer() const = 0;
+
+		/**
+		 * Accessor for linked vertex buffers
+		 */
+		virtual std::vector<std::shared_ptr<VertexBuffer>> GetVertexBuffers() const = 0;
 	};
 
 }

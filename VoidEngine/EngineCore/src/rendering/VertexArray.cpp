@@ -11,9 +11,9 @@
 
 namespace core {
 
-	VertexArray* VertexArray::Create() {
+	std::shared_ptr<VertexArray> VertexArray::Create() {
 		switch (Renderer::GetRendererAPI()) {
-			case RenderDevice::API::OPENGL: return new OpenGLVertexArray();
+			case RenderDevice::API::OPENGL: return std::make_shared<OpenGLVertexArray>();
 		}
 
 		VE_ASSERT(false, "VertexArray does not support selected RendererAPI");

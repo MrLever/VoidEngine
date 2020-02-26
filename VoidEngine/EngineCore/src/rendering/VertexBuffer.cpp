@@ -12,13 +12,13 @@
 
 namespace core {
 	
-	VertexBuffer* VertexBuffer::Create(const float* vertices, uint32_t size) {
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const float* vertices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
 			case RenderDevice::API::OPENGL:
-				return new OpenGLVertexBuffer(vertices, size);
+				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 		}
 
-		utils::Logger::LogError("VertexBuffer does not support selected rendering API.");
+		VE_ASSERT(false, "VertexBuffer does not support selected rendering API.");
 		return nullptr;
 	}
 

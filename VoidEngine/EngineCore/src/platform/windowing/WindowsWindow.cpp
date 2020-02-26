@@ -31,7 +31,6 @@ namespace platform {
 		
 		InitGLFW();
 		InitGLAD();
-		CreateRenderDevice();
 	}
 
 	WindowsWindow::~WindowsWindow() {
@@ -63,17 +62,17 @@ namespace platform {
 	void WindowsWindow::SetCursorCapture(bool state) {
 		if (state) {
 			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			CursorEnabled = false;
+			m_CursorEnabled = false;
 		}
 		else {
 			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			CursorEnabled = true;
+			m_CursorEnabled = true;
 		}
 	}
 
 	void WindowsWindow::ToggleCursorCapture() {
-		CursorEnabled = !CursorEnabled;
-		if (CursorEnabled) {
+		m_CursorEnabled = !m_CursorEnabled;
+		if (m_CursorEnabled) {
 			glfwSetInputMode(GLFWContext, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 		else {
@@ -88,41 +87,34 @@ namespace platform {
 		utils::Logger::LogError(errorMsg.str());
 	}
 
-	void WindowsWindow::CreateRenderDevice() {
-		DeviceContext = std::make_shared<OpenGLRenderDevice>();
-		DeviceContext->SetViewport(0, 0, WindowWidth, WindowHeight);
-	}
-
 	void WindowsWindow::ToggleFullscreen() {
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		const int RESTORE_WIDTH = 640;
 		const int RESTORE_HEIGHT = 480;
-		if (!IsFullscreen) {
-			WindowWidth = mode->width;
-			WindowHeight = mode->height;
+		if (!m_IsFullscreen) {
+			m_Viewport.Width = mode->width;
+			m_Viewport.Height = mode->height;
 
 			glfwSetWindowMonitor(
 				GLFWContext,
 				glfwGetPrimaryMonitor(),
-				0, 0, WindowWidth, WindowHeight,
+				0, 0, m_Viewport.Width, m_Viewport.Height,
 				GLFW_DONT_CARE
 			);
 
-			IsFullscreen = true;
+			m_IsFullscreen = true;
 		}
 		else {
-			WindowWidth = mode->width / 2;
-			WindowHeight = mode->height / 2;
+			m_Viewport.Width = mode->width / 2;
+			m_Viewport.Height = mode->height / 2;
 			glfwSetWindowMonitor(
 				GLFWContext,
 				NULL, mode->width / 2, mode->height / 2,
 				RESTORE_WIDTH, RESTORE_HEIGHT,
 				GLFW_DONT_CARE
 			);
-			IsFullscreen = false;
+			m_IsFullscreen = false;
 		}
-
-		DeviceContext->SetViewport(0, 0, WindowWidth, WindowHeight);
 	}
 
 	void WindowsWindow::InitGLFW() {
@@ -137,7 +129,7 @@ namespace platform {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
-		GLFWContext = glfwCreateWindow(WindowWidth, WindowHeight, GameName.c_str(), nullptr, nullptr);
+		GLFWContext = glfwCreateWindow(m_Viewport.Width, m_Viewport.Height, m_WindowText.c_str(), nullptr, nullptr);
 
 		if (GLFWContext == nullptr) {
 			glfwSetWindowShouldClose(GLFWContext, GLFW_TRUE);

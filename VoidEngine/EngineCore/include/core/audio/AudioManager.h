@@ -36,7 +36,7 @@ namespace core {
 
 	private:
 		/** The game's active thread pool */
-		ThreadPoolPtr GameThreadPool;
+		ThreadPoolPtr m_ThreadPool;
 	};
 
 }

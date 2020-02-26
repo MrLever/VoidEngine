@@ -13,12 +13,12 @@ namespace core {
 		const std::vector<uint32_t>& indices, 
 		const std::vector<TexturePtr>& textures
 		) : m_MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
-		    m_Textures(textures) {
+		    m_Textures(textures),
+			m_VertexArray(VertexArray::Create()),
+			m_VertexBuffer(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size())),
+			m_IndexBuffer(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()))		
+		{
 		
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size()));
-		m_IndexBuffer.reset(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()));
-
 		BufferLayout meshLayout = {
 			{ShaderDataType::FLOAT_3, "a_Position"},
 			{ShaderDataType::FLOAT_3, "a_Normal"},

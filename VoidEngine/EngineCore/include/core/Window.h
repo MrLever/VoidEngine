@@ -10,7 +10,7 @@
 
 #include "core/event_system/EventBusNode.h"
 #include "core/input/definitions/KeyboardInput.h"
-#include "core/rendering/RenderDevice.h"
+#include "core/rendering/Viewport.h"
 
 namespace core {
 	//Forward Class Declarations
@@ -67,15 +67,7 @@ namespace core {
 		 */
 		virtual void SetWindowSize(int width, int height);
 
-		/**
-		 * Get's the current rendering context's width
-		 */
-		int GetWindowWidth() const;
-
-		/**
-		 * Get's the current rendering context's height
-		 */
-		int GetWindowHeight() const;
+		Viewport GetViewport() const;
 
 		/**
 		 * Instructs GLFW to toggle cursor visibility
@@ -87,17 +79,8 @@ namespace core {
 		 */
 		virtual void ToggleCursorCapture() = 0;
 
-		/**
-		 * Allows other systems to request the current Rendering API
-		 */
-		std::shared_ptr<RenderDevice> GetRenderDevice();
-
 	protected:
-		/**
-		 * Helper function that forces OS specific window systems to expose a rendering API
-		 */
-		virtual void CreateRenderDevice() = 0;
-		
+	
 		/**
 		 * Toggle fullscreen
 		 */
@@ -108,23 +91,16 @@ namespace core {
 		 */
 		virtual void PollGamepadInput() = 0;
 
-		/** Interface to the type of rendering context bound to the window during creation */
-		std::shared_ptr<RenderDevice> DeviceContext;
-
 		/** The game's name */
-		std::string GameName;
-
-		/** The window's width */
-		int WindowWidth;
-
-		/** The window's height */
-		int WindowHeight;
+		std::string m_WindowText;
 
 		/** Flag to determine if the current window is fullscreen */
-		bool IsFullscreen;
+		bool m_IsFullscreen;
 
 		/** Flag to determine if the cursor is enabled in the window */
-		bool CursorEnabled;
+		bool m_CursorEnabled;
+
+		Viewport m_Viewport;
 	};
 }
 

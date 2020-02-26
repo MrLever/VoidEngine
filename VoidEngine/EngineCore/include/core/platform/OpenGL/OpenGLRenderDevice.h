@@ -10,15 +10,16 @@ namespace core {
 
 	class OpenGLRenderDevice : public RenderDevice  {
 	public:
+		
 		/**
-		 * Constructor
+		 * Initializes render device.
 		 */
-		OpenGLRenderDevice();
+		void Initialize() override;
 
 		/**
 		 * Used to set the rendering engine's viewport
 		 */
-		void SetViewport(RenderDevice::Viewport viewport) override;
+		void SetViewport(Viewport viewport) override;
 		
 		/**
 		 * Used to clear drawing buffer
@@ -28,14 +29,9 @@ namespace core {
 		/**
 		 * Set's buffer clear color
 		 */
-		virtual void SetClearColor(math::Vector4 color) override;
+		void SetClearColor(math::Vector4 color) override;
+
+		void DrawIndexed(std::shared_ptr<VertexArray> vao) override;
 
 	};
-
-	static void OpenGLDebugCallback(
-		GLenum source, GLenum type,
-		GLuint id, GLenum severity,
-		GLsizei length, const GLchar* message,
-		const void* userParam
-	);
 }

@@ -12,10 +12,10 @@
 
 namespace core {
 	
-	IndexBuffer* IndexBuffer::Create(const uint32_t* indices, uint32_t size) {
+	std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* indices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
 			case RenderDevice::API::OPENGL:
-				return new OpenGLIndexBuffer(indices, size);
+				return std::make_shared<OpenGLIndexBuffer>(indices, size);
 		}
 
 		VE_ASSERT(false, "Index buffer does not support selected rendering API: ERROR");
