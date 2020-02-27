@@ -23,6 +23,10 @@ namespace core {
 		return Radius;
 	}
 
+	void SphereCollider::Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) {
+
+	}
+
 	utils::Name SphereCollider::GetTypename() const {
 		return utils::Name("SphereCollider");
 	}

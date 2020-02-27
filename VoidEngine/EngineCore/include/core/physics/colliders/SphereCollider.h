@@ -31,6 +31,11 @@ namespace core {
 		 */
 		float GetRadius() const;
 
+		/**
+		 * Defines how to draw collision volume
+		 */
+		void Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform);
+
 	private:
 		/** Radius of the collision sphere */
 		float Radius;

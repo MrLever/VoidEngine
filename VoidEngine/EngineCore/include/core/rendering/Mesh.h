@@ -36,7 +36,7 @@ namespace core {
 		 * Function to draw mesh
 		 * @param shader The shader to use when drawing this mesh
 		 */
-		void Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const;
+		void Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) const;
 
 		/**
 		 * Function to set up OpenGL draw data

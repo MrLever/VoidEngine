@@ -10,6 +10,7 @@
 #include "core/gameplay_framework/Component.h"
 #include "core/physics/Manifold.h"
 #include "core/physics/colliders/Collider.h"
+#include "core/rendering/ShaderProgram.h"
 
 namespace core {
 
@@ -34,7 +35,12 @@ namespace core {
 		 * Allows the ColliderComponent to track the parent's position
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
-		virtual void Tick(float deltaTime) override;
+		void Tick(float deltaTime) override;
+
+		/**
+		 * Draws collider volume
+		 */
+		void Draw() override;
 
 		/**
 		 * Functions to allow derived colliders to interact properly
@@ -58,13 +64,15 @@ namespace core {
 	protected:
 		static utils::Table
 			<utils::Name, utils::Name, std::function<Manifold*(ColliderComponent*, ColliderComponent*)>>
-		CollisionDetectionJumpTable;
+		s_CollisionDetectionJumpTable;
 
 		/** Layer(s) this collider interacts with */
-		unsigned CollisionLayer;
+		unsigned m_CollisionLayer;
 
 		/** The type of shape used when resolving collisions with this component */
 		Collider* Shape;
+
+		std::shared_ptr<ShaderProgram> m_ColliderShader;
 	
 	};
 
@@ -74,7 +82,7 @@ namespace core {
 	) {
 		utils::Name i(ColliderA::GetStaticTypename());
 		utils::Name j(ColliderB::GetStaticTypename());
-		if (CollisionDetectionJumpTable.Find(i, j) != nullptr) {
+		if (s_CollisionDetectionJumpTable.Find(i, j) != nullptr) {
 			utils::Logger::LogWarning(
 				"Collision Detection Callback [" +
 				i.StringID + "][" +
@@ -82,7 +90,7 @@ namespace core {
 			return;
 		}
 
-		CollisionDetectionJumpTable[i][j] = callback;
+		s_CollisionDetectionJumpTable[i][j] = callback;
 	}
 
 }

@@ -17,9 +17,9 @@ namespace core {
 		utils::Name, 
 		utils::Name, 
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)>
-	> ColliderComponent::CollisionDetectionJumpTable;
+	> ColliderComponent::s_CollisionDetectionJumpTable;
 
-	ColliderComponent::ColliderComponent() : CollisionLayer(0), Shape(nullptr) {
+	ColliderComponent::ColliderComponent() : m_CollisionLayer(0), Shape(nullptr) {
 		
 	}
 
@@ -27,23 +27,56 @@ namespace core {
 		Position = Parent->GetPostion();
 
 		if (ConfigData.find("collisionLayer") != ConfigData.end()) {
-			CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
+			m_CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
 		}
 
 		Shape = utils::FactoryBase<Collider>::Create(ConfigData["shape"]["type"].get<std::string>());
 		Shape->SetConfigData(ConfigData["shape"]);
 		Shape->Initialize();
+
+		m_ColliderShader = std::make_shared<ShaderProgram>(
+			"ColliderShader",
+			new Shader(
+				ShaderType::VERTEX,
+				"Resources/Shaders/default.vert"
+			),
+			new Shader(
+				ShaderType::FRAGMENT,
+				"Resources/Shaders/default.frag"
+			)
+		);
+
 	}
 
 	void ColliderComponent::Tick(float deltaTime) {
 		Position = Parent->GetPostion();
+	}
+
+	void ColliderComponent::Draw() {
+		auto transformMatrix = glm::mat4(1.0f);
+		transformMatrix = glm::translate(transformMatrix, glm::vec3(Position.X - 1, Position.Y, Position.Z));
+
+		auto rotation = Rotation.ToEuler();
+		transformMatrix = glm::rotate(
+			transformMatrix, glm::radians(rotation.Yaw), glm::vec3(1.0f, 0.0f, 0.0f)
+		);
+
+		transformMatrix = glm::rotate(
+			transformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
+		);
+
+		transformMatrix = glm::rotate(
+			transformMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
+		);
+
+		Shape->Draw(m_ColliderShader, transformMatrix);
 	}
 	
 	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {
 		auto colliderType1 = Shape->GetTypename();
 		auto colliderType2 = other->Shape->GetTypename();
 
-		auto callback = CollisionDetectionJumpTable.Find(colliderType1, colliderType2);
+		auto callback = s_CollisionDetectionJumpTable.Find(colliderType1, colliderType2);
 
 		if (callback) {
 			return callback->operator()(this, other);
@@ -58,6 +91,6 @@ namespace core {
 	}
 
 	unsigned ColliderComponent::GetCollisionLayer() const {
-		return CollisionLayer;
+		return m_CollisionLayer;
 	}
 }

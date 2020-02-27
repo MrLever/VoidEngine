@@ -32,7 +32,7 @@ namespace core {
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 
-	void Mesh::Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const {
+	void Mesh::Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) const {
 		unsigned diffuseNr = 1;
 		unsigned specularNr = 1;
 		if (shader == nullptr) {

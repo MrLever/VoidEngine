@@ -1,12 +1,16 @@
 #pragma once
 //STD Headers
+#include <memory>
 
 //Library Headers
 
 //Void Engine Headers
 #include "math/Vector.h"
+
 #include "utils/factory/Factory.h"
 #include "utils/factory/FactoryConstructible.h"
+
+#include "core/rendering/ShaderProgram.h"
 
 namespace core {
 	
@@ -28,9 +32,9 @@ namespace core {
 		virtual void Initialize() = 0;
 
 		/**
-		 * Collision Layer Accessor
+		 * Defines how to draw collision volume
 		 */
-		unsigned GetCollisionLayer();
+		virtual void Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) = 0;
 
 	};
 
