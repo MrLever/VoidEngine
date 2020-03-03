@@ -219,9 +219,20 @@ source_group(
     FILES ${engine_core_rendering_component_headers}
 )
 
+set(engine_core_rendering_component_light_headers
+    "${engine_core_header_dir}/rendering/components/lights/DirectionalLightComponent.h"
+    "${engine_core_header_dir}/rendering/components/lights/PointLightComponent.h"
+)
+source_group(
+    "Header Files\\Rendering\\Components\\Lights" 
+    FILES ${engine_core_rendering_component_light_headers}
+)
+
+
 set(engine_core_rendering_headers
     ${engine_core_rendering_core_headers}
     ${engine_core_rendering_component_headers}
+    ${engine_core_rendering_component_light_headers}
 )
 
 ### Collect all headers
@@ -433,9 +444,20 @@ source_group(
     FILES ${engine_core_rendering_component_source}
 )
 
+set(engine_core_rendering_component_light_source
+    "${engine_core_source_dir}/rendering/components/lights/DirectionalLightComponent.cpp"
+    "${engine_core_source_dir}/rendering/components/lights/PointLightComponent.cpp"
+)
+source_group(
+    "Source Files\\Rendering\\Components\\Lights" 
+    FILES ${engine_core_rendering_component_light_source}
+)
+
+
 set(engine_core_rendering_source
     ${engine_core_rendering_core_source}
     ${engine_core_rendering_component_source}
+    ${engine_core_rendering_component_light_source}
 )
 
 ### Collect all source

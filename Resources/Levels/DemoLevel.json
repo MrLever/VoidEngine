@@ -2,8 +2,26 @@
     "name":"CollisionDemo",
     "controlFile":"Settings/Controls/FPSControls.json",
     "gravity": 9.81,
+    "lightSettings":
+    {
+        "useAmbientLight":true,
+        "ambientLightColor": [1,1,1,1],
+        "ambientLightIntensity": 0.1
+    },
     "entities":
     [
+        {
+            "name":"DirectionalLight1",
+            "type":"Entity",
+            "components":
+            [
+                {
+                    "type": "DirectionalLightComponent",
+                    "direction":[1.0, -1.0, 1.0],
+                    "color":[1.0, 0.0, 1.0, 1.0]
+                }
+            ]
+        },
         {
             "name":"FloatingPawn",
             "type":"FloatingFPSPlayer",

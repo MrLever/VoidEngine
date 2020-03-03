@@ -69,7 +69,7 @@ namespace core {
 			transformMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
 		);
 
-		Shape->Draw(m_ColliderShader, transformMatrix);
+		//Shape->Draw(m_ColliderShader, transformMatrix);
 	}
 	
 	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {

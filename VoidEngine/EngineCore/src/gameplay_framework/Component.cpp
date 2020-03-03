@@ -13,6 +13,9 @@ namespace core {
 		Parent = nullptr;
 	}
 
+	Component::~Component() {
+	}
+
 	void Component::SetParent(Entity* parent) {
 		Parent = parent;
 	}
