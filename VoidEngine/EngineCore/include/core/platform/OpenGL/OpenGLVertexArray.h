@@ -10,8 +10,12 @@
 namespace core {
 
 	class OpenGLVertexArray : public VertexArray {
-		friend class VertexArray;
 	public:
+		/**
+		 * Constructor
+		 */
+		OpenGLVertexArray();
+
 		/**
 		 * Destructor
 		 */
@@ -37,12 +41,17 @@ namespace core {
 		 */
 		void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) override;
 
-	private:
 		/**
-		 * Constructor
+		 * Accessor for linked index buffer
 		 */
-		OpenGLVertexArray();
+		std::shared_ptr<const IndexBuffer> GetIndexBuffer() const override;
 
+		/**
+		 * Accessor for linked vertex buffers
+		 */
+		std::vector<std::shared_ptr<VertexBuffer>> GetVertexBuffers() const override;
+
+	private:
 		uint32_t m_RendererID;
 		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;

@@ -67,21 +67,16 @@ namespace core {
 
 	private:
 		/** The this object's model matrix used for transformations in the vertex shader */
-		glm::mat4 ModelMatrix;
-
-		/** Vector of vertex data for the entity's model */
-		std::vector<float> Vertices;
+		glm::mat4 m_TransformMatrix;
 
 		/** The Shader Program to use when drawing this model */
-		ShaderProgram* ComponentShader;
+		std::shared_ptr<ShaderProgram> m_Shader;
 
 		/** This component's 3D model */
-		std::shared_ptr<Model> ComponentModel;
+		std::shared_ptr<Model> m_Model;
 
 		/** Whether this graphics component should be drawn */
-		bool IsValid;
+		bool m_IsValid;
 
-		static glm::mat4 ViewMatrix;
-		static glm::mat4 ProjectionMatrix;
 	};
 }

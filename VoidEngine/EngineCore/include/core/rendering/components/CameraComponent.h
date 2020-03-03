@@ -11,7 +11,7 @@
 //Void Engine Headers
 #include "core/gameplay_framework/Component.h"
 #include "math/Vector.h"
-#include "core/Window.h"
+#include "core/rendering/Viewport.h"
 
 namespace core {
 
@@ -69,7 +69,7 @@ namespace core {
 		 * Function to update the camera's Projection Matrix in response
 		 * to a change in window size
 		 */
-		void UpdateProjectionMatrix(RenderingContext::Viewport viewport);
+		void SetProjectionMatrix(Viewport viewport);
 
 		/**
 		 * Camera name accessor

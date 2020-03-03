@@ -17,16 +17,13 @@
 #include "event_system/events/GamepadButtonEvent.h"
 #include "input/definitions/AxisInput.h"
 #include "input/definitions/GamepadInput.h"
-#include "rendering/Components/CameraComponent.h"
+#include "rendering/Renderer.h"
 
 namespace core {
-
-	Window::Window(EventBus* bus, WindowData& data) : EventBusNode(bus), DeviceContext(nullptr) {
-		WindowWidth = data.windowWidth;
-		WindowHeight = data.windowHeight;
-		GameName = data.gameName;
+	Window::Window(EventBus* bus, WindowData& data) 
+		: EventBusNode(bus), m_Viewport(0, 0, data.windowWidth, data.windowHeight) {
+		m_WindowText = data.gameName;
 	}
-
 
 	Window::~Window() {
 
@@ -48,22 +45,12 @@ namespace core {
 	}
 
 	void Window::SetWindowSize(int width, int height) {
-		WindowWidth = width;
-		WindowHeight = height;
-		DeviceContext->SetViewport(0, 0, width, height);
+		m_Viewport = Viewport(0, 0, width, height);
 		PublishEvent(new WindowResizedEvent(width, height));
 	}
 
-	int Window::GetWindowWidth() const {
-		return WindowWidth;
-	}
-
-	int Window::GetWindowHeight() const {
-		return WindowHeight;
-	}
-
-	std::shared_ptr<RenderingContext> Window::GetRenderingContext() {
-		return DeviceContext;
+	Viewport Window::GetViewport() const {
+		return m_Viewport;
 	}
 
 }

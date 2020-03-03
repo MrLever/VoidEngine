@@ -61,11 +61,6 @@ namespace platform {
 
 	protected:
 		/**
-		 * Helper function that forces OS specific window systems to expose a rendering API
-		 */
-		void CreateRenderingContext() override;
-
-		/**
 		 * Toggle fullscreen
 		 */
 		void ToggleFullscreen() override;

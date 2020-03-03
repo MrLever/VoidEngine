@@ -84,50 +84,45 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-		SceneLoader GameSceneLoader;
+		SceneLoader m_SceneLoader;
 
 		/** The game's current level */
-		std::shared_ptr<Scene> ActiveScene;
+		std::shared_ptr<Scene> m_ActiveScene;
 		
 		/** A Handle to the Engine's thread pool */
-		std::shared_ptr<utils::ThreadPool> GameThreadPool;
+		std::shared_ptr<utils::ThreadPool> m_ThreadPool;
 
 		/** Resource Manager for the engine's config files */
-		std::shared_ptr<utils::ResourceAllocator<utils::Configuration>> ConfigManager;
+		utils::ResourceAllocator<utils::Configuration> m_ConfigCache;
 
-		/** Engine's central event bus */
-		std::shared_ptr<EventBus> GameEventBus;
-
-		/** A handle to the game's display */
-		std::shared_ptr<Window> GameWindow;
-
-		/** The game's message bus */
-		std::shared_ptr<MessageBus> GameMessageBus;
-
-		/** Pointer to the game's Input Manager*/
-		std::shared_ptr<InputManager> GameInputManager;
-
-		/** Pointer to the game's Rendering Engine */
-		std::shared_ptr<Renderer> GameRenderer;
-
-		/** Pointer to physics subsystem */
-		std::shared_ptr<PhysicsEngine> CorePhysicsEngine;
-		
-		/** Pointer to the game's Audio Manger */
-		std::unique_ptr<AudioManager> GameAudioManager;
-
-
-		/** Config settings for the game */
 		utils::Configuration EngineConfig;
 
+		/** Engine's central event bus */
+		std::shared_ptr<EventBus> m_EventBus;
+
+		/** A handle to the game's display */
+		std::shared_ptr<Window> m_Window;
+
+		/** The game's message bus */
+		std::shared_ptr<MessageBus> m_MessageBus;
+
+		/** Pointer to the game's Input Manager*/
+		std::shared_ptr<InputManager> m_InputManager;
+
+		/** Pointer to physics subsystem */
+		std::shared_ptr<PhysicsEngine> m_PhysicsEngine;
+		
+		/** Pointer to the game's Audio Manger */
+		std::unique_ptr<AudioManager> m_AudioManager;
+
 		/** The game's current framerate */
-		int FrameRate;
+		int m_FrameRate;
 
 		/** Flag to determine when the game loop should terminate */
-		bool Terminated;
+		bool m_Terminated;
 
 		/** Flag to query whether the game is paused */
-		bool Paused;
+		bool m_Paused;
 
 		/**
 		 * Helper class to connect Game to the event bus
@@ -185,7 +180,7 @@ namespace core {
 			Game* Owner;
 		};
 
-		std::unique_ptr<GameEventBusNode> BusNode;
+		std::unique_ptr<GameEventBusNode> m_CentralBusNode;
 
 	};
 

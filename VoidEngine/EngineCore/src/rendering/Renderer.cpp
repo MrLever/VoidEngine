@@ -7,89 +7,69 @@
 #include "gameplay_framework/Entity.h"
 #include "rendering/components/GraphicsComponent.h"
 #include "rendering/Renderer.h"
+#include "rendering/RenderCommand.h"
 #include "Window.h"
 
 namespace core {
 
-	RendererAPI Renderer::API = RendererAPI::OPENGL;
+	CameraComponent* Renderer::s_ActiveCamera = nullptr;
 
-	Renderer::Renderer(EventBus* bus, std::shared_ptr<RenderingContext> renderingAPI) 
-		: EventBusNode(bus), ActiveCamera(nullptr), m_RenderingAPI(std::move(renderingAPI)) {
-	
-		//Set default view matrix
-		m_DefualtViewMatrix = glm::mat4(1.0f);
-		m_DefualtViewMatrix = glm::translate(m_DefualtViewMatrix, glm::vec3(0, 0, -5));
-		
-		auto viewport = m_RenderingAPI->GetViewport();
-		m_RenderingAPI->SetClearColor(math::Vector4(0.2f, 0.2f, 0.2f, 0.2f));
+	glm::mat4 Renderer::s_DefualtViewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -5));
 
-		//Set default projection matrix
-		m_DefaultProjectionMatrix = glm::perspective<float>(
-			glm::radians(45.0f),
-			(float)viewport.Width / viewport.Height,
-			0.1f, 100.0f
-		);
+	/** The default projection matrix to use if a scene does not provide one */
+	glm::mat4 Renderer::s_DefaultProjectionMatrix = glm::perspective<float>(
+		glm::radians(45.0f),
+		(float)1280.0f / 720.0f,
+		0.1f, 100.0f
+	);
+
+	Viewport Renderer::s_ActiveViewport;
+
+	void Renderer::Initialize(Viewport viewport) {
+		s_ActiveViewport = viewport;
+		RenderCommand::Initialize();
+		RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1});
 	}
 
-	Renderer::~Renderer() {
+	void Renderer::HandleWindowResize(Viewport newViewport) {
+		s_ActiveCamera->SetProjectionMatrix(newViewport);
+		RenderCommand::SetViewport(newViewport);
+	}
+
+	void Renderer::BeginFrame(CameraComponent* activeCamera) {
+		s_ActiveCamera = activeCamera;
+		activeCamera->SetProjectionMatrix(s_ActiveViewport);
+
+		RenderCommand::Clear();
+	}
+
+	void Renderer::EndFrame() {
 
 	}
 
-	void Renderer::ReceiveEvent(Event* event) {
-		EventDispatcher dispatcher(event);
+	void Renderer::Submit(
+			std::shared_ptr<ShaderProgram> shader, 
+			std::shared_ptr<VertexArray> vao, 
+			const glm::mat4& model, 
+			DrawMode drawMode
+		) {
 
-		dispatcher.Dispatch<WindowResizedEvent>(
-			[this](WindowResizedEvent* event) {
-				HandleWindowResize(event);
-			}
-		);
-	}
+		shader->Use();
+		shader->SetUniform("view", s_ActiveCamera->GetViewMatrix());
+		shader->SetUniform("projection", s_ActiveCamera->GetProjectionMatrix());
+		shader->SetUniform("model", model);
 
-	unsigned Renderer::GetSubscription() {
-		return static_cast<unsigned>(EventCategory::WINDOW);
-	}
-
-	void Renderer::Render(std::vector<Entity*> entities) {
-		if (ActiveCamera == nullptr) {
-			GraphicsComponent::ViewMatrix = m_DefualtViewMatrix;
-			GraphicsComponent::ProjectionMatrix = m_DefaultProjectionMatrix;
+		vao->Bind();
+		if (drawMode == DrawMode::TRIANGLE) {
+			RenderCommand::DrawIndexed(vao);
 		}
 		else {
-			GraphicsComponent::ViewMatrix = ActiveCamera->GetViewMatrix();
-			GraphicsComponent::ProjectionMatrix = ActiveCamera->GetProjectionMatrix();
-		}
-
-		//Clear the color and depth buffer
-		m_RenderingAPI->Clear();
-
-		//Draw entities
-		for (const auto& entity : entities) {
-			entity->Draw();
+			RenderCommand::DrawWireframe(vao);
 		}
 	}
 
-	void Renderer::InitializeCamera(CameraComponent* camera) const {
-		camera->UpdateProjectionMatrix(m_RenderingAPI->GetViewport());
-	}
-
-	void Renderer::UseCamera(CameraComponent* camera) {
-		ActiveCamera = camera;
-	}
-
-	RendererAPI Renderer::GetRendererAPI() {
-		return API;
-	}
-
-	void Renderer::HandleWindowResize(WindowResizedEvent* event) {
-		auto viewport = m_RenderingAPI->GetViewport();
-
-		ActiveCamera->UpdateProjectionMatrix(viewport);
-
-		m_DefaultProjectionMatrix = glm::perspective<float>(
-			glm::radians(45.0f),
-			(float) viewport.Width / viewport.Height,
-			0.1f, 100.0f
-		);
+	RenderDevice::API Renderer::GetRendererAPI() {
+		return RenderDevice::GetRendererAPI();
 	}
 
 }

@@ -13,10 +13,10 @@
 namespace core {
 
 	Game::Game(const std::string& configFile) : EngineConfig(configFile) {
-		FrameRate = 0;
-		Terminated = false;
-		Paused = false;
-		
+		m_FrameRate = 0;
+		m_Terminated = false;
+		m_Paused = false;
+
 		EngineConfig.Load();
 
 		Initialize();
@@ -31,49 +31,43 @@ namespace core {
 
 	void Game::Initialize() {
 		//Initialize Engine Utilities
-		GameThreadPool = std::make_shared<utils::ThreadPool>();
+		m_ThreadPool = std::make_shared<utils::ThreadPool>();
 
-		utils::ResourceAllocatorBase::EngineThreadPool = GameThreadPool;
-
-		ConfigManager = std::make_shared<utils::ResourceAllocator<utils::Configuration>>();
+		utils::ResourceAllocatorBase::EngineThreadPool = m_ThreadPool;
 
 		//Intialize EventBus
-		GameEventBus = std::make_shared<EventBus>();
+		m_EventBus = std::make_shared<EventBus>();
 
 		//Initialize game window
-		GameWindow = platform::MakeWindow(
-			GameEventBus.get(), 
+		m_Window = platform::MakeWindow(
+			m_EventBus.get(), 
 			WindowData {
-				EngineConfig.GetAttribute<std::string>("gameName"),
-				800,
-				600
+				"SuperVoid",
+				1280,
+				720
 			}
 		);
 
-		//Initialize Input Manager
-		GameInputManager = std::make_shared<InputManager>(
-			GameEventBus.get(),
-			ConfigManager->LoadResource("Settings/InputConfig.json")
-		);
+		Renderer::Initialize(m_Window->GetViewport());
 
-		//Initialize Renderer
-		GameRenderer = std::make_shared<Renderer>(
-			GameEventBus.get(),
-			GameWindow->GetRenderingContext()
+		//Initialize Input Manager
+		m_InputManager = std::make_shared<InputManager>(
+			m_EventBus.get(),
+			m_ConfigCache.LoadResource("Settings/InputConfig.json")
 		);
 
 		//Initialize Audio Manager
-		GameAudioManager = std::make_unique<AudioManager>(
-			GameThreadPool,
-			ConfigManager->LoadResource("Settings/AudioConfig.json")
+		m_AudioManager = std::make_unique<AudioManager>(
+			m_ThreadPool,
+			m_ConfigCache.LoadResource("Settings/AudioConfig.json")
 		);
 
-		CorePhysicsEngine = std::make_unique<PhysicsEngine>(
-			GameEventBus.get(),
-			ConfigManager->LoadResource("Settings/PhysicsConfig.json")
+		m_PhysicsEngine = std::make_unique<PhysicsEngine>(
+			m_EventBus.get(),
+			m_ConfigCache.LoadResource("Settings/PhysicsConfig.json")
 		);
 
-		BusNode = std::make_unique<GameEventBusNode>(GameEventBus.get(), this);
+		m_CentralBusNode = std::make_unique<GameEventBusNode>(m_EventBus.get(), this);
 
 		//Set the current level to the default level
 		SetLevel(EngineConfig.GetAttribute<std::string>("defaultLevel"));
@@ -83,27 +77,27 @@ namespace core {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
 		
-		while (!Terminated) {
+		while (!m_Terminated) {
 			//Get current time
 			currentTime = Timer::now();
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
 
-			GameWindow->ProcessEvents();
+			m_Window->ProcessEvents();
 
 			//Dispatch any events that occurred since the last frame
-			GameEventBus->DispatchEvents();
+			m_EventBus->DispatchEvents();
 
-			ActiveScene->ProcessInput(deltaTime);
+			m_ActiveScene->ProcessInput(deltaTime);
 
 			//Update the scene
-			if (!Paused) {
+			if (!m_Paused) {
 				Update(deltaTime);
 			}
 
 			//Draw the scene
-			ActiveScene->Draw();
-			GameWindow->SwapBuffers();
+			m_ActiveScene->Draw();
+			m_Window->SwapBuffers();
 
 			//Update previous time
 			previousTime = currentTime;
@@ -118,7 +112,7 @@ namespace core {
 
 		UpdateFramerate(deltaTime);
 
-		ActiveScene->Update(deltaTime);
+		m_ActiveScene->Update(deltaTime);
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
@@ -143,29 +137,29 @@ namespace core {
 	}
 
 	void Game::HandleWindowClosed(WindowClosedEvent* event) {
-		Terminated = true;
+		m_Terminated = true;
 	}
 
 	void Game::PauseGame(PauseGameEvent* event) {
-		if (Paused) {
-			GameInputManager->SetActiveInputMapping(ActiveScene->GetControlFilePath());
+		if (m_Paused) {
+			m_InputManager->SetActiveInputMapping(m_ActiveScene->GetControlFilePath());
 		}
 		else {
-			GameInputManager->SetActiveInputMapping("Settings/Controls/MenuControls.json");
+			m_InputManager->SetActiveInputMapping("Settings/Controls/MenuControls.json");
 		}
 
-		Paused = !Paused;
+		m_Paused = !m_Paused;
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
-		if (ActiveScene != nullptr) {
+		if (m_ActiveScene != nullptr) {
 			//Level unloading logic
 		}
 
-		ActiveScene = std::make_shared<Scene>(GameInputManager, GameRenderer, CorePhysicsEngine);
-		GameSceneLoader.LoadLevel(ActiveScene.get(), newLevelPath);
-		GameInputManager->SetActiveInputMapping(ActiveScene->GetControlFilePath());
-		ActiveScene->BeginPlay();
+		m_ActiveScene = std::make_shared<Scene>(m_EventBus.get(), m_InputManager, m_PhysicsEngine);
+		m_SceneLoader.LoadLevel(m_ActiveScene.get(), newLevelPath);
+		m_InputManager->SetActiveInputMapping(m_ActiveScene->GetControlFilePath());
+		m_ActiveScene->BeginPlay();
 	}
 
 }

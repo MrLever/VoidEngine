@@ -69,6 +69,14 @@ namespace core {
 		m_IndexBuffer = buffer;
 	}
 
+	std::shared_ptr<const IndexBuffer> OpenGLVertexArray::GetIndexBuffer() const {
+		return m_IndexBuffer;
+	}
+
+	std::vector<std::shared_ptr<VertexBuffer>> OpenGLVertexArray::GetVertexBuffers() const {
+		return m_VertexBuffers;
+	}
+
 	OpenGLVertexArray::OpenGLVertexArray() {
 		glCreateVertexArrays(1, &m_RendererID);
 	}

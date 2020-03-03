@@ -7,6 +7,9 @@
 #include "core/physics/colliders/Collider.h"
 #include "core/physics/components/ColliderComponent.h"
 
+#include "core/rendering/VertexArray.h"
+
+
 namespace core {
 
 	class AABBCollider : public Collider {
@@ -27,6 +30,11 @@ namespace core {
 		void Initialize() override;
 
 		/**
+		 * Defines how to draw collision volume
+		 */
+		void Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) override;
+
+		/**
 		 * Min extent accessor
 		 */
 		math::Vector3 GetMin() const;
@@ -38,10 +46,13 @@ namespace core {
 
 	private:
 		/** The Min value of the AABB */
-		math::Vector3 MinExtent;
+		math::Vector3 m_MinExtent;
 
 		/** The Max Value of the AABB */
-		math::Vector3 MaxExtent;
+		math::Vector3 m_MaxExtent;
+
+		std::shared_ptr<VertexArray> m_VertexArray;
+
 	};
 
 }

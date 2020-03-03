@@ -9,8 +9,12 @@
 namespace core {
 
 	class OpenGLVertexBuffer : public VertexBuffer {
-		friend class VertexBuffer;
 	public:
+		/**
+		 * Constructor
+		 */
+		OpenGLVertexBuffer(const float* vertices, uint32_t size);
+
 		/**
 		 * Destructor
 		 */
@@ -37,11 +41,6 @@ namespace core {
 		const BufferLayout& GetLayout() const override;
 
 	private:
-		/**
-		 * Constructor
-		 */
-		OpenGLVertexBuffer(const float* vertices, uint32_t size);
-
 		uint32_t RendererID;
 
 		BufferLayout m_Layout;

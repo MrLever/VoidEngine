@@ -6,6 +6,7 @@
 //Void Engine Headers
 #include "rendering/Mesh.h"
 #include "rendering/BufferLayout.h"
+#include "rendering/Renderer.h"
 
 namespace core {
 	Mesh::Mesh(
@@ -13,12 +14,12 @@ namespace core {
 		const std::vector<uint32_t>& indices, 
 		const std::vector<TexturePtr>& textures
 		) : m_MaterialColor(192.0f/255, 190.0f/255, 191.0f/255), 
-		    m_Textures(textures) {
+		    m_Textures(textures),
+			m_VertexArray(VertexArray::Create()),
+			m_VertexBuffer(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size())),
+			m_IndexBuffer(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()))		
+		{
 		
-		m_VertexArray.reset(VertexArray::Create());
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices.data(), (uint32_t)vertices.size()));
-		m_IndexBuffer.reset(IndexBuffer::Create(indices.data(), (uint32_t)indices.size()));
-
 		BufferLayout meshLayout = {
 			{ShaderDataType::FLOAT_3, "a_Position"},
 			{ShaderDataType::FLOAT_3, "a_Normal"},
@@ -31,7 +32,7 @@ namespace core {
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 	}
 
-	void Mesh::Draw(ShaderProgram* shader) const {
+	void Mesh::Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) const {
 		unsigned diffuseNr = 1;
 		unsigned specularNr = 1;
 		if (shader == nullptr) {
@@ -76,9 +77,7 @@ namespace core {
 		}
 
 		// draw mesh
-		m_VertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, (GLuint)m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
-		m_VertexArray->Unbind();
+		Renderer::Submit(shader, m_VertexArray, transform);
 	}
 
 	void Mesh::Initialize() {

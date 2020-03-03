@@ -19,7 +19,7 @@ namespace core {
 		auto level = LevelCache.GetResource(levelPath);
 
 		utils::Logger::LogInfo("Initializing Level " + level->GetName().StringID);
-		scene->ControlFilePath = level->GetAttribute<std::string>("controlFile");
+		scene->m_ControlFilePath = level->GetAttribute<std::string>("controlFile");
 
 		auto entityList = level->GetAttribute<nlohmann::json>("entities");
 
@@ -49,7 +49,7 @@ namespace core {
 			}
 
 			entity->Initialize();
-			scene->Entities.emplace_back(entity);
+			scene->m_Entities.emplace_back(entity);
 		}
 	}
 

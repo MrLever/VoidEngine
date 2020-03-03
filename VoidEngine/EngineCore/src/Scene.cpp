@@ -7,41 +7,50 @@
 
 namespace core {
 	Scene::Scene(
+		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
-		std::shared_ptr<Renderer> renderer, 
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: SceneInputManager(inputManager), SceneRenderer(renderer), ScenePhysicsEngine(physicsEngine) {
+		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine) {
 
 	}
 
 	Scene::~Scene() {
-		for (auto& entity : Entities) {
+		for (auto& entity : m_Entities) {
 			delete entity;
 			entity = nullptr;
 		}
 	}
 	
+	void Scene::ReceiveEvent(Event* event) {
+		EventDispatcher dispatcher(event);
+
+		dispatcher.Dispatch<WindowResizedEvent>(
+			[this](WindowResizedEvent* event) {
+				Renderer::HandleWindowResize({0,0, event->GetWidth(), event->GetHeight()});
+			}
+		);
+	}
+
 	void Scene::AddCamera(CameraComponent* camera) {
-		SceneRenderer->InitializeCamera(camera);
-		Cameras.insert({camera->GetName(), camera});
+		m_Cameras.insert({camera->GetName(), camera});
 		ActivateCamera(camera->GetName());
 	}
 
 	void Scene::RemoveCamera(CameraComponent* camera) {
-		Cameras.erase(camera->GetName());
+		m_Cameras.erase(camera->GetName());
 	}
 
 	void Scene::ActivateCamera(utils::Name cameraName) {
-		if (Cameras.find(cameraName) == Cameras.end()) {
+		if (m_Cameras.find(cameraName) == m_Cameras.end()) {
 			utils::Logger::LogError("Camera " + cameraName.StringID + " not found. Camara not activated");
 			return;
 		}
 
-		SceneRenderer->UseCamera(Cameras[cameraName]);
+		m_ActiveCamera = m_Cameras[cameraName];
 	}
 
 	void Scene::BeginPlay() {
-		for (auto& entity : Entities) {
+		for (auto& entity : m_Entities) {
 			auto camera = entity->GetComponent<CameraComponent>();
 			if (camera) {
 				AddCamera(camera);
@@ -51,26 +60,32 @@ namespace core {
 	}
 
 	void Scene::ProcessInput(float deltaTime) {
-		SceneInputManager->ProcessInput(Entities, deltaTime);
+		m_InputManager->ProcessInput(m_Entities, deltaTime);
 	}
 
 	void Scene::Update(float deltaTime) {
-		ScenePhysicsEngine->Simulate(Entities, deltaTime);
+		m_PhysicsEngine->Simulate(m_Entities, deltaTime);
 
-		for (auto entity : Entities) {
+		for (auto entity : m_Entities) {
 			entity->Tick(deltaTime);
 		}
 
-		for (auto entity : EntitiesToSpawn) {
-			Entities.push_back(entity);
+		for (auto entity : m_SpawnQueue) {
+			m_Entities.push_back(entity);
 			entity->Initialize();
 			entity->BeginPlay();
 		}
-		EntitiesToSpawn.clear();
+		m_SpawnQueue.clear();
 	}
 
 	void Scene::Draw() const {
-		SceneRenderer->Render(Entities);
+		Renderer::BeginFrame(m_ActiveCamera);
+		
+		for (auto entity : m_Entities) {
+			entity->Draw();
+		}
+		
+		Renderer::EndFrame();
 	}
 	
 	Entity* Scene::SpawnEntity(const utils::Name& type, Entity* parent) {
@@ -79,7 +94,7 @@ namespace core {
 			return nullptr;
 		}
 
-		EntitiesToSpawn.push_back(entity);
+		m_SpawnQueue.push_back(entity);
 		entity->SetScene(this);
 		entity->SetParent(parent);
 		return entity;
@@ -90,6 +105,6 @@ namespace core {
 	}
 	
 	std::string Scene::GetControlFilePath() const {
-		return ControlFilePath;
+		return m_ControlFilePath;
 	}
 }

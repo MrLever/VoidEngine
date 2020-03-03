@@ -5,34 +5,9 @@
 #include "glad/glad.h"
 
 //Void Engine Headers
-#include "platform/OpenGL/OpenGLRenderingContext.h"
+#include "platform/OpenGL/OpenGLRenderDevice.h"
 
 namespace core {
-
-	OpenGLRenderingContext::OpenGLRenderingContext() {
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
-
-		//Enable Depth Buffer
-		glEnable(GL_DEPTH_TEST);
-		SetClearColor(ClearColor);
-	}
-
-	void OpenGLRenderingContext::SetViewport(RenderingContext::Viewport viewport) {
-		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
-		CurrentViewport = viewport;
-	}
-
-	void OpenGLRenderingContext::Clear() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	void OpenGLRenderingContext::SetClearColor(math::Vector4 color) {
-		ClearColor = color;
-		glClearColor(color.X, color.Y, color.Z, color.W);
-	}
 
 	void OpenGLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
 		// ignore non-significant error/warning codes
@@ -74,4 +49,45 @@ namespace core {
 		std::cout << std::endl;
 	}
 
+	void OpenGLRenderDevice::Initialize() {
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(OpenGLDebugCallback, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+
+		//Enable Depth Buffer
+		glEnable(GL_DEPTH_TEST);
+	}
+
+	void OpenGLRenderDevice::SetViewport(Viewport viewport) {
+		glViewport(viewport.X, viewport.Y, viewport.Width, viewport.Height);
+		CurrentViewport = viewport;
+	}
+
+	void OpenGLRenderDevice::Clear() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void OpenGLRenderDevice::SetClearColor(math::Vector4 color) {
+		glClearColor(color.X, color.Y, color.Z, color.W);
+	}
+
+	void OpenGLRenderDevice::DrawIndexed(std::shared_ptr<VertexArray> vao) {
+		glDrawElements(
+			GL_TRIANGLES, 
+			(GLuint)vao->GetIndexBuffer()->GetCount(), 
+			GL_UNSIGNED_INT, 
+			0
+		);
+	}
+	
+	void OpenGLRenderDevice::DrawWireframe(std::shared_ptr<VertexArray> vao) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawElements(
+			GL_TRIANGLES,
+			(GLuint)vao->GetIndexBuffer()->GetCount(),
+			GL_UNSIGNED_INT,
+			0
+		);
+	}
 }

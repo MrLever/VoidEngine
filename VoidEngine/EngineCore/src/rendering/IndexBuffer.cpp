@@ -12,19 +12,13 @@
 
 namespace core {
 	
-	IndexBuffer* IndexBuffer::Create(const uint32_t* indices, uint32_t size) {
+	std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* indices, uint32_t size) {
 		switch (Renderer::GetRendererAPI()) {
-			case RendererAPI::NONE:
-				utils::Logger::LogError("IndexBuffer does not support selected rendering API: NONE");
-				return nullptr;
-			case RendererAPI::OPENGL:
-				return new OpenGLIndexBuffer(indices, size);
-			case RendererAPI::DIRECT3D12:
-				utils::Logger::LogError("Index does not support selected rendering API: DIRECT3D12");
-				return nullptr;
+			case RenderDevice::API::OPENGL:
+				return std::make_shared<OpenGLIndexBuffer>(indices, size);
 		}
 
-		utils::Logger::LogError("Index does not support selected rendering API: ERROR");
+		VE_ASSERT(false, "Index buffer does not support selected rendering API: ERROR");
 		return nullptr;
 	}
 
