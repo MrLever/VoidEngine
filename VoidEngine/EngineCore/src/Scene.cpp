@@ -10,7 +10,7 @@ namespace core {
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine) {
+		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine), m_ActiveCamera(nullptr) {
 
 	}
 
