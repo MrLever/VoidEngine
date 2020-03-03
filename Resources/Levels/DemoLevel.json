@@ -12,6 +12,8 @@
     [
         {
             "name":"DirectionalLight1",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0],
             "type":"Entity",
             "components":
             [
