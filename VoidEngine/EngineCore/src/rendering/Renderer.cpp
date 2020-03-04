@@ -57,7 +57,7 @@ namespace core {
 			const glm::mat4& model, 
 			DrawMode drawMode
 		) {
-
+		
 		shader->Use();
 		shader->SetUniform("view", s_ActiveCamera->GetViewMatrix());
 		shader->SetUniform("projection", s_ActiveCamera->GetProjectionMatrix());
@@ -72,7 +72,7 @@ namespace core {
 			utils::Logger::LogWarning("Too many directional lights in scene. Discarding excess");
 			numDirLights = MAX_DIR_LIGHTS;
 		}
-
+		
 		for (int i = 0; i < numDirLights; i++) {
 			shader->SetUniform(
 				std::string("lightData.directionalLights[" + i) + "].direction",

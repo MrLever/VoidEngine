@@ -26,6 +26,21 @@
             ]
         },
         {
+            "name":"DirectionalLight2",
+            "location": [0, 0, 0],
+            "rotation": [0, 0, 0],
+            "type":"Entity",
+            "components":
+            [
+                {
+                    "type": "DirectionalLightComponent",
+                    "direction":[0, 1, 0],
+                    "color":[1.0, 1.0, 1.0, 1.0],
+                    "intensity":1.0
+                }
+            ]
+        },
+        {
             "name":"FloatingPawn",
             "type":"FloatingFPSPlayer",
             "location": [0, 0, 40],
@@ -184,7 +199,7 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Sphere/Sphere.obj"
+                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
                 },
                 {
                     "type":"ColliderComponent",

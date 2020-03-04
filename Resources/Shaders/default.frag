@@ -62,9 +62,12 @@ vec4 CalcDirectionalLight(DirectionalLight light){
 void main(){
     vec4 color = CalcAmbient();
 
-    for(int i = 0; i < lightData.numDirLights; i++){
-        color += CalcDirectionalLight(lightData.directionalLights[i]);
-    }    
+    // for(int i = 0; i < lightData.numDirLights; i++){
+    //     color += CalcDirectionalLight(lightData.directionalLights[i]);
+    // }  
+    
+    color += CalcDirectionalLight(lightData.directionalLights[0]);  
+    //color += CalcDirectionalLight(lightData.directionalLights[1]);  
 
     fragColor = color;
 }
