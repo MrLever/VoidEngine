@@ -49,7 +49,7 @@ namespace core {
 		void BeginPlay();
 		void ProcessInput(float deltaTime);
 		void Update(float deltaTime);
-		void Draw() const;
+		void Draw();
 
 		/**
 		 * Allows Entity to be spawned during playtime
@@ -68,6 +68,11 @@ namespace core {
 		std::string GetControlFilePath() const;
 
 	private:
+		/**
+		 * Scans scenes for light components and adds them to m_LightingEnviornment
+		 */
+		void GatherLights();
+
 		std::string m_ControlFilePath;
 
 		/** Maps Camera name to Camera to allow runtime lookup and switching */

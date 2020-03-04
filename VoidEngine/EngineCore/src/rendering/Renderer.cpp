@@ -30,7 +30,7 @@ namespace core {
 	void Renderer::Initialize(Viewport viewport) {
 		s_ActiveViewport = viewport;
 		RenderCommand::Initialize();
-		RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1});
+		RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
 	}
 
 	void Renderer::HandleWindowResize(Viewport newViewport) {
@@ -64,6 +64,31 @@ namespace core {
 		shader->SetUniform("model", model);
 		shader->SetUniform("lightData.ambientStrength", s_LightingEnvironment->AmbientLightIntensity);
 		shader->SetUniform("lightData.ambientColor", s_LightingEnvironment->AmbientLightColor);
+
+		int numDirLights = (int)s_LightingEnvironment->DirectionalLights.size();
+		shader->SetUniform("lightData.numDirLights", numDirLights);
+
+		if (numDirLights > MAX_DIR_LIGHTS) {
+			utils::Logger::LogWarning("Too many directional lights in scene. Discarding excess");
+			numDirLights = MAX_DIR_LIGHTS;
+		}
+
+		for (int i = 0; i < numDirLights; i++) {
+			shader->SetUniform(
+				std::string("lightData.directionalLights[" + i) + "].direction",
+				s_LightingEnvironment->DirectionalLights[i]->GetDirection()
+			);
+
+			shader->SetUniform(
+				std::string("lightData.directionalLights[" + i) + "].color",
+				s_LightingEnvironment->DirectionalLights[i]->GetColor()
+			);
+
+			shader->SetUniform(
+				std::string("lightData.directionalLights[" + i) + "].intensity",
+				s_LightingEnvironment->DirectionalLights[i]->GetIntensity()
+			);
+		}
 
 		vao->Bind();
 		if (drawMode == DrawMode::TRIANGLE) {

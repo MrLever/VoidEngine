@@ -73,6 +73,9 @@ namespace core {
 		static RenderDevice::API GetRendererAPI();
 
 	private:
+		static const int MAX_DIR_LIGHTS = 8;
+		static const int MAX_PT_LIGHTS = 32;
+
 		/** Read-only pointer to Camera being used to modify incomming draw calls */
 		static CameraComponent* s_ActiveCamera;
 

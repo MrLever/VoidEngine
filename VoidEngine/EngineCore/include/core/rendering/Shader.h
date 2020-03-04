@@ -53,17 +53,17 @@ namespace core {
 		/**
 		 * Enumeration value that specifies what type of shader this is
 		 */
-		ShaderType Type;
+		ShaderType m_Type;
 
 		/**
 		 * The shader's source code
 		 */
-		std::string ShaderSource;
+		std::string m_ShaderSource;
 
 		/**
 		 * OpenGL object used to address this shader
 		 */
-		GLuint ShaderHandle;
+		GLuint m_ShaderHandle;
 	};
 
 }

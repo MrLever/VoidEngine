@@ -78,7 +78,8 @@ namespace core {
 		m_SpawnQueue.clear();
 	}
 
-	void Scene::Draw() const {
+	void Scene::Draw() {
+		GatherLights();
 		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
 		
 		for (auto entity : m_Entities) {
@@ -106,5 +107,17 @@ namespace core {
 	
 	std::string Scene::GetControlFilePath() const {
 		return m_ControlFilePath;
+	}
+
+	void Scene::GatherLights() {
+		//Reset light data
+		m_LightingEnvironment.DirectionalLights = {};
+
+		for (const auto& entity : m_Entities) {
+			auto dirLight = entity->GetComponent<DirectionalLightComponent>();
+			if (dirLight) {
+				m_LightingEnvironment.DirectionalLights.push_back(dirLight);
+			}
+		}
 	}
 }

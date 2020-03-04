@@ -11,7 +11,7 @@
 namespace core {
 	Manifold::Manifold() 
 		: EntityA(nullptr), EntityB(nullptr), 
-		PenetrationDistance(0.0f), CollisionNormal() {
+		PenetrationDistance(0.0f), m_CollisionNormal() {
 
 	}
 }

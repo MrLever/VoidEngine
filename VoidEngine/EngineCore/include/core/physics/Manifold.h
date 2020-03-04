@@ -32,7 +32,7 @@ namespace core {
 		float PenetrationDistance;
 
 		/** Vector of resolution */
-		math::Vector3 CollisionNormal;
+		math::Vector3 m_CollisionNormal;
 
 	};
 

@@ -25,7 +25,7 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		DirectionalLightComponent() = default;
+		DirectionalLightComponent();
 
 		/**
 		 * Destructor
@@ -37,12 +37,30 @@ namespace core {
 		 */
 		void Initialize() override;
 
+		/**
+		 * Direction Accessor
+		 */
+		math::Vector3 GetDirection() const;
+
+		/**
+		 * Color Accessor
+		 */
+		math::Vector4 GetColor() const;
+
+		/**
+		 * Intensity Accessor
+		 */
+		float GetIntensity() const;
+
 	private:
 		/** Direction of the directional light */
 		math::Vector3 m_Direction;
 
 		/** Color of the directional light */
 		math::Vector4 m_Color;
+
+		/** Amount of energy in light */
+		float m_Intensity;
 
 	};
 }
