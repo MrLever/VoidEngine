@@ -50,7 +50,7 @@ namespace core {
 		s_ActiveCamera = nullptr;
 		s_LightingEnvironment = nullptr;
 	}
-
+	
 	void Renderer::Submit(
 			std::shared_ptr<ShaderProgram> shader, 
 			std::shared_ptr<VertexArray> vao, 
@@ -73,19 +73,25 @@ namespace core {
 			numDirLights = MAX_DIR_LIGHTS;
 		}
 		
+		static const std::string structName("lightData");
+		static const std::string variableName("directionalLights");
 		for (int i = 0; i < numDirLights; i++) {
+			std::string index("[" + std::to_string(i) + "]");
+			auto var = structName + "." + variableName + index + ".direction";
 			shader->SetUniform(
-				std::string("lightData.directionalLights[" + i) + "].direction",
+				structName + "." + variableName + index + ".direction",
 				s_LightingEnvironment->DirectionalLights[i]->GetDirection()
 			);
 
+			var = structName + "." + variableName + index + ".color";
 			shader->SetUniform(
-				std::string("lightData.directionalLights[" + i) + "].color",
+				structName + "." + variableName + index + ".color",
 				s_LightingEnvironment->DirectionalLights[i]->GetColor()
 			);
 
+			var = structName + "." + variableName + index + ".intensity";
 			shader->SetUniform(
-				std::string("lightData.directionalLights[" + i) + "].intensity",
+				structName + "." + variableName + index + ".intensity",
 				s_LightingEnvironment->DirectionalLights[i]->GetIntensity()
 			);
 		}
@@ -98,7 +104,7 @@ namespace core {
 			RenderCommand::DrawWireframe(vao);
 		}
 	}
-
+	
 	RenderDevice::API Renderer::GetRendererAPI() {
 		return RenderDevice::GetRendererAPI();
 	}

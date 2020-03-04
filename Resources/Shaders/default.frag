@@ -38,10 +38,13 @@ in vec3 normal;
 //Outputs
 out vec4 fragColor;
 
+vec4 GetBaseColor(){
+    return material.base_diffuse + texture(material.texture_diffuse1, texCoord);
+}
+
 vec4 CalcAmbient(){
     return 
-        lightData.ambientStrength * lightData.ambientColor * 
-        (material.base_diffuse + texture(material.texture_diffuse1, texCoord));
+        lightData.ambientStrength * lightData.ambientColor * GetBaseColor();
 }
 
 vec4 CalcDirectionalLight(DirectionalLight light){
@@ -52,7 +55,7 @@ vec4 CalcDirectionalLight(DirectionalLight light){
     float specularIntensity = 0 /*pow(max(dot(viewDir, reflectDir), 0.0), 10)*/;
 
     vec4 diffuse = 
-        light.color * diffuseIntensity * material.base_diffuse;
+        light.color * diffuseIntensity * GetBaseColor();
 
     //vec4 specular = vec4(1,1,1,1) * specularIntensity;
 
@@ -62,11 +65,11 @@ vec4 CalcDirectionalLight(DirectionalLight light){
 void main(){
     vec4 color = CalcAmbient();
 
-    // for(int i = 0; i < lightData.numDirLights; i++){
-    //     color += CalcDirectionalLight(lightData.directionalLights[i]);
-    // }  
+    for(int i = 0; i < lightData.numDirLights; i++){
+        color += CalcDirectionalLight(lightData.directionalLights[i]);
+    }  
     
-    color += CalcDirectionalLight(lightData.directionalLights[0]);  
+    //color += CalcDirectionalLight(lightData.directionalLights[0]);  
     //color += CalcDirectionalLight(lightData.directionalLights[1]);  
 
     fragColor = color;
