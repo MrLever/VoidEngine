@@ -14,10 +14,12 @@ layout (location = 2) in vec2 texPos;
 //Outputs
 out vec2 texCoord;
 out vec3 normal;
+out vec3 fragmentPosition;
 
 void main(){
     texCoord = texPos;
     normal = aNormal;
     
     gl_Position = projection * view * model * vec4(aPos, 1.0);
+    fragmentPosition = vec3(model * vec4(aPos, 1.0));
 }

@@ -73,6 +73,18 @@ namespace core {
 		static RenderDevice::API GetRendererAPI();
 
 	private:
+		/**
+		 * Loads data from the LightingEnviornment into the shader
+		 * @param shader The shader to load data into
+		 */
+		static void ApplyDirectionalLightData(std::shared_ptr<core::ShaderProgram>& shader);
+
+		/**
+		 * Loads data from the LightingEnviornment into the shader
+		 * @param shader The shader to load data into
+		 */
+		static void ApplyPointLightData(std::shared_ptr<core::ShaderProgram>& shader);
+
 		static const int MAX_DIR_LIGHTS = 8;
 		static const int MAX_PT_LIGHTS = 32;
 

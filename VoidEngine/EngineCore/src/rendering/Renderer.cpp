@@ -64,7 +64,22 @@ namespace core {
 		shader->SetUniform("model", model);
 		shader->SetUniform("lightData.ambientStrength", s_LightingEnvironment->AmbientLightIntensity);
 		shader->SetUniform("lightData.ambientColor", s_LightingEnvironment->AmbientLightColor);
+		shader->SetUniform("viewPosition", s_ActiveCamera->GetPosition());
 
+		ApplyDirectionalLightData(shader);
+		ApplyPointLightData(shader);
+
+		vao->Bind();
+		if (drawMode == DrawMode::TRIANGLE) {
+			RenderCommand::DrawIndexed(vao);
+		}
+		else {
+			RenderCommand::DrawWireframe(vao);
+		}
+	}
+
+	void Renderer::ApplyDirectionalLightData(std::shared_ptr<core::ShaderProgram>& shader)
+	{
 		int numDirLights = (int)s_LightingEnvironment->DirectionalLights.size();
 		shader->SetUniform("lightData.numDirLights", numDirLights);
 
@@ -72,7 +87,7 @@ namespace core {
 			utils::Logger::LogWarning("Too many directional lights in scene. Discarding excess");
 			numDirLights = MAX_DIR_LIGHTS;
 		}
-		
+
 		static const std::string structName("lightData");
 		static const std::string variableName("directionalLights");
 		for (int i = 0; i < numDirLights; i++) {
@@ -95,14 +110,10 @@ namespace core {
 				s_LightingEnvironment->DirectionalLights[i]->GetIntensity()
 			);
 		}
+	}
 
-		vao->Bind();
-		if (drawMode == DrawMode::TRIANGLE) {
-			RenderCommand::DrawIndexed(vao);
-		}
-		else {
-			RenderCommand::DrawWireframe(vao);
-		}
+	void Renderer::ApplyPointLightData(std::shared_ptr<core::ShaderProgram>& shader) {
+
 	}
 	
 	RenderDevice::API Renderer::GetRendererAPI() {

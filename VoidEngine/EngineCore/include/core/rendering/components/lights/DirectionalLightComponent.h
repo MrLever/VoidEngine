@@ -5,15 +5,13 @@
 
 //Void Engine Headers
 #include "math/Vector.h"
-#include "math/Rotator.h"
 
 #include "core/gameplay_framework/Component.h"
-#include "core/rendering/Model.h"
 
 namespace core {
 	/**
 	 * @class DirectionalLightComponent
-	 * @brief Allows an entity to bright directional lighting into a scene
+	 * @brief Allows an entity to bring directional lighting into a scene
 	 */
 	class DirectionalLightComponent : public Component {
 		/**
