@@ -192,6 +192,7 @@ set(engine_core_physics_headers
 set(engine_core_rendering_core_headers
     "${engine_core_header_dir}/rendering/BufferLayout.h"
     "${engine_core_header_dir}/rendering/IndexBuffer.h"
+    "${engine_core_header_dir}/rendering/LightingEnvironment.h"
     "${engine_core_header_dir}/rendering/Mesh.h"
     "${engine_core_header_dir}/rendering/Model.h"
     "${engine_core_header_dir}/rendering/RenderCommand.h"

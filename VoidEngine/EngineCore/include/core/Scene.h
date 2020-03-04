@@ -14,16 +14,12 @@
 #include "core/input/InputManager.h"
 #include "core/input/ControlLayout.h"
 #include "core/rendering/Renderer.h"
+#include "core/rendering/LightingEnvironment.h"
 #include "core/rendering/components/CameraComponent.h"
 #include "core/rendering/components/lights/DirectionalLightComponent.h"
 #include "core/physics/PhysicsEngine.h"
 
 namespace core {
-	struct LightingEnvironment {
-		math::Vector4 AmbientLightColor;
-		float AmbientLightIntensity;
-		std::vector<DirectionalLightComponent*> DirectionalLights;
-	};
 
 	class Scene : EventBusNode {
 		friend class SceneLoader;

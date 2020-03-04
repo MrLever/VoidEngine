@@ -9,7 +9,7 @@
 namespace core {
 
 	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
-		: ProgramName(std::move(name)), ProgramHandle(-1) {
+		: ProgramName(name), ProgramHandle(-1) {
 
 		vertex->Initialize();
 		fragment->Initialize();
@@ -89,11 +89,7 @@ namespace core {
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, const math::Vector4& value) {
 		//Reduce to C array
-		float vec[4];
-		vec[0] = value.X;
-		vec[1] = value.Y;
-		vec[2] = value.Z;
-		vec[3] = value.W;
+		float vec[4] = { value.X, value.Y, value.Z, value.W };
 
 		//Send to OpenGL
 		glProgramUniform4fv(

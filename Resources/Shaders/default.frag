@@ -1,6 +1,5 @@
 #version 450 core
 //Uniforms
-uniform float desiredColor;
 uniform struct Material {
     vec4 base_diffuse;
     sampler2D texture_diffuse1;
@@ -9,6 +8,11 @@ uniform struct Material {
     sampler2D texture_specular1;
     sampler2D texture_specular2;
 } material;
+
+uniform struct LightingData {
+    float ambientStrength;
+    vec4 ambientColor;
+} lightData;
 
 //Inputs
 in vec2 texCoord;
@@ -24,5 +28,5 @@ void main(){
         material.base_diffuse + 
         texture(material.texture_diffuse1, texCoord);;
 
-    fragColor = diffuse;
+    fragColor = diffuse * lightData.ambientStrength * lightData.ambientColor;
 }

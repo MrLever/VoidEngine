@@ -14,6 +14,8 @@ namespace core {
 
 	CameraComponent* Renderer::s_ActiveCamera = nullptr;
 
+	const LightingEnvironment* Renderer::s_LightingEnvironment = nullptr;
+
 	glm::mat4 Renderer::s_DefualtViewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -5));
 
 	/** The default projection matrix to use if a scene does not provide one */
@@ -36,15 +38,17 @@ namespace core {
 		RenderCommand::SetViewport(newViewport);
 	}
 
-	void Renderer::BeginFrame(CameraComponent* activeCamera) {
+	void Renderer::BeginFrame(CameraComponent* activeCamera, const LightingEnvironment* lighting) {
 		s_ActiveCamera = activeCamera;
+		s_LightingEnvironment = lighting;
 		activeCamera->SetProjectionMatrix(s_ActiveViewport);
 
 		RenderCommand::Clear();
 	}
 
 	void Renderer::EndFrame() {
-
+		s_ActiveCamera = nullptr;
+		s_LightingEnvironment = nullptr;
 	}
 
 	void Renderer::Submit(
@@ -58,6 +62,8 @@ namespace core {
 		shader->SetUniform("view", s_ActiveCamera->GetViewMatrix());
 		shader->SetUniform("projection", s_ActiveCamera->GetProjectionMatrix());
 		shader->SetUniform("model", model);
+		shader->SetUniform("lightData.ambientStrength", s_LightingEnvironment->AmbientLightIntensity);
+		shader->SetUniform("lightData.ambientColor", s_LightingEnvironment->AmbientLightColor);
 
 		vao->Bind();
 		if (drawMode == DrawMode::TRIANGLE) {

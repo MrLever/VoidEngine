@@ -79,7 +79,7 @@ namespace core {
 	}
 
 	void Scene::Draw() const {
-		Renderer::BeginFrame(m_ActiveCamera);
+		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
 		
 		for (auto entity : m_Entities) {
 			entity->Draw();
