@@ -1,9 +1,11 @@
-#include "..\include\core\Scene.h"
 //STD Headers
 
 //Library Headers
 
 //Void Engine Headers
+#include "Scene.h"
+#include "rendering/components/lights/PointLightComponent.h"
+#include "rendering/components/lights/PointLightComponent.h"
 
 namespace core {
 	Scene::Scene(
@@ -112,11 +114,18 @@ namespace core {
 	void Scene::GatherLights() {
 		//Reset light data
 		m_LightingEnvironment.DirectionalLights = {};
+		m_LightingEnvironment.PointLights = {};
 
+		//Gather all lights in scene
 		for (const auto& entity : m_Entities) {
 			auto dirLight = entity->GetComponent<DirectionalLightComponent>();
 			if (dirLight) {
 				m_LightingEnvironment.DirectionalLights.push_back(dirLight);
+			}
+
+			auto ptLight = entity->GetComponent<PointLightComponent>();
+			if (ptLight) {
+				m_LightingEnvironment.PointLights.push_back(ptLight);
 			}
 		}
 	}

@@ -16,7 +16,6 @@ namespace core {
 	}
 
 	void DirectionalLightComponent::Initialize() {
-		VE_ASSERT(false, "Function not implemented. Please do.")
 		if (ConfigData.find("direction") != ConfigData.end()) {
 			auto vec = ConfigData["direction"];
 			m_Direction = { vec[0], vec[1], vec[2] };
@@ -31,6 +30,7 @@ namespace core {
 			m_Intensity = ConfigData["intensity"];
 		}
 	}
+
 	math::Vector3 DirectionalLightComponent::GetDirection() const {
 		return m_Direction;
 	}

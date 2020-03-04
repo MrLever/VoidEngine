@@ -20,15 +20,45 @@ namespace core {
 		TYPE_INFO_DECL(PointLightComponent)
 
 	public:
-	private:
-		/** Direction of the directional light */
-		math::Vector3 m_Direction;
+		/**
+		 * Constructor
+		 */
+		PointLightComponent();
+		
+		/**
+		 * Destructor
+		 */
+		~PointLightComponent() = default;
 
+		/**
+		 * Loads light settings into object from specified settings
+		 */
+		void Initialize() override;
+
+		/**
+		 * Color Accessor
+		 */
+		math::Vector4 GetColor() const;
+
+		/**
+		 * Intensity Accessor
+		 */
+		float GetIntensity() const;
+
+		/**
+		 * Intensity Accessor
+		 */
+		float GetRadius() const;
+
+	private:
 		/** Color of the directional light */
 		math::Vector4 m_Color;
 
 		/** Amount of energy in light */
 		float m_Intensity;
+
+		/** bounding radius of point light's influence */
+		float m_Radius;
 	};
 
 }

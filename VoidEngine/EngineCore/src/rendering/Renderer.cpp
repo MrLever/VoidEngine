@@ -92,19 +92,16 @@ namespace core {
 		static const std::string variableName("directionalLights");
 		for (int i = 0; i < numDirLights; i++) {
 			std::string index("[" + std::to_string(i) + "]");
-			auto var = structName + "." + variableName + index + ".direction";
 			shader->SetUniform(
 				structName + "." + variableName + index + ".direction",
 				s_LightingEnvironment->DirectionalLights[i]->GetDirection()
 			);
 
-			var = structName + "." + variableName + index + ".color";
 			shader->SetUniform(
 				structName + "." + variableName + index + ".color",
 				s_LightingEnvironment->DirectionalLights[i]->GetColor()
 			);
 
-			var = structName + "." + variableName + index + ".intensity";
 			shader->SetUniform(
 				structName + "." + variableName + index + ".intensity",
 				s_LightingEnvironment->DirectionalLights[i]->GetIntensity()
@@ -113,7 +110,34 @@ namespace core {
 	}
 
 	void Renderer::ApplyPointLightData(std::shared_ptr<core::ShaderProgram>& shader) {
+		int numPtLights = (int)s_LightingEnvironment->PointLights.size();
+		shader->SetUniform("lightData.numPtLights", numPtLights);
 
+		if (numPtLights > MAX_PT_LIGHTS) {
+			utils::Logger::LogWarning("Too many point lights in scene. Discarding excess");
+			numPtLights = MAX_PT_LIGHTS;
+		}
+
+		static const std::string structName("lightData");
+		static const std::string variableName("pointLights");
+		for (int i = 0; i < numPtLights; i++) {
+			std::string index("[" + std::to_string(i) + "]");
+			auto var = structName + "." + variableName + index + ".position";
+			shader->SetUniform(
+				structName + "." + variableName + index + ".position",
+				s_LightingEnvironment->PointLights[i]->GetPosition()
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".color",
+				s_LightingEnvironment->PointLights[i]->GetColor()
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".intensity",
+				s_LightingEnvironment->PointLights[i]->GetIntensity()
+			);
+		}
 	}
 	
 	RenderDevice::API Renderer::GetRendererAPI() {

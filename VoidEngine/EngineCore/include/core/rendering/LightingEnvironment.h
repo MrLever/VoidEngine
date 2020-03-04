@@ -6,6 +6,7 @@
 //Void Engine Headers
 #include "math/Vector.h"
 #include "core/rendering/components/lights/DirectionalLightComponent.h"
+#include "core/rendering/components/lights/PointLightComponent.h"
 
 namespace core {
 
@@ -16,6 +17,7 @@ namespace core {
 		math::Vector4 AmbientLightColor;
 		float AmbientLightIntensity;
 		std::vector<DirectionalLightComponent*> DirectionalLights;
+		std::vector<PointLightComponent*> PointLights;
 	};
 
 }

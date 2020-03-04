@@ -10,7 +10,7 @@ struct DirectionalLight {
 };
 
 struct PointLight {
-    vec3 location;
+    vec3 position;
     vec4 color;
     float intensity;
 };
@@ -30,6 +30,8 @@ uniform struct LightingData {
     vec4 ambientColor;
     int numDirLights;
     DirectionalLight directionalLights[MAX_DIR_LIGHTS];
+    int numPtLights;
+    PointLight pointLights[MAX_PT_LIGHTS];
 } lightData;
 
 uniform vec3 viewPosition;
@@ -52,7 +54,24 @@ vec4 CalcAmbient(){
 }
 
 vec4 CalcDirectionalLight(DirectionalLight light){
-    vec3 lightDir = normalize(-light.direction);
+    vec3 lightDir   = normalize(-light.direction);
+    vec3 viewDir    = normalize(viewPosition - fragmentPosition);
+    vec3 halfwayDir = normalize(lightDir + viewDir);
+
+    float diffuseIntensity = max(dot(normal, lightDir), 0.0);
+
+    float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 128);
+
+    vec4 diffuse = 
+        light.color * diffuseIntensity * GetBaseColor();
+
+    vec4 specular = vec4(1,1,1,1) * specularIntensity;
+
+    return diffuse + specular;
+}
+
+vec4 CalcPointLight(PointLight light){
+    vec3 lightDir   = normalize(light.position - fragmentPosition);
     vec3 viewDir    = normalize(viewPosition - fragmentPosition);
     vec3 halfwayDir = normalize(lightDir + viewDir);
 
@@ -73,10 +92,7 @@ void main(){
 
     for(int i = 0; i < lightData.numDirLights; i++){
         color += CalcDirectionalLight(lightData.directionalLights[i]);
-    }  
-    
-    //color += CalcDirectionalLight(lightData.directionalLights[0]);  
-    //color += CalcDirectionalLight(lightData.directionalLights[1]);  
+    } 
 
     fragColor = color;
 }

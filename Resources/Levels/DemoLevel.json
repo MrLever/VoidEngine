@@ -6,7 +6,7 @@
     {
         "useAmbientLight":true,
         "ambientLightColor": [1,1,1,1],
-        "ambientLightIntensity": 0.4
+        "ambientLightIntensity": 0.3
     },
     "entities":
     [
@@ -21,7 +21,7 @@
                     "type": "DirectionalLightComponent",
                     "direction":[1.0, 0, 0],
                     "color":[1.0, 0.0, 0.0, 1.0],
-                    "intensity":1.0
+                    "intensity":0.5
                 }
             ]
         },
@@ -36,7 +36,7 @@
                     "type": "DirectionalLightComponent",
                     "direction":[0, 1, 0],
                     "color":[0.0, 1.0, 0.0, 1.0],
-                    "intensity":1.0
+                    "intensity":0.5
                 }
             ]
         },
@@ -51,7 +51,7 @@
                     "type": "DirectionalLightComponent",
                     "direction":[0, 0, -1],
                     "color":[0.0, 0.0, 1.0, 1.0],
-                    "intensity":1.0
+                    "intensity":0.5
                 }
             ]
         },
@@ -84,7 +84,7 @@
             "components":
             [
                 {
-                    "type": "GraphicsComponent",
+                    "type":"GraphicsComponent",
                     "model":"Resources/Models/Cube/Cube.obj"
                 },
                 {
@@ -95,6 +95,11 @@
                         "radius":1,
                         "restitution":1
                     }
+                },
+                {
+                    "type":"PointLightComponent",
+                    "color":[1.0, 0.945, 0.878, 1.0],
+                    "intensity":1.0
                 }
             ]
         },

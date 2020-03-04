@@ -16,7 +16,6 @@
 #include "core/rendering/Renderer.h"
 #include "core/rendering/LightingEnvironment.h"
 #include "core/rendering/components/CameraComponent.h"
-#include "core/rendering/components/lights/DirectionalLightComponent.h"
 #include "core/physics/PhysicsEngine.h"
 
 namespace core {
