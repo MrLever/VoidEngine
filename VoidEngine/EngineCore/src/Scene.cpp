@@ -114,7 +114,7 @@ namespace core {
 	void Scene::GatherLights() {
 		//Reset light data
 		m_LightingEnvironment.DirectionalLights = {};
-		m_LightingEnvironment.PointLights = {};
+		m_LightingEnvironment.PointLights = {}; 
 
 		//Gather all lights in scene
 		for (const auto& entity : m_Entities) {
