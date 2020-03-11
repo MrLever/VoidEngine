@@ -44,6 +44,9 @@ namespace core {
 		 */
 		~GraphicsComponent();
 
+		/**
+		 * Loads configuration data
+		 */
 		void Initialize() override;
 
 		/**

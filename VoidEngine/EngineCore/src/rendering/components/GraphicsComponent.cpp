@@ -77,16 +77,18 @@ namespace core {
 		
 		auto rotation = Rotation.ToEuler();
 		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(1.0f, 0.0f, 0.0f)
+			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(1.0f, 0.0f, 0.0f)
 		);
+
 
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
 		);
-		
+
 		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
+			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(0.0f, 0.0f, 1.0f)
 		);
+		
 
 		if (m_Model) {
 			m_Model->Draw(m_Shader, m_TransformMatrix);

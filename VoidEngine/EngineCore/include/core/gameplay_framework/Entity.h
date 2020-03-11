@@ -140,6 +140,9 @@ namespace core {
 		/** The entity's rotation in 3D space */
 		math::Quaternion m_Rotation;
 
+		/** The entity's scale in 3D space */
+		math::Vector3 m_Scale;
+
 		/** The level the entity inhabits */
 		Scene* m_World;
 

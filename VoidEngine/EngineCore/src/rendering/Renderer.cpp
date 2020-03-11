@@ -123,7 +123,7 @@ namespace core {
 		static const std::string variableName("pointLights");
 		for (int i = 0; i < numPtLights; i++) {
 			std::string index("[" + std::to_string(i) + "]");
-
+			
 			shader->SetUniform(
 				structName + "." + variableName + index + ".position",
 				s_LightingEnvironment->PointLights[i]->GetPosition()
