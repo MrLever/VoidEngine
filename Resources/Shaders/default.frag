@@ -13,6 +13,7 @@ struct PointLight {
     vec3 position;
     vec4 color;
     float intensity;
+    float radius;
 };
 
 //Uniforms
@@ -71,12 +72,12 @@ vec4 CalcDirectionalLight(DirectionalLight light){
 }
 
 vec4 CalcPointLight(PointLight light){
+    //Calculate Half angle vector
     vec3 lightDir   = normalize(light.position - fragmentPosition);
     vec3 viewDir    = normalize(viewPosition - fragmentPosition);
     vec3 halfwayDir = normalize(lightDir + viewDir);
 
-    float diffuseIntensity = max(dot(normal, lightDir), 0.0);
-
+    float diffuseIntensity = max(dot(lightDir, normal), 0.0);
     float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 128);
 
     vec4 diffuse = 
@@ -92,6 +93,10 @@ void main(){
 
     for(int i = 0; i < lightData.numDirLights; i++){
         color += CalcDirectionalLight(lightData.directionalLights[i]);
+    }
+
+    for(int i = 0; i < lightData.numPtLights; i++){
+        color += CalcPointLight(lightData.pointLights[i]);
     } 
 
     fragColor = color;

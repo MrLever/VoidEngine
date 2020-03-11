@@ -132,16 +132,16 @@ namespace core {
 		utils::Name ID;
 
 		/** All of the components for this entity */
-		std::unordered_map<utils::Name, Component*> Components;
+		std::unordered_map<utils::Name, Component*> m_Components;
 
 		/** The entity's position in 3D space */
-		math::Vector3 Position;
+		math::Vector3 m_Position;
 
 		/** The entity's rotation in 3D space */
-		math::Quaternion Rotation;
+		math::Quaternion m_Rotation;
 
 		/** The level the entity inhabits */
-		Scene* World;
+		Scene* m_World;
 
 		/** Optional pointer to the entity's owner */
 		Entity* Parent;
@@ -149,8 +149,8 @@ namespace core {
 
 	template<class T>
 	inline T* Entity::GetComponent() {
-		auto componentEntry = Components.find(T::GetStaticTypename());
-		if (componentEntry == Components.end()) {
+		auto componentEntry = m_Components.find(T::GetStaticTypename());
+		if (componentEntry == m_Components.end()) {
 			return nullptr;
 		}
 		else {

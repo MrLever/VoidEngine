@@ -73,26 +73,26 @@ namespace core {
 	}
 	
 	void Observer::MoveForward(float axisValue, float deltaTime) {
-		auto forward = Rotation.ToVector();
+		auto forward = m_Rotation.ToVector();
 		auto moveSpeed = MovementSpeed * deltaTime;
-		Position += forward * axisValue * moveSpeed;
+		m_Position += forward * axisValue * moveSpeed;
 	}
 
 	void Observer::MoveRight(float axisValue, float deltaTime) {
-		auto forward = Rotation.ToVector();
+		auto forward = m_Rotation.ToVector();
 		auto right = forward.Cross(math::Vector3(0, 1, 0)).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
 
-		Position += right * axisValue * moveSpeed;
+		m_Position += right * axisValue * moveSpeed;
 	}
 
 	void Observer::LookUp(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, 0, axisValue);
-		Rotation = Rotation * math::Quaternion(deltaRotation);
+		m_Rotation = m_Rotation * math::Quaternion(deltaRotation);
 	}
 
 	void Observer::LookRight(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, -axisValue, 0);
-		Rotation = Rotation * math::Quaternion(deltaRotation);
+		m_Rotation = m_Rotation * math::Quaternion(deltaRotation);
 	}
 }

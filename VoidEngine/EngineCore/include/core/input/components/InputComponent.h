@@ -62,10 +62,10 @@ namespace core {
 
 	private:
 		/** Component bindings for InputActions */
-		std::unordered_map<InputAction, std::function<void(float)>> ActionMappings;
+		std::unordered_map<InputAction, std::function<void(float)>> m_ActionMappings;
 
 		/** Component bindings for InputAxisActions */
-		std::unordered_map<AxisInputAction, std::function<void(float, float)>> AxisMappings;
+		std::unordered_map<AxisInputAction, std::function<void(float, float)>> m_AxisMappings;
 	};
 
 }

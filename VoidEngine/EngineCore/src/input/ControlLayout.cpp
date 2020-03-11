@@ -18,8 +18,8 @@ namespace core {
 	}
 
 	void ControlLayout::UpdateAxis(AxisInputAction update) {
-		auto axisIter = InputAxes.find(update.AxisName);
-		if (axisIter != InputAxes.end()) {
+		auto axisIter = m_InputAxes.find(update.AxisName);
+		if (axisIter != m_InputAxes.end()) {
 			auto axis = axisIter->second;
 			if (axis) {
 				axis->UpdateAxis(update.Value);
@@ -30,7 +30,7 @@ namespace core {
 	std::vector<AxisInputAction> ControlLayout::PollAxes() {
 		std::vector<AxisInputAction> readings;
 
-		for (auto axisIter : InputAxes) {
+		for (auto axisIter : m_InputAxes) {
 			readings.emplace_back(PollAxis(axisIter.first));
 		}
 
@@ -38,8 +38,8 @@ namespace core {
 	}
 
 	AxisInputAction ControlLayout::PollAxis(const utils::Name& axisName) {
-		auto axisIter = InputAxes.find(axisName);
-		if (axisIter != InputAxes.end()) {
+		auto axisIter = m_InputAxes.find(axisName);
+		if (axisIter != m_InputAxes.end()) {
 			auto axis = axisIter->second;
 			if (axis) {
 				return AxisInputAction(axisName, axis->Poll());
@@ -54,7 +54,7 @@ namespace core {
 		auto actionMappings = Data["actionMappings"];
 		for (auto mapping : actionMappings) {
 			if (mapping.find("key") != mapping.end()) {
-				KeyboardActionBindings.insert(
+				m_KeyboardActionBindings.insert(
 					{
 						DeserializeKB(mapping["key"], mapping["modifiers"]), 
 						utils::Name(mapping["action"])
@@ -62,7 +62,7 @@ namespace core {
 				);
 			}
 			else if (mapping.find("gamepadButton") != mapping.end()) {
-				GamepadActionBindings.insert(
+				m_GamepadActionBindings.insert(
 					{
 						DeserializeGamepadButton(mapping["gamepadButton"], mapping["modifiers"]), 
 						utils::Name(mapping["action"])
@@ -70,7 +70,7 @@ namespace core {
 				);
 			}
 			else if (mapping.find("mouseButton") != mapping.end()) {
-				MouseActionBindings.insert(
+				m_MouseActionBindings.insert(
 					{
 						DeserializeMouseButton(mapping["mouseButton"], mapping["modifiers"]),
 						utils::Name(mapping["action"])
@@ -85,29 +85,29 @@ namespace core {
 		for (auto& mapping : axisMappings) {
 			utils::Name currentAxis(mapping["axisName"]);
 
-			InputAxes[currentAxis] = std::make_shared<InputAxis>(currentAxis);
+			m_InputAxes[currentAxis] = std::make_shared<InputAxis>(currentAxis);
 
 			auto bindings = mapping["bindings"];
 			for (auto& binding : bindings) {
 				if (binding.find("key") != binding.end()) {
 					auto key = DeserializeKB(binding["key"], std::vector<std::string>());
 					std::pair axisEffect(currentAxis, binding["value"]);
-					KeyboardAxisBindings.insert({ key, axisEffect });
+					m_KeyboardAxisBindings.insert({ key, axisEffect });
 				}
 				else if (binding.find("gamepadButton") != binding.end()) {
 					auto key = DeserializeGamepadButton(binding["key"], std::vector<std::string>());
 					std::pair axisEffect(currentAxis, binding["value"]);
-					GamepadAxisBindings.insert({ key, axisEffect });
+					m_GamepadAxisBindings.insert({ key, axisEffect });
 				}
 				else if (binding.find("mouseButton") != binding.end()) {
 					auto key = DeserializeMouseButton(binding["key"], std::vector<std::string>());
 					std::pair axisEffect(currentAxis, binding["value"]);
-					MouseAxisBindings.insert({ key, axisEffect });
+					m_MouseAxisBindings.insert({ key, axisEffect });
 				}
 				else if (binding.find("axis") != binding.end()) {
 					auto rawAxis = DeserializeRawAxis(binding["axis"]);
 					std::pair axisEffect(currentAxis, binding["value"]);
-					AnalogAxisBindings.insert({ rawAxis, axisEffect });
+					m_AnalogAxisBindings.insert({ rawAxis, axisEffect });
 				}
 			}
 		}
@@ -117,8 +117,8 @@ namespace core {
 		ActionType type = (input.GetButtonState() == ButtonState::PRESSED) ? 
 			ActionType::PRESSED : ActionType::RELEASED;
 
-		auto binding = KeyboardActionBindings.find(input.GetButton());
-		if (binding == KeyboardActionBindings.end()) {
+		auto binding = m_KeyboardActionBindings.find(input.GetButton());
+		if (binding == m_KeyboardActionBindings.end()) {
 			return InputAction("Error", type);
 		}
 
@@ -129,8 +129,8 @@ namespace core {
 		ActionType type = (input.GetButtonState() == ButtonState::PRESSED) ?
 			ActionType::PRESSED : ActionType::RELEASED;
 
-		auto binding = MouseActionBindings.find(input.GetButton());
-		if (binding == MouseActionBindings.end()) {
+		auto binding = m_MouseActionBindings.find(input.GetButton());
+		if (binding == m_MouseActionBindings.end()) {
 			return InputAction("Error", type);
 		}
 
@@ -141,8 +141,8 @@ namespace core {
 		ActionType type = (input.GetButtonState() == ButtonState::PRESSED) ?
 			ActionType::PRESSED : ActionType::RELEASED;
 
-		auto binding = GamepadActionBindings.find(input.GetButton());
-		if (binding == GamepadActionBindings.end()) {
+		auto binding = m_GamepadActionBindings.find(input.GetButton());
+		if (binding == m_GamepadActionBindings.end()) {
 			return InputAction("Error", type);
 		}
 
@@ -154,8 +154,8 @@ namespace core {
 	}
 
 	AxisInputAction ControlLayout::GetAxisMapping(const KeyboardInput& input) const {
-		auto binding = KeyboardAxisBindings.find(input.GetButton());
-		if (binding == KeyboardAxisBindings.end()) {
+		auto binding = m_KeyboardAxisBindings.find(input.GetButton());
+		if (binding == m_KeyboardAxisBindings.end()) {
 			return AxisInputAction("Error", 0);
 		}
 
@@ -170,8 +170,8 @@ namespace core {
 	}
 
 	AxisInputAction ControlLayout::GetAxisMapping(const MouseInput& input) const {
-		auto binding = MouseAxisBindings.find(input.GetButton());
-		if (binding == MouseAxisBindings.end()) {
+		auto binding = m_MouseAxisBindings.find(input.GetButton());
+		if (binding == m_MouseAxisBindings.end()) {
 			return AxisInputAction("Error", 0);
 		}
 
@@ -186,8 +186,8 @@ namespace core {
 	}
 
 	AxisInputAction ControlLayout::GetAxisMapping(const GamepadInput& input) const {
-		auto binding = GamepadAxisBindings.find(input.GetButton());
-		if (binding == GamepadAxisBindings.end()) {
+		auto binding = m_GamepadAxisBindings.find(input.GetButton());
+		if (binding == m_GamepadAxisBindings.end()) {
 			return AxisInputAction("Error", 0);
 		}
 
@@ -202,8 +202,8 @@ namespace core {
 	}
 
 	AxisInputAction ControlLayout::GetAxisMapping(const AxisInput& input) const {
-		auto binding = AnalogAxisBindings.find(input.GetAxisSource());
-		if (binding == AnalogAxisBindings.end()) {
+		auto binding = m_AnalogAxisBindings.find(input.GetAxisSource());
+		if (binding == m_AnalogAxisBindings.end()) {
 			return AxisInputAction("Error", 0);
 		}
 
@@ -212,36 +212,36 @@ namespace core {
 
 	bool ControlLayout::IsBound(const KeyboardInput& input) const {
 		return
-			KeyboardActionBindings.find(input.GetButton()) != KeyboardActionBindings.end()
-			|| KeyboardAxisBindings.find(input.GetButton()) != KeyboardAxisBindings.end();
+			m_KeyboardActionBindings.find(input.GetButton()) != m_KeyboardActionBindings.end()
+			|| m_KeyboardAxisBindings.find(input.GetButton()) != m_KeyboardAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBound(const MouseInput& input) const{
 		return 
-			MouseActionBindings.find(input.GetButton()) != MouseActionBindings.end()
-			|| MouseAxisBindings.find(input.GetButton()) != MouseAxisBindings.end();
+			m_MouseActionBindings.find(input.GetButton()) != m_MouseActionBindings.end()
+			|| m_MouseAxisBindings.find(input.GetButton()) != m_MouseAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBound(const GamepadInput& input) const {
 		return
-			GamepadActionBindings.find(input.GetButton()) != GamepadActionBindings.end()
-			|| GamepadAxisBindings.find(input.GetButton()) != GamepadAxisBindings.end();
+			m_GamepadActionBindings.find(input.GetButton()) != m_GamepadActionBindings.end()
+			|| m_GamepadAxisBindings.find(input.GetButton()) != m_GamepadAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBound(const AxisInput& input) const{
-		return AnalogAxisBindings.find(input.GetAxisSource()) != AnalogAxisBindings.end();
+		return m_AnalogAxisBindings.find(input.GetAxisSource()) != m_AnalogAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAction(const KeyboardInput& input) const {
-		return KeyboardActionBindings.find(input.GetButton()) != KeyboardActionBindings.end();
+		return m_KeyboardActionBindings.find(input.GetButton()) != m_KeyboardActionBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAction(const MouseInput& input) const {
-		return MouseActionBindings.find(input.GetButton()) != MouseActionBindings.end();
+		return m_MouseActionBindings.find(input.GetButton()) != m_MouseActionBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAction(const GamepadInput& input) const {
-		return GamepadActionBindings.find(input.GetButton()) != GamepadActionBindings.end();
+		return m_GamepadActionBindings.find(input.GetButton()) != m_GamepadActionBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAction(const AxisInput& input) const {
@@ -249,19 +249,19 @@ namespace core {
 	}
 
 	bool ControlLayout::IsBoundToAxis(const KeyboardInput& input) const {
-		return KeyboardAxisBindings.find(input.GetButton()) != KeyboardAxisBindings.end();
+		return m_KeyboardAxisBindings.find(input.GetButton()) != m_KeyboardAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAxis(const MouseInput& input) const {
-		return MouseAxisBindings.find(input.GetButton()) != MouseAxisBindings.end();
+		return m_MouseAxisBindings.find(input.GetButton()) != m_MouseAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAxis(const GamepadInput& input) const {
-		return GamepadAxisBindings.find(input.GetButton()) != GamepadAxisBindings.end();
+		return m_GamepadAxisBindings.find(input.GetButton()) != m_GamepadAxisBindings.end();
 	}
 
 	bool ControlLayout::IsBoundToAxis(const AxisInput& input) const {
-		return AnalogAxisBindings.find(input.GetAxisSource()) != AnalogAxisBindings.end();
+		return m_AnalogAxisBindings.find(input.GetAxisSource()) != m_AnalogAxisBindings.end();
 	}
 
 }

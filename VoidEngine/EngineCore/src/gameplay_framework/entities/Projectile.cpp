@@ -23,7 +23,7 @@ namespace core {
 	
 	void Projectile::Initialize() {
 
-		Position = Parent->GetPostion() + (5 * Parent->GetRotation().ToVector());
+		m_Position = Parent->GetPostion() + (5 * Parent->GetRotation().ToVector());
 
 		AddComponent(new PhysicsComponent());
 

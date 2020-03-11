@@ -78,22 +78,22 @@ namespace core {
 
 	private:
 		/** Name used to reference this camera */
-		utils::Name CameraName;
+		utils::Name m_Name;
 
 		/** This camera's projection matrix */
-		glm::mat4 ProjectionMatrix;
+		glm::mat4 m_ProjectionMatrix;
 
 		/** This camera's view matrix */
-		glm::mat4 ViewMatrix;
+		glm::mat4 m_ViewMatrix;
 
 		/** This camera's field of view */
-		float FOV;
+		float m_FOV;
 
 		/** Vector to represent the direction the camera is looking */
-		math::Vector3 LookDirection;
+		math::Vector3 m_LookDirection;
 		
 		/** Vector to represent the up direction for the camera */
-		math::Vector3 Up;
+		math::Vector3 m_UpDirection;
 
 	};
 

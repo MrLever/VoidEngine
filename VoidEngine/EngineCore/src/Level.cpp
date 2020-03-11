@@ -12,7 +12,7 @@
 
 namespace core {
 
-	Level::Level(const std::string& levelPath) : JsonResource(levelPath), LevelName("Error"){
+	Level::Level(const std::string& levelPath) : JsonResource(levelPath), m_Name("Error"){
 
 	}
 
@@ -25,10 +25,10 @@ namespace core {
 	}
 
 	void Level::Initialize() {
-		LevelName = Data["name"];
+		m_Name = Data["name"];
 	}	
 
 	utils::Name Level::GetName() {
-		return LevelName;
+		return m_Name;
 	}
 }
