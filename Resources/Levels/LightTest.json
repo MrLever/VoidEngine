@@ -1,5 +1,5 @@
 {
-    "name":"CollisionDemo",
+    "name":"PointLightTest",
     "controlFile":"Settings/Controls/FPSControls.json",
     "gravity": 9.81,
     "lightSettings":
@@ -10,51 +10,6 @@
     },
     "entities":
     [
-        {
-            "name":"DirectionalLight1",
-            "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
-            "type":"Entity",
-            "components":
-            [
-                {
-                    "type": "DirectionalLightComponent",
-                    "direction":[1.0, 0, 0],
-                    "color":[1.0, 0.0, 0.0, 1.0],
-                    "intensity":0.5
-                }
-            ]
-        },
-        {
-            "name":"DirectionalLight2",
-            "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
-            "type":"Entity",
-            "components":
-            [
-                {
-                    "type": "DirectionalLightComponent",
-                    "direction":[0, 1, 0],
-                    "color":[0.0, 1.0, 0.0, 1.0],
-                    "intensity":0.5
-                }
-            ]
-        },
-        {
-            "name":"DirectionalLight3",
-            "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
-            "type":"Entity",
-            "components":
-            [
-                {
-                    "type": "DirectionalLightComponent",
-                    "direction":[0, 0, -1],
-                    "color":[0.0, 0.0, 1.0, 1.0],
-                    "intensity":0.5
-                }
-            ]
-        },
         {
             "name":"FloatingPawn",
             "type":"FloatingFPSPlayer",
@@ -132,32 +87,6 @@
             ]
         },
         {
-            "name":"CenterProjectile2",
-            "type":"Entity",
-            "location": [-1, 40, 0],
-            "rotation": [0, 0, 0],
-            "components":
-            [
-                {
-                    "type": "GraphicsComponent",
-                    "model":"Resources/Models/Sphere/Sphere.obj"
-                },
-                {
-                    "type":"ColliderComponent",
-                    "shape":
-                    {
-                        "type":"SphereCollider",
-                        "radius":1
-                    }
-                },
-                {
-                    "type": "PhysicsComponent",
-                    "mass":1.0,
-                    "restitution":0.5
-                }
-            ]
-        },
-        {
             "name":"FloatingProjectile",
             "type":"Entity",
             "location": [0, -20, 0],
@@ -207,32 +136,6 @@
                     "type": "PhysicsComponent",
                     "isStatic":true,
                     "restitution":1           
-                }
-            ]
-        },
-        {
-            "name":"LeftProjectile",
-            "type":"Entity",
-            "location": [-8, 20, 0],
-            "rotation": [0, 0, 0],
-            "components":
-            [
-                {
-                    "type": "GraphicsComponent",
-                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
-                },
-                {
-                    "type":"ColliderComponent",
-                    "shape":
-                    {
-                        "type":"SphereCollider",
-                        "radius":1.5
-                    }
-                },
-                {
-                    "type": "PhysicsComponent",
-                    "mass":1,
-                    "restitution":0.1
                 }
             ]
         },

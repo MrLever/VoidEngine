@@ -1,16 +1,18 @@
-#include "..\include\core\Scene.h"
 //STD Headers
 
 //Library Headers
 
 //Void Engine Headers
+#include "Scene.h"
+#include "rendering/components/lights/PointLightComponent.h"
+#include "rendering/components/lights/PointLightComponent.h"
 
 namespace core {
 	Scene::Scene(
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine) {
+		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine), m_ActiveCamera(nullptr) {
 
 	}
 
@@ -78,8 +80,9 @@ namespace core {
 		m_SpawnQueue.clear();
 	}
 
-	void Scene::Draw() const {
-		Renderer::BeginFrame(m_ActiveCamera);
+	void Scene::Draw() {
+		GatherLights();
+		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
 		
 		for (auto entity : m_Entities) {
 			entity->Draw();
@@ -106,5 +109,24 @@ namespace core {
 	
 	std::string Scene::GetControlFilePath() const {
 		return m_ControlFilePath;
+	}
+
+	void Scene::GatherLights() {
+		//Reset light data
+		m_LightingEnvironment.DirectionalLights = {};
+		m_LightingEnvironment.PointLights = {}; 
+
+		//Gather all lights in scene
+		for (const auto& entity : m_Entities) {
+			auto dirLight = entity->GetComponent<DirectionalLightComponent>();
+			if (dirLight) {
+				m_LightingEnvironment.DirectionalLights.push_back(dirLight);
+			}
+
+			auto ptLight = entity->GetComponent<PointLightComponent>();
+			if (ptLight) {
+				m_LightingEnvironment.PointLights.push_back(ptLight);
+			}
+		}
 	}
 }

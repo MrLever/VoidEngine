@@ -35,6 +35,11 @@ namespace core {
 		Component();
 
 		/**
+		 * Destructor
+		 */
+		virtual ~Component();
+
+		/**
 		 * Accessors for the component's owner
 		 */
 		void SetParent(Entity* parent);

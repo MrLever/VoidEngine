@@ -78,6 +78,13 @@ namespace core {
 		 * @param uniformName The name of the uniform to modify
 		 * @param value The value to place in that uniform
 		 */
+		void SetUniform(const std::string& uniformName, const math::Vector3& value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
 		void SetUniform(const std::string& uniformName, const math::Vector4& value);
 
 	private:
@@ -87,13 +94,13 @@ namespace core {
 		GLint GetUniformLocation(const std::string& uniformName);
 
 		/** Name used to identify this shader program */
-		utils::Name ProgramName;
+		utils::Name m_ProgramName;
 
 		/** Unique Identifier used by OpenGL to address this shader program */
-		GLuint ProgramHandle;
+		GLuint m_ProgramHandle;
 
 		/** Flag to determine whether this shader program was properly linked */
-		bool ProgramValid;
+		bool m_ProgramValid;
 	};
 
 }

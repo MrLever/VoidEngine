@@ -21,6 +21,15 @@ namespace core {
 		utils::Logger::LogInfo("Initializing Level " + level->GetName().StringID);
 		scene->m_ControlFilePath = level->GetAttribute<std::string>("controlFile");
 
+		auto lightSettings = level->GetAttribute<nlohmann::json>("lightSettings");
+
+		//Gather scene's ambient light data
+		scene->m_LightingEnvironment.AmbientLightColor.X = lightSettings["ambientLightColor"][0];
+		scene->m_LightingEnvironment.AmbientLightColor.Y = lightSettings["ambientLightColor"][1];
+		scene->m_LightingEnvironment.AmbientLightColor.Z = lightSettings["ambientLightColor"][2];
+		scene->m_LightingEnvironment.AmbientLightColor.W = lightSettings["ambientLightColor"][3];
+		scene->m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
+
 		auto entityList = level->GetAttribute<nlohmann::json>("entities");
 
 		for (auto& entityData : entityList) {

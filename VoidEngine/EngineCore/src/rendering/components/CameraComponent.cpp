@@ -13,7 +13,7 @@ namespace core {
 	ENABLE_FACTORY(CameraComponent, Component)
 
 	CameraComponent::CameraComponent()
-		: ProjectionMatrix(1), ViewMatrix(1), FOV(45.0), Up(0,1,0), CameraName("Camera") {
+		: m_ProjectionMatrix(1), m_ViewMatrix(1), m_FOV(45.0), m_UpDirection(0,1,0), m_Name("Camera") {
 
 	}
 
@@ -25,11 +25,11 @@ namespace core {
 		if (Parent) {
 			Position = Parent->GetPostion();
 			Rotation = Parent->GetRotation();
-			LookDirection = Parent->GetRotation().ToVector();
+			m_LookDirection = Parent->GetRotation().ToVector();
 		}
 
 		if (ConfigData.find("name") != ConfigData.end()) {
-			CameraName = ConfigData["name"];
+			m_Name = ConfigData["name"];
 		}
 
 	}
@@ -39,39 +39,39 @@ namespace core {
 		Position = Parent->GetPostion();
 		Rotation = Parent->GetRotation();
 
-		LookDirection = Rotation.ToVector();
+		m_LookDirection = Rotation.ToVector();
 
-		auto target = Position + LookDirection;
+		auto target = Position + m_LookDirection;
 		
 		//Set view matrix for this frame
-		ViewMatrix = glm::lookAt(
+		m_ViewMatrix = glm::lookAt(
 			glm::vec3(Position.X, Position.Y, Position.Z),
 			glm::vec3(target.X, target.Y, target.Z),
-			glm::vec3(Up.X, Up.Y, Up.Z)
+			glm::vec3(m_UpDirection.X, m_UpDirection.Y, m_UpDirection.Z)
 	    );
 	}
 
 	glm::mat4 CameraComponent::GetViewMatrix() const {
-		return ViewMatrix;
+		return m_ViewMatrix;
 	}
 
 	glm::mat4 CameraComponent::GetProjectionMatrix() const {
-		return ProjectionMatrix;
+		return m_ProjectionMatrix;
 	}
 
 	void CameraComponent::SetFOV(float fov) {
-		FOV = fov;
+		m_FOV = fov;
 		
 		//UpdateProjectionMatrix();
 	}
 
 	float CameraComponent::GetFOV() {
-		return FOV;
+		return m_FOV;
 	}
 
 	void CameraComponent::SetProjectionMatrix(Viewport viewport) {
-		ProjectionMatrix = glm::perspective<float>(
-			glm::radians(FOV),
+		m_ProjectionMatrix = glm::perspective<float>(
+			glm::radians(m_FOV),
 			(float)viewport.Width / viewport.Height,
 			0.1f,
 			100.0f
@@ -79,7 +79,7 @@ namespace core {
 	}
 
 	utils::Name CameraComponent::GetName() const {
-		return CameraName;
+		return m_Name;
 	}
 
 }

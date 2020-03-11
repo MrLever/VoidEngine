@@ -9,13 +9,13 @@
 
 namespace core {
 	Shader::Shader(ShaderType type, const std::string& filePath) 
-		: Resource(filePath), Type(type), ShaderHandle(-1) {
+		: Resource(filePath), m_Type(type), m_ShaderHandle(-1) {
 		Load();
 	}
 
 	Shader::~Shader() {
 		//When the shader is no longer needed, instruct OpenGL to discard it
-		glDeleteShader(ShaderHandle);
+		glDeleteShader(m_ShaderHandle);
 	}
 
 	bool Shader::Load() {
@@ -35,30 +35,30 @@ namespace core {
 
 		ifs.close();
 
-		ShaderSource = sourceBuffer;
+		m_ShaderSource = sourceBuffer;
 		return true;
 	}
 	
 	bool Shader::LoadErrorResource() {
-		ShaderSource = "";
+		m_ShaderSource = "";
 		return false;
 	}
 
 	void Shader::Initialize() {
 		//Attempt to compile shader
-		const char* shaderCode = ShaderSource.c_str();
-		ShaderHandle = glCreateShader(static_cast<GLuint>(Type));
-		glShaderSource(ShaderHandle, 1, &shaderCode, NULL);
-		glCompileShader(ShaderHandle);
+		const char* shaderCode = m_ShaderSource.c_str();
+		m_ShaderHandle = glCreateShader(static_cast<GLuint>(m_Type));
+		glShaderSource(m_ShaderHandle, 1, &shaderCode, NULL);
+		glCompileShader(m_ShaderHandle);
 
 		//Verify shader compilation
 		int success;
 		char infoBuffer[1024];
-		glGetShaderiv(ShaderHandle, GL_COMPILE_STATUS, &success);
+		glGetShaderiv(m_ShaderHandle, GL_COMPILE_STATUS, &success);
 
 		if (!success) {
 			ResourceValid = false;
-			glGetShaderInfoLog(ShaderHandle, 1024, NULL, infoBuffer);
+			glGetShaderInfoLog(m_ShaderHandle, 1024, NULL, infoBuffer);
 			std::stringstream errorStream;
 			errorStream << "SHADER COMPILATION ERROR:\n";
 			errorStream << "\tShader Location: " << ResourcePath << "\n";

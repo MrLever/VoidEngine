@@ -31,10 +31,10 @@ namespace SuperVoid {
 		auto deltaHeight = deltaSeconds * Velocity;
 		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
 
-		Position.Y += deltaHeight;
-		Rotation = Rotation * deltaRotation;
+		m_Position.Y += deltaHeight;
+		m_Rotation = m_Rotation * deltaRotation;
 
-		if (Position.Y > 2 || Position.Y < -2) {
+		if (m_Position.Y > 2 || m_Position.Y < -2) {
 			Velocity *= -1;
 		}
 	}

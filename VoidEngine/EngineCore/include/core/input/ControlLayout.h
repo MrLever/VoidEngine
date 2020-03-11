@@ -71,20 +71,20 @@ namespace core {
 		void LoadActionMappings();
 		void LoadAxisMappings();
 
-		std::unordered_map<utils::Name, std::shared_ptr<InputAxis>> InputAxes;
+		std::unordered_map<utils::Name, std::shared_ptr<InputAxis>> m_InputAxes;
 
 		/** Bindings for buttons to Actions */
-		std::unordered_map<KeyboardButton, utils::Name> KeyboardActionBindings;
-		std::unordered_map<MouseButton, utils::Name> MouseActionBindings;
-		std::unordered_map<GamepadButton, utils::Name> GamepadActionBindings;
+		std::unordered_map<KeyboardButton, utils::Name> m_KeyboardActionBindings;
+		std::unordered_map<MouseButton, utils::Name> m_MouseActionBindings;
+		std::unordered_map<GamepadButton, utils::Name> m_GamepadActionBindings;
 
 		/** Bindings for buttons to Axes */
-		std::unordered_map<KeyboardButton, std::pair<utils::Name, float>> KeyboardAxisBindings;
-		std::unordered_map<MouseButton, std::pair<utils::Name, float>> MouseAxisBindings;
-		std::unordered_map<GamepadButton, std::pair<utils::Name, float>> GamepadAxisBindings;
+		std::unordered_map<KeyboardButton, std::pair<utils::Name, float>> m_KeyboardAxisBindings;
+		std::unordered_map<MouseButton, std::pair<utils::Name, float>> m_MouseAxisBindings;
+		std::unordered_map<GamepadButton, std::pair<utils::Name, float>> m_GamepadAxisBindings;
 
 		/** Bindings for analog axes to AxisActions */
-		std::unordered_map<RawAxisType, std::pair<utils::Name, float>> AnalogAxisBindings;
+		std::unordered_map<RawAxisType, std::pair<utils::Name, float>> m_AnalogAxisBindings;
 	};
 
 

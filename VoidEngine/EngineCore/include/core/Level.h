@@ -54,7 +54,7 @@ namespace core {
 
 	private:
 		/** The level's name */
-		utils::Name LevelName;
+		utils::Name m_Name;
 
 	};
 

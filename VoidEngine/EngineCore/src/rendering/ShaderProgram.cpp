@@ -9,24 +9,24 @@
 namespace core {
 
 	ShaderProgram::ShaderProgram(const std::string& name, Shader* vertex, Shader* fragment) 
-		: ProgramName(std::move(name)), ProgramHandle(-1) {
+		: m_ProgramName(name), m_ProgramHandle(-1) {
 
 		vertex->Initialize();
 		fragment->Initialize();
 
 		if (vertex->IsValid() && fragment->IsValid()) {
 
-			ProgramHandle = glCreateProgram();
-			glAttachShader(ProgramHandle, vertex->ShaderHandle);
-			glAttachShader(ProgramHandle, fragment->ShaderHandle);
-			glLinkProgram(ProgramHandle);
+			m_ProgramHandle = glCreateProgram();
+			glAttachShader(m_ProgramHandle, vertex->m_ShaderHandle);
+			glAttachShader(m_ProgramHandle, fragment->m_ShaderHandle);
+			glLinkProgram(m_ProgramHandle);
 
 			int success;
 			char infoBuffer[1024];
-			glGetProgramiv(ProgramHandle, GL_LINK_STATUS, &success);
+			glGetProgramiv(m_ProgramHandle, GL_LINK_STATUS, &success);
 
 			if (!success) {
-				glGetShaderInfoLog(ProgramHandle, 1024, NULL, infoBuffer);
+				glGetShaderInfoLog(m_ProgramHandle, 1024, NULL, infoBuffer);
 				
 				std::stringstream errorMessage;
 
@@ -35,13 +35,13 @@ namespace core {
 				errorMessage << "\tFragment Shader: " << fragment->ResourcePath << "\n";
 
 				utils::Logger::LogError(errorMessage.str());
-				ProgramValid = false;
+				m_ProgramValid = false;
 			}
 
-			ProgramValid = true;
+			m_ProgramValid = true;
 		}
 		else {
-			ProgramValid = false;
+			m_ProgramValid = false;
 		}
 
 		delete vertex;
@@ -53,15 +53,15 @@ namespace core {
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, float value) {
-		glProgramUniform1f(ProgramHandle, GetUniformLocation(uniformName), value);
+		glProgramUniform1f(m_ProgramHandle, GetUniformLocation(uniformName), value);
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, unsigned int value) {
-		glProgramUniform1ui(ProgramHandle, GetUniformLocation(uniformName), value);
+		glProgramUniform1ui(m_ProgramHandle, GetUniformLocation(uniformName), value);
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, int value) {
-		glProgramUniform1i(ProgramHandle, GetUniformLocation(uniformName), value);
+		glProgramUniform1i(m_ProgramHandle, GetUniformLocation(uniformName), value);
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, bool value) {
@@ -69,17 +69,17 @@ namespace core {
 	}
 
 	void ShaderProgram::Use() {
-		if (!ProgramValid) {
+		if (!m_ProgramValid) {
 			utils::Logger::LogError("Attempted to use invalid shader program!");
 			return;
 		}
 
-		glUseProgram(ProgramHandle);
+		glUseProgram(m_ProgramHandle);
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, const glm::mat4& value) {
 		glProgramUniformMatrix4fv(
-			ProgramHandle, 
+			m_ProgramHandle, 
 			GetUniformLocation(uniformName), 
 			1, 
 			GL_FALSE, 
@@ -87,26 +87,32 @@ namespace core {
 		);
 	}
 
+	void ShaderProgram::SetUniform(const std::string& uniformName, const math::Vector3& value) {
+		float vec[3] = { value.X, value.Y, value.Z };
+
+		glProgramUniform3fv(
+			m_ProgramHandle,
+			GetUniformLocation(uniformName),
+			1,
+			vec
+		);
+	}
+
 	void ShaderProgram::SetUniform(const std::string& uniformName, const math::Vector4& value) {
 		//Reduce to C array
-		float vec[4];
-		vec[0] = value.X;
-		vec[1] = value.Y;
-		vec[2] = value.Z;
-		vec[3] = value.W;
+		float vec[4] = { value.X, value.Y, value.Z, value.W };
 
 		//Send to OpenGL
 		glProgramUniform4fv(
-			ProgramHandle, 
+			m_ProgramHandle, 
 			GetUniformLocation(uniformName), 
 			1, 
 			vec
 		);
-
 	}
 
 	GLint ShaderProgram::GetUniformLocation(const std::string& uniformName){
-		return glGetUniformLocation(ProgramHandle, uniformName.c_str());
+		return glGetUniformLocation(m_ProgramHandle, uniformName.c_str());
 	}
 
 }

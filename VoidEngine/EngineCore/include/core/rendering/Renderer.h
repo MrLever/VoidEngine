@@ -15,6 +15,7 @@
 
 #include "core/rendering/Viewport.h"
 #include "core/rendering/RenderDevice.h"
+#include "core/rendering/LightingEnvironment.h"
 #include "core/rendering/components/CameraComponent.h"
 #include "core/rendering/components/GraphicsComponent.h"
 
@@ -42,9 +43,12 @@ namespace core {
 		static void HandleWindowResize(Viewport newViewport);
 
 		/**
-		 * Collects enviornment data (lights, camera, etc) from scene used to affect all draw calls until EndFrame()
+		 * Collects enviornment data (lights, camera, etc) from scene used to 
+		 * affect all draw calls until EndFrame()
+		 * @param activeCamera The camera to be used in rendering the frame
+		 * @param lighting The totality of the scene's lighting enviornment
 		 */
-		static void BeginFrame(CameraComponent* activeCamera);
+		static void BeginFrame(CameraComponent* activeCamera, const LightingEnvironment* lighting);
 
 		/**
 		 * Resets enviornment data for rendering
@@ -69,8 +73,26 @@ namespace core {
 		static RenderDevice::API GetRendererAPI();
 
 	private:
-		/** Camera being used to modify incomming draw calls */
+		/**
+		 * Loads data from the LightingEnviornment into the shader
+		 * @param shader The shader to load data into
+		 */
+		static void ApplyDirectionalLightData(std::shared_ptr<core::ShaderProgram>& shader);
+
+		/**
+		 * Loads data from the LightingEnviornment into the shader
+		 * @param shader The shader to load data into
+		 */
+		static void ApplyPointLightData(std::shared_ptr<core::ShaderProgram>& shader);
+
+		static const int MAX_DIR_LIGHTS = 8;
+		static const int MAX_PT_LIGHTS = 32;
+
+		/** Read-only pointer to Camera being used to modify incomming draw calls */
 		static CameraComponent* s_ActiveCamera;
+
+		/** Read-only pointer to light scene being used to modify incomming draw calls */
+		static const LightingEnvironment* s_LightingEnvironment;
 		
 		/** Viewport used to define renderable area */
 		static Viewport s_ActiveViewport;

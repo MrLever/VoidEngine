@@ -6,12 +6,15 @@
 //Library Headers
 
 //Void Engine Headers
+#include "math/Vector.h"
+
 #include "core/Level.h"
 #include "core/event_system/EventBusNode.h"
 #include "core/event_system/events/WindowResizedEvent.h"
 #include "core/input/InputManager.h"
 #include "core/input/ControlLayout.h"
 #include "core/rendering/Renderer.h"
+#include "core/rendering/LightingEnvironment.h"
 #include "core/rendering/components/CameraComponent.h"
 #include "core/physics/PhysicsEngine.h"
 
@@ -45,7 +48,7 @@ namespace core {
 		void BeginPlay();
 		void ProcessInput(float deltaTime);
 		void Update(float deltaTime);
-		void Draw() const;
+		void Draw();
 
 		/**
 		 * Allows Entity to be spawned during playtime
@@ -64,6 +67,11 @@ namespace core {
 		std::string GetControlFilePath() const;
 
 	private:
+		/**
+		 * Scans scenes for light components and adds them to m_LightingEnviornment
+		 */
+		void GatherLights();
+
 		std::string m_ControlFilePath;
 
 		/** Maps Camera name to Camera to allow runtime lookup and switching */
@@ -84,6 +92,8 @@ namespace core {
 		/** The PhysicsEngine used to update the scene */
 		std::shared_ptr<PhysicsEngine> m_PhysicsEngine;
 
+		/** Used to maintain scene lighting data and pass to renderer */
+		LightingEnvironment m_LightingEnvironment;
 	};
 
 }

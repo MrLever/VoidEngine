@@ -15,25 +15,25 @@ namespace core {
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : ID("Entity"), World(nullptr) {
+	Entity::Entity() : ID("Entity"), m_World(nullptr) {
 	
 	}
 
 	Entity::~Entity() {
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			delete componentEntry.second;
 		}
-		Components.clear();
+		m_Components.clear();
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Input(input, deltaTime);
 		}
 	}
@@ -43,12 +43,12 @@ namespace core {
 			ID = utils::Name(ConfigData["name"]);
 
 			auto locationData = ConfigData["location"];
-			Position.X = locationData[0].get<float>();
-			Position.Y = locationData[1].get<float>();
-			Position.Z = locationData[2].get<float>();
+			m_Position.X = locationData[0].get<float>();
+			m_Position.Y = locationData[1].get<float>();
+			m_Position.Z = locationData[2].get<float>();
 		
 			auto rotationData = ConfigData["rotation"];
-			Rotation = math::Quaternion(
+			m_Rotation = math::Quaternion(
 				math::Rotator(
 					rotationData[0].get<float>(),
 					rotationData[1].get<float>(),
@@ -57,7 +57,7 @@ namespace core {
 			);
 		}
 		
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Initialize();
 		}
 	}
@@ -67,7 +67,7 @@ namespace core {
 	}
 
 	void Entity::Tick(float deltaTime) {
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Tick(deltaTime);
 		}
 	}
@@ -77,28 +77,28 @@ namespace core {
 	}
 
 	void Entity::Draw() const {
-		for (auto& componentEntry : Components) {
+		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Draw();
 		}
 	}
 
 	math::Vector3 Entity::GetPostion() {
-		return Position;
+		return m_Position;
 	}
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
-		Position = newPosition;
-		for (auto& componentEntry : Components) {
-			componentEntry.second->SetPosition(Position);
+		m_Position = newPosition;
+		for (auto& componentEntry : m_Components) {
+			componentEntry.second->SetPosition(m_Position);
 		}
 	}
 
 	math::Rotator Entity::GetRotation() {
-		return Rotation.ToEuler();
+		return m_Rotation.ToEuler();
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		Rotation = math::Quaternion(newRotation);
+		m_Rotation = math::Quaternion(newRotation);
 	}
 
 	std::string Entity::GetName() {
@@ -117,15 +117,15 @@ namespace core {
 		component->SetParent(this);
 		
 		auto name = component->GetTypename();
-		Components[name] = component;
+		m_Components[name] = component;
 	}
 
 	Scene* Entity::GetWorld() const {
-		return World;
+		return m_World;
 	}
 
 	void Entity::SetScene(Scene* world) {
-		World = world;
+		m_World = world;
 	}
 
 	void Entity::SetParent(Entity* parent) {
