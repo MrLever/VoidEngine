@@ -61,12 +61,12 @@ vec4 CalcDirectionalLight(DirectionalLight light){
 
     float diffuseIntensity = max(dot(normal, lightDir), 0.0);
 
-    float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 128);
+    float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 32);
 
     vec4 diffuse = 
         light.color * diffuseIntensity * GetBaseColor();
 
-    vec4 specular = vec4(1,1,1,1) * specularIntensity;
+    vec4 specular = vec4(1,1,1,1) * specularIntensity * 0.5;
 
     return diffuse + specular;
 }
@@ -78,14 +78,12 @@ vec4 CalcPointLight(PointLight light){
     vec3 halfwayDir = normalize(lightDir + viewDir);
 
     float diffuseIntensity = max(dot(lightDir, normal), 0.0);
-    float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 128);
+    float specularIntensity = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
 
-    vec4 diffuse = 
-        light.color * diffuseIntensity * GetBaseColor();
+    vec4 diffuseComponent = light.color * diffuseIntensity * GetBaseColor();
+    vec4 specularComponent = vec4(0.3, 0.3, 0.3, 1) * specularIntensity;
 
-    vec4 specular = vec4(1,1,1,1) * specularIntensity;
-
-    return diffuse + specular;
+    return diffuseComponent + specularComponent;
 }
 
 void main(){

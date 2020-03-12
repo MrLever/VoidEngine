@@ -52,6 +52,15 @@ namespace core {
 		
 	}
 
+	void ShaderProgram::Use() {
+		if (!m_ProgramValid) {
+			utils::Logger::LogError("Attempted to use invalid shader program!");
+			return;
+		}
+
+		glUseProgram(m_ProgramHandle);
+	}
+
 	void ShaderProgram::SetUniform(const std::string& uniformName, float value) {
 		glProgramUniform1f(m_ProgramHandle, GetUniformLocation(uniformName), value);
 	}
@@ -68,13 +77,14 @@ namespace core {
 		SetUniform(uniformName, (int)value);
 	}
 
-	void ShaderProgram::Use() {
-		if (!m_ProgramValid) {
-			utils::Logger::LogError("Attempted to use invalid shader program!");
-			return;
-		}
-
-		glUseProgram(m_ProgramHandle);
+	void ShaderProgram::SetUniform(const std::string& uniformName, const glm::mat3& value) {
+		glProgramUniformMatrix3fv(
+			m_ProgramHandle,
+			GetUniformLocation(uniformName),
+			1,
+			GL_FALSE,
+			glm::value_ptr(value)
+		);
 	}
 
 	void ShaderProgram::SetUniform(const std::string& uniformName, const glm::mat4& value) {

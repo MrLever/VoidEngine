@@ -163,7 +163,7 @@ namespace core {
 		math::Vector3 velocityA = (bodyA == nullptr) ? math::Vector3() : bodyA->GetVelocity();
 		math::Vector3 velocityB = (bodyB == nullptr) ? math::Vector3() : bodyB->GetVelocity();
 		auto relativeVelocity = velocityB - velocityA;
-		auto relVelocityAlongNormal = relativeVelocity.Dot(collision->m_CollisionNormal);
+		auto relVelocityAlongNormal = relativeVelocity.Dot(collision->CollisionNormal);
 
 		if (relVelocityAlongNormal > 0) {
 			//If the relative velocity is positive, the objects are separating
@@ -179,7 +179,7 @@ namespace core {
 		impulse /= (invMassA + invMassB);
 
 		//Apply impulses, but not to static objects
-		auto impulseVector = impulse * collision->m_CollisionNormal;
+		auto impulseVector = impulse * collision->CollisionNormal;
 		if (bodyA != nullptr && !bodyA->GetIsStatic()) {
 			bodyA->AddVelocity(-(invMassA * impulseVector));
 		}
@@ -209,7 +209,7 @@ namespace core {
 
 		float correctionConstant = collision->PenetrationDistance / (invMassA + invMassB);
 		correctionConstant *= CORRECTION_FACTOR;
-		math::Vector3 correctionVector = correctionConstant * collision->m_CollisionNormal;
+		math::Vector3 correctionVector = correctionConstant * collision->CollisionNormal;
 
 		if (bodyA && !bodyA->GetIsStatic()) {
 			//Scale positional correction by mass of object
@@ -250,12 +250,12 @@ namespace core {
 		if (translationVector.Magnitude2() < COLLISION_EPSILON) {
 			//Special case for overlapping spheres
 			collision->PenetrationDistance = sphere1->GetRadius();
-			collision->m_CollisionNormal = math::Vector3(0, 1, 0);
+			collision->CollisionNormal = math::Vector3(0, 1, 0);
 		}
 		else {
 			//Normal manifold generation
 			collision->PenetrationDistance = collisionDistance - distance;
-			collision->m_CollisionNormal = translationVector.Normalize();
+			collision->CollisionNormal = translationVector.Normalize();
 		}
 
 		return collision;
@@ -313,7 +313,7 @@ namespace core {
 			if (translationVector.X < 0) {
 				xAxis *= -1;
 			}
-			manifold->m_CollisionNormal = xAxis;
+			manifold->CollisionNormal = xAxis;
 		}
 		else if (yOverlap <= zOverlap && zOverlap <= xOverlap) {
 			//Allow for equal in this case to default to resolving collisions upward
@@ -322,7 +322,7 @@ namespace core {
 			if (translationVector.Y < 0) {
 				yAxis *= -1;
 			}
-			manifold->m_CollisionNormal = yAxis;
+			manifold->CollisionNormal = yAxis;
 		}
 		else if (zOverlap < xOverlap && xOverlap <= yOverlap) {
 			manifold->PenetrationDistance = zOverlap;
@@ -330,7 +330,7 @@ namespace core {
 			if (translationVector.Z < 0) {
 				zAxis *= -1;
 			}
-			manifold->m_CollisionNormal = zAxis;
+			manifold->CollisionNormal = zAxis;
 		}
 
 		return manifold;
@@ -364,7 +364,7 @@ namespace core {
 		Manifold* collision = new Manifold();
 		collision->EntityA = left->GetParent();
 		collision->EntityB = right->GetParent();
-		collision->m_CollisionNormal = translationVectorPrime.Normalize();
+		collision->CollisionNormal = translationVectorPrime.Normalize();
 		collision->PenetrationDistance = sphere->GetRadius() - (translationVectorPrime.Magnitude());
 
 		return collision;

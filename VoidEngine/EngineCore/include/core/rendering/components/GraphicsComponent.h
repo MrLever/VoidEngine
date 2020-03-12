@@ -49,12 +49,6 @@ namespace core {
 		 */
 		void Initialize() override;
 
-		/**
-		 * Sets this component's 3D model
-		 * @param verts The vertices of the 3D model
-		 */
-		void SetModel(std::shared_ptr<Model> model);
-
 		/** 
 		 * Assigns this component's 3D model a shader
 		 * @param name The name of the material

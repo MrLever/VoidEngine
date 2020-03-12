@@ -47,7 +47,7 @@ namespace core {
 	}
 
 	void Renderer::EndFrame() {
-		//s_ActiveCamera = nullptr;
+		s_ActiveCamera = nullptr;
 		s_LightingEnvironment = nullptr;
 	}
 	
@@ -59,9 +59,10 @@ namespace core {
 		) {
 		
 		shader->Use();
+		shader->SetUniform("model", model);
 		shader->SetUniform("view", s_ActiveCamera->GetViewMatrix());
 		shader->SetUniform("projection", s_ActiveCamera->GetProjectionMatrix());
-		shader->SetUniform("model", model);
+		shader->SetUniform("normalMatrix", glm::mat3(glm::transpose(glm::inverse(model))));
 		shader->SetUniform("lightData.ambientStrength", s_LightingEnvironment->AmbientLightIntensity);
 		shader->SetUniform("lightData.ambientColor", s_LightingEnvironment->AmbientLightColor);
 		shader->SetUniform("viewPosition", s_ActiveCamera->GetPosition());
@@ -70,6 +71,7 @@ namespace core {
 		ApplyPointLightData(shader);
 
 		vao->Bind();
+
 		if (drawMode == DrawMode::TRIANGLE) {
 			RenderCommand::DrawIndexed(vao);
 		}
