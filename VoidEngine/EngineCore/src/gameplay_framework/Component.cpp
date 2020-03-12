@@ -14,6 +14,7 @@ namespace core {
 	}
 
 	Component::~Component() {
+
 	}
 
 	Entity* Component::GetParent() {

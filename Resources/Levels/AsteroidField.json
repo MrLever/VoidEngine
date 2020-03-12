@@ -46,14 +46,14 @@
                 {
                     "type":"PointLightComponent",
                     "color":[0.25, 0.8, 0.1, 1.0],
-                    "intensity":1.0
+                    "intensity":0.35
                 }
             ]
         },
         {
             "name":"TestPlane2",
             "type":"Entity",
-            "location": [0, -10, 5],
+            "location": [0, -10, 10],
             "rotation": [0, 0, 0],
             "scale":[10, 10, 10],
             "components":
