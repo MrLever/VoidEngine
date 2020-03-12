@@ -9,19 +9,15 @@ namespace core {
 
 	TYPE_INFO_IMPL(Component)
 
-	Component::Component() {
-		Parent = nullptr;
+	Component::Component() : m_Parent(nullptr), m_Transform(nullptr) {
+
 	}
 
 	Component::~Component() {
 	}
 
-	void Component::SetParent(Entity* parent) {
-		Parent = parent;
-	}
-
 	Entity* Component::GetParent() {
-		return Parent;
+		return m_Parent;
 	}
 
 	void Component::Input(const InputAction& input, float deltaTime) {
@@ -32,6 +28,18 @@ namespace core {
 		;
 	}
 
+	float Component::GetDistance(Component* other) const {
+		return m_Parent->GetDistance(other->GetParent());
+	}
+
+	float Component::GetDistanceSquared(Component* other) const {
+		return m_Parent->GetDistanceSquared(other->GetParent());
+	}
+
+	math::Vector3 Component::GetPosition() const {
+		return m_Parent->GetPostion();
+	}
+
 	void Component::Tick(float deltaTime) {
 		;
 	}
@@ -40,23 +48,4 @@ namespace core {
 		;
 	}
 
-	void Component::SetPosition(const math::Vector3& position) {
-		Position = position;
-	}
-
-	math::Vector3 Component::GetPosition() const {
-		return Position;
-	}
-
-	float Component::GetDistance(Component* other) const {
-		return (Position - other->Position).Magnitude();
-	}
-
-	float Component::GetDistanceSquared(Component* other) const {
-		return (Position - other->Position).Magnitude2();
-	}
-
-	void Component::SetRotation(const math::Rotator& rotation) {
-		Rotation = rotation;
-	}
 }

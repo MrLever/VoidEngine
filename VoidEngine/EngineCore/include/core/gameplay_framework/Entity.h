@@ -9,13 +9,10 @@
 #include "utils/factory/Factory.h"
 #include "utils/factory/FactoryConstructible.h"
 
-#include "math/Vector.h"
-#include "math/Rotator.h"
-#include "math/Quaternion.h"
-
 #include "core/input/InputAction.h"
 #include "core/input/AxisInputAction.h"
 #include "core/gameplay_framework/EntityData.h"
+#include "core/gameplay_framework/Transform.h"
 
 namespace core {
 	//Forward class declarations
@@ -84,21 +81,43 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
+		 * Gets distance between this entity and another
+		 */
+		float GetDistance(const Entity* const other) const;
+
+		/**
+		 * Gets distance between this entity and another
+		 */
+		float GetDistanceSquared(const Entity* const other) const;
+
+		/**
 		 * Accessors for entity position
 		 */
-		math::Vector3 GetPostion();
+		math::Vector3 GetPostion() const;
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
 		 * Accessors for entity rotation
 		 */
-		math::Rotator GetRotation();
+		math::Rotator GetRotation() const;
 		void SetRotation(const math::Rotator& newRotation);
+
+		/**
+		 * Accessors for entity scale
+		 */
+		math::Vector3 GetScale() const;
+		void SetScale(const math::Vector3& newScale);
+
+		/**
+		 * Accessors for Transform
+		 */
+		Transform GetTransform() const;
+		void SetTransform(const Transform& other);
 
 		/**
 		 * Acessors for entity name
 		 */
-		std::string GetName();
+		std::string GetName() const;
 		void SetName(const std::string& name);
 		void SetName(const utils::Name& name);
 
@@ -129,25 +148,20 @@ namespace core {
 
 	protected:
 		/** Entity's name */
-		utils::Name ID;
+		utils::Name m_Name;
 
 		/** All of the components for this entity */
 		std::unordered_map<utils::Name, Component*> m_Components;
 
-		/** The entity's position in 3D space */
-		math::Vector3 m_Position;
-
-		/** The entity's rotation in 3D space */
-		math::Quaternion m_Rotation;
-
-		/** The entity's scale in 3D space */
-		math::Vector3 m_Scale;
-
-		/** The level the entity inhabits */
-		Scene* m_World;
+		/** The entity's transform in 3D space */
+		Transform m_Transform;
 
 		/** Optional pointer to the entity's owner */
-		Entity* Parent;
+		Entity* m_Parent;
+		
+	private:
+		/** The level the entity inhabits */
+		Scene* m_World;
 	};
 
 	template<class T>

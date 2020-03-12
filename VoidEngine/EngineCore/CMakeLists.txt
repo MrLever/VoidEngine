@@ -90,6 +90,7 @@ set(engine_core_gameplay_framework_core_headers
     "${engine_core_header_dir}/gameplay_framework/Component.h"
     "${engine_core_header_dir}/gameplay_framework/Entity.h"
     "${engine_core_header_dir}/gameplay_framework/EntityData.h"
+    "${engine_core_header_dir}/gameplay_framework/Transform.h"
 )
 source_group(
     "Header Files\\Gameplay Framework" 

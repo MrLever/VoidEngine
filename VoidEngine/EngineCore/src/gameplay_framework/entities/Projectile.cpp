@@ -23,7 +23,7 @@ namespace core {
 	
 	void Projectile::Initialize() {
 
-		m_Position = Parent->GetPostion() + (5 * Parent->GetRotation().ToVector());
+		m_Transform.Position = m_Parent->GetPostion() + (5 * m_Parent->GetRotation().ToVector());
 
 		AddComponent(new PhysicsComponent());
 
@@ -64,7 +64,7 @@ namespace core {
 		static const float VELOCITY = 50.0f;
 		auto physics = GetComponent<PhysicsComponent>();
 
-		physics->AddVelocity(VELOCITY * Parent->GetRotation().ToVector());
+		physics->AddVelocity(VELOCITY * m_Parent->GetRotation().ToVector());
 	}
 
 }

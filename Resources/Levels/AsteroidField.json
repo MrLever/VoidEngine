@@ -6,7 +6,7 @@
     {
         "useAmbientLight":true,
         "ambientLightColor": [1,1,1,1],
-        "ambientLightIntensity": 1
+        "ambientLightIntensity": 0.25
     },
     "entities":
     [
@@ -32,9 +32,51 @@
             ]
         },
         {
-            "name":"TestPlane",
+            "name":"Light",
             "type":"Entity",
-            "location": [0, 0, 0],
+            "location": [0, 5, 10],
+            "rotation": [0, 0, 0],
+            "scale": [0.25, 0.25, 0.25],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Resources/Models/Primitives/Cube/Cube.obj"
+                },
+                {
+                    "type":"PointLightComponent",
+                    "color":[0.25, 0.8, 0.1, 1.0],
+                    "intensity":1.0
+                }
+            ]
+        },
+        {
+            "name":"TestPlane2",
+            "type":"Entity",
+            "location": [0, -10, 5],
+            "rotation": [0, 0, 0],
+            "scale":[10, 10, 10],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Resources/Models/Primitives/Plane/Plane.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"AABBCollider",
+                        "min":[-1,-1,-1],
+                        "max":[1,1,1]
+                    }
+                }
+            ]
+        },
+        {
+            "name":"TestPlane1",
+            "type":"Entity",
+            "location": [0, 0, -1],
             "rotation": [90, 0, 0],
             "scale":[10, 10, 10],
             "components":
@@ -50,6 +92,28 @@
                         "type":"AABBCollider",
                         "min":[-1,-1,-1],
                         "max":[1,1,1]
+                    }
+                }
+            ]
+        },
+        {
+            "name":"Asteroid",
+            "type":"Entity",
+            "location": [5, 0, 0],
+            "rotation": [0, 0, 0],
+            "scale":[1, 1, 1],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Resources/Models/Primitives/Sphere/Sphere.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
                     }
                 }
             ]

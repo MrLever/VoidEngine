@@ -32,12 +32,6 @@ namespace core {
 		void Initialize() override;
 
 		/**
-		 * Allows the ColliderComponent to track the parent's position
-		 * @param deltaSeconds the time elapsed since the previous tick
-		 */
-		void Tick(float deltaTime) override;
-
-		/**
 		 * Draws collider volume
 		 */
 		void Draw() override;

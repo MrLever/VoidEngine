@@ -31,7 +31,7 @@ namespace core {
 	}
 
 	void Observer::BeginPlay() {
-		utils::Logger::LogInfo(ID.StringID + " began play");
+		utils::Logger::LogInfo(m_Name.StringID + " began play");
 	}
 
 	void Observer::Tick(float deltaSeconds) {
@@ -73,26 +73,35 @@ namespace core {
 	}
 	
 	void Observer::MoveForward(float axisValue, float deltaTime) {
-		auto forward = m_Rotation.ToVector();
+		auto forward = m_Transform.Rotation.ToVector();
 		auto moveSpeed = MovementSpeed * deltaTime;
-		m_Position += forward * axisValue * moveSpeed;
+		m_Transform.Position += forward * axisValue * moveSpeed;
 	}
 
 	void Observer::MoveRight(float axisValue, float deltaTime) {
-		auto forward = m_Rotation.ToVector();
+		auto forward = m_Transform.Rotation.ToVector();
 		auto right = forward.Cross(math::Vector3(0, 1, 0)).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
 
-		m_Position += right * axisValue * moveSpeed;
+		m_Transform.Position += right * axisValue * moveSpeed;
 	}
 
 	void Observer::LookUp(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, 0, axisValue);
-		m_Rotation = m_Rotation * math::Quaternion(deltaRotation);
+		
+		//Clamp look radius to avoid quaternion flipping over
+		if (axisValue > 89) {
+			axisValue = 89;
+		}
+		else if (axisValue < -89) {
+			axisValue = -89;
+		}
+
+		m_Transform.Rotation = m_Transform.Rotation * math::Quaternion(deltaRotation);
 	}
 
 	void Observer::LookRight(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, -axisValue, 0);
-		m_Rotation = m_Rotation * math::Quaternion(deltaRotation);
+		m_Transform.Rotation = m_Transform.Rotation * math::Quaternion(deltaRotation);
 	}
 }

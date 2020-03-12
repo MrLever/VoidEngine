@@ -26,13 +26,10 @@ namespace core {
 	}
 
 	void GraphicsComponent::Initialize() {
-		if (!Parent) {
+		if (!m_Parent) {
 			return;
 		}
 		
-		Position = Parent->GetPostion();
-		Rotation = Parent->GetRotation();
-
 		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
 
 		m_Model = modelCache->GetResource(ConfigData["model"].get<std::string>());
@@ -69,17 +66,19 @@ namespace core {
 	}
 
 	void GraphicsComponent::Draw() {
-		Position = Parent->GetPostion();
-		Rotation = math::Quaternion(Parent->GetRotation());
-
 		m_TransformMatrix = glm::mat4(1.0f);
-		m_TransformMatrix = glm::translate(m_TransformMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
-		
-		auto rotation = Rotation.ToEuler();
+
+		//Translate
+		m_TransformMatrix = glm::translate(
+			m_TransformMatrix, 
+			glm::vec3(m_Transform->Position.X, m_Transform->Position.Y, m_Transform->Position.Z)
+		);
+
+		//Rotate
+		auto rotation = m_Transform->Rotation.ToEuler();
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(1.0f, 0.0f, 0.0f)
 		);
-
 
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
@@ -88,8 +87,13 @@ namespace core {
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(0.0f, 0.0f, 1.0f)
 		);
-		
 
+		//Scale
+		m_TransformMatrix = glm::scale(
+			m_TransformMatrix, 
+			glm::vec3(m_Transform->Scale.X, m_Transform->Scale.Y, m_Transform->Scale.Z)
+		);
+		
 		if (m_Model) {
 			m_Model->Draw(m_Shader, m_TransformMatrix);
 		}
