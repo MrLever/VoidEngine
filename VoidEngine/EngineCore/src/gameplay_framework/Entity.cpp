@@ -131,10 +131,6 @@ namespace core {
 		return m_Transform;
 	}
 
-	void Entity::SetTransform(const Transform& other) {
-		m_Transform = other;
-	}
-
 	std::string Entity::GetName() const {
 		return m_Name.StringID;
 	}
