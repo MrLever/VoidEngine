@@ -127,7 +127,7 @@ namespace core {
 		m_Transform.Scale = newScale;
 	}
 
-	Transform Entity::GetTransform() const {
+	Transform& Entity::GetTransform() {
 		return m_Transform;
 	}
 

@@ -10,28 +10,102 @@
 
 namespace core {
 	struct Transform {
-		/** The entity's position in 3D space */
-		math::Vector3 Position;
+	private:
+		/** Transform world position data */
+		math::Vector3 _localPosition;
 
-		/** The entity's rotation in 3D space */
-		math::Quaternion Rotation;
+		/** Transform rotation data */
+		math::Quaternion _localRotation;
 
-		/** The entity's scale in 3D space */
-		math::Vector3 Scale;
+		/** Transform scale data */
+		math::Vector3 _localScale;
+
+	public:
+		/** 
+		 * World Position property accessors
+		 */
+		math::Vector3 Position() const { 
+			auto parentPos = (Parent == nullptr) ? math::Vector3() : Parent->Position();
+			return parentPos + _localPosition;
+		}
+		void Position(const math::Vector3& value) { 
+			//UPDATE HIERARCHY
+		}
 
 		/**
-		 * Constructor
+		 * Local Position property accessors
 		 */
-		Transform() : Position(0,0,0), Rotation(), Scale(1,1,1) {
+		math::Vector3 LocalPosition() const { return _localPosition; }
+		void LocalPosition(const math::Vector3& value) {
+			//UPDATE HIERARCHY
+		}
 		
+		/** 
+		 * World rotation property accessors 
+		 */
+		math::Quaternion Rotation() { 
+			auto parentRotation = (Parent == nullptr) ? math::Quaternion() : Parent->Rotation();
+			return parentRotation * _localRotation;
+		};
+		void Rotation(const math::Quaternion& value) { 
+			//UPDATE HIERARCHY 
+		}
+
+		/** 
+		 * Local rotation property accessors 
+		 */
+		math::Quaternion LocalRotation() { return _localRotation; };
+		void LocalRotation(const math::Quaternion& value) { 
+			//UPDATE HIERARCHY 
+		}
+
+
+		/** 
+		 * Local scale property accessors 
+		 */
+		math::Vector3 Scale() { return _localScale; };
+		void Scale(const math::Vector3& value) {
+			//UPDATE HIERARCHY
 		}
 
 		/**
 		 * Constructor
 		 */
-		inline Transform(math::Vector3 pos, math::Quaternion rot, math::Vector3 scale) 
-			: Position(pos), Rotation(rot), Scale(scale) {
-			
+		Transform() 
+			: _localPosition(0,0,0), 
+			  _localRotation(),
+			  _localScale(1,1,1),
+			  Parent(nullptr) {
+
 		}
+
+		/**
+		 * Constructor
+		 */
+		Transform(math::Vector3 pos, math::Quaternion rot, math::Vector3 scale) 
+			: _localPosition(pos),
+			  _localRotation(),
+			  _localScale(scale),
+			  Parent(nullptr) {
+		}
+
+		/**
+		 * Constructor
+		 */
+		Transform(const Transform* parent, math::Vector3 pos, math::Quaternion rot, math::Vector3 scale)
+			: _localPosition(pos),
+			_localRotation(),
+			_localScale(scale),
+			Parent(parent) {
+
+		}
+
+		/**
+		 * Copy Constructor
+		 */
+		Transform(Transform&) = delete;
+
+	private:
+		const Transform* Parent;
 	};
 }

@@ -111,8 +111,7 @@ namespace core {
 		/**
 		 * Accessors for Transform
 		 */
-		Transform GetTransform() const;
-		void SetTransform(const Transform& other);
+		Transform& GetTransform();
 
 		/**
 		 * Acessors for entity name

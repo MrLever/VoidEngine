@@ -54,6 +54,7 @@ source_group("Header Files\\utils\\Threading" FILES ${engine_utils_threading_hea
 
 set(engine_utils_loose_headers
     "${engine_utils_header_dir}/EngineUtilities.h"
+    "${engine_utils_header_dir}/Property.h"
     "${engine_utils_header_dir}/Logger.h"
     "${engine_utils_header_dir}/Name.h"
     "${engine_utils_header_dir}/Table.h"
