@@ -83,7 +83,9 @@ vec4 CalcPointLight(PointLight light){
     vec4 diffuseComponent = light.color * diffuseIntensity * GetBaseColor();
     vec4 specularComponent = vec4(0.3, 0.3, 0.3, 1) * specularIntensity;
 
-    return diffuseComponent + specularComponent;
+    float fragDistance = length(light.position - fragmentPosition);
+
+    return (diffuseComponent + specularComponent) / (1 + (fragDistance));
 }
 
 void main(){

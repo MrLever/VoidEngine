@@ -45,8 +45,8 @@
                 },
                 {
                     "type":"PointLightComponent",
-                    "color":[0.25, 0.8, 0.1, 1.0],
-                    "intensity":0.35
+                    "color":[1.0, 0.945, 0.878, 1.0],
+                    "intensity":150
                 }
             ]
         },
@@ -103,7 +103,7 @@
         {
             "name":"Cube2",
             "type":"Entity",
-            "location": [0, 5, 2],
+            "location": [0, 5, 3],
             "rotation": [0, 0, 0],
             "scale": [3, 2, 2],
             "components":
