@@ -22,8 +22,8 @@ namespace core {
 	}
 	
 	void Projectile::Initialize() {
-
-		m_Transform.Position = m_Parent->GetPostion() + (5 * m_Parent->GetRotation().ToVector());
+		auto position = m_Parent->GetPostion() + (5 * m_Parent->GetRotation().ToVector());
+		m_Transform.SetPosition(position);
 
 		AddComponent(new PhysicsComponent());
 

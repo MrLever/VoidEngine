@@ -9,56 +9,131 @@
 #include "math/Quaternion.h"
 
 namespace core {
-	struct Transform {
-
+	class Transform {
 	public:
-		/** Transform world position data */
-		math::Vector3 Position;
-
-		/** Transform rotation data */
-		math::Quaternion Rotation;
-
-		/** Transform scale data */
-		math::Vector3 Scale;
 
 		/**
 		 * Constructor
 		 */
-		Transform() 
-			: Position(0,0,0), 
-			  Rotation(),
-			  Scale(1,1,1),
-			  Parent(nullptr) {
-
-		}
+		Transform();
 
 		/**
 		 * Constructor
+		 * @param pos The local position of the transform relative to parent
+		 * @param rot The local rotation of the transform relative to the parent
+		 * @param scale The local scale of the transform relative to the parent
+		 * @param parent The parent of the transform being constructed
 		 */
-		Transform(math::Vector3 pos, math::Quaternion rot, math::Vector3 scale) 
-			: Position(pos),
-			  Rotation(),
-			  Scale(scale),
-			  Parent(nullptr) {
-		}
+		Transform(
+			const math::Vector3& pos,
+			const math::Quaternion& rot,
+			const math::Vector3& scale,
+			Transform* parent = nullptr
+		);
 
 		/**
 		 * Constructor
+		 * @param pos The local position of the transform relative to parent
+		 * @param parent The parent of the transform being constructed
 		 */
-		Transform(Transform* parent, math::Vector3 pos, math::Quaternion rot, math::Vector3 scale)
-			: Position(pos),
-			  Rotation(),
-			  Scale(scale),
-			  Parent(parent) {
+		Transform(const math::Vector3& pos, Transform* parent = nullptr);
 
-		}
+		/**
+		 * Constructor
+		 * @param rot The local rotation of the transform relative to parent
+		 * @param parent The parent of the transform being constructed
+		 */
+		Transform(const math::Quaternion& pos, Transform* parent = nullptr);
+
+		/**
+		 * Constructor
+		 * @param rot The local rotation of the transform relative to parent
+		 * @param parent The parent of the transform being constructed
+		 */
+		Transform(const math::Rotator& rot, Transform* parent = nullptr);
 
 		/**
 		 * Copy Constructor
 		 */
 		Transform(Transform&) = delete;
 
+		/**
+		 * Local position getter
+		 * @return The object's position relative to it's parent
+		 */
+		math::Vector3 GetLocalPosition() const;
+
+		/**
+		 * Local position setter
+		 * @param value The new position of the object in local space
+		 */
+		void SetLocalPosition(const math::Vector3& value);
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		math::Vector3 GetPosition() const;
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		void SetPosition(const math::Vector3& value);
+
+		/**
+		 * Local position getter
+		 * @return The object's position relative to it's parent
+		 */
+		math::Quaternion GetLocalRotation() const;
+
+		/**
+		 * Local position setter
+		 * @param value The new position of the object in local space
+		 */
+		void SetLocalRotation(const math::Quaternion& value);
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		math::Quaternion GetRotation() const;
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		void SetRotation(const math::Quaternion& value);
+
+		/**
+		 * Local position getter
+		 * @return The object's position relative to it's parent
+		 */
+		math::Vector3 GetLocalScale() const;
+
+		/**
+		 * Local position setter
+		 * @param value The new position of the object in local space
+		 */
+		void SetLocalScale(const math::Vector3& value);
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		math::Vector3 GetScale() const;
+
+		/**
+		 * World position getter
+		 * @return The object's position in world space
+		 */
+		void SetScale(const math::Vector3& value);
+
 	private:
-		Transform* Parent;
+		Transform* m_Parent;
+
+		math::Vector3 m_LocalPosition;
+		math::Quaternion m_LocalRotation;
+		math::Vector3 m_LocalScale;
 	};
 }

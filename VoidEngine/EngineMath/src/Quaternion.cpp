@@ -101,11 +101,11 @@ namespace math {
 		return ((W*W) + (X*X) + (Y*Y) + (Z*Z) - 1) < std::numeric_limits<float>::epsilon();
 	}
 
-	Quaternion operator/(const Quaternion& quat, float val) {
+	Quaternion operator/ (const Quaternion& quat, float val) {
 		return Quaternion(quat.W / val, quat.X / val, quat.Y / val, quat.Z / val);
 	}
 
-	Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs) {
+	Quaternion operator* (const Quaternion& lhs, const Quaternion& rhs) {
 		return 
 			Quaternion(
 				lhs.W * rhs.W - lhs.X * rhs.X - lhs.Y * rhs.Y - lhs.Z * rhs.Z,
@@ -114,4 +114,5 @@ namespace math {
 				lhs.W * rhs.Z + lhs.X * rhs.Y - lhs.Y * rhs.X + lhs.Z * rhs.W
 			);
 	}
+
 }

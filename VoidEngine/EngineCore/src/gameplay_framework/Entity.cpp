@@ -43,30 +43,30 @@ namespace core {
 			m_Name = utils::Name(ConfigData["name"]);
 
 			auto locationData = ConfigData["location"];
-			m_Transform.Position = math::Vector3(
+			m_Transform.SetPosition(math::Vector3(
 				locationData[0].get<float>(),
 				locationData[1].get<float>(),
 				locationData[2].get<float>()
-			);
+			));
 		
 			auto rotationData = ConfigData["rotation"];
 			if (!rotationData.is_null()) {
-				m_Transform.Rotation = math::Quaternion(
+				m_Transform.SetRotation(math::Quaternion(
 					math::Rotator(
 						rotationData[0].get<float>(),
 						rotationData[1].get<float>(),
 						rotationData[2].get<float>()
 					)
-				);
+				));
 			}
 
 			auto scaleData = ConfigData["scale"];
 			if (!scaleData.is_null()) {
-				m_Transform.Scale = math::Vector3(
+				m_Transform.SetScale(math::Vector3(
 					scaleData[0].get<float>(),
 					scaleData[1].get<float>(),
 					scaleData[2].get<float>()
-				);
+				));
 			}
 		}
 		
@@ -96,35 +96,35 @@ namespace core {
 	}
 
 	float Entity::GetDistance(const Entity* const other) const {
-		return (m_Transform.Position - other->GetPostion()).Magnitude();
+		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude();
 	}
 
 	float Entity::GetDistanceSquared(const Entity* const other) const {
-		return (m_Transform.Position - other->GetPostion()).Magnitude2();
+		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude2();
 	}
 
 	math::Vector3 Entity::GetPostion() const {
-		return m_Transform.Position;
+		return m_Transform.GetPosition();
 	}
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
-		m_Transform.Position = newPosition;
+		m_Transform.SetPosition(newPosition);
 	}
 
 	math::Rotator Entity::GetRotation() const {
-		return m_Transform.Rotation.ToEuler();
+		return m_Transform.GetRotation().ToEuler();
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		m_Transform.Rotation = math::Quaternion(newRotation);
+		m_Transform.SetRotation(math::Quaternion(newRotation));
 	}
 
 	math::Vector3 Entity::GetScale() const {
-		return m_Transform.Scale;
+		return m_Transform.GetScale();
 	}
 
 	void Entity::SetScale(const math::Vector3& newScale) {
-		m_Transform.Scale = newScale;
+		m_Transform.SetScale(newScale);
 	}
 
 	Transform& Entity::GetTransform() {

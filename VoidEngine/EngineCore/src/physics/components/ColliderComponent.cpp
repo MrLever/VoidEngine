@@ -48,9 +48,10 @@ namespace core {
 
 	void ColliderComponent::Draw() {
 		auto transformMatrix = glm::mat4(1.0f);
+		auto position = m_Transform->GetPosition();
 		transformMatrix = glm::translate(
 			transformMatrix, 
-			glm::vec3(m_Transform->Position.X - 1, m_Transform->Position.Y, m_Transform->Position.Z)
+			glm::vec3(position.X - 1, position.Y, position.Z)
 		);
 
 		//Shape->Draw(m_ColliderShader, transformMatrix);

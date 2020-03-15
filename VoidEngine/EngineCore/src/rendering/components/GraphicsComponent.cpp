@@ -65,13 +65,14 @@ namespace core {
 		m_TransformMatrix = glm::mat4(1.0f);
 
 		//Translate
+		auto position = m_Transform->GetPosition();
 		m_TransformMatrix = glm::translate(
 			m_TransformMatrix, 
-			glm::vec3(m_Transform->Position.X, m_Transform->Position.Y, m_Transform->Position.Z)
+			glm::vec3(position.X, position.Y, position.Z)
 		);
 
 		//Rotate
-		auto rotation = m_Transform->Rotation.ToEuler();
+		auto rotation = m_Transform->GetRotation().ToEuler();
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(1.0f, 0.0f, 0.0f)
 		);
@@ -85,9 +86,10 @@ namespace core {
 		);
 
 		//Scale
+		auto scale = m_Transform->GetScale();
 		m_TransformMatrix = glm::scale(
 			m_TransformMatrix, 
-			glm::vec3(m_Transform->Scale.X, m_Transform->Scale.Y, m_Transform->Scale.Z)
+			glm::vec3(scale.X, scale.Y, scale.Z)
 		);
 		
 		if (m_Model) {

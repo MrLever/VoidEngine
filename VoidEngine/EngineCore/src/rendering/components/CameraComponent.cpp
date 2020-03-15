@@ -22,7 +22,7 @@ namespace core {
 	}
 
 	void CameraComponent::Initialize() {
-		m_LookDirection = m_Transform->Rotation.ToVector();
+		m_LookDirection = m_Transform->GetRotation().ToVector();
 
 		if (ConfigData.find("name") != ConfigData.end()) {
 			m_Name = ConfigData["name"];
@@ -30,13 +30,14 @@ namespace core {
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
-		m_LookDirection = m_Transform->Rotation.ToVector();
+		m_LookDirection = m_Transform->GetRotation().ToVector();
 
-		auto target = m_Transform->Position + m_LookDirection;
+		auto target = m_Transform->GetPosition() + m_LookDirection;
 		
 		//Set view matrix for this frame
+		auto position = m_Transform->GetPosition();
 		m_ViewMatrix = glm::lookAt(
-			glm::vec3(m_Transform->Position.X, m_Transform->Position.Y, m_Transform->Position.Z),
+			glm::vec3(position.X, position.Y, position.Z),
 			glm::vec3(target.X, target.Y, target.Z),
 			glm::vec3(m_UpDirection.X, m_UpDirection.Y, m_UpDirection.Z)
 	    );

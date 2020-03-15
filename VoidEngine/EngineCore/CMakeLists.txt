@@ -323,6 +323,7 @@ set(engine_core_gameplay_framework_core_source
     "${engine_core_source_dir}/gameplay_framework/Component.cpp"
     "${engine_core_source_dir}/gameplay_framework/Entity.cpp"
     "${engine_core_source_dir}/gameplay_framework/EntityData.cpp"
+    "${engine_core_source_dir}/gameplay_framework/Transform.cpp"
 )
 source_group(
     "Source Files\\Gameplay Framework" 
