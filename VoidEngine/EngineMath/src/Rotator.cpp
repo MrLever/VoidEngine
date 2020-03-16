@@ -33,13 +33,10 @@ namespace math {
 	}
 
 	bool Rotator::Equals(const Rotator& other, float epsilon) const {
-		auto lhs = Normalize(*this);
-		auto rhs = Normalize(other);
+		auto lhs = Quaternion(Normalize(*this));
+		auto rhs = Quaternion(Normalize(other));
 
-		return
-			((std::abs(lhs.Yaw - rhs.Yaw)) < epsilon) &&
-			((std::abs(lhs.Pitch - rhs.Pitch)) < epsilon) &&
-			((std::abs(lhs.Roll - rhs.Roll)) < epsilon);
+		return std::abs(lhs.Dot(rhs) - 1) <= epsilon;
 	}
 
 	Rotator Rotator::operator+(const Rotator& other) {

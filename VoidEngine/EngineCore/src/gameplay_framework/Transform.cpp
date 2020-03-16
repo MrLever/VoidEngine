@@ -57,7 +57,7 @@ namespace core {
 	math::Vector3 Transform::GetPosition() const {
 		return (m_Parent == nullptr) ?
 			m_LocalPosition :
-			m_Parent->GetPosition() + m_LocalPosition;
+			m_Parent->GetPosition() + m_Parent->GetRotation().Rotate(m_LocalPosition); //Apply parent rotation to local position to get acurate world position
 	}
 
 	void Transform::SetPosition(const math::Vector3& value) {

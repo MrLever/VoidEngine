@@ -33,7 +33,7 @@ namespace math {
 		 * Constructor
 		 * Direct initialization
 		 */
-		Quaternion(float w, float x = 0.0f, float y = 0.0f, float z = 0.0f);
+		Quaternion(float w, float x, float y, float z);
 
 		/**
 		 * Converts Quaternion to euler angles
