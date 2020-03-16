@@ -11,9 +11,9 @@ using namespace core;
 namespace EngineCoreTests {
 
 	TEST(TestTransforms, PositionTest) {
-		Transform parent({5,5,5});
-		Transform t1({ 1,0,0 }, &parent);
-		Transform t2({ -1,0,0 }, &parent);
+		Transform parent(math::Vector3(5,5,5));
+		Transform t1(math::Vector3(1,0,0), &parent);
+		Transform t2(math::Vector3(-1,0,0), &parent);
 
 		//Test SetLocalPosition on leaf node
 		t1.SetLocalPosition(t1.GetLocalPosition() + math::Vector3(1, 0, 0));
@@ -32,7 +32,9 @@ namespace EngineCoreTests {
 
 	TEST(TestTransforms, RotationTest) {
 		Transform parent(math::Rotator(0,0,0));
-		Transform t1({ 1,0,0 }, &parent);
-		Transform t2({ -1,0,0 }, &parent);
+		Transform t1(math::Rotator(90, 0, 0), &parent);
+		Transform t2(math::Rotator(450, 0, 0), &parent);
+
+		ASSERT_TRUE(t1.GetRotation() == t2.GetRotation());
 	}
 }

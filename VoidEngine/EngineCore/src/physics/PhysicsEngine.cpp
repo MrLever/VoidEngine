@@ -247,7 +247,7 @@ namespace core {
 		//Get direction vector between colliders
 		math::Vector3 translationVector = right->GetPosition() - left->GetPosition();
 
-		if (translationVector.Magnitude2() < COLLISION_EPSILON) {
+		if (translationVector.MagnitudeSqr() < COLLISION_EPSILON) {
 			//Special case for overlapping spheres
 			collision->PenetrationDistance = sphere1->GetRadius();
 			collision->CollisionNormal = math::Vector3(0, 1, 0);
@@ -357,7 +357,7 @@ namespace core {
 		math::Vector3 POI(poiX, poiY, poiZ);
 
 		auto translationVectorPrime = POI - left->GetPosition();
-		if (translationVectorPrime.Magnitude2() > sphere->GetRadius() * sphere->GetRadius()) {
+		if (translationVectorPrime.MagnitudeSqr() > sphere->GetRadius() * sphere->GetRadius()) {
 			return nullptr;
 		}
 

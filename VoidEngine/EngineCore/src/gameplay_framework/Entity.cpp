@@ -100,7 +100,7 @@ namespace core {
 	}
 
 	float Entity::GetDistanceSquared(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude2();
+		return (m_Transform.GetPosition() - other->GetPostion()).MagnitudeSqr();
 	}
 
 	math::Vector3 Entity::GetPostion() const {

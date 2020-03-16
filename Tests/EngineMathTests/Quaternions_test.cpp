@@ -16,9 +16,11 @@ namespace math_tests {
 	TEST(QuaternionTests, EulerConversion){
 		Rotator expected(0, -90, 0);
 		Quaternion quat(expected);
+		ASSERT_TRUE(quat == math::Quaternion(.7071068f, 0, -.7071068f, 0));
+
 		auto result = quat.ToEuler();
 
-		ASSERT_EQ(expected, result);
+		ASSERT_TRUE(expected.Equals(result, 0.02f));
 	}
 
 	TEST(QuaternionTests, VectorRotation){
@@ -64,7 +66,7 @@ namespace math_tests {
 		Quaternion q2(Rotator(0, 10, 0));
 	
 		auto result = (q1 * q2).ToEuler();
-		ASSERT_EQ(Rotator(0, -35, 0), result);
+		ASSERT_TRUE(Rotator(0, -35, 0) == result);
 	}
 
 }

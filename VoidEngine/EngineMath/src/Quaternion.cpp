@@ -15,25 +15,21 @@ namespace math {
 	}
 		
 	Quaternion::Quaternion(const Rotator& euler) {
-		/**
-		 * Adapted from:
-		 * https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-		 */
-		float yawHalf = ToRadians(euler.Pitch * 0.5f);
-		float pitchHalf = ToRadians(euler.Yaw * 0.5f);
-		float rollHalf = ToRadians(euler.Roll * 0.5f);
+		float alphaHalf = ToRadians(euler.Roll) / 2;
+		float betaHalf = ToRadians(euler.Pitch) / 2;
+		float gammaHalf = ToRadians(euler.Yaw) / 2;
+		
+		W = std::cosf(alphaHalf) * std::cosf(betaHalf) * std::cosf(gammaHalf) +
+			std::sinf(alphaHalf) * std::sinf(betaHalf) * std::sinf(gammaHalf);
 
-		float cy = std::cosf(yawHalf);
-		float sy = std::sinf(yawHalf);
-		float cp = std::cosf(pitchHalf);
-		float sp = std::sinf(pitchHalf);
-		float cr = std::cosf(rollHalf);
-		float sr = std::sinf(rollHalf);
+		X = std::sinf(alphaHalf) * std::cosf(betaHalf) * std::cosf(gammaHalf) -
+			std::cosf(alphaHalf) * std::sinf(betaHalf) * std::sinf(gammaHalf);
 
-		W = cy * cp * cr + sy * sp * sr;
-		X = cy * cp * sr - sy * sp * cr;
-		Y = sy * cp * sr + cy * sp * cr;
-		Z = sy * cp * cr - cy * sp * sr;
+		Y = std::cosf(alphaHalf) * std::sinf(betaHalf) * std::cosf(gammaHalf) +
+			std::sinf(alphaHalf) * std::cosf(betaHalf) * std::sinf(gammaHalf);
+
+		Z = std::cosf(alphaHalf) * std::cosf(betaHalf) * std::sinf(gammaHalf) -
+			std::sinf(alphaHalf) * std::sinf(betaHalf) * std::cosf(gammaHalf);
 	}
 
 	Quaternion::Quaternion(float w, float x, float y, float z) 
@@ -55,13 +51,13 @@ namespace math {
 			)
 		);
 
-		euler.Yaw = ToDegrees(
+		euler.Pitch = ToDegrees(
 			std::asinf(
 				2.0f * ((W * Y) - (X * Z))
 			)
 		);
-
-		euler.Pitch = ToDegrees(
+			
+		euler.Yaw = ToDegrees(
 			std::atan2f(
 				2.0f * ((W * Z) + (X * Y)),
 				1.0f - (2.0f * ((Y * Y) + (Z * Z)))
@@ -75,8 +71,18 @@ namespace math {
 		return Rotate(Vector3(1, 0, 0));
 	}
 
-	Quaternion Quaternion::Normalize() const {
-		return *this / Magnitude();
+	Quaternion& Quaternion::Normalize() {
+		auto mag = Magnitude();
+		W /= mag;
+		X /= mag;
+		Y /= mag;
+		Z /= mag;
+
+		return *this;
+	}
+
+	Quaternion Quaternion::Normalize(const Quaternion& quat) {
+		return Quaternion(quat).Normalize();
 	}
 
 	float Quaternion::Magnitude() const {
@@ -86,11 +92,14 @@ namespace math {
 	}
 
 	Vector3 Quaternion::Rotate(const Vector3& vec) const {
+		Quaternion q(*this);
+		q.Normalize();
+
 		// Extract the vector part of the quaternion
-		Vector3 u(X, Y, Z);
+		Vector3 u(q.X, q.Y, q.Z);
 
 		auto t = 2.0f * u.Cross(vec);
-		return vec + W * t + u.Cross(t);
+		return vec + q.W * t + u.Cross(t);
 	}
 
 	Quaternion Quaternion::operator-() const {
@@ -115,4 +124,15 @@ namespace math {
 			);
 	}
 
+	bool Quaternion::operator==(const Quaternion& other) const {
+		return this->Equals(other, DEFUALT_FLOAT_EPSILON);
+	}
+
+	bool Quaternion::Equals(const Quaternion& other, float epsilon) const {
+		return std::abs(this->Dot(other)) - 1 < epsilon;
+	}
+
+	float Quaternion::Dot(const Quaternion& other) const {
+		return (W * other.W) + (X * other.X) + (Y * other.Y) + (Z * other.Z);
+	}
 }

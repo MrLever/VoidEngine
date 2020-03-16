@@ -5,6 +5,7 @@
 //Library Headers
 
 //Math Headers
+#include "math/MathConstants.h"
 #include "math/Vector.h"
 
 namespace math {
@@ -25,7 +26,8 @@ namespace math {
 	}
 
 	bool Vector2::operator== (const Vector2& other) const {
-		return this->X == other.X && this->Y == other.Y;
+		return std::abs(X - other.X) < DEFUALT_FLOAT_EPSILON && 
+			   std::abs(Y - other.Y) < DEFUALT_FLOAT_EPSILON;
 	}
 
 	Vector2 operator+ (const Vector2& lhs, const Vector2& rhs){
@@ -128,14 +130,6 @@ namespace math {
 
 	}
 
-	Vector3::Vector3(float x) : X(x), Y(0), Z(0) {
-
-	}
-
-	Vector3::Vector3(float x, float y) : X(x), Y(y), Z(0) {
-
-	}
-
 	Vector3::Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {
 
 	}
@@ -160,39 +154,36 @@ namespace math {
 			);
 	}
 
-	float Vector3::Magnitude2() const {
+	float Vector3::MagnitudeSqr() const {
 		return (X * X) + (Y * Y) + (Z * Z);
 	}
 
-	Vector3 Vector3::Normalize() const {
+	Vector3& Vector3::Normalize() {
 		auto mag = Magnitude();
-		return Vector3(X / mag, Y / mag, Z / mag);
+		X /= mag;
+		Y /= mag; 
+		Z /= mag;
+
+		return *this;
+	}
+
+	Vector3 Vector3::Normalize(const Vector3& vec) {
+		return Vector3(vec).Normalize();
 	}
 
 	bool Vector3::operator== (const Vector3& other) const {
-		constexpr float EPSILON = std::numeric_limits<float>::epsilon() * 100;
-		return
-			std::abs(this->X - other.X) < EPSILON
-			&& std::abs(this->Y - other.Y) < EPSILON
-			&& std::abs(this->Z - other.Z) < EPSILON;
+		return this->Equals(other, DEFUALT_FLOAT_EPSILON);
+	}
+
+	bool Vector3::Equals(const Vector3& other, float epsilon) const {
+		return 
+			std::abs(this->X - other.X) < epsilon &&
+			std::abs(this->Y - other.Y) < epsilon &&
+			std::abs(this->Z - other.Z) < epsilon;
 	}
 
 	Vector4::Vector4() {
 		X = Y = Z = W = 0;
-
-	}
-
-	Vector4::Vector4(float x) : X(x) {
-		Y = Z = W = 0;
-	}
-
-	Vector4::Vector4(float x, float y) 
-		: X(x), Y(y) {
-
-		Z = W = 0;
-	}
-
-	Vector4::Vector4(float x, float y, float z) : X(x), Y(y), Z(z), W(0) {
 
 	}
 

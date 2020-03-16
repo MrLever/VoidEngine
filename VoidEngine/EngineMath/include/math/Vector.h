@@ -6,6 +6,7 @@
 //Library Headers
 
 //Math Headers
+#include "math/MathConstants.h"
 
 namespace math {
 	struct Vector2 {
@@ -78,17 +79,7 @@ namespace math {
 		/**
 		 * Constructor
 		 */
-		Vector3(float x);
-
-		/**
-		 * Constructor
-		 */
-		Vector3(float x, float y);
-		
-		/**
-		 * Constructor
-		 */
-		Vector3(float x, float y, float z);
+		Vector3(float x, float y = 0.0f, float z = 0.0f);
 
 		/**
 		 * Computes the dot product of two 3D vectors
@@ -112,18 +103,32 @@ namespace math {
 		 * Calculates the magnitude of this vector
 		 * @return The magnitude
 		 */
-		float Magnitude2() const;
+		float MagnitudeSqr() const;
 
 		/**
-		 * Non-destructive method to get this vector's unit vector
-		 * @return the Unit Vector that corresponds to this vector
+		 * In-place normilization of veector
 		 */
-		[[nodiscard]] Vector3 Normalize() const;
+		Vector3& Normalize();
+
+		/**
+		 * Non-member normilization function.
+		 * @param vec Vector to normalize
+		 * @return Unit vector corresponding to vec
+		 */
+		[[nodiscard]] static Vector3 Normalize(const Vector3& vec);
 
 		/**
 		 * Equality comparison overload
 		 */
 		bool operator== (const Vector3& other) const;
+
+		/**
+		 * Custom epsilon equality comparison
+		 * @param other the vector to compare this with
+		 * @param epsilon The maximum allowed deviation between vector components
+		 * @return Whether this is component-wise ~= other
+		 */
+		bool Equals(const Vector3& other, float epsilon = DEFUALT_FLOAT_EPSILON) const;
 
 		/**
 		 * Addition assignment overload
@@ -146,7 +151,7 @@ namespace math {
 		friend Vector3 operator- (const Vector3& lhs, const Vector3& rhs);
 
 		/**
-		 * Subtraction assignment overload
+		 * Negation operator overload
 		 */
 		Vector3 operator- ();
 
@@ -203,22 +208,7 @@ namespace math {
 		/**
 		 * Constructor
 		 */
-		Vector4(float x);
-
-		/**
-		 * Constructor
-		 */
-		Vector4(float x, float y);
-
-		/**
-		 * Constructor
-		 */
-		Vector4(float x, float y, float z);
-
-		/**
-		 * Constructor
-		 */
-		Vector4(float x, float y, float z, float w);
+		Vector4(float x, float y = 0.0f, float z = 0.0f, float w = 0.0f);
 	};
 
 	using Color = Vector4;

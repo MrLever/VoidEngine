@@ -7,55 +7,76 @@
 #include "math/Quaternion.h"
 
 namespace math {
-	Rotator::Rotator() : Yaw(0.0f), Pitch(0.0f), Roll(0.0f) {
+	Rotator::Rotator(float roll, float pitch, float yaw) 
+		: Roll(roll), Pitch(pitch), Yaw(yaw) {
 
-	}
-
-	Rotator::Rotator(float roll, float yaw, float pitch) {
-		//Bound roll -360 -> 360 (exclusive)
-		if (roll > 359) {
-			roll = (float)std::fmod(roll, 360);
-		}
-		else if (roll < -359) {
-			roll = (float)std::fmod(roll, -360);
-		}
-
-		//Bound yaw -360 -> 360 (exclusive)
-		if (yaw > 359) {
-			yaw = (float)std::fmod(yaw, 360);
-		}
-		else if (yaw < -359) {
-			yaw = (float)std::fmod(yaw, -360);
-		}
-
-		//Bound pitch -360 -> 360 (exclusive)
-		if (pitch > 359) {
-			pitch = (float)std::fmod(pitch, 360);
-		}
-		else if (pitch < -359) {
-			pitch = (float)std::fmod(pitch, -360);
-		}
-
-		Roll = roll;
-		Yaw = yaw;
-		Pitch = pitch;
 	}
 
 	Vector3 Rotator::ToVector() const {
 		return Quaternion(*this).ToVector();
 	}
 
+	Rotator& Rotator::Normalize() {
+		Roll = Clamp(Roll);
+		Pitch = Clamp(Pitch);
+		Yaw = Clamp(Yaw);
+
+		return *this;
+	}
+
+	Rotator Rotator::Normalize(const Rotator& rotator) {
+		return Rotator(rotator).Normalize();
+	}
+
 	bool Rotator::operator==(const Rotator& other) const {
-		constexpr float EPSILON = .1f;
+		return this->Equals(other);
+	}
+
+	bool Rotator::Equals(const Rotator& other, float epsilon) const {
+		auto lhs = Normalize(*this);
+		auto rhs = Normalize(other);
 
 		return
-			((std::abs(Yaw - other.Yaw)) < EPSILON) &&
-			((std::abs(Pitch - other.Pitch)) < EPSILON) &&
-			((std::abs(Roll - other.Roll)) < EPSILON);
+			((std::abs(lhs.Yaw - rhs.Yaw)) < epsilon) &&
+			((std::abs(lhs.Pitch - rhs.Pitch)) < epsilon) &&
+			((std::abs(lhs.Roll - rhs.Roll)) < epsilon);
+	}
+
+	Rotator Rotator::operator+(const Rotator& other) {
+		return Rotator(
+			Roll + other.Roll, 
+			Yaw + other.Yaw, 
+			Pitch + other.Pitch
+		);
+	}
+	
+	Rotator Rotator::operator-(const Rotator& other) {
+		return Rotator(
+			Roll - other.Roll, 
+			Yaw - other.Yaw, 
+			Pitch - other.Pitch
+		);
+	}
+
+	Rotator operator*(const Rotator& lhs, float rhs) {
+		return Rotator(
+			lhs.Roll * rhs, 
+			lhs.Yaw * rhs,
+			lhs.Pitch * rhs
+		);
+	}
+
+	Rotator operator*(float lhs, const Rotator& rhs) {
+		return rhs * lhs;
 	}
 
 	std::ostream& operator<<(std::ostream& out, const Rotator& r) {
-		out << "rotation: [" << r.Yaw << ", " << r.Pitch << ", " << r.Roll << "]";
+		out << "rotation: [" << r.Roll << ", " << r.Yaw << ", " << r.Pitch << "]";
 		return out;
+	}
+
+	float Rotator::Clamp(float value) {
+		value = (float)std::fmod(value, 360);
+		return (value >= 0) ? value : value + 360.0f;
 	}
 }
