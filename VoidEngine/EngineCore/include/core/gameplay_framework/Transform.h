@@ -26,10 +26,17 @@ namespace core {
 		 */
 		Transform(
 			const math::Vector3& pos,
-			const math::Quaternion& rot = math::Quaternion(),
-			const math::Vector3& scale = math::Vector3(1,1,1),
+			const math::Quaternion& rot,
+			const math::Vector3& scale,
 			Transform* parent = nullptr
 		);
+
+		/**
+		 * Constructor
+		 * @param pos The local position of the transform relative to parent
+		 * @param parent The parent of the transform being constructed
+		 */
+		Transform(const math::Vector3& pos, Transform* parent = nullptr);
 
 		/**
 		 * Constructor
@@ -40,10 +47,15 @@ namespace core {
 
 		/**
 		 * Constructor
-		 * @param rot The local rotation of the transform relative to parent
+		 * @param pos The local position of the transform relative to parent
+		 * @param rot The local rotation of the transform relative to the parent
 		 * @param parent The parent of the transform being constructed
 		 */
-		Transform(const math::Rotator& rot, Transform* parent = nullptr);
+		Transform(
+			const math::Vector3& pos,
+			const math::Quaternion& rot,
+			Transform* parent = nullptr
+		);
 
 		/**
 		 * Copy Constructor

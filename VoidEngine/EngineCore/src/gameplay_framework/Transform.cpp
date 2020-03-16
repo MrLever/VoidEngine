@@ -24,6 +24,13 @@ namespace core {
 
 	}
 
+	Transform::Transform(const math::Vector3& pos, Transform* parent) 
+		: m_LocalPosition(pos), 
+		  m_LocalRotation(), 
+		  m_LocalScale(1,1,1), 
+		  m_Parent(parent) {
+	}
+
 	Transform::Transform(const math::Quaternion& rot, Transform* parent) 
 		: m_LocalPosition(0,0,0),
 	      m_LocalRotation(rot), 
@@ -32,12 +39,11 @@ namespace core {
 
 	}
 
-	Transform::Transform(const math::Rotator& rot, Transform* parent)
-		: m_LocalPosition(0, 0, 0),
-		m_LocalRotation(rot),
-		m_LocalScale(1, 1, 1),
-		m_Parent(parent) {
-
+	Transform::Transform(const math::Vector3& pos, const math::Quaternion& rot, Transform* parent) 
+		: m_LocalPosition(pos),
+		  m_LocalRotation(rot),
+		  m_LocalScale(1, 1, 1),
+		  m_Parent(parent) {
 	}
 
 	math::Vector3 Transform::GetLocalPosition() const {

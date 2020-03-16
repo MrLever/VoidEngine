@@ -36,33 +36,36 @@ namespace math {
 		: W(w), X(x), Y(y), Z(z) {
 	}
 
-	Quaternion::Quaternion(const Vector3& vec) 
-		: W(0.0f), X(vec.X), Y(vec.Y), Z(vec.Z) {
-
-	}
-
 	Rotator Quaternion::ToEuler() const {
 		Rotator euler;
-
-		euler.Roll = ToDegrees(
+		
+		auto rollRadians =
 			std::atan2f(
-				2.0f * ((W*X) + (Y*Z)),
-				1.0f - (2.0f * ((X*X) + (Y*Y)))
-			)
-		);
+				2.0f * ((W * X) + (Y * Z)),
+				1.0f - (2.0f * ((X * X) + (Y * Y)))
+			);
 
-		euler.Pitch = ToDegrees(
-			std::asinf(
-				2.0f * ((W * Y) - (X * Z))
-			)
-		);
-			
-		euler.Yaw = ToDegrees(
+		//Restrict pitch to avoid gimbal lock math errors
+		auto sinPart = 2 * (W * Y - Z * X);
+		float pitchRadians;
+		if (std::abs(sinPart) >= 1) {
+			pitchRadians = std::copysign(PI / 2, sinPart);
+		}
+		else {
+			pitchRadians = std::asin(sinPart);
+		}
+
+		auto yawRadians =
 			std::atan2f(
 				2.0f * ((W * Z) + (X * Y)),
 				1.0f - (2.0f * ((Y * Y) + (Z * Z)))
-			)
-		);
+			);
+
+		euler.Roll = ToDegrees(rollRadians);
+
+		euler.Pitch = ToDegrees(pitchRadians);
+			
+		euler.Yaw = ToDegrees(yawRadians);
 		
 		return euler;
 	}
@@ -85,10 +88,18 @@ namespace math {
 		return Quaternion(quat).Normalize();
 	}
 
+	Quaternion Quaternion::Inverse() const {
+		return Quaternion(W, -X, -Y, -Z) / MagnitudeSqr();
+	}
+
 	float Quaternion::Magnitude() const {
 		return std::sqrtf(
 			(X*X) + (Y*Y) + (Z*Z) + (W*W)
 		);
+	}
+
+	float Quaternion::MagnitudeSqr() const {
+		return (X * X) + (Y * Y) + (Z * Z) + (W * W);
 	}
 
 	Vector3 Quaternion::Rotate(const Vector3& vec) const {

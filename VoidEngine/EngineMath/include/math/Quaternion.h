@@ -36,12 +36,6 @@ namespace math {
 		Quaternion(float w, float x = 0.0f, float y = 0.0f, float z = 0.0f);
 
 		/**
-		 * Constructor
-		 * Vector to rotation
-		 */
-		Quaternion(const Vector3& vec);
-
-		/**
 		 * Converts Quaternion to euler angles
 		 */
 		Rotator ToEuler() const;
@@ -65,9 +59,21 @@ namespace math {
 		[[nodiscard]] static Quaternion Normalize(const Quaternion& quat);
 
 		/**
+		 * Returns inverse of this quaternion
+		 * @return Unit quaternion that represents a rotation in the opposite direction		
+		 */
+		[[nodiscard]] Quaternion Inverse() const;
+
+		/**
 		 * Returns the Quaternion's magnitude
 		 */
 		float Magnitude() const;
+
+		/**
+		 * Returns the Quaternion's squared magnitude
+		 */
+		float MagnitudeSqr() const;
+
 
 		/**
 		 * Applies the rotation represented by this 

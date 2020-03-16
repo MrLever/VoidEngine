@@ -23,6 +23,29 @@ namespace math_tests {
 		ASSERT_TRUE(expected.Equals(result, 0.02f));
 	}
 
+	TEST(QuaternionTests, InverseTest) {
+		Rotator expected(0, -90, 0);
+		Rotator init(0, 90, 0);
+
+		Quaternion quat(init);
+		ASSERT_TRUE(quat == math::Quaternion(.7071068f, 0, -.7071068f, 0));
+
+		//Proof of identity property
+		Quaternion quatPrime = quat.Inverse();
+		auto identity = quat * quatPrime;
+		ASSERT_TRUE(identity == math::Quaternion(1, 0, 0, 0));
+
+		//Left rotation
+		auto result = quat * quatPrime;
+		auto distance = Quaternion(math::Rotator(0, 0, 0)).Dot(result);
+		ASSERT_EQ(0.0f, std::acosf(distance));
+
+		//Another left rotation
+		auto result2 = result * quatPrime;
+		distance = Quaternion(math::Rotator(0, -90, 0)).Dot(result2);
+		ASSERT_EQ(0.0f, std::acosf(distance));
+	}
+
 	TEST(QuaternionTests, VectorRotation){
 		//Test X-Y Plane Rotations
 		Vector3 test(1, 0, 0);
