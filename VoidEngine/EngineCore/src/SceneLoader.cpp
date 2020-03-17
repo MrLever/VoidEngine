@@ -33,20 +33,36 @@ namespace core {
 		auto entityList = level->GetAttribute<nlohmann::json>("entities");
 
 		for (auto& entityData : entityList) {
-			auto entityType = entityData["type"].get<std::string>();
-			auto entity = utils::FactoryBase<Entity>::Create(entityType);
-			if (entity == nullptr) {
-				utils::Logger::LogWarning("Entity type " + entityType + " was not constructed properly. Please register its factory.");
-				continue;
-			}
+			auto entity = LoadEntity(scene, entityData);
+			
+			if (entity == nullptr) continue;
 
-			entity->SetConfigData(entityData);
-			entity->SetScene(scene);
+			entity->Initialize();
+			scene->m_Entities.emplace_back(entity);
+		}
+	}
 
-			nlohmann::json componentList;
-			if (entityData.find("components") != entityData.end()) {
-				componentList = entityData["components"];
-			}
+	std::shared_ptr<Entity> SceneLoader::LoadEntity(Scene* scene, const nlohmann::json& entityData) {
+		auto entityType = entityData["type"].get<std::string>();
+		std::shared_ptr<Entity> entity(
+			utils::FactoryBase<Entity>::Create(entityType)
+		);
+
+		if (entity == nullptr) {
+			utils::Logger::LogWarning(
+				"Entity type " + 
+				entityType + 
+				" was not constructed properly. Please register its factory."
+			);
+			return entity;
+		}
+
+		entity->SetConfigData(entityData);
+		entity->SetScene(scene);
+
+		//Load components
+		if (entityData.find("components") != entityData.end()) {
+			auto componentList = entityData["components"];
 
 			for (auto componentEntry : componentList) {
 				auto componentType = componentEntry["type"].get<std::string>();
@@ -56,10 +72,21 @@ namespace core {
 					component->SetConfigData(componentEntry);
 				}
 			}
-
-			entity->Initialize();
-			scene->m_Entities.emplace_back(entity);
 		}
+
+		//Recursively load child enitites
+		if (entityData.find("children") != entityData.end()) {
+			auto childrenData = entityData["children"];
+			for (auto& childData : childrenData) {
+				auto child = LoadEntity(scene, childData);
+				
+				if (child == nullptr) continue;
+
+				entity->AddChild(child);
+			}
+		}
+
+		return entity;
 	}
 
 }

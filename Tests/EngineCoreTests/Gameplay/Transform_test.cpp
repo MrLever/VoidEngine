@@ -50,7 +50,7 @@ namespace EngineCoreTests {
 		ASSERT_EQ(math::Vector3(1, 0, 0), t3.GetLocalPosition());
 		ASSERT_EQ(math::Vector3(0, 0, -2), t3.GetPosition());
 
-		parent.SetRotation(math::Rotator(90, 0, 0));
+		parent.SetRotation(math::Rotator(90,0,0));
 		ASSERT_EQ(math::Vector3(1, 0, 0), t3.GetLocalPosition());
 		ASSERT_EQ(math::Vector3(0, 2, 0), t3.GetPosition());
 	}

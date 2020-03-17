@@ -30,6 +30,9 @@ namespace core {
 		TYPE_INFO_DECL(Entity)
 
 	public:
+		/** The entity's transform in 3D space */
+		Transform m_Transform;
+
 		/**
 		 * Constructor
 		 */
@@ -109,11 +112,6 @@ namespace core {
 		void SetScale(const math::Vector3& newScale);
 
 		/**
-		 * Accessors for Transform
-		 */
-		Transform& GetTransform();
-
-		/**
 		 * Acessors for entity name
 		 */
 		std::string GetName() const;
@@ -145,6 +143,11 @@ namespace core {
 		 */
 		void SetParent(Entity* parent);
 
+		/**
+		 * Accessor for Parent
+		 */
+		void AddChild(std::shared_ptr<Entity> child);
+
 	protected:
 		/** Entity's name */
 		utils::Name m_Name;
@@ -152,12 +155,12 @@ namespace core {
 		/** All of the components for this entity */
 		std::unordered_map<utils::Name, Component*> m_Components;
 
-		/** The entity's transform in 3D space */
-		Transform m_Transform;
-
 		/** Optional pointer to the entity's owner */
 		Entity* m_Parent;
 		
+		/** List of entity's children */
+		std::vector<std::shared_ptr<Entity>> m_Children;
+
 	private:
 		/** The level the entity inhabits */
 		Scene* m_World;

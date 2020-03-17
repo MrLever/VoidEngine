@@ -41,9 +41,12 @@ namespace core {
 	void Entity::Initialize() {
 		if (!ConfigData.is_null()) {
 			m_Name = utils::Name(ConfigData["name"]);
+			if (m_Parent) {
+				m_Transform.SetParent(&m_Parent->m_Transform);
+			}
 
 			auto locationData = ConfigData["location"];
-			m_Transform.SetPosition(math::Vector3(
+			m_Transform.SetLocalPosition(math::Vector3(
 				locationData[0].get<float>(),
 				locationData[1].get<float>(),
 				locationData[2].get<float>()
@@ -51,7 +54,7 @@ namespace core {
 		
 			auto rotationData = ConfigData["rotation"];
 			if (!rotationData.is_null()) {
-				m_Transform.SetRotation(math::Quaternion(
+				m_Transform.SetLocalRotation(math::Quaternion(
 					math::Rotator(
 						rotationData[0].get<float>(),
 						rotationData[1].get<float>(),
@@ -62,7 +65,7 @@ namespace core {
 
 			auto scaleData = ConfigData["scale"];
 			if (!scaleData.is_null()) {
-				m_Transform.SetScale(math::Vector3(
+				m_Transform.SetLocalScale(math::Vector3(
 					scaleData[0].get<float>(),
 					scaleData[1].get<float>(),
 					scaleData[2].get<float>()
@@ -73,15 +76,25 @@ namespace core {
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Initialize();
 		}
+
+		for (auto& child : m_Children) {
+			child->Initialize();
+		}
 	}
 
 	void Entity::BeginPlay() {
-		;
+		for (auto& child : m_Children) {
+			child->BeginPlay();
+		}
 	}
 
 	void Entity::Tick(float deltaTime) {
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Tick(deltaTime);
+		}
+
+		for (auto& child : m_Children) {
+			child->Tick(deltaTime);
 		}
 	}
 
@@ -92,6 +105,10 @@ namespace core {
 	void Entity::Draw() const {
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Draw();
+		}
+
+		for (auto& child : m_Children) {
+			child->Draw();
 		}
 	}
 
@@ -127,10 +144,6 @@ namespace core {
 		m_Transform.SetScale(newScale);
 	}
 
-	Transform& Entity::GetTransform() {
-		return m_Transform;
-	}
-
 	std::string Entity::GetName() const {
 		return m_Name.StringID;
 	}
@@ -162,6 +175,11 @@ namespace core {
 
 	void Entity::SetParent(Entity* parent) {
 		m_Parent = parent;
+	}
+
+	void Entity::AddChild(std::shared_ptr<Entity> child) {
+		child->SetParent(this);
+		m_Children.emplace_back(std::move(child));
 	}
 
 }

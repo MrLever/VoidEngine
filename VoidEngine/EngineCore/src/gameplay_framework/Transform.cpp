@@ -95,14 +95,19 @@ namespace core {
 	}
 
 	math::Vector3 Transform::GetScale() const {
-		return (m_Parent == nullptr) ?
-			m_LocalScale :
-			m_Parent->GetScale() + m_LocalScale;
+		return m_LocalScale;
 	}
 
 	void Transform::SetScale(const math::Vector3& value) {
 		m_LocalScale = (m_Parent == nullptr) ?
 			value :
 			value - m_Parent->GetScale();
+	}
+	
+	void Transform::SetParent(Transform* parent) {
+		//Preserve world position during parent transfer
+		auto currentWorld = GetPosition();
+		m_Parent = parent;
+		SetPosition(currentWorld);
 	}
 }

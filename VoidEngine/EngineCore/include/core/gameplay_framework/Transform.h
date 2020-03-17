@@ -63,6 +63,11 @@ namespace core {
 		Transform(Transform&) = delete;
 
 		/**
+		 * Copy Constructor
+		 */
+		Transform& operator= (const Transform&) = delete;
+
+		/**
 		 * Local position getter
 		 * @return The object's position relative to it's parent
 		 */
@@ -133,6 +138,11 @@ namespace core {
 		 * @return The object's position in world space
 		 */
 		void SetScale(const math::Vector3& value);
+
+		/**
+		 * Set's the transforms parent
+		 */
+		void SetParent(Transform* parent);
 
 	private:
 		Transform* m_Parent;

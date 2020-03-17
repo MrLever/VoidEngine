@@ -37,7 +37,7 @@ namespace core {
 		Gravity = gravity;
 	}
 	
-	void PhysicsEngine::Simulate(std::vector<Entity*>& entities, float deltaTime) {
+	void PhysicsEngine::Simulate(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime) {
 		//Physics simulations update 60 times per second
 		static float accumulator = 0.0f;
 		static const float PHYSICS_DT = 0.016f; 

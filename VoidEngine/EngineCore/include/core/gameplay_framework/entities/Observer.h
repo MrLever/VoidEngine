@@ -52,7 +52,6 @@ namespace core {
 		 */
 		virtual void SetupInputComponent(InputComponent* component) override;
 
-
 	private:
 		/** 
 		 * Allows the pawn to float forward 
