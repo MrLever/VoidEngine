@@ -12,6 +12,12 @@ namespace math {
 	struct Rotator;
 
 	struct Quaternion {
+		/** The four parameters needed to define a quaternion */
+		float W;
+		float X;
+		float Y;
+		float Z;
+
 		/**
 		 * Constructor
 		 */
@@ -30,12 +36,6 @@ namespace math {
 		Quaternion(float w, float x, float y, float z);
 
 		/**
-		 * Constructor
-		 * Vector to rotation
-		 */
-		Quaternion(const Vector3& vec);
-
-		/**
 		 * Converts Quaternion to euler angles
 		 */
 		Rotator ToEuler() const;
@@ -46,9 +46,23 @@ namespace math {
 		Vector3 ToVector() const;
 
 		/**
-		 * Returns the corresponding unit Quaternion
+		 * Destructively normalize quaternion
+		 * @return reference to this quaternion
 		 */
-		Quaternion Normalize() const;
+		Quaternion& Normalize();
+
+		/**
+		 * Non-destructively normalizes supplied quaternion
+		 * @param quat The quaternion to normalize
+		 * @return Unit quaternion corresponding to quat
+		 */
+		[[nodiscard]] static Quaternion Normalize(const Quaternion& quat);
+
+		/**
+		 * Returns inverse of this quaternion
+		 * @return Unit quaternion that represents a rotation in the opposite direction		
+		 */
+		[[nodiscard]] Quaternion Inverse() const;
 
 		/**
 		 * Returns the Quaternion's magnitude
@@ -56,8 +70,15 @@ namespace math {
 		float Magnitude() const;
 
 		/**
+		 * Returns the Quaternion's squared magnitude
+		 */
+		float MagnitudeSqr() const;
+
+
+		/**
 		 * Applies the rotation represented by this 
 		 * Quaternion to the supplied vector
+		 * @Note: Operation will used normalized quaternion to apply rotation 
 		 */
 		Vector3 Rotate(const Vector3& vec) const;
 		
@@ -77,15 +98,27 @@ namespace math {
 		friend Quaternion operator* (const Quaternion& lhs, const Quaternion& rhs);
 
 		/**
+		 * Equality comparision operator
+		 */
+		bool operator== (const Quaternion& other) const;
+
+		/**
+		 * Custom epsilon equality comparison
+		 * @param epsilon The margin of error for equality
+		 */
+		bool Equals(const Quaternion& other, float epsilon = DEFUALT_FLOAT_EPSILON) const;
+
+		/**
+		 * Computes the dot product of two Quaternions
+		 * @return the dot product 
+		 *         (which is the shortest angle between the axes of rotation of the quaternions)
+		 */
+		float Dot(const Quaternion& other) const;
+
+		/**
 		 * Allows user to query if a quaternion is valid
 		 */
 		bool IsValid();
-	
-		/** The four parameters needed to define a quaternion */
-		float W;
-		float X;
-		float Y;
-		float Z;
 	};
 }
 

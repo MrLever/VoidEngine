@@ -13,8 +13,8 @@ namespace math_tests {
 
 	TEST(RotatorTests, Equivalence) {
 		Rotator r1(0, 0, 0);
-		Rotator r2(.5f, .5f, .5f);
-		Rotator r3(.5f, .5f, .5f);
+		Rotator r2(90, 0, 0);
+		Rotator r3(450, 0, 0);
 		ASSERT_NE(r1, r2);
 		ASSERT_EQ(r2, r3);
 	}
@@ -28,4 +28,16 @@ namespace math_tests {
 		
 		ASSERT_EQ(f1, f2);
 	}
+
+	TEST(RotatorTests, Normalize) {
+		Rotator r1(0, 340, 0);
+		Rotator r2(0, 700, 0);
+		Rotator r3(0, -20, 0);
+		r2.Normalize();
+		r3.Normalize();
+
+		ASSERT_EQ(r1, r2);
+		ASSERT_EQ(r1, r3);
+	}
+
 };

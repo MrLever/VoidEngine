@@ -24,8 +24,6 @@ namespace core {
 	}
 
 	void ColliderComponent::Initialize() {
-		Position = Parent->GetPostion();
-
 		if (ConfigData.find("collisionLayer") != ConfigData.end()) {
 			m_CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
 		}
@@ -48,25 +46,12 @@ namespace core {
 
 	}
 
-	void ColliderComponent::Tick(float deltaTime) {
-		Position = Parent->GetPostion();
-	}
-
 	void ColliderComponent::Draw() {
 		auto transformMatrix = glm::mat4(1.0f);
-		transformMatrix = glm::translate(transformMatrix, glm::vec3(Position.X - 1, Position.Y, Position.Z));
-
-		auto rotation = Rotation.ToEuler();
-		transformMatrix = glm::rotate(
-			transformMatrix, glm::radians(rotation.Yaw), glm::vec3(1.0f, 0.0f, 0.0f)
-		);
-
-		transformMatrix = glm::rotate(
-			transformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
-		);
-
-		transformMatrix = glm::rotate(
-			transformMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
+		auto position = m_Transform->GetPosition();
+		transformMatrix = glm::translate(
+			transformMatrix, 
+			glm::vec3(position.X - 1, position.Y, position.Z)
 		);
 
 		//Shape->Draw(m_ColliderShader, transformMatrix);

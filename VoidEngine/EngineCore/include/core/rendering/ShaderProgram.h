@@ -71,6 +71,13 @@ namespace core {
 		 * @param uniformName The name of the uniform to modify
 		 * @param value The value to place in that uniform
 		 */
+		void SetUniform(const std::string& uniformName, const glm::mat3& value);
+
+		/**
+		 * Function to allow caller to set uniform values
+		 * @param uniformName The name of the uniform to modify
+		 * @param value The value to place in that uniform
+		 */
 		void SetUniform(const std::string& uniformName, const glm::mat4& value);
 
 		/**

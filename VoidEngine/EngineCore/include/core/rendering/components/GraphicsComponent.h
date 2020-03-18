@@ -44,13 +44,10 @@ namespace core {
 		 */
 		~GraphicsComponent();
 
-		void Initialize() override;
-
 		/**
-		 * Sets this component's 3D model
-		 * @param verts The vertices of the 3D model
+		 * Loads configuration data
 		 */
-		void SetModel(std::shared_ptr<Model> model);
+		void Initialize() override;
 
 		/** 
 		 * Assigns this component's 3D model a shader

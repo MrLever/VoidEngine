@@ -42,6 +42,9 @@ namespace core {
 		void LoadLevel(Scene* scene, const std::string& levelPath);
 
 	private:
+
+		std::shared_ptr<Entity> LoadEntity(Scene* scene, const nlohmann::json& entityData);
+
 		/** Data cache for already loaded level data */
 		utils::ResourceAllocator<Level> LevelCache;
 	};

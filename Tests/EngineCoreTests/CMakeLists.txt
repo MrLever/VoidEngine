@@ -7,6 +7,7 @@ set(Engine_Modules_Test_Suite
     "Input/InputManager_test.cpp"
     "Input/ActionBinding_test.cpp"
     "Gameplay/Entity_test.cpp"
+    "Gameplay/Transform_test.cpp"
     "EventSystem/EventBus_test.cpp"
     "Window/Window_test.cpp"
 )

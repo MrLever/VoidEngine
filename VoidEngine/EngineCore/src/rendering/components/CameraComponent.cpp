@@ -22,30 +22,22 @@ namespace core {
 	}
 
 	void CameraComponent::Initialize() {
-		if (Parent) {
-			Position = Parent->GetPostion();
-			Rotation = Parent->GetRotation();
-			m_LookDirection = Parent->GetRotation().ToVector();
-		}
+		m_LookDirection = m_Transform->GetRotation().ToVector();
 
 		if (ConfigData.find("name") != ConfigData.end()) {
 			m_Name = ConfigData["name"];
 		}
-
 	}
 
 	void CameraComponent::Tick(float deltaTime) {
-		//Update position to reflect parent's position
-		Position = Parent->GetPostion();
-		Rotation = Parent->GetRotation();
+		m_LookDirection = m_Transform->GetRotation().ToVector();
 
-		m_LookDirection = Rotation.ToVector();
-
-		auto target = Position + m_LookDirection;
+		auto target = m_Transform->GetPosition() + m_LookDirection;
 		
 		//Set view matrix for this frame
+		auto position = m_Transform->GetPosition();
 		m_ViewMatrix = glm::lookAt(
-			glm::vec3(Position.X, Position.Y, Position.Z),
+			glm::vec3(position.X, position.Y, position.Z),
 			glm::vec3(target.X, target.Y, target.Z),
 			glm::vec3(m_UpDirection.X, m_UpDirection.Y, m_UpDirection.Z)
 	    );
@@ -61,8 +53,6 @@ namespace core {
 
 	void CameraComponent::SetFOV(float fov) {
 		m_FOV = fov;
-		
-		//UpdateProjectionMatrix();
 	}
 
 	float CameraComponent::GetFOV() {

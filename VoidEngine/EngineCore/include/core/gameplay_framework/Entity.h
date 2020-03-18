@@ -9,13 +9,10 @@
 #include "utils/factory/Factory.h"
 #include "utils/factory/FactoryConstructible.h"
 
-#include "math/Vector.h"
-#include "math/Rotator.h"
-#include "math/Quaternion.h"
-
 #include "core/input/InputAction.h"
 #include "core/input/AxisInputAction.h"
 #include "core/gameplay_framework/EntityData.h"
+#include "core/gameplay_framework/Transform.h"
 
 namespace core {
 	//Forward class declarations
@@ -33,6 +30,9 @@ namespace core {
 		TYPE_INFO_DECL(Entity)
 
 	public:
+		/** The entity's transform in 3D space */
+		Transform m_Transform;
+
 		/**
 		 * Constructor
 		 */
@@ -84,21 +84,37 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
+		 * Gets distance between this entity and another
+		 */
+		float GetDistance(const Entity* const other) const;
+
+		/**
+		 * Gets distance between this entity and another
+		 */
+		float GetDistanceSquared(const Entity* const other) const;
+
+		/**
 		 * Accessors for entity position
 		 */
-		math::Vector3 GetPostion();
+		math::Vector3 GetPostion() const;
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
 		 * Accessors for entity rotation
 		 */
-		math::Rotator GetRotation();
+		math::Rotator GetRotation() const;
 		void SetRotation(const math::Rotator& newRotation);
+
+		/**
+		 * Accessors for entity scale
+		 */
+		math::Vector3 GetScale() const;
+		void SetScale(const math::Vector3& newScale);
 
 		/**
 		 * Acessors for entity name
 		 */
-		std::string GetName();
+		std::string GetName() const;
 		void SetName(const std::string& name);
 		void SetName(const utils::Name& name);
 
@@ -127,24 +143,27 @@ namespace core {
 		 */
 		void SetParent(Entity* parent);
 
+		/**
+		 * Accessor for Parent
+		 */
+		void AddChild(std::shared_ptr<Entity> child);
+
 	protected:
 		/** Entity's name */
-		utils::Name ID;
+		utils::Name m_Name;
 
 		/** All of the components for this entity */
 		std::unordered_map<utils::Name, Component*> m_Components;
 
-		/** The entity's position in 3D space */
-		math::Vector3 m_Position;
+		/** Optional pointer to the entity's owner */
+		Entity* m_Parent;
+		
+		/** List of entity's children */
+		std::vector<std::shared_ptr<Entity>> m_Children;
 
-		/** The entity's rotation in 3D space */
-		math::Quaternion m_Rotation;
-
+	private:
 		/** The level the entity inhabits */
 		Scene* m_World;
-
-		/** Optional pointer to the entity's owner */
-		Entity* Parent;
 	};
 
 	template<class T>

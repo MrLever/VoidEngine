@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "Scene.h"
 #include "rendering/components/lights/PointLightComponent.h"
-#include "rendering/components/lights/PointLightComponent.h"
+#include "rendering/components/lights/DirectionalLightComponent.h"
 
 namespace core {
 	Scene::Scene(
@@ -17,10 +17,7 @@ namespace core {
 	}
 
 	Scene::~Scene() {
-		for (auto& entity : m_Entities) {
-			delete entity;
-			entity = nullptr;
-		}
+
 	}
 	
 	void Scene::ReceiveEvent(Event* event) {
@@ -91,8 +88,8 @@ namespace core {
 		Renderer::EndFrame();
 	}
 	
-	Entity* Scene::SpawnEntity(const utils::Name& type, Entity* parent) {
-		auto entity = utils::FactoryBase<Entity>::Create(type);
+	std::shared_ptr<Entity> Scene::SpawnEntity(const utils::Name& type, Entity* parent) {
+		std::shared_ptr<Entity> entity (utils::FactoryBase<Entity>::Create(type));
 		if (!entity) {
 			return nullptr;
 		}

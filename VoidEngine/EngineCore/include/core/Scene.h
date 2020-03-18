@@ -53,7 +53,7 @@ namespace core {
 		/**
 		 * Allows Entity to be spawned during playtime
 		 */
-		Entity* SpawnEntity(const utils::Name& type, Entity* parent = nullptr);
+		std::shared_ptr<Entity> SpawnEntity(const utils::Name& type, Entity* parent = nullptr);
 
 		/**
 		 * Allows Entities to be removed from the simulation
@@ -81,10 +81,10 @@ namespace core {
 		CameraComponent* m_ActiveCamera;
 
 		/** Entities active in scene simulation */
-		std::vector<Entity*> m_Entities;
+		std::vector<std::shared_ptr<Entity>> m_Entities;
 
 		/** Entities that will spawn at the end of the current frame */
-		std::vector<Entity*> m_SpawnQueue;
+		std::vector<std::shared_ptr<Entity>> m_SpawnQueue;
 
 		/** The input manager used to control entities in the scene */
 		std::shared_ptr<InputManager> m_InputManager;

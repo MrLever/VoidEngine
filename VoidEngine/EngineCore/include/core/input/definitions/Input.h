@@ -6,7 +6,7 @@
 
 //Library Headers
 
-//Coati Headers
+//Void Engine Headers
 #include "utils/EngineUtilities.h"
 #include "utils/TimeUtils.h"
 
@@ -99,7 +99,7 @@ namespace core {
 		/**
 		 * Equality operator
 		 */
-		virtual bool operator==(const Input<T>& other) const;
+		bool operator==(const Input<T>& other) const;
 
 		/**
 		 * Gets the button for this Input event
@@ -123,7 +123,7 @@ namespace core {
 		 * Hash function to allow this class to be used as a key in Associative containers
 		 * @return Hash value
 		 */
-		virtual std::size_t Hash() const;
+		std::size_t Hash() const;
 		
 	protected:
 		/** The button that triggered this input event */

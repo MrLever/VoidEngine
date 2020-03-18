@@ -83,7 +83,7 @@ namespace core {
 
 	private:
 		/** The Entity's current velocity */
-		math::Vector3 Velocity;
+		math::Vector3 m_Velocity;
 
 		/** Represents the sum of all the forces acting on the parent */
 		math::Vector3 Force;

@@ -31,7 +31,7 @@ namespace core {
 		/**
 		 * Allows the engine to perform physics updates on the scene
 		 */
-		void Simulate(std::vector<Entity*>& entities, float deltaTime);
+		void Simulate(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime);
 
 		/**
 		 * Applies physics engine settings

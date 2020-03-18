@@ -24,11 +24,14 @@ namespace core {
 	 *        Entities to respond to engine commands or player actions
 	 */
 	class Component : public utils::FactoryConstructible {
+		friend class Entity;
+		
 		/**
 		 * Declare custom RTTI support
 		 */
 		TYPE_INFO_DECL(Component)
-	public:
+	
+public:
 		/**
 		 * Constructor
 		 */
@@ -42,7 +45,6 @@ namespace core {
 		/**
 		 * Accessors for the component's owner
 		 */
-		void SetParent(Entity* parent);
 		Entity* GetParent();
 
 		/**
@@ -63,6 +65,21 @@ namespace core {
 		virtual void Input(const AxisInputAction& input, float deltaTime);
 
 		/**
+		 * @return Distance between the parent entity of these two components
+		 */
+		float GetDistance(Component* other) const;
+
+		/**
+		 * @return Distance squared between the parent entity of these two components
+		 */
+		float GetDistanceSquared(Component* other) const;
+
+		/**
+		 * @return The position of this component's parent
+		 */
+		math::Vector3 GetPosition() const;
+
+		/**
 		 * Defines how a component processes updates
 		 * @param deltaSeconds the time elapsed since the previous tick
 		 */
@@ -73,36 +90,11 @@ namespace core {
 		 */
 		virtual void Draw();
 
-		/**
-		 * Accessors for Position
-		 */
-		void SetPosition(const math::Vector3& position);
-		math::Vector3 GetPosition() const;
-
-		/**
-		 * Returns the distance between this component and the provided entity/component
-		 */
-		float GetDistance(Component* other) const;
-
-		/**
-		 * Returns the distance between this component and the provided component
-		 */
-		float GetDistanceSquared(Component* other) const;
-
-		/**
-		 * Set's this component's rotation
-		 * @param position The position to use
-		 */
-		void SetRotation(const math::Rotator& rotation);
-
 	protected:
-		/** The component's position */
-		math::Vector3 Position;
-		
-		/** The component's rotation */
-		math::Quaternion Rotation;
-
 		/** The component's parent */
-		Entity* Parent;
+		Entity* m_Parent;
+	
+		/** Read only pointer to the parent entity's transform */
+		const Transform* m_Transform;
 	};
 }

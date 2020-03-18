@@ -23,7 +23,7 @@ namespace core {
 	}
 
 	void PlayerEntity::BeginPlay() {
-		utils::Logger::LogInfo(ID.StringID + " began play");
+		utils::Logger::LogInfo(m_Name.StringID + " began play");
 	}
 
 	void PlayerEntity::Tick(float deltaSeconds) {

@@ -26,13 +26,10 @@ namespace core {
 	}
 
 	void GraphicsComponent::Initialize() {
-		if (!Parent) {
+		if (!m_Parent) {
 			return;
 		}
 		
-		Position = Parent->GetPostion();
-		Rotation = Parent->GetRotation();
-
 		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
 
 		m_Model = modelCache->GetResource(ConfigData["model"].get<std::string>());
@@ -50,10 +47,6 @@ namespace core {
 		}
 	}
 
-	void GraphicsComponent::SetModel(std::shared_ptr<Model> model) {
-		m_Model = std::move(model);
-	}
-
 	void GraphicsComponent::AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath) {
 		m_Shader = std::make_shared<ShaderProgram>(
 			name,
@@ -69,25 +62,36 @@ namespace core {
 	}
 
 	void GraphicsComponent::Draw() {
-		Position = Parent->GetPostion();
-		Rotation = math::Quaternion(Parent->GetRotation());
-
 		m_TransformMatrix = glm::mat4(1.0f);
-		m_TransformMatrix = glm::translate(m_TransformMatrix, glm::vec3(Position.X, Position.Y, Position.Z));
-		
-		auto rotation = Rotation.ToEuler();
+
+		//Translate
+		auto position = m_Transform->GetPosition();
+		m_TransformMatrix = glm::translate(
+			m_TransformMatrix, 
+			glm::vec3(position.X, position.Y, position.Z)
+		);
+
+		//Rotate
+		auto rotation = m_Transform->GetRotation().ToEuler();
 		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(1.0f, 0.0f, 0.0f)
+			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(1.0f, 0.0f, 0.0f)
 		);
 
 		m_TransformMatrix = glm::rotate(
 			m_TransformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
 		);
-		
+
 		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(0.0f, 0.0f, 1.0f)
+			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(0.0f, 0.0f, 1.0f)
 		);
 
+		//Scale
+		auto scale = m_Transform->GetScale();
+		m_TransformMatrix = glm::scale(
+			m_TransformMatrix, 
+			glm::vec3(scale.X, scale.Y, scale.Z)
+		);
+		
 		if (m_Model) {
 			m_Model->Draw(m_Shader, m_TransformMatrix);
 		}

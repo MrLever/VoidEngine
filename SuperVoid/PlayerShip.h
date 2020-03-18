@@ -5,6 +5,7 @@
 
 //Void Engine Headers
 #include "core/gameplay_framework/entities/PlayerEntity.h"
+#include "core/physics/components/PhysicsComponent.h"
 
 namespace SuperVoid{
 
@@ -13,6 +14,7 @@ namespace SuperVoid{
 	 * @brief Represent's the player
 	 */
 	class PlayerShip : public core::PlayerEntity {
+		TYPE_INFO_DECL(PlayerShip)
 	public:
 		/**
 		 * Constructor
@@ -29,7 +31,21 @@ namespace SuperVoid{
 		 * @param component The component to configure
 		 */
 		virtual void SetupInputComponent(core::InputComponent* component) override;
+		
+		/**
+		 * Allows the pawn to float forward
+		 */
+		void MoveForward(float axisValue, float deltaTime);
 
+		/**
+		 * Allows the pawn to float right
+		 */
+		void MoveRight(float axisValue, float deltaTime);
+
+	private:
+		core::PhysicsComponent* m_RigidBody;
+
+		float m_Speed;
 	};
 }
 

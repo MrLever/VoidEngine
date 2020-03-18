@@ -26,13 +26,14 @@ namespace core {
 		/** Second collider involved in collision */
 		Entity* EntityB;
 
-		/** Distance the two objects are 
+		/** 
+		 * Distance the two objects are
 		 * intersecting along the CollisionNormal 
 		 */
 		float PenetrationDistance;
 
 		/** Vector of resolution */
-		math::Vector3 m_CollisionNormal;
+		math::Vector3 CollisionNormal;
 
 	};
 

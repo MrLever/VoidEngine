@@ -10,12 +10,12 @@
 #include "Scene.h"
 
 namespace core {
-
+	
 	TYPE_INFO_IMPL(Entity)
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : ID("Entity"), m_World(nullptr) {
+	Entity::Entity() : m_Name("Entity"), m_World(nullptr), m_Parent(nullptr){
 	
 	}
 
@@ -40,35 +40,61 @@ namespace core {
 
 	void Entity::Initialize() {
 		if (!ConfigData.is_null()) {
-			ID = utils::Name(ConfigData["name"]);
+			m_Name = utils::Name(ConfigData["name"]);
+			if (m_Parent) {
+				m_Transform.SetParent(&m_Parent->m_Transform);
+			}
 
 			auto locationData = ConfigData["location"];
-			m_Position.X = locationData[0].get<float>();
-			m_Position.Y = locationData[1].get<float>();
-			m_Position.Z = locationData[2].get<float>();
+			m_Transform.SetLocalPosition(math::Vector3(
+				locationData[0].get<float>(),
+				locationData[1].get<float>(),
+				locationData[2].get<float>()
+			));
 		
 			auto rotationData = ConfigData["rotation"];
-			m_Rotation = math::Quaternion(
-				math::Rotator(
-					rotationData[0].get<float>(),
-					rotationData[1].get<float>(),
-					rotationData[2].get<float>()
-				)
-			);
+			if (!rotationData.is_null()) {
+				m_Transform.SetLocalRotation(math::Quaternion(
+					math::Rotator(
+						rotationData[0].get<float>(),
+						rotationData[1].get<float>(),
+						rotationData[2].get<float>()
+					)
+				));
+			}
+
+			auto scaleData = ConfigData["scale"];
+			if (!scaleData.is_null()) {
+				m_Transform.SetLocalScale(math::Vector3(
+					scaleData[0].get<float>(),
+					scaleData[1].get<float>(),
+					scaleData[2].get<float>()
+				));
+			}
 		}
 		
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Initialize();
 		}
+
+		for (auto& child : m_Children) {
+			child->Initialize();
+		}
 	}
 
 	void Entity::BeginPlay() {
-		;
+		for (auto& child : m_Children) {
+			child->BeginPlay();
+		}
 	}
 
 	void Entity::Tick(float deltaTime) {
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Tick(deltaTime);
+		}
+
+		for (auto& child : m_Children) {
+			child->Tick(deltaTime);
 		}
 	}
 
@@ -80,44 +106,63 @@ namespace core {
 		for (auto& componentEntry : m_Components) {
 			componentEntry.second->Draw();
 		}
-	}
 
-	math::Vector3 Entity::GetPostion() {
-		return m_Position;
-	}
-
-	void Entity::SetPosition(const math::Vector3& newPosition) {
-		m_Position = newPosition;
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->SetPosition(m_Position);
+		for (auto& child : m_Children) {
+			child->Draw();
 		}
 	}
 
-	math::Rotator Entity::GetRotation() {
-		return m_Rotation.ToEuler();
+	float Entity::GetDistance(const Entity* const other) const {
+		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude();
+	}
+
+	float Entity::GetDistanceSquared(const Entity* const other) const {
+		return (m_Transform.GetPosition() - other->GetPostion()).MagnitudeSqr();
+	}
+
+	math::Vector3 Entity::GetPostion() const {
+		return m_Transform.GetPosition();
+	}
+
+	void Entity::SetPosition(const math::Vector3& newPosition) {
+		m_Transform.SetPosition(newPosition);
+	}
+
+	math::Rotator Entity::GetRotation() const {
+		return m_Transform.GetRotation().ToEuler();
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		m_Rotation = math::Quaternion(newRotation);
+		m_Transform.SetRotation(math::Quaternion(newRotation));
 	}
 
-	std::string Entity::GetName() {
-		return ID.StringID;
+	math::Vector3 Entity::GetScale() const {
+		return m_Transform.GetScale();
+	}
+
+	void Entity::SetScale(const math::Vector3& newScale) {
+		m_Transform.SetScale(newScale);
+	}
+
+	std::string Entity::GetName() const {
+		return m_Name.StringID;
 	}
 
 	void Entity::SetName(const std::string& name) {
-		ID = utils::Name(name);
+		m_Name = utils::Name(name);
 	}
 
 	void Entity::SetName(const utils::Name& name) {
-		ID = name;
+		m_Name = name;
 	}
 
 	void Entity::AddComponent(Component* component) {
-		component->SetParent(this);
-		
-		auto name = component->GetTypename();
-		m_Components[name] = component;
+		//Abuse friendship to give the child component necessary references
+		component->m_Parent = this;
+		component->m_Transform = &m_Transform;
+
+		//Register component
+		m_Components[component->GetTypename()] = component;
 	}
 
 	Scene* Entity::GetWorld() const {
@@ -129,7 +174,12 @@ namespace core {
 	}
 
 	void Entity::SetParent(Entity* parent) {
-		Parent = parent;
+		m_Parent = parent;
+	}
+
+	void Entity::AddChild(std::shared_ptr<Entity> child) {
+		child->SetParent(this);
+		m_Children.emplace_back(std::move(child));
 	}
 
 }

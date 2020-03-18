@@ -27,7 +27,7 @@ namespace core {
 			"Fire", 
 			ActionType::PRESSED,
 			[this](float deltaTime) {
-				GetWorld()->SpawnEntity(utils::Name("Projectile"), this);
+				GetWorld()->SpawnEntity(utils::Name("Projectile"), nullptr);
 			}
 		);
 

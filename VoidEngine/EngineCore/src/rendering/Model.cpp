@@ -12,7 +12,7 @@
 
 namespace core {
 
-	 Assimp::Importer Model::s_Importer;
+	Assimp::Importer Model::s_Importer;
 
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
 		m_ModelDirectory = ResourcePath.parent_path();
@@ -21,6 +21,7 @@ namespace core {
 	}
 
 	bool Model::Load() {
+		
 		auto modelData = s_Importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
@@ -37,7 +38,7 @@ namespace core {
 
 	void Model::Initialize() {
 		ProcessAssimpNode(s_Importer.GetScene()->mRootNode, s_Importer.GetScene());
-
+		
 		for (auto& mesh : m_Meshes) {
 			mesh.Initialize();
 		}

@@ -22,7 +22,7 @@ namespace SuperVoid {
 	}
 
 	void BouncingCube::BeginPlay() {
-		utils::Logger::LogInfo(ID.StringID + " began play");
+		utils::Logger::LogInfo(m_Name.StringID + " began play");
 	}
 
 	void SuperVoid::BouncingCube::Tick(float deltaSeconds) {
@@ -31,12 +31,18 @@ namespace SuperVoid {
 		auto deltaHeight = deltaSeconds * Velocity;
 		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
 
-		m_Position.Y += deltaHeight;
-		m_Rotation = m_Rotation * deltaRotation;
+		auto position = m_Transform.GetPosition();
+		position.Y += deltaHeight;
 
-		if (m_Position.Y > 2 || m_Position.Y < -2) {
+		auto rotation = m_Transform.GetRotation();
+		rotation = rotation * deltaRotation;
+
+		if (position.Y > 2 || position.Y < -2) {
 			Velocity *= -1;
 		}
+
+		m_Transform.SetPosition(position);
+		m_Transform.SetRotation(rotation);
 	}
 
 	void BouncingCube::Terminate() {
