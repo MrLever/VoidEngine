@@ -44,6 +44,8 @@ namespace SuperVoid{
 
 	private:
 		core::PhysicsComponent* m_RigidBody;
+
+		float m_Speed;
 	};
 }
 

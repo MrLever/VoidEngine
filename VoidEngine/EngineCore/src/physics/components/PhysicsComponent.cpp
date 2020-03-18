@@ -10,7 +10,7 @@ namespace core {
 
 	ENABLE_FACTORY(PhysicsComponent, Component)
 
-	PhysicsComponent::PhysicsComponent() : Velocity(), Force(), Mass(1), InverseMass(1),
+	PhysicsComponent::PhysicsComponent() : m_Velocity(), Force(), Mass(1), InverseMass(1),
 		GravityScale(1), Density(1), Restitution(.5), IsStatic(false) {
 
 	}
@@ -65,11 +65,11 @@ namespace core {
 	}
 
 	math::Vector3 PhysicsComponent::GetVelocity() const {
-		return Velocity;
+		return m_Velocity;
 	}
 
 	void PhysicsComponent::AddVelocity(const math::Vector3& velocity) {
-		Velocity += velocity;
+		m_Velocity += velocity;
 	}
 
 	float PhysicsComponent::GetRestitution() const {

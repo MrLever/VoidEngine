@@ -1,6 +1,6 @@
 {
     "name":"CollisionDemo",
-    "controlFile":"Settings/Controls/FPSControls.json",
+    "controlFile":"Settings/Controls/AsteroidsControls.json",
     "gravity": 0,
     "lightSettings":
     {
@@ -16,11 +16,17 @@
             "location": [5, 0, 3],
             "rotation": [0, 0, -90],
             "scale": [1, 1, 1],
+            "speed":100,
             "components":
             [
                 {
                     "type":"GraphicsComponent",
                     "model":"Resources/Models/Primitives/Cone/Cone.obj"
+                },
+                {
+                    "type":"PhysicsComponent",
+                    "mass":1.0,
+                    "restitution":0
                 }
             ],
             "children": 

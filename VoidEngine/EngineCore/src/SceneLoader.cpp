@@ -20,7 +20,9 @@ namespace core {
 
 		utils::Logger::LogInfo("Initializing Level " + level->GetName().StringID);
 		scene->m_ControlFilePath = level->GetAttribute<std::string>("controlFile");
-
+		
+		scene->m_PhysicsEngine->SetGravity(level->GetAttribute<float>("gravity"));
+		
 		auto lightSettings = level->GetAttribute<nlohmann::json>("lightSettings");
 
 		//Gather scene's ambient light data
