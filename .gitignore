@@ -30,6 +30,9 @@ Dependencies/Source/
 
 *.vcxproj.user
 
+# Blender Stuff
+*.blend1
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
