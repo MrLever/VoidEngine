@@ -187,6 +187,16 @@ namespace math {
 
 	}
 
+	Vector4::Vector4(const Vector3& vec3) 
+		: X(vec3.X), Y(vec3.Y), Z(vec3.Z), W(0) {
+
+	}
+
+	Vector4::Vector4(const Vector3& vec3, float w) 
+		: X(vec3.X), Y(vec3.Y), Z(vec3.Z), W(w) {
+
+	}
+
 	Vector4::Vector4(float x, float y, float z, float w)
 		: X(x), Y(y), Z(z), W(w) {
 

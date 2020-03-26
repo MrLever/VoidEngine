@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <vector>
 
 //Library headers
 
@@ -144,8 +145,14 @@ namespace core {
 		 */
 		void SetParent(Transform* parent);
 
+		/**
+		 * Registers a child transform
+		 */
+		void AddChild(Transform* child);
+
 	private:
 		Transform* m_Parent;
+		std::vector<Transform*> m_Children;
 
 		math::Vector3 m_LocalPosition;
 		math::Quaternion m_LocalRotation;

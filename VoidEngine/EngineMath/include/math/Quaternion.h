@@ -12,6 +12,8 @@ namespace math {
 	struct Rotator;
 
 	struct Quaternion {
+		static Quaternion Identity;
+		
 		/** The four parameters needed to define a quaternion */
 		float W;
 		float X;
@@ -65,6 +67,12 @@ namespace math {
 		[[nodiscard]] Quaternion Inverse() const;
 
 		/**
+		 * Inverts this quaternion
+		 * @return Unit quaternion that represents a rotation in the opposite direction
+		 */
+		void Invert();
+
+		/**
 		 * Returns the Quaternion's magnitude
 		 */
 		float Magnitude() const;
@@ -74,7 +82,6 @@ namespace math {
 		 */
 		float MagnitudeSqr() const;
 
-
 		/**
 		 * Applies the rotation represented by this 
 		 * Quaternion to the supplied vector
@@ -82,10 +89,21 @@ namespace math {
 		 */
 		Vector3 Rotate(const Vector3& vec) const;
 		
+
+		/**
+		 * Assignment operator
+		 */
+		Quaternion& operator= (const Quaternion& other);
+
 		/**
 		 * Unary minus operator overload
 		 */
 		Quaternion operator- () const;
+
+		/**
+		 * Multiplication assignment operator
+		 */
+		Quaternion& operator*= (const Quaternion& other);
 
 		/**
 		 * Float division overload

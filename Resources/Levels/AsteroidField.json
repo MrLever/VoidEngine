@@ -11,7 +11,7 @@
     "entities":
     [
         {
-            "name":"Cone",
+            "name":"Player",
             "type":"PlayerShip",
             "location": [0, 0, 3],
             "rotation": [0, 0, 0],
@@ -32,15 +32,20 @@
             "children": 
             [
                 {
-                    "name":"Cube",
+                    "name":"EngineLight",
                     "type":"Entity",
-                    "location": [0, 2, 0],
+                    "location": [-3.0, 0, 0],
                     "scale":[0.25, 0.25, 0.25],
                     "components":
                     [
                         {
                             "type":"GraphicsComponent",
                             "model":"Resources/Models/Primitives/Cube/Cube.obj"
+                        },
+                        {
+                            "type":"PointLightComponent",
+                            "color":[1, 0, 0, 1.0],
+                            "intensity":150
                         } 
                     ]
                 }
@@ -79,16 +84,16 @@
             ]
         },
         {
-            "name":"TestPlane2",
-            "type":"Entity",
-            "location": [0, -10, 10],
-            "rotation": [0, 0, 0],
-            "scale":[10, 10, 10],
+            "name":"Asteroid1",
+            "type":"BouncingCube",
+            "location": [5, 5, 5],
+            "rotation": [90, 0, 0],
+            "scale":[1, 1, 1],
             "components":
             [
                 {
                     "type":"GraphicsComponent",
-                    "model":"Resources/Models/Primitives/Plane/Plane.obj"
+                    "model":"Resources/Models/Asteroids/Variant1/Asteroid1.obj"
                 },
                 {
                     "type":"ColliderComponent",
@@ -102,10 +107,10 @@
             ]
         },
         {
-            "name":"TestPlane1",
+            "name":"TestPlane2",
             "type":"Entity",
-            "location": [0, 0, 0],
-            "rotation": [90, 0, 0],
+            "location": [0, -10, 10],
+            "rotation": [0, 0, 0],
             "scale":[10, 10, 10],
             "components":
             [

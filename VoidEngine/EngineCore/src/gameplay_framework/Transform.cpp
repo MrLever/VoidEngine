@@ -110,4 +110,8 @@ namespace core {
 		m_Parent = parent;
 		SetPosition(currentWorld);
 	}
+
+	void Transform::AddChild(Transform* child) {
+		m_Children.push_back(child);
+	}
 }

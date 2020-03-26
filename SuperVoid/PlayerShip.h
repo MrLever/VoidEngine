@@ -42,6 +42,8 @@ namespace SuperVoid{
 		 */
 		void MoveRight(float axisValue, float deltaTime);
 
+		void Rotate(float axisValue, float deltaTime);
+
 	private:
 		core::PhysicsComponent* m_RigidBody;
 

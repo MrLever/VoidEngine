@@ -14,13 +14,15 @@ using namespace math;
 namespace math_tests {
 
 	TEST(QuaternionTests, EulerConversion){
-		Rotator expected(0, -90, 0);
-		Quaternion quat(expected);
-		ASSERT_TRUE(quat == math::Quaternion(.7071068f, 0, -.7071068f, 0));
+		Rotator OneDegreeEuler(0, 1, 0);
+		Quaternion OneDegreeQuat(OneDegreeEuler);
+		Quaternion curr = Quaternion::Identity;
 
-		auto result = quat.ToEuler();
+		for (int i = 0; i <= 360; i++) {
+			ASSERT_EQ(Quaternion(Rotator(0, (float)i, 0)), curr);
+			curr *= OneDegreeQuat;
+		}
 
-		ASSERT_TRUE(expected.Equals(result, 0.02f));
 	}
 
 	TEST(QuaternionTests, InverseTest) {

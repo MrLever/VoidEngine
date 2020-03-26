@@ -9,6 +9,8 @@
 
 namespace math {
 
+	Quaternion Quaternion::Identity = Quaternion(1, 0, 0, 0);
+
 	Quaternion::Quaternion() {
 		W = 1;
 		X = Y = Z = 0;
@@ -49,7 +51,7 @@ namespace math {
 		auto sinPart = 2 * (W * Y - Z * X);
 		float pitchRadians;
 		if (std::abs(sinPart) >= 1) {
-			pitchRadians = std::copysign(PI / 2, sinPart);
+			pitchRadians = std::copysignf((float)PI / 2, sinPart);
 		}
 		else {
 			pitchRadians = std::asin(sinPart);
@@ -92,6 +94,12 @@ namespace math {
 		return Quaternion(W, -X, -Y, -Z) / MagnitudeSqr();
 	}
 
+	void Quaternion::Invert() {
+		X = -X;
+		Y = -Y;
+		Z = -Z;
+	}
+
 	float Quaternion::Magnitude() const {
 		return std::sqrtf(
 			(X*X) + (Y*Y) + (Z*Z) + (W*W)
@@ -104,16 +112,24 @@ namespace math {
 
 	Vector3 Quaternion::Rotate(const Vector3& vec) const {
 		Quaternion q(*this);
-		q.Normalize();
+		Quaternion p(0, vec.X, vec.Y, vec.Z);
+		Quaternion qPrime(q.Inverse());
 
-		// Extract the vector part of the quaternion
-		Vector3 u(q.X, q.Y, q.Z);
+		auto res = q * p * qPrime;
 
-		auto t = 2.0f * u.Cross(vec);
-		return vec + q.W * t + u.Cross(t);
+		return Vector3(res.X, res.Y, res.Z);
 	}
 
-	Quaternion Quaternion::operator-() const {
+	Quaternion& Quaternion::operator= (const Quaternion& other) {
+		W = other.W;
+		X = other.X;
+		Y = other.Y;
+		Z = other.Z;
+
+		return *this;
+	}
+
+	Quaternion Quaternion::operator- () const {
 		return Quaternion(-W, -X, -Y, -Z).Normalize();
 	}
 
@@ -133,6 +149,15 @@ namespace math {
 				lhs.W * rhs.Y - lhs.X * rhs.Z + lhs.Y * rhs.W + lhs.Z * rhs.X,
 				lhs.W * rhs.Z + lhs.X * rhs.Y - lhs.Y * rhs.X + lhs.Z * rhs.W
 			);
+	}
+
+	Quaternion& Quaternion::operator*=(const Quaternion& other) {
+		W = W * other.W - X * other.X - Y * other.Y - Z * other.Z;
+		X =	W * other.X + X * other.W + Y * other.Z - Z * other.Y;
+		Y =	W * other.Y - X * other.Z + Y * other.W + Z * other.X;
+		Z =	W * other.Z + X * other.Y - Y * other.X + Z * other.W;
+
+		return *this;
 	}
 
 	bool Quaternion::operator==(const Quaternion& other) const {

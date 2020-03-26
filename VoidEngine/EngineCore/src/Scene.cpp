@@ -110,20 +110,7 @@ namespace core {
 
 	void Scene::GatherLights() {
 		//Reset light data
-		m_LightingEnvironment.DirectionalLights = {};
-		m_LightingEnvironment.PointLights = {}; 
-
-		//Gather all lights in scene
-		for (const auto& entity : m_Entities) {
-			auto dirLight = entity->GetComponent<DirectionalLightComponent>();
-			if (dirLight) {
-				m_LightingEnvironment.DirectionalLights.push_back(dirLight);
-			}
-
-			auto ptLight = entity->GetComponent<PointLightComponent>();
-			if (ptLight) {
-				m_LightingEnvironment.PointLights.push_back(ptLight);
-			}
-		}
+		m_LightingEnvironment.DirectionalLights = GetComponentsOfType<DirectionalLightComponent>();
+		m_LightingEnvironment.PointLights = GetComponentsOfType<PointLightComponent>();
 	}
 }

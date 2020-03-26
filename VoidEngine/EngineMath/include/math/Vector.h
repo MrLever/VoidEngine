@@ -205,6 +205,16 @@ namespace math {
 		 */
 		Vector4();
 
+        /**
+		 * Constructor
+		 */
+		Vector4(const Vector3& vec3);
+
+		/**
+		 * Constructor
+		 */
+		Vector4(const Vector3& vec3, float w);
+
 		/**
 		 * Constructor
 		 */
