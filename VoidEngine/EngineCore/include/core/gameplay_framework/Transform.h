@@ -146,6 +146,17 @@ namespace core {
 		void SetParent(Transform* parent);
 
 		/**
+		 * Gets the transform's local "forward" direction
+		 */
+		math::Vector3 GetForward() const;
+
+		/**
+		 * Gets the transform's local "up" direction
+		 */
+		math::Vector3 GetUp() const;
+
+
+		/**
 		 * Registers a child transform
 		 */
 		void AddChild(Transform* child);

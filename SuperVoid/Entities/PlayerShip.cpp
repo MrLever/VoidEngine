@@ -49,7 +49,7 @@ namespace SuperVoid {
 			}
 		);
 	}
-
+	
 	void PlayerShip::MoveForward(float axisValue, float deltaTime) {
 		m_RigidBody->ApplyForce(math::Vector3(0, m_Speed * axisValue * deltaTime, 0));
 	}
@@ -59,11 +59,9 @@ namespace SuperVoid {
 	}
 
 	void PlayerShip::Rotate(float axisValue, float deltaTime) {
-		math::Rotator deltaRotation(0, 0, axisValue * deltaTime * 200);
+		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 150);
 
 		auto rotation = m_Transform.GetRotation();
-		rotation *= math::Quaternion(deltaRotation);
-		m_Transform.SetRotation(rotation);
-
+		m_Transform.SetRotation(deltaRotation * rotation);
 	}
 }

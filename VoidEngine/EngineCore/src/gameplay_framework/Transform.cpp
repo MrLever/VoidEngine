@@ -55,9 +55,15 @@ namespace core {
 	}
 
 	math::Vector3 Transform::GetPosition() const {
-		return (m_Parent == nullptr) ?
-			m_LocalPosition :
-			m_Parent->GetPosition() + m_Parent->GetRotation().Rotate(m_LocalPosition); //Apply parent rotation to local position to get acurate world position
+		if (m_Parent == nullptr) {
+			return m_LocalPosition;
+		}
+		else {
+			auto parentPos = m_Parent->GetPosition();
+			auto parentRotation = m_Parent->GetRotation();
+			auto positionInParentSpace = parentRotation.Rotate(m_LocalPosition);
+			return parentPos + positionInParentSpace;
+		}
 	}
 
 	void Transform::SetPosition(const math::Vector3& value) {
@@ -83,7 +89,12 @@ namespace core {
 	}
 
 	void Transform::SetRotation(const math::Quaternion& value) {
-		m_LocalRotation = value;
+		if (m_Parent == nullptr) {
+			m_LocalRotation = value;
+		}
+		else {
+			m_LocalRotation = value * m_Parent->GetRotation().Inverse();
+		}
 	}
 
 	math::Vector3 Transform::GetLocalScale() const {
@@ -109,6 +120,16 @@ namespace core {
 		auto currentWorld = GetPosition();
 		m_Parent = parent;
 		SetPosition(currentWorld);
+	}
+
+	math::Vector3 Transform::GetForward() const {
+		auto rotation = GetRotation().Normalize();
+		return rotation.Rotate(math::Vector3::Forward);
+	}
+
+	math::Vector3 Transform::GetUp() const {
+		auto rotation = GetRotation().Normalize();
+		return rotation.Rotate(math::Vector3::Up);
 	}
 
 	void Transform::AddChild(Transform* child) {

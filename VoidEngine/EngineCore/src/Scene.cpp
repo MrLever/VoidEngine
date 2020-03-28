@@ -44,7 +44,7 @@ namespace core {
 			utils::Logger::LogError("Camera " + cameraName.StringID + " not found. Camara not activated");
 			return;
 		}
-
+		
 		m_ActiveCamera = m_Cameras[cameraName];
 	}
 

@@ -59,7 +59,7 @@
             "name":"FloatingPawn",
             "type":"FloatingFPSPlayer",
             "location": [0, 0, 40],
-            "rotation": [0, 90, 0],
+            "rotation": [0, 0, 0],
             "components":
             [
                 {

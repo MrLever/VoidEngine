@@ -103,7 +103,6 @@ set(engine_core_gameplay_framework_entity_headers
     "${engine_core_header_dir}/gameplay_framework/entities/FloatingFPSPlayer.h"
     "${engine_core_header_dir}/gameplay_framework/entities/PlayerEntity.h"
     "${engine_core_header_dir}/gameplay_framework/entities/Projectile.h"
-    "${engine_core_header_dir}/gameplay_framework/entities/StaticObserver.h"
 )
 source_group(
     "Header Files\\Gameplay Framework\\Entities" 
@@ -336,7 +335,6 @@ set(engine_core_gameplay_framework_entity_source
     "${engine_core_source_dir}/gameplay_framework/entities/FloatingFPSPlayer.cpp"
     "${engine_core_source_dir}/gameplay_framework/entities/PlayerEntity.cpp"
     "${engine_core_source_dir}/gameplay_framework/entities/Projectile.cpp"
-    "${engine_core_source_dir}/gameplay_framework/entities/StaticObserver.cpp"
 )
 source_group(
     "Source Files\\Gameplay Framework\\Entities" 

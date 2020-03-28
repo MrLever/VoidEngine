@@ -71,6 +71,9 @@ namespace math {
 		float Y;
 		float Z;
 
+		static const Vector3 Forward;
+		static const Vector3 Up;
+
 		/**
 		 * Constructor
 		 */

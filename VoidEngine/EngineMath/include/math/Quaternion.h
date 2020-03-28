@@ -88,7 +88,6 @@ namespace math {
 		 * @Note: Operation will used normalized quaternion to apply rotation 
 		 */
 		Vector3 Rotate(const Vector3& vec) const;
-		
 
 		/**
 		 * Assignment operator

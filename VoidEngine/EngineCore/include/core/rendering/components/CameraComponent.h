@@ -76,7 +76,7 @@ namespace core {
 		 */
 		utils::Name GetName() const;
 
-	private:
+	protected:
 		/** Name used to reference this camera */
 		utils::Name m_Name;
 
@@ -88,13 +88,6 @@ namespace core {
 
 		/** This camera's field of view */
 		float m_FOV;
-
-		/** Vector to represent the direction the camera is looking */
-		math::Vector3 m_LookDirection;
-		
-		/** Vector to represent the up direction for the camera */
-		math::Vector3 m_UpDirection;
-
 	};
 
 }

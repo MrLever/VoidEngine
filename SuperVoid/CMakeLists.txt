@@ -3,27 +3,39 @@ project(SuperVoid CXX)
 ################################################################################
 # Set Files
 ################################################################################
-set(Header_Files__Entities
-    "BouncingCube.h"
-    "PlayerShip.h"
+set(Header_Files_Entities
+    "Entities/BouncingCube.h"
+    "Entities/PlayerShip.h"
 )
-source_group("Header Files\\Entities" FILES ${Header_Files__Entities})
+source_group("Header Files\\Entities" FILES ${Header_Files_Entities})
 
 set(Source_Files
     "Core.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 
-set(Source_Files__Entities
-    "BouncingCube.cpp"
-    "PlayerShip.cpp"
+set(Source_Files_Entities
+    "Entities/BouncingCube.cpp"
+    "Entities/PlayerShip.cpp"
 )
-source_group("Source Files\\Entities" FILES ${Source_Files__Entities})
+source_group("Source Files\\Entities" FILES ${Source_Files_Entities})
+
+set(Header_Files_Components
+    "Components/ShipCamera.h"
+)
+source_group("Header Files\\Components" FILES ${Header_Files_Components})
+
+set(Source_Files_Components
+    "Components/ShipCamera.cpp"
+)
+source_group("Source Files\\Components" FILES ${Source_Files_Components})
 
 set(ALL_FILES
-    ${Header_Files__Entities}
+    ${Header_Files_Entities}
+    ${Source_Files_Entities}
+    ${Header_Files_Components}
+    ${Source_Files_Components}
     ${Source_Files}
-    ${Source_Files__Entities}
 )
 
 ################################################################################

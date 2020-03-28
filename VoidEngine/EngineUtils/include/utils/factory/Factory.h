@@ -37,9 +37,6 @@ namespace utils {
 		template<class... Args>
 		static Base* Create(const utils::Name& product, Args... args);
 
-		template<class F, class ...Args>
-		inline auto Construct(F&& f, Args&&... args) -> decltype(f(args ...));
-
 	protected:
 		/**
 		 * Finds a concrete factory that produces the specified product
@@ -123,6 +120,10 @@ namespace utils {
 			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
 			return nullptr;
 		}
+
+		//Desired behavior
+		//auto fn = factory->GetConstructorHelper();
+		//return fn(args...);
 
 		return factory->ConstructProxy();
 	}
