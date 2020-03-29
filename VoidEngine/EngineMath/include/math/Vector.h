@@ -41,9 +41,51 @@ namespace math {
 		float Dot(const Vector2& other) const;
 
 		/**
+		 * @return Magnitude of this vector
+		 */
+		float Magnitude() const;
+
+		/**
+		 * @return The Squated magnitude of this vector
+		 */
+		float MagnitudeSqr() const;
+
+		/**
+		 * In-place normilization of veector
+		 */
+		Vector2& Normalize();
+
+		/**
+		 * Non-member normilization function.
+		 * @param vec Vector to normalize
+		 * @return Unit vector corresponding to vec
+		 */
+		[[nodiscard]] static Vector2 Normalize(const Vector2& vec);
+
+		/**
 		 * Equality comparison overload
 		 */
 		bool operator== (const Vector2& other) const;
+
+		/**
+		 * Multiplication assignment operator
+		 */
+		Vector2& operator+=(const Vector2& other);
+
+		/**
+		 * Division assignment operator
+		 */
+		Vector2& operator-=(const Vector2& other);
+
+		/**
+		 * Multiplication assignment operator
+		 */
+		Vector2& operator*=(float val);
+
+		/**
+		 * Division assignment operator
+		 */
+		Vector2& operator/=(float val);
 
 		/**
 		 * Non-member addition operator overload
@@ -64,6 +106,16 @@ namespace math {
 		 * Scalar multiplication operator overload
 		 */
 		friend Vector2 operator* (float lhs, const Vector2& rhs);
+
+		/**
+		 * Scalar division operator overload
+		 */
+		friend Vector2 operator/ (const Vector2& lhs, float rhs);
+
+		/**
+		 * Scalar multiplication operator overload
+		 */
+		friend Vector2 operator/ (float lhs, const Vector2& rhs);
 	};
 
 	struct Vector3 {
@@ -83,6 +135,11 @@ namespace math {
 		 * Constructor
 		 */
 		Vector3(float x, float y = 0.0f, float z = 0.0f);
+
+		/**
+		 * Constructor
+		 */
+		Vector3(Vector2 vec, float z = 0.0f);
 
 		/**
 		 * Computes the dot product of two 3D vectors

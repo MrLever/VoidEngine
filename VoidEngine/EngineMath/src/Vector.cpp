@@ -25,9 +25,45 @@ namespace math {
 		return (X * other.X) + (Y * other.Y);
 	}
 
+	float Vector2::Magnitude() const {
+		return std::sqrt((X * X) + (Y * Y));
+	}
+
+	float Vector2::MagnitudeSqr() const {
+		return (X * X) + (Y * Y);
+	}
+
+	Vector2& Vector2::Normalize() {
+		*this /= Magnitude();
+
+		return *this;
+	}
+
 	bool Vector2::operator== (const Vector2& other) const {
 		return std::abs(X - other.X) < DEFUALT_FLOAT_EPSILON && 
 			   std::abs(Y - other.Y) < DEFUALT_FLOAT_EPSILON;
+	}
+
+	Vector2& Vector2::operator+=(const Vector2& other) {
+		*this = *this + other;
+
+		return *this;
+	}
+
+	Vector2& Vector2::operator-=(const Vector2& other) {
+		*this = *this - other;
+
+		return *this;
+	}
+
+	Vector2& Vector2::operator*= (float val) {
+		*this = *this * val;
+		return *this;
+	}
+
+	Vector2& Vector2::operator/= (float val) {
+		*this = *this / val;
+		return *this;
 	}
 
 	Vector2 operator+ (const Vector2& lhs, const Vector2& rhs){
@@ -42,8 +78,16 @@ namespace math {
 		return Vector2(lhs.X * rhs, lhs.Y * rhs);
 	}
 
-	Vector2 operator*(float lhs, const Vector2& rhs) {
+	Vector2 operator* (float lhs, const Vector2& rhs) {
 		return rhs * lhs;
+	}
+
+	Vector2 operator/ (const Vector2& lhs, float rhs) {
+		return Vector2(lhs.X / rhs, lhs.Y / rhs);
+	}
+
+	Vector2 operator/ (float lhs, const Vector2& rhs) {
+		return rhs / lhs;
 	}
 
 	const Vector3 Vector3::Forward(0, 0, -1);
@@ -134,6 +178,10 @@ namespace math {
 	}
 
 	Vector3::Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {
+
+	}
+
+	Vector3::Vector3(Vector2 vec, float z) : X(vec.X), Y(vec.Y), Z(z) {
 
 	}
 
