@@ -14,7 +14,6 @@ namespace core {
 
 	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
 		AddComponent(new InputComponent());
-		AddComponent(new CameraComponent());
 	}
 
 	void PlayerEntity::Initialize() {

@@ -25,9 +25,45 @@ namespace math {
 		return (X * other.X) + (Y * other.Y);
 	}
 
+	float Vector2::Magnitude() const {
+		return std::sqrt((X * X) + (Y * Y));
+	}
+
+	float Vector2::MagnitudeSqr() const {
+		return (X * X) + (Y * Y);
+	}
+
+	Vector2& Vector2::Normalize() {
+		*this /= Magnitude();
+
+		return *this;
+	}
+
 	bool Vector2::operator== (const Vector2& other) const {
 		return std::abs(X - other.X) < DEFUALT_FLOAT_EPSILON && 
 			   std::abs(Y - other.Y) < DEFUALT_FLOAT_EPSILON;
+	}
+
+	Vector2& Vector2::operator+=(const Vector2& other) {
+		*this = *this + other;
+
+		return *this;
+	}
+
+	Vector2& Vector2::operator-=(const Vector2& other) {
+		*this = *this - other;
+
+		return *this;
+	}
+
+	Vector2& Vector2::operator*= (float val) {
+		*this = *this * val;
+		return *this;
+	}
+
+	Vector2& Vector2::operator/= (float val) {
+		*this = *this / val;
+		return *this;
 	}
 
 	Vector2 operator+ (const Vector2& lhs, const Vector2& rhs){
@@ -42,9 +78,20 @@ namespace math {
 		return Vector2(lhs.X * rhs, lhs.Y * rhs);
 	}
 
-	Vector2 operator*(float lhs, const Vector2& rhs) {
+	Vector2 operator* (float lhs, const Vector2& rhs) {
 		return rhs * lhs;
 	}
+
+	Vector2 operator/ (const Vector2& lhs, float rhs) {
+		return Vector2(lhs.X / rhs, lhs.Y / rhs);
+	}
+
+	Vector2 operator/ (float lhs, const Vector2& rhs) {
+		return rhs / lhs;
+	}
+
+	const Vector3 Vector3::Forward(0, 0, -1);
+	const Vector3 Vector3::Up(0, 1, 0);
 
 	Vector3 operator+(const Vector3& lhs, const Vector3& rhs) {
 		return Vector3(
@@ -134,6 +181,10 @@ namespace math {
 
 	}
 
+	Vector3::Vector3(Vector2 vec, float z) : X(vec.X), Y(vec.Y), Z(z) {
+
+	}
+
 	float Vector3::Dot(const Vector3& other) const{
 		return (X * other.X) + (Y * other.Y) + (Z + other.Z);
 	}
@@ -184,6 +235,16 @@ namespace math {
 
 	Vector4::Vector4() {
 		X = Y = Z = W = 0;
+
+	}
+
+	Vector4::Vector4(const Vector3& vec3) 
+		: X(vec3.X), Y(vec3.Y), Z(vec3.Z), W(0) {
+
+	}
+
+	Vector4::Vector4(const Vector3& vec3, float w) 
+		: X(vec3.X), Y(vec3.Y), Z(vec3.Z), W(w) {
 
 	}
 

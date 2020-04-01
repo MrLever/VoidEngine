@@ -1,6 +1,7 @@
 //STD Headers
 
 //Library Headers
+#include <glm/gtx/quaternion.hpp>
 
 //Void Engine Headers
 #include "utils/TimeUtils.h"
@@ -72,18 +73,9 @@ namespace core {
 		);
 
 		//Rotate
-		auto rotation = m_Transform->GetRotation().ToEuler();
-		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Roll), glm::vec3(1.0f, 0.0f, 0.0f)
-		);
-
-		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Pitch), glm::vec3(0.0f, 1.0f, 0.0f)
-		);
-
-		m_TransformMatrix = glm::rotate(
-			m_TransformMatrix, glm::radians(rotation.Yaw), glm::vec3(0.0f, 0.0f, 1.0f)
-		);
+		auto rotation = math::Quaternion(m_Transform->GetRotation()).Normalize();
+		auto rotationMatrix = glm::toMat4(glm::quat(rotation.W, rotation.X, rotation.Y, rotation.Z));
+		m_TransformMatrix = m_TransformMatrix * rotationMatrix;
 
 		//Scale
 		auto scale = m_Transform->GetScale();

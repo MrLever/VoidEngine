@@ -40,7 +40,6 @@ namespace core {
 			if (entity == nullptr) continue;
 
 			entity->Initialize();
-			scene->m_Entities.emplace_back(entity);
 		}
 	}
 
@@ -68,7 +67,9 @@ namespace core {
 
 			for (auto componentEntry : componentList) {
 				auto componentType = componentEntry["type"].get<std::string>();
-				auto component = utils::FactoryBase<Component>::Create(componentType);
+				
+				std::shared_ptr<Component> component(utils::FactoryBase<Component>::Create(componentType));
+				
 				if (component) {
 					entity->AddComponent(component);
 					component->SetConfigData(componentEntry);
@@ -88,6 +89,7 @@ namespace core {
 			}
 		}
 
+		scene->m_Entities.emplace_back(entity);
 		return entity;
 	}
 

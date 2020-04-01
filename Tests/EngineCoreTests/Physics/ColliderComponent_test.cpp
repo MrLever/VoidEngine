@@ -80,17 +80,24 @@ namespace EngineCoreTests {
 		DummyRigidBody r2;
 		Manifold* manifold = nullptr;
 
-		EntityData data("Resources/Testing/Entities/AABBCollisionTestEntity.json");
-		data.Load();
-		auto componentData = data.GetAttribute<nlohmann::json>("components");
-		auto colliderComponentData = componentData[1];
+		nlohmann::json colliderData = {
+				{"type", "ColliderComponent"},
+				{
+					"shape",
+					{
+						{"type", "AABBCollider"},
+						{"min", {-0.5f, -0.5f, -0.5f}},
+						{"max", {0.5f, 0.5f, 0.5f}}
+					}
+				}
+		};
 
 		ColliderComponent* c1 = new ColliderComponent();
-		c1->SetConfigData(colliderComponentData);
+		c1->SetConfigData(colliderData);
 		r1.AddComponent(c1);
 
 		ColliderComponent* c2 = new ColliderComponent();
-		c2->SetConfigData(colliderComponentData);
+		c2->SetConfigData(colliderData);
 		r2.AddComponent(c2);
 
 		//Test Y axis
@@ -103,7 +110,7 @@ namespace EngineCoreTests {
 		r2.Tick(.5f);
 
 		manifold = c1->DetectCollision(c2);
-
+		ASSERT_NE(nullptr, manifold);
 		ASSERT_TRUE(std::abs(0.1f - manifold->PenetrationDistance) < std::numeric_limits<float>::epsilon());
 		delete manifold;
 

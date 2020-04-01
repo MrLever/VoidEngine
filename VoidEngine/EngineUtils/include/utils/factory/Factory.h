@@ -31,21 +31,11 @@ namespace utils {
 		virtual utils::Name GetProductName() const = 0;
 
 		/**
-		 * Function to instruct factory to create an instance of the product class
-		 */
-		virtual Base* Create() const = 0;
-
-		/**
 		 * Instructs generic factory to find and use concrete factory to product product instance
 		 * @param product The name of the product class
 		 */
-		static Base* Create(const std::string& product);
-
-		/**
-		 * Instructs generic factory to find and use concrete factory to product product instance
-		 * @param product The name of the product class
-		 */
-		static Base* Create(const utils::Name& product);
+		template<class... Args>
+		static Base* Create(const utils::Name& product, Args... args);
 
 	protected:
 		/**
@@ -58,16 +48,21 @@ namespace utils {
 		 * Adds a concrete factory to the static list of factories
 		 * @param factory The factory to register
 		 */
-		void RegisterConcreteFactory(const FactoryBase& factory);
+		static void RegisterConcreteFactory(const FactoryBase& factory);
 
 		/**
 		 * Remove a concrete factory from the static list of factories
 		 */
 		static void UnregisterConcreteFactory(const FactoryBase& factory);
 
+		/**
+		 * Function to instruct factory to create an instance of the product class
+		 */
+		virtual Base* ConstructProxy() const = 0;
+
 	private:
-		/** Map of product names to factories */
-		static std::unordered_map<utils::Name, const FactoryBase*>* ConcreteFactories;
+		/** Function to access map of product names to factories */
+		static std::unordered_map<utils::Name, const FactoryBase*>& ConcreteFactories();
 	};
 
 	template<class Derived, class Base>
@@ -104,65 +99,58 @@ namespace utils {
 		/**
 		 * Creates and returns a pointer to a new Derived product
 		 */
-		Derived* Create() const override;
+		Derived* ConstructProxy() const override;
 
 	private:
 		/** Stringified name of class this factory produces */
 		utils::Name ProductName;
 	};
 
+    /////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////// FACTORY BASE IMPL /////////////////////////////// 
+	/////////////////////////////////////////////////////////////////////////////////
 	template<class Base>
-	std::unordered_map<utils::Name, const FactoryBase<Base>*>* FactoryBase<Base>::ConcreteFactories;
-
-	//FACTORY BASE IMPL
-	template<class Base>
-	inline Base* FactoryBase<Base>::Create(const std::string& product) {
-		return Create(utils::Name(product));
+	inline std::unordered_map<utils::Name, const FactoryBase<Base>*>& FactoryBase<Base>::ConcreteFactories() {
+		static std::unordered_map<utils::Name, const FactoryBase<Base>*> factoryMap;
+		return factoryMap;
 	}
 
 	template<class Base>
-	inline Base* FactoryBase<Base>::Create(const utils::Name& product) {
+	template<class... Args>
+	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args ...args) {
 		auto factory = FindFactory(product);
 		if (factory == nullptr) {
 			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
 			return nullptr;
 		}
 
-		return factory->Create();
+		//Desired behavior
+		//auto fn = factory->GetConstructorHelper();
+		//return fn(args...);
+
+		return factory->ConstructProxy();
 	}
 
 	template<class Base>
 	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) {
-		if (!ConcreteFactories) {
-			utils::Logger::LogError(
-				"No concrete factories registered please enable factory for Product [" + 
-				product.StringID + "]"
-			);
+		auto factoryIter = ConcreteFactories().find(product);
 
-			return nullptr;
-		}
-
-		auto factoryIter = ConcreteFactories->find(product);
-
-		return (factoryIter == ConcreteFactories->end()) ? nullptr : factoryIter->second;
+		return (factoryIter == ConcreteFactories().end()) ? nullptr : factoryIter->second;
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::RegisterConcreteFactory(const FactoryBase& factory) {
-		//Avoid static initialization errors by lazily allocating the factory map
-		if (!ConcreteFactories) {
-			ConcreteFactories = new std::unordered_map<utils::Name, const FactoryBase<Base>*>();
-		}
-
-		ConcreteFactories->emplace(factory.GetProductName(), &factory);
+		ConcreteFactories().emplace(factory.GetProductName(), &factory);
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::UnregisterConcreteFactory(const FactoryBase& factory) {
-		ConcreteFactories->erase(factory.GetProductName());
+		ConcreteFactories().erase(factory.GetProductName());
 	}
 
-	//CONCRETE FACTORY IMPL
+	/////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////// CONCRETE FACTORY IMPL /////////////////////////////// 
+	/////////////////////////////////////////////////////////////////////////////////////
 	template<class Derived, class Base>
 	inline Factory<Derived, Base>::Factory() : ProductName(Derived::GetStaticTypename()) {
 		FactoryBase<Base>::RegisterConcreteFactory(*this);
@@ -179,7 +167,7 @@ namespace utils {
 	}
 
 	template<class Derived, class Base>
-	inline Derived* Factory<Derived, Base>::Create() const {
+	inline Derived* Factory<Derived, Base>::ConstructProxy() const {
 		return new Derived();
 	}
 

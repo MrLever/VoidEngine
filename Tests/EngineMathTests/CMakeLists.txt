@@ -4,6 +4,7 @@
 set(Math_Test_Suite 
     "Quaternions_test.cpp"
     "Rotators_test.cpp"
+    "Vector_test.cpp"
 )
 
 ################################################################################

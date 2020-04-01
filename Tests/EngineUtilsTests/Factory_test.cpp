@@ -20,7 +20,7 @@ namespace utils_tests {
 	
 	ENABLE_FACTORY(TestEntity, core::Entity)
 	TEST(FactoryTests, ConstructionTest) {
-		core::Entity* testEntity = FactoryBase<core::Entity>::Create("TestEntity");
+		core::Entity* testEntity = FactoryBase<core::Entity>::Create(utils::Name("TestEntity"));
 		ASSERT_NE(nullptr, testEntity);
 	}
 }

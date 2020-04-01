@@ -4,14 +4,17 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "core/Window.h"
+#include "core\platform\Platform.h"
 
 namespace EngineCoreTests {		
 
 	using namespace core;
 
 	TEST(WindowManagerTests, WindowCreationTest) {
-		ASSERT_TRUE(false);
+		WindowData data = { "test", 1, 1 };
+		auto window = platform::MakeWindow(nullptr, data);
+
+		ASSERT_NE(nullptr, window);
 	}
 
 }

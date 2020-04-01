@@ -95,6 +95,6 @@ public:
 		Entity* m_Parent;
 	
 		/** Read only pointer to the parent entity's transform */
-		const Transform* m_Transform;
+		Transform* m_Transform;
 	};
 }

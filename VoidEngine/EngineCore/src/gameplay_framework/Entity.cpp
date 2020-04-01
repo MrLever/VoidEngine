@@ -20,10 +20,7 @@ namespace core {
 	}
 
 	Entity::~Entity() {
-		for (auto& componentEntry : m_Components) {
-			delete componentEntry.second;
-		}
-		m_Components.clear();
+
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
@@ -156,13 +153,24 @@ namespace core {
 		m_Name = name;
 	}
 
-	void Entity::AddComponent(Component* component) {
+	void Entity::AddComponent(std::shared_ptr<Component> component) {
 		//Abuse friendship to give the child component necessary references
 		component->m_Parent = this;
 		component->m_Transform = &m_Transform;
 
 		//Register component
 		m_Components[component->GetTypename()] = component;
+	}
+
+	void Entity::AddComponent(Component* component) {
+		std::shared_ptr<Component> wrappedPtr(component);
+
+		//Abuse friendship to give the child component necessary references
+		wrappedPtr->m_Parent = this;
+		wrappedPtr->m_Transform = &m_Transform;
+
+		//Register component
+		m_Components[component->GetTypename()] = wrappedPtr;
 	}
 
 	Scene* Entity::GetWorld() const {

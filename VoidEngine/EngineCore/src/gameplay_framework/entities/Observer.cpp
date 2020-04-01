@@ -72,7 +72,7 @@ namespace core {
 	}
 	
 	void Observer::MoveForward(float axisValue, float deltaTime) {
-		auto forward = m_Transform.GetRotation().ToVector();
+		auto forward = m_Transform.GetForward();
 		auto moveSpeed = MovementSpeed * deltaTime;
 		
 		auto positon = m_Transform.GetPosition();
@@ -82,8 +82,8 @@ namespace core {
 	}
 
 	void Observer::MoveRight(float axisValue, float deltaTime) {
-		auto forward = m_Transform.GetRotation().ToVector();
-		auto right = forward.Cross(math::Vector3(0, 1, 0)).Normalize();
+		auto forward = m_Transform.GetForward();
+		auto right = forward.Cross(m_Transform.GetUp()).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
 
 		auto positon = m_Transform.GetPosition();
@@ -93,7 +93,7 @@ namespace core {
 	}
 
 	void Observer::LookUp(float axisValue, float deltaTime) {
-		math::Rotator deltaRotation(0, 0, axisValue);
+		math::Rotator deltaRotation(axisValue, 0, 0);
 		
 		//Clamp look radius to avoid quaternion flipping over
 		if (axisValue > 89) {

@@ -66,6 +66,9 @@ namespace core {
 		 */
 		std::string GetControlFilePath() const;
 
+		template<class T>
+		std::vector<T*> GetComponentsOfType();
+
 	private:
 		/**
 		 * Scans scenes for light components and adds them to m_LightingEnviornment
@@ -95,5 +98,18 @@ namespace core {
 		/** Used to maintain scene lighting data and pass to renderer */
 		LightingEnvironment m_LightingEnvironment;
 	};
+
+	template<class T>
+	inline std::vector<T*> Scene::GetComponentsOfType(){
+		std::vector<T*> searchResults;
+
+		for (auto& entity : m_Entities) {
+			auto component = entity->GetComponent<T>();
+			if (component) {
+				searchResults.emplace_back(component);
+			}
+		}
+		return searchResults;
+	}
 
 }

@@ -42,6 +42,11 @@ namespace SuperVoid{
 		 */
 		void MoveRight(float axisValue, float deltaTime);
 
+		/**
+		 * Rotates the ship left and right
+		 */
+		void Rotate(float axisValue, float deltaTime);
+
 	private:
 		core::PhysicsComponent* m_RigidBody;
 

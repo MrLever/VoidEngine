@@ -122,6 +122,12 @@ namespace core {
 		 * Gives ownership of a component to this entity
 		 * @param component The component to add
 		 */
+		void AddComponent(std::shared_ptr<Component> component);
+
+		/**
+		 * Gives ownership of a component to this entity
+		 * @param component The component to add
+		 */
 		void AddComponent(Component* component);
 
 		/**
@@ -153,7 +159,7 @@ namespace core {
 		utils::Name m_Name;
 
 		/** All of the components for this entity */
-		std::unordered_map<utils::Name, Component*> m_Components;
+		std::unordered_map<utils::Name, std::shared_ptr<Component>> m_Components;
 
 		/** Optional pointer to the entity's owner */
 		Entity* m_Parent;
@@ -165,15 +171,16 @@ namespace core {
 		/** The level the entity inhabits */
 		Scene* m_World;
 	};
-
+	
 	template<class T>
-	inline T* Entity::GetComponent() {
+	inline T* Entity::GetComponent()
+	{
 		auto componentEntry = m_Components.find(T::GetStaticTypename());
 		if (componentEntry == m_Components.end()) {
 			return nullptr;
 		}
 		else {
-			T* component = reinterpret_cast<T*>(componentEntry->second);
+			T* component = reinterpret_cast<T*>(componentEntry->second.get());
 			return component;
 		}
 	}
