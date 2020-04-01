@@ -61,8 +61,8 @@ namespace utils {
 		virtual Base* ConstructProxy() const = 0;
 
 	private:
-		/** Map of product names to factories */
-		static std::unordered_map<utils::Name, const FactoryBase*>* ConcreteFactories;
+		/** Function to access map of product names to factories */
+		static std::unordered_map<utils::Name, const FactoryBase*>& ConcreteFactories();
 	};
 
 	template<class Derived, class Base>
@@ -106,12 +106,15 @@ namespace utils {
 		utils::Name ProductName;
 	};
 
-	template<class Base>
-	std::unordered_map<utils::Name, const FactoryBase<Base>*>* FactoryBase<Base>::ConcreteFactories;
-
     /////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////// FACTORY BASE IMPL /////////////////////////////// 
 	/////////////////////////////////////////////////////////////////////////////////
+	template<class Base>
+	inline std::unordered_map<utils::Name, const FactoryBase<Base>*>& FactoryBase<Base>::ConcreteFactories() {
+		static std::unordered_map<utils::Name, const FactoryBase<Base>*> factoryMap;
+		return factoryMap;
+	}
+
 	template<class Base>
 	template<class... Args>
 	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args ...args) {
@@ -130,33 +133,19 @@ namespace utils {
 
 	template<class Base>
 	inline const FactoryBase<Base>* const FactoryBase<Base>::FindFactory(const utils::Name& product) {
-		if (!ConcreteFactories) {
-			utils::Logger::LogError(
-				"No concrete factories registered please enable factory for Product [" + 
-				product.StringID + "]"
-			);
+		auto factoryIter = ConcreteFactories().find(product);
 
-			return nullptr;
-		}
-
-		auto factoryIter = ConcreteFactories->find(product);
-
-		return (factoryIter == ConcreteFactories->end()) ? nullptr : factoryIter->second;
+		return (factoryIter == ConcreteFactories().end()) ? nullptr : factoryIter->second;
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::RegisterConcreteFactory(const FactoryBase& factory) {
-		//Avoid static initialization errors by lazily allocating the factory map
-		if (!ConcreteFactories) {
-			ConcreteFactories = new std::unordered_map<utils::Name, const FactoryBase<Base>*>();
-		}
-
-		ConcreteFactories->emplace(factory.GetProductName(), &factory);
+		ConcreteFactories().emplace(factory.GetProductName(), &factory);
 	}
 
 	template<class Base>
 	inline void FactoryBase<Base>::UnregisterConcreteFactory(const FactoryBase& factory) {
-		ConcreteFactories->erase(factory.GetProductName());
+		ConcreteFactories().erase(factory.GetProductName());
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////

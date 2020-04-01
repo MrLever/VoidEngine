@@ -16,39 +16,39 @@ namespace core {
 	ENABLE_FACTORY(AABBCollider, Collider)
 
 	AABBCollider::AABBCollider() {
-		std::vector<float> verts = {
-			m_MinExtent.X, m_MinExtent.Y, m_MinExtent.Z, //min
-			m_MaxExtent.X, m_MinExtent.Y, m_MinExtent.Z,
-			m_MaxExtent.X, m_MaxExtent.Y, m_MinExtent.Z,
-			m_MinExtent.X, m_MaxExtent.Y, m_MinExtent.Z, //4
-			m_MinExtent.X, m_MinExtent.Y, m_MaxExtent.Z,
-			m_MaxExtent.X, m_MinExtent.Y, m_MaxExtent.Z,
-			m_MaxExtent.X, m_MaxExtent.Y, m_MaxExtent.Z, //max
-			m_MinExtent.X, m_MaxExtent.Y, m_MaxExtent.Z, //8
-		};
+		//std::vector<float> verts = {
+		//	m_MinExtent.X, m_MinExtent.Y, m_MinExtent.Z, //min
+		//	m_MaxExtent.X, m_MinExtent.Y, m_MinExtent.Z,
+		//	m_MaxExtent.X, m_MaxExtent.Y, m_MinExtent.Z,
+		//	m_MinExtent.X, m_MaxExtent.Y, m_MinExtent.Z, //4
+		//	m_MinExtent.X, m_MinExtent.Y, m_MaxExtent.Z,
+		//	m_MaxExtent.X, m_MinExtent.Y, m_MaxExtent.Z,
+		//	m_MaxExtent.X, m_MaxExtent.Y, m_MaxExtent.Z, //max
+		//	m_MinExtent.X, m_MaxExtent.Y, m_MaxExtent.Z, //8
+		//};
 
-		std::vector<uint32_t> indices = {
-			0, 1, 3, 3, 1, 2,
-			1, 5, 2, 2, 5, 6,
-			5, 4, 6, 6, 4, 7,
-			4, 0, 7, 7, 0, 3,
-			3, 2, 7, 7, 2, 6,
-			4, 5, 0, 0, 5, 1
-		};
+		//std::vector<uint32_t> indices = {
+		//	0, 1, 3, 3, 1, 2,
+		//	1, 5, 2, 2, 5, 6,
+		//	5, 4, 6, 6, 4, 7,
+		//	4, 0, 7, 7, 0, 3,
+		//	3, 2, 7, 7, 2, 6,
+		//	4, 5, 0, 0, 5, 1
+		//};
 
-		BufferLayout meshLayout = {
-			{ShaderDataType::FLOAT_3, "a_Position"},
-		};
+		//BufferLayout meshLayout = {
+		//	{ShaderDataType::FLOAT_3, "a_Position"},
+		//};
 
-		auto vertexBuffer = VertexBuffer::Create(verts.data(), (uint32_t)verts.size());
-		auto indexBuffer = IndexBuffer::Create(indices.data(), (uint32_t)indices.size());
+		//auto vertexBuffer = VertexBuffer::Create(verts.data(), (uint32_t)verts.size());
+		//auto indexBuffer = IndexBuffer::Create(indices.data(), (uint32_t)indices.size());
 
-		vertexBuffer->SetLayout(meshLayout);
-		
-		m_VertexArray = VertexArray::Create();
+		//vertexBuffer->SetLayout(meshLayout);
+		//
+		//m_VertexArray = VertexArray::Create();
 
-		m_VertexArray->LinkVertexBuffer(vertexBuffer);
-		m_VertexArray->SetIndexBuffer(indexBuffer);
+		//m_VertexArray->LinkVertexBuffer(vertexBuffer);
+		//m_VertexArray->SetIndexBuffer(indexBuffer);
 
 	}
 

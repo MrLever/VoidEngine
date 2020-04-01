@@ -32,7 +32,7 @@ namespace core {
 		Shape->SetConfigData(ConfigData["shape"]);
 		Shape->Initialize();
 
-		m_ColliderShader = std::make_shared<ShaderProgram>(
+		/*m_ColliderShader = std::make_shared<ShaderProgram>(
 			"ColliderShader",
 			new Shader(
 				ShaderType::VERTEX,
@@ -42,7 +42,7 @@ namespace core {
 				ShaderType::FRAGMENT,
 				"Resources/Shaders/default.frag"
 			)
-		);
+		);*/
 
 	}
 
