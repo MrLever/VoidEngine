@@ -1,6 +1,7 @@
 #pragma once
 //STD Headers
 #include <string>
+#include <unordered_set>
 
 //Library headers
 
@@ -159,7 +160,7 @@ namespace core {
 		utils::Name m_Name;
 
 		/** All of the components for this entity */
-		std::unordered_map<utils::Name, std::shared_ptr<Component>> m_Components;
+		std::unordered_set<std::shared_ptr<Component>> m_Components;
 
 		/** Optional pointer to the entity's owner */
 		Entity* m_Parent;
@@ -175,13 +176,13 @@ namespace core {
 	template<class T>
 	inline T* Entity::GetComponent()
 	{
-		auto componentEntry = m_Components.find(T::GetStaticTypename());
-		if (componentEntry == m_Components.end()) {
-			return nullptr;
+		for (auto& component : m_Components) {
+			auto ptr = dynamic_cast<T*>(component.get());
+			if (ptr != nullptr) {
+				return ptr;
+			}
 		}
-		else {
-			T* component = reinterpret_cast<T*>(componentEntry->second.get());
-			return component;
-		}
+
+		return nullptr;
 	}
 }

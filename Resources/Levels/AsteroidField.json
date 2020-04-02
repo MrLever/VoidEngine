@@ -50,15 +50,17 @@
                     ]
                 },
                 {
-                    "name":"Static Camera",
+                    "name":"Ship Camera",
                     "type":"Entity",
-                    "location": [0, 0, 45],
+                    "location": [0, 0, 65],
                     "rotation": [0, 0, 0],
                     "components":
                     [
                         {
-                            "type":"CameraComponent",
-                            "name":"PlayerCamera"
+                            "type":"ShipCamera",
+                            "name":"PlayerCamera",
+                            "near": 0.1,
+                            "far": 1000
                         }
                     ]
                 }
