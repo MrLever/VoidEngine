@@ -12,20 +12,48 @@ using namespace core;
 
 namespace EngineCoreTests {
 
-	class DummyEntity : public Entity {
-		void BeginPlay() override {}
-		void Terminate() override {}
+	class ComponentA : public Component {
+		TYPE_INFO_DECL(ComponentA)
+	public:
+		void Initialize() override {}
 	};
+	TYPE_INFO_IMPL(ComponentA)
 
-	TEST(TestEntites, GetComponentTest) {
-		DummyEntity dummy;
-		dummy.AddComponent(new GraphicsComponent());
+	class ComponentB : public Component {
+		TYPE_INFO_DECL(ComponentB)
+		public:
+			void Initialize() override {}
+	};
+	TYPE_INFO_IMPL(ComponentB)
 
-		auto model = dummy.GetComponent<GraphicsComponent>();
-		auto brokenComponent = dummy.GetComponent<InputComponent>();
+	class ComponentA_Derived : public ComponentA {
+		TYPE_INFO_DECL(ComponentA_Derived)
+	public:
+		void Initialize() override {}
+	};
+	TYPE_INFO_IMPL(ComponentA_Derived)
 
-		ASSERT_NE(nullptr, model);
-		ASSERT_EQ(nullptr, brokenComponent);
+	TEST(TestEntities, AddGetTest) {
+		Entity entity;
+		auto compA = new ComponentA();
+		auto compB = new ComponentB();
+
+		entity.AddComponent(compA);
+		entity.AddComponent(compB);
+
+		ASSERT_NE(nullptr, entity.GetComponent<ComponentA>());
+		ASSERT_EQ(compA, entity.GetComponent<ComponentA>());
+
+		ASSERT_NE(nullptr, entity.GetComponent<ComponentB>());
+		ASSERT_EQ(compB, entity.GetComponent<ComponentB>());
+	}
+
+	TEST(TestEntites, PolymorphicGetTest) {
+		Entity entity;
+		entity.AddComponent(new ComponentA_Derived());
+
+		auto basePtr = entity.GetComponent<ComponentA>();
+		ASSERT_NE(nullptr, basePtr);
 	}
 
 }

@@ -13,7 +13,7 @@ namespace core {
 	ENABLE_FACTORY(CameraComponent, Component)
 
 	CameraComponent::CameraComponent()
-		: m_ProjectionMatrix(1), m_ViewMatrix(1), m_FOV(45.0), m_Name("Camera") {
+		: m_ProjectionMatrix(1), m_ViewMatrix(1), m_FOV(45.0), m_Near(0.1f), m_Far(1000.0f), m_Name("Camera") {
 
 	}
 
@@ -24,6 +24,14 @@ namespace core {
 	void CameraComponent::Initialize() {
 		if (ConfigData.find("name") != ConfigData.end()) {
 			m_Name = ConfigData["name"];
+		}
+
+		if (ConfigData.find("near") != ConfigData.end()) {
+			m_Near = ConfigData["near"];
+		}
+
+		if (ConfigData.find("far") != ConfigData.end()) {
+			m_Far = ConfigData["far"];
 		}
 	}
 	
@@ -61,8 +69,8 @@ namespace core {
 		m_ProjectionMatrix = glm::perspective<float>(
 			glm::radians(m_FOV),
 			(float)viewport.Width / viewport.Height,
-			0.1f,
-			100.0f
+			m_Near,
+			m_Far
 		);
 	}
 

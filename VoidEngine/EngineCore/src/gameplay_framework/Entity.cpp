@@ -24,14 +24,14 @@ namespace core {
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->Input(input, deltaTime);
+		for (auto& component : m_Components) {
+			component->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->Input(input, deltaTime);
+		for (auto& component : m_Components) {
+			component->Input(input, deltaTime);
 		}
 	}
 
@@ -70,8 +70,8 @@ namespace core {
 			}
 		}
 		
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->Initialize();
+		for (auto& component : m_Components) {
+			component->Initialize();
 		}
 
 		for (auto& child : m_Children) {
@@ -86,8 +86,8 @@ namespace core {
 	}
 
 	void Entity::Tick(float deltaTime) {
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->Tick(deltaTime);
+		for (auto& component : m_Components) {
+			component->Tick(deltaTime);
 		}
 
 		for (auto& child : m_Children) {
@@ -100,8 +100,8 @@ namespace core {
 	}
 
 	void Entity::Draw() const {
-		for (auto& componentEntry : m_Components) {
-			componentEntry.second->Draw();
+		for (auto& component : m_Components) {
+			component->Draw();
 		}
 
 		for (auto& child : m_Children) {
@@ -159,18 +159,13 @@ namespace core {
 		component->m_Transform = &m_Transform;
 
 		//Register component
-		m_Components[component->GetTypename()] = component;
+		m_Components.insert(component);
 	}
 
 	void Entity::AddComponent(Component* component) {
 		std::shared_ptr<Component> wrappedPtr(component);
 
-		//Abuse friendship to give the child component necessary references
-		wrappedPtr->m_Parent = this;
-		wrappedPtr->m_Transform = &m_Transform;
-
-		//Register component
-		m_Components[component->GetTypename()] = wrappedPtr;
+		AddComponent(wrappedPtr);
 	}
 
 	Scene* Entity::GetWorld() const {

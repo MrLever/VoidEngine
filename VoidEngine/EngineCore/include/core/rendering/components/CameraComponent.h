@@ -86,6 +86,12 @@ namespace core {
 		/** This camera's view matrix */
 		glm::mat4 m_ViewMatrix;
 
+		/** Distance to the camera's near clipping plane */
+		float m_Near;
+
+		/** Distance to the camera's far clipping plane */
+		float m_Far;
+
 		/** This camera's field of view */
 		float m_FOV;
 	};

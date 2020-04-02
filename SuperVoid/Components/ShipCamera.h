@@ -7,7 +7,7 @@
 //Void Engine Headers
 #include "core/rendering/components/CameraComponent.h"
 
-namespace core {
+namespace SuperVoid {
 
 	class ShipCamera : public core::CameraComponent {
 		/**
@@ -27,22 +27,17 @@ namespace core {
 		~ShipCamera();
 
 		/**
-		 * Orients camera to match entity rotation
+		 * Initialize Camera
 		 */
 		void Initialize() override;
 
 		/**
-		 * Defines how a component processes updates
-		 * @param deltaSeconds the time elapsed since the previous tick
+		 * Update entity
 		 */
-		virtual void Tick(float deltaTime);
+		void Tick(float deltaTime) override;
 
-	private:
-		/** Orientation to maintain while ship is maneuvering */
+	protected:
 		math::Quaternion m_SpawnOrientation;
-
-		/** This camera's field of view */
-		float m_FOV;
 	};
 
 }

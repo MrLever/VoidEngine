@@ -7,7 +7,7 @@
 #include "core/gameplay_framework/entities/PlayerEntity.h"
 #include "core/physics/components/PhysicsComponent.h"
 
-namespace SuperVoid{
+namespace SuperVoid {
 
 	/**
 	 * @class PlayerShip
