@@ -4,13 +4,15 @@
 #include <string>
 
 //Library Headers
+#include <math/Vector.h>
 
 //Void Engine Headers
-#include "math/Vector.h"
+#include "utils/resource/JsonResource.h"
 
 #include "core/Level.h"
 #include "core/event_system/EventBusNode.h"
 #include "core/event_system/events/WindowResizedEvent.h"
+#include "core/gameplay_framework/Prototype.h"
 #include "core/input/InputManager.h"
 #include "core/input/ControlLayout.h"
 #include "core/rendering/Renderer.h"
@@ -29,10 +31,15 @@ namespace core {
 		 * @param physicsEngine the Physics Engine used to update rigid bodies in the scene
 		 */
 		Scene(
+			const std::string& levelPath,
 			EventBus* eventBus,
 			std::shared_ptr<InputManager> inputManager,
 			std::shared_ptr<PhysicsEngine> physicsEngine
 		);
+
+		/**
+		 * Destructor
+		 */
 		~Scene();
 
 		/**
@@ -51,9 +58,9 @@ namespace core {
 		void Draw();
 
 		/**
-		 * Allows Entity to be spawned during playtime
+		 * Allows entities to construct entities from prototypes at runtime
 		 */
-		std::shared_ptr<Entity> SpawnEntity(const utils::Name& type, Entity* parent = nullptr);
+		Entity* Instantiate(const Prototype& prototype, Entity* parent = nullptr);
 
 		/**
 		 * Allows Entities to be removed from the simulation
@@ -66,14 +73,18 @@ namespace core {
 		 */
 		std::string GetControlFilePath() const;
 
+		/**
+		 * Allows user code to search scene for all components of specified type
+		 * @return vector of discovered components
+		 */
 		template<class T>
-		std::vector<T*> GetComponentsOfType();
+		std::vector<T*> FindComponentsOfType();
 
 	private:
 		/**
-		 * Scans scenes for light components and adds them to m_LightingEnviornment
+		 * Recursive helper function to spawn entity given data
 		 */
-		void GatherLights();
+		std::shared_ptr<Entity> SpawnEntity(const nlohmann::json& entityData, Entity* parent = nullptr);
 
 		std::string m_ControlFilePath;
 
@@ -97,10 +108,13 @@ namespace core {
 
 		/** Used to maintain scene lighting data and pass to renderer */
 		LightingEnvironment m_LightingEnvironment;
+
+		/** Data cache for already loaded level data */
+		static utils::ResourceAllocator<utils::JsonResource> s_LevelCache;
 	};
 
 	template<class T>
-	inline std::vector<T*> Scene::GetComponentsOfType(){
+	inline std::vector<T*> Scene::FindComponentsOfType(){
 		std::vector<T*> searchResults;
 
 		for (auto& entity : m_Entities) {
@@ -109,6 +123,7 @@ namespace core {
 				searchResults.emplace_back(component);
 			}
 		}
+
 		return searchResults;
 	}
 

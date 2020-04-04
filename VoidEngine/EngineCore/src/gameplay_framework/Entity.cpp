@@ -38,35 +38,44 @@ namespace core {
 	void Entity::Initialize() {
 		if (!ConfigData.is_null()) {
 			m_Name = utils::Name(ConfigData["name"]);
+			
 			if (m_Parent) {
 				m_Transform.SetParent(&m_Parent->m_Transform);
 			}
 
 			auto locationData = ConfigData["location"];
-			m_Transform.SetLocalPosition(math::Vector3(
-				locationData[0].get<float>(),
-				locationData[1].get<float>(),
-				locationData[2].get<float>()
-			));
-		
+			if (!locationData.is_null()) {
+				m_Transform.SetLocalPosition(
+					math::Vector3(
+						locationData[0].get<float>(),
+						locationData[1].get<float>(),
+						locationData[2].get<float>()
+					)
+				);
+			}
+
 			auto rotationData = ConfigData["rotation"];
 			if (!rotationData.is_null()) {
-				m_Transform.SetLocalRotation(math::Quaternion(
-					math::Rotator(
-						rotationData[0].get<float>(),
-						rotationData[1].get<float>(),
-						rotationData[2].get<float>()
+				m_Transform.SetLocalRotation(
+					math::Quaternion(
+						math::Rotator(
+							rotationData[0].get<float>(),
+							rotationData[1].get<float>(),
+							rotationData[2].get<float>()
+						)
 					)
-				));
+				);
 			}
 
 			auto scaleData = ConfigData["scale"];
 			if (!scaleData.is_null()) {
-				m_Transform.SetLocalScale(math::Vector3(
-					scaleData[0].get<float>(),
-					scaleData[1].get<float>(),
-					scaleData[2].get<float>()
-				));
+				m_Transform.SetLocalScale(
+					math::Vector3(
+						scaleData[0].get<float>(),
+						scaleData[1].get<float>(),
+						scaleData[2].get<float>()
+					)
+				);
 			}
 		}
 		

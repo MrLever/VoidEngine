@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <any>
 #include <concepts>
 #include <typeinfo>
 #include <memory>
@@ -35,7 +36,7 @@ namespace utils {
 		 * @param product The name of the product class
 		 */
 		template<class... Args>
-		static Base* Create(const utils::Name& product, Args... args);
+		static Base* Create(const utils::Name& product, Args&&... args);
 
 	protected:
 		/**
@@ -117,18 +118,23 @@ namespace utils {
 
 	template<class Base>
 	template<class... Args>
-	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args ...args) {
+	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args&& ...args) {
 		auto factory = FindFactory(product);
 		if (factory == nullptr) {
 			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
 			return nullptr;
 		}
 
-		//Desired behavior
-		//auto fn = factory->GetConstructorHelper();
-		//return fn(args...);
+		auto entity = factory->ConstructProxy();
+		if (entity == nullptr) {
+			utils::Logger::LogWarning(
+				"Entity type " +
+				product.StringID +
+				" was not constructed properly."
+			);
+		}
 
-		return factory->ConstructProxy();
+		return entity;
 	}
 
 	template<class Base>

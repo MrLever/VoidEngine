@@ -3,6 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "core/Scene.h"
 #include "utils/factory/Factory.h"
 #include "PlayerShip.h"
 
@@ -12,7 +13,7 @@ namespace SuperVoid {
 
 	ENABLE_FACTORY(PlayerShip, core::Entity)
 
-	PlayerShip::PlayerShip() : m_Speed(10), m_RigidBody(nullptr) {
+	PlayerShip::PlayerShip() : m_EngineStrength(10), m_RigidBody(nullptr), m_BulletPrototype({}) {
 
 	}
 
@@ -23,8 +24,10 @@ namespace SuperVoid {
 		SetupInputComponent(GetComponent<core::InputComponent>());
 
 		if (ConfigData.find("speed") != ConfigData.end()) {
-			m_Speed = ConfigData["speed"];
+			m_EngineStrength = ConfigData["speed"];
 		}
+
+		m_BulletPrototype = core::Prototype(ConfigData["bulletPrototype"]);
 	}
 
 	void PlayerShip::SetupInputComponent(core::InputComponent* component) {
@@ -48,14 +51,22 @@ namespace SuperVoid {
 				Rotate(axisReading, deltaTime);
 			}
 		);
+
+		component->BindAction(
+			"Fire",
+			core::ActionType::PRESSED,
+			[this](float deltaTime) {
+				Fire();
+			}
+		);
 	}
 	
 	void PlayerShip::MoveForward(float axisValue, float deltaTime) {
-		m_RigidBody->ApplyForce(math::Vector3(0, m_Speed * axisValue * deltaTime, 0));
+		m_RigidBody->ApplyForce(math::Vector3(0, m_EngineStrength * axisValue * deltaTime, 0));
 	}
 	
 	void PlayerShip::MoveRight(float axisValue, float deltaTime) {
-		m_RigidBody->ApplyForce(math::Vector3(m_Speed * axisValue * deltaTime, 0, 0));
+		m_RigidBody->ApplyForce(math::Vector3(m_EngineStrength * axisValue * deltaTime, 0, 0));
 	}
 
 	void PlayerShip::Rotate(float axisValue, float deltaTime) {
@@ -63,5 +74,9 @@ namespace SuperVoid {
 
 		auto rotation = m_Transform.GetRotation();
 		m_Transform.SetRotation(deltaRotation * rotation);
+	}
+
+	void PlayerShip::Fire() {
+		GetWorld()->Instantiate(m_BulletPrototype);
 	}
 }

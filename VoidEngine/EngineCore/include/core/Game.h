@@ -14,7 +14,6 @@
 #include "utils/resource/ResourceAllocator.h"
 #include "utils/Logger.h"
 
-#include "core/SceneLoader.h"
 #include "core/Window.h"
 #include "core/audio/AudioManager.h"
 #include "core/event_system/EventBus.h"
@@ -83,8 +82,6 @@ namespace core {
 		 * @param newLevelPath path to the new level's data file
 		 */
 		void SetLevel(const std::string& newLevelPath);
-
-		SceneLoader m_SceneLoader;
 
 		/** The game's current level */
 		std::shared_ptr<Scene> m_ActiveScene;

@@ -4,6 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
+#include "core/gameplay_framework/Prototype.h"
 #include "core/gameplay_framework/entities/PlayerEntity.h"
 #include "core/physics/components/PhysicsComponent.h"
 
@@ -47,10 +48,14 @@ namespace SuperVoid {
 		 */
 		void Rotate(float axisValue, float deltaTime);
 
+		void Fire();
+
 	private:
+		core::Prototype m_BulletPrototype;
 		core::PhysicsComponent* m_RigidBody;
 
-		float m_Speed;
+
+		float m_EngineStrength;
 	};
 }
 

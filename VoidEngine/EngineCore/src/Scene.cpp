@@ -8,11 +8,41 @@
 #include "rendering/components/lights/DirectionalLightComponent.h"
 
 namespace core {
+	utils::ResourceAllocator<utils::JsonResource> Scene::s_LevelCache;
+
 	Scene::Scene(
+		const std::string& levelPath,
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
 		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine), m_ActiveCamera(nullptr) {
+
+		auto levelData = s_LevelCache.GetResource(levelPath);
+
+		m_ControlFilePath = levelData->GetAttribute<std::string>("controlFile");
+		m_PhysicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
+
+		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
+
+		//Gather scene's ambient light data
+		m_LightingEnvironment.AmbientLightColor = math::Vector4(
+			lightSettings["ambientLightColor"][0],
+			lightSettings["ambientLightColor"][1],
+			lightSettings["ambientLightColor"][2],
+			lightSettings["ambientLightColor"][3]
+		);
+
+		m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
+
+		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
+
+		for (auto& entityData : entityList) {
+			auto entity = SpawnEntity(entityData, nullptr);
+
+			if (entity == nullptr) continue;
+
+			entity->Initialize();
+		}
 
 	}
 
@@ -78,7 +108,8 @@ namespace core {
 	}
 
 	void Scene::Draw() {
-		GatherLights();
+		m_LightingEnvironment.DirectionalLights = FindComponentsOfType<DirectionalLightComponent>();
+		m_LightingEnvironment.PointLights = FindComponentsOfType<PointLightComponent>();
 		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
 		
 		for (auto entity : m_Entities) {
@@ -88,15 +119,10 @@ namespace core {
 		Renderer::EndFrame();
 	}
 	
-	std::shared_ptr<Entity> Scene::SpawnEntity(const utils::Name& type, Entity* parent) {
-		std::shared_ptr<Entity> entity (utils::FactoryBase<Entity>::Create(type));
-		if (!entity) {
-			return nullptr;
-		}
+	Entity* Scene::Instantiate(const Prototype& prototype, Entity* parent) {
+		auto entity = SpawnEntity(prototype.GetData(), parent).get();
+		entity->Initialize();
 
-		m_SpawnQueue.push_back(entity);
-		entity->SetScene(this);
-		entity->SetParent(parent);
 		return entity;
 	}
 
@@ -108,9 +134,48 @@ namespace core {
 		return m_ControlFilePath;
 	}
 
-	void Scene::GatherLights() {
-		//Reset light data
-		m_LightingEnvironment.DirectionalLights = GetComponentsOfType<DirectionalLightComponent>();
-		m_LightingEnvironment.PointLights = GetComponentsOfType<PointLightComponent>();
+	std::shared_ptr<Entity> Scene::SpawnEntity(const nlohmann::json& entityData, Entity* parent) {
+		auto entityType = entityData["type"].get<std::string>();
+		
+		std::shared_ptr<Entity> entity(
+			utils::FactoryBase<Entity>::Create(entityType)
+		);
+
+		entity->SetConfigData(entityData);
+		entity->SetScene(this);
+		if (parent) {
+			entity->SetParent(parent);
+		}
+
+		if (entityData.find("components") != entityData.end()) {
+			auto componentList = entityData["components"];
+
+			for (auto componentEntry : componentList) {
+				auto componentType = componentEntry["type"].get<std::string>();
+
+				std::shared_ptr<Component> component(utils::FactoryBase<Component>::Create(componentType));
+
+				if (component) {
+					entity->AddComponent(component);
+					component->SetConfigData(componentEntry);
+				}
+			}
+		}
+
+		//Recursively load child enitites
+		if (entityData.find("children") != entityData.end()) {
+			auto childrenData = entityData["children"];
+			for (auto& childData : childrenData) {
+				auto child = SpawnEntity(childData, entity.get());
+
+				if (child == nullptr) continue;
+
+				entity->AddChild(child);
+			}
+		}
+
+		m_Entities.emplace_back(entity);
+		return entity;
 	}
+
 }

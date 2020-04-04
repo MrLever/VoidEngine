@@ -17,6 +17,32 @@
             "rotation": [0, 0, 0],
             "scale": [1, 1, 1],
             "speed":500,
+            "bulletPrototype":
+            {
+                "name":"PlayerBullet",
+                "type":"Projectile",
+                "location":[5, 0, 0],
+                "scale": [0.15, 0.15, 0.15],
+                "components":
+                [
+                    {
+                        "type":"GraphicsComponent",
+                        "model":"Resources/Models/Primitives/Sphere/Sphere.obj"
+                    },
+                    {
+                        "type":"ColliderComponent",
+                        "shape":
+                        {
+                            "type":"SphereCollider",
+                            "radius":1
+                        }
+                    },
+                    {
+                        "type":"PhysicsComponent",
+                        "mass":1.0
+                    }
+                ]
+            },
             "components":
             [
                 {
@@ -86,10 +112,34 @@
             ]
         },
         {
+            "name":"AsteroidSource",
+            "type":"AsteroidEmitter",
+            "asteroidPrototype":
+            {
+                "name":"Asteroid",
+                "type":"Asteroid",
+                "components":
+                [
+                    {
+                        "type":"GraphicsComponent",
+                        "model":"Resources/Models/Asteroids/Variant1/Asteroid1.obj"
+                    },
+                    {
+                        "type":"ColliderComponent",
+                        "shape":
+                        {
+                            "type":"SphereCollider",
+                            "radius":1
+                        }
+                    }
+                ]
+            }
+        },
+        {
             "name":"Asteroid1",
             "type":"BouncingCube",
             "location": [5, 5, 5],
-            "rotation": [90, 0, 0],
+            "rotation": [0, 0, 0],
             "scale":[1, 1, 1],
             "components":
             [
@@ -112,13 +162,13 @@
             "name":"Asteroid2",
             "type":"Entity",
             "location": [-5, 5, 5],
-            "rotation": [90, 0, 0],
+            "rotation": [0, 0, 0],
             "scale":[1, 1, 1],
             "components":
             [
                 {
                     "type":"GraphicsComponent",
-                    "model":"Resources/Models/Primitives/Cone/Cone.obj"
+                    "model":"Resources/Models/Primitives/Capsule/Capsule.obj"
                 },
                 {
                     "type":"ColliderComponent",

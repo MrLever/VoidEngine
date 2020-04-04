@@ -90,6 +90,7 @@ set(engine_core_gameplay_framework_core_headers
     "${engine_core_header_dir}/gameplay_framework/Component.h"
     "${engine_core_header_dir}/gameplay_framework/Entity.h"
     "${engine_core_header_dir}/gameplay_framework/EntityData.h"
+    "${engine_core_header_dir}/gameplay_framework/Prototype.h"
     "${engine_core_header_dir}/gameplay_framework/Transform.h"
 )
 source_group(
@@ -249,7 +250,6 @@ set(engine_core_headers
     "${engine_core_header_dir}/Level.h"
     "${engine_core_header_dir}/Window.h"
     "${engine_core_header_dir}/Scene.h"
-    "${engine_core_header_dir}/SceneLoader.h"
 )
 
 ################################################################################
@@ -322,6 +322,7 @@ set(engine_core_gameplay_framework_core_source
     "${engine_core_source_dir}/gameplay_framework/Component.cpp"
     "${engine_core_source_dir}/gameplay_framework/Entity.cpp"
     "${engine_core_source_dir}/gameplay_framework/EntityData.cpp"
+    "${engine_core_source_dir}/gameplay_framework/Prototype.cpp"
     "${engine_core_source_dir}/gameplay_framework/Transform.cpp"
 )
 source_group(
@@ -474,7 +475,6 @@ set(engine_core_source
     "${engine_core_source_dir}/Level.cpp"
     "${engine_core_source_dir}/Window.cpp"
     "${engine_core_source_dir}/Scene.cpp"
-    "${engine_core_source_dir}/SceneLoader.cpp"
 )
 
 set(Dependencies

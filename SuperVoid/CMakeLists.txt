@@ -4,6 +4,8 @@ project(SuperVoid CXX)
 # Set Files
 ################################################################################
 set(Header_Files_Entities
+    "Entities/Asteroid.h"
+    "Entities/AsteroidEmitter.h"
     "Entities/BouncingCube.h"
     "Entities/PlayerShip.h"
 )
@@ -15,6 +17,8 @@ set(Source_Files
 source_group("Source Files" FILES ${Source_Files})
 
 set(Source_Files_Entities
+    "Entities/Asteroid.cpp"
+    "Entities/AsteroidEmitter.cpp"
     "Entities/BouncingCube.cpp"
     "Entities/PlayerShip.cpp"
 )

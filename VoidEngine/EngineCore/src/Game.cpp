@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "Game.h"
-#include "SceneLoader.h"
+#include "Scene.h"
 #include "platform/Platform.h"
 
 namespace core {
@@ -156,8 +156,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		m_ActiveScene = std::make_shared<Scene>(m_EventBus.get(), m_InputManager, m_PhysicsEngine);
-		m_SceneLoader.LoadLevel(m_ActiveScene.get(), newLevelPath);
+		m_ActiveScene = std::make_shared<Scene>(newLevelPath, m_EventBus.get(), m_InputManager, m_PhysicsEngine);
 		m_InputManager->SetActiveInputMapping(m_ActiveScene->GetControlFilePath());
 		m_ActiveScene->BeginPlay();
 	}
