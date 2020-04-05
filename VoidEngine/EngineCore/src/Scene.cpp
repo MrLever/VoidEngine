@@ -98,13 +98,6 @@ namespace core {
 		for (auto entity : m_Entities) {
 			entity->Tick(deltaTime);
 		}
-
-		for (auto entity : m_SpawnQueue) {
-			m_Entities.push_back(entity);
-			entity->Initialize();
-			entity->BeginPlay();
-		}
-		m_SpawnQueue.clear();
 	}
 
 	void Scene::Draw() {
@@ -120,7 +113,7 @@ namespace core {
 	}
 	
 	Entity* Scene::Instantiate(const Prototype& prototype, Entity* parent) {
-		auto entity = SpawnEntity(prototype.GetData(), parent).get();
+		Entity* entity = SpawnEntity(prototype.GetData(), parent).get();
 		entity->Initialize();
 
 		return entity;
