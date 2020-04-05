@@ -112,30 +112,6 @@
             ]
         },
         {
-            "name":"AsteroidSource",
-            "type":"AsteroidEmitter",
-            "asteroidPrototype":
-            {
-                "name":"Asteroid",
-                "type":"Asteroid",
-                "components":
-                [
-                    {
-                        "type":"GraphicsComponent",
-                        "model":"Resources/Models/Asteroids/Variant1/Asteroid1.obj"
-                    },
-                    {
-                        "type":"ColliderComponent",
-                        "shape":
-                        {
-                            "type":"SphereCollider",
-                            "radius":1
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "name":"Asteroid1",
             "type":"BouncingCube",
             "location": [5, 5, 5],
