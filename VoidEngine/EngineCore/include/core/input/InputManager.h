@@ -27,7 +27,6 @@
 namespace core {
 
 	//Forward Class declarations
-	class MessageBus;
 	class Level;
 
 	/**
