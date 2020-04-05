@@ -100,9 +100,6 @@ namespace core {
 		/** A handle to the game's display */
 		std::shared_ptr<Window> m_Window;
 
-		/** The game's message bus */
-		std::shared_ptr<MessageBus> m_MessageBus;
-
 		/** Pointer to the game's Input Manager*/
 		std::shared_ptr<InputManager> m_InputManager;
 
