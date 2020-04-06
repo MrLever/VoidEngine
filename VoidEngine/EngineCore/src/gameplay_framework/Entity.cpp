@@ -15,7 +15,7 @@ namespace core {
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : m_Name("Entity"), m_World(nullptr), m_Parent(nullptr){
+	Entity::Entity() : m_Name("Entity"), m_World(nullptr), m_Parent(nullptr), m_Transform(*this) {
 	
 	}
 
@@ -38,10 +38,6 @@ namespace core {
 	void Entity::Initialize() {
 		if (!ConfigData.is_null()) {
 			m_Name = utils::Name(ConfigData["name"]);
-			
-			if (m_Parent) {
-				m_Transform.SetParent(&m_Parent->m_Transform);
-			}
 
 			auto locationData = ConfigData["location"];
 			if (!locationData.is_null()) {
@@ -119,19 +115,27 @@ namespace core {
 	}
 
 	float Entity::GetDistance(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude();
+		return (m_Transform.GetPosition() - other->GetPosition()).Magnitude();
 	}
 
 	float Entity::GetDistanceSquared(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPostion()).MagnitudeSqr();
+		return (m_Transform.GetPosition() - other->GetPosition()).MagnitudeSqr();
 	}
 
-	math::Vector3 Entity::GetPostion() const {
+	math::Vector3 Entity::GetPosition() const {
 		return m_Transform.GetPosition();
 	}
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
 		m_Transform.SetPosition(newPosition);
+	}
+
+	math::Vector3 Entity::GetLocalPosition() const {
+		return m_Transform.GetLocalPosition();
+	}
+
+	void Entity::SetLocalPosition(const math::Vector3& newPosition) {
+		m_Transform.SetLocalPosition(newPosition);
 	}
 
 	math::Rotator Entity::GetRotation() const {
@@ -185,13 +189,26 @@ namespace core {
 		m_World = world;
 	}
 
+	Entity* Entity::GetParent() const {
+		return m_Parent;
+	}
+
 	void Entity::SetParent(Entity* parent) {
 		m_Parent = parent;
 	}
 
-	void Entity::AddChild(std::shared_ptr<Entity> child) {
-		child->SetParent(this);
+	void Entity::AddChild(std::unique_ptr<Entity> child) {
+		child->m_Parent = this;
 		m_Children.emplace_back(std::move(child));
+	}
+
+	void Entity::RemoveChild(Entity* child) {
+		for (auto it = m_Children.begin(); it != m_Children.end(); it++) {
+			if (child = it->get()) {
+				m_Children.erase(it);
+				break;
+			}
+		}
 	}
 
 }

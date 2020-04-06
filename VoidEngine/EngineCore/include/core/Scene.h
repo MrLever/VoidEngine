@@ -48,9 +48,8 @@ namespace core {
 		 */
 		void ReceiveEvent(Event* event) override;
 
-		void AddCamera(CameraComponent* camera);
+		void ActivateCamera(CameraComponent* camera);
 		void RemoveCamera(CameraComponent* camera);
-		void ActivateCamera(utils::Name cameraName);
 
 		void BeginPlay();
 		void ProcessInput(float deltaTime);
@@ -84,21 +83,21 @@ namespace core {
 		/**
 		 * Recursive helper function to spawn entity given data
 		 */
-		std::shared_ptr<Entity> SpawnEntity(const nlohmann::json& entityData, Entity* parent = nullptr);
+		std::unique_ptr<Entity> SpawnEntity(const nlohmann::json& entityData);
 
 		std::string m_ControlFilePath;
 
 		/** Maps Camera name to Camera to allow runtime lookup and switching */
-		std::unordered_map<utils::Name, CameraComponent*> m_Cameras;
+		std::vector<CameraComponent*> m_Cameras;
 
 		/** Camera currently used to render the scene */
 		CameraComponent* m_ActiveCamera;
 
 		/** Entities active in scene simulation */
-		std::vector<std::shared_ptr<Entity>> m_Entities;
+		std::vector<std::unique_ptr<Entity>> m_Entities;
 
 		/** Entities that will spawn at the end of the current frame */
-		std::vector<std::shared_ptr<Entity>> m_SpawnQueue;
+		std::vector<std::unique_ptr<Entity>> m_SpawnQueue;
 
 		/** The input manager used to control entities in the scene */
 		std::shared_ptr<InputManager> m_InputManager;
@@ -118,10 +117,9 @@ namespace core {
 		std::vector<T*> searchResults;
 
 		for (auto& entity : m_Entities) {
-			auto component = entity->GetComponent<T>();
-			if (component) {
-				searchResults.emplace_back(component);
-			}
+			auto components = entity->GetComponents<T>();
+			searchResults.insert(searchResults.end(), components.begin(), components.end());
+			entity->GetComponentsInChildren<T>(searchResults);
 		}
 
 		return searchResults;

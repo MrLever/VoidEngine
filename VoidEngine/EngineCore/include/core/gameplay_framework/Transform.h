@@ -10,13 +10,15 @@
 #include "math/Quaternion.h"
 
 namespace core {
+	class Entity;
+
 	class Transform {
 	public:
 
 		/**
 		 * Constructor
 		 */
-		Transform();
+		Transform(Entity& owner);
 
 		/**
 		 * Constructor
@@ -29,7 +31,7 @@ namespace core {
 			const math::Vector3& pos,
 			const math::Quaternion& rot,
 			const math::Vector3& scale,
-			Transform* parent = nullptr
+			Entity& owner
 		);
 
 		/**
@@ -37,14 +39,14 @@ namespace core {
 		 * @param pos The local position of the transform relative to parent
 		 * @param parent The parent of the transform being constructed
 		 */
-		Transform(const math::Vector3& pos, Transform* parent = nullptr);
+		Transform(const math::Vector3& pos, Entity& owner);
 
 		/**
 		 * Constructor
 		 * @param rot The local rotation of the transform relative to parent
 		 * @param parent The parent of the transform being constructed
 		 */
-		Transform(const math::Quaternion& pos, Transform* parent = nullptr);
+		Transform(const math::Quaternion& pos, Entity& owner);
 
 		/**
 		 * Constructor
@@ -55,7 +57,7 @@ namespace core {
 		Transform(
 			const math::Vector3& pos,
 			const math::Quaternion& rot,
-			Transform* parent = nullptr
+			Entity& owner
 		);
 
 		/**
@@ -141,11 +143,6 @@ namespace core {
 		void SetScale(const math::Vector3& value);
 
 		/**
-		 * Set's the transforms parent
-		 */
-		void SetParent(Transform* parent);
-
-		/**
 		 * Gets the transform's local "forward" direction in world space
 		 */
 		math::Vector3 GetForward() const;
@@ -155,15 +152,10 @@ namespace core {
 		 */
 		math::Vector3 GetUp() const;
 
-
-		/**
-		 * Registers a child transform
-		 */
-		void AddChild(Transform* child);
-
 	private:
-		Transform* m_Parent;
-		std::vector<Transform*> m_Children;
+		inline Transform* Parent() const;
+
+		Entity& m_Entity;
 
 		math::Vector3 m_LocalPosition;
 		math::Quaternion m_LocalRotation;

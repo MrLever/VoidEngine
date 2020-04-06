@@ -37,11 +37,12 @@ namespace core {
 		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
 
 		for (auto& entityData : entityList) {
-			auto entity = SpawnEntity(entityData, nullptr);
+			auto entity = SpawnEntity(entityData);
 
 			if (entity == nullptr) continue;
 
 			entity->Initialize();
+			m_Entities.emplace_back(std::move(entity));
 		}
 
 	}
@@ -60,30 +61,26 @@ namespace core {
 		);
 	}
 
-	void Scene::AddCamera(CameraComponent* camera) {
-		m_Cameras.insert({camera->GetName(), camera});
-		ActivateCamera(camera->GetName());
-	}
-
 	void Scene::RemoveCamera(CameraComponent* camera) {
-		m_Cameras.erase(camera->GetName());
+		for (auto it = m_Cameras.begin(); it != m_Cameras.end(); it++) {
+			if (*it = camera) {
+				m_Cameras.erase(it);
+				break;
+			}
+		}
 	}
 
-	void Scene::ActivateCamera(utils::Name cameraName) {
-		if (m_Cameras.find(cameraName) == m_Cameras.end()) {
-			utils::Logger::LogError("Camera " + cameraName.StringID + " not found. Camara not activated");
-			return;
-		}
-		
-		m_ActiveCamera = m_Cameras[cameraName];
+	void Scene::ActivateCamera(CameraComponent* camera) {
+		m_ActiveCamera = camera;
 	}
 
 	void Scene::BeginPlay() {
-		for (auto& entity : m_Entities) {
-			auto camera = entity->GetComponent<CameraComponent>();
-			if (camera) {
-				AddCamera(camera);
-			}
+		m_Cameras = FindComponentsOfType<CameraComponent>();
+		if (m_Cameras.size() > 0 && m_Cameras[0]) {
+			ActivateCamera(m_Cameras[0]);
+		}
+
+		for (auto& entity : m_Entities) {	
 			entity->BeginPlay();
 		}
 	}
@@ -95,7 +92,7 @@ namespace core {
 	void Scene::Update(float deltaTime) {
 		m_PhysicsEngine->Simulate(m_Entities, deltaTime);
 
-		for (auto entity : m_Entities) {
+		for (auto& entity : m_Entities) {
 			entity->Tick(deltaTime);
 		}
 	}
@@ -105,7 +102,7 @@ namespace core {
 		m_LightingEnvironment.PointLights = FindComponentsOfType<PointLightComponent>();
 		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
 		
-		for (auto entity : m_Entities) {
+		for (auto& entity : m_Entities) {
 			entity->Draw();
 		}
 		
@@ -113,7 +110,7 @@ namespace core {
 	}
 	
 	Entity* Scene::Instantiate(const Prototype& prototype, Entity* parent) {
-		Entity* entity = SpawnEntity(prototype.GetData(), parent).get();
+		Entity* entity = SpawnEntity(prototype.GetData()).get();
 		entity->Initialize();
 
 		return entity;
@@ -127,18 +124,15 @@ namespace core {
 		return m_ControlFilePath;
 	}
 
-	std::shared_ptr<Entity> Scene::SpawnEntity(const nlohmann::json& entityData, Entity* parent) {
+	std::unique_ptr<Entity> Scene::SpawnEntity(const nlohmann::json& entityData) {
 		auto entityType = entityData["type"].get<std::string>();
 		
-		std::shared_ptr<Entity> entity(
+		std::unique_ptr<Entity> entity(
 			utils::FactoryBase<Entity>::Create(entityType)
 		);
 
 		entity->SetConfigData(entityData);
 		entity->SetScene(this);
-		if (parent) {
-			entity->SetParent(parent);
-		}
 
 		if (entityData.find("components") != entityData.end()) {
 			auto componentList = entityData["components"];
@@ -159,15 +153,14 @@ namespace core {
 		if (entityData.find("children") != entityData.end()) {
 			auto childrenData = entityData["children"];
 			for (auto& childData : childrenData) {
-				auto child = SpawnEntity(childData, entity.get());
+				auto child = SpawnEntity(childData);
+				
+				if (child.get() == nullptr) continue;
 
-				if (child == nullptr) continue;
-
-				entity->AddChild(child);
+				entity->AddChild(std::move(child));
 			}
 		}
 
-		m_Entities.emplace_back(entity);
 		return entity;
 	}
 

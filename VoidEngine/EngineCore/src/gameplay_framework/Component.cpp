@@ -38,7 +38,7 @@ namespace core {
 	}
 
 	math::Vector3 Component::GetPosition() const {
-		return m_Parent->GetPostion();
+		return m_Parent->GetPosition();
 	}
 
 	void Component::Tick(float deltaTime) {

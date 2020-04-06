@@ -96,7 +96,7 @@ namespace core {
 		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
 	}
 
-	void InputManager::ProcessInput(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime) {
+	void InputManager::ProcessInput(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
 		ProcessInputActions(entities, deltaTime);
 		ProcessAxisUpdates(entities, deltaTime);
 	}
@@ -106,7 +106,7 @@ namespace core {
 		m_ActiveControls->Initialize();
 	}
 
-	void InputManager::ProcessInputActions(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime) {
+	void InputManager::ProcessInputActions(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
 		while (!m_InputActionBuffer.empty()) {
 			auto inputAction = m_InputActionBuffer.front();
 			for (auto& entity : entities) {
@@ -118,7 +118,7 @@ namespace core {
 		}
 	}
 
-	void InputManager::ProcessAxisUpdates(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime) {
+	void InputManager::ProcessAxisUpdates(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
 		auto defaultControlAxisReadings = m_DefaultControls->PollAxes();
 		auto activeControlAxisReadings = m_ActiveControls->PollAxes();
 

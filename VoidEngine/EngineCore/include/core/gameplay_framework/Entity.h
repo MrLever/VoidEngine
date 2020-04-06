@@ -97,8 +97,14 @@ namespace core {
 		/**
 		 * Accessors for entity position
 		 */
-		math::Vector3 GetPostion() const;
+		math::Vector3 GetPosition() const;
 		void SetPosition(const math::Vector3& newPosition);
+
+		/**
+		 * Accessors for local position
+		 */
+		math::Vector3 GetLocalPosition() const;
+		void SetLocalPosition(const math::Vector3& newPosition);
 
 		/**
 		 * Accessors for entity rotation
@@ -132,7 +138,7 @@ namespace core {
 		void AddComponent(Component* component);
 
 		/**
-		 * Returns componet of type T
+		 * Returns component of type T
 		 * @tparam T The type of component being requested
 		 * @return Component of type T if entity has requested component, else nullptr
 		 */
@@ -140,22 +146,49 @@ namespace core {
 		T* GetComponent();
 	
 		/**
+		 * Returns all component of type T attached to this entity
+		 * @tparam T The type of component being requested
+		 * @return Component of type T if entity has requested component, else nullptr
+		 */
+		template<class T>
+		std::vector<T*> GetComponents();
+
+		/**
+		 * Returns componet of type T
+		 * @tparam T The type of component being requested
+		 * @return Component of type T if entity has requested component, else nullptr
+		 */
+		template<class T>
+		std::vector<T*> GetComponentsInChildren();
+	
+		template<class T>
+		void GetComponentsInChildren(std::vector<T*>& components);
+
+		/**
 		 * Accessors for the pointer to the level this entity is active in
 		 */
 		Scene* GetWorld() const;
 		void SetScene(Scene* world);
 	
 		/**
+		 * @return Reference this this entity's parent
+		 */
+		Entity* GetParent() const;
+
+		/**
 		 * Accessor for Parent
 		 */
 		void SetParent(Entity* parent);
 
 		/**
-		 * Accessor for Parent
+		 * 
 		 */
-		void AddChild(std::shared_ptr<Entity> child);
+		void AddChild(std::unique_ptr<Entity> child);
 
 	protected:
+		/** Removes child from m_Children */
+		void RemoveChild(Entity* child);
+
 		/** Entity's name */
 		utils::Name m_Name;
 
@@ -166,7 +199,7 @@ namespace core {
 		Entity* m_Parent;
 		
 		/** List of entity's children */
-		std::vector<std::shared_ptr<Entity>> m_Children;
+		std::vector<std::unique_ptr<Entity>> m_Children;
 
 	private:
 		/** The level the entity inhabits */
@@ -184,5 +217,39 @@ namespace core {
 		}
 
 		return nullptr;
+	}
+
+	template<class T>
+	inline std::vector<T*> Entity::GetComponents() {
+		std::vector<T*> components;
+
+		for (auto& component : m_Components) {
+			auto ptr = dynamic_cast<T*>(component.get());
+			if (ptr != nullptr) {
+				components.push_back(ptr);
+			}
+		}
+
+		return components;
+	}
+	
+	template<class T>
+	inline std::vector<T*> Entity::GetComponentsInChildren() {
+		std::vector<T*> components;
+		for (auto& child : m_Children) {
+			auto childComponents = child->GetComponents<T>();
+			components.insert(components.end(), childComponents.begin(), childComponents.end());
+			child->GetComponentsInChildren<T>(components);
+		}
+		return components;
+	}
+
+	template<class T>
+	inline void Entity::GetComponentsInChildren(std::vector<T*>& components) {
+		for (auto& child : m_Children) {
+			auto childComponents = child->GetComponents<T>();
+			components.insert(components.end(), childComponents.begin(), childComponents.end());
+			child->GetComponentsInChildren<T>(components);
+		}
 	}
 }

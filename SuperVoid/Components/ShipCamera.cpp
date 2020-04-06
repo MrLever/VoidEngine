@@ -21,9 +21,8 @@ namespace SuperVoid {
 	}
 
 	void ShipCamera::Tick(float deltaTime) {
-		CameraComponent::Tick(deltaTime);
-
 		m_Transform->SetRotation(m_SpawnOrientation);
+		CameraComponent::Tick(deltaTime);
 	}
 	
 }

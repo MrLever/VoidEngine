@@ -1,49 +1,50 @@
-#include "..\..\include\core\gameplay_framework\Transform.h"
 //STD Headers
 
 //Library headers
 
 //Void Engine Headers
+#include "core/gameplay_framework/Transform.h"
+#include "core/gameplay_framework/Entity.h"
 
 namespace core {
-	Transform::Transform()
+	Transform::Transform(Entity& owner)
 		: m_LocalPosition(0, 0, 0),
 		  m_LocalRotation(),
 		  m_LocalScale(1, 1, 1),
-		  m_Parent(nullptr) {
+		  m_Entity(owner) {
 
 	}
 
 	Transform::Transform(
 		const math::Vector3& pos, const math::Quaternion& rot, 
-		const math::Vector3& scale, Transform* parent) 
+		const math::Vector3& scale, Entity& owner)
 		: m_LocalPosition(pos),
 		  m_LocalRotation(rot),
 		  m_LocalScale(scale),
-		  m_Parent(parent) {
+		  m_Entity(owner) {
 
 	}
 
-	Transform::Transform(const math::Vector3& pos, Transform* parent) 
+	Transform::Transform(const math::Vector3& pos, Entity& owner)
 		: m_LocalPosition(pos), 
 		  m_LocalRotation(), 
 		  m_LocalScale(1,1,1), 
-		  m_Parent(parent) {
+		  m_Entity(owner) {
 	}
 
-	Transform::Transform(const math::Quaternion& rot, Transform* parent) 
+	Transform::Transform(const math::Quaternion& rot, Entity& owner)
 		: m_LocalPosition(0,0,0),
 	      m_LocalRotation(rot), 
 	      m_LocalScale(1,1,1),
-		  m_Parent(parent) {
+		  m_Entity(owner) {
 
 	}
 
-	Transform::Transform(const math::Vector3& pos, const math::Quaternion& rot, Transform* parent) 
+	Transform::Transform(const math::Vector3& pos, const math::Quaternion& rot, Entity& owner)
 		: m_LocalPosition(pos),
 		  m_LocalRotation(rot),
 		  m_LocalScale(1, 1, 1),
-		  m_Parent(parent) {
+		  m_Entity(owner) {
 	}
 
 	math::Vector3 Transform::GetLocalPosition() const {
@@ -55,23 +56,23 @@ namespace core {
 	}
 
 	math::Vector3 Transform::GetPosition() const {
-		if (m_Parent == nullptr) {
+		if (Parent() == nullptr) {
 			return m_LocalPosition;
 		}
 		else {
-			auto parentPos = m_Parent->GetPosition();
-			auto parentRotation = m_Parent->GetRotation();
+			auto parentPos = Parent()->GetPosition();
+			auto parentRotation = Parent()->GetRotation();
 			auto positionInParentSpace = parentRotation.Rotate(m_LocalPosition);
 			return parentPos + positionInParentSpace;
 		}
 	}
 
 	void Transform::SetPosition(const math::Vector3& value) {
-		if (m_Parent == nullptr) {
+		if (Parent() == nullptr) {
 			m_LocalPosition = value;
 		}
 		else {
-			m_LocalPosition = value - m_Parent->GetPosition();
+			m_LocalPosition = value - Parent()->GetPosition();
 		}
 	}
 	math::Quaternion Transform::GetLocalRotation() const {
@@ -83,17 +84,18 @@ namespace core {
 	}
 
 	math::Quaternion Transform::GetRotation() const {
-		return (m_Parent == nullptr) ?
+		return (Parent() == nullptr) ?
 			m_LocalRotation :
-			m_Parent->GetRotation() * m_LocalRotation;
+			Parent()->GetRotation() * m_LocalRotation;
+		return m_LocalRotation;
 	}
 
 	void Transform::SetRotation(const math::Quaternion& value) {
-		if (m_Parent == nullptr) {
+		if (Parent() == nullptr) {
 			m_LocalRotation = value;
 		}
 		else {
-			m_LocalRotation = value * m_Parent->GetRotation().Inverse();
+			m_LocalRotation = value * Parent()->GetRotation().Inverse();
 		}
 	}
 
@@ -110,16 +112,9 @@ namespace core {
 	}
 
 	void Transform::SetScale(const math::Vector3& value) {
-		m_LocalScale = (m_Parent == nullptr) ?
+		m_LocalScale = (Parent() == nullptr) ?
 			value :
-			value - m_Parent->GetScale();
-	}
-	
-	void Transform::SetParent(Transform* parent) {
-		//Preserve world position during parent transfer
-		auto currentWorld = GetPosition();
-		m_Parent = parent;
-		SetPosition(currentWorld);
+			value - Parent()->GetScale();
 	}
 
 	math::Vector3 Transform::GetForward() const {
@@ -132,7 +127,9 @@ namespace core {
 		return rotation.Rotate(math::Vector3::Up);
 	}
 
-	void Transform::AddChild(Transform* child) {
-		m_Children.push_back(child);
+	inline Transform* Transform::Parent() const {
+		return (m_Entity.GetParent() != nullptr) ?
+			&m_Entity.GetParent()->m_Transform :
+			nullptr;
 	}
 }

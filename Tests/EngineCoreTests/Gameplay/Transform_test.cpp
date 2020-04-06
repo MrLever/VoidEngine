@@ -5,15 +5,23 @@
 
 //Void Engine Headers
 #include "core/gameplay_framework/Transform.h"
+#include "core/gameplay_framework/Entity.h"
 
 using namespace core;
 
 namespace EngineCoreTests {
 
 	TEST(TestTransforms, PositionTest) {
-		Transform parent(math::Vector3(5,5,5));
-		Transform t1(math::Vector3(1,0,0), &parent);
-		Transform t2(math::Vector3(-1,0,0), &parent);
+		Entity parent;
+		parent.SetPosition({ 5, 5, 5 });
+
+		Entity t1;
+		t1.SetParent(&parent);
+		t1.SetLocalPosition({ 1, 0, 0 });
+
+		Entity t2;
+		t2.SetParent(&parent);
+		t2.SetLocalPosition({ -1, 0, 0 });
 
 		//Test SetLocalPosition on leaf node
 		t1.SetLocalPosition(t1.GetLocalPosition() + math::Vector3(1, 0, 0));
@@ -31,12 +39,17 @@ namespace EngineCoreTests {
 	}
 
 	TEST(TestTransforms, RotationTest) {
-		Transform parent(math::Vector3(0, 0, 3), math::Rotator(90, 0, 0));
-		Transform child(math::Vector3(0, 0, 40), math::Rotator(0, 0, 0), &parent);
+		Entity parent;
+		parent.SetPosition({0,0,3});
+		parent.SetRotation(math::Rotator(90, 0, 0));
+
+		Entity child;
+		child.SetParent(&parent);
+		child.SetLocalPosition({ 0, 0, 40 });
 
 		ASSERT_EQ(math::Vector3(0, -40, 3), child.GetPosition());
 		
-		auto childLookDirection = child.GetForward().Normalize();
+		auto childLookDirection = child.m_Transform.GetForward().Normalize();
 		auto translationVector = (parent.GetPosition() - child.GetPosition()).Normalize();
 
 		ASSERT_EQ(childLookDirection, translationVector);

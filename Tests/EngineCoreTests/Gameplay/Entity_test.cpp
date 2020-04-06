@@ -48,12 +48,22 @@ namespace EngineCoreTests {
 		ASSERT_EQ(compB, entity.GetComponent<ComponentB>());
 	}
 
-	TEST(TestEntites, PolymorphicGetTest) {
+	TEST(TestEntities, PolymorphicGetTest) {
 		Entity entity;
 		entity.AddComponent(new ComponentA_Derived());
 
 		auto basePtr = entity.GetComponent<ComponentA>();
 		ASSERT_NE(nullptr, basePtr);
+	}
+
+	TEST(TestEntities, GetComponentsTest) {
+		Entity entity;
+		entity.AddComponent(new ComponentA_Derived());
+		entity.AddComponent(new ComponentA());
+		entity.AddComponent(new ComponentB());
+		
+		ASSERT_EQ(2, entity.GetComponents<ComponentA>().size());
+		ASSERT_EQ(1, entity.GetComponents<ComponentB>().size());
 	}
 
 }
