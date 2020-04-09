@@ -72,11 +72,13 @@ namespace SuperVoid {
 	void PlayerShip::Rotate(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 150);
 
-		auto rotation = m_Transform.GetRotation();
-		m_Transform.SetRotation(deltaRotation * rotation);
+		auto rotation = m_Transform.GetLocalRotation();
+		m_Transform.SetLocalRotation(deltaRotation * rotation);
 	}
 
 	void PlayerShip::Fire() {
-		GetWorld()->Instantiate(m_BulletPrototype);
+		auto bullet = GetWorld()->Instantiate(m_BulletPrototype);
+		bullet->SetPosition(GetPosition() + m_Transform.GetForward() * 3);
+		bullet->SetRotation(GetRotation());
 	}
 }

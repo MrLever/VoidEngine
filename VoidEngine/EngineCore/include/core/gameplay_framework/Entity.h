@@ -187,7 +187,7 @@ namespace core {
 
 	protected:
 		/** Removes child from m_Children */
-		void RemoveChild(Entity* child);
+		std::unique_ptr<Entity> RemoveChild(Entity* child);
 
 		/** Entity's name */
 		utils::Name m_Name;

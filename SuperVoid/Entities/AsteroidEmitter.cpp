@@ -3,7 +3,9 @@
 //Library Headers
 
 //SuperVoid Headers
+#include "core/Scene.h"
 #include "AsteroidEmitter.h"
+#include "Asteroid.h"
 
 namespace SuperVoid {
 
@@ -41,6 +43,6 @@ namespace SuperVoid {
 	void AsteroidEmitter::SpawnAsteroid() {
 		float minSpeed = 1.0f;
 		float maxSpeed = 5.0f;
-		
+		//GetWorld()->SpawnEntity<Asteroid>();
 	}
 }

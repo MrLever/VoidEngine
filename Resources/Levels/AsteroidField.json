@@ -14,15 +14,15 @@
             "name":"Player",
             "type":"PlayerShip",
             "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
+            "rotation": [90, 0, 0],
             "scale": [1, 1, 1],
-            "speed":500,
+            "speed":250,
             "bulletPrototype":
             {
                 "name":"PlayerBullet",
                 "type":"Projectile",
                 "location":[5, 0, 0],
-                "scale": [0.15, 0.15, 0.15],
+                "scale": [0.35, 0.35, 0.35],
                 "components":
                 [
                     {
@@ -60,7 +60,7 @@
                 {
                     "name":"EngineLight",
                     "type":"Entity",
-                    "location": [-3.0, 0, 0],
+                    "location": [0, 0, 2],
                     "scale":[0.25, 0.25, 0.25],
                     "components":
                     [
@@ -70,7 +70,7 @@
                         },
                         {
                             "type":"PointLightComponent",
-                            "color":[1, 0, 0, 1.0],
+                            "color":[0, 1, 1, 1.0],
                             "intensity":150
                         } 
                     ]
@@ -78,8 +78,8 @@
                 {
                     "name":"Ship Camera",
                     "type":"Entity",
-                    "location": [0, 0, 65],
-                    "rotation": [0, 0, 0],
+                    "location": [0, 65, 0],
+                    "rotation": [-90, 0, 0],
                     "components":
                     [
                         {
@@ -144,7 +144,7 @@
             [
                 {
                     "type":"GraphicsComponent",
-                    "model":"Resources/Models/Primitives/Capsule/Capsule.obj"
+                    "model":"Resources/Models/Nanosuit/nanosuit.obj"
                 },
                 {
                     "type":"ColliderComponent",

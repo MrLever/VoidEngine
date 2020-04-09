@@ -194,7 +194,16 @@ namespace core {
 	}
 
 	void Entity::SetParent(Entity* parent) {
-		m_Parent = parent;
+		if (m_Parent == nullptr) {
+			//Scene is the holder of the entity's unique pointer. Go get it.
+			GetWorld()->Reparent(this, parent);
+		}
+		else {
+			//Get the unique handle from the old parent entity, 
+			//and give it to the new one. 
+			parent->AddChild(m_Parent->RemoveChild(this));
+		}
+
 	}
 
 	void Entity::AddChild(std::unique_ptr<Entity> child) {
@@ -202,13 +211,16 @@ namespace core {
 		m_Children.emplace_back(std::move(child));
 	}
 
-	void Entity::RemoveChild(Entity* child) {
+	std::unique_ptr<Entity> Entity::RemoveChild(Entity* child) {
 		for (auto it = m_Children.begin(); it != m_Children.end(); it++) {
 			if (child = it->get()) {
+				auto uniqueHandle = std::move((*it));
 				m_Children.erase(it);
-				break;
+				return uniqueHandle;
 			}
 		}
+
+		return std::unique_ptr<Entity>();
 	}
 
 }

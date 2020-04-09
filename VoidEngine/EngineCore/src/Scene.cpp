@@ -95,6 +95,23 @@ namespace core {
 		for (auto& entity : m_Entities) {
 			entity->Tick(deltaTime);
 		}
+
+		//Process the spawn queue
+		for (auto& entry : m_SpawnQueue) {
+			auto parent = entry.second;
+			std::unique_ptr<Entity> entity(std::move(entry.first));
+			entity->BeginPlay();
+
+			if (parent == nullptr) {
+				m_Entities.emplace_back(std::move(entity));
+			}
+			else {
+				parent->AddChild(std::move(entity));
+			}
+		}
+
+		//Clear the processed queue
+		m_SpawnQueue.clear();
 	}
 
 	void Scene::Draw() {
@@ -110,10 +127,25 @@ namespace core {
 	}
 	
 	Entity* Scene::Instantiate(const Prototype& prototype, Entity* parent) {
-		Entity* entity = SpawnEntity(prototype.GetData()).get();
-		entity->Initialize();
+		auto entity = SpawnEntity(prototype.GetData());
+		auto weakPtr = entity.get();
 
-		return entity;
+		entity->Initialize();
+		m_SpawnQueue.push_back({ std::move(entity), parent });
+
+		return weakPtr;
+	}
+
+	void Scene::Reparent(Entity* child, Entity* parent) {
+		for (auto it = m_Entities.begin(); it != m_Entities.end(); it++) {
+			if (it->get() == child) {
+				auto handle = std::move(*it);
+				m_Entities.erase(it);
+
+				parent->AddChild(std::move(handle));
+				return;
+			}
+		}
 	}
 
 	void Scene::DestroyEntity(Entity* entity) {

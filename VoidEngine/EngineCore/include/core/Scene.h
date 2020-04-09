@@ -27,6 +27,7 @@ namespace core {
 	public:
 		/**
 		 * Constructor
+		 * @param levelPath The location of the level's resource path
 		 * @param renderer The renderer used for this Scene
 		 * @param physicsEngine the Physics Engine used to update rigid bodies in the scene
 		 */
@@ -51,6 +52,9 @@ namespace core {
 		void ActivateCamera(CameraComponent* camera);
 		void RemoveCamera(CameraComponent* camera);
 
+		/** 
+		 * Triggers begin play on all entities
+		 */
 		void BeginPlay();
 		void ProcessInput(float deltaTime);
 		void Update(float deltaTime);
@@ -60,6 +64,11 @@ namespace core {
 		 * Allows entities to construct entities from prototypes at runtime
 		 */
 		Entity* Instantiate(const Prototype& prototype, Entity* parent = nullptr);
+
+		/**
+		 * Transfers ownership of child's unqique pointer to parent
+		 */
+		void Reparent(Entity* child, Entity* parent);
 
 		/**
 		 * Allows Entities to be removed from the simulation
@@ -80,6 +89,12 @@ namespace core {
 		std::vector<T*> FindComponentsOfType();
 
 	private:
+		/** 
+		 * Entities Instantiated during runtime are added the the scene heirarchy 
+		 * at the end of the frame they were spawned on.
+		 */
+		std::vector <std::pair<std::unique_ptr<Entity>, Entity*>> m_SpawnQueue;
+
 		/**
 		 * Recursive helper function to spawn entity given data
 		 */
@@ -95,9 +110,6 @@ namespace core {
 
 		/** Entities active in scene simulation */
 		std::vector<std::unique_ptr<Entity>> m_Entities;
-
-		/** Entities that will spawn at the end of the current frame */
-		std::vector<std::unique_ptr<Entity>> m_SpawnQueue;
 
 		/** The input manager used to control entities in the scene */
 		std::shared_ptr<InputManager> m_InputManager;
