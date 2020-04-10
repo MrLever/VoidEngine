@@ -22,7 +22,7 @@ namespace SuperVoid {
 	}
 
 	void BouncingCube::BeginPlay() {
-		utils::Logger::LogInfo(m_Name.StringID + " began play");
+		utils::Logger::LogInfo(name.StringID + " began play");
 	}
 
 	void SuperVoid::BouncingCube::Tick(float deltaSeconds) {

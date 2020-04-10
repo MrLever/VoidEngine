@@ -15,7 +15,7 @@ namespace core {
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : m_Name("Entity"), m_World(nullptr), parent(nullptr) {
+	Entity::Entity() : name("Entity"), world(nullptr), parent(nullptr) {
 	
 	}
 
@@ -24,20 +24,20 @@ namespace core {
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Initialize() {
 		if (!ConfigData.is_null()) {
-			m_Name = utils::Name(ConfigData["name"]);
+			name = utils::Name(ConfigData["name"]);
 
 			auto locationData = ConfigData["location"];
 			if (!locationData.is_null()) {
@@ -71,27 +71,27 @@ namespace core {
 			}
 		}
 		
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Initialize();
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Initialize();
 		}
 	}
 
 	void Entity::BeginPlay() {
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->BeginPlay();
 		}
 	}
 
 	void Entity::Tick(float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Tick(deltaTime);
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Tick(deltaTime);
 		}
 	}
@@ -101,13 +101,21 @@ namespace core {
 	}
 
 	void Entity::Draw() const {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Draw();
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Draw();
 		}
+	}
+
+	void Entity::OnHit() {
+		;
+	}
+
+	void Entity::OnDestroy() {
+		;
 	}
 
 	float Entity::GetDistance(const Entity* const other) const {
@@ -195,15 +203,15 @@ namespace core {
 	}
 
 	std::string Entity::GetName() const {
-		return m_Name.StringID;
+		return name.StringID;
 	}
 
 	void Entity::SetName(const std::string& name) {
-		m_Name = utils::Name(name);
+		this->name = utils::Name(name);
 	}
 
 	void Entity::SetName(const utils::Name& name) {
-		m_Name = name;
+		this->name = name;
 	}
 
 	void Entity::AddComponent(std::shared_ptr<Component> component) {
@@ -212,7 +220,7 @@ namespace core {
 		component->transform = &transform;
 
 		//Register component
-		m_Components.insert(component);
+		components.insert(component);
 	}
 
 	void Entity::AddComponent(Component* component) {
@@ -222,11 +230,11 @@ namespace core {
 	}
 
 	Scene* Entity::GetWorld() const {
-		return m_World;
+		return world;
 	}
 
 	void Entity::SetScene(Scene* world) {
-		m_World = world;
+		world = world;
 	}
 
 	Entity* Entity::GetParent() const {
@@ -248,19 +256,40 @@ namespace core {
 
 	void Entity::AddChild(std::unique_ptr<Entity> child) {
 		child->parent = this;
-		m_Children.emplace_back(std::move(child));
+		children.emplace_back(std::move(child));
 	}
 
-	std::unique_ptr<Entity> Entity::RemoveChild(Entity* child) {
-		for (auto it = m_Children.begin(); it != m_Children.end(); it++) {
-			if (child = it->get()) {
-				auto uniqueHandle = std::move((*it));
-				m_Children.erase(it);
-				return uniqueHandle;
+	std::unique_ptr<Entity> Entity::RemoveChild(Entity* entity) {
+		//Search over children, remove the requested child, and transfer ownership
+		for (auto it = children.begin(); it != children.end(); it++) {
+			if (it->get() == entity) {
+				auto handle = std::move(*it);
+				
+				children.erase(it);
+
+				return handle;
 			}
 		}
 
 		return std::unique_ptr<Entity>();
 	}
 
+	void Entity::Destroy() {
+		GetWorld()->Destroy(this);
+	}
+
+	void Entity::DestroyFromChildren(std::unordered_set<Entity*>& destructionList) {
+		for (auto it = children.rbegin(); it != children.rend(); it++) {
+			auto child = (*it).get();
+
+			if (destructionList.find(child) != destructionList.end()) {
+				auto handle = std::move(*it);
+				handle->OnDestroy();
+				handle.reset();
+				continue;
+			}
+
+			child->DestroyFromChildren(destructionList);
+		}
+	}
 }

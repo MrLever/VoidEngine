@@ -76,7 +76,7 @@ namespace SuperVoid {
 	}
 
 	void PlayerShip::Fire() {
-		auto bullet = GetWorld()->Instantiate(m_BulletPrototype);
+		auto bullet = GetWorld()->SpawnEntity(m_BulletPrototype);
 		bullet->SetPosition(GetPosition() + GetForward() * 3);
 		bullet->SetRotation(GetRotation());
 	}

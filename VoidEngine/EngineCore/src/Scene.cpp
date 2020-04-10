@@ -15,12 +15,12 @@ namespace core {
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), m_InputManager(inputManager), m_PhysicsEngine(physicsEngine), m_ActiveCamera(nullptr) {
+		: EventBusNode(eventBus), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
 
 		auto levelData = s_LevelCache.GetResource(levelPath);
 
-		m_ControlFilePath = levelData->GetAttribute<std::string>("controlFile");
-		m_PhysicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
+		controlFilePath = levelData->GetAttribute<std::string>("controlFile");
+		physicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
 
 		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
 
@@ -42,7 +42,7 @@ namespace core {
 			if (entity == nullptr) continue;
 
 			entity->Initialize();
-			m_Entities.emplace_back(std::move(entity));
+			entities.emplace_back(std::move(entity));
 		}
 
 	}
@@ -62,85 +62,71 @@ namespace core {
 	}
 
 	void Scene::RemoveCamera(CameraComponent* camera) {
-		for (auto it = m_Cameras.begin(); it != m_Cameras.end(); it++) {
+		for (auto it = cameras.begin(); it != cameras.end(); it++) {
 			if (*it = camera) {
-				m_Cameras.erase(it);
+				cameras.erase(it);
 				break;
 			}
 		}
 	}
 
 	void Scene::ActivateCamera(CameraComponent* camera) {
-		m_ActiveCamera = camera;
+		activeCamera = camera;
 	}
 
 	void Scene::BeginPlay() {
-		m_Cameras = FindComponentsOfType<CameraComponent>();
-		if (m_Cameras.size() > 0 && m_Cameras[0]) {
-			ActivateCamera(m_Cameras[0]);
+		cameras = FindComponentsOfType<CameraComponent>();
+		if (cameras.size() > 0 && cameras[0]) {
+			ActivateCamera(cameras[0]);
 		}
 
-		for (auto& entity : m_Entities) {	
+		for (auto& entity : entities) {	
 			entity->BeginPlay();
 		}
 	}
 
 	void Scene::ProcessInput(float deltaTime) {
-		m_InputManager->ProcessInput(m_Entities, deltaTime);
+		inputManager->ProcessInput(entities, deltaTime);
 	}
 
 	void Scene::Update(float deltaTime) {
-		m_PhysicsEngine->Simulate(m_Entities, deltaTime);
+		physicsEngine->Simulate(entities, deltaTime);
 
-		for (auto& entity : m_Entities) {
+		for (auto& entity : entities) {
 			entity->Tick(deltaTime);
 		}
 
-		//Process the spawn queue
-		for (auto& entry : m_SpawnQueue) {
-			auto parent = entry.second;
-			std::unique_ptr<Entity> entity(std::move(entry.first));
-			entity->BeginPlay();
-
-			if (parent == nullptr) {
-				m_Entities.emplace_back(std::move(entity));
-			}
-			else {
-				parent->AddChild(std::move(entity));
-			}
-		}
-
-		//Clear the processed queue
-		m_SpawnQueue.clear();
+		ProcessSpawnQueue();
 	}
 
 	void Scene::Draw() {
 		m_LightingEnvironment.DirectionalLights = FindComponentsOfType<DirectionalLightComponent>();
 		m_LightingEnvironment.PointLights = FindComponentsOfType<PointLightComponent>();
-		Renderer::BeginFrame(m_ActiveCamera, &m_LightingEnvironment);
+		Renderer::BeginFrame(activeCamera, &m_LightingEnvironment);
 		
-		for (auto& entity : m_Entities) {
+		for (auto& entity : entities) {
 			entity->Draw();
 		}
 		
 		Renderer::EndFrame();
 	}
 	
-	Entity* Scene::Instantiate(const Prototype& prototype, Entity* parent) {
+	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent, const Transform& transform) {
 		auto entity = SpawnEntity(prototype.GetData());
 		auto weakPtr = entity.get();
 
+		entity->transform = transform;
 		entity->Initialize();
-		m_SpawnQueue.push_back({ std::move(entity), parent });
+		spawnQueue.push_back({ std::move(entity), parent });
 
 		return weakPtr;
 	}
 
 	void Scene::Reparent(Entity* child, Entity* parent) {
-		for (auto it = m_Entities.begin(); it != m_Entities.end(); it++) {
+		for (auto it = entities.begin(); it != entities.end(); it++) {
 			if (it->get() == child) {
 				auto handle = std::move(*it);
-				m_Entities.erase(it);
+				entities.erase(it);
 
 				parent->AddChild(std::move(handle));
 				return;
@@ -148,12 +134,45 @@ namespace core {
 		}
 	}
 
-	void Scene::DestroyEntity(Entity* entity) {
-
+	void Scene::Destroy(Entity* entity) {
+		destructionQueue.insert(entity);
 	}
 	
 	std::string Scene::GetControlFilePath() const {
-		return m_ControlFilePath;
+		return controlFilePath;
+	}
+
+	void Scene::ProcessSpawnQueue() {
+		//Process the spawn queue
+		for (auto& entry : spawnQueue) {
+			auto parent = entry.second;
+			std::unique_ptr<Entity> entity(std::move(entry.first));
+			entity->BeginPlay();
+
+			if (parent == nullptr) {
+				entities.emplace_back(std::move(entity));
+			}
+			else {
+				parent->AddChild(std::move(entity));
+			}
+		}
+
+		//Clear the processed queue
+		spawnQueue.clear();
+	}
+
+	void Scene::ProcessDestructionQueue() {
+		for (auto it = entities.rbegin(); it != entities.rend(); it++) {
+			auto entity = (*it).get();
+			if (destructionQueue.find(entity) != destructionQueue.end()) {
+				auto handle = std::move(*it);
+				handle->OnDestroy();
+				handle.reset();
+				continue;
+			}
+
+			entity->DestroyFromChildren(destructionQueue);
+		}
 	}
 
 	std::unique_ptr<Entity> Scene::SpawnEntity(const nlohmann::json& entityData) {

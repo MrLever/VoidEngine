@@ -1,6 +1,7 @@
 //STD Headers
 
 //External Headers
+#include <core/Scene.h>
 #include <core/gameplay_framework/Entity.h>
 #include <math/Vector.h>
 
@@ -20,6 +21,11 @@ namespace SuperVoid {
 		 * Destructor
 		 */
 		~Asteroid() = default;
+
+		void OnHit() override;
+
+		void OnDestroy() override;
+
 		
 	private:
 

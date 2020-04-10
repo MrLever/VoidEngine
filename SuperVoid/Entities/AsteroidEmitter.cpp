@@ -26,7 +26,7 @@ namespace SuperVoid {
 	}
 
 	void AsteroidEmitter::BeginPlay() {
-		utils::Logger::LogInfo(m_Name.StringID + " began play");
+		utils::Logger::LogInfo(name.StringID + " began play");
 	}
 
 	void AsteroidEmitter::Tick(float deltaSeconds) {

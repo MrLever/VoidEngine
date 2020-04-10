@@ -85,6 +85,16 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
+		 * Allows entity to respond to collision events
+		 */
+		virtual void OnHit();
+
+		/**
+		 * Behaviors for the entity to take on destruction
+		 */
+		virtual void OnDestroy();
+
+		/**
 		 * @return The distance between this entity and another
 		 */
 		float GetDistance(const Entity* const other) const;
@@ -227,34 +237,46 @@ namespace core {
 		void SetParent(Entity* parent);
 
 		/**
-		 * 
+		 * Transfers ownership of an entity to this entity
 		 */
 		void AddChild(std::unique_ptr<Entity> child);
 
-	protected:
-		/** Removes child from m_Children */
-		std::unique_ptr<Entity> RemoveChild(Entity* child);
+		/**
+		 * Removes ownership of a child from this entity
+		 */
+		std::unique_ptr<Entity> RemoveChild(Entity* entity);
 
+		/**
+		 * Marks this entity for destruction
+		 */
+		void Destroy();
+
+		/**
+		 * Instructs entity to destroy the children in destructionList
+		 */
+		void DestroyFromChildren(std::unordered_set<Entity*>& destructionList);
+
+	protected:
 		/** Entity's name */
-		utils::Name m_Name;
+		utils::Name name;
 
 		/** All of the components for this entity */
-		std::unordered_set<std::shared_ptr<Component>> m_Components;
+		std::unordered_set<std::shared_ptr<Component>> components;
 
 		/** Optional pointer to the entity's owner */
 		Entity* parent;
 		
 		/** List of entity's children */
-		std::vector<std::unique_ptr<Entity>> m_Children;
+		std::vector<std::unique_ptr<Entity>> children;
 
 	private:
 		/** The level the entity inhabits */
-		Scene* m_World;
+		Scene* world;
 	};
 	
 	template<class T>
 	inline T* Entity::GetComponent() {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			auto ptr = dynamic_cast<T*>(component.get());
 			if (ptr != nullptr) {
 				return ptr;
@@ -266,22 +288,22 @@ namespace core {
 
 	template<class T>
 	inline std::vector<T*> Entity::GetComponents() {
-		std::vector<T*> components;
+		std::vector<T*> foundComponents;
 
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			auto ptr = dynamic_cast<T*>(component.get());
 			if (ptr != nullptr) {
-				components.push_back(ptr);
+				foundComponents.push_back(ptr);
 			}
 		}
 
-		return components;
+		return foundComponents;
 	}
 	
 	template<class T>
 	inline std::vector<T*> Entity::GetComponentsInChildren() {
 		std::vector<T*> components;
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			auto childComponents = child->GetComponents<T>();
 			components.insert(components.end(), childComponents.begin(), childComponents.end());
 			child->GetComponentsInChildren<T>(components);
@@ -291,7 +313,7 @@ namespace core {
 
 	template<class T>
 	inline void Entity::GetComponentsInChildren(std::vector<T*>& components) {
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			auto childComponents = child->GetComponents<T>();
 			components.insert(components.end(), childComponents.begin(), childComponents.end());
 			child->GetComponentsInChildren<T>(components);

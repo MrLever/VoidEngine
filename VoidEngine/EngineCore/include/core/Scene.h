@@ -2,6 +2,7 @@
 //STD Headers
 #include <memory>
 #include <string>
+#include <list>
 
 //Library Headers
 #include <math/Vector.h>
@@ -62,7 +63,17 @@ namespace core {
 		/**
 		 * Allows entities to construct entities from prototypes at runtime
 		 */
-		Entity* Instantiate(const Prototype& prototype, Entity* parent = nullptr);
+		Entity* SpawnEntity(
+			const Prototype& prototype, 
+			Entity* parent = nullptr,
+			const Transform& transform = Transform() 
+		);
+
+		/**
+		 * Defualt constructs an entity of type T
+		 */
+		template <class T>
+		T* SpawnEntity(Entity* parent = nullptr, const Transform& transform = Transform());
 
 		/**
 		 * Transfers ownership of child's unqique pointer to parent
@@ -72,7 +83,7 @@ namespace core {
 		/**
 		 * Allows Entities to be removed from the simulation
 		 */
-		void DestroyEntity(Entity* entity);
+		void Destroy(Entity* entity);
 
 		/**
 		 * Allows the game to query the control file used for this level
@@ -88,33 +99,49 @@ namespace core {
 		std::vector<T*> FindComponentsOfType();
 
 	private:
+		/** 
+		 * Adds root entities from the spawn queue into the entity vector 
+		 */
+		void ProcessSpawnQueue();
+
+		/**
+		 * Destroys all entities in the destruction queue
+		 */
+		void ProcessDestructionQueue();
+
 		/**
 		 * Recursive helper function to spawn entity given data
 		 */
 		std::unique_ptr<Entity> SpawnEntity(const nlohmann::json& entityData);
 
 		/** Root entities active in scene simulation */
-		std::vector<std::unique_ptr<Entity>> m_Entities;
+		std::vector<std::unique_ptr<Entity>> entities;
 
 		/** 
 		 * Entities Instantiated during runtime are added the the scene heirarchy 
 		 * at the end of the frame they were spawned on.
 		 */
-		std::vector<std::pair<std::unique_ptr<Entity>, Entity*>> m_SpawnQueue;
+		std::vector<std::pair<std::unique_ptr<Entity>, Entity*>> spawnQueue;
 
-		std::string m_ControlFilePath;
+		/**
+		 * Entities marked for destruction are destroyed at the end of the current frame
+		 */
+		std::unordered_set<Entity*> destructionQueue;
+
+		/** Path to the level's control bindings */
+		std::string controlFilePath;
 
 		/** Maps Camera name to Camera to allow runtime lookup and switching */
-		std::vector<CameraComponent*> m_Cameras;
+		std::vector<CameraComponent*> cameras;
 
 		/** Camera currently used to render the scene */
-		CameraComponent* m_ActiveCamera;
+		CameraComponent* activeCamera;
 
 		/** The input manager used to control entities in the scene */
-		std::shared_ptr<InputManager> m_InputManager;
+		std::shared_ptr<InputManager> inputManager;
 
 		/** The PhysicsEngine used to update the scene */
-		std::shared_ptr<PhysicsEngine> m_PhysicsEngine;
+		std::shared_ptr<PhysicsEngine> physicsEngine;
 
 		/** Used to maintain scene lighting data and pass to renderer */
 		LightingEnvironment m_LightingEnvironment;
@@ -124,10 +151,22 @@ namespace core {
 	};
 
 	template<class T>
+	inline T* Scene::SpawnEntity(Entity* parent, const Transform& transform) {
+		auto entityHandle = std::make_unique<T>();
+		auto weakPtr = entityHandle.get();
+
+		entityHandle->transform = transform;
+		entityHandle->Initialize();
+		spawnQueue.push_back({ std::move(entityHandle), parent });
+
+		return weakPtr;
+	}
+
+	template<class T>
 	inline std::vector<T*> Scene::FindComponentsOfType(){
 		std::vector<T*> searchResults;
 
-		for (auto& entity : m_Entities) {
+		for (auto& entity : entities) {
 			auto components = entity->GetComponents<T>();
 			searchResults.insert(searchResults.end(), components.begin(), components.end());
 			entity->GetComponentsInChildren<T>(searchResults);
