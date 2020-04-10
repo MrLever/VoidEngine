@@ -110,7 +110,7 @@ source_group(
 )
 
 set(engine_core_gameplay_framework_component_headers
-    "${engine_core_header_dir}/gameplay_framework/components/SceneComponent.h"
+    
 )
 source_group(
     "Header Files\\Gameplay Framework\\Components" 
@@ -351,7 +351,7 @@ source_group(
 )
 
 set(engine_core_gameplay_framework_component_source
-    "${engine_core_source_dir}/gameplay_framework/components/SceneComponent.cpp"
+    
 )
 source_group(
     "Source Files\\Gameplay Framework\\Components" 
