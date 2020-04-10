@@ -24,12 +24,12 @@ namespace core {
 	}
 
 	void ColliderComponent::Initialize() {
-		if (ConfigData.find("collisionLayer") != ConfigData.end()) {
-			m_CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
+		if (configData.find("collisionLayer") != configData.end()) {
+			m_CollisionLayer = configData["collisionLayer"].get<unsigned>();
 		}
 
-		Shape = utils::FactoryBase<Collider>::Create(ConfigData["shape"]["type"].get<std::string>());
-		Shape->SetConfigData(ConfigData["shape"]);
+		Shape = utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>());
+		Shape->SetConfigData(configData["shape"]);
 		Shape->Initialize();
 
 		/*m_ColliderShader = std::make_shared<ShaderProgram>(

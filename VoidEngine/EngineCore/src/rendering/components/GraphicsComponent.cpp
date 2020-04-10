@@ -33,14 +33,14 @@ namespace core {
 		
 		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
 
-		m_Model = modelCache->GetResource(ConfigData["model"].get<std::string>());
+		m_Model = modelCache->GetResource(configData["model"].get<std::string>());
 		m_Model->Initialize();
 
-		if (ConfigData.find("shader") != ConfigData.end()) {
+		if (configData.find("shader") != configData.end()) {
 			AddMaterial(
-				ConfigData["shader"]["name"].get<std::string>(),
-				ConfigData["shader"]["vertexShader"].get<std::string>(),
-				ConfigData["shader"]["fragmentShader"].get<std::string>()
+				configData["shader"]["name"].get<std::string>(),
+				configData["shader"]["vertexShader"].get<std::string>(),
+				configData["shader"]["fragmentShader"].get<std::string>()
 			);
 		}
 		else {

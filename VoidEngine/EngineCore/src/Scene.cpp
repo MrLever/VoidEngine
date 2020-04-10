@@ -97,6 +97,7 @@ namespace core {
 		}
 
 		ProcessSpawnQueue();
+		ProcessDestructionQueue();
 	}
 
 	void Scene::Draw() {
@@ -166,6 +167,7 @@ namespace core {
 			auto entity = (*it).get();
 			if (destructionQueue.find(entity) != destructionQueue.end()) {
 				auto handle = std::move(*it);
+				destructionQueue.erase(handle.get());
 				handle->OnDestroy();
 				handle.reset();
 				continue;
@@ -173,6 +175,8 @@ namespace core {
 
 			entity->DestroyFromChildren(destructionQueue);
 		}
+
+		destructionQueue.clear();
 	}
 
 	std::unique_ptr<Entity> Scene::SpawnEntity(const nlohmann::json& entityData) {

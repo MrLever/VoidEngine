@@ -27,7 +27,7 @@ namespace core {
 		ColliderComponent();
 
 		/**
-		 * Sets up collider data from ConfigData
+		 * Sets up collider data from configData
 		 */
 		void Initialize() override;
 

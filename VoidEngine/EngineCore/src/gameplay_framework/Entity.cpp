@@ -36,10 +36,10 @@ namespace core {
 	}
 
 	void Entity::Initialize() {
-		if (!ConfigData.is_null()) {
-			name = utils::Name(ConfigData["name"]);
+		if (!configData.is_null()) {
+			name = utils::Name(configData["name"]);
 
-			auto locationData = ConfigData["location"];
+			auto locationData = configData["location"];
 			if (!locationData.is_null()) {
 				transform.position = 
 					math::Vector3(locationData[0].get<float>(),
@@ -48,7 +48,7 @@ namespace core {
 					);
 			}
 
-			auto rotationData = ConfigData["rotation"];
+			auto rotationData = configData["rotation"];
 			if (!rotationData.is_null()) {
 				transform.rotation =
 					math::Quaternion(
@@ -60,7 +60,7 @@ namespace core {
 					);
 			}
 
-			auto scaleData = ConfigData["scale"];
+			auto scaleData = configData["scale"];
 			if (!scaleData.is_null()) {
 				transform.scale =
 					math::Vector3(
@@ -234,7 +234,7 @@ namespace core {
 	}
 
 	void Entity::SetScene(Scene* world) {
-		world = world;
+		this->world = world;
 	}
 
 	Entity* Entity::GetParent() const {
@@ -284,6 +284,7 @@ namespace core {
 
 			if (destructionList.find(child) != destructionList.end()) {
 				auto handle = std::move(*it);
+				destructionList.erase(handle.get());
 				handle->OnDestroy();
 				handle.reset();
 				continue;

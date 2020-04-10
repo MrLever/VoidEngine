@@ -138,6 +138,8 @@ namespace core {
 
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*>& collisions) {
 		for (auto& manifold : collisions) {
+			manifold->EntityA->OnHit();
+			manifold->EntityB->OnHit();
 			ResolveCollision(manifold);
 			CorrectPositions(manifold);
 		}

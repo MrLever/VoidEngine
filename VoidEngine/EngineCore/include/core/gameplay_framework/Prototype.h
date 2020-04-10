@@ -24,7 +24,7 @@ namespace core {
 		 * Constructor
 		 * @param data The data to use when creating an instance of the Prototype
 		 */
-		Prototype(nlohmann::json& data);
+		Prototype(const nlohmann::json& data);
 
 		/**
 		 * Destructor

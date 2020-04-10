@@ -16,18 +16,18 @@ namespace core {
 	}
 
 	void DirectionalLightComponent::Initialize() {
-		if (ConfigData.find("direction") != ConfigData.end()) {
-			auto vec = ConfigData["direction"];
+		if (configData.find("direction") != configData.end()) {
+			auto vec = configData["direction"];
 			m_Direction = { vec[0], vec[1], vec[2] };
 		}
 
-		if (ConfigData.find("color") != ConfigData.end()) {
-			auto vec = ConfigData["color"];
+		if (configData.find("color") != configData.end()) {
+			auto vec = configData["color"];
 			m_Color = { vec[0], vec[1], vec[2], vec[3] };
 		}
 
-		if (ConfigData.find("intensity") != ConfigData.end()) {
-			m_Intensity = ConfigData["intensity"];
+		if (configData.find("intensity") != configData.end()) {
+			m_Intensity = configData["intensity"];
 		}
 	}
 

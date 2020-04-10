@@ -22,16 +22,16 @@ namespace core {
 	}
 
 	void CameraComponent::Initialize() {
-		if (ConfigData.find("name") != ConfigData.end()) {
-			m_Name = ConfigData["name"];
+		if (configData.find("name") != configData.end()) {
+			m_Name = configData["name"];
 		}
 
-		if (ConfigData.find("near") != ConfigData.end()) {
-			m_Near = ConfigData["near"];
+		if (configData.find("near") != configData.end()) {
+			m_Near = configData["near"];
 		}
 
-		if (ConfigData.find("far") != ConfigData.end()) {
-			m_Far = ConfigData["far"];
+		if (configData.find("far") != configData.end()) {
+			m_Far = configData["far"];
 		}
 	}
 	

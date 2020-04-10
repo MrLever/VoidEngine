@@ -20,18 +20,18 @@ namespace core {
 	}
 
 	void PhysicsComponent::Initialize() {
-		if (ConfigData.find("isStatic") != ConfigData.end()) {
-			IsStatic = ConfigData["isStatic"].get<bool>();
+		if (configData.find("isStatic") != configData.end()) {
+			IsStatic = configData["isStatic"].get<bool>();
 		}
-		if (ConfigData.find("mass") != ConfigData.end()) {
-			Mass = ConfigData["mass"].get<float>();
+		if (configData.find("mass") != configData.end()) {
+			Mass = configData["mass"].get<float>();
 			InverseMass = (Mass == 0.0f) ? 0 : 1 / Mass;
 		}
-		if (ConfigData.find("gravityScale") != ConfigData.end()) {
-			GravityScale = ConfigData["gravityScale"].get<float>();
+		if (configData.find("gravityScale") != configData.end()) {
+			GravityScale = configData["gravityScale"].get<float>();
 		}
-		if (ConfigData.find("restitution") != ConfigData.end()) {
-			Restitution = ConfigData["restitution"].get<float>();
+		if (configData.find("restitution") != configData.end()) {
+			Restitution = configData["restitution"].get<float>();
 		}
 
 		if (IsStatic) {

@@ -34,11 +34,11 @@ namespace utils {
 		/**
 		 * Allows factory to attatch configuration data to object
 		 */
-		virtual void SetConfigData(const nlohmann::json& data) { ConfigData = data; }
+		virtual void SetConfigData(const nlohmann::json& data) { configData = data; }
 
 	protected:
 		/** Data used to initialize component */
-		nlohmann::json ConfigData;
+		nlohmann::json configData;
 	};
 
 }

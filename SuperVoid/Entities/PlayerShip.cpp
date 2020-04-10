@@ -23,11 +23,11 @@ namespace SuperVoid {
 		m_RigidBody = GetComponent<core::PhysicsComponent>();
 		SetupInputComponent(GetComponent<core::InputComponent>());
 
-		if (ConfigData.find("speed") != ConfigData.end()) {
-			m_EngineStrength = ConfigData["speed"];
+		if (configData.find("speed") != configData.end()) {
+			m_EngineStrength = configData["speed"];
 		}
 
-		m_BulletPrototype = core::Prototype(ConfigData["bulletPrototype"]);
+		m_BulletPrototype = core::Prototype(configData["bulletPrototype"]);
 	}
 
 	void PlayerShip::SetupInputComponent(core::InputComponent* component) {

@@ -7,7 +7,7 @@
 
 namespace core {
 
-	Prototype::Prototype(nlohmann::json& data) : m_Data(std::move(data)) {
+	Prototype::Prototype(const nlohmann::json& data) : m_Data(data) {
 
 	}
 

@@ -24,9 +24,11 @@ namespace SuperVoid {
 
 		void OnHit() override;
 
+		/**
+		 * Spawns two child asteroids
+		 */
 		void OnDestroy() override;
 
-		
 	private:
 
 	};

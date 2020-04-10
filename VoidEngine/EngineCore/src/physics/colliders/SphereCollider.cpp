@@ -16,7 +16,7 @@ namespace core {
 	}
 
 	void SphereCollider::Initialize() {
-		Radius = ConfigData["radius"].get<float>();
+		Radius = configData["radius"].get<float>();
 	}
 
 	float SphereCollider::GetRadius() const {

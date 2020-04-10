@@ -20,8 +20,8 @@ namespace SuperVoid {
 	void AsteroidEmitter::Initialize() {
 		Entity::Initialize();
 
-		if (ConfigData.find("spawnTime") != ConfigData.end()) {
-			m_SpawnTime = ConfigData["spawnTime"];
+		if (configData.find("spawnTime") != configData.end()) {
+			m_SpawnTime = configData["spawnTime"];
 		}
 	}
 

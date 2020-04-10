@@ -53,13 +53,13 @@ namespace core {
 	}
 
 	void AABBCollider::Initialize() {
-		m_MinExtent.X = ConfigData["min"][0].get<float>();
-		m_MinExtent.Y = ConfigData["min"][1].get<float>();
-		m_MinExtent.Z = ConfigData["min"][2].get<float>();
+		m_MinExtent.X = configData["min"][0].get<float>();
+		m_MinExtent.Y = configData["min"][1].get<float>();
+		m_MinExtent.Z = configData["min"][2].get<float>();
 
-		m_MaxExtent.X = ConfigData["max"][0].get<float>();
-		m_MaxExtent.Y = ConfigData["max"][1].get<float>();
-		m_MaxExtent.Z = ConfigData["max"][2].get<float>();
+		m_MaxExtent.X = configData["max"][0].get<float>();
+		m_MaxExtent.Y = configData["max"][1].get<float>();
+		m_MaxExtent.Z = configData["max"][2].get<float>();
 	}
 
 	void AABBCollider::Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) {
