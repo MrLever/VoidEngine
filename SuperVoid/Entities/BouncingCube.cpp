@@ -31,18 +31,13 @@ namespace SuperVoid {
 		auto deltaHeight = deltaSeconds * Velocity;
 		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
 
-		auto position = m_Transform.GetPosition();
-		position.Y += deltaHeight;
+		transform.position.Y += deltaHeight;
 
-		auto rotation = m_Transform.GetRotation();
-		rotation = rotation * deltaRotation;
+		transform.rotation *= deltaRotation;
 
-		if (position.Y > 2 || position.Y < -2) {
+		if (transform.position.Y > 2 || transform.position.Y < -2) {
 			Velocity *= -1;
 		}
-
-		m_Transform.SetPosition(position);
-		m_Transform.SetRotation(rotation);
 	}
 
 	void BouncingCube::Terminate() {

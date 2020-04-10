@@ -31,8 +31,8 @@ namespace core {
 		TYPE_INFO_DECL(Entity)
 
 	public:
-		/** The entity's transform in 3D space */
-		Transform m_Transform;
+		/** The entity's LOCAL transform in 3D space */
+		Transform transform;
 
 		/**
 		 * Constructor
@@ -85,38 +85,84 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
-		 * Gets distance between this entity and another
+		 * @return The distance between this entity and another
 		 */
 		float GetDistance(const Entity* const other) const;
 
 		/**
-		 * Gets distance between this entity and another
+		 * @return The distance between this entity and another
 		 */
 		float GetDistanceSquared(const Entity* const other) const;
 
 		/**
-		 * Accessors for entity position
+		 * @return Entity's position in world space
 		 */
 		math::Vector3 GetPosition() const;
+
+		/**
+		 * Updates local transform to position entity at newPosition in world coordinates
+		 */
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Accessors for local position
+		 * @return the entity's position relative to its parent
 		 */
 		math::Vector3 GetLocalPosition() const;
+
+		/**
+		 * Set the entity's postion relative to its parent
+		 */
 		void SetLocalPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Accessors for entity rotation
+		 * @return the absolute rotation of this entity in world space
 		 */
-		math::Rotator GetRotation() const;
+		math::Quaternion GetRotation() const;
+
+		/**
+		 * Set the absolute rotation of this entity in world space
+		 */
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
-		 * Accessors for entity scale
+		 * Set the absolute rotation of this entity in world space
+		 */
+		void SetRotation(const math::Quaternion& newRotation);
+
+		/**
+		 * @return the Entity's rotation relative to its parent
+		 */
+		math::Quaternion GetLocalRotation() const;
+
+		/**
+		 * Set the entity's rotation relative to its parent
+		 */
+		void SetLocalRotation(const math::Rotator& newRotation);
+		
+		/**
+		 * Set the entity's rotation relative to its parent
+		 */
+		void SetLocalRotation(const math::Quaternion& newRotation);
+		
+		/**
+		 * @return The entity's absolute scale
 		 */
 		math::Vector3 GetScale() const;
+
+		/**
+		 * Set the entity's absolute scale
+		 */
 		void SetScale(const math::Vector3& newScale);
+
+		/**
+		 * @return This entity's forward direction in world space
+		 */
+		math::Vector3 GetForward() const;
+
+		/**
+		 * @return This entity's up direction in world space
+		 */
+		math::Vector3 GetUp() const;
 
 		/**
 		 * Acessors for entity name
@@ -196,7 +242,7 @@ namespace core {
 		std::unordered_set<std::shared_ptr<Component>> m_Components;
 
 		/** Optional pointer to the entity's owner */
-		Entity* m_Parent;
+		Entity* parent;
 		
 		/** List of entity's children */
 		std::vector<std::unique_ptr<Entity>> m_Children;
@@ -207,8 +253,7 @@ namespace core {
 	};
 	
 	template<class T>
-	inline T* Entity::GetComponent()
-	{
+	inline T* Entity::GetComponent() {
 		for (auto& component : m_Components) {
 			auto ptr = dynamic_cast<T*>(component.get());
 			if (ptr != nullptr) {

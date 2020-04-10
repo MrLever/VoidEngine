@@ -36,12 +36,12 @@ namespace core {
 	}
 	
 	void CameraComponent::Tick(float deltaTime) {
-		auto lookDirection = m_Transform->GetForward();
-		auto up = m_Transform->GetUp();
-		auto target = m_Transform->GetPosition() + lookDirection;
+		auto lookDirection = parent->GetForward();
+		auto up = parent->GetUp();
+		auto target = parent->GetPosition() + lookDirection;
 		
 		//Set view matrix for this frame
-		auto position = m_Transform->GetPosition();
+		auto position = parent->GetPosition();
 		m_ViewMatrix = glm::lookAt(
 			glm::vec3(position.X, position.Y, position.Z),
 			glm::vec3(target.X, target.Y, target.Z),

@@ -23,7 +23,6 @@
 namespace core {
 
 	class Scene : EventBusNode {
-		friend class SceneLoader;
 	public:
 		/**
 		 * Constructor
@@ -89,16 +88,19 @@ namespace core {
 		std::vector<T*> FindComponentsOfType();
 
 	private:
-		/** 
-		 * Entities Instantiated during runtime are added the the scene heirarchy 
-		 * at the end of the frame they were spawned on.
-		 */
-		std::vector <std::pair<std::unique_ptr<Entity>, Entity*>> m_SpawnQueue;
-
 		/**
 		 * Recursive helper function to spawn entity given data
 		 */
 		std::unique_ptr<Entity> SpawnEntity(const nlohmann::json& entityData);
+
+		/** Root entities active in scene simulation */
+		std::vector<std::unique_ptr<Entity>> m_Entities;
+
+		/** 
+		 * Entities Instantiated during runtime are added the the scene heirarchy 
+		 * at the end of the frame they were spawned on.
+		 */
+		std::vector<std::pair<std::unique_ptr<Entity>, Entity*>> m_SpawnQueue;
 
 		std::string m_ControlFilePath;
 
@@ -107,9 +109,6 @@ namespace core {
 
 		/** Camera currently used to render the scene */
 		CameraComponent* m_ActiveCamera;
-
-		/** Entities active in scene simulation */
-		std::vector<std::unique_ptr<Entity>> m_Entities;
 
 		/** The input manager used to control entities in the scene */
 		std::shared_ptr<InputManager> m_InputManager;

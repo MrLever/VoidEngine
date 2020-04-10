@@ -30,7 +30,7 @@ namespace core {
 		static const float VELOCITY = 50.0f;
 		auto physics = GetComponent<PhysicsComponent>();
 		
-		physics->AddVelocity(VELOCITY * m_Transform.GetForward());
+		physics->AddVelocity(VELOCITY * GetForward());
 	}
 
 }

@@ -72,24 +72,24 @@ namespace core {
 	}
 	
 	void Observer::MoveForward(float axisValue, float deltaTime) {
-		auto forward = m_Transform.GetForward();
+		auto forward = parent->GetForward();
 		auto moveSpeed = MovementSpeed * deltaTime;
 		
-		auto positon = m_Transform.GetPosition();
+		auto positon = parent->GetPosition();
 		positon += forward * axisValue * moveSpeed;
 
-		m_Transform.SetPosition(positon);
+		parent->SetPosition(positon);
 	}
 
 	void Observer::MoveRight(float axisValue, float deltaTime) {
-		auto forward = m_Transform.GetForward();
-		auto right = forward.Cross(m_Transform.GetUp()).Normalize();
+		auto forward = parent->GetForward();
+		auto right = forward.Cross(parent->GetUp()).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
 
-		auto positon = m_Transform.GetPosition();
+		auto positon = parent->GetPosition();
 		positon += right * axisValue * moveSpeed;
 
-		m_Transform.SetPosition(positon);
+		parent->SetPosition(positon);
 	}
 
 	void Observer::LookUp(float axisValue, float deltaTime) {
@@ -103,18 +103,18 @@ namespace core {
 			axisValue = -89;
 		}
 
-		auto rotation = m_Transform.GetRotation();
+		auto rotation = parent->GetRotation();
 		rotation = rotation * math::Quaternion(deltaRotation);
 
-		m_Transform.SetRotation(rotation);
+		parent->SetRotation(rotation);
 	}
 
 	void Observer::LookRight(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, -axisValue, 0);
 
-		auto rotation = m_Transform.GetRotation();
+		auto rotation = parent->GetRotation();
 		rotation = rotation * math::Quaternion(deltaRotation);
 		
-		m_Transform.SetRotation(rotation);
+		parent->SetRotation(rotation);
 	}
 }

@@ -9,7 +9,7 @@ namespace core {
 
 	TYPE_INFO_IMPL(Component)
 
-	Component::Component() : m_Parent(nullptr), m_Transform(nullptr) {
+	Component::Component() : parent(nullptr), transform(nullptr) {
 
 	}
 
@@ -18,7 +18,7 @@ namespace core {
 	}
 
 	Entity* Component::GetParent() {
-		return m_Parent;
+		return parent;
 	}
 
 	void Component::Input(const InputAction& input, float deltaTime) {
@@ -30,15 +30,15 @@ namespace core {
 	}
 
 	float Component::GetDistance(Component* other) const {
-		return m_Parent->GetDistance(other->GetParent());
+		return parent->GetDistance(other->GetParent());
 	}
 
 	float Component::GetDistanceSquared(Component* other) const {
-		return m_Parent->GetDistanceSquared(other->GetParent());
+		return parent->GetDistanceSquared(other->GetParent());
 	}
 
 	math::Vector3 Component::GetPosition() const {
-		return m_Parent->GetPosition();
+		return parent->GetPosition();
 	}
 
 	void Component::Tick(float deltaTime) {

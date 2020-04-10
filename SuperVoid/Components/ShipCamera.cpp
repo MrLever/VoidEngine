@@ -17,11 +17,11 @@ namespace SuperVoid {
 
 	void ShipCamera::Initialize() {
 		core::CameraComponent::Initialize();
-		m_SpawnOrientation = m_Transform->GetRotation();
+		m_SpawnOrientation = parent->GetRotation();
 	}
 
 	void ShipCamera::Tick(float deltaTime) {
-		m_Transform->SetRotation(m_SpawnOrientation);
+		parent->SetRotation(m_SpawnOrientation);
 		CameraComponent::Tick(deltaTime);
 	}
 	

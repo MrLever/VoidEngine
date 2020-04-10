@@ -15,7 +15,7 @@ namespace core {
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : m_Name("Entity"), m_World(nullptr), m_Parent(nullptr), m_Transform(*this) {
+	Entity::Entity() : m_Name("Entity"), m_World(nullptr), parent(nullptr) {
 	
 	}
 
@@ -41,37 +41,33 @@ namespace core {
 
 			auto locationData = ConfigData["location"];
 			if (!locationData.is_null()) {
-				m_Transform.SetLocalPosition(
-					math::Vector3(
-						locationData[0].get<float>(),
+				transform.position = 
+					math::Vector3(locationData[0].get<float>(),
 						locationData[1].get<float>(),
 						locationData[2].get<float>()
-					)
-				);
+					);
 			}
 
 			auto rotationData = ConfigData["rotation"];
 			if (!rotationData.is_null()) {
-				m_Transform.SetLocalRotation(
+				transform.rotation =
 					math::Quaternion(
 						math::Rotator(
 							rotationData[0].get<float>(),
 							rotationData[1].get<float>(),
 							rotationData[2].get<float>()
 						)
-					)
-				);
+					);
 			}
 
 			auto scaleData = ConfigData["scale"];
 			if (!scaleData.is_null()) {
-				m_Transform.SetLocalScale(
+				transform.scale =
 					math::Vector3(
 						scaleData[0].get<float>(),
 						scaleData[1].get<float>(),
 						scaleData[2].get<float>()
-					)
-				);
+					);
 			}
 		}
 		
@@ -115,43 +111,87 @@ namespace core {
 	}
 
 	float Entity::GetDistance(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPosition()).Magnitude();
+		return (GetPosition() - other->GetPosition()).Magnitude();
 	}
 
 	float Entity::GetDistanceSquared(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPosition()).MagnitudeSqr();
+		return (GetPosition() - other->GetPosition()).MagnitudeSqr();
 	}
 
 	math::Vector3 Entity::GetPosition() const {
-		return m_Transform.GetPosition();
+		if (parent == nullptr) {
+			return transform.position;
+		}
+		else {
+			auto parentPos = parent->GetPosition();
+			auto parentRotation = parent->GetRotation();
+			auto positionInParentSpace = parentRotation.Rotate(transform.position);
+			return parentPos + positionInParentSpace;
+		}
 	}
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
-		m_Transform.SetPosition(newPosition);
+		if (parent == nullptr) {
+			transform.position = newPosition;
+		}
+		else {
+			transform.position = newPosition - parent->GetPosition();
+		}
 	}
 
 	math::Vector3 Entity::GetLocalPosition() const {
-		return m_Transform.GetLocalPosition();
+		return transform.position;
 	}
 
 	void Entity::SetLocalPosition(const math::Vector3& newPosition) {
-		m_Transform.SetLocalPosition(newPosition);
+		transform.position = newPosition;
 	}
 
-	math::Rotator Entity::GetRotation() const {
-		return m_Transform.GetRotation().ToEuler();
+	math::Quaternion Entity::GetRotation() const {
+		return (parent == nullptr) ?
+			transform.rotation :
+			parent->GetRotation() * transform.rotation;
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		m_Transform.SetRotation(math::Quaternion(newRotation));
+		SetRotation(math::Quaternion(newRotation));
+	}
+
+	void Entity::SetRotation(const math::Quaternion& newRotation) {
+		if (parent == nullptr) {
+			transform.rotation = newRotation;
+		}
+		else {
+			transform.rotation = newRotation * parent->GetRotation().Inverse();
+		}
+	}
+
+	math::Quaternion Entity::GetLocalRotation() const {
+		return transform.rotation;
+	}
+
+	void Entity::SetLocalRotation(const math::Rotator& newRotation) {
+		SetLocalRotation(math::Quaternion(newRotation));
+	}
+
+	void Entity::SetLocalRotation(const math::Quaternion& newRotation) {
+		transform.rotation = newRotation;
 	}
 
 	math::Vector3 Entity::GetScale() const {
-		return m_Transform.GetScale();
+		return transform.scale;
 	}
 
 	void Entity::SetScale(const math::Vector3& newScale) {
-		m_Transform.SetScale(newScale);
+		transform.scale = newScale;
+	}
+
+	math::Vector3 Entity::GetForward() const {
+		return GetRotation().Normalize().Rotate(math::Vector3::Forward);
+	}
+
+	math::Vector3 Entity::GetUp() const {
+		return  GetRotation().Normalize().Rotate(math::Vector3::Up);
 	}
 
 	std::string Entity::GetName() const {
@@ -168,8 +208,8 @@ namespace core {
 
 	void Entity::AddComponent(std::shared_ptr<Component> component) {
 		//Abuse friendship to give the child component necessary references
-		component->m_Parent = this;
-		component->m_Transform = &m_Transform;
+		component->parent = this;
+		component->transform = &transform;
 
 		//Register component
 		m_Components.insert(component);
@@ -190,24 +230,24 @@ namespace core {
 	}
 
 	Entity* Entity::GetParent() const {
-		return m_Parent;
+		return parent;
 	}
 
 	void Entity::SetParent(Entity* parent) {
-		if (m_Parent == nullptr) {
+		if (parent == nullptr) {
 			//Scene is the holder of the entity's unique pointer. Go get it.
 			GetWorld()->Reparent(this, parent);
 		}
 		else {
 			//Get the unique handle from the old parent entity, 
 			//and give it to the new one. 
-			parent->AddChild(m_Parent->RemoveChild(this));
+			parent->AddChild(parent->RemoveChild(this));
 		}
 
 	}
 
 	void Entity::AddChild(std::unique_ptr<Entity> child) {
-		child->m_Parent = this;
+		child->parent = this;
 		m_Children.emplace_back(std::move(child));
 	}
 

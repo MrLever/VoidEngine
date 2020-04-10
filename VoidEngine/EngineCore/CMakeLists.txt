@@ -98,7 +98,6 @@ source_group(
     FILES ${engine_core_gameplay_framework_core_headers}
 )
 
-
 set(engine_core_gameplay_framework_entity_headers
     "${engine_core_header_dir}/gameplay_framework/entities/Observer.h"
     "${engine_core_header_dir}/gameplay_framework/entities/FloatingFPSPlayer.h"
@@ -110,9 +109,18 @@ source_group(
     FILES ${engine_core_gameplay_framework_entity_headers}
 )
 
+set(engine_core_gameplay_framework_component_headers
+    "${engine_core_header_dir}/gameplay_framework/components/SceneComponent.h"
+)
+source_group(
+    "Header Files\\Gameplay Framework\\Components" 
+    FILES ${engine_core_gameplay_framework_component_headers}
+)
+
 set(engine_core_gameplay_framework_headers
     ${engine_core_gameplay_framework_core_headers}
     ${engine_core_gameplay_framework_entity_headers}
+    ${engine_core_gameplay_framework_component_headers}
 )
 
 ### Input System
@@ -342,9 +350,18 @@ source_group(
     FILES ${engine_core_gameplay_framework_entity_source}
 )
 
+set(engine_core_gameplay_framework_component_source
+    "${engine_core_source_dir}/gameplay_framework/components/SceneComponent.cpp"
+)
+source_group(
+    "Source Files\\Gameplay Framework\\Components" 
+    FILES ${engine_core_gameplay_framework_component_source}
+)
+
 set(engine_core_gameplay_framework_source
     ${engine_core_gameplay_framework_core_source}
     ${engine_core_gameplay_framework_entity_source}
+    ${engine_core_gameplay_framework_component_source}
 )
 
 ### Input System
