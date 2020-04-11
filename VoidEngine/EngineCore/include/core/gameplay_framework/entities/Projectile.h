@@ -32,6 +32,11 @@ namespace core {
 		 */
 		void BeginPlay() override;
 
+		/**
+		 * Destroys projectile
+		 */
+		void OnHit() override;
+
 	};
 
 }

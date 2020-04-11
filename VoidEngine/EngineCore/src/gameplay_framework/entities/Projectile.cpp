@@ -33,4 +33,8 @@ namespace core {
 		physics->AddVelocity(VELOCITY * GetForward());
 	}
 
+	void Projectile::OnHit() {
+		Destroy();
+	}
+
 }

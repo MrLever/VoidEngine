@@ -163,18 +163,29 @@ namespace core {
 	}
 
 	void Scene::ProcessDestructionQueue() {
-		for (auto it = entities.rbegin(); it != entities.rend(); it++) {
-			auto entity = (*it).get();
-			if (destructionQueue.find(entity) != destructionQueue.end()) {
-				auto handle = std::move(*it);
-				destructionQueue.erase(handle.get());
-				handle->OnDestroy();
-				handle.reset();
-				continue;
-			}
 
-			entity->DestroyFromChildren(destructionQueue);
+		if (destructionQueue.size() == 0) {
+			return;
 		}
+
+		auto predicate = [this](std::unique_ptr<Entity>& entityHandle) {
+			auto entity = entityHandle.get();
+
+			if (destructionQueue.find(entity) != destructionQueue.end()) {
+				destructionQueue.erase(entity);
+				entity->OnDestroy();
+				return true;
+			}
+			else {
+				entity->DestroyFromChildren(destructionQueue);
+				return false;
+			}
+		};
+
+		entities.erase(
+			std::remove_if(entities.begin(), entities.end(), predicate),
+			entities.end()
+		);
 
 		destructionQueue.clear();
 	}

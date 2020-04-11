@@ -279,18 +279,23 @@ namespace core {
 	}
 
 	void Entity::DestroyFromChildren(std::unordered_set<Entity*>& destructionList) {
-		for (auto it = children.rbegin(); it != children.rend(); it++) {
-			auto child = (*it).get();
+		auto predicate = [&destructionList](std::unique_ptr<Entity>& entityHandle) {
+			auto entity = entityHandle.get();
 
-			if (destructionList.find(child) != destructionList.end()) {
-				auto handle = std::move(*it);
-				destructionList.erase(handle.get());
-				handle->OnDestroy();
-				handle.reset();
-				continue;
+			if (destructionList.find(entity) != destructionList.end()) {
+				destructionList.erase(entity);
+				entity->OnDestroy();
+				return true;
 			}
+			else {
+				entity->DestroyFromChildren(destructionList);
+				return false;
+			}
+		};
 
-			child->DestroyFromChildren(destructionList);
-		}
+		children.erase(
+			std::remove_if(children.begin(), children.end(), predicate),
+			children.end()
+		);
 	}
 }
