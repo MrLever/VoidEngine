@@ -19,20 +19,20 @@ namespace core {
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)>
 	> ColliderComponent::s_CollisionDetectionJumpTable;
 
-	ColliderComponent::ColliderComponent() : m_CollisionLayer(0), Shape(nullptr) {
+	ColliderComponent::ColliderComponent() : collisionLayer(0), shape(nullptr) {
 		
 	}
 
 	void ColliderComponent::Initialize() {
 		if (configData.find("collisionLayer") != configData.end()) {
-			m_CollisionLayer = configData["collisionLayer"].get<unsigned>();
+			collisionLayer = configData["collisionLayer"].get<unsigned>();
 		}
 
-		Shape = utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>());
-		Shape->SetConfigData(configData["shape"]);
-		Shape->Initialize();
+		shape = utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>());
+		shape->SetConfigData(configData["shape"]);
+		shape->Initialize();
 
-		/*m_ColliderShader = std::make_shared<ShaderProgram>(
+		colliderShader = std::make_shared<ShaderProgram>(
 			"ColliderShader",
 			new Shader(
 				ShaderType::VERTEX,
@@ -42,7 +42,7 @@ namespace core {
 				ShaderType::FRAGMENT,
 				"Resources/Shaders/default.frag"
 			)
-		);*/
+		);
 
 	}
 
@@ -54,12 +54,12 @@ namespace core {
 			glm::vec3(position.X - 1, position.Y, position.Z)
 		);
 
-		//Shape->Draw(m_ColliderShader, transformMatrix);
+		shape->Draw(colliderShader, transformMatrix);
 	}
 	
 	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {
-		auto colliderType1 = Shape->GetTypename();
-		auto colliderType2 = other->Shape->GetTypename();
+		auto colliderType1 = shape->GetTypename();
+		auto colliderType2 = other->shape->GetTypename();
 
 		auto callback = s_CollisionDetectionJumpTable.Find(colliderType1, colliderType2);
 
@@ -72,10 +72,10 @@ namespace core {
 	}
 
 	const Collider* ColliderComponent::GetShape() const {
-		return Shape;
+		return shape;
 	}
 
 	unsigned ColliderComponent::GetCollisionLayer() const {
-		return m_CollisionLayer;
+		return collisionLayer;
 	}
 }

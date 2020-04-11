@@ -122,7 +122,7 @@ namespace core {
 		for (int i = 0; i < colliders.size(); i++) {
 			for (int j = i+1; j < colliders.size(); j++) {
 				
-				if (colliders[i]->GetCollisionLayer() != colliders[j]->GetCollisionLayer()) {
+				if (colliders[i]->GetCollisionLayer() == colliders[j]->GetCollisionLayer()) {
 					continue;
 				}
 

@@ -31,6 +31,7 @@
                     },
                     {
                         "type":"ColliderComponent",
+                        "collisionLayer": 0,
                         "shape":
                         {
                             "type":"SphereCollider",
@@ -53,6 +54,15 @@
                     "type":"PhysicsComponent",
                     "mass":1.0,
                     "restitution":0
+                },
+                {
+                    "type":"ColliderComponent",
+                    "collisionLayer": 0,
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
                 }
             ],
             "children": 
@@ -104,11 +114,11 @@
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer": 1,
                     "shape":
                     {
-                        "type":"AABBCollider",
-                        "min":[-1,-1,-1],
-                        "max":[1,1,1]
+                        "type":"SphereCollider",
+                        "radius": 1
                     }
                 },
                 {
