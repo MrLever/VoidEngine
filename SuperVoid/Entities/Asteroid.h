@@ -22,6 +22,11 @@ namespace SuperVoid {
 		 */
 		~Asteroid() = default;
 
+		/**
+		 * Rotates asteroid
+		 */
+		void Tick(float deltaSeconds) override;
+
 		void OnHit() override;
 
 		/**

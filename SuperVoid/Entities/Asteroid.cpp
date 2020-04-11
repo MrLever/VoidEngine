@@ -15,6 +15,13 @@ namespace SuperVoid {
 	}
 
 
+	void Asteroid::Tick(float deltaSeconds) {
+		Entity::Tick(deltaSeconds);
+
+		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
+		transform.rotation *= deltaRotation;
+	}
+
 	void Asteroid::OnHit() {
 		Destroy();
 	}
