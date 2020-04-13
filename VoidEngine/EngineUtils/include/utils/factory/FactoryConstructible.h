@@ -37,6 +37,11 @@ namespace utils {
 		virtual void SetConfigData(const nlohmann::json& data) { configData = data; }
 
 	protected:
+		/**
+		 * @return Does configdata contain the key we are searching for
+		 */
+		inline bool DataContainsKey(const std::string& key) { return configData.find(key) != configData.end(); }
+
 		/** Data used to initialize component */
 		nlohmann::json configData;
 	};

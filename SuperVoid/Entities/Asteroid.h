@@ -23,10 +23,18 @@ namespace SuperVoid {
 		~Asteroid() = default;
 
 		/**
+		 * Initialize member variables
+		 */
+		void Initialize() override;
+
+		/**
 		 * Rotates asteroid
 		 */
 		void Tick(float deltaSeconds) override;
 
+		/**
+		 * Causes asteroid to split
+		 */
 		void OnHit() override;
 
 		/**
@@ -35,6 +43,6 @@ namespace SuperVoid {
 		void OnDestroy() override;
 
 	private:
-
+		float minScaleMagnitude;
 	};
 }

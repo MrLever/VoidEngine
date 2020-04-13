@@ -50,8 +50,9 @@ namespace SuperVoid {
 		void SpawnAsteroid();
 
 	private:
-		float m_SpawnTime;
-		float m_TimeWaiting;
+		core::Prototype asteroidPrefab;
+		int minAsteroids;
+		int maxAsteroids;
 	};
 
 }

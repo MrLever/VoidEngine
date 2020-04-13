@@ -13,16 +13,13 @@ namespace SuperVoid {
 
 	ENABLE_FACTORY(AsteroidEmitter, core::Entity)
 
-	AsteroidEmitter::AsteroidEmitter() : m_SpawnTime(3.0f), m_TimeWaiting(0.0f) {
+	AsteroidEmitter::AsteroidEmitter() {
 
 	}
 
 	void AsteroidEmitter::Initialize() {
 		Entity::Initialize();
 
-		if (configData.find("spawnTime") != configData.end()) {
-			m_SpawnTime = configData["spawnTime"];
-		}
 	}
 
 	void AsteroidEmitter::BeginPlay() {
@@ -30,10 +27,7 @@ namespace SuperVoid {
 	}
 
 	void AsteroidEmitter::Tick(float deltaSeconds) {
-		if (m_TimeWaiting >= m_SpawnTime) {
-			m_TimeWaiting = 0;
-			SpawnAsteroid();
-		}
+
 	}
 
 	void AsteroidEmitter::Terminate() {
@@ -41,8 +35,6 @@ namespace SuperVoid {
 	}
 
 	void AsteroidEmitter::SpawnAsteroid() {
-		float minSpeed = 1.0f;
-		float maxSpeed = 5.0f;
 		//GetWorld()->SpawnEntity<Asteroid>();
 	}
 }
