@@ -76,16 +76,16 @@ namespace core {
 		);
 
 		/** The directory this model was loaded from */
-		std::filesystem::path m_ModelDirectory;
+		std::filesystem::path modelDirectory;
 
 		/** The set of meshes that make up this model */
-		std::vector<Mesh> m_Meshes;
+		std::vector<Mesh> meshes;
 
 		/** Cache of textures used to draw this model */
-		ResourceAllocatorPtr<Texture> m_TextureCache;
+		ResourceAllocatorPtr<Texture> textureCache;
 
 		/** A static scene importer that holds a reference to the last scene loaded */
-		static Assimp::Importer s_Importer;
+		Assimp::Importer importer;
 	};
 
 }

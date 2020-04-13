@@ -27,7 +27,7 @@ namespace core {
 		ColliderComponent();
 
 		/**
-		 * Sets up collider data from ConfigData
+		 * Sets up collider data from configData
 		 */
 		void Initialize() override;
 
@@ -61,12 +61,12 @@ namespace core {
 		s_CollisionDetectionJumpTable;
 
 		/** Layer(s) this collider interacts with */
-		unsigned m_CollisionLayer;
+		unsigned collisionLayer;
 
 		/** The type of shape used when resolving collisions with this component */
-		Collider* Shape;
+		Collider* shape;
 
-		std::shared_ptr<ShaderProgram> m_ColliderShader;
+		std::shared_ptr<ShaderProgram> colliderShader;
 	
 	};
 

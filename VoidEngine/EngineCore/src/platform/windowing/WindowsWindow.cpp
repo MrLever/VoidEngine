@@ -43,7 +43,6 @@ namespace platform {
 		if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1)) {
 			PollGamepadInput();
 		}
-
 	}
 
 	void WindowsWindow::PollGamepadInput() {

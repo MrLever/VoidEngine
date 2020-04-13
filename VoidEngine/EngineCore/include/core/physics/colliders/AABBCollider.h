@@ -46,12 +46,12 @@ namespace core {
 
 	private:
 		/** The Min value of the AABB */
-		math::Vector3 m_MinExtent;
+		math::Vector3 minExtent;
 
 		/** The Max Value of the AABB */
-		math::Vector3 m_MaxExtent;
+		math::Vector3 maxExtent;
 
-		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<VertexArray> vertexArray;
 
 	};
 

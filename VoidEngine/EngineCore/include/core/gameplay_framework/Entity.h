@@ -31,8 +31,8 @@ namespace core {
 		TYPE_INFO_DECL(Entity)
 
 	public:
-		/** The entity's transform in 3D space */
-		Transform m_Transform;
+		/** The entity's LOCAL transform in 3D space */
+		Transform transform;
 
 		/**
 		 * Constructor
@@ -85,32 +85,94 @@ namespace core {
 		virtual void Draw() const;
 		
 		/**
-		 * Gets distance between this entity and another
+		 * Allows entity to respond to collision events
+		 */
+		virtual void OnHit();
+
+		/**
+		 * Behaviors for the entity to take on destruction
+		 */
+		virtual void OnDestroy();
+
+		/**
+		 * @return The distance between this entity and another
 		 */
 		float GetDistance(const Entity* const other) const;
 
 		/**
-		 * Gets distance between this entity and another
+		 * @return The distance between this entity and another
 		 */
 		float GetDistanceSquared(const Entity* const other) const;
 
 		/**
-		 * Accessors for entity position
+		 * @return Entity's position in world space
 		 */
-		math::Vector3 GetPostion() const;
+		math::Vector3 GetPosition() const;
+
+		/**
+		 * Updates local transform to position entity at newPosition in world coordinates
+		 */
 		void SetPosition(const math::Vector3& newPosition);
 
 		/**
-		 * Accessors for entity rotation
+		 * @return the entity's position relative to its parent
 		 */
-		math::Rotator GetRotation() const;
+		math::Vector3 GetLocalPosition() const;
+
+		/**
+		 * Set the entity's postion relative to its parent
+		 */
+		void SetLocalPosition(const math::Vector3& newPosition);
+
+		/**
+		 * @return the absolute rotation of this entity in world space
+		 */
+		math::Quaternion GetRotation() const;
+
+		/**
+		 * Set the absolute rotation of this entity in world space
+		 */
 		void SetRotation(const math::Rotator& newRotation);
 
 		/**
-		 * Accessors for entity scale
+		 * Set the absolute rotation of this entity in world space
+		 */
+		void SetRotation(const math::Quaternion& newRotation);
+
+		/**
+		 * @return the Entity's rotation relative to its parent
+		 */
+		math::Quaternion GetLocalRotation() const;
+
+		/**
+		 * Set the entity's rotation relative to its parent
+		 */
+		void SetLocalRotation(const math::Rotator& newRotation);
+		
+		/**
+		 * Set the entity's rotation relative to its parent
+		 */
+		void SetLocalRotation(const math::Quaternion& newRotation);
+		
+		/**
+		 * @return The entity's absolute scale
 		 */
 		math::Vector3 GetScale() const;
+
+		/**
+		 * Set the entity's absolute scale
+		 */
 		void SetScale(const math::Vector3& newScale);
+
+		/**
+		 * @return This entity's forward direction in world space
+		 */
+		math::Vector3 GetForward() const;
+
+		/**
+		 * @return This entity's up direction in world space
+		 */
+		math::Vector3 GetUp() const;
 
 		/**
 		 * Acessors for entity name
@@ -132,7 +194,7 @@ namespace core {
 		void AddComponent(Component* component);
 
 		/**
-		 * Returns componet of type T
+		 * Returns component of type T
 		 * @tparam T The type of component being requested
 		 * @return Component of type T if entity has requested component, else nullptr
 		 */
@@ -140,43 +202,81 @@ namespace core {
 		T* GetComponent();
 	
 		/**
+		 * Returns all component of type T attached to this entity
+		 * @tparam T The type of component being requested
+		 * @return Component of type T if entity has requested component, else nullptr
+		 */
+		template<class T>
+		std::vector<T*> GetComponents();
+
+		/**
+		 * Returns componet of type T
+		 * @tparam T The type of component being requested
+		 * @return Component of type T if entity has requested component, else nullptr
+		 */
+		template<class T>
+		std::vector<T*> GetComponentsInChildren();
+	
+		template<class T>
+		void GetComponentsInChildren(std::vector<T*>& components);
+
+		/**
 		 * Accessors for the pointer to the level this entity is active in
 		 */
 		Scene* GetWorld() const;
 		void SetScene(Scene* world);
 	
 		/**
+		 * @return Reference this this entity's parent
+		 */
+		Entity* GetParent() const;
+
+		/**
 		 * Accessor for Parent
 		 */
 		void SetParent(Entity* parent);
 
 		/**
-		 * Accessor for Parent
+		 * Transfers ownership of an entity to this entity
 		 */
-		void AddChild(std::shared_ptr<Entity> child);
+		void AddChild(std::unique_ptr<Entity> child);
+
+		/**
+		 * Removes ownership of a child from this entity
+		 */
+		std::unique_ptr<Entity> RemoveChild(Entity* entity);
+
+		/**
+		 * Marks this entity for destruction
+		 */
+		void Destroy();
+
+		/**
+		 * Instructs entity to destroy the children in destructionList
+		 */
+		void DestroyFromChildren(std::unordered_set<Entity*>& destructionList);
 
 	protected:
 		/** Entity's name */
-		utils::Name m_Name;
+		utils::Name name;
 
 		/** All of the components for this entity */
-		std::unordered_set<std::shared_ptr<Component>> m_Components;
+		std::unordered_set<std::shared_ptr<Component>> components;
 
 		/** Optional pointer to the entity's owner */
-		Entity* m_Parent;
+		Entity* parent;
 		
 		/** List of entity's children */
-		std::vector<std::shared_ptr<Entity>> m_Children;
+		std::vector<std::unique_ptr<Entity>> children;
 
 	private:
 		/** The level the entity inhabits */
-		Scene* m_World;
+		Scene* world;
 	};
 	
 	template<class T>
-	inline T* Entity::GetComponent()
-	{
-		for (auto& component : m_Components) {
+	inline T* Entity::GetComponent() {
+		for (auto& component : components) {
 			auto ptr = dynamic_cast<T*>(component.get());
 			if (ptr != nullptr) {
 				return ptr;
@@ -184,5 +284,39 @@ namespace core {
 		}
 
 		return nullptr;
+	}
+
+	template<class T>
+	inline std::vector<T*> Entity::GetComponents() {
+		std::vector<T*> foundComponents;
+
+		for (auto& component : components) {
+			auto ptr = dynamic_cast<T*>(component.get());
+			if (ptr != nullptr) {
+				foundComponents.push_back(ptr);
+			}
+		}
+
+		return foundComponents;
+	}
+	
+	template<class T>
+	inline std::vector<T*> Entity::GetComponentsInChildren() {
+		std::vector<T*> components;
+		for (auto& child : children) {
+			auto childComponents = child->GetComponents<T>();
+			components.insert(components.end(), childComponents.begin(), childComponents.end());
+			child->GetComponentsInChildren<T>(components);
+		}
+		return components;
+	}
+
+	template<class T>
+	inline void Entity::GetComponentsInChildren(std::vector<T*>& components) {
+		for (auto& child : children) {
+			auto childComponents = child->GetComponents<T>();
+			components.insert(components.end(), childComponents.begin(), childComponents.end());
+			child->GetComponentsInChildren<T>(components);
+		}
 	}
 }

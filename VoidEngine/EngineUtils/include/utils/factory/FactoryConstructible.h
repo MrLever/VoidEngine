@@ -34,11 +34,16 @@ namespace utils {
 		/**
 		 * Allows factory to attatch configuration data to object
 		 */
-		virtual void SetConfigData(const nlohmann::json& data) { ConfigData = data; }
+		virtual void SetConfigData(const nlohmann::json& data) { configData = data; }
 
 	protected:
+		/**
+		 * @return Does configdata contain the key we are searching for
+		 */
+		inline bool DataContainsKey(const std::string& key) { return configData.find(key) != configData.end(); }
+
 		/** Data used to initialize component */
-		nlohmann::json ConfigData;
+		nlohmann::json configData;
 	};
 
 }

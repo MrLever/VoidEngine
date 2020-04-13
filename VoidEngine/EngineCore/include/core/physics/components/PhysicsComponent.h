@@ -26,7 +26,7 @@ namespace core {
 		~PhysicsComponent();
 
 		/**
-		 * Uses ConfigData to save physics information
+		 * Uses configData to save physics information
 		 */
 		void Initialize() override;
 

@@ -12,17 +12,15 @@
 
 namespace core {
 
-	Assimp::Importer Model::s_Importer;
-
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
-		m_ModelDirectory = ResourcePath.parent_path();
-		m_TextureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
+		modelDirectory = ResourcePath.parent_path();
+		textureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
 		IsThreadSafe = false;
 	}
 
 	bool Model::Load() {
 		
-		auto modelData = s_Importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+		auto modelData = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
 			utils::Logger::LogError("ASSIMP File Load error [" + ResourcePath.string() + "] was invalid");
@@ -37,15 +35,15 @@ namespace core {
 	}
 
 	void Model::Initialize() {
-		ProcessAssimpNode(s_Importer.GetScene()->mRootNode, s_Importer.GetScene());
+		ProcessAssimpNode(importer.GetScene()->mRootNode, importer.GetScene());
 		
-		for (auto& mesh : m_Meshes) {
+		for (auto& mesh : meshes) {
 			mesh.Initialize();
 		}
 	}
 
 	void Model::Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const {
-		for (auto& mesh : m_Meshes) {
+		for (auto& mesh : meshes) {
 			mesh.Draw(shader, transform);
 		}
 	}
@@ -56,7 +54,7 @@ namespace core {
 		//Extract and process Mesh Data from Assimp
 		for (auto i = 0u; i < numMeshes; i++) {
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			m_Meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
+			meshes.emplace_back(ProcessAssimpMesh(mesh, scene));
 		}
 
 		//Recursively perform this operation for all of this node's children
@@ -148,9 +146,9 @@ namespace core {
 			aiString str;
 			mat->GetTexture(type, i, &str);
 
-			auto texturePath = m_ModelDirectory.string() + "/" + str.C_Str();
+			auto texturePath = modelDirectory.string() + "/" + str.C_Str();
 
-			textureHandles.push_back(m_TextureCache->LoadResource(texturePath));
+			textureHandles.push_back(textureCache->LoadResource(texturePath));
 		}
 
 		//Extract all texture data (GATHER)

@@ -15,7 +15,7 @@ namespace core {
 
 	ENABLE_FACTORY(Entity, Entity)
 	
-	Entity::Entity() : m_Name("Entity"), m_World(nullptr), m_Parent(nullptr){
+	Entity::Entity() : name("Entity"), world(nullptr), parent(nullptr) {
 	
 	}
 
@@ -24,73 +24,74 @@ namespace core {
 	}
 
 	void Entity::Input(const InputAction& input, float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Input(const AxisInputAction& input, float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Input(input, deltaTime);
 		}
 	}
 
 	void Entity::Initialize() {
-		if (!ConfigData.is_null()) {
-			m_Name = utils::Name(ConfigData["name"]);
-			if (m_Parent) {
-				m_Transform.SetParent(&m_Parent->m_Transform);
+		if (!configData.is_null()) {
+			name = utils::Name(configData["name"]);
+
+			auto locationData = configData["location"];
+			if (!locationData.is_null()) {
+				transform.position = 
+					math::Vector3(locationData[0].get<float>(),
+						locationData[1].get<float>(),
+						locationData[2].get<float>()
+					);
 			}
 
-			auto locationData = ConfigData["location"];
-			m_Transform.SetLocalPosition(math::Vector3(
-				locationData[0].get<float>(),
-				locationData[1].get<float>(),
-				locationData[2].get<float>()
-			));
-		
-			auto rotationData = ConfigData["rotation"];
+			auto rotationData = configData["rotation"];
 			if (!rotationData.is_null()) {
-				m_Transform.SetLocalRotation(math::Quaternion(
-					math::Rotator(
-						rotationData[0].get<float>(),
-						rotationData[1].get<float>(),
-						rotationData[2].get<float>()
-					)
-				));
+				transform.rotation =
+					math::Quaternion(
+						math::Rotator(
+							rotationData[0].get<float>(),
+							rotationData[1].get<float>(),
+							rotationData[2].get<float>()
+						)
+					);
 			}
 
-			auto scaleData = ConfigData["scale"];
+			auto scaleData = configData["scale"];
 			if (!scaleData.is_null()) {
-				m_Transform.SetLocalScale(math::Vector3(
-					scaleData[0].get<float>(),
-					scaleData[1].get<float>(),
-					scaleData[2].get<float>()
-				));
+				transform.scale =
+					math::Vector3(
+						scaleData[0].get<float>(),
+						scaleData[1].get<float>(),
+						scaleData[2].get<float>()
+					);
 			}
 		}
 		
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Initialize();
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Initialize();
 		}
 	}
 
 	void Entity::BeginPlay() {
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->BeginPlay();
 		}
 	}
 
 	void Entity::Tick(float deltaTime) {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Tick(deltaTime);
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Tick(deltaTime);
 		}
 	}
@@ -100,66 +101,126 @@ namespace core {
 	}
 
 	void Entity::Draw() const {
-		for (auto& component : m_Components) {
+		for (auto& component : components) {
 			component->Draw();
 		}
 
-		for (auto& child : m_Children) {
+		for (auto& child : children) {
 			child->Draw();
 		}
 	}
 
+	void Entity::OnHit() {
+		;
+	}
+
+	void Entity::OnDestroy() {
+		;
+	}
+
 	float Entity::GetDistance(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPostion()).Magnitude();
+		return (GetPosition() - other->GetPosition()).Magnitude();
 	}
 
 	float Entity::GetDistanceSquared(const Entity* const other) const {
-		return (m_Transform.GetPosition() - other->GetPostion()).MagnitudeSqr();
+		return (GetPosition() - other->GetPosition()).MagnitudeSqr();
 	}
 
-	math::Vector3 Entity::GetPostion() const {
-		return m_Transform.GetPosition();
+	math::Vector3 Entity::GetPosition() const {
+		if (parent == nullptr) {
+			return transform.position;
+		}
+		else {
+			auto parentPos = parent->GetPosition();
+			auto parentRotation = parent->GetRotation();
+			auto positionInParentSpace = parentRotation.Rotate(transform.position);
+			return parentPos + positionInParentSpace;
+		}
 	}
 
 	void Entity::SetPosition(const math::Vector3& newPosition) {
-		m_Transform.SetPosition(newPosition);
+		if (parent == nullptr) {
+			transform.position = newPosition;
+		}
+		else {
+			transform.position = newPosition - parent->GetPosition();
+		}
 	}
 
-	math::Rotator Entity::GetRotation() const {
-		return m_Transform.GetRotation().ToEuler();
+	math::Vector3 Entity::GetLocalPosition() const {
+		return transform.position;
+	}
+
+	void Entity::SetLocalPosition(const math::Vector3& newPosition) {
+		transform.position = newPosition;
+	}
+
+	math::Quaternion Entity::GetRotation() const {
+		return (parent == nullptr) ?
+			transform.rotation :
+			parent->GetRotation() * transform.rotation;
 	}
 
 	void Entity::SetRotation(const math::Rotator& newRotation) {
-		m_Transform.SetRotation(math::Quaternion(newRotation));
+		SetRotation(math::Quaternion(newRotation));
+	}
+
+	void Entity::SetRotation(const math::Quaternion& newRotation) {
+		if (parent == nullptr) {
+			transform.rotation = newRotation;
+		}
+		else {
+			transform.rotation = newRotation * parent->GetRotation().Inverse();
+		}
+	}
+
+	math::Quaternion Entity::GetLocalRotation() const {
+		return transform.rotation;
+	}
+
+	void Entity::SetLocalRotation(const math::Rotator& newRotation) {
+		SetLocalRotation(math::Quaternion(newRotation));
+	}
+
+	void Entity::SetLocalRotation(const math::Quaternion& newRotation) {
+		transform.rotation = newRotation;
 	}
 
 	math::Vector3 Entity::GetScale() const {
-		return m_Transform.GetScale();
+		return transform.scale;
 	}
 
 	void Entity::SetScale(const math::Vector3& newScale) {
-		m_Transform.SetScale(newScale);
+		transform.scale = newScale;
+	}
+
+	math::Vector3 Entity::GetForward() const {
+		return GetRotation().Normalize().Rotate(math::Vector3::Forward);
+	}
+
+	math::Vector3 Entity::GetUp() const {
+		return  GetRotation().Normalize().Rotate(math::Vector3::Up);
 	}
 
 	std::string Entity::GetName() const {
-		return m_Name.StringID;
+		return name.StringID;
 	}
 
 	void Entity::SetName(const std::string& name) {
-		m_Name = utils::Name(name);
+		this->name = utils::Name(name);
 	}
 
 	void Entity::SetName(const utils::Name& name) {
-		m_Name = name;
+		this->name = name;
 	}
 
 	void Entity::AddComponent(std::shared_ptr<Component> component) {
 		//Abuse friendship to give the child component necessary references
-		component->m_Parent = this;
-		component->m_Transform = &m_Transform;
+		component->parent = this;
+		component->transform = &transform;
 
 		//Register component
-		m_Components.insert(component);
+		components.insert(component);
 	}
 
 	void Entity::AddComponent(Component* component) {
@@ -169,20 +230,72 @@ namespace core {
 	}
 
 	Scene* Entity::GetWorld() const {
-		return m_World;
+		return world;
 	}
 
 	void Entity::SetScene(Scene* world) {
-		m_World = world;
+		this->world = world;
+	}
+
+	Entity* Entity::GetParent() const {
+		return parent;
 	}
 
 	void Entity::SetParent(Entity* parent) {
-		m_Parent = parent;
+		if (parent == nullptr) {
+			//Scene is the holder of the entity's unique pointer. Go get it.
+			GetWorld()->Reparent(this, parent);
+		}
+		else {
+			//Get the unique handle from the old parent entity, 
+			//and give it to the new one. 
+			parent->AddChild(parent->RemoveChild(this));
+		}
+
 	}
 
-	void Entity::AddChild(std::shared_ptr<Entity> child) {
-		child->SetParent(this);
-		m_Children.emplace_back(std::move(child));
+	void Entity::AddChild(std::unique_ptr<Entity> child) {
+		child->parent = this;
+		children.emplace_back(std::move(child));
 	}
 
+	std::unique_ptr<Entity> Entity::RemoveChild(Entity* entity) {
+		//Search over children, remove the requested child, and transfer ownership
+		for (auto it = children.begin(); it != children.end(); it++) {
+			if (it->get() == entity) {
+				auto handle = std::move(*it);
+				
+				children.erase(it);
+
+				return handle;
+			}
+		}
+
+		return std::unique_ptr<Entity>();
+	}
+
+	void Entity::Destroy() {
+		GetWorld()->Destroy(this);
+	}
+
+	void Entity::DestroyFromChildren(std::unordered_set<Entity*>& destructionList) {
+		auto predicate = [&destructionList](std::unique_ptr<Entity>& entityHandle) {
+			auto entity = entityHandle.get();
+
+			if (destructionList.find(entity) != destructionList.end()) {
+				destructionList.erase(entity);
+				entity->OnDestroy();
+				return true;
+			}
+			else {
+				entity->DestroyFromChildren(destructionList);
+				return false;
+			}
+		};
+
+		children.erase(
+			std::remove_if(children.begin(), children.end(), predicate),
+			children.end()
+		);
+	}
 }

@@ -19,20 +19,20 @@ namespace core {
 		std::function<Manifold*(ColliderComponent*, ColliderComponent*)>
 	> ColliderComponent::s_CollisionDetectionJumpTable;
 
-	ColliderComponent::ColliderComponent() : m_CollisionLayer(0), Shape(nullptr) {
+	ColliderComponent::ColliderComponent() : collisionLayer(0), shape(nullptr) {
 		
 	}
 
 	void ColliderComponent::Initialize() {
-		if (ConfigData.find("collisionLayer") != ConfigData.end()) {
-			m_CollisionLayer = ConfigData["collisionLayer"].get<unsigned>();
+		if (configData.find("collisionLayer") != configData.end()) {
+			collisionLayer = configData["collisionLayer"].get<unsigned>();
 		}
 
-		Shape = utils::FactoryBase<Collider>::Create(ConfigData["shape"]["type"].get<std::string>());
-		Shape->SetConfigData(ConfigData["shape"]);
-		Shape->Initialize();
+		shape = utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>());
+		shape->SetConfigData(configData["shape"]);
+		shape->Initialize();
 
-		/*m_ColliderShader = std::make_shared<ShaderProgram>(
+		colliderShader = std::make_shared<ShaderProgram>(
 			"ColliderShader",
 			new Shader(
 				ShaderType::VERTEX,
@@ -42,24 +42,24 @@ namespace core {
 				ShaderType::FRAGMENT,
 				"Resources/Shaders/default.frag"
 			)
-		);*/
+		);
 
 	}
 
 	void ColliderComponent::Draw() {
 		auto transformMatrix = glm::mat4(1.0f);
-		auto position = m_Transform->GetPosition();
+		auto position = parent->GetPosition();
 		transformMatrix = glm::translate(
 			transformMatrix, 
 			glm::vec3(position.X - 1, position.Y, position.Z)
 		);
 
-		//Shape->Draw(m_ColliderShader, transformMatrix);
+		shape->Draw(colliderShader, transformMatrix);
 	}
 	
 	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {
-		auto colliderType1 = Shape->GetTypename();
-		auto colliderType2 = other->Shape->GetTypename();
+		auto colliderType1 = shape->GetTypename();
+		auto colliderType2 = other->shape->GetTypename();
 
 		auto callback = s_CollisionDetectionJumpTable.Find(colliderType1, colliderType2);
 
@@ -72,10 +72,10 @@ namespace core {
 	}
 
 	const Collider* ColliderComponent::GetShape() const {
-		return Shape;
+		return shape;
 	}
 
 	unsigned ColliderComponent::GetCollisionLayer() const {
-		return m_CollisionLayer;
+		return collisionLayer;
 	}
 }

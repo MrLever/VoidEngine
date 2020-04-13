@@ -22,26 +22,26 @@ namespace core {
 	}
 
 	void CameraComponent::Initialize() {
-		if (ConfigData.find("name") != ConfigData.end()) {
-			m_Name = ConfigData["name"];
+		if (configData.find("name") != configData.end()) {
+			m_Name = configData["name"];
 		}
 
-		if (ConfigData.find("near") != ConfigData.end()) {
-			m_Near = ConfigData["near"];
+		if (configData.find("near") != configData.end()) {
+			m_Near = configData["near"];
 		}
 
-		if (ConfigData.find("far") != ConfigData.end()) {
-			m_Far = ConfigData["far"];
+		if (configData.find("far") != configData.end()) {
+			m_Far = configData["far"];
 		}
 	}
 	
 	void CameraComponent::Tick(float deltaTime) {
-		auto lookDirection = m_Transform->GetForward();
-		auto up = m_Transform->GetUp();
-		auto target = m_Transform->GetPosition() + lookDirection;
+		auto lookDirection = parent->GetForward();
+		auto up = parent->GetUp();
+		auto target = parent->GetPosition() + lookDirection;
 		
 		//Set view matrix for this frame
-		auto position = m_Transform->GetPosition();
+		auto position = parent->GetPosition();
 		m_ViewMatrix = glm::lookAt(
 			glm::vec3(position.X, position.Y, position.Z),
 			glm::vec3(target.X, target.Y, target.Z),

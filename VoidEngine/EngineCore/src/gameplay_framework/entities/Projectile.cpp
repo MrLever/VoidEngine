@@ -22,49 +22,19 @@ namespace core {
 	}
 	
 	void Projectile::Initialize() {
-		auto position = m_Parent->GetPostion() + (5 * m_Parent->GetRotation().ToVector());
-		m_Transform.SetPosition(position);
-
-		AddComponent(new PhysicsComponent());
-
-		auto collider = new ColliderComponent();
-		nlohmann::json colliderConfig = 
-		{
-			{
-				"type","ColliderComponent"
-			},
-			{
-				"shape", {
-					{
-						"type","SphereCollider"
-					},
-					{
-						"radius", 0.25f
-					}
-				}
-			}
-		};
-		collider->SetConfigData(colliderConfig);
-		AddComponent(collider);
-
-		auto model = new GraphicsComponent();
-		nlohmann::json graphicsData = 
-		{
-			{"model","Resources/Models/Projectile/Projectile.obj"}
-		};
-		model->SetConfigData(graphicsData);
-		AddComponent(model);
-
-
-		//Initialize all components
 		Entity::Initialize();
 	}
 
 	void Projectile::BeginPlay() {
+		Entity::BeginPlay();
 		static const float VELOCITY = 50.0f;
 		auto physics = GetComponent<PhysicsComponent>();
+		
+		physics->AddVelocity(VELOCITY * GetForward());
+	}
 
-		physics->AddVelocity(VELOCITY * m_Parent->GetRotation().ToVector());
+	void Projectile::OnHit() {
+		Destroy();
 	}
 
 }

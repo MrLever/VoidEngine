@@ -14,9 +14,36 @@
             "name":"Player",
             "type":"PlayerShip",
             "location": [0, 0, 0],
-            "rotation": [0, 0, 0],
+            "rotation": [90, 0, 0],
             "scale": [1, 1, 1],
-            "speed":500,
+            "speed":250,
+            "bulletPrototype":
+            {
+                "name":"PlayerBullet",
+                "type":"Projectile",
+                "location":[5, 0, 0],
+                "scale": [0.35, 0.35, 0.35],
+                "components":
+                [
+                    {
+                        "type":"GraphicsComponent",
+                        "model":"Resources/Models/Primitives/Sphere/Sphere.obj"
+                    },
+                    {
+                        "type":"ColliderComponent",
+                        "collisionLayer": 0,
+                        "shape":
+                        {
+                            "type":"SphereCollider",
+                            "radius":1
+                        }
+                    },
+                    {
+                        "type":"PhysicsComponent",
+                        "mass":1.0
+                    }
+                ]
+            },
             "components":
             [
                 {
@@ -27,6 +54,15 @@
                     "type":"PhysicsComponent",
                     "mass":1.0,
                     "restitution":0
+                },
+                {
+                    "type":"ColliderComponent",
+                    "collisionLayer": 0,
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
                 }
             ],
             "children": 
@@ -34,7 +70,7 @@
                 {
                     "name":"EngineLight",
                     "type":"Entity",
-                    "location": [-3.0, 0, 0],
+                    "location": [0, 0, 2],
                     "scale":[0.25, 0.25, 0.25],
                     "components":
                     [
@@ -44,7 +80,7 @@
                         },
                         {
                             "type":"PointLightComponent",
-                            "color":[1, 0, 0, 1.0],
+                            "color":[0, 1, 1, 1.0],
                             "intensity":150
                         } 
                     ]
@@ -52,8 +88,8 @@
                 {
                     "name":"Ship Camera",
                     "type":"Entity",
-                    "location": [0, 0, 65],
-                    "rotation": [0, 0, 0],
+                    "location": [0, 65, 0],
+                    "rotation": [-90, 0, 0],
                     "components":
                     [
                         {
@@ -63,6 +99,32 @@
                             "far": 1000
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "name":"Asteroid",
+            "type":"Asteroid",
+            "location": [10, 0, 0],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Resources/Models/Asteroids/Variant1/Asteroid1.obj"
+                },
+                {
+                    "type":"ColliderComponent",
+                    "collisionLayer": 1,
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius": 1
+                    }
+                },
+                {
+                    "type":"PhysicsComponent",
+                    "mass":1.0,
+                    "restitution":0
                 }
             ]
         },
@@ -86,39 +148,16 @@
             ]
         },
         {
-            "name":"Asteroid1",
-            "type":"BouncingCube",
-            "location": [5, 5, 5],
-            "rotation": [90, 0, 0],
-            "scale":[1, 1, 1],
-            "components":
-            [
-                {
-                    "type":"GraphicsComponent",
-                    "model":"Resources/Models/Asteroids/Variant1/Asteroid1.obj"
-                },
-                {
-                    "type":"ColliderComponent",
-                    "shape":
-                    {
-                        "type":"AABBCollider",
-                        "min":[-1,-1,-1],
-                        "max":[1,1,1]
-                    }
-                }
-            ]
-        },
-        {
             "name":"Asteroid2",
             "type":"Entity",
             "location": [-5, 5, 5],
-            "rotation": [90, 0, 0],
+            "rotation": [0, 0, 0],
             "scale":[1, 1, 1],
             "components":
             [
                 {
                     "type":"GraphicsComponent",
-                    "model":"Resources/Models/Primitives/Cone/Cone.obj"
+                    "model":"Resources/Models/Nanosuit/nanosuit.obj"
                 },
                 {
                     "type":"ColliderComponent",

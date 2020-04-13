@@ -92,9 +92,9 @@ public:
 
 	protected:
 		/** The component's parent */
-		Entity* m_Parent;
+		Entity* parent;
 	
 		/** Read only pointer to the parent entity's transform */
-		Transform* m_Transform;
+		Transform* transform;
 	};
 }

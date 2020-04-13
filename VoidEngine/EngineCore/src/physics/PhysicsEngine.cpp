@@ -37,13 +37,13 @@ namespace core {
 		Gravity = gravity;
 	}
 	
-	void PhysicsEngine::Simulate(std::vector<std::shared_ptr<Entity>>& entities, float deltaTime) {
+	void PhysicsEngine::Simulate(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
 		//Physics simulations update 60 times per second
 		static float accumulator = 0.0f;
 		static const float PHYSICS_DT = 0.016f; 
 
 		std::vector<PhysicsComponent*> physicsComponents;
-		for (auto entity : entities) {
+		for (auto& entity : entities) {
 			auto body = entity->GetComponent<PhysicsComponent>();
 			if (body) {
 				physicsComponents.push_back(body);
@@ -51,7 +51,7 @@ namespace core {
 		}
 
 		std::vector<ColliderComponent*> colliders;
-		for (auto entity : entities) {
+		for (auto& entity : entities) {
 			auto collider = entity->GetComponent<ColliderComponent>();
 			if (collider) {
 				colliders.push_back(collider);
@@ -92,7 +92,7 @@ namespace core {
 		for (auto& body : physicsComponents) {
 			auto parent = body->GetParent();
 
-			auto x_i = parent->GetPostion();
+			auto x_i = parent->GetPosition();
 			auto a = (body->GetForce() * body->GetInverseMass());
 
 			body->AddVelocity(a * deltaTime);
@@ -122,7 +122,7 @@ namespace core {
 		for (int i = 0; i < colliders.size(); i++) {
 			for (int j = i+1; j < colliders.size(); j++) {
 				
-				if (colliders[i]->GetCollisionLayer() != colliders[j]->GetCollisionLayer()) {
+				if (colliders[i]->GetCollisionLayer() == colliders[j]->GetCollisionLayer()) {
 					continue;
 				}
 
@@ -138,6 +138,8 @@ namespace core {
 
 	void PhysicsEngine::ResolveCollisions(std::unordered_set<Manifold*>& collisions) {
 		for (auto& manifold : collisions) {
+			manifold->EntityA->OnHit();
+			manifold->EntityB->OnHit();
 			ResolveCollision(manifold);
 			CorrectPositions(manifold);
 		}
@@ -213,11 +215,11 @@ namespace core {
 
 		if (bodyA && !bodyA->GetIsStatic()) {
 			//Scale positional correction by mass of object
-			objectA->SetPosition(objectA->GetPostion() - correctionVector * invMassA);
+			objectA->SetPosition(objectA->GetPosition() - correctionVector * invMassA);
 		}
 		if (bodyB && !bodyB->GetIsStatic()) {
 			//Scale positional correction by mass of object
-			objectB->SetPosition(objectB->GetPostion() + correctionVector * invMassB);
+			objectB->SetPosition(objectB->GetPosition() + correctionVector * invMassB);
 		}
 	}
 

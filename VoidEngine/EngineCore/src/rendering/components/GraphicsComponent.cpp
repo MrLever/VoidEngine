@@ -27,20 +27,20 @@ namespace core {
 	}
 
 	void GraphicsComponent::Initialize() {
-		if (!m_Parent) {
+		if (!parent) {
 			return;
 		}
 		
 		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
 
-		m_Model = modelCache->GetResource(ConfigData["model"].get<std::string>());
+		m_Model = modelCache->GetResource(configData["model"].get<std::string>());
 		m_Model->Initialize();
 
-		if (ConfigData.find("shader") != ConfigData.end()) {
+		if (configData.find("shader") != configData.end()) {
 			AddMaterial(
-				ConfigData["shader"]["name"].get<std::string>(),
-				ConfigData["shader"]["vertexShader"].get<std::string>(),
-				ConfigData["shader"]["fragmentShader"].get<std::string>()
+				configData["shader"]["name"].get<std::string>(),
+				configData["shader"]["vertexShader"].get<std::string>(),
+				configData["shader"]["fragmentShader"].get<std::string>()
 			);
 		}
 		else {
@@ -66,19 +66,19 @@ namespace core {
 		m_TransformMatrix = glm::mat4(1.0f);
 
 		//Translate
-		auto position = m_Transform->GetPosition();
+		auto position = parent->GetPosition();
 		m_TransformMatrix = glm::translate(
 			m_TransformMatrix, 
 			glm::vec3(position.X, position.Y, position.Z)
 		);
 
 		//Rotate
-		auto rotation = math::Quaternion(m_Transform->GetRotation()).Normalize();
+		auto rotation = math::Quaternion(parent->GetRotation()).Normalize();
 		auto rotationMatrix = glm::toMat4(glm::quat(rotation.W, rotation.X, rotation.Y, rotation.Z));
 		m_TransformMatrix = m_TransformMatrix * rotationMatrix;
 
 		//Scale
-		auto scale = m_Transform->GetScale();
+		auto scale = parent->GetScale();
 		m_TransformMatrix = glm::scale(
 			m_TransformMatrix, 
 			glm::vec3(scale.X, scale.Y, scale.Z)
