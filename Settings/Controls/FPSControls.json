@@ -46,6 +46,20 @@
             ]
         },
         {
+            "axisName":"MoveUp",
+            "bindings":
+            [
+                {
+                    "key":"E",
+                    "value":1
+                },
+                {
+                    "key":"Q",
+                    "value":-1
+                }
+            ]
+        },
+        {
             "axisName":"LookUp",
             "bindings":
             [

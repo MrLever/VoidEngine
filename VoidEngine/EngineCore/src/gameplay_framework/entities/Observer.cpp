@@ -69,32 +69,36 @@ namespace core {
 				LookRight(axisReading, deltaTime);
 			}
 		);
+
+		component->BindAxis(
+			"MoveUp",
+			[this](float axisReading, float deltaTime) {
+				MoveUp(axisReading, deltaTime);
+			}
+		);
 	}
 	
 	void Observer::MoveForward(float axisValue, float deltaTime) {
-		auto forward = parent->GetForward();
+		auto forward = GetForward();
 		auto moveSpeed = MovementSpeed * deltaTime;
 		
-		auto positon = parent->GetPosition();
-		positon += forward * axisValue * moveSpeed;
-
-		parent->SetPosition(positon);
+		transform.position += (forward * axisValue * moveSpeed);
 	}
 
 	void Observer::MoveRight(float axisValue, float deltaTime) {
-		auto forward = parent->GetForward();
-		auto right = forward.Cross(parent->GetUp()).Normalize();
+		auto forward = GetForward();
+		auto right = forward.Cross(GetUp()).Normalize();
 		auto moveSpeed = MovementSpeed * deltaTime;
 
-		auto positon = parent->GetPosition();
-		positon += right * axisValue * moveSpeed;
+		transform.position += right * axisValue * moveSpeed;
+	}
 
-		parent->SetPosition(positon);
+	void Observer::MoveUp(float axisValue, float deltaTime) {
+		transform.position += math::Vector3::Up * axisValue * deltaTime * MovementSpeed;
 	}
 
 	void Observer::LookUp(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(axisValue, 0, 0);
-		
 		//Clamp look radius to avoid quaternion flipping over
 		if (axisValue > 89) {
 			axisValue = 89;
@@ -103,18 +107,19 @@ namespace core {
 			axisValue = -89;
 		}
 
-		auto rotation = parent->GetRotation();
-		rotation = rotation * math::Quaternion(deltaRotation);
+		//To stop the camera from rolling, act on the entity's forward vector
+		auto forward = GetForward();
+		
+		//Rotate forward vector by quaternion
+		auto quatRot = math::Quaternion(deltaRotation);
+		forward = quatRot.Rotate(forward);
 
-		parent->SetRotation(rotation);
+		//SetRotation(forward.AsQuaternion());
 	}
 
 	void Observer::LookRight(float axisValue, float deltaTime) {
 		math::Rotator deltaRotation(0, -axisValue, 0);
 
-		auto rotation = parent->GetRotation();
-		rotation = rotation * math::Quaternion(deltaRotation);
-		
-		parent->SetRotation(rotation);
+		SetRotation((GetRotation() * math::Quaternion(deltaRotation)).Normalize());
 	}
 }

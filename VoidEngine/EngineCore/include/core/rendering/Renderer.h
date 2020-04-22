@@ -85,8 +85,15 @@ namespace core {
 		 */
 		static void ApplyPointLightData(std::shared_ptr<core::ShaderProgram>& shader);
 
-		static const int MAX_DIR_LIGHTS = 8;
+		/**
+		 * Loads data from the LightingEnviornment into the shader
+		 * @param shader The shader to load data into
+		 */
+		static void ApplySpotlightData(std::shared_ptr<core::ShaderProgram>& shader);
+
+		static const int MAX_DIR_LIGHTS = 32;
 		static const int MAX_PT_LIGHTS = 32;
+		static const int MAX_SPOT_LIGHTS = 32;
 
 		/** Read-only pointer to Camera being used to modify incomming draw calls */
 		static CameraComponent* s_ActiveCamera;

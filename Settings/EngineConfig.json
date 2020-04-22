@@ -1,4 +1,4 @@
 {
     "gameName":"SuperVoid",
-    "defaultLevel":"Resources/Levels/AsteroidField.json"
+    "defaultLevel":"Resources/Levels/DemoLevel.json"
 }

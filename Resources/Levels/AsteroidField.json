@@ -143,7 +143,7 @@
                 {
                     "type":"PointLightComponent",
                     "color":[1.0, 0.945, 0.878, 1.0],
-                    "intensity":150
+                    "intensity":1
                 }
             ]
         },

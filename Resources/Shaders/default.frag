@@ -1,7 +1,7 @@
 #version 450 core
-#define MAX_DIR_LIGHTS 8 
+#define MAX_DIR_LIGHTS 32
 #define MAX_PT_LIGHTS 32
-
+#define MAX_SPOT_LIGHTS 32
 //Structs
 struct DirectionalLight {
     vec3 direction;
@@ -13,7 +13,16 @@ struct PointLight {
     vec3 position;
     vec4 color;
     float intensity;
-    float radius;
+    float range;
+};
+
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    vec4 color;
+    float intensity;
+    float viewAngleCosine;
+    float fadeAngle;
 };
 
 //Uniforms
@@ -29,10 +38,15 @@ uniform struct Material {
 uniform struct LightingData {
     float ambientStrength;
     vec4 ambientColor;
+    
     int numDirLights;
     DirectionalLight directionalLights[MAX_DIR_LIGHTS];
+    
     int numPtLights;
     PointLight pointLights[MAX_PT_LIGHTS];
+    
+    int numSpotLights;
+    SpotLight spotLights[MAX_SPOT_LIGHTS];
 } lightData;
 
 uniform vec3 viewPosition;
@@ -86,6 +100,19 @@ vec4 CalcPointLight(PointLight light){
     float fragDistance = length(light.position - fragmentPosition);
 
     return (diffuseComponent + specularComponent) / (1 + (fragDistance));
+}
+
+vec4 CalcSpotLight(SpotLight light){
+    //translation vector from light to fragment
+    vec3 translationVector = normalize(fragmentPosition - light.position);
+    float cosineTheta = dot(translationVector, light.direction);
+    
+    vec4 color;
+    if(cosineTheta > light.viewAngleCosine){
+        return light.intensity * light.color;
+    }
+
+    return vec4(0,0,0,0);
 }
 
 void main(){

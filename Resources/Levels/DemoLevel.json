@@ -73,6 +73,9 @@
                 {
                     "type":"CameraComponent",
                     "name":"PlayerCamera"
+                },
+                {
+                    "type":"SpotLightComponent"
                 }
             ]
         },

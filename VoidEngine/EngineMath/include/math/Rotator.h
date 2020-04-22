@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "Vector.h"
-#include "MathConstants.h"
+#include "MathUtils.h"
 
 namespace math {
 	/**
@@ -15,11 +15,11 @@ namespace math {
 	 * @brief Struct to encapsulate rotation information as euler angels
 	 */
 	struct Rotator {
-		/** Rotation around the X axis */
-		float Roll;
-
 		/** Rotation around the Y axis */
 		float Pitch;
+
+		/** Rotation around the X axis */
+		float Roll;
 
 		/** Rotation around the Z axis */
 		float Yaw;		
@@ -40,7 +40,7 @@ namespace math {
 		/**
 		 * Returns a unit direction vector that corresponds to this rotator
 		 */
-		Vector3 ToVector() const;
+		[[nodiscard]] Vector3 AsVector() const;
 
 		/**
 		 * Unwinds Rotator (clamps all values to 0 - 360)
@@ -51,7 +51,7 @@ namespace math {
 		 * Non-destructively unwinds rotator
 		 * @param rotator The rotation to normalize
 		 */
-		static Rotator Normalize(const Rotator& rotator);
+		[[nodiscard]] static Rotator Normalize(const Rotator& rotator);
 
 		/**
 		 * Equality comparison operator

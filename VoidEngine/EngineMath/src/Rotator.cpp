@@ -12,8 +12,8 @@ namespace math {
 
 	}
 
-	Vector3 Rotator::ToVector() const {
-		return Quaternion(*this).ToVector();
+	Vector3 Rotator::AsVector() const {
+		return Quaternion(*this).AsVector();
 	}
 
 	Rotator& Rotator::Normalize() {

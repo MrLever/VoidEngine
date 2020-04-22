@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "math/Quaternion.h"
 #include "math/Rotator.h"
-#include "math/MathConstants.h"
+#include "math/MathUtils.h"
 
 namespace math {
 
@@ -38,7 +38,7 @@ namespace math {
 		: W(w), X(x), Y(y), Z(z) {
 	}
 
-	Rotator Quaternion::ToEuler() const {
+	Rotator Quaternion::AsEuler() const {
 		Rotator euler;
 		
 		auto rollRadians =
@@ -72,7 +72,7 @@ namespace math {
 		return euler;
 	}
 
-	Vector3 Quaternion::ToVector() const {
+	Vector3 Quaternion::AsVector() const {
 		return Rotate(Vector3(1, 0, 0));
 	}
 

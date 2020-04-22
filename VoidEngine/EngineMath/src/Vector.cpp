@@ -5,8 +5,10 @@
 //Library Headers
 
 //Math Headers
-#include "math/MathConstants.h"
+#include "math/MathUtils.h"
 #include "math/Vector.h"
+#include "math/Quaternion.h"
+#include "math/Rotator.h"
 
 namespace math {
 	Vector2::Vector2() : X(0), Y(0) {
@@ -37,6 +39,10 @@ namespace math {
 		*this /= Magnitude();
 
 		return *this;
+	}
+
+	Vector2 Vector2::Normalize(const Vector2& vec) {
+		return vec / vec.Magnitude();
 	}
 
 	bool Vector2::operator== (const Vector2& other) const {
@@ -185,6 +191,14 @@ namespace math {
 
 	}
 
+	Quaternion Vector3::AsQuaternion() {
+		return Quaternion();
+	}
+
+	Rotator Vector3::AsRotation() {
+		return Rotator();
+	}
+
 	float Vector3::Dot(const Vector3& other) const{
 		return (X * other.X) + (Y * other.Y) + (Z + other.Z);
 	}
@@ -219,7 +233,7 @@ namespace math {
 	}
 
 	Vector3 Vector3::Normalize(const Vector3& vec) {
-		return Vector3(vec).Normalize();
+		return vec / vec.Magnitude();
 	}
 
 	bool Vector3::operator== (const Vector3& other) const {
