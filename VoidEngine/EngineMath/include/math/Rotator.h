@@ -15,14 +15,14 @@ namespace math {
 	 * @brief Struct to encapsulate rotation information as euler angels
 	 */
 	struct Rotator {
-		/** Rotation around the Y axis */
+		/** Rotation around the X axis */
 		float Pitch;
 
-		/** Rotation around the X axis */
-		float Roll;
+		/** Rotation around the Y axis */
+		float Yaw;
 
 		/** Rotation around the Z axis */
-		float Yaw;		
+		float Roll;		
 
 		/**
 		 * Constructor
@@ -30,7 +30,7 @@ namespace math {
 		 * @param pitch The rotator's rotation around the y axis
 		 * @param yaw The rotator's rotation around the z axis
 		 */
-		Rotator(float roll = 0.0f, float pitch = 0.0f, float yaw = 0.0f);
+		Rotator(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0f);
 
 		/**
 		 * Copy Constructor
@@ -41,6 +41,11 @@ namespace math {
 		 * Returns a unit direction vector that corresponds to this rotator
 		 */
 		[[nodiscard]] Vector3 AsVector() const;
+
+		/**
+		 * @return this euler angle as a quaternion
+		 */
+		[[nodiscard]] Quaternion AsQuaternion() const;
 
 		/**
 		 * Unwinds Rotator (clamps all values to 0 - 360)

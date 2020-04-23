@@ -107,14 +107,11 @@ namespace core {
 			axisValue = -89;
 		}
 
-		//To stop the camera from rolling, act on the entity's forward vector
-		auto forward = GetForward();
-		
-		//Rotate forward vector by quaternion
-		auto quatRot = math::Quaternion(deltaRotation);
-		forward = quatRot.Rotate(forward);
+		auto rotation = transform.rotation * deltaRotation;
+		auto euler = rotation.AsEuler();
+		euler.Roll = 0;
 
-		//SetRotation(forward.AsQuaternion());
+		SetLocalRotation(euler.AsQuaternion());
 	}
 
 	void Observer::LookRight(float axisValue, float deltaTime) {

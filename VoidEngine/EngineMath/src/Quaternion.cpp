@@ -17,9 +17,9 @@ namespace math {
 	}
 		
 	Quaternion::Quaternion(const Rotator& euler) {
-		float alphaHalf = ToRadians(euler.Roll) / 2;
-		float betaHalf = ToRadians(euler.Pitch) / 2;
-		float gammaHalf = ToRadians(euler.Yaw) / 2;
+		float alphaHalf = ToRadians(euler.Pitch) / 2;
+		float betaHalf = ToRadians(euler.Yaw) / 2;
+		float gammaHalf = ToRadians(euler.Roll) / 2;
 		
 		W = std::cosf(alphaHalf) * std::cosf(betaHalf) * std::cosf(gammaHalf) +
 			std::sinf(alphaHalf) * std::sinf(betaHalf) * std::sinf(gammaHalf);
@@ -63,11 +63,11 @@ namespace math {
 				1.0f - (2.0f * ((Y * Y) + (Z * Z)))
 			);
 
-		euler.Roll = ToDegrees(rollRadians);
+		euler.Pitch = ToDegrees(rollRadians);
 
-		euler.Pitch = ToDegrees(pitchRadians);
+		euler.Yaw = ToDegrees(pitchRadians);
 			
-		euler.Yaw = ToDegrees(yawRadians);
+		euler.Roll = ToDegrees(yawRadians);
 		
 		return euler;
 	}
