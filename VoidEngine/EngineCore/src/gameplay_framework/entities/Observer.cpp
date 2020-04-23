@@ -107,6 +107,7 @@ namespace core {
 			axisValue = -89;
 		}
 
+		//Remove roll introduced by quaternion calculations
 		auto rotation = transform.rotation * deltaRotation;
 		auto euler = rotation.AsEuler();
 		euler.Roll = 0;
