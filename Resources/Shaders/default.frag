@@ -16,13 +16,13 @@ struct PointLight {
     float range;
 };
 
-struct SpotLight {
+struct Spotlight {
     vec3 position;
     vec3 direction;
     vec4 color;
     float intensity;
     float viewAngleCosine;
-    float fadeAngle;
+    float fadeAngleCosine;
 };
 
 //Uniforms
@@ -45,8 +45,8 @@ uniform struct LightingData {
     int numPtLights;
     PointLight pointLights[MAX_PT_LIGHTS];
     
-    int numSpotLights;
-    SpotLight spotLights[MAX_SPOT_LIGHTS];
+    int numSpotlights;
+    Spotlight spotlights[MAX_SPOT_LIGHTS];
 } lightData;
 
 uniform vec3 viewPosition;
@@ -102,17 +102,8 @@ vec4 CalcPointLight(PointLight light){
     return (diffuseComponent + specularComponent) / (1 + (fragDistance));
 }
 
-vec4 CalcSpotLight(SpotLight light){
-    //translation vector from light to fragment
-    vec3 translationVector = normalize(fragmentPosition - light.position);
-    float cosineTheta = dot(translationVector, light.direction);
-    
-    vec4 color;
-    if(cosineTheta > light.viewAngleCosine){
-        return light.intensity * light.color;
-    }
-
-    return vec4(0,0,0,0);
+vec4 CalcSpotLight(Spotlight light){
+    return vec4(light.position.x / 255, light.position.y / 255, light.position.z / 255,1);
 }
 
 void main(){
@@ -125,6 +116,10 @@ void main(){
     for(int i = 0; i < lightData.numPtLights; i++){
         color += CalcPointLight(lightData.pointLights[i]);
     } 
+
+    // for(int i = 0; i < lightData.numSpotlights; i++){
+    //     color += CalcSpotLight(lightData.spotlights[i]);
+    // } 
 
     fragColor = color;
 }

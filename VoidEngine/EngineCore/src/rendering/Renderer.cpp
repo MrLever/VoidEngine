@@ -69,6 +69,7 @@ namespace core {
 
 		ApplyDirectionalLightData(shader);
 		ApplyPointLightData(shader);
+		ApplySpotlightData(shader);
 
 		vao->Bind();
 
@@ -181,13 +182,13 @@ namespace core {
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".viewAngle",
-				s_LightingEnvironment->SpotLights[i]->viewAngle
+				structName + "." + variableName + index + ".viewAngleCosine",
+				std::cosf(math::ToRadians(s_LightingEnvironment->SpotLights[i]->viewAngle))
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".fadeAngle",
-				s_LightingEnvironment->SpotLights[i]->fadeAngle
+				structName + "." + variableName + index + ".fadeAngleCosine",
+				std::cosf(math::ToRadians(s_LightingEnvironment->SpotLights[i]->fadeAngle))
 			);
 		}
 

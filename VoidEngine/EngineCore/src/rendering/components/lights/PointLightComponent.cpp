@@ -10,7 +10,7 @@ namespace core {
 
 	ENABLE_FACTORY(PointLightComponent, Component)
 
-	PointLightComponent::PointLightComponent() : intensity(0.0f), range(0.0f) {
+	PointLightComponent::PointLightComponent() : intensity(1.0f), color(1,1,1,1), range(0.0f) {
 
 	}
 

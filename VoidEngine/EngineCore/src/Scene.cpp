@@ -103,6 +103,7 @@ namespace core {
 	void Scene::Draw() {
 		m_LightingEnvironment.DirectionalLights = FindComponentsOfType<DirectionalLightComponent>();
 		m_LightingEnvironment.PointLights = FindComponentsOfType<PointLightComponent>();
+		m_LightingEnvironment.SpotLights = FindComponentsOfType<SpotlightComponent>();
 		Renderer::BeginFrame(activeCamera, &m_LightingEnvironment);
 		
 		for (auto& entity : entities) {
