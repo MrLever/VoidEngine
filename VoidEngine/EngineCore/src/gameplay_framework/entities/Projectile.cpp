@@ -13,7 +13,7 @@ namespace core {
 
 	ENABLE_FACTORY(Projectile, Entity)
 
-	Projectile::Projectile() {
+	Projectile::Projectile() : timeToLive(0.0f), useTimeToLive(false) {
 
 	}
 
@@ -23,6 +23,11 @@ namespace core {
 	
 	void Projectile::Initialize() {
 		Entity::Initialize();
+
+		if (configData.find("timeToLive") != configData.end()) {
+			timeToLive = configData["timeToLive"];
+			useTimeToLive = true;
+		}
 	}
 
 	void Projectile::BeginPlay() {
@@ -31,6 +36,18 @@ namespace core {
 		auto physics = GetComponent<PhysicsComponent>();
 		
 		physics->AddVelocity(VELOCITY * GetForward());
+	}
+
+	void Projectile::Tick(float deltaTime) {
+		Entity::Tick(deltaTime);
+
+		if (useTimeToLive) {
+			timeToLive -= deltaTime;
+			if (timeToLive < 0) {
+				this->Destroy();
+			}
+		}
+
 	}
 
 	void Projectile::OnHit() {
