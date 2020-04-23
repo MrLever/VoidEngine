@@ -124,26 +124,28 @@ namespace core {
 
 		static const std::string structName("lightData");
 		static const std::string variableName("pointLights");
+		static const std::string structEntry = structName + "." + variableName;
 		for (int i = 0; i < numPtLights; i++) {
 			std::string index("[" + std::to_string(i) + "]");
+			std::string light = structEntry + index;
 			
 			shader->SetUniform(
-				structName + "." + variableName + index + ".position",
+				light + ".position",
 				s_LightingEnvironment->PointLights[i]->GetPosition()
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".color",
+				light + ".color",
 				s_LightingEnvironment->PointLights[i]->color
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".intensity",
+				light + ".intensity",
 				s_LightingEnvironment->PointLights[i]->intensity
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".radius",
+				light + ".radius",
 				s_LightingEnvironment->PointLights[i]->range
 			);
 		}
