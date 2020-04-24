@@ -47,12 +47,18 @@ namespace SuperVoid {
 		/**
 		 * Spawns an asteroid at a random orientation/speed
 		 */
-		void SpawnAsteroid();
+		void SpawnWave();
 
 	private:
+		Entity* player;
+		std::vector<Entity*> asteroids;
 		core::Prototype asteroidPrefab;
+		
 		int minAsteroids;
 		int maxAsteroids;
+
+		std::mt19937 randomNumberGenerator;
+		int seed;
 	};
 
 }

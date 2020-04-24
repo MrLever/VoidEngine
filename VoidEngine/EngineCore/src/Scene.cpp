@@ -41,8 +41,11 @@ namespace core {
 
 			if (entity == nullptr) continue;
 
-			entity->Initialize();
 			entities.emplace_back(std::move(entity));
+		}
+
+		for (auto& entity : entities) {
+			entity->Initialize();
 		}
 
 	}
@@ -112,13 +115,23 @@ namespace core {
 		
 		Renderer::EndFrame();
 	}
-	
-	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent, const Transform& transform) {
+
+	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent) {
 		auto entity = SpawnEntity(prototype.GetData());
 		auto weakPtr = entity.get();
 
-		entity->transform = transform;
 		entity->Initialize();
+		spawnQueue.push_back({ std::move(entity), parent });
+
+		return weakPtr;
+	}
+	
+	Entity* Scene::SpawnEntity(const Prototype& prototype, const Transform& transform, Entity* parent) {
+		auto entity = SpawnEntity(prototype.GetData());
+		auto weakPtr = entity.get();
+
+		entity->Initialize();
+		entity->transform = transform;
 		spawnQueue.push_back({ std::move(entity), parent });
 
 		return weakPtr;
@@ -142,6 +155,16 @@ namespace core {
 	
 	std::string Scene::GetControlFilePath() const {
 		return controlFilePath;
+	}
+
+	Entity* Scene::FindEntityByID(unsigned ID) {
+		for (auto& entity : entities) {
+			if (entity->GetID() == ID) {
+				return entity.get();
+			}
+		}
+
+		return nullptr;
 	}
 
 	void Scene::ProcessSpawnQueue() {

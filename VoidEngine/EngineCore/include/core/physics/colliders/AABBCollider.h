@@ -51,8 +51,6 @@ namespace core {
 		/** The Max Value of the AABB */
 		math::Vector3 maxExtent;
 
-		std::shared_ptr<VertexArray> vertexArray;
-
 	};
 
 }

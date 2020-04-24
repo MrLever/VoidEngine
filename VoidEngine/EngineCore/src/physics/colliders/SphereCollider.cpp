@@ -15,12 +15,16 @@ namespace core {
 
 	}
 
+	SphereCollider::~SphereCollider() {
+
+	}
+
 	void SphereCollider::Initialize() {
 		Radius = configData["radius"].get<float>();
 	}
 
 	float SphereCollider::GetRadius() const {
-		return Radius;
+		return Radius * std::max(std::max(entityScale->X, entityScale->Y), entityScale->Z);
 	}
 
 	void SphereCollider::Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) {

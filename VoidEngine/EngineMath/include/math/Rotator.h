@@ -26,9 +26,9 @@ namespace math {
 
 		/**
 		 * Constructor
-		 * @param roll The rotator's rotation around the X axis
-		 * @param pitch The rotator's rotation around the y axis
-		 * @param yaw The rotator's rotation around the z axis
+		 * @param pitch The rotator's rotation around the x axis
+		 * @param yaw The rotator's rotation around the y axis
+		 * @param roll The rotator's rotation around the z axis
 		 */
 		Rotator(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0f);
 

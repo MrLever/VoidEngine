@@ -69,6 +69,13 @@ namespace core {
 						scaleData[2].get<float>()
 					);
 			}
+
+			if (configData.find("VEID") != configData.end()) {
+				VEID = configData["VEID"];
+			}
+			else {
+				VEID = std::numeric_limits<unsigned>::max();
+			}
 		}
 		
 		for (auto& component : components) {
@@ -297,5 +304,9 @@ namespace core {
 			std::remove_if(children.begin(), children.end(), predicate),
 			children.end()
 		);
+	}
+
+	unsigned Entity::GetID() {
+		return VEID;
 	}
 }

@@ -1,4 +1,5 @@
 //STD Headers
+#include <random>
 
 //External Headers
 
@@ -38,16 +39,29 @@ namespace SuperVoid {
 		if (transform.scale.Magnitude() / 2 < minScaleMagnitude) {
 			return;
 		}
-
-		auto clone1 = GetWorld()->SpawnEntity(core::Prototype(configData), nullptr, transform);
-		auto clone2 = GetWorld()->SpawnEntity(core::Prototype(configData), nullptr, transform);
-		clone1->transform.position = transform.position + math::Vector3(0, 1.1f, 0);
-		clone1->transform.scale = transform.scale * 0.5f;
-		clone1->GetComponent<core::PhysicsComponent>()->AddVelocity({ 0 , 1, 0 });
 		
-		clone2->transform.position = transform.position + math::Vector3(0, -1.1f, 0);
+		//Generate spawn angle
+		std::mt19937 randomNumberGenerator;
+		randomNumberGenerator.seed(std::random_device()());
+		std::uniform_real_distribution<float> dist(0.0, 180.0f);
+		float spawnAngle = dist(randomNumberGenerator);
+		math::Quaternion spawnRotation(math::Rotator(0, 0, spawnAngle));
+
+		//Calculate new velocy
+		auto currVelocity = GetComponent<core::PhysicsComponent>()->GetVelocity();
+		auto cloneVelocityMag = currVelocity.Magnitude() * 1.25f;
+		auto cloneVelocity = spawnRotation.Rotate(math::Vector3(1, 0, 0)) * cloneVelocityMag;
+
+		//Spawn clones
+		auto clone1 = GetWorld()->SpawnEntity(core::Prototype(configData), transform);
+		auto clone2 = GetWorld()->SpawnEntity(core::Prototype(configData), transform);
+		
+		//Configure clones
+		clone1->transform.scale = transform.scale * 0.5f;
+		clone1->GetComponent<core::PhysicsComponent>()->AddVelocity(cloneVelocity);
+		
 		clone2->transform.scale = transform.scale * 0.5f;
-		clone2->GetComponent<core::PhysicsComponent>()->AddVelocity({ 0, -1, 0 });
+		clone2->GetComponent<core::PhysicsComponent>()->AddVelocity(-cloneVelocity);
 	}
 
 }

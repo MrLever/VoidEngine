@@ -27,14 +27,27 @@ namespace core {
 		Collider();
 
 		/**
+		 * Destructor
+		 */
+		virtual ~Collider() = default;
+
+		/**
 		 * Applies configuration settings
 		 */
 		virtual void Initialize() = 0;
 
 		/**
+		 * Apply entity scale data
+		 */
+		void SupplyEntityScale(const math::Vector3& entityScale);
+
+		/**
 		 * Defines how to draw collision volume
 		 */
 		virtual void Draw(std::shared_ptr<ShaderProgram> shader, const glm::mat4& transform) = 0;
+
+	protected:
+		const math::Vector3* entityScale;
 
 	};
 

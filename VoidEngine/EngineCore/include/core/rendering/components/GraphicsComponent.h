@@ -64,16 +64,16 @@ namespace core {
 
 	private:
 		/** The this object's model matrix used for transformations in the vertex shader */
-		glm::mat4 m_TransformMatrix;
+		glm::mat4 transformationMatrix;
 
 		/** The Shader Program to use when drawing this model */
-		std::shared_ptr<ShaderProgram> m_Shader;
+		std::shared_ptr<ShaderProgram> shader;
 
 		/** This component's 3D model */
-		std::shared_ptr<Model> m_Model;
+		std::shared_ptr<Model> model;
 
 		/** Whether this graphics component should be drawn */
-		bool m_IsValid;
+		bool isValid;
 
 	};
 }

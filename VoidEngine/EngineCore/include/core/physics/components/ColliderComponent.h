@@ -27,6 +27,11 @@ namespace core {
 		ColliderComponent();
 
 		/**
+		 * Destructor
+		 */
+		~ColliderComponent();
+
+		/**
 		 * Sets up collider data from configData
 		 */
 		void Initialize() override;
@@ -64,7 +69,7 @@ namespace core {
 		unsigned collisionLayer;
 
 		/** The type of shape used when resolving collisions with this component */
-		Collider* shape;
+		std::unique_ptr<Collider> shape;
 
 		std::shared_ptr<ShaderProgram> colliderShader;
 	

@@ -256,6 +256,11 @@ namespace core {
 		 */
 		void DestroyFromChildren(std::unordered_set<Entity*>& destructionList);
 
+		/**
+		 * @return the entity's unique identifier
+		 */
+		unsigned GetID();
+
 	protected:
 		/** Entity's name */
 		utils::Name name;
@@ -268,6 +273,8 @@ namespace core {
 		
 		/** List of entity's children */
 		std::vector<std::unique_ptr<Entity>> children;
+
+		std::uint32_t VEID;
 
 	private:
 		/** The level the entity inhabits */

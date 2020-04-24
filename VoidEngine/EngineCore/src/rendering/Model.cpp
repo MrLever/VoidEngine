@@ -18,15 +18,18 @@ namespace core {
 		IsThreadSafe = false;
 	}
 
+	Model::~Model() {
+	
+	}
+
 	bool Model::Load() {
-		
-		auto modelData = importer.ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+		importer = std::make_unique<Assimp::Importer>();
+		auto modelData = importer->ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
 			utils::Logger::LogError("ASSIMP File Load error [" + ResourcePath.string() + "] was invalid");
 			return false;
 		}
-
 		return true;
 	}
 
@@ -35,11 +38,17 @@ namespace core {
 	}
 
 	void Model::Initialize() {
-		ProcessAssimpNode(importer.GetScene()->mRootNode, importer.GetScene());
+		if (importer == nullptr) {
+			//Model already initialized
+			return;
+		}
+
+		ProcessAssimpNode(importer->GetScene()->mRootNode, importer->GetScene());
 		
 		for (auto& mesh : meshes) {
 			mesh.Initialize();
 		}
+		importer.reset(nullptr);
 	}
 
 	void Model::Draw(std::shared_ptr<ShaderProgram> shader, glm::mat4 transform) const {

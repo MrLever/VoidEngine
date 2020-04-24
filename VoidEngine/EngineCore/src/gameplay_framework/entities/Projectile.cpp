@@ -41,6 +41,7 @@ namespace core {
 	void Projectile::Tick(float deltaTime) {
 		Entity::Tick(deltaTime);
 
+		//TODO: Replace with coroutine
 		if (useTimeToLive) {
 			timeToLive -= deltaTime;
 			if (timeToLive < 0) {

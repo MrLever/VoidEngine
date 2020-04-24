@@ -22,7 +22,7 @@ namespace core {
 	InputManager::InputManager(
 		EventBus* bus, 
 		const utils::ResourceHandle<utils::Configuration>& configuration
-	) : EventBusNode(bus), Configurable(configuration), JoystickDeadzone(0) {
+	) : EventBusNode(bus), Configurable(configuration), joystickDeadzone(0) {
 		
 		Configure();
 	}
@@ -86,14 +86,14 @@ namespace core {
 
 	void InputManager::Configure() {
 		auto configuration = Config.GetResource();
-		m_DefaultControls = m_ControlLayoutCache.GetResource(
+		defaultControls = controlLayoutCache.GetResource(
 			configuration->GetAttribute<std::string>("defaultControls")
 		);
-		m_ActiveControls = m_DefaultControls;
+		activeControls = defaultControls;
 
-		m_DefaultControls->Initialize();
+		defaultControls->Initialize();
 
-		JoystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
+		joystickDeadzone = configuration->GetAttribute<float>("joystickDeadzone");
 	}
 
 	void InputManager::ProcessInput(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
@@ -102,36 +102,38 @@ namespace core {
 	}
 
 	void InputManager::SetActiveInputMapping(const std::string& profilePath) {
-		m_ActiveControls = m_ControlLayoutCache.GetResource(profilePath);
-		m_ActiveControls->Initialize();
+		activeControls = controlLayoutCache.GetResource(profilePath);
+		activeControls->Initialize();
 	}
 
 	void InputManager::ProcessInputActions(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
-		while (!m_InputActionBuffer.empty()) {
-			auto inputAction = m_InputActionBuffer.front();
+		while (!inputActionBuffer.empty()) {
+			auto inputAction = inputActionBuffer.front();
 			for (auto& entity : entities) {
 				entity->Input(inputAction, deltaTime);
 			}
 
 			PublishEvent(new InputActionEvent(inputAction));
-			m_InputActionBuffer.pop_front();
+			inputActionBuffer.pop_front();
 		}
+
+		inputActionBuffer = {};
 	}
 
 	void InputManager::ProcessAxisUpdates(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
-		auto defaultControlAxisReadings = m_DefaultControls->PollAxes();
-		auto activeControlAxisReadings = m_ActiveControls->PollAxes();
+		auto defaultControlAxisReadings = defaultControls->PollAxes();
+		auto activeControlAxisReadings = activeControls->PollAxes();
 
 		//Get any relevant axis updates
-		m_AxisUpdateBuffer.insert(m_AxisUpdateBuffer.end(), defaultControlAxisReadings.begin(), defaultControlAxisReadings.end());
-		m_AxisUpdateBuffer.insert(m_AxisUpdateBuffer.end(), activeControlAxisReadings.begin(), activeControlAxisReadings.end());
+		axisUpdateBuffer.insert(axisUpdateBuffer.end(), defaultControlAxisReadings.begin(), defaultControlAxisReadings.end());
+		axisUpdateBuffer.insert(axisUpdateBuffer.end(), activeControlAxisReadings.begin(), activeControlAxisReadings.end());
 
 		//Dispatch Axis Updates
-		while (!m_AxisUpdateBuffer.empty()) {
-			auto axisInput = m_AxisUpdateBuffer.front();
-			m_AxisUpdateBuffer.pop_front();
+		while (!axisUpdateBuffer.empty()) {
+			auto axisInput = axisUpdateBuffer.front();
+			axisUpdateBuffer.pop_front();
 
-			if (std::abs(axisInput.Value) < JoystickDeadzone) {
+			if (std::abs(axisInput.Value) < joystickDeadzone) {
 				continue;
 			}
 
@@ -139,5 +141,7 @@ namespace core {
 				entity->Input(axisInput, deltaTime);
 			}
 		}
+
+		axisUpdateBuffer = {};
 	}
 }
