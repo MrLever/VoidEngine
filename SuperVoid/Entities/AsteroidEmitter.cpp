@@ -15,7 +15,7 @@ namespace SuperVoid {
 	ENABLE_FACTORY(AsteroidEmitter, core::Entity)
 
 	AsteroidEmitter::AsteroidEmitter() 
-		: minAsteroids(10), maxAsteroids(20), randomNumberGenerator(std::random_device()()), seed(-1){
+		: player(nullptr), minAsteroids(10), maxAsteroids(20), randomNumberGenerator(std::random_device()()), seed(-1){
 
 	}
 
@@ -33,6 +33,14 @@ namespace SuperVoid {
 		if (configData.find("playerRef") != configData.end()) {
 			player = GetWorld()->FindEntityByID(configData["playerRef"]);
 		}
+
+		if (configData.find("minAsteroids") != configData.end()) {
+			minAsteroids = configData["minAsteroids"];
+		}
+
+		if (configData.find("maxAsteroids") != configData.end()) {
+			maxAsteroids = configData["maxAsteroids"];
+		}
 	}
 
 	void AsteroidEmitter::BeginPlay() {
@@ -41,7 +49,11 @@ namespace SuperVoid {
 	}
 
 	void AsteroidEmitter::Tick(float deltaSeconds) {
-
+		if (asteroids.size() == 0) {
+			minAsteroids++;
+			maxAsteroids++;
+			SpawnWave();
+		}
 	}
 
 	void AsteroidEmitter::Terminate() {
@@ -61,7 +73,7 @@ namespace SuperVoid {
 		for (int i = 0; i < numToSpawn; i++) {
 			core::Transform asteroidTransform;
 
-			//Calculate radial offset of asteroid
+			//Calculate asteroid properties
 			math::Quaternion spawnAngle(math::Rotator(0, 0, spawnAngleDist(randomNumberGenerator)));
 			float spawnDistance = spawnRadiusDist(randomNumberGenerator);
 
@@ -71,18 +83,36 @@ namespace SuperVoid {
 			asteroidTransform.position = player->GetPosition() + spawnTranslationVector;
 			asteroidTransform.scale *= (float)asteroidSizeDist(randomNumberGenerator);
 
-			auto asteroid = GetWorld()->SpawnEntity(asteroidPrefab, asteroidTransform);
+			//Spawn asteroid
+			auto asteroid = dynamic_cast<Asteroid*>(
+				GetWorld()->SpawnEntity(asteroidPrefab, asteroidTransform)
+			);
+			asteroid->RegisterEmitter(this);
+			asteroids.insert(asteroid);
+
+			//Apply initial conditions
 			auto asteroidRigidBody = asteroid->GetComponent<core::PhysicsComponent>();
 			asteroidRigidBody->AddVelocity(
 				math::Quaternion(math::Rotator(0, 0, spawnAngleDist(randomNumberGenerator)))
 				.Rotate({ 1,0,0 }) *
 				spawnVelocityDist(randomNumberGenerator)
 			);
+
 		}
 
 		if (player == nullptr) {
 			utils::Logger::LogError("Asteroid emmitter doesn't know where the player is. Cannot safely spawn asteroids");
 			return;
+		}
+	}
+
+	void AsteroidEmitter::RegisterAsteroid(Asteroid* newAsteroid) {
+		asteroids.insert(newAsteroid);
+	}
+
+	void AsteroidEmitter::UnregisterAsteroid(Asteroid* deadAsteroid) {
+		if (asteroids.find(deadAsteroid) != asteroids.end()) {
+			asteroids.erase(deadAsteroid);
 		}
 	}
 }

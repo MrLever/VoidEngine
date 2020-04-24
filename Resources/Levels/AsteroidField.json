@@ -112,6 +112,8 @@
             "type":"AsteroidEmitter",
             "VEID":3,
             "playerRef":0,
+            "minAsteroids":5,
+            "maxAsteroids":10,
             "asteroidPrefab":
             {
                 "name":"Asteroid",

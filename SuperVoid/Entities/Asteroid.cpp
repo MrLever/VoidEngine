@@ -5,13 +5,14 @@
 
 //SuperVoid Headers
 #include "Asteroid.h"
+#include "AsteroidEmitter.h"
 
 namespace SuperVoid {
 	TYPE_INFO_IMPL(Asteroid)
 
 	ENABLE_FACTORY(Asteroid, core::Entity)
 
-	Asteroid::Asteroid() : Entity(), minScaleMagnitude(0.866025403784f) {
+	Asteroid::Asteroid() : Entity(), emitter(nullptr), minScaleMagnitude(0.866025403784f) {
 
 	}
 
@@ -22,6 +23,10 @@ namespace SuperVoid {
 		if (DataContainsKey("minScaleMagnitude")) {
 			minScaleMagnitude = configData["minScaleMagnitude"];
 		}
+	}
+
+	void Asteroid::BeginPlay() {
+		Entity::BeginPlay();
 	}
 
 	void Asteroid::Tick(float deltaSeconds) {
@@ -45,10 +50,13 @@ namespace SuperVoid {
 	}
 
 	void Asteroid::OnDestroy() {
+		emitter->UnregisterAsteroid(this);
+		
 		if (transform.scale.Magnitude() / 2 < minScaleMagnitude) {
 			return;
 		}
 		
+
 		//Generate spawn angle
 		std::mt19937 randomNumberGenerator;
 		randomNumberGenerator.seed(std::random_device()());
@@ -62,8 +70,12 @@ namespace SuperVoid {
 		auto cloneVelocity = spawnRotation.Rotate(math::Vector3(1, 0, 0)) * cloneVelocityMag;
 
 		//Spawn clones
-		auto clone1 = GetWorld()->SpawnEntity(core::Prototype(configData), transform);
-		auto clone2 = GetWorld()->SpawnEntity(core::Prototype(configData), transform);
+		auto clone1 = dynamic_cast<Asteroid*>(
+			GetWorld()->SpawnEntity(core::Prototype(configData), transform)
+		);
+		auto clone2 = dynamic_cast<Asteroid*>(
+			GetWorld()->SpawnEntity(core::Prototype(configData), transform)
+		);
 		
 		//Configure clones
 		clone1->transform.scale = transform.scale * 0.5f;
@@ -71,6 +83,16 @@ namespace SuperVoid {
 		
 		clone2->transform.scale = transform.scale * 0.5f;
 		clone2->GetComponent<core::PhysicsComponent>()->AddVelocity(-cloneVelocity);
+
+		//Pass on emitter reference
+		clone1->RegisterEmitter(emitter);
+		emitter->RegisterAsteroid(clone1);
+		clone2->RegisterEmitter(emitter);
+		emitter->RegisterAsteroid(clone2);
+	}
+
+	void Asteroid::RegisterEmitter(AsteroidEmitter* emitter) {
+		this->emitter = emitter;
 	}
 
 }

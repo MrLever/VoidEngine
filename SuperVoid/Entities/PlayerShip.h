@@ -33,7 +33,15 @@ namespace SuperVoid {
 		 */
 		virtual void SetupInputComponent(core::InputComponent* component) override;
 		
+		/**
+		 * wraps ship position
+		 */
 		virtual void Tick(float deltaTime) override;
+
+		/**
+		 * Decreases HP
+		 */
+		void OnHit() override;
 
 		/**
 		 * Allows the pawn to float forward
@@ -53,11 +61,10 @@ namespace SuperVoid {
 		void Fire();
 
 	private:
-		core::Prototype m_BulletPrototype;
-		core::PhysicsComponent* m_RigidBody;
-
-
-		float m_EngineStrength;
+		int hp;
+		core::Prototype bulletPrototype;
+		core::PhysicsComponent* rigidBody;
+		float engineStrength;
 	};
 }
 

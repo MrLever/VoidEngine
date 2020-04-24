@@ -210,6 +210,12 @@ namespace core {
 		std::vector<T*> GetComponents();
 
 		/**
+		 * Returns first occurent of T in children
+		 */
+		template <class T>
+		T* GetComponentInChildren();
+
+		/**
 		 * Returns componet of type T
 		 * @tparam T The type of component being requested
 		 * @return Component of type T if entity has requested component, else nullptr
@@ -305,6 +311,16 @@ namespace core {
 		}
 
 		return foundComponents;
+	}
+
+	template<class T>
+	inline T* Entity::GetComponentInChildren() {
+		auto res = GetComponentsInChildren<T>();
+		if (res.size() > 0) {
+			return res[0];
+		}
+		
+		return nullptr;
 	}
 	
 	template<class T>

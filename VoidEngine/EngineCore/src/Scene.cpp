@@ -15,38 +15,10 @@ namespace core {
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
-
-		auto levelData = s_LevelCache.GetResource(levelPath);
-
-		controlFilePath = levelData->GetAttribute<std::string>("controlFile");
-		physicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
-
-		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
-
-		//Gather scene's ambient light data
-		m_LightingEnvironment.AmbientLightColor = math::Vector4(
-			lightSettings["ambientLightColor"][0],
-			lightSettings["ambientLightColor"][1],
-			lightSettings["ambientLightColor"][2],
-			lightSettings["ambientLightColor"][3]
-		);
-
-		m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
-
-		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
-
-		for (auto& entityData : entityList) {
-			auto entity = SpawnEntity(entityData);
-
-			if (entity == nullptr) continue;
-
-			entities.emplace_back(std::move(entity));
-		}
-
-		for (auto& entity : entities) {
-			entity->Initialize();
-		}
+		: EventBusNode(eventBus), reset(false), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
+		
+		levelData = s_LevelCache.GetResource(levelPath);
+		SpawnInitialScene();
 
 	}
 
@@ -101,6 +73,13 @@ namespace core {
 
 		ProcessSpawnQueue();
 		ProcessDestructionQueue();
+
+		if (reset) {
+			entities.clear();
+			SpawnInitialScene();
+			BeginPlay();
+			reset = false;
+		}
 	}
 
 	void Scene::Draw() {
@@ -114,6 +93,10 @@ namespace core {
 		}
 		
 		Renderer::EndFrame();
+	}
+
+	void Scene::RestartLevel() {
+		reset = true;
 	}
 
 	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent) {
@@ -165,6 +148,37 @@ namespace core {
 		}
 
 		return nullptr;
+	}
+
+	void Scene::SpawnInitialScene() {
+		controlFilePath = levelData->GetAttribute<std::string>("controlFile");
+		physicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
+
+		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
+
+		//Gather scene's ambient light data
+		m_LightingEnvironment.AmbientLightColor = math::Vector4(
+			lightSettings["ambientLightColor"][0],
+			lightSettings["ambientLightColor"][1],
+			lightSettings["ambientLightColor"][2],
+			lightSettings["ambientLightColor"][3]
+			);
+
+		m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
+
+		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
+
+		for (auto& entityData : entityList) {
+			auto entity = SpawnEntity(entityData);
+
+			if (entity == nullptr) continue;
+
+			entities.emplace_back(std::move(entity));
+		}
+
+		for (auto& entity : entities) {
+			entity->Initialize();
+		}
 	}
 
 	void Scene::ProcessSpawnQueue() {

@@ -1,3 +1,4 @@
+#pragma once
 //STD Headers
 
 //External Headers
@@ -8,6 +9,8 @@
 //SuperVoid Headers
 
 namespace SuperVoid {
+	class AsteroidEmitter;
+
 	class Asteroid : public core::Entity {
 		TYPE_INFO_DECL(Asteroid)
 
@@ -28,6 +31,11 @@ namespace SuperVoid {
 		void Initialize() override;
 
 		/**
+		 * Registers this asteroid to an emitter
+		 */
+		void BeginPlay() override;
+
+		/**
 		 * Rotates asteroid
 		 */
 		void Tick(float deltaSeconds) override;
@@ -42,7 +50,13 @@ namespace SuperVoid {
 		 */
 		void OnDestroy() override;
 
+		/**
+		 * Allows parent emitter to pass a reference to the asteroid
+		 */
+		void RegisterEmitter(AsteroidEmitter* emitter);
+
 	private:
 		float minScaleMagnitude;
+		AsteroidEmitter* emitter;
 	};
 }
