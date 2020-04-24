@@ -28,6 +28,15 @@ namespace SuperVoid {
 		Entity::Tick(deltaSeconds);
 
 		math::Quaternion deltaRotation(math::Rotator(-1, 1, -1));
+		
+		if (std::abs(transform.position.X) > 75) {
+			transform.position.X *= -1;
+		}
+
+		if (std::abs(transform.position.Y) > 75) {
+			transform.position.Y *= -1;
+		}
+
 		transform.rotation *= deltaRotation;
 	}
 

@@ -69,11 +69,19 @@ namespace core {
 	}
 
 	math::Vector3 AABBCollider::GetMin() const {
-		return minExtent;
+		return { 
+			minExtent.X * entityScale->X, 
+			minExtent.Y * entityScale->Y, 
+			minExtent.Z * entityScale->Z 
+		};
 	}
 
 	math::Vector3 AABBCollider::GetMax() const {
-		return maxExtent;
+		return { 
+			maxExtent.X * entityScale->X, 
+			maxExtent.Y * entityScale->Y, 
+			maxExtent.Z * entityScale->Z 
+		};
 	}
 
 }

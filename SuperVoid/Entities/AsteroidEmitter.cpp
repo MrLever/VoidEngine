@@ -49,21 +49,35 @@ namespace SuperVoid {
 	}
 
 	void AsteroidEmitter::SpawnWave() {
-		std::uniform_int_distribution distribution(minAsteroids, maxAsteroids);
-		std::uniform_int_distribution sizeDist(1, 8);
+		std::uniform_int_distribution asteroidCountDist(minAsteroids, maxAsteroids);
+		std::uniform_int_distribution asteroidSizeDist(2, 8);
+		std::uniform_real_distribution<float> spawnAngleDist(0.0, 360.0f);
+		std::uniform_real_distribution<float> spawnRadiusDist(24, 64);
+		std::uniform_real_distribution<float> spawnVelocityDist(5, 20);
 
-		int numToSpawn = distribution(randomNumberGenerator);
+		int numToSpawn = asteroidCountDist(randomNumberGenerator);
 		utils::Logger::LogInfo("Spawning " + std::to_string(numToSpawn) + " asteroids.");
 		
-		float x = -24, y = 5;
 		for (int i = 0; i < numToSpawn; i++) {
-			int size = sizeDist(randomNumberGenerator);
 			core::Transform asteroidTransform;
-			asteroidTransform.position = { x, y, 0 };
-			x += 8;
-			asteroidTransform.scale *= (float)size;
+
+			//Calculate radial offset of asteroid
+			math::Quaternion spawnAngle(math::Rotator(0, 0, spawnAngleDist(randomNumberGenerator)));
+			float spawnDistance = spawnRadiusDist(randomNumberGenerator);
+
+			math::Vector3 spawnTranslationVector = spawnAngle.Rotate(math::Vector3(1, 0, 0));
+			spawnTranslationVector *= spawnDistance;
+
+			asteroidTransform.position = player->GetPosition() + spawnTranslationVector;
+			asteroidTransform.scale *= (float)asteroidSizeDist(randomNumberGenerator);
 
 			auto asteroid = GetWorld()->SpawnEntity(asteroidPrefab, asteroidTransform);
+			auto asteroidRigidBody = asteroid->GetComponent<core::PhysicsComponent>();
+			asteroidRigidBody->AddVelocity(
+				math::Quaternion(math::Rotator(0, 0, spawnAngleDist(randomNumberGenerator)))
+				.Rotate({ 1,0,0 }) *
+				spawnVelocityDist(randomNumberGenerator)
+			);
 		}
 
 		if (player == nullptr) {

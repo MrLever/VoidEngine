@@ -33,6 +33,8 @@ namespace SuperVoid {
 		 */
 		virtual void SetupInputComponent(core::InputComponent* component) override;
 		
+		virtual void Tick(float deltaTime) override;
+
 		/**
 		 * Allows the pawn to float forward
 		 */

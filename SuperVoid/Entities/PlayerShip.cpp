@@ -60,6 +60,18 @@ namespace SuperVoid {
 			}
 		);
 	}
+
+	void PlayerShip::Tick(float deltaTime) {
+		core::PlayerEntity::Tick(deltaTime);
+		if (std::abs(transform.position.X) > 75) {
+			transform.position.X *= -1;
+		}
+
+		if (std::abs(transform.position.Y) > 75) {
+			transform.position.Y *= -1;
+		}
+
+	}
 	
 	void PlayerShip::MoveForward(float axisValue, float deltaTime) {
 		m_RigidBody->ApplyForce(math::Vector3(0, m_EngineStrength * axisValue * deltaTime, 0));
@@ -70,7 +82,7 @@ namespace SuperVoid {
 	}
 
 	void PlayerShip::Rotate(float axisValue, float deltaTime) {
-		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 150);
+		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 500);
 
 		transform.rotation = deltaRotation * transform.rotation;
 	}
@@ -79,5 +91,8 @@ namespace SuperVoid {
 		auto bullet = GetWorld()->SpawnEntity(m_BulletPrototype);
 		bullet->SetPosition(GetPosition() + GetForward() * 3);
 		bullet->SetRotation(GetRotation());
+		bullet->GetComponent<core::PhysicsComponent>()->AddVelocity(
+			GetComponent<core::PhysicsComponent>()->GetVelocity()
+		);
 	}
 }
