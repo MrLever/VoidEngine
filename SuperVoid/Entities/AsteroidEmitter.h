@@ -1,10 +1,11 @@
 #pragma once
 //STD Headers
+#include <unordered_set>
 
 //Library Headers
 
 //SuperVoid Headers
-#include "core/gameplay_framework/Entity.h"
+#include "Asteroid.h"
 
 namespace SuperVoid {
 
@@ -47,12 +48,28 @@ namespace SuperVoid {
 		/**
 		 * Spawns an asteroid at a random orientation/speed
 		 */
-		void SpawnAsteroid();
+		void SpawnWave();
+
+		/**
+		 * Adds an asteroid to the emitter for tracking
+		 */
+		void RegisterAsteroid(Asteroid* newAsteroid);
+
+		/**
+		 * Removes asteroid from the asteroid set
+		 */
+		void UnregisterAsteroid(Asteroid* deadAsteroid);
 
 	private:
+		Entity* player;
+		std::unordered_set<Entity*> asteroids;
 		core::Prototype asteroidPrefab;
+		
 		int minAsteroids;
 		int maxAsteroids;
+
+		std::mt19937 randomNumberGenerator;
+		int seed;
 	};
 
 }

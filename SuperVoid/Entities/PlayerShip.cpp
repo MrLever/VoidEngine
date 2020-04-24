@@ -13,21 +13,21 @@ namespace SuperVoid {
 
 	ENABLE_FACTORY(PlayerShip, core::Entity)
 
-	PlayerShip::PlayerShip() : m_EngineStrength(10), m_RigidBody(nullptr), m_BulletPrototype({}) {
+	PlayerShip::PlayerShip() : hp(3), engineStrength(10), rigidBody(nullptr), bulletPrototype({}) {
 
 	}
 
 	void PlayerShip::Initialize() {
 		Entity::Initialize();
 
-		m_RigidBody = GetComponent<core::PhysicsComponent>();
+		rigidBody = GetComponent<core::PhysicsComponent>();
 		SetupInputComponent(GetComponent<core::InputComponent>());
 
 		if (configData.find("speed") != configData.end()) {
-			m_EngineStrength = configData["speed"];
+			engineStrength = configData["speed"];
 		}
 
-		m_BulletPrototype = core::Prototype(configData["bulletPrototype"]);
+		bulletPrototype = core::Prototype(configData["bulletPrototype"]);
 	}
 
 	void PlayerShip::SetupInputComponent(core::InputComponent* component) {
@@ -60,24 +60,52 @@ namespace SuperVoid {
 			}
 		);
 	}
+
+	void PlayerShip::Tick(float deltaTime) {
+		core::PlayerEntity::Tick(deltaTime);
+		if (std::abs(transform.position.X) > 75) {
+			transform.position.X *= -1;
+		}
+
+		if (std::abs(transform.position.Y) > 75) {
+			transform.position.Y *= -1;
+		}
+
+	}
+
+	void PlayerShip::OnHit() {
+		hp--;
+		if (hp == 2) {
+			GetComponentInChildren<core::PointLightComponent>()->color = math::Vector4(1, 1, 0, 1);
+		}
+		else if (hp == 1) {
+			GetComponentInChildren<core::PointLightComponent>()->color = math::Vector4(1, 0, 0, 1);
+		}
+		else if (hp <= 0) {
+			GetWorld()->RestartLevel();
+		}
+	}
 	
 	void PlayerShip::MoveForward(float axisValue, float deltaTime) {
-		m_RigidBody->ApplyForce(math::Vector3(0, m_EngineStrength * axisValue * deltaTime, 0));
+		rigidBody->ApplyForce(math::Vector3(0, engineStrength * axisValue * deltaTime, 0));
 	}
 	
 	void PlayerShip::MoveRight(float axisValue, float deltaTime) {
-		m_RigidBody->ApplyForce(math::Vector3(m_EngineStrength * axisValue * deltaTime, 0, 0));
+		rigidBody->ApplyForce(math::Vector3(engineStrength * axisValue * deltaTime, 0, 0));
 	}
 
 	void PlayerShip::Rotate(float axisValue, float deltaTime) {
-		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 150);
+		math::Rotator deltaRotation(0, 0, -axisValue * deltaTime * 350);
 
 		transform.rotation = deltaRotation * transform.rotation;
 	}
 
 	void PlayerShip::Fire() {
-		auto bullet = GetWorld()->SpawnEntity(m_BulletPrototype);
+		auto bullet = GetWorld()->SpawnEntity(bulletPrototype);
 		bullet->SetPosition(GetPosition() + GetForward() * 3);
 		bullet->SetRotation(GetRotation());
+		bullet->GetComponent<core::PhysicsComponent>()->AddVelocity(
+			GetComponent<core::PhysicsComponent>()->GetVelocity()
+		);
 	}
 }

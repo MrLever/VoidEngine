@@ -8,7 +8,7 @@
 
 namespace core {
 
-	class OpenGLIndexBuffer : public IndexBuffer{
+	class OpenGLIndexBuffer : public IndexBuffer {
 	public:
 		/**
 		 * Constructor

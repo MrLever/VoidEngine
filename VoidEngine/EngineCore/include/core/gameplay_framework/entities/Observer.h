@@ -64,6 +64,11 @@ namespace core {
 		void MoveRight(float axisValue, float deltaTime);
 
 		/**
+		 * Allows the observer to move up and down
+		 */
+		void MoveUp(float axisValue, float deltaTime);
+
+		/**
 		 * Allows the pawn to change it's look direction
 		 */
 		void LookUp(float axisValue, float deltaTime);

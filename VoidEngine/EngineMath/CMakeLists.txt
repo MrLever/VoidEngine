@@ -17,7 +17,7 @@ set(engine_math_header_dir
 )
 
 set(Header_Files
-    "${engine_math_header_dir}/MathConstants.h"
+    "${engine_math_header_dir}/MathUtils.h"
     "${engine_math_header_dir}/Quaternion.h"
     "${engine_math_header_dir}/Rotator.h"
     "${engine_math_header_dir}/Vector.h"

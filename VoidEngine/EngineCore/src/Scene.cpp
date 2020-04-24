@@ -15,35 +15,10 @@ namespace core {
 		EventBus* eventBus, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
-
-		auto levelData = s_LevelCache.GetResource(levelPath);
-
-		controlFilePath = levelData->GetAttribute<std::string>("controlFile");
-		physicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
-
-		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
-
-		//Gather scene's ambient light data
-		m_LightingEnvironment.AmbientLightColor = math::Vector4(
-			lightSettings["ambientLightColor"][0],
-			lightSettings["ambientLightColor"][1],
-			lightSettings["ambientLightColor"][2],
-			lightSettings["ambientLightColor"][3]
-		);
-
-		m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
-
-		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
-
-		for (auto& entityData : entityList) {
-			auto entity = SpawnEntity(entityData);
-
-			if (entity == nullptr) continue;
-
-			entity->Initialize();
-			entities.emplace_back(std::move(entity));
-		}
+		: EventBusNode(eventBus), reset(false), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
+		
+		levelData = s_LevelCache.GetResource(levelPath);
+		SpawnInitialScene();
 
 	}
 
@@ -98,11 +73,19 @@ namespace core {
 
 		ProcessSpawnQueue();
 		ProcessDestructionQueue();
+
+		if (reset) {
+			entities.clear();
+			SpawnInitialScene();
+			BeginPlay();
+			reset = false;
+		}
 	}
 
 	void Scene::Draw() {
 		m_LightingEnvironment.DirectionalLights = FindComponentsOfType<DirectionalLightComponent>();
 		m_LightingEnvironment.PointLights = FindComponentsOfType<PointLightComponent>();
+		m_LightingEnvironment.SpotLights = FindComponentsOfType<SpotlightComponent>();
 		Renderer::BeginFrame(activeCamera, &m_LightingEnvironment);
 		
 		for (auto& entity : entities) {
@@ -111,13 +94,27 @@ namespace core {
 		
 		Renderer::EndFrame();
 	}
-	
-	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent, const Transform& transform) {
+
+	void Scene::RestartLevel() {
+		reset = true;
+	}
+
+	Entity* Scene::SpawnEntity(const Prototype& prototype, Entity* parent) {
 		auto entity = SpawnEntity(prototype.GetData());
 		auto weakPtr = entity.get();
 
-		entity->transform = transform;
 		entity->Initialize();
+		spawnQueue.push_back({ std::move(entity), parent });
+
+		return weakPtr;
+	}
+	
+	Entity* Scene::SpawnEntity(const Prototype& prototype, const Transform& transform, Entity* parent) {
+		auto entity = SpawnEntity(prototype.GetData());
+		auto weakPtr = entity.get();
+
+		entity->Initialize();
+		entity->transform = transform;
 		spawnQueue.push_back({ std::move(entity), parent });
 
 		return weakPtr;
@@ -141,6 +138,47 @@ namespace core {
 	
 	std::string Scene::GetControlFilePath() const {
 		return controlFilePath;
+	}
+
+	Entity* Scene::FindEntityByID(unsigned ID) {
+		for (auto& entity : entities) {
+			if (entity->GetID() == ID) {
+				return entity.get();
+			}
+		}
+
+		return nullptr;
+	}
+
+	void Scene::SpawnInitialScene() {
+		controlFilePath = levelData->GetAttribute<std::string>("controlFile");
+		physicsEngine->SetGravity(levelData->GetAttribute<float>("gravity"));
+
+		auto lightSettings = levelData->GetAttribute<nlohmann::json>("lightSettings");
+
+		//Gather scene's ambient light data
+		m_LightingEnvironment.AmbientLightColor = math::Vector4(
+			lightSettings["ambientLightColor"][0],
+			lightSettings["ambientLightColor"][1],
+			lightSettings["ambientLightColor"][2],
+			lightSettings["ambientLightColor"][3]
+			);
+
+		m_LightingEnvironment.AmbientLightIntensity = lightSettings["ambientLightIntensity"];
+
+		auto entityList = levelData->GetAttribute<nlohmann::json>("entities");
+
+		for (auto& entityData : entityList) {
+			auto entity = SpawnEntity(entityData);
+
+			if (entity == nullptr) continue;
+
+			entities.emplace_back(std::move(entity));
+		}
+
+		for (auto& entity : entities) {
+			entity->Initialize();
+		}
 	}
 
 	void Scene::ProcessSpawnQueue() {

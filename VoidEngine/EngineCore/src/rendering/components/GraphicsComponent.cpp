@@ -18,7 +18,7 @@ namespace core {
 	ENABLE_FACTORY(GraphicsComponent, Component)
 
 	GraphicsComponent::GraphicsComponent()
-		: m_TransformMatrix(1.0f), m_Shader(nullptr), m_IsValid(true) {
+		: transformationMatrix(1.0f), shader(nullptr), isValid(true) {
 
 	}
 
@@ -33,8 +33,8 @@ namespace core {
 		
 		auto modelCache = std::make_shared<utils::ResourceAllocator<Model>>();
 
-		m_Model = modelCache->GetResource(configData["model"].get<std::string>());
-		m_Model->Initialize();
+		model = modelCache->GetResource(configData["model"].get<std::string>());
+		model->Initialize();
 
 		if (configData.find("shader") != configData.end()) {
 			AddMaterial(
@@ -49,7 +49,7 @@ namespace core {
 	}
 
 	void GraphicsComponent::AddMaterial(const std::string& name, const std::string& vertShaderPath, const std::string& fragShaderPath) {
-		m_Shader = std::make_shared<ShaderProgram>(
+		shader = std::make_shared<ShaderProgram>(
 			name,
 			new Shader(
 				ShaderType::VERTEX,
@@ -63,29 +63,29 @@ namespace core {
 	}
 
 	void GraphicsComponent::Draw() {
-		m_TransformMatrix = glm::mat4(1.0f);
+		transformationMatrix = glm::mat4(1.0f);
 
 		//Translate
 		auto position = parent->GetPosition();
-		m_TransformMatrix = glm::translate(
-			m_TransformMatrix, 
+		transformationMatrix = glm::translate(
+			transformationMatrix, 
 			glm::vec3(position.X, position.Y, position.Z)
 		);
 
 		//Rotate
 		auto rotation = math::Quaternion(parent->GetRotation()).Normalize();
 		auto rotationMatrix = glm::toMat4(glm::quat(rotation.W, rotation.X, rotation.Y, rotation.Z));
-		m_TransformMatrix = m_TransformMatrix * rotationMatrix;
+		transformationMatrix = transformationMatrix * rotationMatrix;
 
 		//Scale
 		auto scale = parent->GetScale();
-		m_TransformMatrix = glm::scale(
-			m_TransformMatrix, 
+		transformationMatrix = glm::scale(
+			transformationMatrix, 
 			glm::vec3(scale.X, scale.Y, scale.Z)
 		);
 		
-		if (m_Model) {
-			m_Model->Draw(m_Shader, m_TransformMatrix);
+		if (model) {
+			model->Draw(shader, transformationMatrix);
 		}
 	}
 

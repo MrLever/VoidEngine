@@ -6,7 +6,7 @@
 //Library Headers
 
 //Math Headers
-#include "math/MathConstants.h"
+#include "math/MathUtils.h"
 
 namespace math {
 	struct Vector2 {
@@ -140,6 +140,16 @@ namespace math {
 		 * Constructor
 		 */
 		Vector3(Vector2 vec, float z = 0.0f);
+
+		/**
+		 * @return This vector as a quaternion
+		 */
+		Quaternion AsQuaternion();
+
+		/**
+		 * @return This vector as a rotation
+		 */
+		Rotator AsRotation();
 
 		/**
 		 * Computes the dot product of two 3D vectors

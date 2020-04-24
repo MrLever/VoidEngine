@@ -13,4 +13,8 @@ namespace core {
 
 	}
 
+	void Collider::SupplyEntityScale(const math::Vector3& entityScale) {
+		this->entityScale = &entityScale;
+	}
+
 }

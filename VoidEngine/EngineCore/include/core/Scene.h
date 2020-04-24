@@ -60,20 +60,27 @@ namespace core {
 		void Update(float deltaTime);
 		void Draw();
 
+		void RestartLevel();
+
+		/**
+		 * Allows entities to construct entities from prototypes at runtime
+		 */
+		Entity* SpawnEntity(const Prototype& prototype,	Entity* parent = nullptr);
+
 		/**
 		 * Allows entities to construct entities from prototypes at runtime
 		 */
 		Entity* SpawnEntity(
 			const Prototype& prototype, 
-			Entity* parent = nullptr,
-			const Transform& transform = Transform() 
+			const Transform& transform,
+			Entity* parent = nullptr
 		);
 
 		/**
 		 * Defualt constructs an entity of type T
 		 */
 		template <class T>
-		T* SpawnEntity(Entity* parent = nullptr, const Transform& transform = Transform());
+		T* SpawnEntity(Entity* parent, const Transform& transform = Transform());
 
 		/**
 		 * Transfers ownership of child's unqique pointer to parent
@@ -98,7 +105,16 @@ namespace core {
 		template<class T>
 		std::vector<T*> FindComponentsOfType();
 
+		/**
+		 * Allows entities to ask for other entities by ID
+		 */
+		Entity* FindEntityByID(unsigned ID);
+
 	private:
+		/**
+		 */
+		void SpawnInitialScene();
+
 		/** 
 		 * Adds root entities from the spawn queue into the entity vector 
 		 */
@@ -123,9 +139,10 @@ namespace core {
 		 */
 		std::vector<std::pair<std::unique_ptr<Entity>, Entity*>> spawnQueue;
 
-		/**
-		 * Entities marked for destruction are destroyed at the end of the current frame
-		 */
+		/** json definition of level intitial condition */
+		std::shared_ptr<utils::JsonResource> levelData;
+
+		/** Entities marked for destruction are destroyed at the end of the current frame */
 		std::unordered_set<Entity*> destructionQueue;
 
 		/** Path to the level's control bindings */
@@ -145,6 +162,8 @@ namespace core {
 
 		/** Used to maintain scene lighting data and pass to renderer */
 		LightingEnvironment m_LightingEnvironment;
+
+		bool reset;
 
 		/** Data cache for already loaded level data */
 		static utils::ResourceAllocator<utils::JsonResource> s_LevelCache;

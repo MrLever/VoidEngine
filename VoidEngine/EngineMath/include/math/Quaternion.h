@@ -40,12 +40,12 @@ namespace math {
 		/**
 		 * Converts Quaternion to euler angles
 		 */
-		Rotator ToEuler() const;
+		[[nodiscard]] Rotator AsEuler() const;
 
 		/**
 		 * Converts Quaternion to direction vector
 		 */
-		Vector3 ToVector() const;
+		[[nodiscard]] Vector3 AsVector() const;
 
 		/**
 		 * Destructively normalize quaternion

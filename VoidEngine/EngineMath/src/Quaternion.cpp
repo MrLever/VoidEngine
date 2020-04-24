@@ -5,7 +5,7 @@
 //Void Engine Headers
 #include "math/Quaternion.h"
 #include "math/Rotator.h"
-#include "math/MathConstants.h"
+#include "math/MathUtils.h"
 
 namespace math {
 
@@ -17,9 +17,9 @@ namespace math {
 	}
 		
 	Quaternion::Quaternion(const Rotator& euler) {
-		float alphaHalf = ToRadians(euler.Roll) / 2;
-		float betaHalf = ToRadians(euler.Pitch) / 2;
-		float gammaHalf = ToRadians(euler.Yaw) / 2;
+		float alphaHalf = ToRadians(euler.Pitch) / 2;
+		float betaHalf = ToRadians(euler.Yaw) / 2;
+		float gammaHalf = ToRadians(euler.Roll) / 2;
 		
 		W = std::cosf(alphaHalf) * std::cosf(betaHalf) * std::cosf(gammaHalf) +
 			std::sinf(alphaHalf) * std::sinf(betaHalf) * std::sinf(gammaHalf);
@@ -38,7 +38,7 @@ namespace math {
 		: W(w), X(x), Y(y), Z(z) {
 	}
 
-	Rotator Quaternion::ToEuler() const {
+	Rotator Quaternion::AsEuler() const {
 		Rotator euler;
 		
 		auto rollRadians =
@@ -63,16 +63,16 @@ namespace math {
 				1.0f - (2.0f * ((Y * Y) + (Z * Z)))
 			);
 
-		euler.Roll = ToDegrees(rollRadians);
+		euler.Pitch = ToDegrees(rollRadians);
 
-		euler.Pitch = ToDegrees(pitchRadians);
+		euler.Yaw = ToDegrees(pitchRadians);
 			
-		euler.Yaw = ToDegrees(yawRadians);
+		euler.Roll = ToDegrees(yawRadians);
 		
 		return euler;
 	}
 
-	Vector3 Quaternion::ToVector() const {
+	Vector3 Quaternion::AsVector() const {
 		return Rotate(Vector3(1, 0, 0));
 	}
 

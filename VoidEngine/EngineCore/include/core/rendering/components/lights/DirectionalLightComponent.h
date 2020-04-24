@@ -20,6 +20,15 @@ namespace core {
 		TYPE_INFO_DECL(DirectionalLightComponent)
 
 	public:
+		/** Direction of the directional light */
+		math::Vector3 direction;
+
+		/** Color of the directional light */
+		math::Vector4 color;
+
+		/** Amount of energy in light */
+		float intensity;
+
 		/**
 		 * Constructor
 		 */
@@ -34,31 +43,6 @@ namespace core {
 		 * Loads light settings into object from specified settings
 		 */
 		void Initialize() override;
-
-		/**
-		 * Direction Accessor
-		 */
-		math::Vector3 GetDirection() const;
-
-		/**
-		 * Color Accessor
-		 */
-		math::Vector4 GetColor() const;
-
-		/**
-		 * Intensity Accessor
-		 */
-		float GetIntensity() const;
-
-	private:
-		/** Direction of the directional light */
-		math::Vector3 m_Direction;
-
-		/** Color of the directional light */
-		math::Vector4 m_Color;
-
-		/** Amount of energy in light */
-		float m_Intensity;
 
 	};
 }

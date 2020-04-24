@@ -20,6 +20,15 @@ namespace core {
 		TYPE_INFO_DECL(PointLightComponent)
 
 	public:
+		/** Color of the point light */
+		math::Vector4 color;
+
+		/** bounding radius of point light's influence */
+		float range;
+
+		/** Amount of energy in light */
+		float intensity;
+
 		/**
 		 * Constructor
 		 */
@@ -35,30 +44,6 @@ namespace core {
 		 */
 		void Initialize() override;
 
-		/**
-		 * Color Accessor
-		 */
-		math::Vector4 GetColor() const;
-
-		/**
-		 * Intensity Accessor
-		 */
-		float GetIntensity() const;
-
-		/**
-		 * Intensity Accessor
-		 */
-		float GetRadius() const;
-
-	private:
-		/** Color of the directional light */
-		math::Vector4 m_Color;
-
-		/** Amount of energy in light */
-		float m_Intensity;
-
-		/** bounding radius of point light's influence */
-		float m_Radius;
 	};
 
 }

@@ -23,38 +23,23 @@ namespace core {
 		
 	}
 
+	ColliderComponent::~ColliderComponent() {
+
+	}
+
 	void ColliderComponent::Initialize() {
 		if (configData.find("collisionLayer") != configData.end()) {
 			collisionLayer = configData["collisionLayer"].get<unsigned>();
 		}
 
-		shape = utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>());
+		shape.reset(utils::FactoryBase<Collider>::Create(configData["shape"]["type"].get<std::string>()));
 		shape->SetConfigData(configData["shape"]);
 		shape->Initialize();
-
-		colliderShader = std::make_shared<ShaderProgram>(
-			"ColliderShader",
-			new Shader(
-				ShaderType::VERTEX,
-				"Resources/Shaders/default.vert"
-			),
-			new Shader(
-				ShaderType::FRAGMENT,
-				"Resources/Shaders/default.frag"
-			)
-		);
-
+		shape->SupplyEntityScale(transform->scale);
 	}
 
 	void ColliderComponent::Draw() {
-		auto transformMatrix = glm::mat4(1.0f);
-		auto position = parent->GetPosition();
-		transformMatrix = glm::translate(
-			transformMatrix, 
-			glm::vec3(position.X - 1, position.Y, position.Z)
-		);
 
-		shape->Draw(colliderShader, transformMatrix);
 	}
 	
 	Manifold* ColliderComponent::DetectCollision(ColliderComponent* other) {
@@ -72,7 +57,7 @@ namespace core {
 	}
 
 	const Collider* ColliderComponent::GetShape() const {
-		return shape;
+		return shape.get();
 	}
 
 	unsigned ColliderComponent::GetCollisionLayer() const {

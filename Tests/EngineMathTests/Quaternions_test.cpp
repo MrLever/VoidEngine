@@ -81,7 +81,7 @@ namespace math_tests {
 		Rotator rotation(0, 90, 0);
 		Quaternion quat(rotation);
 		Vector3 expected(0, 0, -1);
-		auto actual = quat.ToVector();
+		auto actual = quat.AsVector();
 
 		ASSERT_EQ(expected, actual);
 	}
@@ -90,7 +90,7 @@ namespace math_tests {
 		Quaternion q1(Rotator(0, -45, 0));
 		Quaternion q2(Rotator(0, 10, 0));
 	
-		auto result = (q1 * q2).ToEuler();
+		auto result = (q1 * q2).AsEuler();
 		ASSERT_TRUE(Rotator(0, -35, 0) == result);
 	}
 

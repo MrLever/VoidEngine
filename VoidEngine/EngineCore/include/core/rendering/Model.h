@@ -26,6 +26,11 @@ namespace core {
 		Model(const std::string& filePath);
 
 		/**
+		 * Destructor
+		 */
+		~Model();
+
+		/**
 		 * Loads the model from main memory
 		 */
 		bool Load() override;
@@ -84,8 +89,8 @@ namespace core {
 		/** Cache of textures used to draw this model */
 		ResourceAllocatorPtr<Texture> textureCache;
 
-		/** A static scene importer that holds a reference to the last scene loaded */
-		Assimp::Importer importer;
+		/** A scene importer that holds a reference to the last scene loaded */
+		std::unique_ptr<Assimp::Importer> importer;
 	};
 
 }

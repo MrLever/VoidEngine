@@ -33,10 +33,18 @@ namespace core {
 		void BeginPlay() override;
 
 		/**
+		 * Counts down projectile lifetime
+		 */
+		void Tick(float deltaTime) override;
+
+		/**
 		 * Destroys projectile
 		 */
 		void OnHit() override;
 
+	private:
+		float timeToLive;
+		bool useTimeToLive;
 	};
 
 }

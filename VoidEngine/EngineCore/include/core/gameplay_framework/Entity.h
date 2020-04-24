@@ -210,6 +210,12 @@ namespace core {
 		std::vector<T*> GetComponents();
 
 		/**
+		 * Returns first occurent of T in children
+		 */
+		template <class T>
+		T* GetComponentInChildren();
+
+		/**
 		 * Returns componet of type T
 		 * @tparam T The type of component being requested
 		 * @return Component of type T if entity has requested component, else nullptr
@@ -256,6 +262,11 @@ namespace core {
 		 */
 		void DestroyFromChildren(std::unordered_set<Entity*>& destructionList);
 
+		/**
+		 * @return the entity's unique identifier
+		 */
+		unsigned GetID();
+
 	protected:
 		/** Entity's name */
 		utils::Name name;
@@ -268,6 +279,8 @@ namespace core {
 		
 		/** List of entity's children */
 		std::vector<std::unique_ptr<Entity>> children;
+
+		std::uint32_t VEID;
 
 	private:
 		/** The level the entity inhabits */
@@ -298,6 +311,16 @@ namespace core {
 		}
 
 		return foundComponents;
+	}
+
+	template<class T>
+	inline T* Entity::GetComponentInChildren() {
+		auto res = GetComponentsInChildren<T>();
+		if (res.size() > 0) {
+			return res[0];
+		}
+		
+		return nullptr;
 	}
 	
 	template<class T>

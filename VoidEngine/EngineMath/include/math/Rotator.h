@@ -7,7 +7,7 @@
 
 //Void Engine Headers
 #include "Vector.h"
-#include "MathConstants.h"
+#include "MathUtils.h"
 
 namespace math {
 	/**
@@ -16,21 +16,21 @@ namespace math {
 	 */
 	struct Rotator {
 		/** Rotation around the X axis */
-		float Roll;
-
-		/** Rotation around the Y axis */
 		float Pitch;
 
+		/** Rotation around the Y axis */
+		float Yaw;
+
 		/** Rotation around the Z axis */
-		float Yaw;		
+		float Roll;		
 
 		/**
 		 * Constructor
-		 * @param roll The rotator's rotation around the X axis
-		 * @param pitch The rotator's rotation around the y axis
-		 * @param yaw The rotator's rotation around the z axis
+		 * @param pitch The rotator's rotation around the x axis
+		 * @param yaw The rotator's rotation around the y axis
+		 * @param roll The rotator's rotation around the z axis
 		 */
-		Rotator(float roll = 0.0f, float pitch = 0.0f, float yaw = 0.0f);
+		Rotator(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0f);
 
 		/**
 		 * Copy Constructor
@@ -40,7 +40,12 @@ namespace math {
 		/**
 		 * Returns a unit direction vector that corresponds to this rotator
 		 */
-		Vector3 ToVector() const;
+		[[nodiscard]] Vector3 AsVector() const;
+
+		/**
+		 * @return this euler angle as a quaternion
+		 */
+		[[nodiscard]] Quaternion AsQuaternion() const;
 
 		/**
 		 * Unwinds Rotator (clamps all values to 0 - 360)
@@ -51,7 +56,7 @@ namespace math {
 		 * Non-destructively unwinds rotator
 		 * @param rotator The rotation to normalize
 		 */
-		static Rotator Normalize(const Rotator& rotator);
+		[[nodiscard]] static Rotator Normalize(const Rotator& rotator);
 
 		/**
 		 * Equality comparison operator

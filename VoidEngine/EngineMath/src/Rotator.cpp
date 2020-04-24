@@ -7,19 +7,23 @@
 #include "math/Quaternion.h"
 
 namespace math {
-	Rotator::Rotator(float roll, float pitch, float yaw) 
-		: Roll(roll), Pitch(pitch), Yaw(yaw) {
+	Rotator::Rotator(float pitch, float yaw, float roll)
+		: Pitch(pitch), Yaw(yaw), Roll(roll) {
 
 	}
 
-	Vector3 Rotator::ToVector() const {
-		return Quaternion(*this).ToVector();
+	Vector3 Rotator::AsVector() const {
+		return Quaternion(*this).AsVector();
+	}
+
+	Quaternion Rotator::AsQuaternion() const {
+		return Quaternion(*this);
 	}
 
 	Rotator& Rotator::Normalize() {
-		Roll = Clamp(Roll);
 		Pitch = Clamp(Pitch);
 		Yaw = Clamp(Yaw);
+		Roll = Clamp(Roll);
 
 		return *this;
 	}
@@ -41,25 +45,25 @@ namespace math {
 
 	Rotator Rotator::operator+(const Rotator& other) {
 		return Rotator(
+			Pitch + other.Pitch, 
 			Roll + other.Roll, 
-			Yaw + other.Yaw, 
-			Pitch + other.Pitch
+			Yaw + other.Yaw
 		);
 	}
 	
 	Rotator Rotator::operator-(const Rotator& other) {
 		return Rotator(
+			Pitch - other.Pitch, 
 			Roll - other.Roll, 
-			Yaw - other.Yaw, 
-			Pitch - other.Pitch
+			Yaw - other.Yaw
 		);
 	}
 
 	Rotator operator*(const Rotator& lhs, float rhs) {
 		return Rotator(
-			lhs.Roll * rhs, 
-			lhs.Yaw * rhs,
-			lhs.Pitch * rhs
+			lhs.Pitch * rhs, 
+			lhs.Roll * rhs,
+			lhs.Yaw * rhs
 		);
 	}
 
@@ -68,7 +72,7 @@ namespace math {
 	}
 
 	std::ostream& operator<<(std::ostream& out, const Rotator& r) {
-		out << "rotation: [" << r.Roll << ", " << r.Yaw << ", " << r.Pitch << "]";
+		out << "rotation: [" << r.Pitch << ", " << r.Roll << ", " << r.Yaw << "]";
 		return out;
 	}
 

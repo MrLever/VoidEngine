@@ -22,6 +22,11 @@ namespace core {
 		SphereCollider();
 
 		/**
+		 * Destructor
+		 */
+		~SphereCollider() override;
+		
+		/**
 		 * Set's up sphere collision volume
 		 */
 		void Initialize() override;

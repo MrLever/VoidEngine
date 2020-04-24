@@ -69,6 +69,7 @@ namespace core {
 
 		ApplyDirectionalLightData(shader);
 		ApplyPointLightData(shader);
+		ApplySpotlightData(shader);
 
 		vao->Bind();
 
@@ -96,17 +97,17 @@ namespace core {
 			std::string index("[" + std::to_string(i) + "]");
 			shader->SetUniform(
 				structName + "." + variableName + index + ".direction",
-				s_LightingEnvironment->DirectionalLights[i]->GetDirection()
+				s_LightingEnvironment->DirectionalLights[i]->direction
 			);
 
 			shader->SetUniform(
 				structName + "." + variableName + index + ".color",
-				s_LightingEnvironment->DirectionalLights[i]->GetColor()
+				s_LightingEnvironment->DirectionalLights[i]->color
 			);
 
 			shader->SetUniform(
 				structName + "." + variableName + index + ".intensity",
-				s_LightingEnvironment->DirectionalLights[i]->GetIntensity()
+				s_LightingEnvironment->DirectionalLights[i]->intensity
 			);
 		}
 	}
@@ -123,29 +124,76 @@ namespace core {
 
 		static const std::string structName("lightData");
 		static const std::string variableName("pointLights");
+		static const std::string structEntry = structName + "." + variableName;
 		for (int i = 0; i < numPtLights; i++) {
 			std::string index("[" + std::to_string(i) + "]");
+			std::string light = structEntry + index;
 			
 			shader->SetUniform(
-				structName + "." + variableName + index + ".position",
+				light + ".position",
 				s_LightingEnvironment->PointLights[i]->GetPosition()
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".color",
-				s_LightingEnvironment->PointLights[i]->GetColor()
+				light + ".color",
+				s_LightingEnvironment->PointLights[i]->color
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".intensity",
-				s_LightingEnvironment->PointLights[i]->GetIntensity()
+				light + ".intensity",
+				s_LightingEnvironment->PointLights[i]->intensity
 			);
 
 			shader->SetUniform(
-				structName + "." + variableName + index + ".intensity",
-				s_LightingEnvironment->PointLights[i]->GetRadius()
+				light + ".radius",
+				s_LightingEnvironment->PointLights[i]->range
 			);
 		}
+	}
+
+	void Renderer::ApplySpotlightData(std::shared_ptr<core::ShaderProgram>& shader) {
+		int numSpotLights = (int)s_LightingEnvironment->SpotLights.size();
+		if (numSpotLights > MAX_SPOT_LIGHTS) {
+			utils::Logger::LogWarning("Too many spot lights in scene. Discarding excess");
+			numSpotLights = MAX_SPOT_LIGHTS;
+		}
+
+		static const std::string structName("lightData");
+		static const std::string variableName("spotLights");
+		for (int i = 0; i < numSpotLights; i++) {
+			std::string index("[" + std::to_string(i) + "]");
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".position",
+				s_LightingEnvironment->SpotLights[i]->GetPosition()
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".direction",
+				s_LightingEnvironment->SpotLights[i]->GetParent()->GetForward()
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".color",
+				s_LightingEnvironment->SpotLights[i]->color
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".intensity",
+				s_LightingEnvironment->SpotLights[i]->intensity
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".viewAngleCosine",
+				std::cosf(math::ToRadians(s_LightingEnvironment->SpotLights[i]->viewAngle))
+			);
+
+			shader->SetUniform(
+				structName + "." + variableName + index + ".fadeAngleCosine",
+				std::cosf(math::ToRadians(s_LightingEnvironment->SpotLights[i]->fadeAngle))
+			);
+		}
+
 	}
 	
 	RenderDevice::API Renderer::GetRendererAPI() {

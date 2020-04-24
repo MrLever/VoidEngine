@@ -100,62 +100,62 @@ namespace core {
 		void ProcessAxisUpdates(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime);
 
 		/** Deadzone used to filter joystick input */
-		float JoystickDeadzone;
+		float joystickDeadzone;
 
 		/** Resource Cache for Input configurations */
-		utils::ResourceAllocator<ControlLayout> m_ControlLayoutCache;
+		utils::ResourceAllocator<ControlLayout> controlLayoutCache;
 
 		/** Pointer to the engine-default control layout */
-		std::shared_ptr<ControlLayout> m_DefaultControls;
+		std::shared_ptr<ControlLayout> defaultControls;
 
 		/** Pointer to the active level control layout */
-		std::shared_ptr<ControlLayout> m_ActiveControls;
+		std::shared_ptr<ControlLayout> activeControls;
 
 		/** Buffer of input actions to dispatch to entities on next update */
-		std::deque<InputAction> m_InputActionBuffer;
+		std::deque<InputAction> inputActionBuffer;
 
 		/** Buffer of axis updates to dispatch to entities on next update */
-		std::deque<AxisInputAction> m_AxisUpdateBuffer;
+		std::deque<AxisInputAction> axisUpdateBuffer;
 	};
 
 	template<class T>
 	inline void InputManager::CaptureInput(const T& input) {
-		if (m_ActiveControls->IsBound(input)) {
-			if (m_ActiveControls->IsBoundToAxis(input)) {
-				auto mapping = m_ActiveControls->GetAxisMapping(input);
-				m_ActiveControls->UpdateAxis(mapping);
-				auto update = m_ActiveControls->PollAxis(mapping.AxisName);
+		if (activeControls->IsBound(input)) {
+			if (activeControls->IsBoundToAxis(input)) {
+				auto mapping = activeControls->GetAxisMapping(input);
+				activeControls->UpdateAxis(mapping);
+				auto update = activeControls->PollAxis(mapping.AxisName);
 
-				m_AxisUpdateBuffer.push_back(update);
+				axisUpdateBuffer.push_back(update);
 			}
-			else if(m_ActiveControls->IsBoundToAction(input)) {
-				m_InputActionBuffer.push_back(m_ActiveControls->GetActionMapping(input));
+			else if(activeControls->IsBoundToAction(input)) {
+				inputActionBuffer.push_back(activeControls->GetActionMapping(input));
 			}
 		}
-		else if (m_DefaultControls->IsBound(input)) {
-			if (m_DefaultControls->IsBoundToAxis(input)) {
-				auto mapping = m_DefaultControls->GetAxisMapping(input);
-				m_DefaultControls->UpdateAxis(mapping);
-				auto update = m_DefaultControls->PollAxis(mapping.AxisName);
+		else if (defaultControls->IsBound(input)) {
+			if (defaultControls->IsBoundToAxis(input)) {
+				auto mapping = defaultControls->GetAxisMapping(input);
+				defaultControls->UpdateAxis(mapping);
+				auto update = defaultControls->PollAxis(mapping.AxisName);
 
-				m_AxisUpdateBuffer.push_back(update);
+				axisUpdateBuffer.push_back(update);
 			}
-			else if (m_DefaultControls->IsBoundToAction(input)) {
-				m_InputActionBuffer.push_back(m_DefaultControls->GetActionMapping(input));
+			else if (defaultControls->IsBoundToAction(input)) {
+				inputActionBuffer.push_back(defaultControls->GetActionMapping(input));
 			}
 		}
 	}
 
 	template <>
 	inline void InputManager::CaptureInput<AxisInput>(const AxisInput& input) {
-		if (m_ActiveControls->IsBound(input)) {
-			if (m_ActiveControls->IsBoundToAxis(input)) {
-				m_AxisUpdateBuffer.push_back(m_ActiveControls->GetAxisMapping(input));
+		if (activeControls->IsBound(input)) {
+			if (activeControls->IsBoundToAxis(input)) {
+				axisUpdateBuffer.push_back(activeControls->GetAxisMapping(input));
 			}
 		}
-		else if (m_DefaultControls->IsBound(input)) {
-			if (m_DefaultControls->IsBoundToAxis(input)) {
-				m_AxisUpdateBuffer.push_back(m_DefaultControls->GetAxisMapping(input));
+		else if (defaultControls->IsBound(input)) {
+			if (defaultControls->IsBoundToAxis(input)) {
+				axisUpdateBuffer.push_back(defaultControls->GetAxisMapping(input));
 			}
 		}
 	}

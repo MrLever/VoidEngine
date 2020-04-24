@@ -23,8 +23,8 @@ namespace math_tests {
 		Rotator rot(0, 90, 0);
 		Quaternion quat(rot);
 
-		auto f1 = rot.ToVector();
-		auto f2 = quat.ToVector();
+		auto f1 = rot.AsVector();
+		auto f2 = quat.AsVector();
 		
 		ASSERT_EQ(f1, f2);
 	}
