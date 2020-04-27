@@ -19,9 +19,7 @@ namespace core {
 		/**
 		 * Destructor
 		 */
-		virtual ~OpenGLVertexArray() {
-		
-		};
+		virtual ~OpenGLVertexArray();
 
 		/**
 		 * Binds VertexArray in rendering pipeline
@@ -54,9 +52,9 @@ namespace core {
 		std::vector<std::shared_ptr<VertexBuffer>> GetVertexBuffers() const override;
 
 	private:
-		uint32_t m_RendererID;
-		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		uint32_t handle;
+		std::vector<std::shared_ptr<VertexBuffer>> vertexBuffers;
+		std::shared_ptr<IndexBuffer> indexBuffer;
 
 	};
 

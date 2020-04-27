@@ -29,7 +29,7 @@ namespace core {
 	}
 
 	void OpenGLVertexArray::Bind() const {
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(handle);
 	}
 
 	void OpenGLVertexArray::Unbind() const {
@@ -39,7 +39,7 @@ namespace core {
 	void OpenGLVertexArray::LinkVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer) {
 		VE_ASSERT(buffer->GetLayout().GetNumElements(), "Vertex buffer has no layout :(((");
 
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(handle);
 		buffer->Bind();
 
 		GLuint i = 0;
@@ -58,27 +58,30 @@ namespace core {
 		}
 
 		glBindVertexArray(0);
-		m_VertexBuffers.push_back(buffer);
+		vertexBuffers.push_back(buffer);
 	}
 
 	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer) {
-		glBindVertexArray(m_RendererID);
+		glBindVertexArray(handle);
 		buffer->Bind();
 
 		glBindVertexArray(0);
-		m_IndexBuffer = buffer;
+		indexBuffer = buffer;
 	}
 
 	std::shared_ptr<const IndexBuffer> OpenGLVertexArray::GetIndexBuffer() const {
-		return m_IndexBuffer;
+		return indexBuffer;
 	}
 
 	std::vector<std::shared_ptr<VertexBuffer>> OpenGLVertexArray::GetVertexBuffers() const {
-		return m_VertexBuffers;
+		return vertexBuffers;
 	}
 
 	OpenGLVertexArray::OpenGLVertexArray() {
-		glCreateVertexArrays(1, &m_RendererID);
+		glCreateVertexArrays(1, &handle);
 	}
-
+	
+	OpenGLVertexArray::~OpenGLVertexArray(){
+		glDeleteVertexArrays(1, &handle);
+	};
 }

@@ -18,7 +18,7 @@ namespace core {
 		/**
 		 * Destructor
 		 */
-		virtual ~OpenGLIndexBuffer() {}
+		virtual ~OpenGLIndexBuffer();
 
 		/**
 		 * Binds OpenGL IndexBuffer to active VAO
@@ -35,8 +35,8 @@ namespace core {
 		 */
 		uint32_t GetCount() const override;
 
-		uint32_t m_RendererID;
-		uint32_t m_IndexCount;
+		uint32_t handle;
+		uint32_t indexCount;
 	};
 
 }

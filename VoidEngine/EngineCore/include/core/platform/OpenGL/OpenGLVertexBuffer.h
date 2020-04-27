@@ -41,9 +41,9 @@ namespace core {
 		const BufferLayout& GetLayout() const override;
 
 	private:
-		uint32_t RendererID;
+		uint32_t handle;
 
-		BufferLayout m_Layout;
+		BufferLayout bufferLayout;
 	};
 
 }

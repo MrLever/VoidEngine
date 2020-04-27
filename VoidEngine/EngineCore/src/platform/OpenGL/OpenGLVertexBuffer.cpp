@@ -8,11 +8,11 @@
 
 namespace core {
 	OpenGLVertexBuffer::~OpenGLVertexBuffer() {
-		glDeleteBuffers(1, &RendererID);
+		glDeleteBuffers(1, &handle);
 	}
 
 	void OpenGLVertexBuffer::Bind() const {
-		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, handle);
 	}
 
 	void OpenGLVertexBuffer::Unbind() const {
@@ -20,16 +20,16 @@ namespace core {
 	}
 
 	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout) {
-		m_Layout = layout;
+		bufferLayout = layout;
 	}
 
 	const BufferLayout& OpenGLVertexBuffer::GetLayout() const {
-		return m_Layout;
+		return bufferLayout;
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, uint32_t size) : m_Layout({}) {
-		glCreateBuffers(1, &RendererID);
-		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, uint32_t size) : bufferLayout({}) {
+		glCreateBuffers(1, &handle);
+		glBindBuffer(GL_ARRAY_BUFFER, handle);
 		glBufferData(GL_ARRAY_BUFFER, size * sizeof(uint32_t), vertices, GL_STATIC_DRAW);
 	}
 }
