@@ -3,6 +3,7 @@
 ################################################################################
 ## GLFW
 add_subdirectory(GLFW)
+option(GLFW_INSTALL off)
 set_target_properties(glfw PROPERTIES FOLDER Dependencies/GLFW)
 set_target_properties(uninstall PROPERTIES FOLDER Dependencies/GLFW)
 
@@ -24,8 +25,8 @@ set_target_properties(UpdateAssimpLibsDebugSymbolsAndDLLs PROPERTIES FOLDER Depe
 
 ## GoogleTest
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+option(BUILD_GMOCK OFF)
 add_subdirectory(googletest)
 set_target_properties(gtest PROPERTIES FOLDER Dependencies/googletest)
 set_target_properties(gtest_main PROPERTIES FOLDER Dependencies/googletest)
-set_target_properties(gmock PROPERTIES FOLDER Dependencies/googletest)
-set_target_properties(gmock_main PROPERTIES FOLDER Dependencies/googletest)

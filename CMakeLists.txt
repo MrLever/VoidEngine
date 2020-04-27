@@ -42,7 +42,6 @@ add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies)
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLAD/include)
-include_directories(${CMAKE_SOURCE_DIR}/Dependencies)
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLFW/include)
 include_directories(${CMAKE_SOURCE_DIR}/Dependencies/assimp/include)
 
