@@ -47,7 +47,7 @@ namespace core {
 	}
 
 	void Renderer::EndFrame() {
-		s_ActiveCamera = nullptr;
+		//s_ActiveCamera = nullptr;
 		s_LightingEnvironment = nullptr;
 	}
 	
