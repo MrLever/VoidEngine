@@ -142,7 +142,7 @@ namespace core {
 
 				dispatcher.Dispatch<InputActionEvent>(
 					[this](InputActionEvent* event) {
-						auto action = event->Action;
+						auto action = event->action;
 						if (action.Action == "PauseGame" && action.Type == ActionType::PRESSED) {
 							PublishEvent(new PauseGameEvent());
 						}

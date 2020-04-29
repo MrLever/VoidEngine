@@ -6,19 +6,14 @@
 #include "event_system/events/MouseMovedEvent.h"
 
 namespace core {
-	MouseMovedEvent::MouseMovedEvent(double xPos, double yPos) : Position((float)xPos, (float)yPos) {
-	
-	}
+	TYPE_INFO_IMPL(MouseMovedEvent);
 
-	utils::Name MouseMovedEvent::GetEventType() const {
-		return  utils::Name("MouseMovedEvent");
+	MouseMovedEvent::MouseMovedEvent(double xPos, double yPos) : position((float)xPos, (float)yPos) {
+	
 	}
 
 	EventCategory MouseMovedEvent::GetEventCategory() const {
 		return EventCategory::RAW_INPUT;
 	}
 
-	utils::Name MouseMovedEvent::GetStaticEventType() {
-		return utils::Name("MouseMovedEvent");
-	}
 }

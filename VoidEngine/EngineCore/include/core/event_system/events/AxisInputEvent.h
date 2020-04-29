@@ -10,6 +10,8 @@
 namespace core {
 
 	class AxisInputEvent : public Event {
+		TYPE_INFO_DECL(AxisInputEvent)
+
 	public:
 		/**
 		 * Constructor
@@ -17,19 +19,9 @@ namespace core {
 		AxisInputEvent(const AxisInput& input);
 
 		/**
-		 * Function to query type of Event object
-		 */
-		virtual utils::Name GetEventType() const override;
-
-		/**
 		 * Virtual function to query category of Event object
 		 */
 		virtual EventCategory GetEventCategory() const override;
-
-		/**
-		 * Static function to get EventType info from C++ type info
-		 */
-		static utils::Name GetStaticEventType();
 		
 		/** The Input being reported */
 		AxisInput Input;

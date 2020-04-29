@@ -257,8 +257,9 @@ set(engine_core_headers
     "${engine_core_rendering_headers}"
     "${engine_core_header_dir}/Game.h"
     "${engine_core_header_dir}/Level.h"
-    "${engine_core_header_dir}/Window.h"
     "${engine_core_header_dir}/Scene.h"
+    "${engine_core_header_dir}/VEObject.h"
+    "${engine_core_header_dir}/Window.h"
 )
 
 ################################################################################
@@ -492,8 +493,9 @@ set(engine_core_source
     "${engine_core_rendering_source}"
     "${engine_core_source_dir}/Game.cpp"
     "${engine_core_source_dir}/Level.cpp"
-    "${engine_core_source_dir}/Window.cpp"
     "${engine_core_source_dir}/Scene.cpp"
+    "${engine_core_source_dir}/VEObject.cpp"
+    "${engine_core_source_dir}/Window.cpp"
 )
 
 set(Dependencies

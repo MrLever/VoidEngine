@@ -31,7 +31,7 @@ namespace core {
 
 		dispatcher.Dispatch<WindowResizedEvent>(
 			[this](WindowResizedEvent* event) {
-				Renderer::HandleWindowResize({0,0, event->GetWidth(), event->GetHeight()});
+				Renderer::HandleWindowResize({0,0, event->width, event->height});
 			}
 		);
 	}

@@ -6,12 +6,16 @@
 #include "event_system/events/Event.h"
 
 namespace core {
-	Event::Event() : IsHandled(false) {
+
+	TYPE_INFO_IMPL(Event)
+
+	Event::Event() : eventHandled(false) {
 	
 	}
 
-	utils::Name Event::GetStaticEventType() {
-		return utils::Name("ERROR");
+	EventID Event::GetID() const {
+		return GetTypename().ID;
 	}
+
 
 }

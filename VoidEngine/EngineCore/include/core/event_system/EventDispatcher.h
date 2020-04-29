@@ -37,7 +37,7 @@ namespace core {
 
 	template<class T, class F> /*requires std::derived_from<F, T>*/
 	bool EventDispatcher::Dispatch(const F&& callback) {
-		if (PendingEvent->GetEventType() == T::GetStaticEventType()) {
+		if (PendingEvent->GetTypename() == T::GetStaticTypename()) {
 			callback(static_cast<T*>(PendingEvent));
 			return true;
 		}

@@ -32,7 +32,7 @@ namespace core {
 		
 		dispatcher.Dispatch<KeyboardButtonEvent>(
 			[this](KeyboardButtonEvent* event) {
-				CaptureInput(event->Input);
+				CaptureInput(event->input);
 			}
 		);
 
@@ -49,20 +49,20 @@ namespace core {
 				static float SENSITIVITY = 0.05f;
 				
 				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
-					MouseXPrev = float(event->Position.X);
-					MouseYPrev = float(event->Position.Y);
+					MouseXPrev = float(event->position.X);
+					MouseYPrev = float(event->position.Y);
 				}
 
 				//Convert raw data into AxisInputs
-				AxisInput MouseX(RawAxisType::MOUSE_X, (float)(event->Position.X - MouseXPrev) * SENSITIVITY);
-				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->Position.Y) * SENSITIVITY);
+				AxisInput MouseX(RawAxisType::MOUSE_X, (float)(event->position.X - MouseXPrev) * SENSITIVITY);
+				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->position.Y) * SENSITIVITY);
 				
 				//Report AxisInputs to input manager
 				CaptureInput(MouseX);
 				CaptureInput(MouseY);
 
-				MouseXPrev = event->Position.X;
-				MouseYPrev = event->Position.Y;
+				MouseXPrev = event->position.X;
+				MouseYPrev = event->position.Y;
 			}
 		);
 

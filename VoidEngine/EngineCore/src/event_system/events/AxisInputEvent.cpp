@@ -6,21 +6,14 @@
 #include "event_system/events/AxisInputEvent.h"
 
 namespace core {
+	TYPE_INFO_IMPL(AxisInputEvent)
 
 	AxisInputEvent::AxisInputEvent(const AxisInput& input) : Input(input) {
 	
 	}
 
-	utils::Name AxisInputEvent::GetEventType() const {
-		return utils::Name("AxisInputEvent");
-	}
-
 	EventCategory AxisInputEvent::GetEventCategory() const {
 		return EventCategory::RAW_INPUT;
-	}
-
-	utils::Name AxisInputEvent::GetStaticEventType() {
-		return utils::Name("AxisInputEvent");
 	}
 
 }

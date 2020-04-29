@@ -9,29 +9,21 @@
 
 namespace core {
 	class InputActionEvent : public Event {
+		TYPE_INFO_DECL(InputActionEvent)
+	
 	public:
+		/** The Action being reported */
+		InputAction action;
+
 		/**
 		 * Constructor
 		 */
 		InputActionEvent(InputAction& action);
-
-		/**
-		 * Query type of Event object
-		 */
-		virtual utils::Name GetEventType() const override;
-
+		
 		/**
 		 * Virtual function to query category of Event object
 		 */
 		virtual EventCategory GetEventCategory() const override;
-
-		/**
-		 * Static function to get EventType info from C++ type info
-		 */
-		static utils::Name GetStaticEventType();
-		
-		/** The Action being reported */
-		InputAction Action;
 	};
 }
 

@@ -6,6 +6,8 @@
 
 //Void Engine Headers
 #include "utils/Name.h"
+#include "utils/TypeUtils.h"
+#include "core/VEObject.h"
 
 namespace utils {
 
@@ -14,7 +16,7 @@ namespace utils {
 	 * @brief Provides derived class with interface for being factory constructible.
 	 * @note Expects all subclasses to write a GetStaticTypename()
 	 */
-	class FactoryConstructible {
+	class FactoryConstructible : public core::VEObject {
 	public:
 		/**
 		 * Constructor
@@ -24,7 +26,7 @@ namespace utils {
 		/**
 		 * Returns dynamic type
 		 */
-		virtual utils::Name GetTypename() const = 0;
+		virtual utils::Name GetTypename() const override { return utils::Name("Unspecialized Factory Object"); };
 
 		/**
 		 * Returns name of static object type
@@ -47,13 +49,3 @@ namespace utils {
 	};
 
 }
-
-//Shorthand macros to make specifying type info less error prone
-#define TYPE_INFO_DECL(CLAZZ) \
-public:\
-virtual utils::Name GetTypename() const override; \
-static utils::Name GetStaticTypename();
-
-#define TYPE_INFO_IMPL(CLAZZ) \
-utils::Name CLAZZ::GetTypename() const { return utils::Name(#CLAZZ); } \
-utils::Name CLAZZ::GetStaticTypename() { return utils::Name(#CLAZZ); } 

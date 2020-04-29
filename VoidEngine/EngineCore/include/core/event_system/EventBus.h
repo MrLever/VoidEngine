@@ -10,7 +10,6 @@
 #include "core/event_system/EventBusNode.h"
 
 namespace core {
-
 	class EventBus {
 	public:
 		/**

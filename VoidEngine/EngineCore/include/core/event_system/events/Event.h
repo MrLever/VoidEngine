@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "utils/Name.h"
+#include "core/VEObject.h"
 
 namespace core {
 	
@@ -16,30 +16,24 @@ namespace core {
 		GAMEPLAY = 0x08
 	};
 
-	class Event {
+	typedef uint32_t EventID;
+
+	class Event : public VEObject {
+		
+		TYPE_INFO_DECL(Event);
+		
 	public:
 		/**
 		 * Constructor
 		 */
 		Event();
-
-		/**
-		 * Virtual function to query type of Event object
-		 */
-		virtual utils::Name GetEventType() const = 0;
-
-		/**
-		 * Virtual function to query category of Event object
-		 */
+		
 		virtual EventCategory GetEventCategory() const = 0;
 
-		/**
-		 * Static function to get EventType info from C++ type info
-		 */
-		static utils::Name GetStaticEventType();
+		EventID GetID() const;
 
 		/** Boolean to determine if an event has been processed */
-		bool IsHandled;
+		bool eventHandled;
 	};
 
 }
