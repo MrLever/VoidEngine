@@ -1,5 +1,11 @@
 #pragma once
-#include "Event.h"
+//STD Headers
+
+//Library Headers
+
+//Void Engine Headers
+#include "core/event_system/Event.h"
+
 namespace core{
 	class WindowResizedEvent : public Event {
 		TYPE_INFO_DECL(WindowResizedEvent)
@@ -15,9 +21,6 @@ namespace core{
 		 * Constructor
 		 */
 		WindowResizedEvent(int width, int height);
-
-		virtual EventCategory GetEventCategory() const override;
-
 	};
 }
 

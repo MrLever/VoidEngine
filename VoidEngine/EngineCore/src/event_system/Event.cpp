@@ -3,7 +3,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "event_system/events/Event.h"
+#include "event_system/Event.h"
 
 namespace core {
 
@@ -12,10 +12,5 @@ namespace core {
 	Event::Event() : eventHandled(false) {
 	
 	}
-
-	EventID Event::GetID() const {
-		return GetTypename().ID;
-	}
-
 
 }

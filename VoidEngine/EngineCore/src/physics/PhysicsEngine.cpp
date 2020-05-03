@@ -15,9 +15,9 @@ namespace core {
 	const float PhysicsEngine::COLLISION_EPSILON = 0.0001f;
 
 	PhysicsEngine::PhysicsEngine(
-		EventBus* bus, 
+		EventSystem* eventSystem, 
 		const utils::ResourceHandle<utils::Configuration>& configuration
-	) : EventBusNode(bus), Configurable(configuration), Gravity(9.8f) {
+	) : EventListener(eventSystem), Configurable(configuration), Gravity(9.8f) {
 		utils::Logger::LogInfo("Initializing Physics Engine Collision System");
 		ColliderComponent::RegisterCollisionDetectionCallback<SphereCollider, SphereCollider>(DetectSphereSphereCollision);
 		ColliderComponent::RegisterCollisionDetectionCallback<AABBCollider, AABBCollider>(DetectAABBAABBCollision);
@@ -26,10 +26,6 @@ namespace core {
 	}
 	
 	void PhysicsEngine::Configure() {
-		;
-	}
-
-	void PhysicsEngine::ReceiveEvent(Event* event) {
 		;
 	}
 

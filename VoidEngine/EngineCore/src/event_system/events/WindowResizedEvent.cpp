@@ -14,8 +14,4 @@ namespace core {
 	
 	}
 	
-	EventCategory WindowResizedEvent::GetEventCategory() const {
-		return EventCategory::WINDOW;
-	}
-
 }

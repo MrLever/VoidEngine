@@ -1,5 +1,6 @@
 #pragma once
 //STD Headers
+#include <concepts>
 
 //Library Headers
 
@@ -16,7 +17,7 @@ namespace core {
 		GAMEPLAY = 0x08
 	};
 
-	typedef uint32_t EventID;
+	using EventID = uint32_t;
 
 	class Event : public VEObject {
 		
@@ -27,10 +28,6 @@ namespace core {
 		 * Constructor
 		 */
 		Event();
-		
-		virtual EventCategory GetEventCategory() const = 0;
-
-		EventID GetID() const;
 
 		/** Boolean to determine if an event has been processed */
 		bool eventHandled;

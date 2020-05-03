@@ -56,15 +56,13 @@ source_group("Header Files\\Audio" FILES ${engine_core_audio_headers})
 
 ### Event System Headers
 set(engine_core_event_system_core_headers
-    "${engine_core_header_dir}/event_system/EventBus.h"
-    "${engine_core_header_dir}/event_system/EventBusNode.h"
-    "${engine_core_header_dir}/event_system/EventDispatcher.h"
+    "${engine_core_header_dir}/event_system/Event.h"
+    "${engine_core_header_dir}/event_system/EventSystem.h"
 )
 source_group("Header Files\\Event System" FILES ${engine_core_event_system_core_headers})
 
 set(engine_core_event_system_event_headers
     "${engine_core_header_dir}/event_system/events/AxisInputEvent.h"
-    "${engine_core_header_dir}/event_system/events/Event.h"
     "${engine_core_header_dir}/event_system/events/GamepadButtonEvent.h"
     "${engine_core_header_dir}/event_system/events/InputActionEvent.h"
     "${engine_core_header_dir}/event_system/events/KeyboardButtonEvent.h"
@@ -298,15 +296,13 @@ source_group("Source Files\\Audio" FILES ${engine_core_audio_source})
 
 ### Event System Sources
 set(engine_core_event_system_core_source
-    "${engine_core_source_dir}/event_system/EventBus.cpp"
-    "${engine_core_source_dir}/event_system/EventBusNode.cpp"
-    "${engine_core_source_dir}/event_system/EventDispatcher.cpp"
+    "${engine_core_source_dir}/event_system/Event.cpp"
+    "${engine_core_source_dir}/event_system/EventSystem.cpp"
 )
 source_group("Source Files\\Event System" FILES ${engine_core_event_system_core_source})
 
 set(engine_core_event_system_event_source
     "${engine_core_source_dir}/event_system/events/AxisInputEvent.cpp"
-    "${engine_core_source_dir}/event_system/events/Event.cpp"
     "${engine_core_source_dir}/event_system/events/GamepadButtonEvent.cpp"
     "${engine_core_source_dir}/event_system/events/InputActionEvent.cpp"
     "${engine_core_source_dir}/event_system/events/KeyboardButtonEvent.cpp"

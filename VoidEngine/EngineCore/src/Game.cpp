@@ -34,12 +34,35 @@ namespace core {
 
 		utils::ResourceAllocatorBase::EngineThreadPool = threadPool;
 
-		//Intialize EventBus
-		eventBus = std::make_shared<EventBus>();
+		//Intialize EventSystem
+		eventSystem = std::make_shared<EventSystem>();
+		eventListener.reset(new EventListener(eventSystem.get()));
+
+		eventListener->SubscribeToEvent<WindowClosedEvent>(
+			[this](WindowClosedEvent* windowEvent) {
+				HandleWindowClosed(windowEvent);
+			}
+		);
+
+		eventListener->SubscribeToEvent<InputActionEvent>(
+			[this](InputActionEvent* event) {
+				auto action = event->action;
+				if (action.Action == "PauseGame" && action.Type == ActionType::PRESSED) {
+					eventListener->PostEvent(new PauseGameEvent());
+				}
+			}
+		);
+
+		eventListener->SubscribeToEvent<PauseGameEvent>(
+			[this](PauseGameEvent* pauseEvent) {
+				PauseGame(pauseEvent);
+			}
+		);
+
 
 		//Initialize game window
 		window = platform::MakeWindow(
-			eventBus.get(), 
+			eventSystem.get(), 
 			WindowData {
 				"SuperVoid",
 				1280,
@@ -51,7 +74,7 @@ namespace core {
 
 		//Initialize Input Manager
 		inputManager = std::make_shared<InputManager>(
-			eventBus.get(),
+			eventSystem.get(),
 			configCache.LoadResource("Settings/InputConfig.json")
 		);
 
@@ -62,11 +85,9 @@ namespace core {
 		);
 
 		physicsEngine = std::make_unique<PhysicsEngine>(
-			eventBus.get(),
+			eventSystem.get(),
 			configCache.LoadResource("Settings/PhysicsConfig.json")
 		);
-
-		m_CentralBusNode = std::make_unique<GameEventBusNode>(eventBus.get(), this);
 
 		//Set the current level to the default level
 		SetLevel(engineConfig.GetAttribute<std::string>("defaultLevel"));
@@ -85,7 +106,7 @@ namespace core {
 			window->ProcessEvents();
 
 			//Dispatch any events that occurred since the last frame
-			eventBus->DispatchEvents();
+			eventSystem->DispatchEvents();
 
 			scene->ProcessInput(deltaTime);
 
@@ -155,7 +176,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		scene = std::make_shared<Scene>(newLevelPath, eventBus.get(), inputManager, physicsEngine);
+		scene = std::make_shared<Scene>(newLevelPath, eventSystem.get(), inputManager, physicsEngine);
 		inputManager->SetActiveInputMapping(scene->GetControlFilePath());
 		scene->BeginPlay();
 	}

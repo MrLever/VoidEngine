@@ -12,8 +12,4 @@ namespace core {
 	
 	}
 
-	EventCategory AxisInputEvent::GetEventCategory() const {
-		return EventCategory::RAW_INPUT;
-	}
-
 }

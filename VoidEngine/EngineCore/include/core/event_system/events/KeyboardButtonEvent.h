@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "core/event_system/events/Event.h"
+#include "core/event_system/Event.h"
 #include "core/input/definitions/KeyboardInput.h"
 
 namespace core {
@@ -19,11 +19,6 @@ namespace core {
 		 * Constructor
 		 */
 		KeyboardButtonEvent(KeyboardInput& input);
-
-		/**
-		 * Virtual function to query category of Event object
-		 */
-		virtual EventCategory GetEventCategory() const override;
 
 	};
 }

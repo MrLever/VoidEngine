@@ -5,8 +5,7 @@
 
 //Void Engine Headers
 #include "math/Vector.h"
-
-#include "Event.h"
+#include "core/event_system/Event.h"
 
 namespace core {
 	class MouseMovedEvent : public Event {
@@ -22,11 +21,6 @@ namespace core {
 		 * Constructor
 		 */
 		MouseMovedEvent(double xPos, double yPos);
-
-		/**
-		 * Virtual function to query category of Event object
-		 */
-		virtual EventCategory GetEventCategory() const override;
 
 	};
 }

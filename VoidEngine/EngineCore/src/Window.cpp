@@ -20,33 +20,24 @@
 #include "rendering/Renderer.h"
 
 namespace core {
-	Window::Window(EventBus* bus, WindowData& data) 
-		: EventBusNode(bus), m_Viewport(0, 0, data.windowWidth, data.windowHeight) {
+	Window::Window(EventSystem* eventSystem, WindowData& data) 
+		: EventListener(eventSystem), m_Viewport(0, 0, data.windowWidth, data.windowHeight) {
+		
 		m_WindowText = data.gameName;
-	}
-
-	Window::~Window() {
-
-	}
-
-	void Window::ReceiveEvent(Event* event) {
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<PauseGameEvent>(
+		SubscribeToEvent<PauseGameEvent>(
 			[this](PauseGameEvent* event) {
 				ToggleCursorCapture();
 			}
 		);
 	}
 
-	unsigned Window::GetSubscription() {
-		return 
-			static_cast<unsigned>(EventCategory::WINDOW) |
-			static_cast<unsigned>(EventCategory::GAMEPLAY);
+	Window::~Window() {
+
 	}
 
 	void Window::SetWindowSize(int width, int height) {
 		m_Viewport = Viewport(0, 0, width, height);
-		PublishEvent(new WindowResizedEvent(width, height));
+		PostEvent(new WindowResizedEvent(width, height));
 	}
 
 	Viewport Window::GetViewport() const {

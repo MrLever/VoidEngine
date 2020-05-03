@@ -4,7 +4,7 @@
 //Library Headers
 
 //Void Engine Headers
-#include "core/event_system/events/Event.h"
+#include "core/event_system/Event.h"
 #include "core/input/InputAction.h"
 
 namespace core {
@@ -20,10 +20,6 @@ namespace core {
 		 */
 		InputActionEvent(InputAction& action);
 		
-		/**
-		 * Virtual function to query category of Event object
-		 */
-		virtual EventCategory GetEventCategory() const override;
 	};
 }
 

@@ -12,13 +12,19 @@ namespace core {
 
 	Scene::Scene(
 		const std::string& levelPath,
-		EventBus* eventBus, 
+		EventSystem* eventSystem, 
 		std::shared_ptr<InputManager> inputManager,
 		std::shared_ptr<PhysicsEngine> physicsEngine) 
-		: EventBusNode(eventBus), reset(false), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
+		: EventListener(eventSystem), reset(false), inputManager(inputManager), physicsEngine(physicsEngine), activeCamera(nullptr) {
 		
 		levelData = s_LevelCache.GetResource(levelPath);
 		SpawnInitialScene();
+
+		SubscribeToEvent<WindowResizedEvent>(
+			[this](WindowResizedEvent* event) {
+				Renderer::HandleWindowResize({ 0,0, event->width, event->height });
+			}
+		);
 
 	}
 
@@ -26,16 +32,6 @@ namespace core {
 
 	}
 	
-	void Scene::ReceiveEvent(Event* event) {
-		EventDispatcher dispatcher(event);
-
-		dispatcher.Dispatch<WindowResizedEvent>(
-			[this](WindowResizedEvent* event) {
-				Renderer::HandleWindowResize({0,0, event->width, event->height});
-			}
-		);
-	}
-
 	void Scene::RemoveCamera(CameraComponent* camera) {
 		for (auto it = cameras.begin(); it != cameras.end(); it++) {
 			if (*it = camera) {

@@ -12,8 +12,4 @@ namespace core {
 
 	}
 
-	EventCategory MouseButtonEvent::GetEventCategory() const {
-		return EventCategory::RAW_INPUT;
-	}
-
 }

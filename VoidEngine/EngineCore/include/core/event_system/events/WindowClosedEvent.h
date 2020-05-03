@@ -4,28 +4,16 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Event.h"
+#include "core/event_system/Event.h"
 
 namespace core {
 	class WindowClosedEvent : public Event {
+		TYPE_INFO_DECL(WindowClosedEvent)
 	public:
 		/**
-		 * Function to query type of Event object
-		 * @return "WindowClosedEvent"
+		 * Constructor
 		 */
-		virtual utils::Name GetEventType() const;
-
-		/**
-		 * Function to query category of Event object
-		 * @return EventCategory::Window
-		 */
-		virtual EventCategory GetEventCategory() const;
-
-		/**
-		 * Static function to get EventType info from C++ type info
-		 * @return "WindowClosedEvent"
-		 */
-		static utils::Name GetStaticEventType();
+		WindowClosedEvent() = default;
 	};
 }
 

@@ -13,8 +13,4 @@ namespace core {
 
 	}
 
-	EventCategory InputActionEvent::GetEventCategory() const {
-		return EventCategory::INPUT;
-	}
-
 }

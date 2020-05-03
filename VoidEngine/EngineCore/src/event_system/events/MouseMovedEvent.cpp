@@ -12,8 +12,4 @@ namespace core {
 	
 	}
 
-	EventCategory MouseMovedEvent::GetEventCategory() const {
-		return EventCategory::RAW_INPUT;
-	}
-
 }

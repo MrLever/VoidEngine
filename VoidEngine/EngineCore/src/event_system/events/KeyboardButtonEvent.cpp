@@ -12,8 +12,4 @@ namespace core {
 
 	}
 
-	EventCategory KeyboardButtonEvent::GetEventCategory() const {
-		return EventCategory::RAW_INPUT;
-	}
-
 }

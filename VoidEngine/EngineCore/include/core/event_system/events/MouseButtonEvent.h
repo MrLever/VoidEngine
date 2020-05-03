@@ -4,8 +4,8 @@
 //Library Headers
 
 //Void Engine Headers
-#include "Event.h"
-#include "input/definitions/MouseInput.h"
+#include "core/event_system/Event.h"
+#include "core/input/definitions/MouseInput.h"
 
 namespace core {
 	class MouseButtonEvent : public Event {
@@ -19,11 +19,6 @@ namespace core {
 		 * Constructor
 		 */
 		MouseButtonEvent(MouseInput& input);
-
-		/**
-		 * Virtual function to query category of Event object
-		 */
-		virtual EventCategory GetEventCategory() const override;
 
 	};
 }

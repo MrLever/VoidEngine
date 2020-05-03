@@ -7,7 +7,7 @@
 //Void Engine Headers
 #include "Level.h"
 
-#include "event_system/EventBus.h"
+#include "event_system/EventSystem.h"
 #include "event_system/events/MouseButtonEvent.h"
 #include "event_system/events/MouseMovedEvent.h"
 #include "event_system/events/PauseGameEvent.h"
@@ -20,34 +20,30 @@
 namespace core {
 
 	InputManager::InputManager(
-		EventBus* bus, 
+		EventSystem* eventSystem,
 		const utils::ResourceHandle<utils::Configuration>& configuration
-	) : EventBusNode(bus), Configurable(configuration), joystickDeadzone(0) {
+	) : EventListener(eventSystem), Configurable(configuration), joystickDeadzone(0) {
 		
 		Configure();
-	}
 
-	void InputManager::ReceiveEvent(Event* event) {
-		EventDispatcher dispatcher(event);
-		
-		dispatcher.Dispatch<KeyboardButtonEvent>(
+		SubscribeToEvent<KeyboardButtonEvent>(
 			[this](KeyboardButtonEvent* event) {
 				CaptureInput(event->input);
 			}
 		);
 
-		dispatcher.Dispatch<MouseButtonEvent>(
+		SubscribeToEvent<MouseButtonEvent>(
 			[this](MouseButtonEvent* event) {
 				CaptureInput(event->Input);
 			}
 		);
 
-		dispatcher.Dispatch<MouseMovedEvent>(
+		SubscribeToEvent<MouseMovedEvent>(
 			[this](MouseMovedEvent* event) {
 				static double MouseXPrev = -1.0f;
 				static double MouseYPrev = -1.0f;
 				static float SENSITIVITY = 0.05f;
-				
+
 				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
 					MouseXPrev = float(event->position.X);
 					MouseYPrev = float(event->position.Y);
@@ -56,7 +52,7 @@ namespace core {
 				//Convert raw data into AxisInputs
 				AxisInput MouseX(RawAxisType::MOUSE_X, (float)(event->position.X - MouseXPrev) * SENSITIVITY);
 				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->position.Y) * SENSITIVITY);
-				
+
 				//Report AxisInputs to input manager
 				CaptureInput(MouseX);
 				CaptureInput(MouseY);
@@ -66,23 +62,43 @@ namespace core {
 			}
 		);
 
-		dispatcher.Dispatch<GamepadButtonEvent>(
+		SubscribeToEvent<MouseMovedEvent>(
+			[this](MouseMovedEvent* event) {
+				static double MouseXPrev = -1.0f;
+				static double MouseYPrev = -1.0f;
+				static float SENSITIVITY = 0.05f;
+
+				if (MouseXPrev == -1.0f || MouseYPrev == 1.0f) {
+					MouseXPrev = float(event->position.X);
+					MouseYPrev = float(event->position.Y);
+				}
+
+				//Convert raw data into AxisInputs
+				AxisInput MouseX(RawAxisType::MOUSE_X, (float)(event->position.X - MouseXPrev) * SENSITIVITY);
+				AxisInput MouseY(RawAxisType::MOUSE_Y, (float)(MouseYPrev - event->position.Y) * SENSITIVITY);
+
+				//Report AxisInputs to input manager
+				CaptureInput(MouseX);
+				CaptureInput(MouseY);
+
+				MouseXPrev = event->position.X;
+				MouseYPrev = event->position.Y;
+			}
+		);
+
+		SubscribeToEvent<GamepadButtonEvent>(
 			[this](GamepadButtonEvent* event) {
 				CaptureInput(event->Input);
 			}
 		);
 
-		dispatcher.Dispatch<AxisInputEvent>(
+		SubscribeToEvent<AxisInputEvent>(
 			[this](AxisInputEvent* event) {
 				CaptureInput(event->Input);
 			}
 		);
-	}
 
-	unsigned InputManager::GetSubscription() {
-		return static_cast<unsigned>(EventCategory::RAW_INPUT);
 	}
-
 
 	void InputManager::Configure() {
 		auto configuration = Config.GetResource();
@@ -113,7 +129,7 @@ namespace core {
 				entity->Input(inputAction, deltaTime);
 			}
 
-			PublishEvent(new InputActionEvent(inputAction));
+			PostEvent(new InputActionEvent(inputAction));
 			inputActionBuffer.pop_front();
 		}
 
