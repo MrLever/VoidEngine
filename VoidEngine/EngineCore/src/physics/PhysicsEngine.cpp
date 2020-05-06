@@ -65,12 +65,11 @@ namespace core {
 		}
 
 		//Apply the remainder 
-		/*if (accumulator != 0) {
+		if (accumulator != 0) {
 			ApplyForces(physicsComponents, accumulator);
 			Integrate(physicsComponents, accumulator);
-			HandleCollisions(colliders, accumulator);
 			accumulator = 0;
-		}*/
+		}
 	}
 
 	void PhysicsEngine::ApplyForces(std::vector<PhysicsComponent*>& physicsComponents, float deltaTime) {
