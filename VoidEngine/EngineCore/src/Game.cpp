@@ -25,6 +25,9 @@ namespace core {
 	}
 
 	Game::~Game() {
+		//Ensure that scene and all game objects are destroyed before destroying engine systems
+		scene.reset(nullptr);
+		eventListener.reset(nullptr);
 		utils::Logger::LogInfo("Game terminated!");
 	}
 
@@ -35,7 +38,7 @@ namespace core {
 		utils::ResourceAllocatorBase::EngineThreadPool = threadPool;
 
 		//Intialize EventSystem
-		eventSystem = std::make_shared<EventSystem>();
+		eventSystem = std::make_unique<EventSystem>();
 		eventListener.reset(new EventListener(eventSystem.get()));
 
 		eventListener->SubscribeToEvent<WindowClosedEvent>(
@@ -48,7 +51,7 @@ namespace core {
 			[this](InputActionEvent* event) {
 				auto action = event->action;
 				if (action.Action == "PauseGame" && action.Type == ActionType::PRESSED) {
-					eventListener->PostEvent(new PauseGameEvent());
+					eventListener->PostEvent<PauseGameEvent>();
 				}
 			}
 		);
@@ -176,7 +179,7 @@ namespace core {
 			//Level unloading logic
 		}
 
-		scene = std::make_shared<Scene>(newLevelPath, eventSystem.get(), inputManager, physicsEngine);
+		scene = std::make_unique<Scene>(newLevelPath, eventSystem.get(), inputManager, physicsEngine);
 		inputManager->SetActiveInputMapping(scene->GetControlFilePath());
 		scene->BeginPlay();
 	}

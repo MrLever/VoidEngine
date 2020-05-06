@@ -129,7 +129,7 @@ namespace core {
 				entity->Input(inputAction, deltaTime);
 			}
 
-			PostEvent(new InputActionEvent(inputAction));
+			PostEvent<InputActionEvent>(inputAction);
 			inputActionBuffer.pop_front();
 		}
 

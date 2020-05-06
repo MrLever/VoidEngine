@@ -35,6 +35,11 @@ namespace core {
 		void SubscribeToEvent(const std::function<void(T*)>& callback);
 
 		/**
+		 * Allows user to clear all event subscriptions
+		 */
+		void ClearSubscriptions();
+
+		/**
 		 * Allows user to unregister a callback through this listener
 		 */
 		template<class T>
@@ -45,7 +50,10 @@ namespace core {
 		 * @param event the event to send to the event queue
 		 * @note event system will take ownership of the event's lifetime
 		 */
-		void PostEvent(Event* event);
+		void PostEvent(std::unique_ptr<Event> event);
+
+		template <class T, typename ...Args>
+		void PostEvent(Args&&... args);
 
 	private:
 		EventSystem* eventSystem;
@@ -56,12 +64,12 @@ namespace core {
 		/**
 		 * Constructor
 		 */
-		EventSystem() = default;
+		EventSystem();
 
 		/**
 		 * Destructor
 		 */
-		~EventSystem() = default;
+		~EventSystem();
 	
 		/**
 		 * Submits an event to the event systems and takes ownership of event lifetime
@@ -86,7 +94,7 @@ namespace core {
 		 * Unregisters an event listener from ALL event dispatchers
 		 * @param listener the event listener to unregister
 		 */
-		void UnregisterListener(EventListener* listener);
+		void DeregisterListener(EventListener* listener);
 
 		/**
 		 * Registers event listener for event type T
@@ -95,7 +103,7 @@ namespace core {
 		 * @param callback the callback to register
 		 */
 		template<class T>
-		void UnregisterListenerFromEvent(EventListener* listener);
+		void DeregisterListenerFromEvent(EventListener* listener);
 
 	private:
 		using EventCallbackWrapper = std::function<void(Event*)>;
@@ -135,7 +143,7 @@ namespace core {
 		auto wrappedCallback = [callback](Event* baseEvent) {
 			//Perform static cast using type provided in registration
 			//This preserves type safety of the event system because I'm a fuckin genius
-			auto event = static_cast<T*>(baseEvent);
+			T* event = static_cast<T*>(baseEvent);
 			callback(event);
 		};
 		
@@ -144,8 +152,8 @@ namespace core {
 	}
 
 	template<class T>
-	inline void EventSystem::UnregisterListenerFromEvent(EventListener* listener) {
-		auto id = T::GetStaticTypeName().ID;
+	inline void EventSystem::DeregisterListenerFromEvent(EventListener* listener) {
+		auto id = T::GetStaticTypename().ID;
 		EventRegistration dummyReg{ listener };
 		eventDirectory[id].erase(dummyReg);
 	}
@@ -161,6 +169,12 @@ namespace core {
 
 	template<class T>
 	inline void EventListener::UnsubscribeFromEvent() {
-		eventSystem->UnregisterListenerFromEvent<T>(this);
+		eventSystem->DeregisterListenerFromEvent<T>(this);
+	}
+
+	template<class T, typename ...Args>
+	inline void EventListener::PostEvent(Args&& ...args) {
+		auto event = std::make_unique<T>(std::forward<Args>(args)...);
+		eventSystem->PostEvent(std::move(event));
 	}
 }

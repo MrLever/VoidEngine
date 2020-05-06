@@ -37,7 +37,7 @@ namespace core {
 
 	void Window::SetWindowSize(int width, int height) {
 		m_Viewport = Viewport(0, 0, width, height);
-		PostEvent(new WindowResizedEvent(width, height));
+		PostEvent<WindowResizedEvent>(width, height);
 	}
 
 	Viewport Window::GetViewport() const {

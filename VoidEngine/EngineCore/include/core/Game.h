@@ -82,11 +82,8 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-		/** Event listener as component */
-		std::unique_ptr<EventListener> eventListener;
-
 		/** The game's current level */
-		std::shared_ptr<Scene> scene;
+		std::unique_ptr<Scene> scene;
 		
 		/** A Handle to the Engine's thread pool */
 		std::shared_ptr<utils::ThreadPool> threadPool;
@@ -97,7 +94,7 @@ namespace core {
 		utils::Configuration engineConfig;
 
 		/** Engine's central event bus */
-		std::shared_ptr<EventSystem> eventSystem;
+		std::unique_ptr<EventSystem> eventSystem;
 
 		/** A handle to the game's display */
 		std::shared_ptr<Window> window;
@@ -110,6 +107,9 @@ namespace core {
 		
 		/** Pointer to the game's Audio Manger */
 		std::unique_ptr<AudioManager> audioManager;
+
+		/** Event listener as component */
+		std::unique_ptr<EventListener> eventListener;
 
 		/** Flag to determine when the game loop should terminate */
 		bool isTerminated;

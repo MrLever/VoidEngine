@@ -11,6 +11,14 @@ namespace core {
 	//// Event System Impl
 	///////////////////////////////////////////////////////////////////////////
 
+	EventSystem::EventSystem() {
+
+	}
+
+	EventSystem::~EventSystem() {
+
+	}
+
 	void EventSystem::PostEvent(std::unique_ptr<Event> event) {
 		eventQueue.emplace_back(std::move(event));
 	}
@@ -36,7 +44,7 @@ namespace core {
 		}
 	}
 
-	void EventSystem::UnregisterListener(EventListener* listener) {
+	void EventSystem::DeregisterListener(EventListener* listener) {
 		for (auto& directoryEntry : eventDirectory) {
 			auto& set = directoryEntry.second;
 			EventRegistration dummyReg{ listener };
@@ -62,10 +70,16 @@ namespace core {
 	}
 
 	EventListener::~EventListener() {
-		eventSystem->UnregisterListener(this);
+		if (eventSystem != nullptr) {
+			eventSystem->DeregisterListener(this);
+		}
 	}
 
-	void EventListener::PostEvent(Event* event) {
-		eventSystem->PostEvent(std::unique_ptr<Event>(event));
+	void EventListener::ClearSubscriptions() {
+		eventSystem->DeregisterListener(this);
+	}
+
+	void EventListener::PostEvent(std::unique_ptr<Event> event) {
+		eventSystem->PostEvent(std::move(event));
 	}
 }
