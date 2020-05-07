@@ -10,8 +10,6 @@
 #include "Scene.h"
 
 namespace core {
-	
-	TYPE_INFO_IMPL(Entity)
 
 	ENABLE_FACTORY(Entity, Entity)
 	

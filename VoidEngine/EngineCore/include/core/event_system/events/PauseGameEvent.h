@@ -10,7 +10,7 @@ namespace core {
 
 	class PauseGameEvent : public Event {
 	public:
-		TYPE_INFO_DECL(PauseGameEvent);
+		ENABLE_RTTI(PauseGameEvent);
 	};
 
 }

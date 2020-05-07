@@ -8,7 +8,6 @@
 #include "Scene.h"
 
 namespace core {
-	TYPE_INFO_IMPL(FloatingFPSPlayer)
 
 	ENABLE_FACTORY(FloatingFPSPlayer, Entity)
 

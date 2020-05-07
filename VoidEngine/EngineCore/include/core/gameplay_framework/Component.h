@@ -29,7 +29,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(Component)
+		ENABLE_RTTI(Component)
 	
 public:
 		/**

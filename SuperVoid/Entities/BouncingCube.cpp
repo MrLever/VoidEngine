@@ -9,8 +9,6 @@
 
 namespace SuperVoid {
 
-	TYPE_INFO_IMPL(BouncingCube)
-
 	ENABLE_FACTORY(BouncingCube, core::Entity)
 
 	BouncingCube::BouncingCube() {

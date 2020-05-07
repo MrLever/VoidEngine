@@ -28,7 +28,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(Entity)
+		ENABLE_RTTI(Entity)
 
 	public:
 		/** The entity's LOCAL transform in 3D space */

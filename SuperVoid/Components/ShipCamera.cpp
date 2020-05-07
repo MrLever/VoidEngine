@@ -7,7 +7,6 @@
 #include "ShipCamera.h"
 
 namespace SuperVoid {
-	TYPE_INFO_IMPL(ShipCamera)
 
 	ENABLE_FACTORY(ShipCamera, core::Component)
 

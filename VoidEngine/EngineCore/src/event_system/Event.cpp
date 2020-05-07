@@ -7,8 +7,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(Event)
-
 	Event::Event() : eventConsumed(false) {
 	
 	}

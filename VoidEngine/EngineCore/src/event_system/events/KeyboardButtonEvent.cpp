@@ -6,7 +6,6 @@
 #include "event_system/events/KeyboardButtonEvent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(KeyboardButtonEvent)
 
 	KeyboardButtonEvent::KeyboardButtonEvent(KeyboardInput& input) : input(input) {
 

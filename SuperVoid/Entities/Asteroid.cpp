@@ -8,7 +8,6 @@
 #include "AsteroidEmitter.h"
 
 namespace SuperVoid {
-	TYPE_INFO_IMPL(Asteroid)
 
 	ENABLE_FACTORY(Asteroid, core::Entity)
 

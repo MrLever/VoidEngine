@@ -9,7 +9,7 @@
 
 namespace core {
 	class MouseMovedEvent : public Event {
-		TYPE_INFO_DECL(MouseMovedEvent);
+		ENABLE_RTTI(MouseMovedEvent);
 
 	public:
 		/**

@@ -7,8 +7,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(WindowResizedEvent)
-
 	WindowResizedEvent::WindowResizedEvent(int width, int height) 
 		: width(width), height(height) {
 	

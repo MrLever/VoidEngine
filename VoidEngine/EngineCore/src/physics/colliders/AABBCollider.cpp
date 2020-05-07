@@ -11,7 +11,6 @@
 #include "rendering/IndexBuffer.h"
 
 namespace core {
-	TYPE_INFO_IMPL(AABBCollider)
 
 	ENABLE_FACTORY(AABBCollider, Collider)
 

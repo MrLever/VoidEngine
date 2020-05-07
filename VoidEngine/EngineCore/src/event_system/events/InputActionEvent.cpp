@@ -7,8 +7,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(InputActionEvent)
-
 	InputActionEvent::InputActionEvent(InputAction& action) : action(action) {
 
 	}

@@ -6,5 +6,5 @@
 #include "event_system/events/PauseGameEvent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(PauseGameEvent)
+	
 }

@@ -6,7 +6,6 @@
 #include "input/components/InputComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(InputComponent)
 
 	ENABLE_FACTORY(InputComponent, Component)
 

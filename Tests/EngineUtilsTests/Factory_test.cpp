@@ -13,11 +13,9 @@ using namespace utils;
 namespace utils_tests {
 
 	class TestEntity : public core::Observer {
-		TYPE_INFO_DECL(TestEntity)
+		ENABLE_RTTI(TestEntity)
 	};
 
-	TYPE_INFO_IMPL(TestEntity)
-	
 	ENABLE_FACTORY(TestEntity, core::Entity)
 	TEST(FactoryTests, ConstructionTest) {
 		core::Entity* testEntity = FactoryBase<core::Entity>::Create(utils::Name("TestEntity"));

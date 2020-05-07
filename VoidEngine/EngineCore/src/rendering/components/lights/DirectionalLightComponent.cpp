@@ -7,7 +7,6 @@
 #include "rendering/components/lights/DirectionalLightComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(DirectionalLightComponent)
 
 	ENABLE_FACTORY(DirectionalLightComponent, Component)
 

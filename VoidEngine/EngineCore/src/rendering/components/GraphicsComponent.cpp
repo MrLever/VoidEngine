@@ -13,8 +13,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(GraphicsComponent)
-
 	ENABLE_FACTORY(GraphicsComponent, Component)
 
 	GraphicsComponent::GraphicsComponent()

@@ -17,7 +17,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(DirectionalLightComponent)
+		ENABLE_RTTI(DirectionalLightComponent)
 
 	public:
 		/** Direction of the directional light */

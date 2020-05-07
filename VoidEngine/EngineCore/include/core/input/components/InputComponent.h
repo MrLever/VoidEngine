@@ -16,7 +16,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(InputComponent)
+		ENABLE_RTTI(InputComponent)
 
 	public:
 		/**

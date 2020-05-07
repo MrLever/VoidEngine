@@ -10,7 +10,7 @@
 namespace core {
 
 	class AxisInputEvent : public Event {
-		TYPE_INFO_DECL(AxisInputEvent)
+		ENABLE_RTTI(AxisInputEvent)
 
 	public:
 		/** The Input being reported */

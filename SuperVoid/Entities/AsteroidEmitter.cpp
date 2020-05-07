@@ -10,8 +10,6 @@
 
 namespace SuperVoid {
 
-	TYPE_INFO_IMPL(AsteroidEmitter)
-
 	ENABLE_FACTORY(AsteroidEmitter, core::Entity)
 
 	AsteroidEmitter::AsteroidEmitter() 

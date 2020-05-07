@@ -11,7 +11,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(SpotlightComponent)
+		ENABLE_RTTI(SpotlightComponent)
 
 	public:
 		/** Color of the spotlight */

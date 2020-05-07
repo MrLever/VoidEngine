@@ -9,7 +9,7 @@
 namespace core {
 
 	class Projectile : public Entity {
-		TYPE_INFO_DECL(Projectile)
+		ENABLE_RTTI(Projectile)
 
 	public:
 		/**

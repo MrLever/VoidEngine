@@ -12,7 +12,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(Observer)
+		ENABLE_RTTI(Observer)
 	
 	public:
 		/**

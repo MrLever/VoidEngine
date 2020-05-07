@@ -9,7 +9,6 @@
 #include "rendering/components/GraphicsComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(Projectile)
 
 	ENABLE_FACTORY(Projectile, Entity)
 

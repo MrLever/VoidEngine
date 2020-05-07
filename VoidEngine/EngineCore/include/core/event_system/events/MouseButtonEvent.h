@@ -9,7 +9,7 @@
 
 namespace core {
 	class MouseButtonEvent : public Event {
-		TYPE_INFO_DECL(MouseButtonEvent)
+		ENABLE_RTTI(MouseButtonEvent)
 
 	public:
 		/** The input this event is reporting */

@@ -7,8 +7,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(Component)
-
 	Component::Component() : parent(nullptr), transform(nullptr) {
 
 	}

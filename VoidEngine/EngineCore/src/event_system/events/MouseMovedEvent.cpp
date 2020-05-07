@@ -6,7 +6,6 @@
 #include "event_system/events/MouseMovedEvent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(MouseMovedEvent);
 
 	MouseMovedEvent::MouseMovedEvent(double xPos, double yPos) : position((float)xPos, (float)yPos) {
 	

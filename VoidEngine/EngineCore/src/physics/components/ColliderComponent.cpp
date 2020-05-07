@@ -8,8 +8,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(ColliderComponent)
-
 	ENABLE_FACTORY(ColliderComponent, Component);
 
 	// Static variable initialization
