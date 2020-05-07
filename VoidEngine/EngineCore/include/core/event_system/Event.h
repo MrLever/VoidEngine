@@ -9,14 +9,6 @@
 
 namespace core {
 	
-	enum class EventCategory : unsigned char {
-		NONE = 0x00,
-		RAW_INPUT = 0x01,
-		INPUT = 0x02,
-		WINDOW = 0x04,
-		GAMEPLAY = 0x08
-	};
-
 	using EventID = uint32_t;
 
 	class Event : public VEObject {
@@ -30,7 +22,7 @@ namespace core {
 		Event();
 
 		/** Boolean to determine if an event has been processed */
-		bool eventHandled;
+		bool eventConsumed;
 	};
 
 }
