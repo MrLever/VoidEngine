@@ -9,7 +9,7 @@ namespace core {
 
 	TYPE_INFO_IMPL(Event)
 
-	Event::Event() : eventHandled(false) {
+	Event::Event() : eventConsumed(false) {
 	
 	}
 
