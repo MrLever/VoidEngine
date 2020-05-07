@@ -9,7 +9,7 @@
 
 
 namespace platform {
-	std::shared_ptr<core::Window> platform::MakeWindow(core::EventBus* bus, core::WindowData& data) {
+	std::shared_ptr<core::Window> platform::MakeWindow(core::EventSystem* bus, core::WindowData& data) {
 		return std::make_shared<WindowsWindow>(bus, data);
 	}
 }

@@ -6,19 +6,10 @@
 #include "event_system/events/MouseButtonEvent.h"
 
 namespace core {
+	TYPE_INFO_IMPL(MouseButtonEvent);
+
 	MouseButtonEvent::MouseButtonEvent(MouseInput& input) : Input(input) {
 
 	}
 
-	utils::Name MouseButtonEvent::GetEventType() const {
-		return  utils::Name("MouseButtonEvent");
-	}
-
-	EventCategory MouseButtonEvent::GetEventCategory() const {
-		return EventCategory::RAW_INPUT;
-	}
-
-	utils::Name MouseButtonEvent::GetStaticEventType() {
-		return utils::Name("MouseButtonEvent");
-	}
 }

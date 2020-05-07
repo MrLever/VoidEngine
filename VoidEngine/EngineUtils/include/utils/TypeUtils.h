@@ -4,21 +4,19 @@
 //Library Headers
 
 //Void Engine Headers
+#include "utils/Name.h"
 
-/**
- * @struct TypeName
- * @brief TypeName is a templated structure used to stringify typenames.
- * @note Default behavior is to use std C++ typeinfo. The string returned by 
- *       by this defualt implementation is compiler dependent, and not guarenteed
- *       to be unique. 
- * @note Users can specialize this template to be implementation independent 
- *       using the ENABLE_TYPENAME macro
- */
-template <typename T>
-struct TypeName {
-	static const char* GetName() {
-		return typeid(T).name();
-	}
-};
+//Used for base classes in a RTTI tree only
+#define TYPE_INFO_BASE_DECL(CLAZZ) \
+public:\
+    virtual utils::Name GetTypename() const; \
+    static utils::Name GetStaticTypename();
 
-#define ENABLE_TYPENAME(A) template<> struct TypeName<A> { static constexpr const char* GetName() { return #A; }};
+#define TYPE_INFO_DECL(CLAZZ) \
+public:\
+    virtual utils::Name GetTypename() const override; \
+    static utils::Name GetStaticTypename();
+
+#define TYPE_INFO_IMPL(CLAZZ) \
+utils::Name CLAZZ::GetTypename() const { return utils::Name(#CLAZZ); } \
+utils::Name CLAZZ::GetStaticTypename() { return utils::Name(#CLAZZ); } 

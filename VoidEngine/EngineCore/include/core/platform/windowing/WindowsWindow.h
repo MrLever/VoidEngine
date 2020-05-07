@@ -20,7 +20,7 @@ namespace platform {
 		 * Constructor
 		 * @param data The parameters to use in creating the window's context
 		 */
-		WindowsWindow(core::EventBus* bus, core::WindowData& data);
+		WindowsWindow(core::EventSystem* bus, core::WindowData& data);
 
 		/**
 		 * Destructor

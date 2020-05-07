@@ -6,7 +6,7 @@
 //Void Engine Headers
 #include "core/Scene.h"
 #include "core/gameplay_framework/Entity.h"
-#include "core/event_system/EventBus.h"
+#include "core/event_system/EventSystem.h"
 
 using namespace core;
 
@@ -26,7 +26,7 @@ namespace EngineCoreTests {
 	//TYPE_INFO_IMPL(ComponentB)
 
 	TEST(TestSceneGraph, RuntimeSpawnTest) {
-		//Scene scene = new Scene("", new EventBus(), std::make_shared<InputManager>(), );
+		//Scene scene = new Scene("", new EventSystem(), std::make_shared<InputManager>(), );
 	}
 
 }

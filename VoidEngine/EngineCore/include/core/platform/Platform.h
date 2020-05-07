@@ -13,5 +13,5 @@ namespace platform {
 	 * @param bus The event bus to connect to the window
 	 * @param data The window data to use during initialization
 	 */
-	std::shared_ptr<core::Window> MakeWindow(core::EventBus* bus, core::WindowData& data);
+	std::shared_ptr<core::Window> MakeWindow(core::EventSystem* bus, core::WindowData& data);
 }

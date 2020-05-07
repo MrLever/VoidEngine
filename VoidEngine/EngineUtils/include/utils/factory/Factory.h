@@ -180,5 +180,4 @@ namespace utils {
 }
 
 #define ENABLE_FACTORY(DERIVED, BASE) \
-	ENABLE_TYPENAME(DERIVED) \
 	utils::Factory<DERIVED, BASE> DERIVED ## Factory;    

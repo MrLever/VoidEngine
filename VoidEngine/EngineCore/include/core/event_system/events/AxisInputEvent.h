@@ -4,35 +4,23 @@
 //Library Headers
 
 //Void Engine Headers
-#include "core/event_system/events/Event.h"
-#include "input/definitions/AxisInput.h"
+#include "core/event_system/Event.h"
+#include "core/input/definitions/AxisInput.h"
 
 namespace core {
 
 	class AxisInputEvent : public Event {
+		TYPE_INFO_DECL(AxisInputEvent)
+
 	public:
+		/** The Input being reported */
+		AxisInput Input;
+
 		/**
 		 * Constructor
 		 */
 		AxisInputEvent(const AxisInput& input);
 
-		/**
-		 * Function to query type of Event object
-		 */
-		virtual utils::Name GetEventType() const override;
-
-		/**
-		 * Virtual function to query category of Event object
-		 */
-		virtual EventCategory GetEventCategory() const override;
-
-		/**
-		 * Static function to get EventType info from C++ type info
-		 */
-		static utils::Name GetStaticEventType();
-		
-		/** The Input being reported */
-		AxisInput Input;
 	};
 
 }

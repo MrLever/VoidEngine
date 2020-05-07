@@ -11,7 +11,7 @@
 #include "utils/resource/JsonResource.h"
 
 #include "core/Level.h"
-#include "core/event_system/EventBusNode.h"
+#include "core/event_system/EventSystem.h"
 #include "core/event_system/events/WindowResizedEvent.h"
 #include "core/gameplay_framework/Prototype.h"
 #include "core/input/InputManager.h"
@@ -23,7 +23,7 @@
 
 namespace core {
 
-	class Scene : EventBusNode {
+	class Scene : EventListener {
 	public:
 		/**
 		 * Constructor
@@ -33,7 +33,7 @@ namespace core {
 		 */
 		Scene(
 			const std::string& levelPath,
-			EventBus* eventBus,
+			EventSystem* eventSystem,
 			std::shared_ptr<InputManager> inputManager,
 			std::shared_ptr<PhysicsEngine> physicsEngine
 		);
@@ -42,12 +42,6 @@ namespace core {
 		 * Destructor
 		 */
 		~Scene();
-
-		/**
-		 * Allows node to receive and process events from EventBus
-		 * @param event The event to process
-		 */
-		void ReceiveEvent(Event* event) override;
 
 		void ActivateCamera(CameraComponent* camera);
 		void RemoveCamera(CameraComponent* camera);

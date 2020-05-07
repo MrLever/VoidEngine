@@ -8,7 +8,7 @@
 //Void Engine Headers
 #include "utils/EngineUtilities.h"
 
-#include "core/event_system/EventBusNode.h"
+#include "core/event_system/EventSystem.h"
 #include "core/input/definitions/KeyboardInput.h"
 #include "core/rendering/Viewport.h"
 
@@ -27,30 +27,19 @@ namespace core {
 	 * @class Window
 	 * @brief Object to manage the OS-specific window/input context.
 	 */
-	class Window : public EventBusNode {
+	class Window : public EventListener {
 
 	public:
 		/**
 		 * Constructor
 		 * @param data The parameters to use in creating the window's context
 		 */
-		Window(EventBus* bus, WindowData& data);
+		Window(EventSystem* eventSystem, WindowData& data);
 		
 		/**
 		 * Destructor
 		 */
 		virtual ~Window();
-
-		/**
-		 * Allows node to receive and process events from EventBus
-		 * @param event The event to process
-		 */
-		void ReceiveEvent(Event* event) override;
-
-		/**
-		 * Allows EventBus to query the node's subscription, and filter events accordingly
-		 */
-		unsigned GetSubscription() override;
 
 		/**
 		 * Instructs engine to process the window's message queue

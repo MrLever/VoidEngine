@@ -6,19 +6,11 @@
 #include "event_system/events/InputActionEvent.h"
 
 namespace core {
-	InputActionEvent::InputActionEvent(InputAction& action) : Action(action) {
+
+	TYPE_INFO_IMPL(InputActionEvent)
+
+	InputActionEvent::InputActionEvent(InputAction& action) : action(action) {
 
 	}
 
-	utils::Name InputActionEvent::GetEventType() const {
-		return utils::Name("InputActionEvent");
-	}
-
-	EventCategory InputActionEvent::GetEventCategory() const {
-		return EventCategory::INPUT;
-	}
-
-	utils::Name InputActionEvent::GetStaticEventType() {
-		return utils::Name("InputActionEvent");
-	}
 }

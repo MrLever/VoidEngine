@@ -26,7 +26,7 @@
 using namespace core;
 
 namespace platform {
-	WindowsWindow::WindowsWindow(core::EventBus* bus, core::WindowData& data) 
+	WindowsWindow::WindowsWindow(core::EventSystem* bus, core::WindowData& data) 
 		: Window(bus, data), GLFWContext(nullptr) {
 		
 		InitGLFW();
@@ -142,7 +142,7 @@ namespace platform {
 			GLFWContext,
 			[](GLFWwindow* context) {
 				Window* window = (Window*)glfwGetWindowUserPointer(context);
-				window->PublishEvent(new WindowClosedEvent());
+				window->PostEvent<WindowClosedEvent>();
 			}
 		);
 
@@ -172,7 +172,7 @@ namespace platform {
 					utils::GetGameTime()
 				);
 
-				window->PublishEvent(new KeyboardButtonEvent(input));
+				window->PostEvent<KeyboardButtonEvent>(input);
 			}
 		);
 
@@ -189,7 +189,7 @@ namespace platform {
 					utils::GetGameTime()
 				);
 
-				window->PublishEvent(new MouseButtonEvent(input));
+				window->PostEvent<MouseButtonEvent>(input);
 			}
 		);
 
@@ -197,7 +197,7 @@ namespace platform {
 			GLFWContext,
 			[](GLFWwindow* context, double xPos, double yPos) {
 				Window* window = (Window*)glfwGetWindowUserPointer(context);
-				window->PublishEvent(new MouseMovedEvent(xPos, yPos));
+				window->PostEvent<MouseMovedEvent>(xPos, yPos);
 			}
 		);
 
@@ -220,31 +220,31 @@ namespace platform {
 		}
 
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT]) {
-			PublishEvent(
-				new GamepadButtonEvent(
-					GamepadInput(GamepadButton::DPAD_LEFT, ButtonState::PRESSED, timestamp)
+			PostEvent<GamepadButtonEvent>(
+				GamepadInput(
+					GamepadButton::DPAD_LEFT, 
+					ButtonState::PRESSED, 
+					timestamp
 				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT]) {
-			PublishEvent(
-				new GamepadButtonEvent(
-					GamepadInput(GamepadButton::DPAD_RIGHT, ButtonState::PRESSED, timestamp)
+			PostEvent<GamepadButtonEvent>(
+				GamepadInput(
+					GamepadButton::DPAD_RIGHT, 
+					ButtonState::PRESSED, 
+					timestamp
 				)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_UP]) {
-			PublishEvent(
-				new GamepadButtonEvent(
-					GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
-				)
+			PostEvent<GamepadButtonEvent>(
+				GamepadInput(GamepadButton::DPAD_UP, ButtonState::PRESSED, timestamp)
 			);
 		}
 		if (state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN]) {
-			PublishEvent(
-				new GamepadButtonEvent(
-					GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
-				)
+			PostEvent<GamepadButtonEvent>(
+				GamepadInput(GamepadButton::DPAD_DOWN, ButtonState::PRESSED, timestamp)
 			);
 		}
 	}
@@ -255,11 +255,10 @@ namespace platform {
 		AxisInput RightJoyX(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_X, state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 		AxisInput RightJoyY(RawAxisType::GAMEPAD_JOYSTICK_RIGHT_Y, -state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-		PublishEvent(new AxisInputEvent(LeftJoyX));
-		PublishEvent(new AxisInputEvent(LeftJoyY));
-		PublishEvent(new AxisInputEvent(RightJoyX));
-		PublishEvent(new AxisInputEvent(RightJoyY));
+		PostEvent<AxisInputEvent>(LeftJoyX);
+		PostEvent<AxisInputEvent>(LeftJoyY);
+		PostEvent<AxisInputEvent>(RightJoyX);
+		PostEvent<AxisInputEvent>(RightJoyY);
 	}
-
 
 }

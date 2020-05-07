@@ -8,7 +8,7 @@
 #include "utils/configuration/Configurable.h"
 
 #include "core/Level.h"
-#include "core/event_system/EventBusNode.h"
+#include "core/event_system/EventSystem.h"
 #include "core/physics/Manifold.h"
 #include "core/physics/components/PhysicsComponent.h"
 #include "core/physics/components/ColliderComponent.h"
@@ -18,13 +18,13 @@ namespace core {
 	//Forward class declarations
 	class ColliderComponent;
 
-	class PhysicsEngine : public EventBusNode, public utils::Configurable {
+	class PhysicsEngine : public EventListener, public utils::Configurable {
 	public:
 		/**
 		 * Constructor
 		 */
 		PhysicsEngine(
-			EventBus* bus,
+			EventSystem* eventSystem,
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
@@ -37,11 +37,6 @@ namespace core {
 		 * Applies physics engine settings
 		 */
 		void Configure() override;
-
-		/**
-		 * Allows PhysicsEngine to recieve incomming events
-		 */
-		void ReceiveEvent(Event* event) override;
 
 		/**
 		 * Set's the gravity strength used for the simulation

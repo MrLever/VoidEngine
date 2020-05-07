@@ -11,7 +11,7 @@
 #include "utils/threading/ThreadPool.h"
 #include "utils/resource/ResourceAllocator.h"
 
-#include "core/event_system/EventBusNode.h"
+#include "core/event_system/EventSystem.h"
 #include "core/event_system/events/KeyboardButtonEvent.h"
 #include "core/event_system/events/MouseMovedEvent.h"
 #include "core/gameplay_framework/Entity.h"
@@ -34,14 +34,14 @@ namespace core {
 	 * @brief The InputManager is responsible for processing input events to handle debouncing
 	 *        and detect higher order patterns like double-taps and chords 
 	 */
-	class InputManager : public EventBusNode, public utils::Configurable {
+	class InputManager : public EventListener, public utils::Configurable {
 	public:
 		/**
 		 * Constructor
 		 * @param playerInterface the Engine's interface to all HID devices connected to the game
 		 */
 		InputManager(
-			EventBus* bus, 
+			EventSystem* eventSystem, 
 			const utils::ResourceHandle<utils::Configuration>& configuration
 		);
 
@@ -49,17 +49,6 @@ namespace core {
 		 * Destructor
 		 */
 		~InputManager() = default;
-
-		/**
-		 * Allows node to receive and process events from EventBus
-		 * @param event The event to process
-		 */
-		void ReceiveEvent(Event* event) override;
-
-		/**
-		 * Allows EventBus to query the node's subscription, and filter events accordingly
-		 */
-		virtual unsigned GetSubscription() /** override */;
 
 		/**
 		 * Applies input configuration settings 
