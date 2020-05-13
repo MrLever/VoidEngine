@@ -56,9 +56,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Dependenci
 ################################################################################
 # Link Dependencies (Wholearchive to allow access to factory symbols)
 ################################################################################
-target_link_libraries(${PROJECT_NAME} EngineCore)
-target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineCored>")
-target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
+target_link_libraries(${PROJECT_NAME} VoidEngine)
+target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:VoidEngined>")
+target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:VoidEngine>")
 
 ################################################################################
 # Copy resource files

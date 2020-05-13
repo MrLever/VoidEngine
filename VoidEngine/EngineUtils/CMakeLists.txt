@@ -1,5 +1,5 @@
 ################################################################################
-# Define module project: EngineCore
+# Define module project: EngineUtils
 ################################################################################
 project(EngineUtils C CXX)
 

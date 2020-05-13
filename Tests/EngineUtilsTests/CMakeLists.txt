@@ -25,10 +25,10 @@ add_executable(
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################
-target_link_libraries(EngineUtilsTestSuite gtest_main EngineUtils EngineCore)
+target_link_libraries(EngineUtilsTestSuite gtest_main EngineUtils VoidEngine)
 
 ################################################################################
 # Link EngineCore Wholearchive to allow access to factory symbols
 ################################################################################
-target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineCored>")
-target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
+target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:VoidEngined>")
+target_link_options(EngineUtilsTestSuite PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:VoidEngine>")

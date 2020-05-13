@@ -1,7 +1,8 @@
 //STD Headers
 #include <random>
 
-//External Headers
+//Void Engine Headers
+#include <core/physics/components/PhysicsComponent.h>
 
 //SuperVoid Headers
 #include "Asteroid.h"
