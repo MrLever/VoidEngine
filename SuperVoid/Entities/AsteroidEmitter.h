@@ -2,7 +2,8 @@
 //STD Headers
 #include <unordered_set>
 
-//Library Headers
+//Void Engine Headers
+#include <core/gameplay_framework/Entity.h>
 
 //SuperVoid Headers
 #include "Asteroid.h"

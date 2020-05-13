@@ -14,6 +14,7 @@
 #include "core/input/AxisInputAction.h"
 #include "core/gameplay_framework/EntityData.h"
 #include "core/gameplay_framework/Transform.h"
+#include "core/gameplay_framework/Prototype.h"
 
 namespace core {
 	//Forward class declarations

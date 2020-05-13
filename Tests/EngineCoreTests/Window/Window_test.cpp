@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "core\platform\Platform.h"
+#include "core/platform/Platform.h"
 
 namespace EngineCoreTests {		
 
