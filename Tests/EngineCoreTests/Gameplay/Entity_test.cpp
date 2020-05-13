@@ -13,25 +13,22 @@ using namespace core;
 namespace EngineCoreTests {
 
 	class ComponentA : public Component {
-		TYPE_INFO_DECL(ComponentA)
+		ENABLE_RTTI(ComponentA)
 	public:
 		void Initialize() override {}
 	};
-	TYPE_INFO_IMPL(ComponentA)
 
 	class ComponentB : public Component {
-		TYPE_INFO_DECL(ComponentB)
+		ENABLE_RTTI(ComponentB)
 		public:
 			void Initialize() override {}
 	};
-	TYPE_INFO_IMPL(ComponentB)
 
 	class ComponentA_Derived : public ComponentA {
-		TYPE_INFO_DECL(ComponentA_Derived)
+		ENABLE_RTTI(ComponentA_Derived)
 	public:
 		void Initialize() override {}
 	};
-	TYPE_INFO_IMPL(ComponentA_Derived)
 
 	TEST(TestEntities, AddGetComponentTest) {
 		Entity entity;

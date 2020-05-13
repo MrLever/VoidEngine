@@ -9,7 +9,7 @@
 namespace core {
 
 	class FloatingFPSPlayer : public Observer {
-		TYPE_INFO_DECL(FloatingFPSPlayer)
+		ENABLE_RTTI(FloatingFPSPlayer)
 	public:
 		/**
 		 * Constructor

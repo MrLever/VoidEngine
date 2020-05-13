@@ -11,8 +11,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(Observer)
-
 	ENABLE_FACTORY(Observer, Entity)
 	
 	Observer::Observer() {

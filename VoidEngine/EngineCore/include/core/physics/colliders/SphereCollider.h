@@ -13,7 +13,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(SphereCollider)
+		ENABLE_RTTI(SphereCollider)
 
 	public:
 		/**

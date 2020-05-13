@@ -8,7 +8,6 @@
 #include "rendering/Components/CameraComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(CameraComponent)
 
 	ENABLE_FACTORY(CameraComponent, Component)
 

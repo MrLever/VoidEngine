@@ -6,7 +6,6 @@
 #include "rendering/components/lights/PointLightComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(PointLightComponent)
 
 	ENABLE_FACTORY(PointLightComponent, Component)
 

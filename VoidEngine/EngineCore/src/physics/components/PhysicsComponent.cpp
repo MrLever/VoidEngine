@@ -6,8 +6,6 @@
 #include "physics/components/PhysicsComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(PhysicsComponent)
-
 	ENABLE_FACTORY(PhysicsComponent, Component)
 
 	PhysicsComponent::PhysicsComponent() : m_Velocity(), Force(), Mass(1), InverseMass(1),

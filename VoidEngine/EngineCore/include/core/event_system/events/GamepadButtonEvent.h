@@ -10,7 +10,7 @@
 namespace core {
 
 	class GamepadButtonEvent : public Event {
-		TYPE_INFO_DECL(GamepadButtonEvent)
+		ENABLE_RTTI(GamepadButtonEvent)
 	public:
 		/** Input being reported by this event */
 		GamepadInput Input;

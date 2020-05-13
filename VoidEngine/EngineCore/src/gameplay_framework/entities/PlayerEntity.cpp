@@ -10,8 +10,6 @@
 
 namespace core {
 
-	TYPE_INFO_IMPL(PlayerEntity)
-
 	PlayerEntity::PlayerEntity() : MovementSpeed(0) {
 		AddComponent(new InputComponent());
 	}

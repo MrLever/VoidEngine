@@ -18,7 +18,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(Collider)
+		ENABLE_RTTI(Collider)
 
 	public:
 		/**

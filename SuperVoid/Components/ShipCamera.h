@@ -13,7 +13,7 @@ namespace SuperVoid {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(ShipCamera)
+		ENABLE_RTTI(ShipCamera)
 
 	public:
 		/**

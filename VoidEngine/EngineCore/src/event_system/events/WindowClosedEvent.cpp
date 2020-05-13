@@ -6,5 +6,5 @@
 #include "event_system/events/WindowClosedEvent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(WindowClosedEvent)
+	
 }

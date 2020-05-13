@@ -8,7 +8,7 @@
 
 namespace core{
 	class WindowResizedEvent : public Event {
-		TYPE_INFO_DECL(WindowResizedEvent)
+		ENABLE_RTTI(WindowResizedEvent)
 	
 	public:
 		/** The width the window was resized to */

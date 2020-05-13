@@ -12,7 +12,7 @@ namespace SuperVoid {
 	class AsteroidEmitter;
 
 	class Asteroid : public core::Entity {
-		TYPE_INFO_DECL(Asteroid)
+		ENABLE_RTTI(Asteroid)
 
 	public:
 		/**

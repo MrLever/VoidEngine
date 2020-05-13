@@ -15,7 +15,7 @@ namespace SuperVoid {
 	 * @brief Represent's the player
 	 */
 	class PlayerShip : public core::PlayerEntity {
-		TYPE_INFO_DECL(PlayerShip)
+		ENABLE_RTTI(PlayerShip)
 	public:
 		/**
 		 * Constructor

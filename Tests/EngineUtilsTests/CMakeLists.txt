@@ -11,6 +11,7 @@ set(Engine_Utils_Test_Suite
     "ThreadPool_test"
     "ThreadSafeQueue_test.cpp"
     "GenericUtilities_test.cpp"
+    "RTTI_test.cpp"
 )
 
 ################################################################################

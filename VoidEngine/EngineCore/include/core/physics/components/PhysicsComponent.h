@@ -12,7 +12,7 @@ namespace core {
 		/**
 		* Declare custom RTTI support
 		*/
-		TYPE_INFO_DECL(PhysicsComponent)
+		ENABLE_RTTI(PhysicsComponent)
 
 	public:
 		/**

@@ -12,7 +12,7 @@ namespace core {
 	 * Base class for all runtime objects passed around the engine that need custom RTTI support
 	 */
 	class VEObject {
-		TYPE_INFO_BASE_DECL(VEObject);
+		ENABLE_RTTI(VEObject);
 
 	public:
 		VEObject() = default;

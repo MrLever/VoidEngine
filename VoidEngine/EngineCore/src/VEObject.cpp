@@ -6,7 +6,5 @@
 #include "VEObject.h"
 
 namespace core {
-
-	TYPE_INFO_IMPL(VEObject)
 		
 }

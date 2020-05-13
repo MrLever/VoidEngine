@@ -17,22 +17,18 @@ namespace EngineCoreTests {
 	using namespace core;
 
 	class DummyEventA : public Event {
-		TYPE_INFO_DECL(DummyEventA);
+		ENABLE_RTTI(DummyEventA);
 	public:
 	};
 
 	class DummyEventB : public Event {
-		TYPE_INFO_DECL(DummyEventB);
+		ENABLE_RTTI(DummyEventB);
 	public:
 	};
 
 	class DummyEventC : public Event {
-		TYPE_INFO_DECL(DummyEventC);
+		ENABLE_RTTI(DummyEventC);
 	};
-
-	TYPE_INFO_IMPL(DummyEventA);
-	TYPE_INFO_IMPL(DummyEventB);
-	TYPE_INFO_IMPL(DummyEventC);
 
 	TEST(EventSystemTests, SendMessageTest) {
 		EventSystem system;

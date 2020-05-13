@@ -17,7 +17,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(PointLightComponent)
+		ENABLE_RTTI(PointLightComponent)
 
 	public:
 		/** Color of the point light */

@@ -8,7 +8,7 @@
 
 namespace core {
 	class WindowClosedEvent : public Event {
-		TYPE_INFO_DECL(WindowClosedEvent)
+		ENABLE_RTTI(WindowClosedEvent)
 	public:
 		/**
 		 * Constructor

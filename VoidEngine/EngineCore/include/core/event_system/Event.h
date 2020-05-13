@@ -13,7 +13,7 @@ namespace core {
 
 	class Event : public VEObject {
 		
-		TYPE_INFO_DECL(Event);
+		ENABLE_RTTI(Event);
 		
 	public:
 		/**

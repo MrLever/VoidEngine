@@ -6,7 +6,6 @@
 #include "rendering/components/lights/SpotlightComponent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(SpotlightComponent)
 
 	ENABLE_FACTORY(SpotlightComponent, Component)
 

@@ -9,7 +9,7 @@
 
 namespace core {
 	class InputActionEvent : public Event {
-		TYPE_INFO_DECL(InputActionEvent)
+		ENABLE_RTTI(InputActionEvent)
 	
 	public:
 		/** The Action being reported */

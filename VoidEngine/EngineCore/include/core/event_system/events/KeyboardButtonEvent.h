@@ -9,7 +9,7 @@
 
 namespace core {
 	class KeyboardButtonEvent : public Event {
-		TYPE_INFO_DECL(KeyboardButtonEvent)
+		ENABLE_RTTI(KeyboardButtonEvent)
 
 	public:
 		/** The input this event is reporting */

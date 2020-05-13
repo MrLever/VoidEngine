@@ -31,7 +31,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(GraphicsComponent)
+		ENABLE_RTTI(GraphicsComponent)
 
 	public:
 		/**

@@ -19,7 +19,7 @@ namespace core {
 		/**
 		 * Declare custom RTTI support
 		 */
-		TYPE_INFO_DECL(PlayerEntity)
+		ENABLE_RTTI(PlayerEntity)
 
 	public:
 		/**

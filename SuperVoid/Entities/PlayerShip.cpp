@@ -9,8 +9,6 @@
 
 namespace SuperVoid {
 
-	TYPE_INFO_IMPL(PlayerShip)
-
 	ENABLE_FACTORY(PlayerShip, core::Entity)
 
 	PlayerShip::PlayerShip() : hp(3), engineStrength(10), rigidBody(nullptr), bulletPrototype({}) {

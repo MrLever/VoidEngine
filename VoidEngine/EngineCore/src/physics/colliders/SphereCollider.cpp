@@ -31,12 +31,4 @@ namespace core {
 
 	}
 
-	utils::Name SphereCollider::GetTypename() const {
-		return utils::Name("SphereCollider");
-	}
-
-	utils::Name SphereCollider::GetStaticTypename() {
-		return utils::Name("SphereCollider");
-	}
-
 }

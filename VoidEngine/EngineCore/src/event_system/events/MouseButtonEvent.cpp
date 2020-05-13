@@ -6,7 +6,6 @@
 #include "event_system/events/MouseButtonEvent.h"
 
 namespace core {
-	TYPE_INFO_IMPL(MouseButtonEvent);
 
 	MouseButtonEvent::MouseButtonEvent(MouseInput& input) : Input(input) {
 
