@@ -58,6 +58,3 @@ add_subdirectory(VoidEngine)
 
 ## Game
 add_subdirectory(SuperVoid)
-
-## Test Suites
-add_subdirectory(Tests)
