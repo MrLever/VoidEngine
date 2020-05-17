@@ -289,6 +289,13 @@ namespace math {
 		 * Constructor
 		 */
 		Vector4(float x, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+
+		/**
+		 * Computes the dot product of two 4D vectors
+		 * @return the dot product
+		 */
+		float Dot(const Vector4& other) const;
+
 	};
 
 	using Color = Vector4;
