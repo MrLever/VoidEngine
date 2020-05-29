@@ -1,0 +1,203 @@
+{
+    "name":"CollisionDemo",
+    "controlFile":"Settings/Controls/AsteroidsControls.json",
+    "gravity": 0,
+    "lightSettings":
+    {
+        "useAmbientLight":true,
+        "ambientLightColor": [1,1,1,1],
+        "ambientLightIntensity": 0.25
+    },
+    "entities":
+    [
+        {
+            "name":"Player",
+            "type":"PlayerShip",
+            "VEID":0,
+            "location": [0, 0, 0],
+            "rotation": [90, 0, 0],
+            "scale": [1, 1, 1],
+            "speed":1000,
+            "bulletPrototype":
+            {
+                "name":"PlayerBullet",
+                "type":"Projectile",
+                "location":[5, 0, 0],
+                "scale": [0.35, 0.35, 0.35],
+                "timeToLive": 2,
+                "components":
+                [
+                    {
+                        "type":"GraphicsComponent",
+                        "model":"Assets/Models/Primitives/Sphere/Sphere.obj"
+                    },
+                    {
+                        "type":"ColliderComponent",
+                        "collisionLayer": 0,
+                        "shape":
+                        {
+                            "type":"SphereCollider",
+                            "radius":1
+                        }
+                    },
+                    {
+                        "type":"PhysicsComponent",
+                        "mass":1.0
+                    }
+                ]
+            },
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Assets/Models/Ship/PlayerShip.obj"
+                },
+                {
+                    "type":"PhysicsComponent",
+                    "mass":1.0,
+                    "restitution":0
+                },
+                {
+                    "type":"ColliderComponent",
+                    "collisionLayer": 0,
+                    "shape":
+                    {
+                        "type":"SphereCollider",
+                        "radius":1
+                    }
+                }
+            ],
+            "children": 
+            [
+                {
+                    "name":"EngineLight",
+                    "type":"Entity",
+                    "VEID":1,
+                    "location": [0, 0, 2],
+                    "scale":[0.25, 0.25, 0.25],
+                    "components":
+                    [
+                        {
+                            "type":"PointLightComponent",
+                            "color":[0, 1, 1, 1.0],
+                            "intensity":150
+                        } 
+                    ]
+                },
+                {
+                    "name":"Ship Camera",
+                    "type":"Entity",
+                    "VEID":2,
+                    "location": [0, 75, 0],
+                    "rotation": [-90, 0, 0],
+                    "components":
+                    [
+                        {
+                            "type":"ShipCamera",
+                            "name":"PlayerCamera",
+                            "near": 0.1,
+                            "far": 1000
+                        },
+                        {
+                            "type":"PointLightComponent",
+                            "color":[1.0, 0.945, 0.878, 1.0],
+                            "intensity":1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name":"AsteroidGenerator",
+            "type":"AsteroidEmitter",
+            "VEID":3,
+            "playerRef":0,
+            "minAsteroids":5,
+            "maxAsteroids":10,
+            "asteroidPrefab":
+            {
+                "name":"Asteroid",
+                "type":"Asteroid",
+                "location": [10, 0, 0],
+                "components":
+                [
+                    {
+                        "type":"GraphicsComponent",
+                        "model":"Assets/Models/Asteroids/Variant1/Asteroid1.obj"
+                    },
+                    {
+                        "type":"ColliderComponent",
+                        "collisionLayer": 1,
+                        "shape":
+                        {
+                            "type":"SphereCollider",
+                            "radius": 1
+                        }
+                    },
+                    {
+                        "type":"PhysicsComponent",
+                        "mass":10.0,
+                        "restitution":0
+                    }
+                ]
+            }
+        },
+        {
+            "name":"TestPlane",
+            "type":"Entity",
+            "location": [0, -75, 0],
+            "rotation": [0, 0, 0],
+            "scale":[75, 75, 75],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Assets/Models/Primitives/Plane/Plane.obj"
+                }
+            ]
+        },
+        {
+            "name":"TestPlane3",
+            "type":"Entity",
+            "location": [-75, 0, 0],
+            "rotation": [0, 0, -90],
+            "scale":[75, 75, 75],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Assets/Models/Primitives/Plane/Plane.obj"
+                }
+            ]
+        },
+        {
+            "name":"TestPlane3",
+            "type":"Entity",
+            "location": [75, 0, 0],
+            "rotation": [0, 0, 90],
+            "scale":[75, 75, 75],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Assets/Models/Primitives/Plane/Plane.obj"
+                }
+            ]
+        }
+        ,
+        {
+            "name":"TestPlane4",
+            "type":"Entity",
+            "location": [0, 75, 0],
+            "rotation": [0, 0, 180],
+            "scale":[75, 75, 75],
+            "components":
+            [
+                {
+                    "type":"GraphicsComponent",
+                    "model":"Assets/Models/Primitives/Plane/Plane.obj"
+                }
+            ]
+        }
+    ]
+}

@@ -123,6 +123,15 @@ set(ALL_FILES
 add_library(EngineUtils STATIC ${ALL_FILES})
 
 ################################################################################
+# Set target include directories
+################################################################################
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLAD/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLFW/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/assimp/include)
+
+################################################################################
 # Set Module Include Directory
 ################################################################################
 target_include_directories(EngineUtils PUBLIC ${engine_utils_include_dir}/)

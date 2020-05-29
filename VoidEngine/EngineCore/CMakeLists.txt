@@ -486,6 +486,7 @@ set(engine_core_source
     "${engine_core_input_source}"
     "${engine_core_physics_source}"
     "${engine_core_rendering_source}"
+    "${engine_core_source_dir}/Main.cpp"
     "${engine_core_source_dir}/Game.cpp"
     "${engine_core_source_dir}/Level.cpp"
     "${engine_core_source_dir}/Scene.cpp"
@@ -512,6 +513,15 @@ set(ALL_FILES
 # Define Static Library Target
 ################################################################################
 add_library(EngineCore STATIC ${ALL_FILES})
+
+################################################################################
+# Set target include directories
+################################################################################
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies)
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies/GLAD/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLFW/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/assimp/include)
 
 ################################################################################
 # Link Dependencies
@@ -543,14 +553,46 @@ target_include_directories(EngineCore PUBLIC ${engine_core_include_dir}/)
 ################################################################################
 # Copy resource files
 ################################################################################
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/Resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources/
-)
+# add_custom_command(
+#     TARGET ${PROJECT_NAME} POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/Resources/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources/
+# )
 
-add_custom_command(
-    TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/Settings/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Settings/
-)
+# add_custom_command(
+#     TARGET ${PROJECT_NAME} POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/Settings/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/Settings/
+# )
+
+# Collect all resource files
+file (GLOB_RECURSE resources "Resources/*.*")
+
+foreach(resource ${resources})
+    get_filename_component(filename ${resource} NAME)
+    get_filename_component(dir ${resource} DIRECTORY)
+    get_filename_component(dirname ${dir} NAME)
+
+    set (output "")
+
+    while(NOT ${dirname} STREQUAL resources)
+        get_filename_component(path_component ${dir} NAME)
+        set (output "${path_component}/${output}")
+        get_filename_component(dir ${dir} DIRECTORY)
+        get_filename_component(dirname ${dir} NAME)
+    endwhile()
+
+    set(output "${CMAKE_CURRENT_BINARY_DIR}/resources/${output}/${filename}")
+
+    add_custom_command(
+        COMMENT "Moving updated resource-file '${filename}'"
+        OUTPUT ${output}
+        DEPENDS ${resource}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${resource}
+        ${output}
+    )
+    
+    add_custom_target(${filename} ALL DEPENDS ${resource} ${output})
+ 
+endforeach()
