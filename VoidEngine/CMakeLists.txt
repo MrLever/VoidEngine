@@ -13,5 +13,49 @@ set_target_properties(EngineUtils PROPERTIES FOLDER Engine/)
 set_target_properties(EngineMath PROPERTIES FOLDER Engine/)
 set_target_properties(EngineCore PROPERTIES FOLDER Engine/)
 
-### Enable Assertions
+################################################################################
+# Enable Assertions
+################################################################################
 target_compile_definitions(EngineCore PRIVATE -DVE_ENABLE_ASSERTS)
+
+################################################################################
+# Create target for installing assets to project directories
+################################################################################
+# Define custom target, with echo command to ensure it is not ignored by generators (MSVC)
+add_custom_target(InstallAssets ALL 
+    COMMAND ${CMAKE_COMMAND} -E echo "Intalling Asset Files"
+)
+set_target_properties(InstallAssets PROPERTIES FOLDER Engine/)
+
+# Conditionally add command to copy starter assets to game directory
+if(VoidEngine_Include_Starter_Assets)
+    add_custom_command(TARGET InstallAssets POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing Assets to ${GAME_PROJECT_NAME}/Assets/"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${GAME_ASSETS_DIRECTORY}
+            $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/
+    )   
+endif()
+
+# Install game assets to executable directory
+add_custom_command(TARGET InstallAssets POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "Installing Assets to ${GAME_PROJECT_NAME}/Assets/"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/Assets/
+        $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/
+)
+
+add_custom_command(TARGET InstallAssets POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "Installing Settings to ${GAME_PROJECT_NAME}/Settings/"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/Settings/
+        $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Settings/
+)
+
+if(MSVC)
+    set_property(TARGET ${GAME_PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>")
+endif()
+
+if(VoidEngine_Enable_Sample_Project)
+    # Add custom command to InstallAssets to copy resources to sample project
+endif()

@@ -16,9 +16,8 @@ project(VoidEngine C CXX)
 ################################################################################
 # Build Options
 ################################################################################
-option(VoidEngine_Enable_Sample_Project "Include sample project in project" OFF)
-option(VoidEngine_Enable_Starter_Assets "Include starter assets in project" OFF)
-
+option(VoidEngine_Enable_Sample_Project "Include sample project in game project" OFF)
+option(VoidEngine_Include_Starter_Assets "Include starter assets in game project" ON)
 
 ################################################################################
 # Set build-configuration types
@@ -44,17 +43,15 @@ add_compile_options("$<$<CONFIG:RELEASE>:/Ot>")
 add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 
 ################################################################################
-# Direct CMake to build solutions for dependencies
+# Include dependencies and engine modules
 ################################################################################
 add_subdirectory(Dependencies)
-
-################################################################################
-# Add Engine Components
-################################################################################
-## Main Engine
 add_subdirectory(VoidEngine)
+
+### DEFINE INSTALL_ASSETS HERE YOU FUCK
 
 ## Enable Sample Game
 if (VoidEngine_Enable_Sample_Project)
     add_subdirectory(SuperVoid)
+    ## Set up InstallAssets rules
 endif()

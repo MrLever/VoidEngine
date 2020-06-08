@@ -181,7 +181,7 @@
                 },
                 {
                     "type": "PhysicsComponent",
-                    "mass":1,
+                    "mass":1.0,
                     "gravityScale":-0.5
                 }
             ]

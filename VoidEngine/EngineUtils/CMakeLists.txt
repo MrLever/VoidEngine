@@ -60,6 +60,7 @@ set(engine_utils_loose_headers
     "${engine_utils_header_dir}/Table.h"
     "${engine_utils_header_dir}/TimeUtils.h"
     "${engine_utils_header_dir}/TypeUtils.h"
+    "${engine_utils_header_dir}/EngineConfig.h"
 )
 source_group("Header Files\\utils" FILES ${engine_utils_loose_headers})
 
@@ -99,6 +100,7 @@ source_group("Source Files\\utils\\Threading" FILES ${engine_utils_threading_sou
 set(engine_utils_loose_source
     "src/utils/Logger.cpp"
     "src/utils/TimeUtils.cpp"
+    "src/utils/EngineConfig.cpp"
 )
 source_group("Source Files\\utils" FILES ${engine_utils_loose_source})
 

@@ -16,6 +16,8 @@ namespace core {
 		isTerminated = false;
 		isPaused = false;
 
+		utils::Logger::LogInfo(std::string("Working Directory: ") + std::filesystem::current_path().string());
+
 		engineConfig.Load();
 
 		Initialize();
