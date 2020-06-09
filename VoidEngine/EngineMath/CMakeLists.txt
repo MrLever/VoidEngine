@@ -6,34 +6,27 @@ cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
 project(EngineMath CXX)
 
 ################################################################################
-# Acquire source files
+# Set project structure
 ################################################################################
-set(engine_math_include_dir
-  "${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
+set(engine_math_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(engine_math_header_dir "${engine_math_include_dir}/math")
+set(engine_math_src_dir "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-set(engine_math_header_dir
-  "${engine_math_include_dir}/math"
-)
+################################################################################
+# Collect header files 
+################################################################################
+file(GLOB_RECURSE MATH_HEADERS CONFIGURE_DEPENDS "${engine_math_header_dir}/*.h")
+source_group(TREE "${engine_math_header_dir}" PREFIX "Header Files" FILES ${MATH_HEADERS})
 
-set(Header_Files
-    "${engine_math_header_dir}/MathUtils.h"
-    "${engine_math_header_dir}/Quaternion.h"
-    "${engine_math_header_dir}/Rotator.h"
-    "${engine_math_header_dir}/Vector.h"
-)
-source_group("Header Files" FILES ${Header_Files})
-
-set(Source_Files
-    "src/Quaternion.cpp"
-    "src/Rotator.cpp"
-    "src/Vector.cpp"
-)
-source_group("Source Files" FILES ${Source_Files})
+################################################################################
+# Collect source files 
+################################################################################
+file(GLOB_RECURSE MATH_SOURCE CONFIGURE_DEPENDS "${engine_math_src_dir}/*.cpp")
+source_group(TREE "${engine_math_src_dir}" PREFIX "Source Files" FILES ${MATH_SOURCE})
 
 set(ALL_FILES
-    ${Header_Files}
-    ${Source_Files}
+    ${MATH_HEADERS}
+    ${MATH_SOURCE}
 )
 
 ################################################################################

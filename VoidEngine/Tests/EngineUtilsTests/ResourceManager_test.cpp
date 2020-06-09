@@ -49,7 +49,7 @@ namespace utils_tests {
 		core::Game g("");
 		ResourceAllocator<RawFile> resourceMan;
 
-		auto rawHandle = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		auto rawHandle = resourceMan.LoadResource("Assets/Testing/ResourceManagerDummyResource.txt");
 		auto rawFile = rawHandle.GetResource();
 
 		ASSERT_EQ(SuccessString, rawFile->FileContents);
@@ -61,9 +61,9 @@ namespace utils_tests {
 		core::Game g("");
 		ResourceAllocator<RawFile> resourceMan;
 
-		auto res = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		auto res = resourceMan.LoadResource("Assets/Testing/ResourceManagerDummyResource.txt");
 
-		auto file = resourceMan.GetResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		auto file = resourceMan.GetResource("Assets/Testing/ResourceManagerDummyResource.txt");
 		ASSERT_EQ(SuccessString, file->FileContents);
 	}
 
@@ -74,13 +74,13 @@ namespace utils_tests {
 		ResourceAllocator<RawFile> resourceMan;
 
 		//Request resource to be loaded.
-		auto res1 = resourceMan.LoadResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		auto res1 = resourceMan.LoadResource("Assets/Testing/ResourceManagerDummyResource.txt");
 
 		//Explicitly request resource be loaded again
-		res1 = resourceMan.ReloadResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		res1 = resourceMan.ReloadResource("Assets/Testing/ResourceManagerDummyResource.txt");
 
 		//Aquire the resource
-		auto rawFile = resourceMan.GetResource("Resources/Testing/ResourceManagerDummyResource.txt");
+		auto rawFile = resourceMan.GetResource("Assets/Testing/ResourceManagerDummyResource.txt");
 
 		ASSERT_EQ(SuccessString, rawFile->FileContents);
 	}

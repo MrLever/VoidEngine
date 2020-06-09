@@ -1,0 +1,23 @@
+{
+    "components":
+    [
+        {
+            "type": "GraphicsComponent",
+            "model":"Resources/Models/Teapot/UtahTeapot.obj",
+            "shader":
+            {
+                "name":"CubeMaterial",
+                "vertexShader":"Resources/Shaders/default.vert",
+                "fragmentShader":"Resources/Shaders/default.frag"
+            }
+        },
+        {
+            "type":"ColliderComponent",
+            "shape":
+            {
+                "type":"SphereCollider",
+                "radius":1
+            }
+        }
+    ]
+}

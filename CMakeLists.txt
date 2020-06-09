@@ -14,6 +14,13 @@ endif()
 project(VoidEngine C CXX)
 
 ################################################################################
+# Build Options
+################################################################################
+option(VoidEngine_Build_Standalone "Include sample project in game project" OFF)
+option(VoidEngine_Enable_Sample_Project "Include sample project in game project" OFF)
+option(VoidEngine_Include_Starter_Assets "Include starter assets in game project" ON)
+
+################################################################################
 # Set build-configuration types
 ################################################################################
 set(CMAKE_CONFIGURATION_TYPES
@@ -37,24 +44,7 @@ add_compile_options("$<$<CONFIG:RELEASE>:/Ot>")
 add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 
 ################################################################################
-# Set project-wide include directories
-################################################################################
-include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/Dependencies)
-include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLAD/include)
-include_directories(${CMAKE_SOURCE_DIR}/Dependencies/GLFW/include)
-include_directories(${CMAKE_SOURCE_DIR}/Dependencies/assimp/include)
-
-################################################################################
-# Direct CMake to build solutions for dependencies
+# Include dependencies and engine modules
 ################################################################################
 add_subdirectory(Dependencies)
-
-################################################################################
-# Add Engine Components
-################################################################################
-## Main Engine
 add_subdirectory(VoidEngine)
-
-## Game
-add_subdirectory(SuperVoid)
