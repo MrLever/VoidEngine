@@ -16,6 +16,7 @@ project(VoidEngine C CXX)
 ################################################################################
 # Build Options
 ################################################################################
+option(VoidEngine_Build_Standalone "Include sample project in game project" OFF)
 option(VoidEngine_Enable_Sample_Project "Include sample project in game project" OFF)
 option(VoidEngine_Include_Starter_Assets "Include starter assets in game project" ON)
 
@@ -47,11 +48,3 @@ add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
 ################################################################################
 add_subdirectory(Dependencies)
 add_subdirectory(VoidEngine)
-
-### DEFINE INSTALL_ASSETS HERE YOU FUCK
-
-## Enable Sample Game
-if (VoidEngine_Enable_Sample_Project)
-    add_subdirectory(SuperVoid)
-    ## Set up InstallAssets rules
-endif()

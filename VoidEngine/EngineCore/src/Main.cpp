@@ -10,7 +10,7 @@
 using namespace core;
 
 int main(int argc, char* argv[]) {
-	std::string config = (argc > 1) ? std::string(argv[1]) : "Settings/EngineConfig.json";
+	std::string config = (argc > 1) ? std::string(argv[1]) : "Config/EngineConfig.json";
 
 	Game game(config);
 
