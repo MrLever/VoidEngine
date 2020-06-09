@@ -21,6 +21,8 @@ set(Header_Files
     "${engine_math_header_dir}/Quaternion.h"
     "${engine_math_header_dir}/Rotator.h"
     "${engine_math_header_dir}/Vector.h"
+    "${engine_math_header_dir}/GenVector.h"
+    "${engine_math_header_dir}/Matrix.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 
@@ -28,6 +30,8 @@ set(Source_Files
     "src/Quaternion.cpp"
     "src/Rotator.cpp"
     "src/Vector.cpp"
+    "src/Vector.cpp"
+    "src/Matrix.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 
