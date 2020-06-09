@@ -6,123 +6,32 @@ project(EngineUtils C CXX)
 ################################################################################
 # Set directory shortcuts
 ################################################################################
-set(engine_utils_include_dir
-  "${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-set(engine_utils_header_dir
-  "${engine_utils_include_dir}/utils/"
-)
-
-set(engine_utils_OSAL_header_dir
-  "${engine_utils_include_dir}/OSAL/"
-)
+set(engine_utils_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(engine_utils_header_dir "${engine_utils_include_dir}/utils/")
+set(engine_utils_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 ################################################################################
-# Set Utils Headers
+# Collect header files 
 ################################################################################
-# Configuration Headers
-set(engine_utils_configuration_headers
-    "${engine_utils_header_dir}/configuration/Configurable.h"
-    "${engine_utils_header_dir}/configuration/Configuration.h"
-)
-source_group("Header Files\\utils\\Configuration" FILES ${engine_utils_configuration_headers})
-
-# Factory Headers
-set(engine_utils_factory_headers
-    "${engine_utils_header_dir}/factory/Factory.h"
-    "${engine_utils_header_dir}/factory/FactoryConstructible.h"
-)
-source_group("Header Files\\utils\\Factory" FILES ${engine_utils_factory_headers})
-
-# Resource
-set(engine_utils_resource_headers
-    "${engine_utils_header_dir}/resource/JsonResource.h"
-    "${engine_utils_header_dir}/resource/Resource.h"
-    "${engine_utils_header_dir}/resource/ResourceAllocator.h"
-    "${engine_utils_header_dir}/resource/ResourceHandle.h"
-)
-source_group("Header Files\\utils\\Resource" FILES ${engine_utils_resource_headers})
-
-# Threading
-set(engine_utils_threading_headers
-    "${engine_utils_header_dir}/threading/ThreadPool.h"
-    "${engine_utils_header_dir}/threading/ThreadPoolWorker.h"
-    "${engine_utils_header_dir}/threading/ThreadSafeQueue.h"
-)
-source_group("Header Files\\utils\\Threading" FILES ${engine_utils_threading_headers})
-
-set(engine_utils_loose_headers
-    "${engine_utils_header_dir}/EngineUtilities.h"
-    "${engine_utils_header_dir}/Property.h"
-    "${engine_utils_header_dir}/Logger.h"
-    "${engine_utils_header_dir}/Name.h"
-    "${engine_utils_header_dir}/Table.h"
-    "${engine_utils_header_dir}/TimeUtils.h"
-    "${engine_utils_header_dir}/TypeUtils.h"
-    "${engine_utils_header_dir}/EngineConfig.h"
-)
-source_group("Header Files\\utils" FILES ${engine_utils_loose_headers})
-
-set(engine_utils_headers
-    "${engine_utils_configuration_headers}"
-    "${engine_utils_factory_headers}"
-    "${engine_utils_resource_headers}"
-    "${engine_utils_threading_headers}"
-    "${engine_utils_loose_headers}"
-)
+file(GLOB_RECURSE UTILS_HEADERS CONFIGURE_DEPENDS "${engine_utils_header_dir}/*.h")
+source_group(TREE "${engine_utils_header_dir}" PREFIX "Header Files" FILES ${UTILS_HEADERS})
 
 ################################################################################
-# Set Utils Source
+# Collect source files 
 ################################################################################
-# Configuration source
-set(engine_utils_configuration_source
-    "src/utils/configuration/Configurable.cpp"
-    "src/utils/configuration/Configuration.cpp"
-)
-source_group("Source Files\\utils\\Configuration" FILES ${engine_utils_configuration_source})
-
-# Resource source
-set(engine_utils_resource_source
-    "src/utils/resource/JsonResource.cpp"
-    "src/utils/resource/Resource.cpp"
-    "src/utils/resource/ResourceAllocator.cpp"
-)
-source_group("Source Files\\utils\\Resource" FILES ${engine_utils_resource_source})
-
-# Threading source
-set(engine_utils_threading_source
-    "src/utils/threading/ThreadPool.cpp"
-    "src/utils/threading/ThreadPoolWorker.cpp"
-)
-source_group("Source Files\\utils\\Threading" FILES ${engine_utils_threading_source})
-
-set(engine_utils_loose_source
-    "src/utils/Logger.cpp"
-    "src/utils/TimeUtils.cpp"
-    "src/utils/EngineConfig.cpp"
-)
-source_group("Source Files\\utils" FILES ${engine_utils_loose_source})
-
-set(engine_utils_source
-    "${engine_utils_configuration_source}"
-    "${engine_utils_resource_source}"
-    "${engine_utils_threading_source}"
-    "${engine_utils_loose_source}"
-
-)
+file(GLOB_RECURSE UTILS_SOURCE CONFIGURE_DEPENDS "${engine_utils_source_dir}/*.cpp")
+source_group(TREE "${engine_utils_source_dir}" PREFIX "Source Files" FILES ${UTILS_SOURCE})
 
 ### Combine files into single target
 set(ALL_FILES 
-    ${engine_utils_headers}  
-    ${engine_utils_source} 
-    ${engine_OSAL_headers}
-    ${engine_OSAL_source})
+    ${UTILS_HEADERS}  
+    ${UTILS_SOURCE} 
+)
 
 ################################################################################
 # Specify build as Static Library
 ################################################################################
-add_library(EngineUtils STATIC ${ALL_FILES})
+add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
 
 ################################################################################
 # Set target include directories
@@ -136,6 +45,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Depe
 ################################################################################
 # Set Module Include Directory
 ################################################################################
-target_include_directories(EngineUtils PUBLIC ${engine_utils_include_dir}/)
-target_include_directories(EngineUtils PRIVATE ${engine_utils_header_dir}/)
-target_include_directories(EngineUtils PRIVATE ${engine_utils_OSAL_header_dir}/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${engine_utils_include_dir}/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${engine_utils_header_dir}/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${engine_utils_OSAL_header_dir}/)
