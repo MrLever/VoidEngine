@@ -22,7 +22,7 @@ source_group(TREE "${engine_math_header_dir}" PREFIX "Header Files" FILES ${MATH
 # Collect source files 
 ################################################################################
 file(GLOB_RECURSE MATH_SOURCE CONFIGURE_DEPENDS "${engine_math_src_dir}/*.cpp")
-source_group(TREE "${engine_utils_source_dir}" PREFIX "Source Files" FILES ${MATH_SOURCE})
+source_group(TREE "${engine_math_src_dir}" PREFIX "Source Files" FILES ${MATH_SOURCE})
 
 set(ALL_FILES
     ${MATH_HEADERS}

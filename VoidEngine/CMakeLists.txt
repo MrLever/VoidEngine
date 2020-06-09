@@ -19,30 +19,38 @@ set_target_properties(EngineCore PROPERTIES FOLDER Engine/)
 target_compile_definitions(EngineCore PRIVATE -DVE_ENABLE_ASSERTS)
 
 ################################################################################
-# Create target for installing assets to project directories
+# Define Asset installation rules
 ################################################################################
-# Define custom target, with echo command to ensure it is not ignored by generators (MSVC)
 add_custom_target(InstallAssets ALL 
-    COMMAND ${CMAKE_COMMAND} -E echo "Intalling Asset Files"
+    COMMAND ${CMAKE_COMMAND} -E echo "RUNNING ASSET INSTALL COMMANDS:"
 )
-set_target_properties(InstallAssets PROPERTIES FOLDER Engine/)
+set_target_properties(InstallAssets PROPERTIES FOLDER Engine/Tools)
 
 # Install game assets and configurations to executable directory
 # If building standalone there won't be a game directory to copy to.
 if(NOT ${VoidEngine_Build_Standalone})
+    # Copy Defualt Assets
+    add_custom_command(TARGET InstallAssets POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing Default Assets to ${GAME_PROJECT_NAME}/Assets/"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/Assets/Default
+            $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/Default
+    )
+
+    # Copy Starter Assets
     if(${VoidEngine_Include_Starter_Assets})
         add_custom_command(TARGET InstallAssets POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E echo "Installing Assets to ${GAME_PROJECT_NAME}/Assets/"
+            COMMAND ${CMAKE_COMMAND} -E echo "Installing Starter Assets to ${GAME_PROJECT_NAME}/Assets/"
             COMMAND ${CMAKE_COMMAND} -E copy_directory
-                ${GAME_ASSETS_DIRECTORY}
+                ${CMAKE_CURRENT_SOURCE_DIR}/Assets/
                 $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/
-        )   
+        )
     endif()
 
     add_custom_command(TARGET InstallAssets POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "Installing Assets to ${GAME_PROJECT_NAME}/Assets/"
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing ${GAME_PROJECT_NAME} Assets to ${GAME_PROJECT_NAME}/Assets/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_CURRENT_SOURCE_DIR}/Assets/
+            ${GAME_ASSETS_DIRECTORY}
             $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/
     )
 
@@ -54,7 +62,7 @@ if(NOT ${VoidEngine_Build_Standalone})
     )
 
     add_custom_command(TARGET InstallAssets POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "Installing Game Configurations to ${GAME_PROJECT_NAME}/Config/"
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing ${GAME_PROJECT_NAME} Configurations to ${GAME_PROJECT_NAME}/Config/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${GAME_CONFIG_DIRECTORY}
             $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Config/

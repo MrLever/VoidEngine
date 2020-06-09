@@ -1,5 +1,5 @@
 {
-    "defaultControls":"Settings/Controls/DefaultControls.json",
+    "defaultControls":"Config/Controls/DefaultControls.json",
     "joystickDeadzone":0.2,
     "mouseSensitivity":0.5
 }

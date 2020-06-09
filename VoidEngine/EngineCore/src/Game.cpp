@@ -80,18 +80,18 @@ namespace core {
 		//Initialize Input Manager
 		inputManager = std::make_shared<InputManager>(
 			eventSystem.get(),
-			configCache.LoadResource("Settings/InputConfig.json")
+			configCache.LoadResource("Config/InputConfig.json")
 		);
 
 		//Initialize Audio Manager
 		audioManager = std::make_unique<AudioManager>(
 			threadPool,
-			configCache.LoadResource("Settings/AudioConfig.json")
+			configCache.LoadResource("Config/AudioConfig.json")
 		);
 
 		physicsEngine = std::make_unique<PhysicsEngine>(
 			eventSystem.get(),
-			configCache.LoadResource("Settings/PhysicsConfig.json")
+			configCache.LoadResource("Config/PhysicsConfig.json")
 		);
 
 		//Set the current level to the default level
@@ -170,7 +170,7 @@ namespace core {
 			inputManager->SetActiveInputMapping(scene->GetControlFilePath());
 		}
 		else {
-			inputManager->SetActiveInputMapping("Settings/Controls/MenuControls.json");
+			inputManager->SetActiveInputMapping("Config/Controls/MenuControls.json");
 		}
 
 		isPaused = !isPaused;

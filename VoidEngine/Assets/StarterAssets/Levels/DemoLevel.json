@@ -1,6 +1,6 @@
 {
     "name":"CollisionDemo",
-    "controlFile":"Settings/Controls/FPSControls.json",
+    "controlFile":"Config/Controls/FPSControls.json",
     "gravity": 9.81,
     "lightSettings":
     {
@@ -88,7 +88,7 @@
             [
                 {
                     "type":"GraphicsComponent",
-                    "model":"Resources/Models/Cube/Cube.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Cube/Cube.obj"
                 },
                 {
                     "type":"ColliderComponent",
@@ -115,7 +115,7 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
+                    "model":"Assets/StarterAssets/Models/Teapot/UtahTeapot.obj"
                 },
                 {
                     "type":"ColliderComponent",
@@ -143,10 +143,11 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Sphere/Sphere.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Sphere/Sphere.obj"
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer":1,
                     "shape":
                     {
                         "type":"SphereCollider",
@@ -169,10 +170,11 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Sphere/Sphere.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Sphere/Sphere.obj"
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer":1,
                     "shape":
                     {
                         "type":"SphereCollider",
@@ -181,7 +183,7 @@
                 },
                 {
                     "type": "PhysicsComponent",
-                    "mass":1.0,
+                    "mass":1,
                     "gravityScale":-0.5
                 }
             ]
@@ -195,7 +197,7 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Cube/Cube.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Cube/Cube.obj"
                 },
                 {
                     "type":"ColliderComponent",
@@ -222,10 +224,11 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Teapot/UtahTeapot.obj"
+                    "model":"Assets/StarterAssets/Models/Teapot/UtahTeapot.obj"
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer":1,
                     "shape":
                     {
                         "type":"SphereCollider",
@@ -248,7 +251,7 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Cube/Cube.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Cube/Cube.obj"
                 },
                 {
                     "type":"ColliderComponent",
@@ -275,10 +278,11 @@
             [
                 {
                     "type": "GraphicsComponent",
-                    "model":"Resources/Models/Sphere/Sphere.obj"
+                    "model":"Assets/StarterAssets/Models/Primitives/Sphere/Sphere.obj"
                 },
                 {
                     "type":"ColliderComponent",
+                    "collisionLayer":1,
                     "shape":
                     {
                         "type":"SphereCollider",

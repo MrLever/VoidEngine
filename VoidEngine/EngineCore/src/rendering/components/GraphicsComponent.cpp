@@ -42,7 +42,7 @@ namespace core {
 			);
 		}
 		else {
-			AddMaterial("DefaultMaterial", "Assets/Shaders/default.vert", "Assets/Shaders/default.frag");
+			AddMaterial("DefaultMaterial", "Assets/Default/Shaders/default.vert", "Assets/Default/Shaders/default.frag");
 		}
 	}
 
