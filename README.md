@@ -3,6 +3,9 @@ This is the repository for the void engine, made scratch with C++20 and OpenGL.
 
 ![](docs/Demo.gif)
 
+# Supported Games
+* [SuperVoid](https://www.github.com/mrlever/SuperVoid)
+
 # Current Features
 * Keyboard, Mouse, and Gamepad Control
 * Flexible Entity-Component system to allow manipulation of gameplay entities
