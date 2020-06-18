@@ -16,9 +16,8 @@ project(VoidEngine C CXX)
 ################################################################################
 # Build Options
 ################################################################################
-option(VoidEngine_Build_Standalone "Include sample project in game project" OFF)
+option(VoidEngine_Build_Standalone "Include sample project in game project" ON)
 option(VoidEngine_Enable_Sample_Project "Include sample project in game project" OFF)
-option(VoidEngine_Include_Starter_Assets "Include starter assets in game project" ON)
 
 ################################################################################
 # Set build-configuration types
