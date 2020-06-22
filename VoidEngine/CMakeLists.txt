@@ -31,21 +31,11 @@ set_target_properties(InstallAssets PROPERTIES FOLDER Engine/Tools)
 if(NOT ${VoidEngine_Build_Standalone})
     # Copy Defualt Assets
     add_custom_command(TARGET InstallAssets POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "Installing Default Assets to ${GAME_PROJECT_NAME}/Assets/"
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing Required Assets to ${GAME_PROJECT_NAME}/Assets/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_CURRENT_SOURCE_DIR}/Assets/Default
             $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/Default
     )
-
-    # Copy Starter Assets
-    if(${VoidEngine_Include_Starter_Assets})
-        add_custom_command(TARGET InstallAssets POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E echo "Installing Starter Assets to ${GAME_PROJECT_NAME}/Assets/"
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-                ${CMAKE_CURRENT_SOURCE_DIR}/Assets/
-                $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Assets/
-        )
-    endif()
 
     add_custom_command(TARGET InstallAssets POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E echo "Installing ${GAME_PROJECT_NAME} Assets to ${GAME_PROJECT_NAME}/Assets/"
@@ -55,14 +45,14 @@ if(NOT ${VoidEngine_Build_Standalone})
     )
 
     add_custom_command(TARGET InstallAssets POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "Installing Engine Config files to ${GAME_PROJECT_NAME}/Config/"
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing Void Engine default config files to ${GAME_PROJECT_NAME}/Config/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${CMAKE_CURRENT_SOURCE_DIR}/Config/
             $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Config/
     )
 
     add_custom_command(TARGET InstallAssets POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E echo "Installing ${GAME_PROJECT_NAME} Configurations to ${GAME_PROJECT_NAME}/Config/"
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing ${GAME_PROJECT_NAME} config files to ${GAME_PROJECT_NAME}/Config/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
             ${GAME_CONFIG_DIRECTORY}
             $<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>/Config/
