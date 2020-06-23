@@ -39,6 +39,13 @@ namespace utils {
 		virtual bool Load() = 0;
 
 		/**
+		 * Interfaces with the Resource Factory System to load a dependent resource for a concrete resource.
+		 * @param type The parsed type of the dependent resource
+		 * @param location The parsed location of the dependent resource
+		 */
+		virtual void LoadDependentResource(const std::string& type, const std::string& location) final;
+
+		/**
 		 * Loads the resource's default value if the path provided is invalid
 		 */
 		virtual bool LoadErrorResource() = 0;
@@ -65,18 +72,15 @@ namespace utils {
 
 	protected:
 		/** Unique identifier for resource lookup and comparison */
-		Name ResourceID;
+		Name m_ResourceID;
 
 		/** Path to the desired resource */
-		std::filesystem::path ResourcePath;
+		std::filesystem::path m_ResourcePath;
 
 		/** Flag specifying if the resource was found in main memory */
-		std::atomic<bool> ResourceValid;
+		std::atomic<bool> m_ResourceValid;
 
 		/** Variable to allow users to query if a resource has been initialized */
-		bool IsInitialized;
-
-		/** Let's Managing objects know whether this resource is can be initialized on other threads */
-		bool IsThreadSafe;	
+		bool m_IsInitialized;
 	};
 }

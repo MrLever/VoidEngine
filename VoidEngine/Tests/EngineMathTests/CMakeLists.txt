@@ -15,6 +15,8 @@ add_executable(
     ${Math_Test_Suite}
 )
 
+set_target_properties(MathTestSuite PROPERTIES FOLDER Engine/Tests/)
+
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################

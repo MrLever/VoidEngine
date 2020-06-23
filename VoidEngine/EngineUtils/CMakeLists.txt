@@ -32,19 +32,19 @@ set(ALL_FILES
 # Specify build as Static Library
 ################################################################################
 add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Engine/Modules)
 
 ################################################################################
 # Set target include directories
 ################################################################################
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies)
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLAD/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLFW/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/assimp/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_ROOT_DIR}/Dependencies)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR}/Dependencies/GLAD/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR}/Dependencies/GLFW/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR}/Dependencies/assimp/include)
 
 ################################################################################
 # Set Module Include Directory
 ################################################################################
 target_include_directories(${PROJECT_NAME} PUBLIC ${engine_utils_include_dir}/)
 target_include_directories(${PROJECT_NAME} PRIVATE ${engine_utils_header_dir}/)
-target_include_directories(${PROJECT_NAME} PRIVATE ${engine_utils_OSAL_header_dir}/)

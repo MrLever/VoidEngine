@@ -32,10 +32,11 @@ set(ALL_FILES
 ################################################################################
 # Specify build as Static Library
 ################################################################################
-add_library(EngineMath STATIC ${ALL_FILES})
+add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Engine/Modules)
 
 ################################################################################
 # Set Module Include Directory
 ################################################################################
-target_include_directories(EngineMath PUBLIC ${engine_math_include_dir}/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${engine_math_include_dir}/)
 

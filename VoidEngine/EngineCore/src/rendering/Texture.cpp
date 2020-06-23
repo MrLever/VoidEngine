@@ -25,7 +25,7 @@ namespace core {
 
 	bool Texture::Load() {
 		//Load image data from file into heap
-		ImageData = stbi_load(ResourcePath.string().c_str(), &TextureWidth, &TextureHeight, &TextureColorChannels, 0);
+		ImageData = stbi_load(m_ResourcePath.string().c_str(), &TextureWidth, &TextureHeight, &TextureColorChannels, 0);
 		
 		if (ImageData) {
 			return true;
@@ -40,8 +40,8 @@ namespace core {
 	}
 
 	void Texture::Initialize() {
-		if (IsInitialized) {
-			utils::Logger::LogDebug("Texture [" + ResourceID.StringID + "] has already been initialized");
+		if (m_IsInitialized) {
+			utils::Logger::LogDebug("Texture [" + m_ResourceID.StringID + "] has already been initialized");
 			return;
 		}
 		if (!ImageData) {
@@ -71,7 +71,7 @@ namespace core {
 		stbi_image_free(ImageData);
 		ImageData = nullptr;
 
-		IsInitialized = true;
+		m_IsInitialized = true;
 	}
 
 	void Texture::Use() {

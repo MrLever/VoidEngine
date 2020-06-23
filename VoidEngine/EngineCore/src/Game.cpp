@@ -12,13 +12,13 @@
 
 namespace core {
 
-	Game::Game(const std::string& configFile) : engineConfig(configFile) {
-		isTerminated = false;
-		isPaused = false;
+	Game::Game(const std::string& configFile) : m_EngineConfig(configFile) {
+		m_IsTerminated = false;
+		m_IsPaused = false;
 
 		utils::Logger::LogInfo(std::string("Game launched with Working Directory: ") + std::filesystem::current_path().string());
 
-		engineConfig.Load();
+		m_EngineConfig.Load();
 
 		Initialize();
 	
@@ -28,37 +28,38 @@ namespace core {
 
 	Game::~Game() {
 		//Ensure that scene and all game objects are destroyed before destroying engine systems
-		scene.reset(nullptr);
-		eventListener.reset(nullptr);
+		m_Scene.reset(nullptr);
+		m_EventListener.reset(nullptr);
 		utils::Logger::LogInfo("Game terminated!");
 	}
 
 	void Game::Initialize() {
 		//Initialize Engine Utilities
-		threadPool = std::make_shared<utils::ThreadPool>();
+		m_ThreadPool = std::make_shared<utils::ThreadPool>();
 
-		utils::ResourceAllocatorBase::EngineThreadPool = threadPool;
+		//Provide thread pool access to resource allocation systems
+		utils::ResourceAllocatorBase::EngineThreadPool = m_ThreadPool;
 
 		//Intialize EventSystem
-		eventSystem = std::make_unique<EventSystem>();
-		eventListener.reset(new EventListener(eventSystem.get()));
+		m_EventSystem = std::make_unique<EventSystem>();
+		m_EventListener.reset(new EventListener(m_EventSystem.get()));
 
-		eventListener->SubscribeToEvent<WindowClosedEvent>(
+		m_EventListener->SubscribeToEvent<WindowClosedEvent>(
 			[this](WindowClosedEvent* windowEvent) {
 				HandleWindowClosed(windowEvent);
 			}
 		);
 
-		eventListener->SubscribeToEvent<InputActionEvent>(
+		m_EventListener->SubscribeToEvent<InputActionEvent>(
 			[this](InputActionEvent* event) {
 				auto action = event->action;
 				if (action.Action == "PauseGame" && action.Type == ActionType::PRESSED) {
-					eventListener->PostEvent<PauseGameEvent>();
+					m_EventListener->PostEvent<PauseGameEvent>();
 				}
 			}
 		);
 
-		eventListener->SubscribeToEvent<PauseGameEvent>(
+		m_EventListener->SubscribeToEvent<PauseGameEvent>(
 			[this](PauseGameEvent* pauseEvent) {
 				PauseGame(pauseEvent);
 			}
@@ -66,8 +67,8 @@ namespace core {
 
 
 		//Initialize game window
-		window = platform::MakeWindow(
-			eventSystem.get(), 
+		m_Window = platform::MakeWindow(
+			m_EventSystem.get(), 
 			WindowData {
 				"SuperVoid",
 				1280,
@@ -75,54 +76,54 @@ namespace core {
 			}
 		);
 
-		Renderer::Initialize(window->GetViewport());
+		Renderer::Initialize(m_Window->GetViewport());
 
 		//Initialize Input Manager
-		inputManager = std::make_shared<InputManager>(
-			eventSystem.get(),
-			configCache.LoadResource("Config/InputConfig.json")
+		m_InputManager = std::make_shared<InputManager>(
+			m_EventSystem.get(),
+			m_ConfigCache.LoadResource("Config/InputConfig.json")
 		);
 
 		//Initialize Audio Manager
-		audioManager = std::make_unique<AudioManager>(
-			threadPool,
-			configCache.LoadResource("Config/AudioConfig.json")
+		m_AudioManager = std::make_unique<AudioManager>(
+			m_ThreadPool,
+			m_ConfigCache.LoadResource("Config/AudioConfig.json")
 		);
 
-		physicsEngine = std::make_unique<PhysicsEngine>(
-			eventSystem.get(),
-			configCache.LoadResource("Config/PhysicsConfig.json")
+		m_PhysicsEngine = std::make_unique<PhysicsEngine>(
+			m_EventSystem.get(),
+			m_ConfigCache.LoadResource("Config/PhysicsConfig.json")
 		);
 
 		//Set the current level to the default level
-		SetLevel(engineConfig.GetAttribute<std::string>("defaultLevel"));
+		SetLevel(m_EngineConfig.GetAttribute<std::string>("defaultLevel"));
 	}
 
 	void Game::ExecuteGameLoop() {
 		auto previousTime = Timer::now();
 		auto currentTime = Timer::now();
 		
-		while (!isTerminated) {
+		while (!m_IsTerminated) {
 			//Get current time
 			currentTime = Timer::now();
 			std::chrono::duration<float> deltaSeconds = currentTime - previousTime;
 			auto deltaTime = deltaSeconds.count();
 
-			window->ProcessEvents();
+			m_Window->ProcessEvents();
 
 			//Dispatch any events that occurred since the last frame
-			eventSystem->DispatchEvents();
+			m_EventSystem->DispatchEvents();
 
-			scene->ProcessInput(deltaTime);
+			m_Scene->ProcessInput(deltaTime);
 
 			//Update the scene
-			if (!isPaused) {
+			if (!m_IsPaused) {
 				Update(deltaTime);
 			}
 
 			//Draw the scene
-			scene->Draw();
-			window->SwapBuffers();
+			m_Scene->Draw();
+			m_Window->SwapBuffers();
 
 			//Update previous time
 			previousTime = currentTime;
@@ -137,7 +138,7 @@ namespace core {
 
 		UpdateFramerate(deltaTime);
 
-		scene->Update(deltaTime);
+		m_Scene->Update(deltaTime);
 	}
 
 	void Game::UpdateFramerate(double timeSinceLastFrame) {
@@ -162,28 +163,28 @@ namespace core {
 	}
 
 	void Game::HandleWindowClosed(WindowClosedEvent* event) {
-		isTerminated = true;
+		m_IsTerminated = true;
 	}
 
 	void Game::PauseGame(PauseGameEvent* event) {
-		if (isPaused) {
-			inputManager->SetActiveInputMapping(scene->GetControlFilePath());
+		if (m_IsPaused) {
+			m_InputManager->SetActiveInputMapping(m_Scene->GetControlFilePath());
 		}
 		else {
-			inputManager->SetActiveInputMapping("Config/Controls/MenuControls.json");
+			m_InputManager->SetActiveInputMapping("Config/Controls/MenuControls.json");
 		}
 
-		isPaused = !isPaused;
+		m_IsPaused = !m_IsPaused;
 	}
 
 	void Game::SetLevel(const std::string& newLevelPath) {
-		if (scene != nullptr) {
+		if (m_Scene != nullptr) {
 			//Level unloading logic
 		}
 
-		scene = std::make_unique<Scene>(newLevelPath, eventSystem.get(), inputManager, physicsEngine);
-		inputManager->SetActiveInputMapping(scene->GetControlFilePath());
-		scene->BeginPlay();
+		m_Scene = std::make_unique<Scene>(newLevelPath, m_EventSystem.get(), m_InputManager, m_PhysicsEngine);
+		m_InputManager->SetActiveInputMapping(m_Scene->GetControlFilePath());
+		m_Scene->BeginPlay();
 	}
 
 }

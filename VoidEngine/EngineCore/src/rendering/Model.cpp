@@ -13,9 +13,8 @@
 namespace core {
 
 	Model::Model(const std::string& filePath) : utils::Resource(filePath) {
-		modelDirectory = ResourcePath.parent_path();
+		modelDirectory = m_ResourcePath.parent_path();
 		textureCache = std::make_shared<utils::ResourceAllocator<Texture>>();
-		IsThreadSafe = false;
 	}
 
 	Model::~Model() {
@@ -24,10 +23,10 @@ namespace core {
 
 	bool Model::Load() {
 		importer = std::make_unique<Assimp::Importer>();
-		auto modelData = importer->ReadFile(ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+		auto modelData = importer->ReadFile(m_ResourcePath.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
 		if (!modelData || modelData->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !modelData->mRootNode) {
-			utils::Logger::LogError("ASSIMP File Load error [" + ResourcePath.string() + "] was invalid");
+			utils::Logger::LogError("ASSIMP File Load error [" + m_ResourcePath.string() + "] was invalid");
 			return false;
 		}
 		return true;

@@ -21,7 +21,7 @@ namespace utils {
 		/**
 		 * Constructor
 		 */
-		FactoryConstructible() {};
+		FactoryConstructible() = default;
 
 		/**
 		 * Returns dynamic type

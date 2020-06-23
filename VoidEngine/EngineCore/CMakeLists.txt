@@ -40,16 +40,17 @@ set(ALL_FILES
 ################################################################################
 # Define Static Library Target
 ################################################################################
-add_library(EngineCore STATIC ${ALL_FILES})
+add_library(${PROJECT_NAME} STATIC ${ALL_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Engine/Modules)
 
 ################################################################################
 # Set target include directories
 ################################################################################
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies)
-target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_SOURCE_DIR}/Dependencies/GLAD/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/GLFW/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_SOURCE_DIR}/Dependencies/assimp/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_ROOT_DIR}/Dependencies)
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_ROOT_DIR}/Dependencies/GLAD/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${VoidEngine_ROOT_DIR}/Dependencies/GLFW/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${VoidEngine_ROOT_DIR}/Dependencies/assimp/include)
 
 ################################################################################
 # Link Dependencies
@@ -68,8 +69,8 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE ${engine_core_header_dir}VoidE
 ################################################################################
 # Set link options
 ################################################################################
-target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineUtilsd>")
-target_link_options(${PROJECT_NAME} PRIVATE "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineUtils>")
+target_link_options(${PROJECT_NAME} PUBLIC "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineUtilsd>")
+target_link_options(${PROJECT_NAME} PUBLIC "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineUtils>")
 
 ################################################################################
 # Set target include directories

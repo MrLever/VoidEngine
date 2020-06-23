@@ -30,6 +30,11 @@ namespace utils {
 		 * Used to retrieve stringified name of the class a concrete factory produces
 		 */
 		virtual utils::Name GetProductName() const = 0;
+		/**
+		 * Instructs generic factory to find and use concrete factory defualt construct an object of type product
+		 * @param product The name of the product class
+		 */
+		static Base* Create(const utils::Name& product);
 
 		/**
 		 * Instructs generic factory to find and use concrete factory to product product instance
@@ -60,6 +65,10 @@ namespace utils {
 		 * Function to instruct factory to create an instance of the product class
 		 */
 		virtual Base* ConstructProxy() const = 0;
+
+		virtual std::any GetConstructionDelegate() const = 0;
+
+		//virtual Base* ConstructProxy(std::function<) const = 0;
 
 	private:
 		/** Function to access map of product names to factories */
@@ -102,9 +111,11 @@ namespace utils {
 		 */
 		Derived* ConstructProxy() const override;
 
+		std::any GetConstructionDelegate() const override;
+
 	private:
 		/** Stringified name of class this factory produces */
-		utils::Name ProductName;
+		utils::Name m_ProductName;
 	};
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -117,8 +128,7 @@ namespace utils {
 	}
 
 	template<class Base>
-	template<class... Args>
-	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args&& ...args) {
+	inline Base* FactoryBase<Base>::Create(const utils::Name& product) {
 		auto factory = FindFactory(product);
 		if (factory == nullptr) {
 			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
@@ -135,6 +145,29 @@ namespace utils {
 		}
 
 		return entity;
+	}
+
+	template<class Base>
+	template<class... Args>
+	inline Base* FactoryBase<Base>::Create(const utils::Name& product, Args&& ...args) {
+		auto concreteFactory = FindFactory(product);
+		if (factory == nullptr) {
+			utils::Logger::LogWarning("No concrete factory available to produce product " + product.StringID);
+			return nullptr;
+		}
+
+		//Use C++20 perfect capture syntax
+		auto ConstructionLambda = [... args = std::forward<Args>(args)](auto ctorFn){
+			return ctorFn(args...);
+		}
+
+		//Get type-erased construction function from concrete class
+		auto ctorFn = concreteFactory->GetConstructionDelegate();
+
+		auto castedCtorFn = std::any_cast<std::function<Base* (Args...)>>(ctorFn);
+
+		return ConstructionLambda(castedCtorFn);
+
 	}
 
 	template<class Base>
@@ -158,7 +191,7 @@ namespace utils {
 	/////////////////////////////// CONCRETE FACTORY IMPL /////////////////////////////// 
 	/////////////////////////////////////////////////////////////////////////////////////
 	template<class Derived, class Base>
-	inline Factory<Derived, Base>::Factory() : ProductName(Derived::GetStaticTypename()) {
+	inline Factory<Derived, Base>::Factory() : m_ProductName(Derived::GetStaticTypename()) {
 		FactoryBase<Base>::RegisterConcreteFactory(*this);
 	}
 
@@ -169,12 +202,17 @@ namespace utils {
 
 	template<class Derived, class Base>
 	inline utils::Name Factory<Derived, Base>::GetProductName() const {
-		return ProductName;
+		return m_ProductName;
 	}
 
 	template<class Derived, class Base>
 	inline Derived* Factory<Derived, Base>::ConstructProxy() const {
 		return new Derived();
+	}
+
+	template<class Derived, class Base>
+	inline std::any Factory<Derived, Base>::GetConstructionDelegate() const {
+		return nullptr;
 	}
 
 }

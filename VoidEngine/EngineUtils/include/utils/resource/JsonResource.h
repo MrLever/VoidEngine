@@ -66,7 +66,7 @@ namespace utils {
 		auto dataIter = Data.find(attribute);
 		if (dataIter == Data.end()) {
 			std::stringstream warning;
-			warning << "Key [" << attribute << "] not found in JSON resource [" << ResourcePath << "]";
+			warning << "Key [" << attribute << "] not found in JSON resource [" << m_ResourcePath << "]";
 
 			utils::Logger::LogWarning(warning.str());
 			return ReturnErrorValue<T>();
