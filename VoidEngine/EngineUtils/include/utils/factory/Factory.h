@@ -16,7 +16,8 @@ namespace utils {
 
 	/**
 	 * @class FactoryBase
-	 * @brief FactoryBase provides the functionality 
+	 * @brief Create an entrypoint to the factory system of a certain type for user code, and dispatch
+	 *        creation requests to the registered concrete factories.
 	 */
 	template <class Base>
 	class FactoryBase {
@@ -64,11 +65,7 @@ namespace utils {
 		/**
 		 * Function to instruct factory to create an instance of the product class
 		 */
-		virtual Base* ConstructProxy() const = 0;
-
-		virtual std::any GetConstructionDelegate() const = 0;
-
-		//virtual Base* ConstructProxy(std::function<) const = 0;
+		virtual Base* Produce() const = 0;
 
 	private:
 		/** Function to access map of product names to factories */
@@ -109,9 +106,7 @@ namespace utils {
 		/**
 		 * Creates and returns a pointer to a new Derived product
 		 */
-		Derived* ConstructProxy() const override;
-
-		std::any GetConstructionDelegate() const override;
+		Derived* Produce() const override;
 
 	private:
 		/** Stringified name of class this factory produces */
@@ -135,7 +130,7 @@ namespace utils {
 			return nullptr;
 		}
 
-		auto entity = factory->ConstructProxy();
+		auto entity = factory->Produce();
 		if (entity == nullptr) {
 			utils::Logger::LogWarning(
 				"Entity type " +
@@ -206,13 +201,8 @@ namespace utils {
 	}
 
 	template<class Derived, class Base>
-	inline Derived* Factory<Derived, Base>::ConstructProxy() const {
+	inline Derived* Factory<Derived, Base>::Produce() const {
 		return new Derived();
-	}
-
-	template<class Derived, class Base>
-	inline std::any Factory<Derived, Base>::GetConstructionDelegate() const {
-		return nullptr;
 	}
 
 }
