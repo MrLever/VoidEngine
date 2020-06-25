@@ -23,7 +23,7 @@ namespace utils_tests {
 
 		bool Load() override {
 			std::ifstream ifs;
-			ifs.open(ResourcePath);
+			ifs.open(m_ResourcePath);
 
 			if (!ifs.is_open()) {
 				return false;

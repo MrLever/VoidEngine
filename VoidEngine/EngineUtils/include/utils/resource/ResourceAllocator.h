@@ -25,6 +25,10 @@ namespace utils {
 	class ResourceAllocatorBase {
 		friend class core::Game;
 	protected:
+		/** 
+		 * Optionally give all resource allocators acces to the thread pool
+		 * for async resource loading
+		 */
 		static std::shared_ptr<ThreadPool> EngineThreadPool;
 	};
 
@@ -79,15 +83,15 @@ namespace utils {
 		std::shared_ptr<T> GetResource(const Name& fileID);
 
 	private:
-		/** Registry of all loaded resources */
-		static std::unordered_map<Name, ResourceHandle<T>> ResourceCache;
+		/** Registry of all loaded resources of this type */
+		static std::unordered_map<Name, ResourceHandle<T>> m_ResourceCache;
 
-		/** Mutex to synchronise access to the Resource Manager */
-		std::recursive_mutex ResourceManagerLock;
+		/** Mutex to synchronise access to the resource cache */
+		std::recursive_mutex m_ResourceCacheLock;
 	};
 
 	template<class T>
-	std::unordered_map<Name, ResourceHandle<T>> ResourceAllocator<T>::ResourceCache;
+	std::unordered_map<Name, ResourceHandle<T>> ResourceAllocator<T>::m_ResourceCache;
 
 	template<class T>
 	inline ResourceAllocator<T>::ResourceAllocator() {
@@ -102,8 +106,8 @@ namespace utils {
 	template<class T>
 	inline ResourceHandle<T> ResourceAllocator<T>::LoadResource(const std::string& filePath) {
 		//Check if resource loaded previously
-		auto cacheIter = ResourceCache.find(utils::Name(filePath));
-		if (cacheIter != ResourceCache.end()) {
+		auto cacheIter = m_ResourceCache.find(utils::Name(filePath));
+		if (cacheIter != m_ResourceCache.end()) {
 			return cacheIter->second;
 		}
 
@@ -135,15 +139,15 @@ namespace utils {
 		ResourceHandle handle(resourceFuture);
 
 		//Insert the new resource into the registry
-		ResourceCache.insert({ resourceIdentifier, handle });
-		return ResourceCache.find(resourceIdentifier)->second;
+		m_ResourceCache.insert({ resourceIdentifier, handle });
+		return m_ResourceCache.find(resourceIdentifier)->second;
 	}
 
 	template<class T>
 	inline ResourceHandle<T> ResourceAllocator<T>::ReloadResource(const std::string& filePath) {
-		auto cacheIter = ResourceCache.find(filePath);
-		if (cacheIter != ResourceCache.end()) {
-			ResourceCache.erase(cacheIter->first);
+		auto cacheIter = m_ResourceCache.find(filePath);
+		if (cacheIter != m_ResourceCache.end()) {
+			m_ResourceCache.erase(cacheIter->first);
 		}
 
 		return LoadResource(filePath);
@@ -151,10 +155,10 @@ namespace utils {
 
 	template<class T>
 	inline void ResourceAllocator<T>::RemoveResource(const std::string& filePath) {
-		auto cacheIter = ResourceCache.find(filePath);
+		auto cacheIter = m_ResourceCache.find(filePath);
 
-		if (cacheIter != ResourceCache.end()) {
-			ResourceCache.erase(cacheIter->first);
+		if (cacheIter != m_ResourceCache.end()) {
+			m_ResourceCache.erase(cacheIter->first);
 		}
 	}
 
@@ -165,9 +169,9 @@ namespace utils {
 
 	template<class T>
 	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const Name& fileID) {
-		auto cacheIter = ResourceCache.find(fileID);
+		auto cacheIter = m_ResourceCache.find(fileID);
 
-		if (cacheIter != ResourceCache.end()) {
+		if (cacheIter != m_ResourceCache.end()) {
 			return cacheIter->second.GetResource();
 		}
 		else {

@@ -22,12 +22,12 @@ add_executable(
     ${Engine_Utils_Test_Suite}
 ) 
 
+set_target_properties(EngineUtilsTestSuite PROPERTIES FOLDER Engine/Tests/)
+
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################
 target_link_libraries(EngineUtilsTestSuite gtest_main EngineUtils EngineCore)
-
-
 
 ################################################################################
 # Link EngineCore Wholearchive to allow access to factory symbols

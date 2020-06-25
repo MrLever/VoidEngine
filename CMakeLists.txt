@@ -9,11 +9,6 @@ if(EXISTS "${LOC_PATH}")
 endif()
 
 ################################################################################
-# Define project
-################################################################################
-project(VoidEngine C CXX)
-
-################################################################################
 # Build Options
 ################################################################################
 option(VoidEngine_Build_Standalone "Include sample project in game project" ON)
@@ -41,6 +36,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_compile_options("$<$<CONFIG:RELEASE>:/GL>")
 add_compile_options("$<$<CONFIG:RELEASE>:/Ot>")
 add_link_options("$<$<CONFIG:RELEASE>:/LTCG>")
+
+################################################################################
+# Set project root dir
+################################################################################
+set(VoidEngine_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 ################################################################################
 # Include dependencies and engine modules

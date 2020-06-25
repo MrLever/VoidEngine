@@ -82,40 +82,40 @@ namespace core {
 		 */
 		void SetLevel(const std::string& newLevelPath);
 
-		/** The game's current level */
-		std::unique_ptr<Scene> scene;
+		/** The game's active scene */
+		std::unique_ptr<Scene> m_Scene;
 		
 		/** A Handle to the Engine's thread pool */
-		std::shared_ptr<utils::ThreadPool> threadPool;
+		std::shared_ptr<utils::ThreadPool> m_ThreadPool;
 
 		/** Resource Manager for the engine's config files */
-		utils::ResourceAllocator<utils::Configuration> configCache;
+		utils::ResourceAllocator<utils::Configuration> m_ConfigCache;
 
-		utils::Configuration engineConfig;
+		utils::Configuration m_EngineConfig;
 
 		/** Engine's central event bus */
-		std::unique_ptr<EventSystem> eventSystem;
+		std::unique_ptr<EventSystem> m_EventSystem;
 
 		/** A handle to the game's display */
-		std::shared_ptr<Window> window;
+		std::shared_ptr<Window> m_Window;
 
 		/** Pointer to the game's Input Manager*/
-		std::shared_ptr<InputManager> inputManager;
+		std::shared_ptr<InputManager> m_InputManager;
 
 		/** Pointer to physics subsystem */
-		std::shared_ptr<PhysicsEngine> physicsEngine;
+		std::shared_ptr<PhysicsEngine> m_PhysicsEngine;
 		
 		/** Pointer to the game's Audio Manger */
-		std::unique_ptr<AudioManager> audioManager;
+		std::unique_ptr<AudioManager> m_AudioManager;
 
 		/** Event listener as component */
-		std::unique_ptr<EventListener> eventListener;
+		std::unique_ptr<EventListener> m_EventListener;
 
 		/** Flag to determine when the game loop should terminate */
-		bool isTerminated;
+		bool m_IsTerminated;
 
 		/** Flag to query whether the game is paused */
-		bool isPaused;
+		bool m_IsPaused;
 
 	};
 

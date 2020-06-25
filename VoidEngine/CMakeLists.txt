@@ -1,4 +1,9 @@
 ################################################################################
+# Define project
+################################################################################
+project(VoidEngine C CXX)
+
+################################################################################
 # Include Void Engine sub-modules
 ################################################################################
 add_subdirectory(EngineMath)
@@ -7,16 +12,22 @@ add_subdirectory(EngineCore)
 add_subdirectory(Tests)
 
 ################################################################################
-# Set Folder Properties
-################################################################################
-set_target_properties(EngineUtils PROPERTIES FOLDER Engine/)
-set_target_properties(EngineMath PROPERTIES FOLDER Engine/)
-set_target_properties(EngineCore PROPERTIES FOLDER Engine/)
-
-################################################################################
 # Enable Assertions
 ################################################################################
 target_compile_definitions(EngineCore PRIVATE -DVE_ENABLE_ASSERTS)
+
+################################################################################
+# Define Void engine library that is linked to by game project
+################################################################################
+add_library(${PROJECT_NAME} STATIC "src/main.cpp")
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Engine/)
+
+################################################################################
+# Link VoidEngine to EngineCore
+################################################################################
+target_link_libraries(${PROJECT_NAME} PUBLIC EngineCore)
+target_link_options(${PROJECT_NAME} PUBLIC "$<$<CONFIG:DEBUG>:/WHOLEARCHIVE:EngineCored>")
+target_link_options(${PROJECT_NAME} PUBLIC "$<$<CONFIG:RELEASE>:/WHOLEARCHIVE:EngineCore>")
 
 ################################################################################
 # Define Asset installation rules
@@ -59,6 +70,9 @@ if(NOT ${VoidEngine_Build_Standalone})
     )
 endif()
 
+################################################################################
+# Set working directory for MSVC generators
+################################################################################
 if(MSVC)
     set_property(TARGET ${GAME_PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${GAME_PROJECT_NAME}>")
 endif()

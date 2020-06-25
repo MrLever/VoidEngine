@@ -21,6 +21,8 @@ add_executable(
     ${Engine_Modules_Test_Suite}
 ) 
 
+set_target_properties(EngineCoreTestSuite PROPERTIES FOLDER Engine/Tests/)
+
 ################################################################################
 # Link GTest and Engine Modules
 ################################################################################

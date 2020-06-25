@@ -31,8 +31,8 @@ namespace core {
 				std::stringstream errorMessage;
 
 				errorMessage << "SHADER LINK ERROR:\n";
-				errorMessage << "\tVertex Shader: " << vertex->ResourcePath << "\n";
-				errorMessage << "\tFragment Shader: " << fragment->ResourcePath << "\n";
+				errorMessage << "\tVertex Shader: " << vertex->m_ResourcePath << "\n";
+				errorMessage << "\tFragment Shader: " << fragment->m_ResourcePath << "\n";
 
 				utils::Logger::LogError(errorMessage.str());
 				m_ProgramValid = false;

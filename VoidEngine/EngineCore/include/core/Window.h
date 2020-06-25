@@ -13,9 +13,6 @@
 #include "core/rendering/Viewport.h"
 
 namespace core {
-	//Forward Class Declarations
-	class CameraComponent;
-	class Entity;
 
 	struct WindowData {
 		std::string gameName;

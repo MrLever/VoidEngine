@@ -12,7 +12,7 @@ namespace utils {
 	}
 
 	bool JsonResource::Load() {
-		std::ifstream configFile(ResourcePath);
+		std::ifstream configFile(m_ResourcePath);
 
 		if (!configFile.is_open()) {
 			return LoadErrorResource();

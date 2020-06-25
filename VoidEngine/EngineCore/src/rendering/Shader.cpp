@@ -23,9 +23,9 @@ namespace core {
 		std::string sourceBuffer;
 		std::string lineBuffer;
 
-		ifs.open(ResourcePath);
+		ifs.open(m_ResourcePath);
 		if (!ifs.is_open()) {
-			utils::Logger::LogError("Shader " + ResourcePath.string() + "not found.");
+			utils::Logger::LogError("Shader " + m_ResourcePath.string() + "not found.");
 			return false;
 		}
 
@@ -57,15 +57,15 @@ namespace core {
 		glGetShaderiv(m_ShaderHandle, GL_COMPILE_STATUS, &success);
 
 		if (!success) {
-			ResourceValid = false;
+			m_ResourceValid = false;
 			glGetShaderInfoLog(m_ShaderHandle, 1024, NULL, infoBuffer);
 			std::stringstream errorStream;
 			errorStream << "SHADER COMPILATION ERROR:\n";
-			errorStream << "\tShader Location: " << ResourcePath << "\n";
+			errorStream << "\tShader Location: " << m_ResourcePath << "\n";
 			errorStream << infoBuffer;
 			utils::Logger::LogError(errorStream.str());
 		}
 
-		IsInitialized = true;
+		m_IsInitialized = true;
 	}
 }
