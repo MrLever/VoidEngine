@@ -1,25 +1,15 @@
 ################################################################################
-# Set Files
+# Collect tests
 ################################################################################
-set(Engine_Utils_Test_Suite
-    "Configurable_test.cpp"
-    "Configuration_test.cpp"
-    "Name_test.cpp"
-    "Table_test.cpp"
-    "Factory_test.cpp"
-    "ResourceManager_test.cpp"
-    "ThreadPool_test"
-    "ThreadSafeQueue_test.cpp"
-    "GenericUtilities_test.cpp"
-    "RTTI_test.cpp"
-)
+file(GLOB_RECURSE TEST_SOURCE CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+
 
 ################################################################################
 # Create executable
 ################################################################################
 add_executable(
     EngineUtilsTestSuite
-    ${Engine_Utils_Test_Suite}
+    ${TEST_SOURCE}
 ) 
 
 set_target_properties(EngineUtilsTestSuite PROPERTIES FOLDER Engine/Tests/)
