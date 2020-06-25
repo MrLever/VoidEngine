@@ -46,4 +46,5 @@ set(VoidEngine_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 # Include dependencies and engine modules
 ################################################################################
 add_subdirectory(Dependencies)
+add_subdirectory(Tools)
 add_subdirectory(VoidEngine)
