@@ -18,6 +18,11 @@ namespace utils {
 	struct Name {
 		/**
 		 * Name Constructor
+		 */
+		Name();
+
+		/**
+		 * Name Constructor
 		 * @param id The string from which the Name is generated.
 		 */
 		Name(const std::string& id);
@@ -81,6 +86,10 @@ namespace utils {
 		uint32_t ID;
 
 	};
+
+	inline Name::Name() : StringID(""), ID(FNV1aHash("")){
+
+	}
 
 	inline Name::Name(const std::string& id) : StringID(id), ID(FNV1aHash(id.c_str())) {
 

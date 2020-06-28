@@ -29,8 +29,11 @@ namespace utils {
 
 	#ifdef VE_ENABLE_ASSERTS
 		#define VE_ASSERT(x, ...) { if(!(x)) { utils::Logger::LogError("Assertion Failed: {0} + __VA_ARGS__"); __debugbreak(); } }
+		#define	VE_ASSERT_NOT_IMPLEMENTED(...) \
+		utils::Logger::LogError("Assertion Failed, function not implemented.\nDetail:" + __VA_ARGS__); __debugbreak();
 	#else
 		#define VE_ASSERT(x, ...)
+		#define	VE_ASSERT_NOT_IMPLEMENTED(...)
 	#endif
 }
 
