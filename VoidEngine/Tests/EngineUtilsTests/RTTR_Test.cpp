@@ -91,8 +91,8 @@ namespace utils_tests {
 		ASSERT_EQ(12345, instance.m_ID);
 
 		instance.m_ID = 123456;
-
-		ASSERT_EQ(123456, userRefl.GetProperty<int>(&instance, utils::Name("m_ID")));
+		int id = userRefl.GetProperty<int>(&instance, utils::Name("m_ID")).value();
+		ASSERT_EQ(123456, id);
 	}
 
 }
