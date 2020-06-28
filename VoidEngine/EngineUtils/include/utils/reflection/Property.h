@@ -14,8 +14,8 @@ namespace utils {
 	 * @brief A named member of a derived or user defined type
 	 */
 	struct Property {
-		//Allow Class reflection to set and get properties
-		friend class utils::Class;
+		//Allow Class Type Descriptors to set and get properties
+		friend struct utils::Class;
 
 		/** The type of the class member */
 		const Type& m_Type;
