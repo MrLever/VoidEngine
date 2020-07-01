@@ -11,11 +11,15 @@ namespace utils {
 	 * @struct Type
 	 * @brief The base description of a type in the reflection system
 	 */
-	struct Type {
+	struct TypeDescriptor {
 		/** Name of the type as a hashed string */
 		utils::Name m_Name;
 
 		/** Size of the type in bytes */
 		size_t m_Size;
+
+		bool operator== (const TypeDescriptor& other) const {
+			return m_Name == other.m_Name && m_Size == other.m_Size;
+		}
 	};
 }

@@ -6,11 +6,11 @@
 #include "gtest/gtest.h"
 
 //Void Engine Headers
-#include "utils/reflection/TypeInfo.h"
+#include "utils/reflection/Reflection.h"
 
 namespace rttr_test {
 	CLASS()
-		class User {
+	class User {
 		public:
 			PROPERTY()
 			int m_ID;
@@ -26,12 +26,36 @@ namespace rttr_test {
 			}
 
 			FUNCTION()
-			bool Modify() {
+			virtual bool Modify() {
 				m_ID++;
+				return true;
 			}
 
 		private:
 			int m_PrivateProperty;
+	};
+
+	class Player : public User {
+	public:
+		PROPERTY()
+		int m_XP;
+
+		CTOR()
+		Player() {
+			m_XP = 0;
+		}
+	private:
+		FUNCTION()
+		bool Modify() override {
+			m_XP++;
+			m_Money += 1.0;
+			return true;
+		}
+
+		FUNCTION()
+		int GainXP(int amount) {
+			m_XP += amount;
+		}
 	};
 }
 
@@ -39,10 +63,11 @@ namespace rttr_test {
 namespace utils {
 	//Types discovered by reflection
 	IMPL_GET_TYPE(rttr_test::User)
+	IMPL_GET_TYPE(rttr_test::Player)
 
 	//Implementations of class reflection for types discovered
 	template<>
-	const Class& utils::GetClass<rttr_test::User>() {
+	const ClassDescriptor& utils::reflection::GetClass<rttr_test::User>() {
 		static std::array<Property, 2> properties{
 			Property {
 				GetType<int>(),
@@ -55,16 +80,41 @@ namespace utils {
 				offsetof(rttr_test::User, m_Money)
 			}
 		};
-		
+
 		static std::array<Function, 0> funcs;
-			
+
 		static ClassData<2, 0> dataCache(
 			properties,
 			funcs
 		);
-		
-		static Class classDescriptor{
+
+		static ClassDescriptor classDescriptor{
 			GetType<rttr_test::User>(),
+			dataCache
+		};
+
+		return classDescriptor;
+	}
+
+	template<>
+	const ClassDescriptor& utils::reflection::GetClass <rttr_test::Player>() {
+		static std::array<Property, 1> properties{
+			Property {
+				GetType<int>(),
+				"m_XP",
+				offsetof(rttr_test::Player, m_XP)
+			}
+		};
+
+		static std::array<Function, 0> funcs;
+
+		static ClassData<1, 0> dataCache(
+			properties,
+			funcs
+		);
+
+		static ClassDescriptor classDescriptor{
+			GetType<rttr_test::Player>(),
 			dataCache
 		};
 
@@ -77,32 +127,46 @@ using namespace utils;
 namespace utils_tests {
 	
 	TEST(RTTR_Tests, PrimitiveReflectionTest) {
-		auto intRefl = GetType<int>();
+		auto intRefl = reflection::GetType<int>();
 		ASSERT_EQ(intRefl.m_Name, utils::Name("int"));
 		ASSERT_EQ(intRefl.m_Size, sizeof(int));
 
-		auto doubleRefl = GetType<double>();
+		auto doubleRefl = reflection::GetType<double>();
 		ASSERT_EQ(doubleRefl.m_Name, utils::Name("double"));
 		ASSERT_EQ(doubleRefl.m_Size, sizeof(double));
 		
-		auto boolRefl = GetType<bool>();
+		auto boolRefl = reflection::GetType<bool>();
 		ASSERT_EQ(boolRefl.m_Name, utils::Name("bool"));
 		ASSERT_EQ(boolRefl.m_Size, sizeof(bool));
 	}
 
-	TEST(RTTR_Tests, ClassPropertyAccessTest) {
+	TEST(RTTR_Tests, ClassBasicPropertyAccessTest) {
 		rttr_test::User instance;
 
-		auto userRefl = GetClass<rttr_test::User>();
-		ASSERT_EQ(2, userRefl.m_Data.Properties().size());
+		auto userRefl = reflection::GetClass<rttr_test::User>();
+		ASSERT_EQ(2, userRefl.GetPropertyCount());
 
 		instance.m_ID = 0;
-		userRefl.SetProperty(&instance, utils::Name("m_ID"), 12345);
+		userRefl.SetPropertyData(&instance, utils::Name("m_ID"), 12345);
 		ASSERT_EQ(12345, instance.m_ID);
 
 		instance.m_ID = 123456;
-		int id = userRefl.GetProperty<int>(&instance, utils::Name("m_ID")).value();
+		int id = userRefl.GetPropertyData<int>(&instance, utils::Name("m_ID")).value();
 		ASSERT_EQ(123456, id);
+	}
+
+	TEST(RTTR_Tests, ClassInheritedPropertyAccessTest) {
+		
+		std::unique_ptr<rttr_test::User> instance = std::make_unique<rttr_test::Player>();
+		auto playerRefl = reflection::GetClass<rttr_test::Player>();
+
+		dynamic_cast<rttr_test::Player*>(instance.get())->m_XP = 1337;
+		auto xpVal = playerRefl.GetPropertyData<int>(instance.get(), utils::Name("m_XP"));
+		ASSERT_EQ(true, xpVal.has_value());
+		ASSERT_EQ(1337, xpVal.value());
+
+		playerRefl.SetPropertyData<int>(instance.get(), utils::Name("m_XP"), 0);
+		ASSERT_EQ(0, dynamic_cast<rttr_test::Player*>(instance.get())->m_XP);
 	}
 
 }

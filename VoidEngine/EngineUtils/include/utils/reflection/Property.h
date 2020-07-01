@@ -7,7 +7,14 @@
 #include "utils/Name.h"
 
 namespace utils {
-	struct Type;
+	struct TypeDescriptor;
+
+	template<class C, typename T>
+	struct PropertyData {
+		T C::* m_Data;
+
+		T GetData(const C& instance) const { return instance.*m_Data;  }
+	};
 
 	/**
 	 * @struct Propery
@@ -15,10 +22,10 @@ namespace utils {
 	 */
 	struct Property {
 		//Allow Class Type Descriptors to set and get properties
-		friend struct utils::Class;
+		friend struct utils::ClassDescriptor;
 
 		/** The type of the class member */
-		const Type& m_Type;
+		const TypeDescriptor& m_Type;
 
 		/** The name of the class memeber */
 		utils::Name m_Name;
@@ -32,21 +39,21 @@ namespace utils {
 		 * @param instance The pointer to the class instance that holds this property
 		 */
 		template<class T>
-		void Set(void* instance, const T& value);
+		void SetValue(void* instance, const T& value);
 
 		/**
 		 * Allows user to access a property through it's reflection data
 		 * @param instance The pointer to the class instance that holds this property
 		 */
 		template<class T>
-		std::optional<T> Get(const void* instance) const;
+		std::optional<T> GetValue(const void* instance) const;
 
 	};
 
 	template<class T>
-	inline void Property::Set(void* instance, const T& value) {
-		//Require type match to modify memory
-		assert(&m_Type == &GetType<T>());
+	inline void Property::SetValue(void* instance, const T& value) {
+		//Assert that the template type matches the actual type of this property
+		assert(m_Type == reflection::GetType<T>());
 
 		std::memcpy(
 			((char*)instance) + m_Offset,
@@ -56,8 +63,8 @@ namespace utils {
 	}
 
 	template<class T>
-	inline std::optional<T> Property::Get(const void* instance) const {
-		if (&m_Type != &GetType<T>()) {
+	inline std::optional<T> Property::GetValue(const void* instance) const {
+		if (m_Type != reflection::GetType<T>()) {
 			return {};
 		}
 
