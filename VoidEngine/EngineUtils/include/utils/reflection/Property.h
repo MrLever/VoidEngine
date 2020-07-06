@@ -21,19 +21,15 @@ namespace utils {
 	 * @brief A named member of a derived or user defined type
 	 */
 	struct Property {
-		//Allow Class Type Descriptors to set and get properties
-		friend struct utils::ClassDescriptor;
-
 		/** The type of the class member */
 		const TypeDescriptor& m_Type;
 
 		/** The name of the class memeber */
-		utils::Name m_Name;
+		const utils::Name m_Name;
 
 		/** The offset of the class member in memory */
-		size_t m_Offset;
+		const size_t m_Offset;
 
-	private:
 		/**
 		 * Allows user to modify instance of a property through it's reflection data
 		 * @param instance The pointer to the class instance that holds this property

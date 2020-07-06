@@ -83,7 +83,7 @@ namespace utils {
 
 		static std::array<Function, 0> funcs;
 
-		static ClassData<2, 0> dataCache(
+		static ClassData<2, 0, 0> dataCache(
 			properties,
 			funcs
 		);
@@ -97,7 +97,7 @@ namespace utils {
 	}
 
 	template<>
-	const ClassDescriptor& utils::reflection::GetClass <rttr_test::Player>() {
+	const ClassDescriptor& utils::reflection::GetClass<rttr_test::Player>() {
 		static std::array<Property, 1> properties{
 			Property {
 				GetType<int>(),
@@ -106,11 +106,16 @@ namespace utils {
 			}
 		};
 
+		static std::array<const ClassDescriptor*, 1> parents{
+			&GetClass<rttr_test::User>()
+		};
+
 		static std::array<Function, 0> funcs;
 
-		static ClassData<1, 0> dataCache(
+		static ClassData<1, 0, 1> dataCache(
 			properties,
-			funcs
+			funcs,
+			parents
 		);
 
 		static ClassDescriptor classDescriptor{
@@ -140,7 +145,32 @@ namespace utils_tests {
 		ASSERT_EQ(boolRefl.m_Size, sizeof(bool));
 	}
 
-	TEST(RTTR_Tests, ClassBasicPropertyAccessTest) {
+	TEST(RTTR_Tests, ClassDescriptorPropertyCountTest) {
+		auto userRefl = reflection::GetClass<rttr_test::User>();
+		auto playerRefl = reflection::GetClass<rttr_test::Player>();
+
+		ASSERT_EQ(2, userRefl.GetPropertyCount());
+		ASSERT_EQ(3, playerRefl.GetPropertyCount());
+	}
+
+	TEST(RTTR_Tests, ClassDescriptorPropertyReflectionAccessTest) {
+		//Base class reflection
+		auto userRefl = reflection::GetClass<rttr_test::User>();
+		auto userProps = userRefl.GetProperties();
+		ASSERT_EQ(userRefl.GetPropertyCount(), userProps.size());
+		
+		auto idProp = userRefl.GetProperty(utils::Name("m_ID"));
+		ASSERT_EQ(true, idProp.has_value());
+		ASSERT_EQ("m_ID", idProp.value().m_Name);
+
+		//Derived class reflection
+		auto playerRefl = reflection::GetClass<rttr_test::Player>();
+		auto playerProps = playerRefl.GetProperties();
+		ASSERT_EQ(playerRefl.GetPropertyCount(), playerProps.size());
+		ASSERT_EQ("m_ID", userRefl.GetProperty(utils::Name("m_ID")).value().m_Name);
+	}
+
+	TEST(RTTR_Tests, ClassDescriptorPropertyDataAccessTest) {
 		rttr_test::User instance;
 
 		auto userRefl = reflection::GetClass<rttr_test::User>();
@@ -153,20 +183,21 @@ namespace utils_tests {
 		instance.m_ID = 123456;
 		int id = userRefl.GetPropertyData<int>(&instance, utils::Name("m_ID")).value();
 		ASSERT_EQ(123456, id);
-	}
 
-	TEST(RTTR_Tests, ClassInheritedPropertyAccessTest) {
-		
-		std::unique_ptr<rttr_test::User> instance = std::make_unique<rttr_test::Player>();
+		//Polymorphic class data access dest
+		std::unique_ptr<rttr_test::User> polyInstance = std::make_unique<rttr_test::Player>();
 		auto playerRefl = reflection::GetClass<rttr_test::Player>();
 
-		dynamic_cast<rttr_test::Player*>(instance.get())->m_XP = 1337;
-		auto xpVal = playerRefl.GetPropertyData<int>(instance.get(), utils::Name("m_XP"));
+		polyInstance->m_ID = 1234;
+		auto playerID = playerRefl.GetPropertyData<int>(polyInstance.get(), utils::Name("m_ID"));
+		ASSERT_EQ(1234, playerID);
+
+		dynamic_cast<rttr_test::Player*>(polyInstance.get())->m_XP = 1337;
+		auto xpVal = playerRefl.GetPropertyData<int>(polyInstance.get(), utils::Name("m_XP"));
 		ASSERT_EQ(true, xpVal.has_value());
 		ASSERT_EQ(1337, xpVal.value());
 
-		playerRefl.SetPropertyData<int>(instance.get(), utils::Name("m_XP"), 0);
-		ASSERT_EQ(0, dynamic_cast<rttr_test::Player*>(instance.get())->m_XP);
+		playerRefl.SetPropertyData<int>(polyInstance.get(), utils::Name("m_XP"), 0);
+		ASSERT_EQ(0, dynamic_cast<rttr_test::Player*>(polyInstance.get())->m_XP);
 	}
-
 }

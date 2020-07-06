@@ -42,7 +42,7 @@ namespace utils {
 		 * Assignment operator, string
 		 * @param name, the name to assign to this instance
 		 */
-		Name& operator= (const std::string name);
+		Name& operator= (const std::string& name);
 
 		/**
 		 * Equality operator, other Name
@@ -105,7 +105,7 @@ namespace utils {
 		return *this;
 	}
 
-	inline Name& Name::operator=(const std::string name) {
+	inline Name& Name::operator=(const std::string& name) {
 		if (StringID == name) {
 			return *this;
 		}

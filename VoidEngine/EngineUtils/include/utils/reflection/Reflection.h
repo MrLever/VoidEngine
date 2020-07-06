@@ -16,12 +16,16 @@ namespace utils {
 //Namespace to contain reflection api functions
 namespace reflection { 
 	/**
-	 * Special function to allow users to query for reflection data
+	 * Allow users to query for basic type properties, name and size
 	 * @tparam T The type to aquire reflected data for.
 	 */
 	template<typename T>
 	const TypeDescriptor& GetType() noexcept;
 
+	/**
+	 * Allow users to query advanced properties of non-built in types
+	 * @tparam T The type to aquire reflected data for.
+	 */
 	template<typename T>
 	const ClassDescriptor& GetClass();
 } //namespace reflection
