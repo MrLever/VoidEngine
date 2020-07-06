@@ -7,6 +7,7 @@
 
 //Void Engine Headers
 #include "utils/Name.h"
+#include "utils/reflection/ClassDescriptorData.h"
 #include "utils/reflection/TypeDescriptor.h"
 #include "utils/reflection/Property.h"
 
@@ -17,145 +18,89 @@ namespace utils {
 	struct Property;
 	struct Function;
 
-	/**
-	 * Interface used by class type descriptors to access cached reflection data
-	 */
-	struct ClassDataInterface {
-		virtual std::span<Property> GetProperties() = 0;
-		virtual std::size_t GetPropertyCount() const = 0;
-
-		virtual std::span<Function> GetFunctions() = 0;
-		virtual std::size_t GetFunctionCount() const = 0;
-		
-		virtual std::span<const ClassDescriptor*> GetParents() = 0;
-		virtual std::size_t GetParentCount() const = 0;
-	};
-
-	/**
-	 * Data adapter for caching class type descriptor properties with use of dynamic allocation
-	 * @tparam NumProperties the number of properties the class has.
-	 * @tparam NumFunctions the number of member functions the class has.
-	 */
-	template<size_t NumProperties, size_t NumFunctions, size_t NumParents = 0>
-	struct ClassData : public ClassDataInterface {
-		/**
-		 * Constructor
-		 * @param props The properties stored in this data cache
-		 * @param funcs The functions stored in this data cache
-		 */
-		ClassData(
-			std::array<Property, NumProperties> props,
-			std::array<Function, NumFunctions> funcs
-		);
-
-		/**
-		 * Constructor
-		 * @param props The properties stored in this data cache
-		 * @param funcs The functions stored in this data cache
-		 * @param parents The ClassDescriptors for ALL parents of this class
-		 */
-		ClassData(
-			std::array<Property, NumProperties> props,
-			std::array<Function, NumFunctions> funcs,
-			std::array<const ClassDescriptor*, NumParents> parents
-		);
-
-		const Property* const GetProperty(const utils::Name& propName) {
-			for (auto& prop : m_Properties) {
-				if (propName == prop.m_name) {
-					return &prop;
-				}
-			}
-
-			return nullptr;
-		}
-
-		std::span<Property> GetProperties() override final { return m_Properties; }
-
-		std::size_t GetPropertyCount() const override final { return NumProperties; }
-
-		std::span<Function> GetFunctions() override final { return m_Functions; }
-
-		std::size_t GetFunctionCount() const override final { return NumFunctions; }
-
-		std::span<const ClassDescriptor*> GetParents() override final { return m_Parents; }
-
-		std::size_t GetParentCount() const override final { return NumParents; }
-
-	private:
-		std::array<Property, NumProperties> m_Properties;
-		std::array<Function, NumFunctions> m_Functions;
-		std::array<const ClassDescriptor*, NumParents> m_Parents;
-	};
-
 	struct ClassDescriptor : public TypeDescriptor {
 		/**
 		 * Constructor
 		 * @param type This class's type descriptor
 		 * @param data The reflection data of this classes properties and functions
 		 */
-		ClassDescriptor(const TypeDescriptor& type, ClassDataInterface& data) 
-			: TypeDescriptor(type), m_Data(data) {}
+		ClassDescriptor(const TypeDescriptor& type, ClassDescriptorData& data);
 
-		std::vector<Property> GetProperties() const {
-			std::vector<Property> properties;
+		/**
+		 * @return A recusively constructed list of all properties of this type, inherited or otherwise
+		 */
+		[[nodiscard]] std::vector<Property> GetProperties() const;
 
-			//Scan parent classes and capture their properties
-			for (auto& parent : m_Data.GetParents()) {
-				auto parentProps = parent->GetProperties();
-				for (auto& prop : parentProps) {
-					properties.emplace_back(prop);
-				}
-			}
+		/**
+		 * @param propertyName The hashed name of the property to retrieve
+		 * @return The requested property from this type, or an invalid optional
+		 */
+		std::optional<Property> GetProperty(const utils::Name& propertyName) const;
 
-			//Add this ClassDescriptor's properties
-			for (auto& prop : m_Data.GetProperties()) {
-				properties.emplace_back(prop);
-			}
-
-			return properties;
-		}
-
-		std::optional<Property> GetProperty(const utils::Name& propertyName) const {
-			for (auto& property : GetProperties()) {
-				if (property.m_Name == propertyName) {
-					return property;
-				}
-			}
-			return {};
-		}
-
+		/**
+		 * @tparam The type to use when attempting to set the property
+		 * @param instance The instance to manipulate through reflection
+		 * @param name The name of the property to set
+		 * @param value The value to set the specified property to
+		 */
 		template<typename T>
 		void SetPropertyData(void* instance, const utils::Name& name, const T& value);
 
-		template<typename T>
-		[[nodiscard]] std::optional<T> GetPropertyData(
-			const void* instance, 
-			const utils::Name& name
-		) const;
+		/**
+		 * @tparam The type to use when attempting to get the property
+		 * @param instance The instance to extract the value from
+		 * @param name The name of the property to get
+		 * @return The requested property from this type, or an invalid optional
+		 */
+		template<typename T> [[nodiscard]] 
+		std::optional<T> GetPropertyData(const void* instance, const utils::Name& name) const;
 
-		std::size_t GetPropertyCount() const {
-			std::size_t propertyCount = 0;
-
-			//Recursively walk all parents and accumulate their property count 
-			for (auto parentClassDesc : m_Data.GetParents()) {
-				propertyCount += parentClassDesc->GetPropertyCount();
-			}
-
-			//Return the total 
-			return m_Data.GetPropertyCount() + propertyCount;
-		}
+		/**
+		 * @return Count of all properties for this class descriptor, inherited or otherwise
+		 */
+		[[nodiscard]] 
+		std::size_t GetPropertyCount() const;
 
 	private:
 		/** Interface to generically access stack-allocated data arrays generated by VoidReflect */
-		ClassDataInterface& m_Data;
+		ClassDescriptorData& m_Data;
 	};
 
-	////////////////////////////////////////////////////////////////////////////////
-	// Class Type Descriptor impl
-	////////////////////////////////////////////////////////////////////////////////
+	inline ClassDescriptor::ClassDescriptor(const TypeDescriptor& type, ClassDescriptorData& data)
+		: TypeDescriptor(type), m_Data(data) {
+	
+	}
+
+	inline std::vector<Property> ClassDescriptor::GetProperties() const {
+		std::vector<Property> properties;
+
+		//Scan parent classes and capture their properties
+		for (auto& parent : m_Data.GetParents()) {
+			auto parentProps = parent->GetProperties();
+			for (auto& prop : parentProps) {
+				properties.emplace_back(prop);
+			}
+		}
+
+		//Add this ClassDescriptor's properties
+		for (auto& prop : m_Data.GetProperties()) {
+			properties.emplace_back(prop);
+		}
+
+		return properties;
+	}
+
+	inline std::optional<Property> ClassDescriptor::GetProperty(const utils::Name& propertyName) const {
+		for (auto& property : GetProperties()) {
+			if (property.m_Name == propertyName) {
+				return property;
+			}
+		}
+		return {};
+	}
+
 	template <typename T>
-	void ClassDescriptor::SetPropertyData(void* instance, const utils::Name& name, const T& value) {
+	inline void ClassDescriptor::SetPropertyData(void* instance, const utils::Name& name, const T& value) {
 		auto property = GetProperty(name);
 		
 		if (property.has_value()) {
@@ -165,7 +110,7 @@ namespace utils {
 	}
 
 	template<typename T>
-	[[nodiscard]] std::optional<T> ClassDescriptor::GetPropertyData (
+	inline std::optional<T> ClassDescriptor::GetPropertyData (
 		const void* instance, 
 		const utils::Name& name
 	) const {
@@ -173,24 +118,15 @@ namespace utils {
 		return property.has_value() ? property.value().GetValue<T>(instance) : T{};
 	}
 
-	////////////////////////////////////////////////////////////////////////////////
-	// Class data cache impl
-	////////////////////////////////////////////////////////////////////////////////
-	template<size_t NumProperties, size_t NumFunctions, size_t NumParents>
-	inline ClassData<NumProperties, NumFunctions, NumParents>::ClassData(
-		std::array<Property, NumProperties> props,
-		std::array<Function, NumFunctions> funcs
-	) : m_Properties(props), m_Functions(funcs), m_Parents() {
+	inline std::size_t ClassDescriptor::GetPropertyCount() const {
+		std::size_t propertyCount = 0;
 
+		//Recursively walk all parents and accumulate their property count 
+		for (auto parentClassDesc : m_Data.GetParents()) {
+			propertyCount += parentClassDesc->GetPropertyCount();
+		}
+
+		//Return the total 
+		return m_Data.GetPropertyCount() + propertyCount;
 	}
-
-	template<size_t NumProperties, size_t NumFunctions, size_t NumParents>
-	inline ClassData<NumProperties, NumFunctions, NumParents>::ClassData(
-		std::array<Property, NumProperties> props, 
-		std::array<Function, NumFunctions> funcs,
-		std::array<const ClassDescriptor*, NumParents> parents
-	) : m_Properties(props), m_Functions(funcs), m_Parents(parents) {
-
-	}
-
 }

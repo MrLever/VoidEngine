@@ -191,6 +191,9 @@ namespace utils_tests {
 		polyInstance->m_ID = 1234;
 		auto playerID = playerRefl.GetPropertyData<int>(polyInstance.get(), utils::Name("m_ID"));
 		ASSERT_EQ(1234, playerID);
+		
+		playerRefl.SetPropertyData(polyInstance.get(), utils::Name("m_ID"), 1);
+		ASSERT_EQ(1, polyInstance->m_ID);
 
 		dynamic_cast<rttr_test::Player*>(polyInstance.get())->m_XP = 1337;
 		auto xpVal = playerRefl.GetPropertyData<int>(polyInstance.get(), utils::Name("m_XP"));
