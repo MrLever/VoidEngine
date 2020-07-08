@@ -18,8 +18,6 @@ namespace utils {
 		/** Size of the type in bytes */
 		size_t m_Size;
 
-		bool operator== (const TypeDescriptor& other) const {
-			return m_Name == other.m_Name && m_Size == other.m_Size;
-		}
+		bool operator== (const TypeDescriptor& other) const;
 	};
 }

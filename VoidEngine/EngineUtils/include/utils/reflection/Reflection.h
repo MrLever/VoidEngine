@@ -10,6 +10,7 @@
 #include "utils/reflection/TypeDescriptor.h"
 #include "utils/reflection/ClassDescriptor.h"
 #include "utils/reflection/Property.h"
+#include "utils/reflection/Function.h"
 
 namespace utils {
 
@@ -29,12 +30,6 @@ namespace reflection {
 	template<typename T>
 	const ClassDescriptor& GetClass();
 } //namespace reflection
-
-	struct Function {
-		//Property m_ReturnValue;
-		//std::vector<Property> m_Params;
-		utils::Name m_Name;
-	};
 
 }
 
@@ -58,3 +53,9 @@ IMPL_GET_TYPE(bool)
 IMPL_GET_TYPE(float)
 IMPL_GET_TYPE(double)
 IMPL_GET_TYPE(long)
+
+template<>
+const utils::TypeDescriptor& utils::reflection::GetType<void>() noexcept {
+	static TypeDescriptor type{"void", 0}; 
+	return type; 
+}
