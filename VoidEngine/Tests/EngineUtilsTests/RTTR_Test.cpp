@@ -26,8 +26,8 @@ namespace rttr_test {
 			}
 
 			FUNCTION()
-			virtual bool Modify() {
-				m_ID++;
+			virtual bool Modify(int i, int j) {
+				m_ID += i;
 				return true;
 			}
 
@@ -46,9 +46,9 @@ namespace rttr_test {
 		}
 	private:
 		FUNCTION()
-		bool Modify() override {
-			m_XP++;
-			m_Money += 1.0;
+		bool Modify(int i, int j) override {
+			User::Modify(i, j);
+			m_Money += j;
 			return true;
 		}
 
@@ -68,22 +68,24 @@ namespace utils::reflection {
 	//Implementations of class reflection for types discovered
 	template<>
 	const ClassDescriptor& GetClass<rttr_test::User>() {
-		static std::array<Property, 2> properties{
-			Property {
-				GetType<int>(),
-				"m_ID",
-				offsetof(rttr_test::User, m_ID)
-			},
-			Property {
-				GetType<double>(),
-				"m_Money",
-				offsetof(rttr_test::User, m_Money)
+		static std::array<Property, 2> properties {
+			DECL_PROP(rttr_test::User, int, m_ID),
+			DECL_PROP(rttr_test::User, double, m_Money)
+		};
+
+		static FunctionData<bool, int, int> funcData{
+			//Attatch lambda expression
+		};
+
+		static FunctionData<bool, int, int> data{};
+
+		static std::array<Function, 1> funcs{
+			Function {
+				utils::Name("Modify")
 			}
 		};
 
-		static std::array<Function, 0> funcs;
-
-		static ClassData<2, 0, 0> dataCache(
+		static ClassData<2, 1, 0> dataCache(
 			properties,
 			funcs
 		);
@@ -99,11 +101,7 @@ namespace utils::reflection {
 	template<>
 	const ClassDescriptor& GetClass<rttr_test::Player>() {
 		static std::array<Property, 1> properties{
-			Property {
-				GetType<int>(),
-				"m_XP",
-				offsetof(rttr_test::Player, m_XP)
-			}
+			DECL_PROP(rttr_test::Player, int, m_XP)
 		};
 
 		static std::array<const ClassDescriptor*, 1> parents{
