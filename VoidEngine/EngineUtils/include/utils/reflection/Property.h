@@ -34,20 +34,20 @@ namespace utils {
 		 * Allows user to modify instance of a property through it's reflection data
 		 * @param instance The pointer to the class instance that holds this property
 		 */
-		template<class T>
-		void SetValue(void* instance, const T& value);
+		template<class T, class InstanceType>
+		void SetValue(InstanceType* instance, const T& value);
 
 		/**
 		 * Allows user to access a property through it's reflection data
 		 * @param instance The pointer to the class instance that holds this property
 		 */
-		template<class T>
-		std::optional<T> GetValue(const void* instance) const;
+		template<class T, class InstanceType>
+		std::optional<T> GetValue(const InstanceType* instance) const;
 
 	};
 
-	template<class T>
-	inline void Property::SetValue(void* instance, const T& value) {
+	template<class T, class InstanceType>
+	inline void Property::SetValue(InstanceType* instance, const T& value) {
 		//Assert that the template type matches the actual type of this property
 		assert(m_Type == reflection::GetType<T>());
 
@@ -58,8 +58,8 @@ namespace utils {
 		);
 	}
 
-	template<class T>
-	inline std::optional<T> Property::GetValue(const void* instance) const {
+	template<class T, class InstanceType>
+	inline std::optional<T> Property::GetValue(const InstanceType* instance) const {
 		if (m_Type != reflection::GetType<T>()) {
 			return {};
 		}

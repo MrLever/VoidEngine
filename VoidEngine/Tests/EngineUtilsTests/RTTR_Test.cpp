@@ -73,12 +73,6 @@ namespace utils::reflection {
 			DECL_PROP(rttr_test::User, double, m_Money)
 		};
 
-		static FunctionData<bool, int, int> funcData{
-			//Attatch lambda expression
-		};
-
-		static FunctionData<bool, int, int> data{};
-
 		static std::array<Function, 1> funcs{
 			Function {
 				utils::Name("Modify")
@@ -200,5 +194,13 @@ namespace utils_tests {
 
 		playerRefl.SetPropertyData<int>(polyInstance.get(), utils::Name("m_XP"), 0);
 		ASSERT_EQ(0, dynamic_cast<rttr_test::Player*>(polyInstance.get())->m_XP);
+	}
+
+	TEST(RTTR_Tests, StringToTypeDescriptorTest) {
+		ASSERT_FALSE(true);
+	}
+
+	TEST(RTTR_Tests, StringToClassDescriptorTest) {
+		ASSERT_FALSE(true);
 	}
 }

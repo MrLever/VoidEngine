@@ -25,10 +25,6 @@ namespace utils {
 	template<class ReturnType, class ...Args>
 	struct FunctionData : public FunctionDataInterface {
 		
-		FunctionData() : m_ReturnTypeDescriptor(reflection::GetType<ReturnType>()) {
-			
-		}
-
 		const TypeDescriptor& GetReturnType() override { return m_ReturnTypeDescriptor; }
 		
 		std::span<TypeDescriptor> GetArgTypes() { return m_Args; };

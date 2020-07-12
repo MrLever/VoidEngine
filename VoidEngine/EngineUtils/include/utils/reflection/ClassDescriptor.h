@@ -41,8 +41,8 @@ namespace utils {
 		 * @param name The name of the property to set
 		 * @param value The value to set the specified property to
 		 */
-		template<typename T>
-		void SetPropertyData(void* instance, const utils::Name& name, const T& value);
+		template<class T, class InstanceType>
+		void SetPropertyData(InstanceType* instance, const utils::Name& name, const T& value);
 
 		/**
 		 * @tparam The type to use when attempting to get the property
@@ -50,8 +50,8 @@ namespace utils {
 		 * @param name The name of the property to get
 		 * @return The requested property from this type, or an invalid optional
 		 */
-		template<typename T> [[nodiscard]] 
-		std::optional<T> GetPropertyData(const void* instance, const utils::Name& name) const;
+		template<class T, class InstanceType> [[nodiscard]]
+		std::optional<T> GetPropertyData(const InstanceType* instance, const utils::Name& name) const;
 
 		/**
 		 * @return Count of all properties for this class descriptor, inherited or otherwise
@@ -64,8 +64,8 @@ namespace utils {
 		ClassDescriptorData& m_Data;
 	};
 
-	template <typename T>
-	inline void ClassDescriptor::SetPropertyData(void* instance, const utils::Name& name, const T& value) {
+	template<class T, class InstanceType>
+	inline void ClassDescriptor::SetPropertyData(InstanceType* instance, const utils::Name& name, const T& value) {
 		auto property = GetProperty(name);
 		
 		if (property.has_value()) {
@@ -74,9 +74,9 @@ namespace utils {
 		return;
 	}
 
-	template<typename T>
+	template<class T, class InstanceType>
 	inline std::optional<T> ClassDescriptor::GetPropertyData (
-		const void* instance, 
+		const InstanceType* instance,
 		const utils::Name& name
 	) const {
 		auto property = GetProperty(name);

@@ -12,11 +12,10 @@
 #include "utils/reflection/Property.h"
 #include "utils/reflection/Function.h"
 
-namespace utils {
+namespace utils::reflection {
 
-//Namespace to contain reflection api functions
-namespace reflection { 
-	//Forward declarations
+	static std::unordered_map<utils::Name, const TypeDescriptor&> TypeMap;
+
 	template<typename T>
 	const TypeDescriptor& GetType() noexcept;
 
@@ -29,9 +28,8 @@ namespace reflection {
 	 */
 	template<typename T>
 	const ClassDescriptor& GetClass();
-} //namespace reflection
 
-}
+} //namespace utils
 
 //Defines used to annotate types to generate reflection data
 #define CLASS(...) 
