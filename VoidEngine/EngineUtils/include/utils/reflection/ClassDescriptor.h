@@ -27,7 +27,8 @@ namespace utils {
 		/**
 		 * @return A recusively constructed list of all properties of this type, inherited or otherwise
 		 */
-		[[nodiscard]] std::vector<Property> GetProperties() const;
+		[[nodiscard]] 
+		std::vector<Property> GetProperties() const;
 
 		/**
 		 * @param propertyName The hashed name of the property to retrieve

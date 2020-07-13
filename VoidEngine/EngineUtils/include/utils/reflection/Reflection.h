@@ -14,20 +14,27 @@
 
 namespace utils::reflection {
 
-	static std::unordered_map<utils::Name, const TypeDescriptor&> TypeMap;
-
 	template<typename T>
 	const TypeDescriptor& GetType() noexcept;
 
-	template<class T>
-	const ClassDescriptor& GetClass();
-	
 	/**
 	 * Allow users to query advanced properties of non-built in types
 	 * @tparam T The type to aquire reflected data for.
 	 */
 	template<typename T>
 	const ClassDescriptor& GetClass();
+
+
+	inline const TypeDescriptor& GetType(const utils::Name& name) {
+		auto entry = TypeDescriptor::s_TypeRegistry.find(name);
+
+		VE_ASSERT(
+			entry != TypeDescriptor::s_TypeRegistry.end(),
+			"Error, type " + name.StringID + " not registered."
+		);
+
+		return entry->second;
+	}
 
 } //namespace utils
 
@@ -41,10 +48,10 @@ namespace utils::reflection {
 #define DECL_PROP(CLAZZ, TYPE, NAME) Property { GetType<TYPE>(), #NAME,	offsetof(CLAZZ, NAME) }
 
 #define IMPL_GET_TYPE(TYPE) \
-	template<>\
+	template<> \
 	const utils::TypeDescriptor& utils::reflection::GetType<TYPE>() noexcept { \
-		static TypeDescriptor type{#TYPE, sizeof(TYPE)};\
-		return type;\
+		static TypeDescriptor type{utils::Name(#TYPE), sizeof(TYPE)}; \
+		return type; \
 	}
 
 IMPL_GET_TYPE(int)
@@ -54,10 +61,9 @@ IMPL_GET_TYPE(float)
 IMPL_GET_TYPE(double)
 IMPL_GET_TYPE(long)
 
-
-
+//Override for void, as sizeof void is undefined
 template<>
 const utils::TypeDescriptor& utils::reflection::GetType<void>() noexcept {
-	static TypeDescriptor type{"void", 0}; 
+	static TypeDescriptor type{utils::Name("void"), 0}; 
 	return type; 
 }

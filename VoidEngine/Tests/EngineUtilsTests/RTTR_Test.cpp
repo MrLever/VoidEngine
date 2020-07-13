@@ -68,11 +68,6 @@ namespace utils::reflection {
 	//Implementations of class reflection for types discovered
 	template<>
 	const ClassDescriptor& GetClass<rttr_test::User>() {
-		static std::array<Property, 2> properties {
-			DECL_PROP(rttr_test::User, int, m_ID),
-			DECL_PROP(rttr_test::User, double, m_Money)
-		};
-
 		static std::array<Function, 1> funcs{
 			Function {
 				utils::Name("Modify")
@@ -80,7 +75,10 @@ namespace utils::reflection {
 		};
 
 		static ClassData<2, 1, 0> dataCache(
-			properties,
+			{
+				DECL_PROP(rttr_test::User, int, m_ID),
+				DECL_PROP(rttr_test::User, double, m_Money)
+			},
 			funcs
 		);
 
@@ -197,7 +195,18 @@ namespace utils_tests {
 	}
 
 	TEST(RTTR_Tests, StringToTypeDescriptorTest) {
-		ASSERT_FALSE(true);
+		auto userDesc = reflection::GetType(utils::Name("rttr_test::User"));
+		auto playerDesc = reflection::GetType(utils::Name("rttr_test::Player"));
+
+		ASSERT_EQ(
+			userDesc,
+			reflection::GetType<rttr_test::User>()
+		);
+
+		ASSERT_EQ(
+			playerDesc,
+			reflection::GetType<rttr_test::Player>()
+		);
 	}
 
 	TEST(RTTR_Tests, StringToClassDescriptorTest) {
