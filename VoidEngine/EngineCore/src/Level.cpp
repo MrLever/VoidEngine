@@ -25,7 +25,7 @@ namespace core {
 	}
 
 	void Level::Initialize() {
-		m_Name = Data["name"];
+		m_Name = Data["name"].get<std::string>();
 	}	
 
 	utils::Name Level::GetName() {

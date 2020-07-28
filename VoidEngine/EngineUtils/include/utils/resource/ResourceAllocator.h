@@ -72,12 +72,6 @@ namespace utils {
 
 		/**
 		 * Instructs the allocator to aquire a cached resource
-		 * @param filePath The location of the file
-		 */
-		std::shared_ptr<T> GetResource(const std::string& filePath);
-
-		/**
-		 * Instructs the allocator to aquire a cached resource
 		 * @param fileID The ID of the file
 		 */
 		std::shared_ptr<T> GetResource(const Name& fileID);
@@ -160,11 +154,6 @@ namespace utils {
 		if (cacheIter != m_ResourceCache.end()) {
 			m_ResourceCache.erase(cacheIter->first);
 		}
-	}
-
-	template<class T>
-	inline std::shared_ptr<T> ResourceAllocator<T>::GetResource(const std::string& filePath) {
-		return GetResource(Name(filePath));
 	}
 
 	template<class T>

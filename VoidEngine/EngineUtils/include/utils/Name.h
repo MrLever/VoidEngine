@@ -22,7 +22,12 @@ namespace utils {
 		Name();
 
 		/**
-		 * Name Constructor
+		 * Conversion constructor, char*
+		 */
+		Name(const char* id);
+
+		/**
+		 * Conversion construtor, std::string
 		 * @param id The string from which the Name is generated.
 		 */
 		Name(const std::string& id);
@@ -38,36 +43,11 @@ namespace utils {
 		 */
 		Name& operator= (const Name& other);
 
-		/**
-		 * Assignment operator, string
-		 * @param name, the name to assign to this instance
-		 */
-		Name& operator= (const std::string& name);
-
-		/**
-		 * Equality operator, other Name
-		 */
+		/** Equality comparison operator */
 		inline bool operator== (const Name& other) const;
 
-		/**
-		 * Allows equality comparison of Name to string
-		 */
-		friend inline bool operator== (const Name& lhs, const std::string& rhs);
-		
-		/**
-		 * Allows equality comparison of string to Name
-		 */
-		friend inline bool operator== (const std::string& lhs, const Name& rhs);
-
-		/*
-		 * Allows inequality comparison of Name to string
-		 */
-		friend inline bool operator!= (const Name& lhs, const std::string& rhs);
-
-		/**
-		 * Allows inequality comparison of string to Name
-		 */
-		friend inline bool operator!= (const std::string& lhs, const Name& rhs);
+		/** Inequality comparison operator */
+		inline bool operator!= (const Name& other) const;
 
 		/**
 		 * Output stream operator overload
@@ -91,6 +71,10 @@ namespace utils {
 
 	}
 
+	inline Name::Name(const char* id) : StringID(id), ID(FNV1aHash(id)) {
+
+	}
+
 	inline Name::Name(const std::string& id) : StringID(id), ID(FNV1aHash(id.c_str())) {
 
 	}
@@ -105,34 +89,12 @@ namespace utils {
 		return *this;
 	}
 
-	inline Name& Name::operator=(const std::string& name) {
-		if (StringID == name) {
-			return *this;
-		}
-
-		StringID = name;
-		ID = FNV1aHash(name.c_str());
-		return *this;
-	}
-
 	inline bool Name::operator== (const Name& other) const {
 		return ID == other.ID;
 	}
 
-	inline bool operator== (const Name& lhs, const std::string& rhs) {
-		return lhs == Name(rhs);
-	}
-
-	inline bool operator== (const std::string& lhs, const Name& rhs) {
-		return Name(lhs) == rhs;
-	}
-
-	inline bool operator!= (const Name& lhs, const std::string& rhs) {
-		return !(lhs == rhs);
-	}
-
-	inline bool operator!= (const std::string& lhs, const Name& rhs) {
-		return !(lhs == rhs);
+	inline bool Name::operator!= (const Name& other) const {
+		return !(*this == other);
 	}
 
 	inline std::ostream& operator<< (std::ostream& out, const Name& name) {

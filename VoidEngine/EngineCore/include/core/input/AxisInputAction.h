@@ -20,13 +20,6 @@ namespace core {
 		AxisInputAction(const utils::Name& name, float value);
 
 		/**
-		 * Constructor
-		 * @param name The axis' name
-		 * @param value The axis' reading
-		 */
-		AxisInputAction(const std::string& name, float value);
-
-		/**
 		 * Equality comparison overload
 		 */
 		bool operator==(const AxisInputAction& other) const;

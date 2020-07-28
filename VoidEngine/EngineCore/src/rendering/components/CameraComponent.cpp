@@ -22,7 +22,7 @@ namespace core {
 
 	void CameraComponent::Initialize() {
 		if (configData.find("name") != configData.end()) {
-			m_Name = configData["name"];
+			m_Name = configData["name"].get<std::string>();
 		}
 
 		if (configData.find("near") != configData.end()) {

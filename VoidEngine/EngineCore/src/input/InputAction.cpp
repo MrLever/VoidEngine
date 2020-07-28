@@ -6,15 +6,8 @@
 #include "input/InputAction.h"
 
 namespace core {
-	InputAction::InputAction(const std::string& action) : Action(std::move(action)), Type(ActionType::PRESSED) {
-
-	}
 
 	InputAction::InputAction(const utils::Name& action) : Action(std::move(action)), Type(ActionType::PRESSED) {
-
-	}
-
-	InputAction::InputAction(const std::string& action, ActionType type) : Action(std::move(action)), Type(type) {
 
 	}
 
