@@ -9,16 +9,12 @@
 
 namespace utils {
 
-	ClassDescriptor::ClassDescriptor(const TypeDescriptor& type, ClassDescriptorData& data)
-		: TypeDescriptor(type), m_Data(data) {
-
-	}
-
 	std::vector<Property> ClassDescriptor::GetProperties() const {
+
 		std::vector<Property> properties;
 
 		//Scan parent classes and capture their properties
-		for (auto& parent : m_Data.GetParents()) {
+		for (auto& parent : m_Data->GetParents()) {
 			auto parentProps = parent->GetProperties();
 			for (auto& prop : parentProps) {
 				properties.emplace_back(prop);
@@ -26,7 +22,7 @@ namespace utils {
 		}
 
 		//Add this ClassDescriptor's properties
-		for (auto& prop : m_Data.GetProperties()) {
+		for (auto& prop : m_Data->GetProperties()) {
 			properties.emplace_back(prop);
 		}
 

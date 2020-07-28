@@ -58,24 +58,26 @@ namespace utils {
 	struct ClassData : public ClassDescriptorData {
 		/**
 		 * Constructor
-		 * @param props The properties stored in this data cache
 		 * @param funcs The functions stored in this data cache
 		 */
-		ClassData(
-			std::array<Property, NumProperties> props,
-			std::array<Function, NumFunctions> funcs
-		);
+		ClassData(const std::array<Function, NumProperties>& funcs);
+
+		/**
+		 * Constructor
+		 * @param parents The ClassDescriptors for direct parents of this class
+		 */
+		ClassData(const std::array<const ClassDescriptor*, NumParents>& funcs);
 
 		/**
 		 * Constructor
 		 * @param props The properties stored in this data cache
 		 * @param funcs The functions stored in this data cache
-		 * @param parents The ClassDescriptors for ALL parents of this class
+		 * @param parents The ClassDescriptors for direct parents of this class
 		 */
 		ClassData(
-			std::array<Property, NumProperties> props,
-			std::array<Function, NumFunctions> funcs,
-			std::array<const ClassDescriptor*, NumParents> parents
+			const std::array<Property, NumProperties>& props,
+			const std::array<Function, NumFunctions>& funcs = {},
+			const std::array<const ClassDescriptor*, NumParents>& parents = {}
 		);
 
 		/**
@@ -104,19 +106,26 @@ namespace utils {
 		std::array<const ClassDescriptor*, NumParents> m_Parents;
 	};
 
+
 	template<size_t NumProperties, size_t NumFunctions, size_t NumParents>
 	inline ClassData<NumProperties, NumFunctions, NumParents>::ClassData(
-		std::array<Property, NumProperties> props,
-		std::array<Function, NumFunctions> funcs
-	) : m_Properties(props), m_Functions(funcs), m_Parents() {
+		const std::array<Function, NumProperties>& funcs
+	) : m_Functions(funcs) {
 
 	}
 
 	template<size_t NumProperties, size_t NumFunctions, size_t NumParents>
 	inline ClassData<NumProperties, NumFunctions, NumParents>::ClassData(
-		std::array<Property, NumProperties> props, 
-		std::array<Function, NumFunctions> funcs,
-		std::array<const ClassDescriptor*, NumParents> parents
+		const std::array<const ClassDescriptor*, NumParents>& parents
+	) : m_Parents(parents) {
+
+	}
+
+	template<size_t NumProperties, size_t NumFunctions, size_t NumParents>
+	inline ClassData<NumProperties, NumFunctions, NumParents>::ClassData(
+		const std::array<Property, NumProperties>& props, 
+		const std::array<Function, NumFunctions>& funcs,
+		const std::array<const ClassDescriptor*, NumParents>& parents
 	) : m_Properties(props), m_Functions(funcs), m_Parents(parents) {
 
 	}

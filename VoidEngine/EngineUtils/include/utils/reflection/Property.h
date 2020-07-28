@@ -49,22 +49,20 @@ namespace utils {
 	template<class T, class InstanceType>
 	inline void Property::SetValue(InstanceType* instance, const T& value) {
 		//Assert that the template type matches the actual type of this property
-		assert(m_Type == reflection::GetType<T>());
+		assert(m_Type == reflection::TypeResolver<T>::GetType());
 
-		std::memcpy(
-			((char*)instance) + m_Offset,
-			&value,
-			sizeof(T)
-		);
+		//Avoid memcpy to ensure assignment operator for type T is called.
+		T* propertyMemoryPtr = (T*)(((char*)instance) + m_Offset);
+		*propertyMemoryPtr = value;
 	}
 
 	template<class T, class InstanceType>
 	inline std::optional<T> Property::GetValue(const InstanceType* instance) const {
-		if (m_Type != reflection::GetType<T>()) {
+		if (m_Type != reflection::TypeResolver<T>::GetType()) {
 			return {};
 		}
 
-		void* memoryLocation = ((char*)instance) + m_Offset;
-		return *((T*)memoryLocation);
+		T* propertyMemoryPtr = (T*)(((char*)instance) + m_Offset);
+		return *propertyMemoryPtr;
 	}
 }

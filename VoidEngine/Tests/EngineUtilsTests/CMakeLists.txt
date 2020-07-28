@@ -2,7 +2,7 @@
 # Collect tests
 ################################################################################
 file(GLOB_RECURSE TEST_SOURCE CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-
+file(GLOB_RECURSE TEST_HEADERS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 
 ################################################################################
 # Create executable
@@ -10,6 +10,7 @@ file(GLOB_RECURSE TEST_SOURCE CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.c
 add_executable(
     EngineUtilsTestSuite
     ${TEST_SOURCE}
+    ${TEST_HEADERS}
 ) 
 
 set_target_properties(EngineUtilsTestSuite PROPERTIES FOLDER Engine/Tests/)
